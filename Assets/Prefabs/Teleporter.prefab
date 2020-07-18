@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 6243013556377035767}
   - component: {fileID: 6243013556377035721}
   - component: {fileID: 6243013556377035766}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Teleporter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,13 +547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9410502ebf5d4ca1abc0149f795b791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: Teleport
+  canInteract: 1
   teleportTwin: {fileID: 0}
   teleportTwinLevel: 0
-  animators:
-  - {fileID: 6296706115957412387}
-  - {fileID: 7804779160031608089}
-  - {fileID: 2765301699059310449}
-  - {fileID: 8645213339242346523}
   isIncoming: 0
 --- !u!1 &6243013557540376311
 GameObject:

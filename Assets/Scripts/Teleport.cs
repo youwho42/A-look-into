@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Teleport : MonoBehaviour
+public class Teleport : Interactable
 {
     public Transform teleportTwin;
     Material material;
@@ -12,25 +12,23 @@ public class Teleport : MonoBehaviour
 
     bool isInTeleportRange;
     public bool isIncoming;
-   
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    public override void Interact(GameObject interactor)
     {
-        if (collision.CompareTag("Player"))
-        {
-            material = collision.GetComponentInChildren<SpriteRenderer>().material;
-            objectToTeleport = collision.gameObject;
-            isInTeleportRange = true;
-            
-        }
+        base.Interact(interactor);
+        material = interactor.GetComponentInChildren<SpriteRenderer>().material;
+        objectToTeleport = interactor.gameObject;
+        isInTeleportRange = true;
+        StartCoroutine("TeleportCo");
     }
+
+    
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            material = null; ;
-            objectToTeleport = null;
-            isInTeleportRange = false;
+            
             
         }
     }
@@ -42,16 +40,11 @@ public class Teleport : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                StartCoroutine("TeleportCo");
+                
             }
 
         }
-        if (isIncoming && isInTeleportRange)
-        {
-
-
-            isIncoming = false;
-        }
+        
     }
 
     
@@ -92,6 +85,13 @@ public class Teleport : MonoBehaviour
             yield return null;
 
         }
+        if (isIncoming && isInTeleportRange)
+        {
+            isIncoming = false;
+        }
+        material = null; ;
+        objectToTeleport = null;
+        isInTeleportRange = false;
         activeTeleport.GetComponent<Playermovement>().enabled = true;
     }
 

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7589694470522032656}
   - component: {fileID: 7589694470522032663}
   - component: {fileID: 7589694470522032659}
-  - component: {fileID: 7589694470522032658}
-  m_Layer: 0
+  - component: {fileID: 7817095225699086269}
+  m_Layer: 13
   m_Name: SignPost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
     ID: 0
     NextID: 0
     Type: 0
---- !u!114 &7589694470522032658
+--- !u!114 &7817095225699086269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,9 +131,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7589694470522032662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1715727f5a9724172a2bb2830a5e0b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: c03e5e51042e147aaa8c48417e467e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: Read
+  canInteract: 1
   dialogueHandler: {fileID: 7589694470522032659}
-  conversation: Directions
+  coversation: Directions
   canvasDialogueDisplay: {fileID: 0}
