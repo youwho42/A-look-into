@@ -22,11 +22,12 @@ public class PlayerLevelChange : MonoBehaviour
     private void Start()
     {
         tileScale = (groundGrid.cellSize.y * -0.5f) - 0.01f;
-        InitializePlayerLocation();
         if (playerChangeLevelEvent == null)
         {
             playerChangeLevelEvent = new UnityEvent();
         }
+        InitializePlayerLocation();
+        
         
     }
     private void Update()
