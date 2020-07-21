@@ -7,12 +7,14 @@ public class InteractableDoor : Interactable
 
     Animator animator;
     public bool isOpen;
-    PolygonCollider2D collider2D;
+    public PolygonCollider2D doorClosed;
+    public PolygonCollider2D doorOpen;
 
-    private void Start()
+    public override void Start()
     {
-        animator = GetComponent<Animator>();
-        collider2D = GetComponent<PolygonCollider2D>();
+        base.Start();
+        animator = GetComponentInChildren<Animator>();
+        
     }
 
     public override void Interact(GameObject interactor)
@@ -25,15 +27,24 @@ public class InteractableDoor : Interactable
     void InteractWithDoor()
     {
         animator.SetBool("IsOpen", !isOpen);
-        
+        PlayInteractionSound();
         isOpen = !isOpen;
         if (isOpen)
         {
             interactVerb = "Close";
+            doorOpen.enabled = true;
+            doorClosed.enabled = false;
+            
         }
         else
         {
             interactVerb = "Open";
+            doorOpen.enabled = false;
+            doorClosed.enabled = true;
         }
+    }
+    public virtual void PlayInteractionSound()
+    {
+        audioManager.PlaySound(interactSound);
     }
 }

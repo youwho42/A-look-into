@@ -14,7 +14,7 @@ public class DrawZasYDisplacement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        var pos = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
+        var pos = new Vector3(0, spriteDisplacementY * positionZ, positionZ) + transform.position;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(pos, 0.1f);
     }

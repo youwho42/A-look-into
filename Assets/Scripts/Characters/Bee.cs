@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Butterfly : MonoBehaviour
+public class Bee : MonoBehaviour
 {
-
     public float flyBaseSpeed;
     float currentSpeed;
     public float mainPositionZ;
@@ -45,14 +44,14 @@ public class Butterfly : MonoBehaviour
     void Update()
     {
         Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, detectionRadius, landingLayer);
-        if(hit.Length > 0 && isFluttering)
+        if (hit.Length > 0 && isFluttering)
         {
             GetNearestFlower(hit);
         }
-        
+
         if (isLanding)
         {
-            
+
             MoveSprites();
             float distance = Vector2.Distance(transform.position, destination);
             float distanceZasY = Vector2.Distance(butterflySpritePosition.localPosition, spriteDestination);
@@ -66,7 +65,7 @@ public class Butterfly : MonoBehaviour
         }
         if (isLanded)
         {
-            
+
             timer += Time.deltaTime;
             if (timer >= timeToIdle)
             {
@@ -83,7 +82,7 @@ public class Butterfly : MonoBehaviour
 
         if (isFluttering)
         {
-            
+
 
             MoveSprites();
 
@@ -118,7 +117,7 @@ public class Butterfly : MonoBehaviour
                     distance = tempDistance;
                 }
             }
-            
+
         }
         if (nearest != null)
         {
@@ -133,11 +132,11 @@ public class Butterfly : MonoBehaviour
     {
         GameObject tempObject = flowerToReset;
         yield return new WaitForSeconds(7f);
-        if(tempObject != null)
+        if (tempObject != null)
         {
             tempObject.tag = "OpenFlower";
         }
-        
+
     }
     void MoveSprites()
     {
@@ -154,7 +153,7 @@ public class Butterfly : MonoBehaviour
         destination.z = mainPositionZ;
 
         SetFacingDirection();
-        
+
     }
     void SetFacingDirection()
     {
@@ -183,7 +182,7 @@ public class Butterfly : MonoBehaviour
 
     float SetRandomSpeed()
     {
-       return flyBaseSpeed + Random.Range(-0.03f, 0.06f);
+        return flyBaseSpeed + Random.Range(-0.03f, 0.06f);
     }
 
     void SetLandingDestination(Vector2 landingDestination, float displacement)
