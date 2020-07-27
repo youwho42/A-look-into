@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 205002403857363210}
   - component: {fileID: 5956515340350763639}
   - component: {fileID: 6978717323848209374}
-  - component: {fileID: 522756923}
   - component: {fileID: -6409912395902781640}
+  - component: {fileID: 1361450061099777952}
   m_Layer: 13
   m_Name: Net
   m_TagString: Untagged
@@ -100,19 +100,6 @@ CircleCollider2D:
   m_Offset: {x: 0.06559551, y: 0.08699378}
   serializedVersion: 2
   m_Radius: 0.08984506
---- !u!114 &522756923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9201185386304742779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: a4043dd5422d1421bba1f31dd0a2c5f0, type: 2}
 --- !u!114 &-6409912395902781640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +114,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Take
+  canInteract: 1
+--- !u!114 &1361450061099777952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e0da2db9311e1429d11e7e6ecdf9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: a4043dd5422d1421bba1f31dd0a2c5f0, type: 2}
+  equipmentSlot: 0
+  modifierValue: 1

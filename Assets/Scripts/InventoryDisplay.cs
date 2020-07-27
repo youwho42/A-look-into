@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class InventoryDisplay : MonoBehaviour
 {
     public QI_Inventory inventory;
+    public EquipmentManager equipmentManager;
     public GameObject inventoryUI;
     public GameObject inventorySlot;
     public List<InventoryDisplaySlot> slots = new List<InventoryDisplaySlot>();
@@ -49,6 +50,7 @@ public class InventoryDisplay : MonoBehaviour
             if(inventory.Stacks[i].Item != null)
             {
                 slots[i].inventory = inventory;
+                slots[i].equipmentManager = equipmentManager;
                 slots[i].AddItem(inventory.Stacks[i].Item, inventory.Stacks[i].Amount);
                 slots[i].icon.enabled = true;
             }

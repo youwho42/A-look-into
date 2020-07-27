@@ -12,7 +12,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemAmount;
     public QI_Inventory inventory;
-
+    public EquipmentManager equipmentManager;
     
     private void Start()
     {
@@ -21,6 +21,13 @@ public class InventoryDisplaySlot : MonoBehaviour
             icon.enabled = false;
         }
         
+    }
+    
+    public void UseItem()
+    {
+        if (item == null)
+            return;
+        item.UseItem();
     }
 
     public void AddItem(QI_ItemData newItem, int amount)
