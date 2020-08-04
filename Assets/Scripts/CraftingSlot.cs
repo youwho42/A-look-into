@@ -12,6 +12,7 @@ public class CraftingSlot : MonoBehaviour
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI amount;
     public bool isIngredientSlot;
+    public Button craftButton;
 
     private void Start()
     {
@@ -22,11 +23,12 @@ public class CraftingSlot : MonoBehaviour
 
     }
 
-    public void AddItem(QI_ItemData newItem, int recipeQuantity)
+    public void AddItem(QI_ItemData newItem, int recipeQuantity, CraftingTable craftingTable)
     {
         item = newItem;
         icon.sprite = item.Icon;
         itemName.text = item.Name;
+        craftButton.onClick.AddListener(craftingTable.CraftItem);
         if (!isIngredientSlot)
         {
             amount.text = recipeQuantity.ToString();
@@ -40,11 +42,12 @@ public class CraftingSlot : MonoBehaviour
         item = newItem;
         icon.sprite = item.Icon;
         itemName.text = item.Name;
+        
         if (isIngredientSlot)
         {
             amount.text = inventoryQuantity.ToString() + "/" + recipeQuantity.ToString();
             
-        }
+        } 
         
         
         

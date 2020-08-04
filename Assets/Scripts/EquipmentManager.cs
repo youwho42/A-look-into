@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    EquipmentData[] currentEquipment;
+    public EquipmentData[] currentEquipment;
     int totalSlots;
     public static EquipmentManager instance;
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
             instance = this;

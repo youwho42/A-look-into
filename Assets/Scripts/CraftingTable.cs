@@ -14,20 +14,20 @@ public class CraftingTable : MonoBehaviour
 
     
     public List<CraftingSlot> ingredientSlots = new List<CraftingSlot>();
-    public List<CraftingRecipeButton> recipeButtons = new List<CraftingRecipeButton>();
-
+    List<CraftingRecipeButton> recipeButtons = new List<CraftingRecipeButton>();
     
+
     public CraftingSlot craftedSlot;
     
 
     public GameObject recipeButtonHolder;
     public GameObject recipeButton;
 
-    public QI_CraftingRecipe craftableItem;
+    QI_CraftingRecipe craftableItem;
 
     public UnityEvent EventUIUpdateInventory;
 
-    private void Start()
+    public void Start()
     {
         
         for (int i = 0; i < recipeDatabase.CraftingRecipes.Count; i++)
@@ -42,7 +42,7 @@ public class CraftingTable : MonoBehaviour
     {
         for (int i = 0; i < recipeButtons.Count; i++)
         {
-            recipeButtons[i].AddItem(recipeDatabase.CraftingRecipes[i]);
+            recipeButtons[i].AddItem(recipeDatabase.CraftingRecipes[i], this);
         }
         //for (int i = 0; i < inventory.Stacks.Count; i++)
         //{
@@ -59,7 +59,7 @@ public class CraftingTable : MonoBehaviour
     {
         ClearCurrentRecipe();
         craftableItem = itemToCraft;
-        craftedSlot.AddItem(craftableItem.Product.Item, craftableItem.Product.Amount);
+        craftedSlot.AddItem(craftableItem.Product.Item, craftableItem.Product.Amount, this);
 
         
 

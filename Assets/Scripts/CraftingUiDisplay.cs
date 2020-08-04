@@ -5,7 +5,7 @@ using UnityEngine;
 public class CraftingUiDisplay : Interactable
 {
     public GameObject craftingUI;
-    public CraftingTable craftingTable;
+    //public CraftingTable craftingTable;
 
     public override void Start()
     {

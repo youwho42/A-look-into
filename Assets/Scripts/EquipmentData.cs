@@ -10,11 +10,16 @@ public class EquipmentData : QI_ItemData
     public override void UseItem()
     {
         base.UseItem();
+        Debug.Log("Equipping Item");
         EquipItem();
     }
     void EquipItem()
     {
         EquipmentManager.instance.Equip(this);
+    }
+    public virtual void UseEquippedItem()
+    {
+        Debug.Log("Using Equipped Item");
     }
 }
 public enum EquipmentSlot { Hands, Head, Feet, Legs, Chest, Extra }

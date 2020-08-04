@@ -28,6 +28,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (item == null)
             return;
         item.UseItem();
+        RemoveItem();
     }
 
     public void AddItem(QI_ItemData newItem, int amount)
@@ -38,8 +39,13 @@ public class InventoryDisplaySlot : MonoBehaviour
         itemAmount.text = amount.ToString();
         itemName.text = item.Name;
     }
-
     public void RemoveItem()
+    {
+        if (item == null)
+            return;
+        inventory.RemoveItem(item, 1);
+    }
+    public void DropItem()
     {
         if (item == null)
             return;

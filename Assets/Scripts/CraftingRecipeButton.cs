@@ -16,7 +16,7 @@ public class CraftingRecipeButton : MonoBehaviour
 
     private void Start()
     {
-        craftingTable = GetComponentInParent<CraftingTable>();
+        //craftingTable = GetComponentInParent<CraftingTable>();
         button.onClick.AddListener(SetCurrentRecipe);
     }
 
@@ -26,11 +26,11 @@ public class CraftingRecipeButton : MonoBehaviour
         AudioManager.instance.PlaySound("Crafting_SetRecipe");
     }
 
-    public void AddItem(QI_CraftingRecipe newItem)
+    public void AddItem(QI_CraftingRecipe newItem, CraftingTable craftingTable)
     {
         item = newItem;
         recipeName.text = item.Name;
-        
+        this.craftingTable = craftingTable;
     }
 
     void ClearSlot()

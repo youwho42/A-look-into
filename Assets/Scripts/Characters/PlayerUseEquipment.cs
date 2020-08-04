@@ -1,0 +1,23 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerUseEquipment : MonoBehaviour
+{
+    EquipmentManager equipmentManager;
+    PlayerInput playerInput;
+    private void Start()
+    {
+        equipmentManager = EquipmentManager.instance;
+        playerInput = GetComponent<PlayerInput>();
+    }
+
+
+    private void Update()
+    {
+        if (playerInput.usingEquippedItem && equipmentManager.currentEquipment[(int)EquipmentSlot.Hands] != null)
+        {
+            equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
+        }
+    }
+}

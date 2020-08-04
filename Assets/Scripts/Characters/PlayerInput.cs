@@ -6,7 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     [HideInInspector]
     public Vector2 movement;
-    
+    public bool usingEquippedItem;
 
 
     void Update()
@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour
         movement.y = Mathf.Clamp(movement.y, -0.5761719f, 0.5761719f);
         movement = movement.normalized;
 
+        usingEquippedItem = Input.GetMouseButtonDown(0);
         
     }
 }
