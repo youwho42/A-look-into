@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8756781455857338487}
   - component: {fileID: 7741110808250747994}
   - component: {fileID: 6901445909460942466}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bee0000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,10 +111,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8274208581712867231}
   - component: {fileID: 8274208581712867230}
-  - component: {fileID: 8274208581712867225}
   - component: {fileID: 8274208581712867224}
   - component: {fileID: 3661343040489443604}
-  m_Layer: 0
+  - component: {fileID: 7484321164498244197}
+  - component: {fileID: 7410669348781134234}
+  m_Layer: 14
   m_Name: Bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,27 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chickenPen: {fileID: 0}
-  chickenPenRadius: 1.5
---- !u!114 &8274208581712867225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8274208581712867227}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3bb5902eb69b43d987472ce1db99a96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flyBaseSpeed: 0.1
-  mainPositionZ: 1
-  butterflySpritePosition: {fileID: 8756781455857338487}
-  animator: {fileID: 6901445909460942466}
-  landingLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  detectionRadius: 0.125
+  chickenPenRadius: 0.45
 --- !u!212 &8274208581712867224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -232,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040f69636f90c42a98062a0493c4eceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyBaseSpeed: 0.3
+  flyBaseSpeed: 0.4
   mainPositionZ: 1
   butterflySpritePosition: {fileID: 8756781455857338487}
   animator: {fileID: 6901445909460942466}
@@ -240,3 +221,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   detectionRadius: 0.1
+--- !u!114 &7484321164498244197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274208581712867227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
+--- !u!58 &7410669348781134234
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274208581712867227}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.03125

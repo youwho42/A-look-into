@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4179970318201790423}
   - component: {fileID: 835901207149952580}
   - component: {fileID: 4373343320986057330}
-  m_Layer: 0
+  - component: {fileID: 5770055010358775423}
+  m_Layer: 13
   m_Name: MushroomSoup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!58 &4179970318201790423
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -128,3 +129,16 @@ MonoBehaviour:
   interactSound: Default
   interactVerb: Take
   canInteract: 1
+--- !u!114 &5770055010358775423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997489056520279129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
   m_Name: Equipment_GathererBowl
   m_EditorClassIdentifier: 
-  Name: Empty Bowl
-  Description: An empty bowl
+  Name: Empty Water Bowl
+  Description: An empty water bowl
   Weight: 1
   Price: 2
   Icon: {fileID: 21300000, guid: 12ff3515c61db444a97b775506a5211e, type: 3}
@@ -21,4 +21,10 @@ MonoBehaviour:
     type: 3}
   MaxStack: 10
   equipmentSlot: 0
-  gatherItemData: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
+  gatherItemData:
+  - {fileID: 11400000, guid: c13ad083110e5b747b71325d8d2d1d62, type: 2}
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.3
+  takeSample: 1

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererNet
+  m_EditorClassIdentifier: 
+  Name: Net
+  Description: A net! Maybe you can catch something?
+  Weight: 2
+  Price: 4
+  Icon: {fileID: 21300000, guid: 2b2099a254df64a70b1e3468633da161, type: 3}
+  ItemPrefab: {fileID: 205002403857363210, guid: 33dcb2d2ac1d14d85875b25321378a5f,
+    type: 3}
+  MaxStack: 1
+  equipmentSlot: 0
+  gatherItemData:
+  - {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
+  - {fileID: 11400000, guid: b93de0ccb7a0c54459147aef26808e24, type: 2}
+  - {fileID: 11400000, guid: 87f92308592164e4ba696ca7fd370317, type: 2}
+  - {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.5

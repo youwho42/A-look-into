@@ -11,6 +11,12 @@ public class GetDestination : MonoBehaviour
 
     public Vector2 SetDestination()
     {
+
+        if (chickenPen == null)
+        {
+            chickenPen = PlayerInformation.instance.player;
+           
+        }
         Vector2 rand = Random.insideUnitCircle * chickenPenRadius;
         return rand + (Vector2)chickenPen.position;
 
@@ -18,7 +24,11 @@ public class GetDestination : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(chickenPen.position, chickenPenRadius);
+        if(chickenPen != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(chickenPen.position, chickenPenRadius);
+        }
+        
     }
 }

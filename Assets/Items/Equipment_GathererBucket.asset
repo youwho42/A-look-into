@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererBucket
+  m_EditorClassIdentifier: 
+  Name: Empty Bucket
+  Description: An empty bucket
+  Weight: 2
+  Price: 5
+  Icon: {fileID: 21300000, guid: a1cfecac2f607524ca1000f3159108eb, type: 3}
+  ItemPrefab: {fileID: 829523716119173279, guid: ea12af3262f1a9f408eb6981e286fd03,
+    type: 3}
+  MaxStack: 1
+  equipmentSlot: 0
+  gatherItemData:
+  - {fileID: 11400000, guid: 5e691418f3cde674f8cbbd4650434c06, type: 2}
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.5
+  takeSample: 1
