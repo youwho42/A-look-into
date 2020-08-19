@@ -5,8 +5,8 @@ using UnityEngine;
 public class Teleport : Interactable
 {
     public Transform teleportTwin;
-    Material material;
-    GameObject objectToTeleport;
+    public Material material;
+    public GameObject objectToTeleport; 
     public int teleportTwinLevel;
     
 
@@ -19,35 +19,13 @@ public class Teleport : Interactable
         material = interactor.GetComponentInChildren<SpriteRenderer>().material;
         objectToTeleport = interactor.gameObject;
         isInTeleportRange = true;
+        StartTeleport();
+    }
+
+    public void StartTeleport()
+    {
         StartCoroutine("TeleportCo");
     }
-
-    
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            
-            
-        }
-    }
-
-    private void Update()
-    {
-        if (isInTeleportRange && !isIncoming)
-        {
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                
-            }
-
-        }
-        
-    }
-
-    
 
     IEnumerator TeleportCo()
     {

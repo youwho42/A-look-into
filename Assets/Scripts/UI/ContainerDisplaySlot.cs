@@ -17,14 +17,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     public bool isContainerSlot;
 
 
-    private void Start()
-    {
-        if (item = null)
-        {
-            icon.enabled = false;
-        }
-
-    }
+    
 
     public void TransferItem()
     {
@@ -52,7 +45,7 @@ public class ContainerDisplaySlot : MonoBehaviour
         icon.sprite = item.Icon;
 
         itemAmount.text = amount.ToString();
-        
+        icon.enabled = true;
     }
     public void RemoveItem()
     {
@@ -69,7 +62,7 @@ public class ContainerDisplaySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         itemAmount.text = "";
-
+        icon.enabled = false;
     }
     
 

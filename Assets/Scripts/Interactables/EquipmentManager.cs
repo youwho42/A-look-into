@@ -1,37 +1,51 @@
-﻿using System.Collections;
+﻿using QuantumTek.QuantumInventory;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EquipmentManager : MonoBehaviour
 {
-    public EquipmentData[] currentEquipment;
+    public QI_ItemData[] currentEquipment;
     int totalSlots;
     public static EquipmentManager instance;
+    public UnityEvent EventUIUpdateEquipment;
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(this);
+
         totalSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        currentEquipment = new EquipmentData[totalSlots];
+        currentEquipment = new QI_ItemData[totalSlots];
     }
 
-    public void Equip(EquipmentData newItem)
+    public void Equip(QI_ItemData newItem, int equipedIndex)
     {
-        int slotIndex = (int)newItem.equipmentSlot;
-        currentEquipment[slotIndex] = newItem;
+        currentEquipment[equipedIndex] = newItem;
+        EventUIUpdateEquipment.Invoke();
     }
-    public void UnEquipToInventory(EquipmentData equipedItem)
+  
+    public void UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
     {
-        int slotIndex = (int)equipedItem.equipmentSlot;
-        currentEquipment[slotIndex] = null;
-        PlayerInformation.instance.playerInventory.AddItem(equipedItem, 1);
+        currentEquipment[equipedIndex] = null;
+        PlayerInformation.instance.playerInventory.AddItem(itemData, 1);
+        EventUIUpdateEquipment.Invoke();
     }
 
-    public void UnEquipAndDestroy(EquipmentData equipedItem)
+    public void UnEquipAndDestroy(int equipedIndex)
     {
-        int slotIndex = (int)equipedItem.equipmentSlot;
-        currentEquipment[slotIndex] = null;
+        currentEquipment[equipedIndex] = null;
+        EventUIUpdateEquipment.Invoke();
+    }
+    public void UnEquipAndDestroyAll()
+    {
+        for (int i = 0; i < currentEquipment.Length; i++)
+        {
+            currentEquipment[i] = null;
+        }
+        EventUIUpdateEquipment.Invoke();
     }
 }

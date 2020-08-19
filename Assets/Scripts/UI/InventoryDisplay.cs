@@ -9,40 +9,57 @@ public class InventoryDisplay : MonoBehaviour
 {
     public QI_Inventory inventory;
     public EquipmentManager equipmentManager;
+    public GameObject mainUI;
     public GameObject inventoryUI;
+    public GameObject equipmentUI;
     public GameObject inventorySlot;
-    public List<InventoryDisplaySlot> slots = new List<InventoryDisplaySlot>();
-    
+    public GameObject equipmentSlot;
+    public List<InventoryDisplaySlot> inventorySlots = new List<InventoryDisplaySlot>();
+    public List<ISlot> equipmentSlots = new List<ISlot>();
+
+
 
     private IEnumerator Start()
     {
-        Vector3 offset = new Vector3(1000, 0, 0);
+        
 
-        inventoryUI.transform.position += offset;
-        inventoryUI.SetActive(true);
+        Vector3 offset = new Vector3(3000, 0, 0);
+
+        mainUI.transform.position += offset;
+        mainUI.SetActive(true);
         for (int i = 0; i < inventory.MaxStacks; i++)
         {
             
             GameObject newSlot = Instantiate(inventorySlot, inventoryUI.transform);
-            slots.Add(newSlot.GetComponent<InventoryDisplaySlot>());
+            inventorySlots.Add(newSlot.GetComponent<InventoryDisplaySlot>());
+        }
+        for (int i = 0; i < System.Enum.GetNames(typeof(EquipmentSlot)).Length; i++)
+        {
+
+            GameObject newSlot = Instantiate(equipmentSlot, equipmentUI.transform);
+            equipmentSlots.Add(newSlot.GetComponent<ISlot>());
+            for (int x = 0; x < equipmentSlots.Count; x++)
+            {
+                equipmentSlots[x].SetIndex(x);
+            }
         }
         yield return new WaitForSeconds(2f);
         UpdateInventoryUI();
-        inventoryUI.SetActive(false);
-        inventoryUI.transform.position -= offset;
+        mainUI.SetActive(false);
+        mainUI.transform.position -= offset;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            mainUI.SetActive(!mainUI.activeSelf);
             PlayerInformation.instance.uiScreenVisible = !PlayerInformation.instance.uiScreenVisible;
         }
     }
     public void UpdateInventoryUI()
     {
-        foreach (InventoryDisplaySlot slot in slots)
+        foreach (InventoryDisplaySlot slot in inventorySlots)
         {
             slot.ClearSlot();
         }
@@ -50,12 +67,28 @@ public class InventoryDisplay : MonoBehaviour
         {
             if(inventory.Stacks[i].Item != null)
             {
-                slots[i].inventory = inventory;
-                slots[i].equipmentManager = equipmentManager;
-                slots[i].AddItem(inventory.Stacks[i].Item, inventory.Stacks[i].Amount);
-                slots[i].icon.enabled = true;
+                inventorySlots[i].inventory = inventory;
+                inventorySlots[i].equipmentManager = equipmentManager;
+                inventorySlots[i].AddItem(inventory.Stacks[i].Item, inventory.Stacks[i].Amount);
+                inventorySlots[i].icon.enabled = true;
             }
             
+        }
+
+        foreach (ISlot slot in equipmentSlots)
+        {
+            slot.ClearSlot();
+        }
+        for (int i = 0; i < System.Enum.GetNames(typeof(EquipmentSlot)).Length; i++)
+        {
+            if (EquipmentManager.instance.currentEquipment[i] != null)
+            {
+                
+                equipmentSlots[i].AddItem(EquipmentManager.instance.currentEquipment[i], 1);
+                
+                
+            }
+
         }
     }
 

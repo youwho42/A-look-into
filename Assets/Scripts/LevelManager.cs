@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
 public class LevelManager : MonoBehaviour
 {
@@ -27,7 +28,8 @@ public class LevelManager : MonoBehaviour
 
     }
 
-
+    [SerializeField]
+    private CinemachineVirtualCamera startCam;
 
     [SerializeField]
     private GameObject loadScreen;
@@ -129,11 +131,21 @@ public class LevelManager : MonoBehaviour
             
             yield return null;
         }
+        
+        
         SavingLoading.instance.Load();
-        yield return new WaitForSeconds(2f);
-        
+
+        var cams = FindObjectsOfType<CinemachineVirtualCamera>();
+        foreach (var cam in cams)
+        {
+            if (cam.CompareTag("StartCam"))
+            {
+                cam.Priority = 0;
+            }
+        }
+        yield return new WaitForSeconds(3f);
         loadScreen.SetActive(false);
-        
+        FindObjectOfType<PlayerInput>().enabled = true;
 
     }
 

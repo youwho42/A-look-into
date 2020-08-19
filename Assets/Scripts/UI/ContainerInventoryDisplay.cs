@@ -18,7 +18,7 @@ public class ContainerInventoryDisplay : MonoBehaviour
 
     private IEnumerator Start()
     {
-        Vector3 offset = new Vector3(1000, 0, 0);
+        Vector3 offset = new Vector3(3000, 0, 0);
         transferUI.transform.position += offset;
         //yield return new WaitForSeconds(2.1f);
         //playerInventory = PlayerInformation.instance.playerInventory;

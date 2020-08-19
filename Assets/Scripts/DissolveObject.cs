@@ -5,41 +5,43 @@ using UnityEngine;
 public class DissolveObject : MonoBehaviour
 {
 
-    [SerializeField]
-    private Material material;
+    public Material material;
 
-   public float dissolveSpeed;
+    public float dissolveSpeed;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Dissolve();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            DissolveReverse();
-        }
-    }
+    
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.D))
+    //    {
+    //        Dissolve();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        DissolveReverse();
+    //    }
+    //}
 
     public void Dissolve()
     {
-        StartCoroutine("DissolveCo");
+        StartCoroutine(DissolveCo(true));
     }
 
     public void DissolveReverse()
     {
-        StartCoroutine("DissolveReverseCo");
+        StartCoroutine(DissolveCo(false));
     }
 
-    IEnumerator DissolveCo()
+    IEnumerator DissolveCo(bool disolveOut = true)
     {
         float timePercentage = 0f;
-        float amount = 1;
+        float disolveFrom = disolveOut ? 0 : 1;
+        float disolveTo = disolveOut ? 1 : 0;
+
         while (timePercentage < 1)
         {
             timePercentage += Time.deltaTime / dissolveSpeed;
-            float x = Mathf.Lerp(amount, 0, timePercentage);
+            float x = Mathf.Lerp(disolveFrom, disolveTo, timePercentage);
             material.SetFloat("_DissolveAmount", x);
             material.SetFloat("_Offset", x*20);
             yield return null;

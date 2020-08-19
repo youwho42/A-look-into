@@ -16,14 +16,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     public EquipmentManager equipmentManager;
 
     
-    private void Start()
-    {
-        if(item = null)
-        {
-            icon.enabled = false;
-        }
-        
-    }
+    
     
     public void UseItem()
     {
@@ -39,7 +32,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         icon.sprite = item.Icon;
         
         itemAmount.text = amount.ToString();
-        
+        icon.enabled = true;
     }
     public void RemoveItem()
     {
@@ -52,7 +45,11 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (item == null)
             return;
         var go = Instantiate(item.ItemPrefab, PlayerInformation.instance.player.transform.position + ItemDropOffset(), Quaternion.identity);
-        go.GetComponent<SaveableEntity>().GenerateId();
+        if(go.TryGetComponent(out SaveableEntity entity))
+        {
+            entity.GenerateId();
+        }
+        
         inventory.RemoveItem(item, 1);
     }
 
@@ -61,7 +58,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         itemAmount.text = "";
-        
+        icon.enabled = false;
     }
     Vector3 ItemDropOffset()
     {

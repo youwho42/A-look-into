@@ -14,14 +14,7 @@ public class CraftingSlot : MonoBehaviour
     public bool isIngredientSlot;
     public Button craftButton;
 
-    private void Start()
-    {
-        if (item = null)
-        {
-            icon.enabled = false;
-        }
-
-    }
+    
 
     public void AddItem(QI_ItemData newItem, int recipeQuantity, CraftingTable craftingTable)
     {
@@ -33,8 +26,8 @@ public class CraftingSlot : MonoBehaviour
         {
             amount.text = recipeQuantity.ToString();
         }
+        icon.enabled = true;
 
-        
     }
 
     public void AddItem(QI_ItemData newItem, int recipeQuantity, int inventoryQuantity)
@@ -47,10 +40,10 @@ public class CraftingSlot : MonoBehaviour
         {
             amount.text = inventoryQuantity.ToString() + "/" + recipeQuantity.ToString();
             
-        } 
-        
-        
-        
+        }
+
+        icon.enabled = true;
+
     }
 
     public void RemoveItem()
@@ -64,5 +57,6 @@ public class CraftingSlot : MonoBehaviour
         icon.sprite = null;
         itemName.text = "";
         amount.text = "";
+        icon.enabled = false;
     }
 }

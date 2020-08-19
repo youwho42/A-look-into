@@ -36,6 +36,7 @@ public class CraftingTable : MonoBehaviour
             recipeButtons.Add(newRecipe.GetComponent<CraftingRecipeButton>());
         }
         UpdateCraftingUI();
+        ClearCurrentRecipe();
     }
 
     public void UpdateCraftingUI()

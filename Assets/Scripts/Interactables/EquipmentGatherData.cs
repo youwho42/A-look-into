@@ -17,7 +17,6 @@ public class EquipmentGatherData : EquipmentData
         Collider2D[] hit = Physics2D.OverlapCircleAll(PlayerInformation.instance.player.position, detectionRadius, gathererLayer);
         if (hit.Length > 0)
         {
-            Debug.Log("detected collectable item!");
             GetNearestItem(hit);
         }
     }
@@ -50,12 +49,11 @@ public class EquipmentGatherData : EquipmentData
                     {
                         continue;
                     }
-                    Debug.Log("Woulda coulda shoulda caught an item");
                     PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1);
                     if (!takeSample)
                         Destroy(nearest.gameObject);
                     else
-                        EquipmentManager.instance.UnEquipAndDestroy(this);
+                        EquipmentManager.instance.UnEquipAndDestroy(0);
 
                 }
             } 
@@ -69,7 +67,6 @@ public class EquipmentGatherData : EquipmentData
                         {
                             continue;
                         }
-                        Debug.Log("Woulda coulda shoulda caught an item");
                         PlayerInformation.instance.playerInventory.AddItem(itemData, 1);
                         if (!takeSample)
                         { 
@@ -78,7 +75,7 @@ public class EquipmentGatherData : EquipmentData
                         else 
                         {
                             
-                            EquipmentManager.instance.UnEquipAndDestroy(this);
+                            EquipmentManager.instance.UnEquipAndDestroy(0);
                         }
                     }
                 }

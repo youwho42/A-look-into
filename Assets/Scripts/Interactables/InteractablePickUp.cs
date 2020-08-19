@@ -9,6 +9,8 @@ public class InteractablePickUp : Interactable
 
     QI_Inventory inventoryToAddTo;
 
+    bool addedToInventory;
+
     public override void Start()
     {
         base.Start();
@@ -32,9 +34,12 @@ public class InteractablePickUp : Interactable
 
         PlayerInformation.instance.playerInventory.AddItem(interactableItem.Data, 1);
         hasInteracted = false;
+        
         Destroy(gameObject);
+        
+            
     }
-
+   
     void PlayInteractSound()
     {
         if (audioManager.CompareSoundNames("PickUp-" + interactSound))

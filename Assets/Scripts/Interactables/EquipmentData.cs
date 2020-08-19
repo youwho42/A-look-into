@@ -13,7 +13,6 @@ public class EquipmentData : QI_ItemData
     public override void UseItem()
     {
         base.UseItem();
-        Debug.Log("Equipping Item");
         EquipItem();
     }
     void EquipItem()
@@ -23,12 +22,12 @@ public class EquipmentData : QI_ItemData
             PlayerInformation.instance.playerInventory.AddItem(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], 1);
             
         }
-        EquipmentManager.instance.Equip(this);
+        EquipmentManager.instance.Equip(this, (int)equipmentSlot);
         PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
     }
-    public virtual void UseEquippedItem()
+    public override void UseEquippedItem()
     {
-        Debug.Log("Using Equipped Item");
+        base.UseEquippedItem();
     }
 }
 public enum EquipmentSlot { Hands, Head, Feet, Legs, Chest, Extra }
