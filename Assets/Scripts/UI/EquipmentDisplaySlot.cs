@@ -23,8 +23,8 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
     {
         if (item != null)
         {
-            EquipmentManager.instance.UnEquipToInventory(item, (int)equipmentSlot);
-            ClearSlot();
+            if(EquipmentManager.instance.UnEquipToInventory(item, (int)equipmentSlot))
+                ClearSlot();
         }
 
     }

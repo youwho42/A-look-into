@@ -28,11 +28,16 @@ public class EquipmentManager : MonoBehaviour
         EventUIUpdateEquipment.Invoke();
     }
   
-    public void UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
+    public bool UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
     {
-        currentEquipment[equipedIndex] = null;
-        PlayerInformation.instance.playerInventory.AddItem(itemData, 1);
-        EventUIUpdateEquipment.Invoke();
+        if(PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
+        {
+            currentEquipment[equipedIndex] = null;
+            EventUIUpdateEquipment.Invoke();
+
+            return true;
+        }
+        return false;
     }
 
     public void UnEquipAndDestroy(int equipedIndex)

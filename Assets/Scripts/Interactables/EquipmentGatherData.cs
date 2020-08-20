@@ -49,11 +49,14 @@ public class EquipmentGatherData : EquipmentData
                     {
                         continue;
                     }
-                    PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1);
-                    if (!takeSample)
-                        Destroy(nearest.gameObject);
-                    else
-                        EquipmentManager.instance.UnEquipAndDestroy(0);
+                    if (PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1))
+                    {
+                        
+                        if (!takeSample)
+                            Destroy(nearest.gameObject);
+                        else
+                            EquipmentManager.instance.UnEquipAndDestroy(0); 
+                    }
 
                 }
             } 
@@ -67,15 +70,18 @@ public class EquipmentGatherData : EquipmentData
                         {
                             continue;
                         }
-                        PlayerInformation.instance.playerInventory.AddItem(itemData, 1);
-                        if (!takeSample)
-                        { 
-                            Destroy(nearest.gameObject);
-                        }
-                        else 
+                        if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
                         {
                             
-                            EquipmentManager.instance.UnEquipAndDestroy(0);
+                            if (!takeSample)
+                            {
+                                Destroy(nearest.gameObject);
+                            }
+                            else
+                            {
+
+                                EquipmentManager.instance.UnEquipAndDestroy(0);
+                            } 
                         }
                     }
                 }

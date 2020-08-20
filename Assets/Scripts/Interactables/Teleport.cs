@@ -33,17 +33,19 @@ public class Teleport : Interactable
         Material usingMaterial = material;
         GameObject activeTeleport = objectToTeleport;
         activeTeleport.GetComponent<Playermovement>().enabled = false;
-        float timePercentage = 0f;
-        float fadeTime = 2f;
-        
-        while (timePercentage < 1f)
-        {
-            timePercentage += Time.deltaTime / fadeTime;
-            float x = Mathf.Lerp(1f, 0f, timePercentage);
-            usingMaterial.SetFloat("_Fade", x);
+        //float timePercentage = 0f;
+        //float fadeTime = 2f;
 
-            yield return null;
-        }
+        //while (timePercentage < 1f)
+        //{
+        //    timePercentage += Time.deltaTime / fadeTime;
+        //    float x = Mathf.Lerp(1f, 0f, timePercentage);
+        //    usingMaterial.SetFloat("_Fade", x);
+
+        //    yield return null;
+        //}
+        DissolveEffect.instance.StartDissolve(usingMaterial, 2f, false);
+        yield return new WaitForSeconds(2f);
         activeTeleport.SetActive(false);
         activeTeleport.transform.position = new Vector3(teleportTwin.position.x, teleportTwin.position.y, teleportTwinLevel);
         activeTeleport.GetComponent<PlayerLevelChange>().InitializePlayerLocation();
@@ -52,17 +54,20 @@ public class Teleport : Interactable
 
         activeTeleport.SetActive(true);
 
-        timePercentage = 0f;
-        
-        while (timePercentage < 1f)
-        {
-            timePercentage += Time.deltaTime / fadeTime;
-            float x = Mathf.Lerp(0f, 1f, timePercentage);
-            usingMaterial.SetFloat("_Fade", x);
+        //timePercentage = 0f;
 
-            yield return null;
+        //while (timePercentage < 1f)
+        //{
+        //    timePercentage += Time.deltaTime / fadeTime;
+        //    float x = Mathf.Lerp(0f, 1f, timePercentage);
+        //    usingMaterial.SetFloat("_Fade", x);
 
-        }
+        //    yield return null;
+
+        //}
+
+        DissolveEffect.instance.StartDissolve(usingMaterial, 2f, true);
+        yield return new WaitForSeconds(2f);
         if (isIncoming && isInTeleportRange)
         {
             isIncoming = false;

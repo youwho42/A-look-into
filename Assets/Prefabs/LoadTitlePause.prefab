@@ -417,8 +417,8 @@ MonoBehaviour:
           m_StringArgument: MainScene
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1819742380891369055}
-        m_MethodName: BeginGame
+      - m_Target: {fileID: 0}
+        m_MethodName: StartBeginningTimeline
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -912,7 +912,6 @@ GameObject:
   - component: {fileID: 2541510180111138325}
   - component: {fileID: 2541510180111138324}
   - component: {fileID: 802031844}
-  - component: {fileID: 1819742380891369055}
   m_Layer: 5
   m_Name: LoadTitlePause
   m_TagString: Untagged
@@ -1020,21 +1019,6 @@ MonoBehaviour:
   pauseMenu: {fileID: 4980782384192354430}
   slider: {fileID: 2541510181283236616}
   text: {fileID: 2541510181799198677}
---- !u!114 &1819742380891369055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2541510180111138327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c03c370a2dffe419c1e05290f4fb89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startCam: {fileID: 0}
-  player: {fileID: 0}
-  teleport: {fileID: 0}
 --- !u!1 &2541510180584952793
 GameObject:
   m_ObjectHideFlags: 0

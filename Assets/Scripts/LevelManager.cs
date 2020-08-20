@@ -134,7 +134,7 @@ public class LevelManager : MonoBehaviour
         
         
         SavingLoading.instance.Load();
-
+        GameObject player = FindObjectOfType<PlayerInput>().gameObject;
         var cams = FindObjectsOfType<CinemachineVirtualCamera>();
         foreach (var cam in cams)
         {
@@ -145,7 +145,10 @@ public class LevelManager : MonoBehaviour
         }
         yield return new WaitForSeconds(3f);
         loadScreen.SetActive(false);
-        FindObjectOfType<PlayerInput>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        DissolveEffect.instance.StartDissolve(player.GetComponentInChildren<SpriteRenderer>().material, 2f, true);
+        yield return new WaitForSeconds(3f);
+        player.GetComponent<PlayerInput>().enabled = true;
 
     }
 

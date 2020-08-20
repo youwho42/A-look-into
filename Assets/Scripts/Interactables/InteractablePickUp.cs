@@ -32,10 +32,12 @@ public class InteractablePickUp : Interactable
         yield return new WaitForSeconds(0.33f);
         PlayInteractSound();
 
-        PlayerInformation.instance.playerInventory.AddItem(interactableItem.Data, 1);
+        
+        if(PlayerInformation.instance.playerInventory.AddItem(interactableItem.Data, 1))
+            Destroy(gameObject);
         hasInteracted = false;
         
-        Destroy(gameObject);
+        
         
             
     }

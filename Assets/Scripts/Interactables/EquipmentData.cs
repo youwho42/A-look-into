@@ -19,11 +19,17 @@ public class EquipmentData : QI_ItemData
     {
         if(EquipmentManager.instance.currentEquipment[(int)equipmentSlot] != null)
         {
+            PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
             PlayerInformation.instance.playerInventory.AddItem(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], 1);
-            
+            EquipmentManager.instance.Equip(this, (int)equipmentSlot);
+        } 
+        else
+        {
+            PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
+            EquipmentManager.instance.Equip(this, (int)equipmentSlot);
         }
-        EquipmentManager.instance.Equip(this, (int)equipmentSlot);
-        PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
+        
+        
     }
     public override void UseEquippedItem()
     {
