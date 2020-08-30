@@ -14,12 +14,16 @@ public class Bee : MonoBehaviour
     public LayerMask landingLayer;
     public float detectionRadius;
 
+    public int hourToDailyRise;
+    public int hourToDailySleep;
+
     GetDestination getDestination;
     Vector3 destination;
     Vector3 spriteDestination;
     bool isFluttering = true;
     bool isLanding = false;
     bool isLanded = false;
+    bool isSleeping;
     float timeToIdle;
     float timeToResetFlower = 3.0f;
     float timer;
@@ -37,7 +41,8 @@ public class Bee : MonoBehaviour
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
 
-
+        DayNightCycle.instance.FullHourEventCallBack.AddListener(SleepForNight);
+        
         getDestination = GetComponent<GetDestination>();
         if (getDestination.chickenPen == null)
         {
@@ -50,70 +55,106 @@ public class Bee : MonoBehaviour
 
     void Update()
     {
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, detectionRadius, landingLayer);
-        if (hit.Length > 0 && isFluttering)
-        {
-            GetNearestFlower(hit);
-        }
 
-        if (isLanding)
+        if (!isSleeping)
         {
-
-            MoveSprites();
-            float distance = Vector2.Distance(transform.position, destination);
-            float distanceZasY = Vector2.Distance(butterflySpritePosition.localPosition, spriteDestination);
-            if (distance <= 0.001f && distanceZasY <= 0.001f)
+            Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, detectionRadius, landingLayer);
+            if (hit.Length > 0 && isFluttering)
             {
-                animator.SetBool("IsLanded", true);
-                timeToIdle = Random.Range(0.5f, 10.0f);
-                isLanded = true;
-                isLanding = false;
+                GetNearestFlower(hit);
             }
-        }
-        if (isLanded)
-        {
 
-            timer += Time.deltaTime;
-            if (timer >= timeToIdle)
+
+
+            if (isLanding)
             {
-                if (objectToLandOn != null)
+
+                MoveSprites();
+                float distance = Vector2.Distance(transform.position, destination);
+                float distanceZasY = Vector2.Distance(butterflySpritePosition.localPosition, spriteDestination);
+                if (distance <= 0.001f && distanceZasY <= 0.001f)
                 {
-                    StartCoroutine(ResetOldFlower(objectToLandOn));
+                    animator.SetBool("IsLanded", true);
+                    timeToIdle = Random.Range(0.5f, 10.0f);
+                    isLanded = true;
+                    isLanding = false;
                 }
-                isLanded = false;
-                animator.SetBool("IsLanded", false);
-                isFluttering = true;
-                timer = 0;
             }
+            if (isLanded)
+            {
+
+                timer += Time.deltaTime;
+                if (timer >= timeToIdle)
+                {
+                    if (objectToLandOn != null)
+                    {
+                        StartCoroutine(ResetOldFlower(objectToLandOn));
+                    }
+                    isLanded = false;
+                    animator.SetBool("IsLanded", false);
+                    isFluttering = true;
+                    timer = 0;
+                }
+            }
+
+            if (isFluttering)
+            {
+
+
+                MoveSprites();
+
+                float distance = Vector2.Distance(transform.position, destination);
+                if (distance <= 0.1f)
+                {
+                    SetRandomDestination();
+                    SetRandomPositionZasY();
+
+                }
+                float distanceZasY = Vector2.Distance(butterflySpritePosition.localPosition, spriteDestination);
+                if (distanceZasY <= 0.1f)
+                {
+                    SetRandomPositionZasY();
+                }
+            }
+
+            if (getDestination.chickenPen.gameObject.CompareTag("Player"))
+            {
+                getDestination.chickenPen = GameObject.FindGameObjectWithTag("Beehive").transform;
+            } 
         }
-
-        if (isFluttering)
+        else
         {
-
-
+            destination = getDestination.chickenPen.position;
+            objectToLandOn = getDestination.chickenPen.gameObject;
             MoveSprites();
-
+            SetLandingDestination(objectToLandOn.transform.position, objectToLandOn.GetComponent<DrawZasYDisplacement>().positionZ);
             float distance = Vector2.Distance(transform.position, destination);
-            if (distance <= 0.1f)
-            {
-                SetRandomDestination();
-                SetRandomPositionZasY();
-
-            }
             float distanceZasY = Vector2.Distance(butterflySpritePosition.localPosition, spriteDestination);
-            if (distanceZasY <= 0.1f)
+            if (distance <= 0.01f && distanceZasY <= 0.01f)
             {
-                SetRandomPositionZasY();
-            }
-        }
+                isLanded = isLanding = isFluttering = false;
 
-        if (getDestination.chickenPen.gameObject.CompareTag("Player"))
-        {
-            getDestination.chickenPen = GameObject.FindGameObjectWithTag("Beehive").transform;
+            }
+            
+            
         }
     }
 
-    //IEnumerator Destroy
+    public void SleepForNight(int time)
+    {
+        if(time == hourToDailyRise)
+        {
+            isSleeping = false;
+            isFluttering = true;
+        } 
+        else if (time == hourToDailySleep)
+        {
+            isSleeping = true;
+        }
+        
+    }
+    
+    
     public void GetNearestFlower(Collider2D[] colliders)
     {
         // Find nearest item.

@@ -10,7 +10,7 @@ public class EquipmentGatherData : EquipmentData
     public LayerMask gathererLayer;
     public float detectionRadius;
     public bool takeSample;
-    
+    public bool oneUse;
     public override void UseEquippedItem()
     {
         base.UseEquippedItem();
@@ -77,11 +77,12 @@ public class EquipmentGatherData : EquipmentData
                             {
                                 Destroy(nearest.gameObject);
                             }
-                            else
+                            else if(oneUse)
                             {
 
                                 EquipmentManager.instance.UnEquipAndDestroy(0);
-                            } 
+                            }
+                            
                         }
                     }
                 }

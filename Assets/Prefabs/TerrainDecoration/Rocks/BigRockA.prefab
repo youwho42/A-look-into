@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2336570083930356930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7235281980150182190}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: ItemSpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7235281980150182190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336570083930356930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15, y: -0.154, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7218531380119633546}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3816201421191351853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6089121056338202447}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: ItemSpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6089121056338202447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3816201421191351853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14, y: -0.123, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7218531380119633546}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7218531380119633548
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,6 +71,7 @@ GameObject:
   - component: {fileID: 7218531380119633546}
   - component: {fileID: 7218531380119633547}
   - component: {fileID: 5087077176078568127}
+  - component: {fileID: 4841159996444352082}
   m_Layer: 0
   m_Name: BigRockA
   m_TagString: Untagged
@@ -28,7 +89,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.268, y: 1.133, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6089121056338202447}
+  - {fileID: 7235281980150182190}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -99,7 +162,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5160566, y: 0.35228005}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5625, y: 0.5625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -107,15 +170,30 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.105668485, y: -0.06446552}
-      - {x: -0.06760731, y: -0.042982817}
-      - {x: -0.026938438, y: -0.06773496}
-      - {x: -0.026659071, y: -0.10004282}
-      - {x: 0.013536394, y: -0.121963024}
-      - {x: 0.10124235, y: -0.10153496}
-      - {x: 0.14394942, y: -0.07659006}
-      - {x: 0.13643634, y: -0.03948009}
-      - {x: 0.16708632, y: -0.015141368}
-      - {x: -0.019516528, y: 0.047586203}
-      - {x: -0.09271571, y: 0.027917743}
-      - {x: -0.17397004, y: -0.012437463}
+    - - {x: -0.17643404, y: -0.056140184}
+      - {x: -0.1352509, y: -0.039860845}
+      - {x: -0.08833796, y: -0.057328224}
+      - {x: -0.08805859, y: -0.093798876}
+      - {x: -0.04265985, y: -0.11467838}
+      - {x: 0.07522564, y: -0.06927419}
+      - {x: 0.07006183, y: -0.028719306}
+      - {x: 0.09689093, y: -0.0061786175}
+      - {x: 0.020351902, y: 0.05146146}
+      - {x: -0.07883471, y: 0.08192825}
+      - {x: -0.14370853, y: 0.04769051}
+      - {x: -0.23953217, y: -0.0051527023}
+--- !u!114 &4841159996444352082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218531380119633548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940059da522b06540a882a8dd34d8f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: Stone
+  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
+  hourToDailySpawn: 8

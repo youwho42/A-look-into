@@ -59,6 +59,8 @@ public class InventoryDisplay : MonoBehaviour
     }
     public void UpdateInventoryUI()
     {
+
+        Debug.Log(inventory.GetInventoryWeight());
         foreach (InventoryDisplaySlot slot in inventorySlots)
         {
             slot.ClearSlot();
