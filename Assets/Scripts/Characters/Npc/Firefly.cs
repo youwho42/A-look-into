@@ -103,6 +103,7 @@ public class Firefly : MonoBehaviour
         isFluttering = !isFluttering;
         fireflySpritePosition.gameObject.SetActive(!fireflySpritePosition.gameObject.activeSelf);
     }
+
     
     IEnumerator FlickerLight()
     {

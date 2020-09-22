@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 952d84bfac82f45758b887c0d9d5a5c3, type: 3}
-  m_Name: New Attribute Modifier Database
+  m_Name: PlayerAttributeModifiers
   m_EditorClassIdentifier: 
   Modifiers:
-  - Name: 
+  - Name: Hydration
     ModificationType: 0
-    Value: 0
+    Value: 10
+    Duration: 0
+    Lifetime: 0
+    ModificationInterval: 0
+  - Name: Energy
+    ModificationType: 0
+    Value: 20
     Duration: 0
     Lifetime: 0
     ModificationInterval: 0

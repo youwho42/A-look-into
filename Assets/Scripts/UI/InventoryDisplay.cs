@@ -51,7 +51,7 @@ public class InventoryDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             mainUI.SetActive(!mainUI.activeSelf);
             PlayerInformation.instance.uiScreenVisible = !PlayerInformation.instance.uiScreenVisible;
@@ -60,7 +60,7 @@ public class InventoryDisplay : MonoBehaviour
     public void UpdateInventoryUI()
     {
 
-        Debug.Log(inventory.GetInventoryWeight());
+        
         foreach (InventoryDisplaySlot slot in inventorySlots)
         {
             slot.ClearSlot();

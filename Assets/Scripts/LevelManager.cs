@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using Cinemachine;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
@@ -47,16 +48,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI text;
 
-    
 
-    private void Start()
-    {
-       
-        
+    public UnityEvent EventLevelLoaded;
 
-    }
 
-    
 
     public string GetCurrentLevel()
     {
@@ -66,6 +61,7 @@ public class LevelManager : MonoBehaviour
     {
         SavingLoading.instance.Save();
         titleMenu.SetActive(false);
+        EventLevelLoaded.Invoke();
     }
     public void LoadCurrentGame(string levelName)
     {
@@ -134,6 +130,9 @@ public class LevelManager : MonoBehaviour
         
         
         SavingLoading.instance.Load();
+
+        EventLevelLoaded.Invoke();
+
         GameObject player = FindObjectOfType<PlayerInput>().gameObject;
         var cams = FindObjectsOfType<CinemachineVirtualCamera>();
         foreach (var cam in cams)

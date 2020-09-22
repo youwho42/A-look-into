@@ -10,7 +10,8 @@ public class EquipmentManager : MonoBehaviour
     int totalSlots;
     public static EquipmentManager instance;
     public UnityEvent EventUIUpdateEquipment;
-
+    public SpriteRenderer handEquipmentHolder;
+    public SpriteRenderer beltEquipmentHolder;
     private void Awake()
     {
         if (instance == null)
@@ -25,6 +26,10 @@ public class EquipmentManager : MonoBehaviour
     public void Equip(QI_ItemData newItem, int equipedIndex)
     {
         currentEquipment[equipedIndex] = newItem;
+        if (equipedIndex == (int)EquipmentSlot.Hands)
+            handEquipmentHolder.sprite = newItem.Icon;
+        if (equipedIndex == (int)EquipmentSlot.Extra)
+            beltEquipmentHolder.sprite = newItem.Icon;
         EventUIUpdateEquipment.Invoke();
     }
   
@@ -33,6 +38,8 @@ public class EquipmentManager : MonoBehaviour
         if(PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
         {
             currentEquipment[equipedIndex] = null;
+            if (equipedIndex == (int)EquipmentSlot.Hands)
+                handEquipmentHolder.sprite = null;
             EventUIUpdateEquipment.Invoke();
 
             return true;
@@ -42,6 +49,8 @@ public class EquipmentManager : MonoBehaviour
 
     public void UnEquipAndDestroy(int equipedIndex)
     {
+        if (equipedIndex == (int)EquipmentSlot.Hands)
+            handEquipmentHolder.sprite = null;
         currentEquipment[equipedIndex] = null;
         EventUIUpdateEquipment.Invoke();
     }
@@ -50,7 +59,9 @@ public class EquipmentManager : MonoBehaviour
         for (int i = 0; i < currentEquipment.Length; i++)
         {
             currentEquipment[i] = null;
+
         }
+        handEquipmentHolder.sprite = null;
         EventUIUpdateEquipment.Invoke();
     }
 }

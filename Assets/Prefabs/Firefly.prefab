@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.535
+  m_FalloffIntensity: 0.838
   m_Color: {r: 0.82447207, g: 1, b: 0.13679248, a: 1}
   m_Intensity: 0.7
   m_LightVolumeOpacity: 0
@@ -123,7 +123,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 6973530036f1bf24db808fb613003074, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 3928386081971578865}
   - component: {fileID: 7484321164498244197}
   - component: {fileID: 7410669348781134234}
+  - component: {fileID: 2082393106118011735}
   m_Layer: 14
   m_Name: Firefly
   m_TagString: Untagged
@@ -321,3 +322,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.03125
+--- !u!114 &2082393106118011735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274208581712867227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0219e31de5041c48b8804996bea123b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowAppearTime: 20
+  glowDisappearTime: 21
+  bloomMinIntensity: 1
+  bloomMaxIntensity: 8
+  spriteMaterial: {fileID: 2296586684663807708}

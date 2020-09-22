@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2111379243750609232}
   - component: {fileID: 2099423738441173625}
   - component: {fileID: 5233651497959552981}
+  - component: {fileID: 550695473140305522}
+  - component: {fileID: 1572924822614693328}
   m_Layer: 0
   m_Name: TreesSkinny
   m_TagString: Untagged
@@ -31,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8290139794548995452}
-  - {fileID: 8505267183497828100}
+  - {fileID: 6002912768282819067}
   - {fileID: 2817840145690230682}
   - {fileID: 6852711028884275244}
   - {fileID: 5783641435690991164}
@@ -136,7 +138,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn: Stick
   itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
-  hourToDailySpawn: 8
+  hourToDailySpawn: 5
+--- !u!114 &550695473140305522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111379243750609235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9835724afc84cae4fbcb9d3c3ad2a793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowTransform: {fileID: 6002912768282819067}
+  shadowSprite: {fileID: 1942323760517506341}
+  shadowAppearTime: 5
+  shadowDisappearTime: 20
+--- !u!114 &1572924822614693328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111379243750609235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataList:
+  - {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+  maxPerDay: 3
+  timeToReset: 5
 --- !u!1 &3098695112358246533
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +341,37 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6199120398212505409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6002912768282819067}
+  m_Layer: 0
+  m_Name: GameObject (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6002912768282819067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199120398212505409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0027, y: 0.0027, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8505267183497828100}
+  m_Father: {fileID: 2111379243750609233}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6539536084462706551
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,11 +397,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6539536084462706551}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24, y: -0.431, z: 0}
+  m_LocalPosition: {x: 0.24270001, y: -0.4337, z: 0}
   m_LocalScale: {x: 0.74068815, y: 0.7985733, z: 0.74068815}
   m_Children: []
-  m_Father: {fileID: 2111379243750609233}
-  m_RootOrder: 1
+  m_Father: {fileID: 6002912768282819067}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1942323760517506341
 SpriteRenderer:

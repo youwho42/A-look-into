@@ -36,8 +36,8 @@ public class InteractablePickUp : Interactable
         if(PlayerInformation.instance.playerInventory.AddItem(interactableItem.Data, 1))
             Destroy(gameObject);
         hasInteracted = false;
-        
-        
+
+        WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
         
             
     }

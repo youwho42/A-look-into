@@ -17,8 +17,8 @@ public class SaveTimeAndDate : MonoBehaviour, ISaveable
     public void RestoreState(object state)
     {
         var saveData = (SaveData)state;
-        DayNightCycle.instance.currentTimeRaw = saveData.currentTimeRaw;
-        DayNightCycle.instance.currentDayRaw = saveData.currentDayRaw;
+        DayNightCycle.instance.SetDayTime(saveData.currentTimeRaw, saveData.currentDayRaw);
+        
     }
 
     [Serializable]

@@ -9,6 +9,7 @@ public class InteractWithInteractable : MonoBehaviour
 {
     List<Interactable> currentInteractables = new List<Interactable>();
     public float interactableRadius;
+    public Vector3 pickupOffset;
     public LayerMask interactableLayer;
 
     public GameObject interactCanvas;
@@ -16,14 +17,14 @@ public class InteractWithInteractable : MonoBehaviour
     public TextMeshProUGUI interactVerb;
 
     Vector3 canvasOffset;
-
+    public Playermovement playermovement;
     
 
     private void Update()
     {
         currentInteractables.Clear();
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactableRadius, interactableLayer);
+        Vector3 pickUpPosition = playermovement.facingRight ? transform.position + pickupOffset : transform.position - pickupOffset;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(pickUpPosition, interactableRadius, interactableLayer);
 
         if (colliders.Length > 0)
         {
@@ -104,6 +105,6 @@ public class InteractWithInteractable : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactableRadius);
+        Gizmos.DrawWireSphere(transform.position + pickupOffset, interactableRadius);
     }
 }

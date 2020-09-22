@@ -6,10 +6,12 @@ public class PlayerUseEquipment : MonoBehaviour
 {
     EquipmentManager equipmentManager;
     PlayerInput playerInput;
+    public Animator animator;
     private void Start()
     {
         equipmentManager = EquipmentManager.instance;
         playerInput = GetComponent<PlayerInput>();
+        
     }
 
 
@@ -20,6 +22,7 @@ public class PlayerUseEquipment : MonoBehaviour
             if (playerInput.usingEquippedItem && equipmentManager.currentEquipment[(int)EquipmentSlot.Hands] != null)
             {
                 equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
+                animator.SetTrigger("Swing");
             }
         }
         

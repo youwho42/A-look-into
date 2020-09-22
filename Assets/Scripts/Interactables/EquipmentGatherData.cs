@@ -70,20 +70,24 @@ public class EquipmentGatherData : EquipmentData
                         {
                             continue;
                         }
-                        if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
+                        if(nearestItemList.RemoveItem())
                         {
-                            
-                            if (!takeSample)
-                            {
-                                Destroy(nearest.gameObject);
-                            }
-                            else if(oneUse)
+                            if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
                             {
 
-                                EquipmentManager.instance.UnEquipAndDestroy(0);
+                                if (!takeSample)
+                                {
+                                    Destroy(nearest.gameObject);
+                                }
+                                else if (oneUse)
+                                {
+
+                                    EquipmentManager.instance.UnEquipAndDestroy(0);
+                                }
+
                             }
-                            
                         }
+                        
                     }
                 }
             }
