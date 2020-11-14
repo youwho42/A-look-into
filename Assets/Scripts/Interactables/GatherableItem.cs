@@ -11,6 +11,8 @@ public class GatherableItem : MonoBehaviour
     private int maxPerDay;
     private int currentAmount;
     public int timeToReset;
+    public bool hasBeenHarvested;
+
     private void Start()
     {
         currentAmount = maxPerDay;
@@ -33,6 +35,7 @@ public class GatherableItem : MonoBehaviour
         if (time == timeToReset)
         {
             currentAmount = maxPerDay;
+            hasBeenHarvested = false;
         }
         
     }

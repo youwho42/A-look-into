@@ -24,9 +24,6 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
-
     }
 
     [SerializeField]
@@ -38,7 +35,8 @@ public class LevelManager : MonoBehaviour
     private GameObject titleMenu;
     [SerializeField]
     private GameObject pauseMenu;
-
+    [SerializeField]
+    private GameObject newGameWarning;
 
 
 
@@ -59,9 +57,18 @@ public class LevelManager : MonoBehaviour
     }
     public void StartNewGame(string levelName)
     {
+        
         SavingLoading.instance.Save();
         titleMenu.SetActive(false);
         EventLevelLoaded.Invoke();
+    }
+    public void CancelNewGame()
+    {
+        newGameWarning.SetActive(false);
+    }
+    public void NewGameWarning()
+    {
+        newGameWarning.SetActive(true);
     }
     public void LoadCurrentGame(string levelName)
     {

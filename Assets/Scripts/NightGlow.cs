@@ -35,7 +35,7 @@ public class NightGlow : MonoBehaviour
     {
         
         float elapsedTime = dayNightCycle.minutes;
-        float waitTime = dayNightCycle.minutes + 40f;
+        float waitTime = elapsedTime + 40f;
         
         float startIntensity = on ? bloomMinIntensity : bloomMaxIntensity;
         float endIntinsity = on ? bloomMaxIntensity : bloomMinIntensity;

@@ -15,8 +15,20 @@ public class RandomSpawnObject : MonoBehaviour
     public List<QI_ItemData> objectsToSpawn;
     public int maxSpawnAmount;
     int quantity;
+    public int timeToSpawn;
 
-    [ContextMenu("Spawn Objects")]
+    private void Start()
+    {
+        DayNightCycle.instance.FullHourEventCallBack.AddListener(DailySpawnObjects);
+    }
+    public void DailySpawnObjects(int time)
+    {
+        if (time == timeToSpawn)
+        {
+            SpawnObjects();
+        }
+    }
+    [ContextMenu("Spawn objects")]
     public void SpawnObjects()
     {
         int amount = maxSpawnAmount - WorldItemManager.instance.GetWorldObjectAmount();
@@ -26,13 +38,19 @@ public class RandomSpawnObject : MonoBehaviour
             PlaceObject();
         }
     }
+
+    [ContextMenu("Clear objects from world dictionary")]
+    public void ClearObjects()
+    {
+        WorldItemManager.instance.RemoveAllItemsFromWorldItemDictionary();
+    }
     
     public void PlaceObject()
     {
         Vector3Int temp = GetRandomTilePosition();
         if (temp.z >= 1)
         {
-            var hit = Physics2D.OverlapCircle(SetPositionY(temp), .05f);
+            var hit = Physics2D.OverlapCircle(SetPositionY(temp), .01f);
             if (hit == null)
             {
                 int rand = UnityEngine.Random.Range(0, objectsToSpawn.Count);

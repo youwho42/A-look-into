@@ -18,12 +18,15 @@ public class PlayerInput : MonoBehaviour
     
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        movement.y = Mathf.Clamp(movement.y, -0.5761719f, 0.5761719f);
-        movement = movement.normalized;
+        if (!isPaused)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+            movement.y = Mathf.Clamp(movement.y, -0.5761719f, 0.5761719f);
+            movement = movement.normalized;
 
-        usingEquippedItem = Input.GetMouseButtonDown(0);
+            usingEquippedItem = Input.GetMouseButtonDown(0); 
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;

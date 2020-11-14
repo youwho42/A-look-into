@@ -11,13 +11,13 @@ public class SleepDisplay : MonoBehaviour
     public TextMeshProUGUI currentTime;
     public TextMeshProUGUI sleepUntilTime;
     public Slider slider;
-
-
+    private Coroutine sleepCoroutine;
+    float originalCycleSpeed;
     public void Start()
     {
         
         dayNightCycle = DayNightCycle.instance;
-
+        originalCycleSpeed = dayNightCycle.cycleSpeed;
     }
 
     private void Update()
@@ -28,13 +28,21 @@ public class SleepDisplay : MonoBehaviour
 
     public void Sleep()
     {
-        StartCoroutine("SleepCo");
+        sleepCoroutine = StartCoroutine(SleepCo());
+        
+    }
+    public void CancelSleep()
+    {
+        StopCoroutine(sleepCoroutine);
+        dayNightCycle.cycleSpeed = originalCycleSpeed;
+        PlayerInformation.instance.TogglePlayerInput(true);
+        gameObject.SetActive(false);
     }
     IEnumerator SleepCo()
     {
         PlayerInformation.instance.TogglePlayerInput(false);
         int wakeTime = (int)slider.value;
-        float originalCycleSpeed = dayNightCycle.cycleSpeed;
+        
         while(dayNightCycle.hours != wakeTime)
         {
             float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Energy");

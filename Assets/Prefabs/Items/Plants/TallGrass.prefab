@@ -1,6 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8934978689588779709
+--- !u!114 &7869000607664563529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860547678088120392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainGrass: {fileID: 7860547678088120393}
+  mainShadow: {fileID: 3518447464212524731}
+  grassList:
+  - grass: {fileID: 21300000, guid: 0d297e9fa2fbb0d478d08e5aa07ce48f, type: 3}
+    shadow: {fileID: 21300000, guid: a5a7f4b0a7914d041b68c36993301f03, type: 3}
+  - grass: {fileID: 21300000, guid: fde450005c461344ab51da3275f84bcf, type: 3}
+    shadow: {fileID: 21300000, guid: d8b7668763089f64eb057d7c304cbc4c, type: 3}
+  - grass: {fileID: 21300000, guid: 9559daec88679784cb85087148cbc090, type: 3}
+    shadow: {fileID: 21300000, guid: 8feea77d4c5f7b6439726d9bb4733afb, type: 3}
+  - grass: {fileID: 21300000, guid: 44d50f77775a7f445aec992f593fe693, type: 3}
+    shadow: {fileID: 21300000, guid: 561d0e69a85e9a949b5360ed3e7128df, type: 3}
+--- !u!1001 &6708058740396981290
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,8 +34,18 @@ PrefabInstance:
         type: 3}
       propertyPath: Data
       value: 
-      objectReference: {fileID: 11400000, guid: 1d8268dfb202df540b06c7aacbad93c4,
+      objectReference: {fileID: 11400000, guid: d1d7ea66e0d2c1946a12c959c74f2e02,
         type: 2}
+    - target: {fileID: 1314339209700361901, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0017
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314339209700361901, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0014
+      objectReference: {fileID: 0}
     - target: {fileID: 3459197263679992928, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,44 +104,47 @@ PrefabInstance:
     - target: {fileID: 3459197263679992930, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
         type: 3}
       propertyPath: m_Name
-      value: FibrousPlant2Reversed
+      value: TallGrass
       objectReference: {fileID: 0}
     - target: {fileID: 3459197263679992931, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f1d28fff693e0cf49b5706559f68c5ba,
+      objectReference: {fileID: 21300000, guid: 0d297e9fa2fbb0d478d08e5aa07ce48f,
         type: 3}
-    - target: {fileID: 3459197263679992931, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7909383838140338833, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f1d28fff693e0cf49b5706559f68c5ba,
+      objectReference: {fileID: 21300000, guid: a5a7f4b0a7914d041b68c36993301f03,
         type: 3}
-    - target: {fileID: 7909383838140338833, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9102316954546489937, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0099
+      value: 0.0013
       objectReference: {fileID: 0}
     - target: {fileID: 9102316954546489937, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0138
-      objectReference: {fileID: 0}
-    - target: {fileID: 9102316954546489937, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7084479
+      value: -0.1702
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b17e79cf0c8d44e60b8e3111796fbd3f, type: 3}
+--- !u!1 &7860547678088120392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3459197263679992930, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6708058740396981290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7860547678088120393 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3459197263679992931, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6708058740396981290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3518447464212524731 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7909383838140338833, guid: b17e79cf0c8d44e60b8e3111796fbd3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6708058740396981290}
+  m_PrefabAsset: {fileID: 0}

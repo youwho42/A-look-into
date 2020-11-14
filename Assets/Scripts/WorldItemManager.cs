@@ -34,6 +34,12 @@ public class WorldItemManager : MonoBehaviour
                 worldObjectsDictionary.Remove(itemName);
         }
     }
+
+    public void RemoveAllItemsFromWorldItemDictionary()
+    {
+        worldObjectsDictionary.Clear();
+    }
+
     public int GetWorldObjectAmount()
     {
         int amount = 0;

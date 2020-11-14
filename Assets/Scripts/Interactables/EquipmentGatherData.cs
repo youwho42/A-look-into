@@ -7,6 +7,7 @@ using UnityEngine;
 public class EquipmentGatherData : EquipmentData
 {
     public List<QI_ItemData> gatherItemData = new List<QI_ItemData>();
+    public MiniGameType miniGameType;
     public LayerMask gathererLayer;
     public float detectionRadius;
     public bool takeSample;
@@ -41,57 +42,93 @@ public class EquipmentGatherData : EquipmentData
         }
         if (nearest != null)
         {
-            if(nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
+            if (miniGameType == MiniGameType.None)
             {
-                for (int i = 0; i < gatherItemData.Count; i++)
-                {
-                    if (gatherItemData[i] != nearestItem.Data)
-                    {
-                        continue;
-                    }
-                    if (PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1))
-                    {
-                        
-                        if (!takeSample)
-                            Destroy(nearest.gameObject);
-                        else
-                            EquipmentManager.instance.UnEquipAndDestroy(0); 
-                    }
 
-                }
-            } 
-            else if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
-            {
-                foreach (QI_ItemData itemData in nearestItemList.dataList)
+                if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
                 {
                     for (int i = 0; i < gatherItemData.Count; i++)
                     {
-                        if (gatherItemData[i] != itemData)
+                        if (gatherItemData[i] != nearestItem.Data)
                         {
                             continue;
                         }
-                        if(nearestItemList.RemoveItem())
+                        if (PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1))
                         {
-                            if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
+
+                            if (!takeSample)
+                                Destroy(nearest.gameObject);
+                            else
+                                EquipmentManager.instance.UnEquipAndDestroy(0);
+                        }
+
+                    }
+                }
+                else if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
+                {
+                    foreach (QI_ItemData itemData in nearestItemList.dataList)
+                    {
+                        for (int i = 0; i < gatherItemData.Count; i++)
+                        {
+                            if (gatherItemData[i] != itemData)
                             {
-
-                                if (!takeSample)
+                                continue;
+                            }
+                            if (nearestItemList.RemoveItem())
+                            {
+                                if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
                                 {
-                                    Destroy(nearest.gameObject);
+
+                                    if (!takeSample)
+                                    {
+                                        Destroy(nearest.gameObject);
+                                    }
+                                    else if (oneUse)
+                                    {
+
+                                        EquipmentManager.instance.UnEquipAndDestroy(0);
+                                    }
+
                                 }
-                                else if (oneUse)
+                            }
+
+                        }
+                    }
+                }
+            }
+            else
+            {
+
+                if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
+                {
+                    if (!nearestItemList.hasBeenHarvested)
+                    {
+                        foreach (QI_ItemData itemData in nearestItemList.dataList)
+                        {
+                            for (int i = 0; i < gatherItemData.Count; i++)
+                            {
+                                if (gatherItemData[i] != itemData)
                                 {
-
-                                    EquipmentManager.instance.UnEquipAndDestroy(0);
+                                    continue;
                                 }
-
+                                MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
+                                nearestItemList.hasBeenHarvested = true;
                             }
                         }
                         
                     }
                 }
+                if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
+                {
+                    foreach (QI_ItemData itemData in gatherItemData)
+                    {
+                        if(itemData == nearestItem.Data)
+                            MiniGameManager.instance.StartMiniGame(miniGameType, nearestItem.Data, nearest.gameObject);
+                    }
+                }
             }
         }
+        
 
     }
 

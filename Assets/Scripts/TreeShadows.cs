@@ -19,11 +19,12 @@ public class TreeShadows : MonoBehaviour
         dayNightCycle = DayNightCycle.instance;
         dayNightCycle.FullHourEventCallBack.AddListener(StartShadows);
         LevelManager.instance.EventLevelLoaded.AddListener(ResetShadows);
+        ResetShadows();
     }
     public void ResetShadows()
     {
-        StopCoroutine(DayTimeShadows());
-        StartCoroutine(DayTimeShadows());
+        StopCoroutine("DayTimeShadows");
+        StartCoroutine("DayTimeShadows");
     }
     public void StartShadows(int time)
     {
@@ -31,12 +32,12 @@ public class TreeShadows : MonoBehaviour
         {
             shadowTransform.gameObject.SetActive(true);
             
-            StartCoroutine(StartShadowsCo());
+            StartCoroutine("StartShadowsCo");
         }
     }
     IEnumerator StartShadowsCo()
     {
-        StartCoroutine(DayTimeShadows());
+        StartCoroutine("DayTimeShadows");
         float elapsedTime = dayNightCycle.minutes;
         float waitTime = dayNightCycle.minutes + 40f;
         
@@ -62,12 +63,12 @@ public class TreeShadows : MonoBehaviour
         
         while (elapsedTime < waitTime + 40)
         {
-            float zRotation = Mathf.Lerp(0, -120, (elapsedTime - 300) / (waitTime - 300));
+            float zRotation = Mathf.Lerp(60, -60, (elapsedTime - 300) / (waitTime - 300));
             
             shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
             elapsedTime = dayNightCycle.currentTimeRaw;
             if(elapsedTime==waitTime)
-                StartCoroutine(EndShadowsCo());
+                StartCoroutine("EndShadowsCo");
             yield return null;
         }
         
