@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ca21c0e757240dbab4035a05557532, type: 3}
+  m_Name: TreeShrineQuest
+  m_EditorClassIdentifier: 
+  Quest:
+    ID: 0
+    Name: White Flower Quest
+    NPCName: 
+    Description: Help the white flower regain its health.
+    Status: 0
+    RequiredCompleted: 0
+    Completed: 0
+    Tasks:
+    - ID: 1
+      Name: Collect 10 sticks
+      Description: 
+      NextTasks: 
+      Progress: 0
+      MaxProgress: 1
+      Optional: 0
+      Completed: 0
+    - ID: 2
+      Name: Collect 10 stones
+      Description: 
+      NextTasks: 
+      Progress: 0
+      MaxProgress: 1
+      Optional: 0
+      Completed: 0
+    - ID: 3
+      Name: Collect all the items
+      Description: 
+      NextTasks: 0100000002000000
+      Progress: 0
+      MaxProgress: 2
+      Optional: 0
+      Completed: 0
+    FirstTasks: 03000000
