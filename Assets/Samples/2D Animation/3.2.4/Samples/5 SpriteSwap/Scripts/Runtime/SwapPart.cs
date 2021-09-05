@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.U2D.Animation;
+
 using UnityEngine.UI;
 
 namespace Unity.U2D.Animation.Sample
@@ -12,13 +12,13 @@ namespace Unity.U2D.Animation.Sample
     public struct SwapOptionData
     {
         public Dropdown dropdown;
-        public SpriteResolver spriteResolver;
+        public UnityEngine.U2D.Animation.SpriteResolver spriteResolver;
         public string category;
     }
 
     public class SwapPart : MonoBehaviour
     {
-        public SpriteLibraryAsset spriteLibraryAsset;
+        public UnityEngine.U2D.Animation.SpriteLibraryAsset spriteLibraryAsset;
         public SwapOptionData[] swapOptionData;
 
         // Start is called before the first frame update

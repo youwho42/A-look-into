@@ -2,15 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.U2D.Animation;
+
 using UnityEngine.UI;
 
 namespace Unity.U2D.Animation.Sample
 {
     public class SwapFullSkin : MonoBehaviour
     {
-        public SpriteLibraryAsset[] spriteLibraries;
-        public SpriteLibrary spriteLibraryTarget;
+        public UnityEngine.U2D.Animation.SpriteLibraryAsset[] spriteLibraries;
+        public UnityEngine.U2D.Animation.SpriteLibrary spriteLibraryTarget;
         public Dropdown dropDownSelection;
 
         // Start is called before the first frame update

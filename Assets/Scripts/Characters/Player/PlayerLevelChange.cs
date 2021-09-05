@@ -6,10 +6,12 @@ using UnityEngine.Tilemaps;
 
 public class PlayerLevelChange : MonoBehaviour
 {
+
+
     public Transform playerFeetPosition;
     public Grid groundGrid;
     public Tilemap groundMap;
-    
+
     public int playerLevel;
 
     public UnityEvent playerChangeLevelEvent;
@@ -27,38 +29,38 @@ public class PlayerLevelChange : MonoBehaviour
             playerChangeLevelEvent = new UnityEvent();
         }
         InitializePlayerLocation();
-        
-        
+
+
     }
     private void Update()
     {
 
-        if(lastTilePosition != CurrentGridLocation())
+        if (lastTilePosition != CurrentGridLocation())
         {
             tilePosZ = GetTileLocation();
             lastTilePosition = CurrentGridLocation();
-            
+
         }
-        
+
 
         if (playerLevel != tilePosZ && Mathf.Abs(playerLevel - tilePosZ) == 1)
         {
             playerLevel = tilePosZ;
 
-            
+
 
             transform.position = new Vector3(transform.position.x, transform.position.y, playerLevel);
             playerChangeLevelEvent.Invoke();
         }
-        
+
     }
 
-    
+
 
     int GetTileLocation()
     {
         int tilesHit = 0;
-        
+
         Vector3Int currentPosition = CurrentGridLocation();
 
 
@@ -80,19 +82,19 @@ public class PlayerLevelChange : MonoBehaviour
         playerPosition = new Vector3(playerPosition.x, playerPosition.y + (tileScale * (playerLevel - 1)), 0f);
 
         Vector3Int checkPosition = groundGrid.WorldToCell(playerPosition);
-        
+
         return checkPosition;
     }
 
-    
+
 
     public void InitializePlayerLocation()
     {
         lastTilePosition = CurrentGridLocation();
         playerLevel = GetTileLocation();
-      
+
         playerChangeLevelEvent.Invoke();
     }
 
-   
+
 }
