@@ -7,92 +7,48 @@ using UnityEngine.Tilemaps;
 public class PlayerLevelChange : MonoBehaviour
 {
 
-
-    public Transform playerFeetPosition;
-    public Grid groundGrid;
-    public Tilemap groundMap;
-
     public int playerLevel;
 
     public UnityEvent playerChangeLevelEvent;
 
-    float tileScale;
-    int tilePosZ;
-
-    Vector3Int lastTilePosition;
+    CurrentGridLocation currentLocation;
 
     private void Start()
     {
-        tileScale = (groundGrid.cellSize.y * -0.5f) - 0.01f;
+        currentLocation = GetComponent<CurrentGridLocation>();
         if (playerChangeLevelEvent == null)
         {
             playerChangeLevelEvent = new UnityEvent();
         }
-        InitializePlayerLocation();
-
-
+        UpdatePlayerLocation();
     }
+
     private void Update()
     {
-
-        if (lastTilePosition != CurrentGridLocation())
+        if (Time.frameCount % 30 == 0)
         {
-            tilePosZ = GetTileLocation();
-            lastTilePosition = CurrentGridLocation();
-
-        }
-
-
-        if (playerLevel != tilePosZ && Mathf.Abs(playerLevel - tilePosZ) == 1)
-        {
-            playerLevel = tilePosZ;
-
-
-
-            transform.position = new Vector3(transform.position.x, transform.position.y, playerLevel);
-            playerChangeLevelEvent.Invoke();
-        }
-
-    }
-
-
-
-    int GetTileLocation()
-    {
-        int tilesHit = 0;
-
-        Vector3Int currentPosition = CurrentGridLocation();
-
-
-        for (int i = 0; i < groundMap.size.z; i++)
-        {
-            currentPosition.z = i;
-            TileBase tile = groundMap.GetTile(currentPosition);
-            if (tile != null)
+            if (currentLocation.lastTilePosition != currentLocation.GetCurrentGridLocation())
             {
-                tilesHit++;
+                currentLocation.UpdateLocation();
+            }
+
+            if (playerLevel != currentLocation.currentLevel && Mathf.Abs(playerLevel - currentLocation.currentLevel) == 1)
+            {
+                playerLevel = currentLocation.currentLevel;
+                Vector3 v = new Vector3(transform.position.x, transform.position.y, playerLevel);
+                transform.position = v;
+                playerChangeLevelEvent.Invoke();
             }
         }
-        return tilesHit;
+        
+
+        
     }
 
-    Vector3Int CurrentGridLocation()
+    public void UpdatePlayerLocation()
     {
-        Vector3 playerPosition = playerFeetPosition.position;
-        playerPosition = new Vector3(playerPosition.x, playerPosition.y + (tileScale * (playerLevel - 1)), 0f);
-
-        Vector3Int checkPosition = groundGrid.WorldToCell(playerPosition);
-
-        return checkPosition;
-    }
-
-
-
-    public void InitializePlayerLocation()
-    {
-        lastTilePosition = CurrentGridLocation();
-        playerLevel = GetTileLocation();
-
+        currentLocation.UpdateLocation();
+        playerLevel = currentLocation.currentLevel;
         playerChangeLevelEvent.Invoke();
     }
 

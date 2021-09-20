@@ -34,6 +34,8 @@ public class SimpleRotate : MonoBehaviour
 
     IEnumerator RotateCo(float time)
     {
+        Debug.Log("Reached coroutine");
+        
         int rand = Random.Range(0, 360);
         float elapsedTime = 0;
         float waitTime = time;

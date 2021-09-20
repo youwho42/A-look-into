@@ -11,14 +11,18 @@ public class EquipmentManager : MonoBehaviour
     public static EquipmentManager instance;
     public UnityEvent EventUIUpdateEquipment;
     public SpriteRenderer handEquipmentHolder;
-    public SpriteRenderer beltEquipmentHolder;
+    public SpriteRenderer hatEquipmentHolder;
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+        }
         else
+        {
             Destroy(this);
-
+        }
+            
         totalSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new QI_ItemData[totalSlots];
     }
@@ -27,9 +31,14 @@ public class EquipmentManager : MonoBehaviour
     {
         currentEquipment[equipedIndex] = newItem;
         if (equipedIndex == (int)EquipmentSlot.Hands)
+        {
             handEquipmentHolder.sprite = newItem.Icon;
-        if (equipedIndex == (int)EquipmentSlot.Extra)
-            beltEquipmentHolder.sprite = newItem.Icon;
+        }
+        if (equipedIndex == (int)EquipmentSlot.Head)
+        {
+            var go = Instantiate(newItem.EquipedItem, hatEquipmentHolder.transform);
+            go.transform.localPosition = Vector3.zero;
+        }
         EventUIUpdateEquipment.Invoke();
     }
   
@@ -39,9 +48,14 @@ public class EquipmentManager : MonoBehaviour
         {
             currentEquipment[equipedIndex] = null;
             if (equipedIndex == (int)EquipmentSlot.Hands)
+            {
                 handEquipmentHolder.sprite = null;
+            }
+            if (equipedIndex == (int)EquipmentSlot.Head)
+            {
+                Destroy(hatEquipmentHolder.transform.GetChild(0).gameObject);
+            }
             EventUIUpdateEquipment.Invoke();
-
             return true;
         }
         return false;
@@ -50,7 +64,9 @@ public class EquipmentManager : MonoBehaviour
     public void UnEquipAndDestroy(int equipedIndex)
     {
         if (equipedIndex == (int)EquipmentSlot.Hands)
+        {
             handEquipmentHolder.sprite = null;
+        }
         currentEquipment[equipedIndex] = null;
         EventUIUpdateEquipment.Invoke();
     }
@@ -59,7 +75,6 @@ public class EquipmentManager : MonoBehaviour
         for (int i = 0; i < currentEquipment.Length; i++)
         {
             currentEquipment[i] = null;
-
         }
         handEquipmentHolder.sprite = null;
         EventUIUpdateEquipment.Invoke();

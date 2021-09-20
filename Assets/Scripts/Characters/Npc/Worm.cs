@@ -9,7 +9,7 @@ public class Worm : MonoBehaviour
     public GameObject worm;
 
     
-    CircleCollider2D collider2D;
+    CircleCollider2D peckCollider;
 
     float emergeTime;
     float wiggleTime;
@@ -20,37 +20,14 @@ public class Worm : MonoBehaviour
     private void Start()
     {
         animator = worm.GetComponent<Animator>();
-        collider2D = GetComponent<CircleCollider2D>();
+        peckCollider = GetComponent<CircleCollider2D>();
         
         isEmerged = false;
         ResetWiggleTime();
         worm.SetActive(false);
     }
 
-    // Start is called before the first frame update
-    //IEnumerator Start()
-    //{
-    //    ResetWiggleTime();
-    //    animator = worm.GetComponent<Animator>();
-    //    worm.SetActive(false);
-
-
-    //    while (true)
-    //    {
-
-    //        Debug.Log("FirstWhile");
-    //        while (emergeTime > 0)
-    //        {
-    //            Debug.Log("secondWhile");
-    //            emergeTime -= Time.deltaTime;
-    //            yield return new WaitForEndOfFrame();
-    //        }
-
-    //        ForceWormEmerge();
-    //        yield return new WaitForSeconds(wiggleTime + 3f);
-    //    }
-    //}
-
+   
     private void Update()
     {
         if(!isEmerged && !isEaten)
@@ -87,7 +64,7 @@ public class Worm : MonoBehaviour
         
     public void WormEaten()
     {
-        collider2D.enabled = false;
+        peckCollider.enabled = false;
         worm.SetActive(false);
         isEaten = true;
         emergeTime = 60.0f;
@@ -96,7 +73,7 @@ public class Worm : MonoBehaviour
 
     void ResetWorm()
     {
-        collider2D.enabled = true;
+        peckCollider.enabled = true;
         
         ResetWiggleTime();
         isEaten = false;

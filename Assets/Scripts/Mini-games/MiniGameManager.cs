@@ -39,8 +39,9 @@ public class MiniGameManager : MonoBehaviour
                 if (game.miniGameType == miniGameType)
                 {
                     game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(1, 0, 100);
-                    game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
                     game.miniGame.SetActive(true);
+                    game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
+                    
                     
                 }
             }

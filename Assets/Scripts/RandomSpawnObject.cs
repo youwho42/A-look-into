@@ -16,6 +16,7 @@ public class RandomSpawnObject : MonoBehaviour
     public int maxSpawnAmount;
     int quantity;
     public int timeToSpawn;
+    public PolygonCollider2D spawnArea;
 
     private void Start()
     {
@@ -94,7 +95,7 @@ public class RandomSpawnObject : MonoBehaviour
 
     Vector3Int GetRandomTilePosition()
     {
-        Vector3Int rand = new Vector3Int(UnityEngine.Random.Range(groundMap.cellBounds.xMin, groundMap.cellBounds.xMax), UnityEngine.Random.Range(groundMap.cellBounds.yMin, groundMap.cellBounds.yMax), 0);
+        Vector3Int rand = new Vector3Int(UnityEngine.Random.Range(groundMap.cellBounds.xMin+5, groundMap.cellBounds.xMax-5), UnityEngine.Random.Range(groundMap.cellBounds.yMin+6, groundMap.cellBounds.yMax-6), 0);
         
         rand.z = GetTileLocation(rand);
         

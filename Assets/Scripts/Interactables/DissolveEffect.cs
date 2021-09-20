@@ -23,6 +23,7 @@ public class DissolveEffect : MonoBehaviour
 
     IEnumerator StartDissolveCo(Material material, float dissolveTime, bool dissovleIn)
     {
+        
         float timePercentage = 0f;
         float fadeTime = 2f;
         int from = dissovleIn ? 0 : 1;

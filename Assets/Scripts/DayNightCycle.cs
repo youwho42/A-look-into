@@ -65,8 +65,8 @@ public class DayNightCycle : MonoBehaviour
     {
         fullHour = true;
         FullHourEventCallBack.Invoke(hours);
-        if (hours == 5)
-            AudioManager.instance.PlaySound("Rooster");
+        /*if (hours == 5)
+            AudioManager.instance.PlaySound("Rooster");*/
     }
 
     void SetDayOrNight()
@@ -130,7 +130,6 @@ public class DayNightCycle : MonoBehaviour
     // light changes in accordance with current time tick
     IEnumerator ChangeLight(float amount)
     {
-        Debug.Log(amount);
         float elapsedTime = minutes;
         float waitTime = minutes + 40f;
         float intensity = sun.intensity;
@@ -141,7 +140,6 @@ public class DayNightCycle : MonoBehaviour
 
             yield return null;
         }
-        Debug.Log(amount);
         sun.intensity = amount;
         yield return null;
     }

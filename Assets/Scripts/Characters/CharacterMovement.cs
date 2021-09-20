@@ -13,7 +13,8 @@ public class CharacterMovement : MonoBehaviour
     }
     public void Move(Vector3 movement, float moveSpeed)
     {
-        body.velocity = movement * moveSpeed * Time.fixedDeltaTime;
+        Vector2 move = movement * moveSpeed * Time.fixedDeltaTime;
+        body.velocity = move;
         if (movement == Vector3.zero)
         {
             body.velocity = Vector2.zero;

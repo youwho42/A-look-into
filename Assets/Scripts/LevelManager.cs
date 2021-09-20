@@ -37,11 +37,13 @@ public class LevelManager : MonoBehaviour
     private GameObject pauseMenu;
     [SerializeField]
     private GameObject newGameWarning;
+    [SerializeField]
+    private GameObject controlsPanel;
 
 
 
     [SerializeField]
-    private Slider slider;
+    private Slider loadScreenSlider;
 
     [SerializeField]
     private TextMeshProUGUI text;
@@ -91,6 +93,20 @@ public class LevelManager : MonoBehaviour
     public void Pause(bool isPaused)
     {
         pauseMenu.SetActive(isPaused);
+        HideControls();
+    }
+    public void ViewControls()
+    {
+        controlsPanel.SetActive(true);
+    }
+    public void HideControls()
+    {
+        controlsPanel.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     IEnumerator ChangeLevelCo (string levelName)
@@ -102,7 +118,7 @@ public class LevelManager : MonoBehaviour
         {
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
-            slider.value = progress;
+            loadScreenSlider.value = progress;
             text.text = $"Loading: {Mathf.RoundToInt(progress * 100)}%";
 
             yield return null;
@@ -128,7 +144,7 @@ public class LevelManager : MonoBehaviour
             
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
-            slider.value = progress;
+            loadScreenSlider.value = progress;
             text.text = $"Loading: {Mathf.RoundToInt(progress * 100)}%";
 
             

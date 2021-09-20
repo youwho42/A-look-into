@@ -23,7 +23,7 @@ public class LocationSaveSystem : MonoBehaviour, ISaveable
         if (isPlayer)
         {
             SetCollisionLayers.instance.SetCollisionLayer();
-            FindObjectOfType<PlayerLevelChange>().InitializePlayerLocation();
+            FindObjectOfType<PlayerLevelChange>().UpdatePlayerLocation();
         }
             
     }

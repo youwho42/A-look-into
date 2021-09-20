@@ -10,6 +10,7 @@ public class Playermovement : MonoBehaviour
     PlayerInput playerInput;
     CharacterMovement characterMovement;
     public bool facingRight;
+    public bool isInAction;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class Playermovement : MonoBehaviour
 
     private void Update()
     {
+
         if (playerInput.movement.x != 0)
         {
             if (playerInput.movement.x > 0.01f && !facingRight)
@@ -35,9 +37,10 @@ public class Playermovement : MonoBehaviour
 
     void FixedUpdate()
     {
-
-        characterMovement.Move(playerInput.movement, moveSpeed);
-        
+        if (!isInAction)
+            characterMovement.Move(playerInput.movement, moveSpeed);
+        else
+            characterMovement.Move(Vector2.zero, 0);
     }
 
     void Flip()

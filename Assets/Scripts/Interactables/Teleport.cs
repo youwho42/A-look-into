@@ -48,7 +48,7 @@ public class Teleport : Interactable
         yield return new WaitForSeconds(2f);
         activeTeleport.SetActive(false);
         activeTeleport.transform.position = new Vector3(teleportTwin.position.x, teleportTwin.position.y, teleportTwinLevel);
-        activeTeleport.GetComponent<PlayerLevelChange>().InitializePlayerLocation();
+        activeTeleport.GetComponent<PlayerLevelChange>().UpdatePlayerLocation();
         SetCollisionLayers.instance.SetCollisionLayer();
         yield return new WaitForSeconds(1f);
 

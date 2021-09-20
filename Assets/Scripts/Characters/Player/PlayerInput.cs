@@ -15,7 +15,9 @@ public class PlayerInput : MonoBehaviour
     public bool isPaused;
 
 
-    
+
+
+
     void Update()
     {
         if (!isPaused)
@@ -27,6 +29,7 @@ public class PlayerInput : MonoBehaviour
 
             usingEquippedItem = Input.GetMouseButtonDown(0); 
         }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;
@@ -34,4 +37,5 @@ public class PlayerInput : MonoBehaviour
         }
             
     }
+
 }

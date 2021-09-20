@@ -7,11 +7,11 @@ public class PlayerUseEquipment : MonoBehaviour
     EquipmentManager equipmentManager;
     PlayerInput playerInput;
     public Animator animator;
+
     private void Start()
     {
         equipmentManager = EquipmentManager.instance;
         playerInput = GetComponent<PlayerInput>();
-        
     }
 
 
@@ -25,6 +25,5 @@ public class PlayerUseEquipment : MonoBehaviour
                 animator.SetTrigger("Swing");
             }
         }
-        
     }
 }

@@ -5,29 +5,39 @@ using UnityEngine.Tilemaps;
 
 public class CurrentGridLocation : MonoBehaviour
 {
- 
+
+    public Transform groundPosition;
     public Grid groundGrid;
     public Tilemap groundMap;
 
     public int currentLevel;
 
-    const float tileScale = 0.27808595f;
+    float tileScale;
+    int tilePosZ;
 
     public Vector3Int lastTilePosition;
 
-    
 
-   /* private void Update()
+    private void Start()
     {
-        if (transform.position.z != GetTileLocation())
-        {
-            InitializeLocation();
-        }
-    }*/
-    public void InitializeLocation()
+        tileScale = (groundGrid.cellSize.y * -0.5f) - 0.01f;
+        UpdateLocation();
+
+    }
+  
+
+    public void UpdateLocation()
     {
         lastTilePosition = GetCurrentGridLocation();
-        currentLevel = GetTileLocation();
+        tilePosZ = GetTileLocation();
+        currentLevel = tilePosZ;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
+    }
+    public void UpdateLocationAndPosition()
+    {
+        lastTilePosition = GetCurrentGridLocation();
+        tilePosZ = GetTileLocation();
+        currentLevel = tilePosZ;
         transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
     }
 
@@ -52,7 +62,7 @@ public class CurrentGridLocation : MonoBehaviour
 
     public Vector3Int GetCurrentGridLocation()
     {
-        Vector3 currentPosition = transform.position;
+        Vector3 currentPosition = groundPosition.position;
         currentPosition = new Vector3(currentPosition.x, currentPosition.y + (tileScale * (currentLevel - 1)), 0f);
 
         Vector3Int checkPosition = groundGrid.WorldToCell(currentPosition);
