@@ -34,7 +34,7 @@ public class ButterflyAI : MonoBehaviour
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
-        
+        currentState = FlyingState.isFlying;
         
     }
 
@@ -145,4 +145,7 @@ public class ButterflyAI : MonoBehaviour
             }
         }
     }
+
+
+
 }

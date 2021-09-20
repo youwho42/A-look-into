@@ -20,9 +20,21 @@ public class CurrentGridLocation : MonoBehaviour
 
     private void Start()
     {
+        if (groundGrid == null)
+        {
+            groundGrid = FindObjectOfType<Grid>();
+            Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
+            foreach (var map in maps)
+            {
+                if(map.gameObject.name == "GroundTiles")
+                {
+                    groundMap = map;
+                }
+            }
+        }
+
         tileScale = (groundGrid.cellSize.y * -0.5f) - 0.01f;
         UpdateLocation();
-
     }
   
 

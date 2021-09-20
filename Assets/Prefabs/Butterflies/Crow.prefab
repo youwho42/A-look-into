@@ -173,13 +173,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flyBaseSpeed: 1.5
   centerOfActiveArea: {fileID: 0}
+  activeAreaBaseTagName: OpenCrowSpot
+  activeAreaBaseLayer:
+    serializedVersion: 2
+    m_Bits: 131072
   minMaxZRange: {x: 2, y: 6}
   characterSprite: {fileID: 1171894187104016982}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   pathAngle: 0.5
-  sizeMultiplier: 100
 --- !u!114 &5976396792754375801
 MonoBehaviour:
   m_ObjectHideFlags: 0

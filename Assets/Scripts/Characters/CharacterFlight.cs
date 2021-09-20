@@ -7,6 +7,7 @@ public class CharacterFlight : MonoBehaviour
 
     public float flyBaseSpeed;
     public Transform centerOfActiveArea;
+    public string activeAreaBaseTagName;
     public Vector2 minMaxZRange;
     public Transform characterSprite;
     SpriteRenderer characterRenderer;
@@ -42,9 +43,18 @@ public class CharacterFlight : MonoBehaviour
         currentGridLocation = GetComponent<CurrentGridLocation>();
         currentGridLocation.UpdateLocationAndPosition();
         thisTransform = transform;
+        if (centerOfActiveArea == null)
+        {
+            Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 10);
+            if (hit.Length > 0)
+            {
+                GetNearestBase(hit);
+            }
+        }
         mainPoints = new Vector2[3];
         subPoints = new Vector3[3];
         SetRandomDestination();
+        
     }
 
     public void Move()
@@ -108,5 +118,31 @@ public class CharacterFlight : MonoBehaviour
         Vector2 dir = currentDestination - transform.position;
         var direction = Mathf.Sign(dir.x);
         characterRenderer.flipX = direction > 0;
+    }
+
+    public void GetNearestBase(Collider2D[] colliders)
+    {
+        // Find nearest item.
+        Collider2D nearest = null;
+        float distance = 0;
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].CompareTag(activeAreaBaseTagName))
+            {
+                float tempDistance = Vector3.Distance(transform.position, colliders[i].transform.position);
+                if (nearest == null || tempDistance < distance)
+                {
+                    nearest = colliders[i];
+                    distance = tempDistance;
+                }
+            }
+
+        }
+        if (nearest != null)
+        {
+            centerOfActiveArea = nearest.transform;
+        }
+
     }
 }

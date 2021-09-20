@@ -173,13 +173,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flyBaseSpeed: 8
   centerOfActiveArea: {fileID: 0}
+  activeAreaBaseTagName: OpenFlower
+  activeAreaBaseLayer:
+    serializedVersion: 2
+    m_Bits: 65536
   minMaxZRange: {x: 0.1, y: 1.5}
   characterSprite: {fileID: 4720702768505272641}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   pathAngle: 0.3
-  sizeMultiplier: 100
 --- !u!114 &4720702768676041347
 MonoBehaviour:
   m_ObjectHideFlags: 0
