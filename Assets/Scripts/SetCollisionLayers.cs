@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,6 +9,8 @@ public class SetCollisionLayers : MonoBehaviour
     public static SetCollisionLayers instance;
     public List<Tilemap> collisionTilemap = new List<Tilemap>();
     private PlayerLevelChange player;
+
+    
 
     private void Awake()
     {
@@ -21,6 +24,10 @@ public class SetCollisionLayers : MonoBehaviour
         player = FindObjectOfType<PlayerLevelChange>();
         //player.playerChangeLevelEvent.AddListener(SetCollisionLayer);
     }
+
+
+    
+
 
     public void SetCollisionLayer()
     {

@@ -7,38 +7,42 @@ public class ItemGravity : MonoBehaviour
 
     public Transform itemObject;
     const float groundPlacement = 0.001f;
-    const float gravity = -20f;
+    const float gravity = 20f;
 
     public float positionZ;
     public readonly float spriteDisplacementY = 0.27808595f;
     public Vector3 displacedPosition;
     public bool isGrounded;
-
+   
 
     private void Start()
     {
-        displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
-        itemObject.localPosition = displacedPosition;
+        ResetStartingPosition(10);
     }
 
     private void Update()
     {
         isGrounded = itemObject.localPosition.y <= groundPlacement;
-        displacedPosition = Vector3.zero;
+        
         if (!isGrounded)
         {
-            positionZ += gravity * Time.deltaTime;
+            positionZ -= gravity * Time.deltaTime;
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
-            itemObject.transform.Translate(displacedPosition * Time.deltaTime);
-        } 
-        else
-        {
-            positionZ = 0;
-            itemObject.localPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ + 0.01f);
+            itemObject.localPosition = displacedPosition;
+            //itemObject.Translate(displacedPosition * Time.deltaTime);
         }
-
         
+     
+
+
     }
 
+    public void ResetStartingPosition(float posZ)
+    {
+        positionZ = posZ;
+        displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
+        itemObject.localPosition = displacedPosition;
+    }
     
+
 }

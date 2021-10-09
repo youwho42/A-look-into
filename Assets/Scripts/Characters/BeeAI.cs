@@ -14,6 +14,7 @@ public class BeeAI : MonoBehaviour
     CharacterFlight flight;
     public Animator animator;
     bool isSleeping;
+    bool isRaining;
     public Transform home;
     DrawZasYDisplacement displacmentZ;
     RandomBeeSounds beeSounds;
@@ -99,7 +100,7 @@ public class BeeAI : MonoBehaviour
 
             case FlyingState.isAtDestination:
 
-                if (!isSleeping)
+                if (!isSleeping || !isRaining)
                 {
                     timeToStayAtDestination -= Time.deltaTime;
                     if (timeToStayAtDestination <= 0)
@@ -164,6 +165,33 @@ public class BeeAI : MonoBehaviour
             {
                 currentFlower.tag = "ClosedFlower";
             }
+        }
+        if (collision.CompareTag("RainStorm") && !isRaining)
+        {
+            isRaining = true;
+            flight.SetDestination(home.position, displacmentZ.displacedPosition);
+            currentState = FlyingState.isLanding;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("RainStorm"))
+        {
+            if (isRaining && !isSleeping)
+            {
+                flight.SetRandomDestination(roamingArea);
+                currentState = FlyingState.isFlying;
+                justTookOff = true;
+                detectionTimeOutTimer = 0;
+
+                animator.SetBool("IsLanded", false);
+                if (currentFlower != null)
+                {
+                    currentFlower.tag = "ClosedFlower";
+                }
+            }
+            isRaining = false;
         }
     }
 }

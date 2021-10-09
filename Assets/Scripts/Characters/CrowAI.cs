@@ -18,10 +18,11 @@ public class CrowAI : MonoBehaviour
     public Transform home;
     DrawZasYDisplacement displacmentZ;
     AnimalSounds sounds;
+    bool isRaining;
 
     [SerializeField]
-    private FlyingState currentState;
-    enum FlyingState
+    public FlyingState currentState;
+    public enum FlyingState
     {
         isAtDestination,
         isFlying,
@@ -103,16 +104,14 @@ public class CrowAI : MonoBehaviour
             
 
             case FlyingState.isAtDestination:
-                if (!isSleeping)
+                if (!isSleeping || !isRaining)
                 {
                     glideTimer -= Time.deltaTime;
                     if (glideTimer <= 0)
                     {
-
                         glideTimer = SetRandomRange(0.2f, 5.0f);
                         animator.SetTrigger("Idle");
                     }
-
 
                     timeToStayAtDestination -= Time.deltaTime;
 
@@ -128,6 +127,7 @@ public class CrowAI : MonoBehaviour
                     }
                     if (sounds.mute)
                         sounds.mute = false;
+                    
                 }
                 else
                 {
@@ -211,6 +211,34 @@ public class CrowAI : MonoBehaviour
                 currentLandingSpot.tag = "OpenCrowSpot";
             }
             
+        }
+        if (collision.CompareTag("RainStorm") && !isRaining && !isSleeping)
+        {
+            isRaining = true;
+            flight.SetDestination(home.position, displacmentZ.displacedPosition);
+            currentState = FlyingState.isLanding;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("RainStorm"))
+        {
+            if (isRaining && !isSleeping)
+            {
+                flight.SetRandomDestination(roamingArea);
+                currentState = FlyingState.isFlying;
+                justTookOff = true;
+                detectionTimeOutTimer = 0;
+                detectionTimeOutAmount = SetRandomRange(5, 60);
+                animator.SetBool("isLanded", false);
+
+                if (currentLandingSpot != null)
+                {
+                    currentLandingSpot.tag = "OpenCrowSpot";
+                }
+            }
+            isRaining = false;
         }
     }
 }

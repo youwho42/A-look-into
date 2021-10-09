@@ -53,27 +53,7 @@ public class ChickenAI : MonoBehaviour
                     walk.SetRandomDestination(roamingArea);
 
                 }
-                /*flight.Move();
-                if (justTookOff)
-                {
-
-                    if (currentFlower != null)
-                    {
-                        currentFlower.tag = "OpenFlower";
-                    }
-
-                    detectionTimeOutTimer += Time.deltaTime;
-                    if (detectionTimeOutTimer >= detectionTimeOutAmount)
-                    {
-                        justTookOff = false;
-                    }
-                }
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
-                {
-                    flight.SetRandomDestination(roamingArea);
-
-                }
-                captureCollider.offset = flight.characterSprite.localPosition;*/
+                
                 break;
 
 
@@ -149,27 +129,6 @@ public class ChickenAI : MonoBehaviour
             isPecking = true;
             currentState = CurrentState.isPecking;
         }
-        /*if (collision.GetComponent<DrawZasYDisplacement>() != null && !justTookOff && collision.CompareTag("OpenFlower") && currentState == CurrentState.isWalking)
-        {
-            var temp = collision.GetComponent<DrawZasYDisplacement>();
-            flight.SetDestination(temp.transform.position, temp.displacedPosition);
-            currentState = CurrentState.isPecking;
-            justTookOff = true;
-            detectionTimeOutTimer = 0;
-            currentFlower = collision;
-            currentFlower.tag = "ClosedFlower";
-        }
-        if (collision.CompareTag("Player"))
-        {
-            flight.SetRandomDestination(roamingArea * 2);
-            currentState = CurrentState.isWalking;
-            justTookOff = true;
-            detectionTimeOutTimer = 0;
-            animator.SetBool("IsLanded", false);
-            if (currentFlower != null)
-            {
-                currentFlower.tag = "ClosedFlower";
-            }
-        }*/
+        
     }
 }

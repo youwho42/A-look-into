@@ -8,8 +8,13 @@ public class SimpleRotate : MonoBehaviour
     public float speed;
     int direction;
     public bool rotateOnUpdate;
+    Vector3 startRotation;
 
-  
+    private void Start()
+    {
+        startRotation = transform.eulerAngles;
+    }
+
     void Update()
     {
         if(rotateOnUpdate)
@@ -20,7 +25,20 @@ public class SimpleRotate : MonoBehaviour
     {
         direction = Random.Range(0, 2) * 2 - 1;
     }
+    
+    public void SetRotationDirection(int directionToSet)
+    {
+        direction = directionToSet;
+    }
 
+    public void ResetStartRotation()
+    {
+        transform.eulerAngles = startRotation;
+    }
+    public void SetRotation(int rotation)
+    {
+        transform.Rotate(0, 0, rotation);
+    }
     public void RandomizeRotation()
     {
         int rand = Random.Range(0, 360);
@@ -34,7 +52,6 @@ public class SimpleRotate : MonoBehaviour
 
     IEnumerator RotateCo(float time)
     {
-        Debug.Log("Reached coroutine");
         
         int rand = Random.Range(0, 360);
         float elapsedTime = 0;

@@ -15,7 +15,8 @@ public class ButterflyAI : MonoBehaviour
     CharacterFlight flight;
     public Animator animator;
     bool isSleeping;
-    
+    bool isRaining;
+
     [SerializeField]
     public FlyingState currentState;
 
@@ -84,7 +85,7 @@ public class ButterflyAI : MonoBehaviour
 
             case FlyingState.isAtDestination:
 
-                if (!isSleeping)
+                if (!isSleeping || !isRaining)
                 {
                     timeToStayAtDestination -= Time.deltaTime;
                     if (timeToStayAtDestination <= 0)
@@ -143,6 +144,18 @@ public class ButterflyAI : MonoBehaviour
             {
                 currentFlower.tag = "ClosedFlower";
             }
+        }
+        if (collision.CompareTag("RainStorm") && !isRaining && !isSleeping)
+        {
+            isRaining = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("RainStorm") && isRaining)
+        {
+            isRaining = false;
         }
     }
 

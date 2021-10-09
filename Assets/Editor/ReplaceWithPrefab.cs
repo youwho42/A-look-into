@@ -25,7 +25,7 @@ public class ReplaceWithPrefab : EditorWindow
                 var prefabType = PrefabUtility.GetPrefabAssetType(prefab);
                 GameObject newObject;
 
-                if (prefabType == PrefabAssetType.Regular)
+                if (prefabType == PrefabAssetType.Regular || prefabType == PrefabAssetType.Variant)
                 {
                     newObject = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
                 }

@@ -4,31 +4,57 @@ using UnityEngine;
 
 public class WindSpawner : MonoBehaviour
 {
-    ObjectPooler objectPool;
-    PlayerInformation player;
+    public Vector2 minMaxTimeToSpawn;
     float timeToSpawn;
+    float nextTimeToSpawn;
+    PlayerInformation player;
+    ObjectPooler pool;
     private void Start()
     {
+        pool = GetComponent<ObjectPooler>();
         player = PlayerInformation.instance;
-        objectPool = ObjectPooler.instance;
-        timeToSpawn = SetTimeToSpawn();
+        nextTimeToSpawn = Random.Range(minMaxTimeToSpawn.x, minMaxTimeToSpawn.y);
     }
     private void Update()
     {
-        timeToSpawn -= Time.deltaTime;
-        if (timeToSpawn <= 0)
+        timeToSpawn += Time.deltaTime;
+        if(timeToSpawn >= nextTimeToSpawn)
         {
-            objectPool.SpawnFromPool("Wind", SpawnPosition(), Quaternion.identity);
-            timeToSpawn = SetTimeToSpawn();
+            SpawnObject();
+            timeToSpawn = 0;
+            nextTimeToSpawn = Random.Range(minMaxTimeToSpawn.x, minMaxTimeToSpawn.y);
+            
         }
     }
-    float SetTimeToSpawn()
+
+    private void SpawnObject()
     {
-        return Random.Range(0.5f, 10.0f);
+        GameObject go = pool.GetPooledObject();
+
+        if(go != null)
+        {
+            go.transform.position = GetRandomPosition();
+            CurrentGridLocation locationZ = go.GetComponent<CurrentGridLocation>();
+            if (locationZ != null)
+            {
+                locationZ.GetTileLocation();
+                locationZ.UpdateLocationAndPosition();
+            }
+            go.SetActive(true);
+            IPoolPrefab np = go.GetComponent<IPoolPrefab>();
+            if(np != null)
+            {
+                np.OnObjectSpawn();
+                
+            }
+                
+        }
     }
-    Vector3 SpawnPosition()
+
+
+    Vector2 GetRandomPosition()
     {
-        Vector3 pos = player.player.position + (Vector3)(Random.insideUnitCircle * 3);
-        return pos;
+        return (Random.insideUnitCircle * 2) + (Vector2)player.player.position;
     }
+    
 }

@@ -16,6 +16,10 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         public DetectAreaHit targetHitDetection;
         public float shrinkSpeed;
     }
+    AudioSource source;
+    [SerializeField]
+    public SoundSet[] soundSets;
+
     //public GameObject playerCircle;
     public BezierSpline bezierSpline;
     public int points;
@@ -42,7 +46,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
 
     private void Start()
     {
-        
+        source = GetComponent<AudioSource>();
         initialIntensity = targetAreas[0].targetAreaSprite.material.GetColor("_EmissionColor");
         ResetMiniGame();
     }
@@ -130,18 +134,25 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     IEnumerator NextTargetAreaCo(bool success)
     {
         transitioning = true;
-        
+        bool continues = true; 
         if (success)
         {
             currentAttemptHits++;
-
+            PlaySound(0);
             StartCoroutine(GlowOn(20, targetAreas[currentIndex].targetAreaSprite.material));
         }
         else
         {
+            PlaySound(1);
             StartCoroutine(GlowOn(-20, targetAreas[currentIndex].targetAreaSprite.material));
+            continues = false;
         }
         yield return new WaitForSeconds(1f);
+        if (!continues)
+        {
+            MiniGameManager.instance.EndMiniGame(miniGameType);
+            yield return null;
+        }
         if (currentIndex < targetAreas.Count - 1)
         {
             currentIndex++;
@@ -191,6 +202,18 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
 
         }
         bezierSpline.AutoConstructSpline2();
+    }
+    bool PlaySound(int soundSet)
+    {
+        if (!source.isPlaying)
+        {
+            int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
+            soundSets[soundSet].SetSource(source, t);
+            soundSets[soundSet].Play();
+
+            return true;
+        }
+        return false;
     }
 
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) 

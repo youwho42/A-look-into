@@ -38,16 +38,19 @@ public class TreeShadows : MonoBehaviour
     IEnumerator StartShadowsCo()
     {
         StartCoroutine("DayTimeShadows");
-        float elapsedTime = dayNightCycle.minutes;
-        float waitTime = dayNightCycle.minutes + 40f;
+        float startTime = dayNightCycle.tick;
+        float elapsedTime = 0;
+        float waitTime = elapsedTime + 40;
+        /*float elapsedTime = dayNightCycle.minutes;
+        float waitTime = dayNightCycle.minutes + 40f;*/
         
         while (elapsedTime < waitTime)
         {
             float alpha = Mathf.Lerp(0, .5f, (elapsedTime / waitTime));
 
             shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
-            elapsedTime = dayNightCycle.minutes;
-
+            //elapsedTime = dayNightCycle.minutes;
+            elapsedTime = dayNightCycle.tick - startTime;
             yield return null;
         }
 
@@ -57,6 +60,8 @@ public class TreeShadows : MonoBehaviour
 
     IEnumerator DayTimeShadows()
     {
+
+
         float elapsedTime = dayNightCycle.currentTimeRaw;
         float waitTime = shadowDisappearTime * 60;
         
@@ -79,15 +84,20 @@ public class TreeShadows : MonoBehaviour
 
     IEnumerator EndShadowsCo()
     {
-        float elapsedTime = dayNightCycle.minutes;
-        float waitTime = dayNightCycle.minutes + 40f;
+
+        float startTime = dayNightCycle.tick;
+        float elapsedTime = 0;
+        float waitTime = elapsedTime + 40;
+        /*float elapsedTime = dayNightCycle.minutes;
+        float waitTime = dayNightCycle.minutes + 40f;*/
 
         while (elapsedTime < waitTime)
         {
             float alpha = Mathf.Lerp(.5f, 0, (elapsedTime / waitTime));
 
             shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
-            elapsedTime = dayNightCycle.minutes;
+            //elapsedTime = dayNightCycle.minutes;
+            elapsedTime = dayNightCycle.tick - startTime;
 
             yield return null;
         }

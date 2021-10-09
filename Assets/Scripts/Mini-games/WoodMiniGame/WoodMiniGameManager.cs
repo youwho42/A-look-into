@@ -23,6 +23,10 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         public SimpleRotate rotate;
     }
 
+    AudioSource source;
+    [SerializeField]
+    public SoundSet[] soundSets;
+
     bool transitioning;
     public int maxAttempts;
     public int attemptSteps;
@@ -38,7 +42,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public List<DificultyArea> dificultyAreas = new List<DificultyArea>();
     MiniGameDificulty currentDificulty;
     private void Start() 
-    { 
+    {
+        source = GetComponent<AudioSource>();
         material = balls[0].ballSprite.material;
         initialIntensity = material.GetColor("_EmissionColor");
         ResetBalls(0);
@@ -91,13 +96,16 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentAttemptHits++;
-            
+
+            PlaySound(0);
             StartCoroutine(GlowOn(15));
         }
         else
         {
+            PlaySound(1);
             StartCoroutine(GlowOn(-5));
         }
+        
         yield return new WaitForSeconds(1f);
         if (currentIndex < balls.Count - 1)
         {
@@ -166,6 +174,20 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             }
         }
     }
+
+    bool PlaySound(int soundSet)
+    {
+        if (!source.isPlaying)
+        {
+            int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
+            soundSets[soundSet].SetSource(source, t);
+            soundSets[soundSet].Play();
+            
+            return true;
+        }
+        return false;
+    }
+
     public void ResetMiniGame()
     {
         currentAttemptHits = 0;

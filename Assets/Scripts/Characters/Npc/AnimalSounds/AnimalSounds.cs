@@ -21,6 +21,7 @@ public class SoundSet
     public float randomPitch = 0.1f;
 
     AudioSource source;
+    public bool overlap;
 
     public void SetSource(AudioSource _source, int randomClip)
     {
@@ -33,7 +34,9 @@ public class SoundSet
     {
         source.volume = volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2));
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2, randomPitch / 2));
-        if (!source.isPlaying)
+        if (!source.isPlaying && !overlap)
+            source.Play();
+        if (overlap)
             source.Play();
     }
 
@@ -60,13 +63,15 @@ public class AnimalSounds : MonoBehaviour
     float crowTimer;
     int timesToCrow;
 
-    bool isCrying;
+    public bool isCrying;
     public Vector2 minMaxBetweenCries;
     public bool continuous;
     public bool mute;
+    CrowAI crow;
 
     private void Start()
     {
+        crow = GetComponent<CrowAI>();
         source = GetComponent<AudioSource>();
         crowTimer = Random.Range(minMaxBetweenCries.x, minMaxBetweenCries.y);
     }
@@ -79,10 +84,7 @@ public class AnimalSounds : MonoBehaviour
             SetCrySounds();
             isCrying = true;
         }
-        if (continuous)
-        {
-
-        }
+       
     }
 
    public void SetCrySounds()
@@ -101,6 +103,7 @@ public class AnimalSounds : MonoBehaviour
         {
             if (PlaySound(AudioSet))
                 t++;
+                
             yield return null;
         }
         isCrying = false;
@@ -114,6 +117,10 @@ public class AnimalSounds : MonoBehaviour
             int t = Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
             soundSets[soundSet].Play();
+            if (crow.currentState == CrowAI.FlyingState.isAtDestination)
+                crow.animator.SetTrigger("Cawing");
+            if (crow.currentState != CrowAI.FlyingState.isAtDestination)
+                crow.animator.SetTrigger("CawingFlight");
             return true;
         }
         return false;

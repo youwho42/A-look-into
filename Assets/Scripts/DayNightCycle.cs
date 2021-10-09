@@ -2,10 +2,16 @@
 using System.Collections;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.Events;
+using System;
 
 public class DayNightCycle : MonoBehaviour
 {
     public static DayNightCycle instance;
+
+    
+
+    public int tick;
+
 
     private void Awake()
     {
@@ -37,16 +43,28 @@ public class DayNightCycle : MonoBehaviour
     public int currentDayRaw = 1;
     public bool fullHour;
 
+    bool lightIsChanging;
+
     public FullHourEvent FullHourEventCallBack;
 
     // Day and Night Script for 2d,
     // Unity needs one empty GameObject (earth) and one Light (sun)
+
+    public DayState dayState;
+    public enum DayState
+    {
+        Sunrise,
+        Day,
+        Sunset,
+        Night
+    }
     
     void Start()
     {
         
-        if(currentTimeRaw >= nightStart + 20)
-            sun.intensity = .3f;
+        SetInitialLight(currentTimeRaw);
+        /*if(currentTimeRaw >= nightStart + 20)
+            sun.intensity = .3f;*/
         StartCoroutine(TimeOfDay());
         
     }
@@ -87,8 +105,29 @@ public class DayNightCycle : MonoBehaviour
                 }
             }
         }
-            
-        if (currentTimeRaw >= 0 && currentTimeRaw < dayStart)
+        
+        switch (dayState)
+        {
+            case DayState.Sunrise:
+                if(!lightIsChanging)
+                    StartCoroutine(ChangeLight(1.2f));
+                break;
+
+            case DayState.Day:
+                sun.intensity = 1.2f;
+                break;
+
+            case DayState.Sunset:
+                if (!lightIsChanging)
+                    StartCoroutine(ChangeLight(0.3f));
+                break;
+
+            case DayState.Night:
+                sun.intensity = 0.3f;
+                break;
+        }
+
+        /*if (currentTimeRaw >= 0 && currentTimeRaw < dayStart)
         {
             if (isDay)
             {
@@ -113,23 +152,45 @@ public class DayNightCycle : MonoBehaviour
                 StartCoroutine(ChangeLight(0.3f));
             }
         }
-        else if (currentTimeRaw >= dayLength)
+        else 
+        if (currentTimeRaw >= dayLength)
         {
             currentTimeRaw = 0;
-        }
-        
+        }*/
+
     }
 
+    void SetInitialLight(int currentTimeRaw)
+    {
+        if (currentTimeRaw >= 0 && currentTimeRaw < dayStart || currentTimeRaw > nightStart)
+        {
+            dayState = DayState.Night;
+        }
+        else if (currentTimeRaw > dayStart && currentTimeRaw < nightStart)
+        {
+            dayState = DayState.Day;
+        }
+        else if (currentTimeRaw == nightStart)
+        {
+            dayState = DayState.Sunset;
+        }
+        else if (currentTimeRaw == dayStart)
+        {
+            dayState = DayState.Sunrise;
+        }
+    }
     
     public void SetDayTime(int time, int day)
     {
         currentTimeRaw = time;
         currentDayRaw = day;
+        SetInitialLight(currentTimeRaw);
     }
 
     // light changes in accordance with current time tick
     IEnumerator ChangeLight(float amount)
     {
+        lightIsChanging = true;
         float elapsedTime = minutes;
         float waitTime = minutes + 40f;
         float intensity = sun.intensity;
@@ -141,6 +202,8 @@ public class DayNightCycle : MonoBehaviour
             yield return null;
         }
         sun.intensity = amount;
+        dayState = amount == 1.2f ? DayState.Day : DayState.Night;
+        lightIsChanging = false;
         yield return null;
     }
 
@@ -162,8 +225,16 @@ public class DayNightCycle : MonoBehaviour
                
             if (minutes != 0)
                 fullHour = false;
-
+            if (currentTimeRaw >= dayLength)
+                currentTimeRaw = 0;
+            if(currentTimeRaw == dayStart)
+                dayState = DayState.Sunrise;
+            if (currentTimeRaw == nightStart)
+                dayState = DayState.Sunset;
             SetDayOrNight();
+
+            tick++;
+            
 
             yield return new WaitForSeconds(1F / cycleSpeed);
         }

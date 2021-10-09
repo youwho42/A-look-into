@@ -174,9 +174,6 @@ MonoBehaviour:
   flyBaseSpeed: 1.5
   centerOfActiveArea: {fileID: 0}
   activeAreaBaseTagName: OpenCrowSpot
-  activeAreaBaseLayer:
-    serializedVersion: 2
-    m_Bits: 131072
   minMaxZRange: {x: 2, y: 6}
   characterSprite: {fileID: 1171894187104016982}
   positionZ: 0
@@ -366,6 +363,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+  isCrying: 0
   minMaxBetweenCries: {x: 3, y: 90}
   continuous: 0
   mute: 0

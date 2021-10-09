@@ -5,8 +5,8 @@ using UnityEngine;
 public class Playermovement : MonoBehaviour
 {
 
-    public float moveSpeed;
-    
+    public float walkSpeed;
+    public float runSpeed;
     PlayerInput playerInput;
     CharacterMovement characterMovement;
     public bool facingRight;
@@ -38,7 +38,7 @@ public class Playermovement : MonoBehaviour
     void FixedUpdate()
     {
         if (!isInAction)
-            characterMovement.Move(playerInput.movement, moveSpeed);
+            characterMovement.Move(playerInput.movement, playerInput.isRunning ? runSpeed : walkSpeed);
         else
             characterMovement.Move(Vector2.zero, 0);
     }

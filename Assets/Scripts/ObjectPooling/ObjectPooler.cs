@@ -4,64 +4,37 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    [System.Serializable]
-    public class Pool
-    {
-        public string name;
-        public GameObject prefab;
-        public int size;
-    }
 
-    public static ObjectPooler instance;
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
+    
+    private List<GameObject> pooledObjects = new List<GameObject>();
+    
 
-    public List<Pool> pools = new List<Pool>();
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    [SerializeField]
+    private GameObject prefab;
+    [SerializeField]
+    private int amountToPool;
+
+
 
     private void Start()
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
-        foreach (Pool pool in pools)
+        for (int i = 0; i < amountToPool; i++)
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
-            for (int i = 0; i < pool.size; i++)
-            {
-                GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
-                objectPool.Enqueue(obj);
-            }
-            poolDictionary.Add(pool.name, objectPool);
+            GameObject go = Instantiate(prefab/*, this.transform*/);
+            go.SetActive(false);
+            pooledObjects.Add(go);
         }
     }
-
-    public GameObject SpawnFromPool(string name, Vector3 position, Quaternion rotation)
+    
+    public GameObject GetPooledObject()
     {
-        if (!poolDictionary.ContainsKey(name))
+        for (int i = 0; i < pooledObjects.Count; i++)
         {
-            Debug.Log("No object pool contains -" + name + "- as a keyword");
-            return null;
+            if (!pooledObjects[i].activeInHierarchy)
+            {
+                return pooledObjects[i];
+            }
         }
-
-        GameObject objectToSpawn = poolDictionary[name].Dequeue();
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
-        IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
-        if (pooledObject != null)
-        {
-            pooledObject.OnObjectSpawn();
-        }
-        poolDictionary[name].Enqueue(objectToSpawn);
-        return objectToSpawn;
+        return null;
     }
 }

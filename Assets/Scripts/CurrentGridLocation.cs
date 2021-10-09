@@ -43,6 +43,7 @@ public class CurrentGridLocation : MonoBehaviour
         lastTilePosition = GetCurrentGridLocation();
         tilePosZ = GetTileLocation();
         currentLevel = tilePosZ;
+        
         //transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
     }
     public void UpdateLocationAndPosition()
@@ -55,6 +56,20 @@ public class CurrentGridLocation : MonoBehaviour
 
     public int GetTileLocation()
     {
+
+        if (groundGrid == null)
+        {
+            groundGrid = FindObjectOfType<Grid>();
+            Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
+            foreach (var map in maps)
+            {
+                if (map.gameObject.name == "GroundTiles")
+                {
+                    groundMap = map;
+                }
+            }
+        }
+
         int tilesHit = 0;
 
         Vector3Int currentPosition = GetCurrentGridLocation();

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 550695473140305522}
   - component: {fileID: 1572924822614693328}
   - component: {fileID: 3662275047731180033}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: TreesSkinny
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26f0c18a88e854323bfd82d297e6339a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5279f8288e11f2d41b0d5461aa450f91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109,8 +109,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4919718, y: 0.15723836}
-    oldSize: {x: 1.0009766, y: 1.25}
+    pivot: {x: 0.49765927, y: 0.033664435}
+    oldSize: {x: 1.1699219, y: 1.5546875}
     newSize: {x: 1.0009766, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -118,15 +118,25 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.018584251, y: -0.016244352}
-      - {x: -0.031957865, y: -0.0010157824}
-      - {x: -0.028274655, y: 0.008538604}
-      - {x: -0.015377998, y: 0.01607281}
-      - {x: 0.007947803, y: 0.017044008}
-      - {x: 0.023089647, y: 0.009203076}
-      - {x: 0.030278206, y: -0.0034406781}
-      - {x: 0.01576662, y: -0.016557515}
-      - {x: 0.00017595291, y: -0.017123103}
+    - - {x: 0.043405652, y: 0.030858219}
+      - {x: 0.029215574, y: 0.03448677}
+      - {x: -0.0023993254, y: 0.037633717}
+      - {x: -0.02530682, y: 0.039005637}
+      - {x: -0.04927349, y: 0.03566432}
+      - {x: -0.068822145, y: 0.02791059}
+      - {x: -0.08002639, y: 0.018088996}
+      - {x: -0.07653606, y: 0.003942728}
+      - {x: -0.07436025, y: -0.005785644}
+      - {x: -0.06548178, y: -0.018515527}
+      - {x: -0.053598046, y: -0.028747797}
+      - {x: -0.038764834, y: -0.03758353}
+      - {x: -0.014045715, y: -0.042522967}
+      - {x: 0.0035860538, y: -0.038878977}
+      - {x: 0.022142649, y: -0.033052504}
+      - {x: 0.04185593, y: -0.025916934}
+      - {x: 0.06437838, y: -0.009882748}
+      - {x: 0.06883156, y: 0.0060733557}
+      - {x: 0.05997598, y: 0.021006405}
 --- !u!114 &5233651497959552981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataList:
-  - {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+  - {fileID: 11400000, guid: 2bfc6b8cad68c8e4c90de550208d9e5d, type: 2}
   maxPerDay: 3
   timeToReset: 5
   hasBeenHarvested: 0
@@ -351,7 +361,7 @@ SpriteMask:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26f0c18a88e854323bfd82d297e6339a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5279f8288e11f2d41b0d5461aa450f91, type: 3}
   m_MaskAlphaCutoff: 0.499
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
@@ -385,7 +395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6199120398212505409}
   m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
-  m_LocalPosition: {x: -0.0027, y: 0.0027, z: 0}
+  m_LocalPosition: {x: -0.0093, y: 0.0115, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8505267183497828100}
@@ -416,9 +426,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6539536084462706551}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.009, y: -0.584, z: 0}
-  m_LocalScale: {x: 0.82616746, y: 0.55773646, z: 0.6667527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0066, y: -0.9925, z: 0}
+  m_LocalScale: {x: 0.8874691, y: 0.67286557, z: 0.6667527}
   m_Children: []
   m_Father: {fileID: 6002912768282819067}
   m_RootOrder: 0
@@ -464,7 +474,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af2bf58c229fb4cbea79b896f69f87d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b480557a3500eec4da185f06cbbcfcc2, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.49803922}
   m_FlipX: 0
   m_FlipY: 0
