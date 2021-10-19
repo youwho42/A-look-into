@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     public bool isRunning;
     [HideInInspector]
     public bool isPaused;
+ 
 
 
 

@@ -24,6 +24,8 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+       
     }
 
     [SerializeField]
@@ -39,6 +41,7 @@ public class LevelManager : MonoBehaviour
     private GameObject newGameWarning;
     [SerializeField]
     private GameObject controlsPanel;
+    
 
 
 
@@ -51,7 +54,7 @@ public class LevelManager : MonoBehaviour
 
     public UnityEvent EventLevelLoaded;
 
-
+    
 
     public string GetCurrentLevel()
     {
@@ -59,7 +62,7 @@ public class LevelManager : MonoBehaviour
     }
     public void StartNewGame(string levelName)
     {
-        
+        SavingLoading.instance.DeleteFile();
         SavingLoading.instance.Save();
         titleMenu.SetActive(false);
         EventLevelLoaded.Invoke();
@@ -136,6 +139,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator LoadLevelCo(string levelName)
     {
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName);
+        
         titleMenu.SetActive(false);
         loadScreen.SetActive(true);
         
@@ -166,10 +170,10 @@ public class LevelManager : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(3f);
+        
         loadScreen.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
         DissolveEffect.instance.StartDissolve(player.GetComponentInChildren<SpriteRenderer>().material, 2f, true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.01f);
         player.GetComponent<PlayerInput>().enabled = true;
 
     }

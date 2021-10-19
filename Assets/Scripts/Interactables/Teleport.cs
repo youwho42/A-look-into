@@ -5,12 +5,15 @@ using UnityEngine;
 public class Teleport : Interactable
 {
     public Transform teleportTwin;
+    [HideInInspector]
     public Material material;
+    [HideInInspector]
     public GameObject objectToTeleport; 
     public int teleportTwinLevel;
     
 
     bool isInTeleportRange;
+    [HideInInspector]
     public bool isIncoming;
 
     public override void Interact(GameObject interactor)

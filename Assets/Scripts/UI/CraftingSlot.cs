@@ -13,15 +13,21 @@ public class CraftingSlot : MonoBehaviour
     public TextMeshProUGUI amount;
     public bool isIngredientSlot;
     public Button craftButton;
-
-    
+    bool addedToListener;
+    CraftingTable currentCraftingTable;
 
     public void AddItem(QI_ItemData newItem, int recipeQuantity, CraftingTable craftingTable)
     {
         item = newItem;
         icon.sprite = item.Icon;
         itemName.text = item.Name;
-        craftButton.onClick.AddListener(craftingTable.CraftItem);
+        if (!addedToListener)
+        {
+            currentCraftingTable = craftingTable;
+            craftButton.onClick.AddListener(craftingTable.CraftItem);
+            addedToListener = true;
+        }
+        
         if (!isIngredientSlot)
         {
             amount.text = recipeQuantity.ToString();
@@ -58,5 +64,11 @@ public class CraftingSlot : MonoBehaviour
         itemName.text = "";
         amount.text = "";
         icon.enabled = false;
+        if (addedToListener)
+        {
+            craftButton.onClick.RemoveListener(currentCraftingTable.CraftItem);
+            addedToListener = false;
+        }
+        
     }
 }

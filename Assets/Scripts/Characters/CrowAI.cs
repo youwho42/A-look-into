@@ -57,7 +57,7 @@ public class CrowAI : MonoBehaviour
 
                 if (sounds.mute)
                     sounds.mute = false;
-
+                
                 flight.Move();
                 
                 if (justTookOff)
@@ -240,5 +240,11 @@ public class CrowAI : MonoBehaviour
             }
             isRaining = false;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(home.position, roamingArea);
     }
 }

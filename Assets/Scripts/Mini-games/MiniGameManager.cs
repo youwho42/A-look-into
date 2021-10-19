@@ -42,7 +42,6 @@ public class MiniGameManager : MonoBehaviour
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
                     
-                    
                 }
             }
             gameStarted = true;

@@ -47,6 +47,8 @@ public class DayNightCycle : MonoBehaviour
 
     public FullHourEvent FullHourEventCallBack;
 
+    private Coroutine changeLightCoroutine;
+
     // Day and Night Script for 2d,
     // Unity needs one empty GameObject (earth) and one Light (sun)
 
@@ -110,19 +112,30 @@ public class DayNightCycle : MonoBehaviour
         {
             case DayState.Sunrise:
                 if(!lightIsChanging)
-                    StartCoroutine(ChangeLight(1.2f));
+                    changeLightCoroutine = StartCoroutine(ChangeLight(1.2f));
                 break;
 
             case DayState.Day:
+                if (lightIsChanging)
+                {
+                    StopCoroutine(changeLightCoroutine);
+                    lightIsChanging = false;
+                }
                 sun.intensity = 1.2f;
                 break;
 
             case DayState.Sunset:
                 if (!lightIsChanging)
-                    StartCoroutine(ChangeLight(0.3f));
+                    changeLightCoroutine = StartCoroutine(ChangeLight(0.3f));
                 break;
 
             case DayState.Night:
+                if (lightIsChanging)
+                {
+                    StopCoroutine(changeLightCoroutine);
+                    lightIsChanging = false;
+                }
+                    
                 sun.intensity = 0.3f;
                 break;
         }

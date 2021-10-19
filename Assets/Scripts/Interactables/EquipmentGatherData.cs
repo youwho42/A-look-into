@@ -37,9 +37,8 @@ public class EquipmentGatherData : EquipmentData
                 nearest = colliders[i];
                 distance = tempDistance;
             }
-            
-
         }
+
         if (nearest != null)
         {
             if (miniGameType == MiniGameType.None)
@@ -98,11 +97,12 @@ public class EquipmentGatherData : EquipmentData
             }
             else
             {
-
                 if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
                     if (!nearestItemList.hasBeenHarvested)
                     {
+                        
+                        bool none = true;
                         foreach (QI_ItemData itemData in nearestItemList.dataList)
                         {
                             for (int i = 0; i < gatherItemData.Count; i++)
@@ -111,25 +111,30 @@ public class EquipmentGatherData : EquipmentData
                                 {
                                     continue;
                                 }
-                                MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
+                                none = false;
                                 nearestItemList.hasBeenHarvested = true;
+                                MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
                             }
                         }
-                        
+                        if (none)
+                        {
+                            NotificationManager.instance.SetNewNotification("Cannot gather " + nearestItemList.dataList[0].Name + " with this tool.");
+                        }
                     }
                 }
+                
                 if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
                 {
                     foreach (QI_ItemData itemData in gatherItemData)
                     {
                         if(itemData == nearestItem.Data)
+                        {
                             MiniGameManager.instance.StartMiniGame(miniGameType, nearestItem.Data, nearest.gameObject);
+                        }
                     }
                 }
             }
         }
-        
-
     }
 
 }

@@ -13,7 +13,8 @@ public enum MiniGameType
     None,
     Wood,
     Insect,
-    Ore
+    Ore,
+    Fixing
 }
 
 public enum MiniGameDificulty

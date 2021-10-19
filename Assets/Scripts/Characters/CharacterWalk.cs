@@ -32,7 +32,7 @@ public class CharacterWalk : MonoBehaviour
         thisTransform = transform;
         mainPoints = new Vector2[3];
 
-        SetRandomDestination();
+        SetRandomDestination(); 
     }
 
     public void Move()

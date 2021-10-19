@@ -37,6 +37,7 @@ public class SavingLoading : MonoBehaviour
 
     private void SaveFile(object state)
     {
+        
         using (var stream = File.Open(SavePath, FileMode.Create))
         {
             var formatter = new BinaryFormatter();
@@ -79,5 +80,9 @@ public class SavingLoading : MonoBehaviour
         
     }
 
+    public void DeleteFile()
+    {
+        File.Delete(SavePath);
+    }
     
 }

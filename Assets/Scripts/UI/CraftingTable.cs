@@ -26,9 +26,21 @@ public class CraftingTable : MonoBehaviour
     QI_CraftingRecipe craftableItem;
 
     public UnityEvent EventUIUpdateInventory;
-
+    
     public void Start()
     {
+        
+        /*for (int i = 0; i < recipeDatabase.CraftingRecipes.Count; i++)
+        {
+            GameObject newRecipe = Instantiate(recipeButton, recipeButtonHolder.transform);
+            recipeButtons.Add(newRecipe.GetComponent<CraftingRecipeButton>());
+        }
+        UpdateCraftingUI();
+        ClearCurrentRecipe();*/
+    }
+    public void SetAvailableRecipes()
+    {
+        
         
         for (int i = 0; i < recipeDatabase.CraftingRecipes.Count; i++)
         {
@@ -68,7 +80,7 @@ public class CraftingTable : MonoBehaviour
     {
         craftableItem = null;
         craftedSlot.ClearSlot();
-
+        
         foreach (CraftingSlot slot in ingredientSlots)
         {
             slot.ClearSlot();
@@ -79,11 +91,21 @@ public class CraftingTable : MonoBehaviour
     {
         if (craftableItem != null)
         {
-            craftingHandler.Craft(craftableItem, craftableItem.Product.Amount);
-            
+            craftingHandler.Craft(craftableItem, 1);
         }
         SetCurrentRecipe(craftableItem);
         EventUIUpdateInventory.Invoke();
     }
-    
+    public void ResetButtons()
+    {
+        CraftingRecipeButton[] currentRecipeButtons = recipeButtonHolder.GetComponentsInChildren<CraftingRecipeButton>();
+        if (currentRecipeButtons.Length > 0)
+        {
+            for (int i = 0; i < currentRecipeButtons.Length; i++)
+            {
+                Destroy(currentRecipeButtons[i].gameObject);
+            }
+        }
+        recipeButtons.Clear();
+    }
 }

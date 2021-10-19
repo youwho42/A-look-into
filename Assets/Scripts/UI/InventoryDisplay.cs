@@ -55,6 +55,7 @@ public class InventoryDisplay : MonoBehaviour
         {
             mainUI.SetActive(!mainUI.activeSelf);
             PlayerInformation.instance.uiScreenVisible = !PlayerInformation.instance.uiScreenVisible;
+            ItemInformationDisplayUI.instance.HideInformationDisplay();
         }
     }
     public void UpdateInventoryUI()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CraftingUiDisplay : Interactable
 {
     public GameObject craftingUI;
-    //public CraftingTable craftingTable;
+    public CraftingTable craftingTable;
 
     public override void Start()
     {
@@ -16,10 +16,15 @@ public class CraftingUiDisplay : Interactable
     {
         craftingUI.SetActive(!craftingUI.activeSelf);
 
+        craftingTable.ResetButtons();
+        craftingTable.SetAvailableRecipes();
+
+        PlayerInformation.instance.TogglePlayerInput(!craftingUI.activeSelf);
     }
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
+        
         ActivateCrafting();
         hasInteracted = false;
     }

@@ -9,8 +9,8 @@ public class TreeShadows : MonoBehaviour
 
     DayNightCycle dayNightCycle;
 
-    public int shadowAppearTime;
-    public int shadowDisappearTime;
+    int shadowAppearTime = 5;
+    int shadowDisappearTime = 20;
 
 
 

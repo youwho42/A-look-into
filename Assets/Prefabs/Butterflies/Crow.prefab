@@ -246,7 +246,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -353,6 +353,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+    overlap: 0
   - clips:
     - {fileID: 8300000, guid: 9882d65b93d2fde47a541fadf753f5d3, type: 3}
     - {fileID: 8300000, guid: 1f77aaaa659f83748b7612eece039fc8, type: 3}
@@ -363,10 +364,55 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+    overlap: 0
+  minMaxTimesToCry: {x: 1, y: 6}
   isCrying: 0
-  minMaxBetweenCries: {x: 3, y: 90}
+  minMaxBetweenCries: {x: 3, y: 180}
   continuous: 0
   mute: 0
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.601022
+      outSlope: 2.601022
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.035363458
+    - serializedVersion: 3
+      time: 0.21146303
+      value: 0.40352023
+      inSlope: 0.7243868
+      outSlope: 0.7243868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7443761
+      value: 0.6780651
+      inSlope: 0.890815
+      outSlope: 0.890815
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07700364
+      outWeight: 0.18245748
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.400942
+      outSlope: 2.400942
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.032416523
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animator: {fileID: 545798427120752329}
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

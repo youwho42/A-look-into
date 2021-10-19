@@ -10,6 +10,7 @@ public class PlayerInformation : MonoBehaviour
 
     public Transform player;
     public QI_Inventory playerInventory;
+    public QI_CraftingRecipeDatabase playerRecipeDatabase;
     public bool uiScreenVisible;
     
     public PlayerInput playerInput;
@@ -28,8 +29,8 @@ public class PlayerInformation : MonoBehaviour
     }
    
 
-    public void TogglePlayerInput(bool toggleOn)
+    public void TogglePlayerInput(bool toggle)
     {
-        playerInput.enabled = toggleOn;
+        playerInput.enabled = toggle;
     }
 }

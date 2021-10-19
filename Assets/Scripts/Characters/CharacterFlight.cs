@@ -34,7 +34,7 @@ public class CharacterFlight : MonoBehaviour
 
     float totalZ;
     Camera cam;
-    
+    int lastZ;
 
     private void Start()
     {
@@ -59,6 +59,9 @@ public class CharacterFlight : MonoBehaviour
 
     public void Move()
     {
+
+        
+
         t += Time.deltaTime / timeToReachTarget;
         Vector2 m1 = Vector2.Lerp(mainPoints[0], mainPoints[1], t);
         Vector2 m2 = Vector2.Lerp(mainPoints[1], mainPoints[2], t);
@@ -77,7 +80,9 @@ public class CharacterFlight : MonoBehaviour
             currentGridLocation.UpdateLocation();
         }
     }
-  
+
+   
+
     void SetAngledPath(Vector2 mainDestination, Vector3 subDestination, float time)
     {
         SetFacingDirection();

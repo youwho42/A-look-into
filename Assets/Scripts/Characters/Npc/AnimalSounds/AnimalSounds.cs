@@ -60,27 +60,33 @@ public class AnimalSounds : MonoBehaviour
     [SerializeField]
     public SoundSet[] soundSets;
 
-    float crowTimer;
-    int timesToCrow;
+    float cawTimer;
+    public Vector2 minMaxTimesToCry;
+    int timesToCaw;
 
     public bool isCrying;
     public Vector2 minMaxBetweenCries;
     public bool continuous;
     public bool mute;
-    CrowAI crow;
+    
+
+    public AnimationCurve curve;
+    public Animator animator;
 
     private void Start()
     {
-        crow = GetComponent<CrowAI>();
+        
         source = GetComponent<AudioSource>();
-        crowTimer = Random.Range(minMaxBetweenCries.x, minMaxBetweenCries.y);
+        SetTimesToCry();
+        SetFirstCry();
+        
     }
     private void Update()
     {
-        crowTimer -= Time.deltaTime;
-        if(crowTimer <= 0 && !isCrying && !continuous && !mute)
+        cawTimer -= Time.deltaTime;
+        if(cawTimer <= 0 && !isCrying && !continuous && !mute)
         {
-            timesToCrow = Random.Range(1, 4);
+            SetTimesToCry();
             SetCrySounds();
             isCrying = true;
         }
@@ -93,7 +99,7 @@ public class AnimalSounds : MonoBehaviour
         if (soundSets.Length > 1)
             r = Random.Range(0, soundSets.Length);
 
-        StartCoroutine(PlaySoundsCo(r, timesToCrow));
+        StartCoroutine(PlaySoundsCo(r, timesToCaw));
     }
 
     IEnumerator PlaySoundsCo(int AudioSet, int timesToCry)
@@ -107,7 +113,24 @@ public class AnimalSounds : MonoBehaviour
             yield return null;
         }
         isCrying = false;
-        crowTimer = Random.Range(minMaxBetweenCries.x, minMaxBetweenCries.y);
+        SetNextCry();
+        
+    }
+
+    void SetFirstCry()
+    {
+        cawTimer = Random.Range(minMaxBetweenCries.y/2, minMaxBetweenCries.y);
+    }
+
+    void SetNextCry()
+    {
+        cawTimer = (curve.Evaluate(Random.Range(0.0f, 1.0f)) * (minMaxBetweenCries.y - minMaxBetweenCries.x)) + minMaxBetweenCries.x;
+    }
+    void SetTimesToCry()
+    {
+        var t = (curve.Evaluate(Random.Range(0.0f, 1.0f))) * (minMaxTimesToCry.y - minMaxTimesToCry.x) + minMaxTimesToCry.x;
+        
+        timesToCaw = (int)t;
     }
 
     bool PlaySound(int soundSet)
@@ -117,10 +140,9 @@ public class AnimalSounds : MonoBehaviour
             int t = Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
             soundSets[soundSet].Play();
-            if (crow.currentState == CrowAI.FlyingState.isAtDestination)
-                crow.animator.SetTrigger("Cawing");
-            if (crow.currentState != CrowAI.FlyingState.isAtDestination)
-                crow.animator.SetTrigger("CawingFlight");
+            animator.SetTrigger("Caw");
+            
+            
             return true;
         }
         return false;

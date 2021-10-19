@@ -39,6 +39,11 @@ public class SimpleRotate : MonoBehaviour
     {
         transform.Rotate(0, 0, rotation);
     }
+    public void SetEulerRotation(int rotation)
+    {
+        transform.eulerAngles = new Vector3(0, 0, rotation);
+        
+    }
     public void RandomizeRotation()
     {
         int rand = Random.Range(0, 360);
@@ -69,5 +74,31 @@ public class SimpleRotate : MonoBehaviour
 
         
         yield return null;
+    }
+    public void StartToFromRotation(int start, int end, float timeToRotate)
+    {
+        StartCoroutine(RotateToFromCo(start, end, timeToRotate));
+    }
+   
+    public void StopToFromRotation()
+    {
+        StopAllCoroutines();
+    }
+
+    IEnumerator RotateToFromCo(int start, int end, float timeToRotate)
+    {
+        float timer = 0.0f;
+        float timeToTake = timeToRotate;
+        while (timer < timeToTake)
+        {
+            float newRotation = Mathf.Lerp(start, end, timer / timeToTake);
+            transform.eulerAngles = new Vector3(0, 0, newRotation);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        int newStart = end;
+        end = start;
+        
+        StartCoroutine(RotateToFromCo(newStart, end, timeToRotate));
     }
 }

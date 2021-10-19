@@ -54,6 +54,8 @@ public class CurrentGridLocation : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
     }
 
+    
+
     public int GetTileLocation()
     {
 
@@ -82,6 +84,7 @@ public class CurrentGridLocation : MonoBehaviour
             if (tile != null)
             {
                 tilesHit++;
+                
             }
         }
         return tilesHit;
