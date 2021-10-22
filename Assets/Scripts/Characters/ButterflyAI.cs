@@ -16,7 +16,7 @@ public class ButterflyAI : MonoBehaviour
     public Animator animator;
     bool isSleeping;
     bool isRaining;
-
+    EntityReproduction reproduction;
     [SerializeField]
     public FlyingState currentState;
 
@@ -31,7 +31,7 @@ public class ButterflyAI : MonoBehaviour
     {
 
         DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
-
+        reproduction = GetComponent<EntityReproduction>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
@@ -90,9 +90,13 @@ public class ButterflyAI : MonoBehaviour
                     timeToStayAtDestination -= Time.deltaTime;
                     if (timeToStayAtDestination <= 0)
                     {
+                        if (currentFlower != null)
+                            currentFlower.GetComponent<EntityReproduction>().AllowForReproduction();
                         flight.SetRandomDestination(roamingArea);
-                        currentState = FlyingState.isFlying;
                         animator.SetBool("IsLanded", false);
+                        reproduction.AllowForReproduction();
+                        currentState = FlyingState.isFlying;
+                        
                     }
                 }
                 

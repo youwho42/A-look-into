@@ -29,7 +29,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         public SpriteRenderer dificultyAreaSprite;
         public MiniGameDificulty gameDificulty;
         public SimpleRotate dificultyAreaRotate;
-        public Collider2D hitDetectCollider;
+        public Collider2D targetHitCollider;
     }
 
     AudioSource source;
@@ -97,14 +97,15 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         {
             if (dificulty == target.gameDificulty)
             {
-                target.hitDetectCollider.enabled = true;
+                target.targetHitCollider.enabled = true;
                 target.dificultyAreaRotate.gameObject.SetActive(true);
                 target.dificultyAreaSprite.enabled = true;
                 target.dificultyAreaRotate.AnimateRandomizeRotation(0.5f);
             }
             else
             {
-                target.hitDetectCollider.enabled = false;
+                target.targetHitCollider.enabled = false;
+                
                 target.dificultyAreaRotate.gameObject.SetActive(false);
                 target.dificultyAreaSprite.enabled = false;
             }

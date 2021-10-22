@@ -64,24 +64,24 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void DragItem()
     {
-
         icon.transform.localPosition = GetMousePosition();
     }
+
     public void EndDragItem()
     {
         //Check if in player vicinity :)
-        if (CheckPlayerVicinity())
+        if (CheckPlayerVicinity() && CheckForGameObjects())
         {
             DropItem(GetDropPosition());
             icon.transform.localPosition = Vector3.zero;
         }
         else
         {
-            NotificationManager.instance.SetNewNotification("Try placing the " + item.Name + " closer to you.");
+            
             icon.transform.localPosition = Vector3.zero;
         }
-        
     }
+
     Vector3 GetDropPosition()
     {
         Vector3 temp = Camera.main.ScreenToWorldPoint(icon.transform.position);
@@ -89,7 +89,20 @@ public class InventoryDisplaySlot : MonoBehaviour
         return temp;
     }
 
+    bool CheckForGameObjects()
+    {
+        var t = Physics2D.OverlapPoint(GetDropPosition());
+        if (t == null)
+            return true;
 
+        if (t.CompareTag("Grass"))
+            return true;
+        
+            
+
+        NotificationManager.instance.SetNewNotification("You can't place this here");
+        return false;
+    }
 
     bool CheckPlayerVicinity()
     {
@@ -99,6 +112,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (dist <= 0.5f)
             return true;
 
+        NotificationManager.instance.SetNewNotification("Try placing the " + item.Name + " closer to you.");
         return false;
     }
    

@@ -44,22 +44,33 @@ public class ResearchStationDisplayUI : MonoBehaviour
     public void UpdateResearchDisplay()
     {
         ClearInventorySlots();
+
+        
+        
         for (int i = 0; i < playerInformation.playerInventory.Stacks.Count; i++)
         {
+
             QI_ItemData item = playerInformation.playerInventory.Stacks[i].Item;
             if (item.ResearchRecipes.Count > 0)
             {
-                foreach (var recipe in item.ResearchRecipes)
+
+                if (PlayerInformation.instance.GetTotalInventoryQuantity(item) >= item.RecipeRevealAmount)
                 {
-                    if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe))
+                    foreach (var recipe in item.ResearchRecipes)
                     {
-                        ResearchStationInventorySlot newSlot = Instantiate(inventoryItemDisplaySlot, inventoryItemArea.transform);
-                        newSlot.AddItem(item);
+                        if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe))
+                        {
+                            ResearchStationInventorySlot newSlot = Instantiate(inventoryItemDisplaySlot, inventoryItemArea.transform);
+                            newSlot.AddItem(item);
+                        }
                     }
                 }
+
+                
             }
 
         }
+        
     }
     public void ClearInventorySlots()
     {

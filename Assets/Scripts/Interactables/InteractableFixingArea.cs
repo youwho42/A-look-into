@@ -39,7 +39,7 @@ public class InteractableFixingArea : Interactable
     {
         foreach (var ingredient in ingredients)
         {
-            int t = PlayerInformation.instance.playerInventory.GetStock(ingredient.item.Name);
+            int t = PlayerInformation.instance.GetTotalInventoryQuantity(ingredient.item);
             if (t < ingredient.amount)
             {
                 NotificationManager.instance.SetNewNotification("You are missing " + (ingredient.amount - t) + " " + ingredient.item.Name + " to fix this.");

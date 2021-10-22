@@ -33,4 +33,19 @@ public class PlayerInformation : MonoBehaviour
     {
         playerInput.enabled = toggle;
     }
+
+    public int GetTotalInventoryQuantity(QI_ItemData item)
+    {
+        int amountInInventory = 0;
+        for (int i = 0; i < playerInventory.Stacks.Count; i++)
+        {
+            if(playerInventory.Stacks[i].Item == item)
+            {
+                amountInInventory += playerInventory.Stacks[i].Amount;
+            }
+        }
+        return amountInInventory;
+    }
+
+
 }

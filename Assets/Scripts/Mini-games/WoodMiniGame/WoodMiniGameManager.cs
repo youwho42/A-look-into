@@ -21,6 +21,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         public SpriteRenderer dificultyAreaGameObject;
         public MiniGameDificulty gameDificulty;
         public SimpleRotate rotate;
+        public Collider2D collider;
     }
 
     AudioSource source;
@@ -164,6 +165,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             {
                 dif.rotate.gameObject.SetActive(true);
                 dif.dificultyAreaGameObject.enabled = true;
+                dif.collider.enabled = true;
                 dif.rotate.AnimateRandomizeRotation(0.5f);
                 
             }
@@ -171,6 +173,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             {
                 dif.rotate.gameObject.SetActive(false);
                 dif.dificultyAreaGameObject.enabled = false;
+                dif.collider.enabled = false;
             }
         }
     }

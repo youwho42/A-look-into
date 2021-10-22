@@ -8,15 +8,18 @@ public class FireflyAI : MonoBehaviour
     public float roamingArea;
     
     public CircleCollider2D captureCollider;
-    
+    public SpriteRenderer lightMaterial;
+
+
+
     CharacterFlight flight;
     public Animator animator;
     bool isSleeping;
     public Transform home;
     DrawZasYDisplacement displacmentZ;
 
-    public Light2D lightToFlicker;
-    bool isFlickering;
+    
+    
 
     [SerializeField]
     public FlyingState currentState;
@@ -32,7 +35,8 @@ public class FireflyAI : MonoBehaviour
     {
 
         DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
-       
+        
+
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
@@ -42,7 +46,7 @@ public class FireflyAI : MonoBehaviour
         {
             flight.SetDestination(home.position, displacmentZ.displacedPosition);
             currentState = FlyingState.isLanding;
-            lightToFlicker.gameObject.SetActive(false);
+            
             isSleeping = true;
         }
         else
@@ -60,8 +64,7 @@ public class FireflyAI : MonoBehaviour
         {
             case FlyingState.isFlying:
 
-                if (!isFlickering)
-                    StartCoroutine("FlickerLight");
+                
 
                 flight.Move();
                 
@@ -84,8 +87,7 @@ public class FireflyAI : MonoBehaviour
 
             case FlyingState.isLanding:
 
-                if (!isFlickering)
-                    StartCoroutine("FlickerLight");
+                
 
                 flight.Move();
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
@@ -100,37 +102,15 @@ public class FireflyAI : MonoBehaviour
 
             case FlyingState.isAtDestination:
 
-                lightToFlicker.gameObject.SetActive(false);
+                lightMaterial.enabled = false;
                 
                 break;
         }
     }
 
-    IEnumerator FlickerLight()
-    {
-        isFlickering = true;
-        float delay = Random.Range(0.5f, 3.0f);
-        yield return new WaitForSeconds(delay);
-        float elapsedTime = 0;
-        float waitTime = Random.Range(0.1f, 2f);
-        float intensity = 0.6f;
-        float tempIntensity = intensity + Random.Range(-.3f, .3f);
-        while (elapsedTime < waitTime)
-        {
-
-            lightToFlicker.intensity = Mathf.Lerp(intensity, tempIntensity, (elapsedTime / waitTime));
-            elapsedTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        lightToFlicker.intensity = tempIntensity;
-
-        yield return null;
-        isFlickering = false;
-    }
-
     
+
+
 
     public void SetSleepOrWake(int time)
     {
@@ -148,7 +128,7 @@ public class FireflyAI : MonoBehaviour
             isSleeping = false;
             flight.SetRandomDestination(roamingArea);
             currentState = FlyingState.isFlying;
-            lightToFlicker.gameObject.SetActive(true);
+            lightMaterial.enabled = true;
         }
     }
 

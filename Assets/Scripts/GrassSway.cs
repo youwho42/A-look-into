@@ -6,7 +6,7 @@ public class GrassSway : MonoBehaviour
 {
     Material material;
 
-    
+
 
     private void Start()
     {
@@ -18,10 +18,11 @@ public class GrassSway : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            
             StartCoroutine("SwayCo");
         }
     }
+ 
+
 
     IEnumerator SwayCo()
     {
