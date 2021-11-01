@@ -15,7 +15,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
     }
     private void Update()
     {
-        energySlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("Energy");
-        hydrationSlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("Hydration");
+        energySlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy");
+        hydrationSlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("GameEnergy");
     }
 }

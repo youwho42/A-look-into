@@ -15,7 +15,9 @@ public class PlayerInput : MonoBehaviour
     public bool isRunning;
     [HideInInspector]
     public bool isPaused;
- 
+    [HideInInspector]
+    public bool isInUI;
+
 
 
 
@@ -23,7 +25,11 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (!isPaused)
+        if(isPaused || isInUI)
+        {
+
+        }
+        else
         {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
@@ -33,9 +39,10 @@ public class PlayerInput : MonoBehaviour
                 isRunning = !isRunning;
             if (movement == Vector2.zero)
                 isRunning = false;
-            usingEquippedItem = Input.GetMouseButtonDown(0); 
+             
         }
-        
+        if (!isPaused)
+            usingEquippedItem = Input.GetMouseButtonDown(0);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;

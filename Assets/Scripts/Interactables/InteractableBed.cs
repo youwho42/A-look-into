@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class InteractableBed : Interactable
 {
-    DayNightCycle dayNightCycle;
-
-    public GameObject sleepDisplay;
+    bool isOpen;
+    SleepDisplayUI sleepDisplay;
 
     public override void Start()
     {
         base.Start();
-
-        dayNightCycle = DayNightCycle.instance;
-
+        sleepDisplay = SleepDisplayUI.instance;
     }
 
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-
-        sleepDisplay.SetActive(!sleepDisplay.activeSelf);
-        
+        if (!isOpen)
+        {
+            sleepDisplay.ShowUI();
+            isOpen = true;
+        }
+        else
+        {
+            sleepDisplay.HideUI();
+            isOpen = false;
+        }
     }
+
+   
 }

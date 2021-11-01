@@ -42,6 +42,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public List<Ball> balls = new List<Ball>();
     public List<DificultyArea> dificultyAreas = new List<DificultyArea>();
     MiniGameDificulty currentDificulty;
+    GameObject currentGameObject;
     private void Start() 
     {
         source = GetComponent<AudioSource>();
@@ -62,6 +63,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         }
         if (currentAttempts == maxAttempts && !transitioning)
         {
+            Destroy(currentGameObject);
+            currentGameObject = null;
             MiniGameManager.instance.EndMiniGame(miniGameType);
         }
     }
@@ -97,7 +100,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentAttemptHits++;
-
+            PlayerInformation.instance.playerInventory.AddItem(item, 1);
             PlaySound(0);
             StartCoroutine(GlowOn(15));
         }
@@ -120,7 +123,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         }
         if(currentAttemptHits == attemptSteps)
         {
-            PlayerInformation.instance.playerInventory.AddItem(item, 1);
+            
             currentAttemptHits = 0;
         }
         ResetBalls(currentIndex);
@@ -153,6 +156,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     }
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) 
     {
+        currentGameObject = gameObject;
         this.item = item;
         SetDificulty(gameDificulty);
     }
@@ -196,6 +200,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         currentAttemptHits = 0;
         currentAttempts = 0;
         currentIndex = 0;
+        currentGameObject = null;
         transform.parent.gameObject.SetActive(false);
     }
 }

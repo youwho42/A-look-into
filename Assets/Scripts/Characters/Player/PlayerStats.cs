@@ -7,36 +7,41 @@ public class PlayerStats : MonoBehaviour
 {
 
     public QA_AttributeHandler playerAttributes;
-    DayNightCycle dayNightCycle;
-    public int minutes;
-    bool dehydrating = false;
 
 
     private void Start()
     {
-        dayNightCycle = DayNightCycle.instance;
-        playerAttributes.AddAttribute("Energy");
-        playerAttributes.AddAttribute("Hydration");
-        playerAttributes.SetAttributeValue("Energy", 10);
-        playerAttributes.SetAttributeValue("Hydration", 100);
+        
+        playerAttributes.AddAttribute("PlayerEnergy");
+        playerAttributes.AddAttribute("GameEnergy");
+        playerAttributes.SetAttributeValue("PlayerEnergy", 100);
+        playerAttributes.SetAttributeValue("GameEnergy", 0);
     }
-    private void Update()
+   
+    public void AddGameEnergy(float energyToAdd)
     {
-        minutes = dayNightCycle.currentTimeRaw % 30;
-        if (!dehydrating)
-        {
-            if (minutes == 9)
-                Dehydrate();
-            
-        }
-        if (minutes != 9)
-            dehydrating = false;
+        
+        float e = playerAttributes.GetAttributeValue("GameEnergy");
+        e += energyToAdd;
+        playerAttributes.SetAttributeValue("GameEnergy", e);
     }
-    void Dehydrate()
+    public void AddPlayerEnergy(float energyToAdd)
     {
-        dehydrating = true;
-        float hydration = playerAttributes.GetAttributeValue("Hydration");
-        hydration -= 1;
-        playerAttributes.SetAttributeValue("Hydration", hydration);
+        float e = playerAttributes.GetAttributeValue("PlayerEnergy");
+        e += energyToAdd;
+        playerAttributes.SetAttributeValue("PlayerEnergy", e);
+    }
+    public void RemoveGameEnergy(float energyToAdd)
+    {
+    
+        float e = playerAttributes.GetAttributeValue("GameEnergy");
+        e -= energyToAdd;
+        playerAttributes.SetAttributeValue("GameEnergy", e);
+    }
+    public void RemovePlayerEnergy(float energyToAdd)
+    {
+        float e = playerAttributes.GetAttributeValue("PlayerEnergy");
+        e -= energyToAdd;
+        playerAttributes.SetAttributeValue("PlayerEnergy", e);
     }
 }

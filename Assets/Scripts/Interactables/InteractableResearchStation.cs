@@ -31,13 +31,13 @@ public class InteractableResearchStation : Interactable
 
     private void OpenResearch()
     {
-        researchDisplay.ShowReasearchStationUI();
+        researchDisplay.ShowUI();
     }
 
     private void CloseResearch()
     {
         
-        researchDisplay.HideReasearchStationUI();
+        researchDisplay.HideUI();
     }
    
 

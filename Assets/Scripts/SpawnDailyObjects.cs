@@ -6,12 +6,12 @@ using QuantumTek.QuantumInventory;
 public class SpawnDailyObjects : MonoBehaviour
 {
 
-    public string objectToSpawn = "";
+    public List<QI_ItemData> objectToSpawn = new List<QI_ItemData>();
 
     
-    public QI_ItemDatabase itemDatabase;
+    
 
-    public int hourToDailySpawn;
+    int hourToDailySpawn = 5;
 
     List<Transform> spawnPoints = new List<Transform>();
 
@@ -32,21 +32,22 @@ public class SpawnDailyObjects : MonoBehaviour
         foreach (var point in spawnPoints)
         {
             var hit = Physics2D.OverlapCircle(point.position, .05f);
-            if(hit == null)
+            if(hit == null || hit.CompareTag("Grass"))
             {
-                var go = Instantiate(itemDatabase.GetItem(objectToSpawn).ItemPrefab, point.position, Quaternion.identity);
-                if (go.TryGetComponent(out SaveableEntity entity))
-                {
-                    entity.GenerateId();
-                }
-            }
+
                 
+                   
+                int r = Random.Range(0, objectToSpawn.Count);
+                
+                var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
+                go.parent = point.transform;
+               if (go.TryGetComponent(out SaveableEntity entity))
+               {
+                   entity.GenerateId();
+               }
+            }
+
         }
     }
-    private void OnDrawGizmosSelected()
-    {
-        
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.05f);
-    }
+    
 }

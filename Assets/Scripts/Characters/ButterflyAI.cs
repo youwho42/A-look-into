@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButterflyAI : MonoBehaviour
+public class ButterflyAI : MonoBehaviour, IAnimal
 {
 
     public float roamingArea;
@@ -122,6 +122,30 @@ public class ButterflyAI : MonoBehaviour
         {
             isSleeping = false;
         }
+    }
+
+    public void SetHome(Transform location)
+    {
+        /*Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 5);
+        Collider2D nearest = null;
+        float distance = 0;
+
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if (hit[i].CompareTag("OpenCrowSpot"))
+            {
+                float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
+                if (nearest == null || tempDistance < distance)
+                {
+                    nearest = hit[i];
+                    distance = tempDistance;
+                }
+            }
+
+        }
+        if (nearest != null)
+            home = nearest.transform;
+*/
     }
 
 

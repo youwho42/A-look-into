@@ -21,7 +21,6 @@ public class ConsumableItemData : QI_ItemData
     public override void UseItem()
     {
         base.UseItem();
-        Debug.Log("Consuming Item");
         ConsumeItem();
     }
     void ConsumeItem()

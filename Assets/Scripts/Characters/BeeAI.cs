@@ -16,6 +16,7 @@ public class BeeAI : MonoBehaviour
     bool isSleeping;
     bool isRaining;
     public Transform home;
+    public GameObject homeObject;
     DrawZasYDisplacement displacmentZ;
     RandomBeeSounds beeSounds;
     [SerializeField]
@@ -36,8 +37,8 @@ public class BeeAI : MonoBehaviour
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
-
-        displacmentZ = home.GetComponent<DrawZasYDisplacement>();
+        
+        //displacmentZ = home.GetComponent<DrawZasYDisplacement>();
     }
 
     private void Update()
@@ -143,7 +144,17 @@ public class BeeAI : MonoBehaviour
         }
     }
 
+    public void SetHome(Transform location)
+    {
+        flight = GetComponent<CharacterFlight>();
+        home = location;
+        flight.centerOfActiveArea = home;
+        displacmentZ = home.GetComponent<DrawZasYDisplacement>();
+        
+    }
 
+
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<DrawZasYDisplacement>() != null && !justTookOff && collision.CompareTag("OpenFlower") && currentState == FlyingState.isFlying)

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 522756923}
   - component: {fileID: 319447175}
   - component: {fileID: 2747864005272673846}
+  - component: {fileID: -5041404735347256869}
   m_Layer: 13
   m_Name: Ore
   m_TagString: Untagged
@@ -130,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Stone
   interactVerb: Grab
+  playerEnergyCost: 0.5
+  gameEnergyReward: 0.1
   canInteract: 1
 --- !u!114 &2747864005272673846
 MonoBehaviour:
@@ -144,3 +147,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &-5041404735347256869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRadius: 0.04
+  checkOffset: {x: 0, y: 0.01}

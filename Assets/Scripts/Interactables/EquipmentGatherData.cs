@@ -12,6 +12,9 @@ public class EquipmentGatherData : EquipmentData
     public float detectionRadius;
     public bool takeSample;
     public bool oneUse;
+
+    public float playerEnergyCost;
+
     public override void UseEquippedItem()
     {
         base.UseEquippedItem();
@@ -38,12 +41,12 @@ public class EquipmentGatherData : EquipmentData
                 distance = tempDistance;
             }
         }
-
+        // Found an object, no minigame required.
         if (nearest != null)
         {
             if (miniGameType == MiniGameType.None)
             {
-
+                // If it is a singular item (sticks, flowers...)
                 if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
                 {
                     for (int i = 0; i < gatherItemData.Count; i++)
@@ -62,7 +65,7 @@ public class EquipmentGatherData : EquipmentData
                         }
 
                     }
-                }
+                }// If it is a gatherable item (water...)
                 else if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
                     foreach (QI_ItemData itemData in nearestItemList.dataList)
@@ -94,14 +97,17 @@ public class EquipmentGatherData : EquipmentData
                         }
                     }
                 }
-            }
+            } // Found an object, minigame required.
             else
             {
+                // If gatherable item (wood, ore...)
                 if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
+                    
                     if (!nearestItemList.hasBeenHarvested)
                     {
                         
+
                         bool none = true;
                         foreach (QI_ItemData itemData in nearestItemList.dataList)
                         {
@@ -112,27 +118,50 @@ public class EquipmentGatherData : EquipmentData
                                     continue;
                                 }
                                 none = false;
-                                nearestItemList.hasBeenHarvested = true;
-                                MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
+                                if (InteractCostReward())
+                                {
+                                    nearestItemList.hasBeenHarvested = true;
+                                    MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
+                                }
                             }
                         }
                         if (none)
                         {
                             NotificationManager.instance.SetNewNotification("Cannot gather " + nearestItemList.dataList[0].Name + " with this tool.");
                         }
+                        
+
+                        
                     }
                 }
-                
+                // If singular item (butterflies, bees...)
                 if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
                 {
+                    
+
                     foreach (QI_ItemData itemData in gatherItemData)
                     {
-                        if(itemData == nearestItem.Data)
+                        if (itemData == nearestItem.Data)
                         {
-                            MiniGameManager.instance.StartMiniGame(miniGameType, nearestItem.Data, nearest.gameObject);
+                            if (InteractCostReward())
+                                MiniGameManager.instance.StartMiniGame(miniGameType, nearestItem.Data, nearest.gameObject);
                         }
                     }
+                    
                 }
+            }
+
+            bool InteractCostReward()
+            {
+                if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= playerEnergyCost)
+                {
+                    
+                    PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
+                    return true;
+                }
+
+                NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to do this.");
+                return false;
             }
         }
     }

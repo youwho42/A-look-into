@@ -8,14 +8,16 @@ public class FixAndDestroy : MonoBehaviour, IFixArea
 
     public ParticleSystem fixingEffect;
     public SpriteRenderer fixableSprite;
-  
+    bool isFixing;
     public void Fix(List<FixableAreaIngredient> ingredients)
     {
-        StartCoroutine(FixCo(ingredients));
+        if(!isFixing)
+            StartCoroutine(FixCo(ingredients));
     }
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)
     {
+        isFixing = true;
         RemoveItemsFromInventory(ingredients);
         fixingEffect.Play();
         float timer = 0;

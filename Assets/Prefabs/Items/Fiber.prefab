@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3340633912972864975}
   - component: {fileID: 3205467184418445630}
   - component: {fileID: 1078765197651623870}
+  - component: {fileID: -3408826983127947495}
   m_Layer: 13
   m_Name: Fiber
   m_TagString: Untagged
@@ -46,10 +47,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -128,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Take
+  playerEnergyCost: 0.5
+  gameEnergyReward: 0.1
   canInteract: 1
 --- !u!114 &1078765197651623870
 MonoBehaviour:
@@ -142,3 +147,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 79a88d05-4a22-4bd6-a79a-1449ff27c29d
+--- !u!114 &-3408826983127947495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591675364925599087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRadius: 0.06
+  checkOffset: {x: 0, y: 0.01}

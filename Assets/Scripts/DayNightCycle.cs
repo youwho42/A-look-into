@@ -46,7 +46,7 @@ public class DayNightCycle : MonoBehaviour
     bool lightIsChanging;
 
     public FullHourEvent FullHourEventCallBack;
-
+    public TickEvent TickEventCallBack;
     private Coroutine changeLightCoroutine;
 
     // Day and Night Script for 2d,
@@ -140,37 +140,7 @@ public class DayNightCycle : MonoBehaviour
                 break;
         }
 
-        /*if (currentTimeRaw >= 0 && currentTimeRaw < dayStart)
-        {
-            if (isDay)
-            {
-                isDay = false;
-                sun.intensity = .3f;
-            }
-        }
-        else if (currentTimeRaw >= dayStart && currentTimeRaw < nightStart)
-        {
-            if (!isDay)
-            {
-                isDay = true;
-                StartCoroutine(ChangeLight(1.2f));
-                
-            }
-        }
-        else if (currentTimeRaw >= nightStart && currentTimeRaw < dayLength)
-        {
-            if (isDay)
-            {
-                isDay = false;
-                StartCoroutine(ChangeLight(0.3f));
-            }
-        }
-        else 
-        if (currentTimeRaw >= dayLength)
-        {
-            currentTimeRaw = 0;
-        }*/
-
+        
     }
 
     void SetInitialLight(int currentTimeRaw)
@@ -247,7 +217,7 @@ public class DayNightCycle : MonoBehaviour
             SetDayOrNight();
 
             tick++;
-            
+            TickEventCallBack.Invoke(tick);
 
             yield return new WaitForSeconds(1F / cycleSpeed);
         }
@@ -255,5 +225,7 @@ public class DayNightCycle : MonoBehaviour
 
     [System.Serializable]
     public class FullHourEvent : UnityEvent<int> { }
+    [System.Serializable]
+    public class TickEvent : UnityEvent<int> { }
 
 }

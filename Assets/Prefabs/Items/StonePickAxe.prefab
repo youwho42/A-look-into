@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 522756923}
   - component: {fileID: 1644589846858681769}
   - component: {fileID: 7708475564934672672}
+  - component: {fileID: -5805682366003023133}
   m_Layer: 13
   m_Name: StonePickAxe
   m_TagString: Untagged
@@ -130,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Take
+  playerEnergyCost: 0.5
+  gameEnergyReward: 0.1
   canInteract: 1
 --- !u!114 &7708475564934672672
 MonoBehaviour:
@@ -144,3 +147,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &-5805682366003023133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRadius: 0.07
+  checkOffset: {x: 0.04, y: 0.02}
+  grassObjects: []

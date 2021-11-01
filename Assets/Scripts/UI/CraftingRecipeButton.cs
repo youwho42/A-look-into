@@ -11,26 +11,26 @@ public class CraftingRecipeButton : MonoBehaviour
 
     QI_CraftingRecipe item;
     public TextMeshProUGUI recipeName;
-    CraftingTable craftingTable;
+    CraftingStationDisplayUI craftingStation;
     public Button button;
 
     private void Start()
     {
-        //craftingTable = GetComponentInParent<CraftingTable>();
+        craftingStation = CraftingStationDisplayUI.instance;
         button.onClick.AddListener(SetCurrentRecipe);
     }
 
     private void SetCurrentRecipe()
     {
-        craftingTable.SetCurrentRecipe(item);
+        craftingStation.SetCurrentRecipe(item);
         AudioManager.instance.PlaySound("Crafting_SetRecipe");
     }
 
-    public void AddItem(QI_CraftingRecipe newItem, CraftingTable craftingTable)
+    public void AddItem(QI_CraftingRecipe newItem)
     {
         item = newItem;
         recipeName.text = item.Name;
-        this.craftingTable = craftingTable;
+        
     }
 
     void ClearSlot()

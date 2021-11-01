@@ -55,6 +55,8 @@ public class SparrowAI : MonoBehaviour
         {
             case FlyingState.isFlying:
 
+                if (animator.GetBool("IsHopping"))
+                    animator.SetBool("IsHopping", false);
 
                 if (animator.GetBool("IsLanded"))
                     animator.SetBool("IsLanded", false);
@@ -99,8 +101,7 @@ public class SparrowAI : MonoBehaviour
             case FlyingState.isAtDestination:
                 if (!isSleeping || !isRaining)
                 {
-                    if (!animator.GetBool("IsHopping"))
-                        animator.SetBool("IsHopping", false);
+                   
 
                     chirpTimer -= Time.deltaTime;
                     if (chirpTimer <= 0)
@@ -268,7 +269,11 @@ public class SparrowAI : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(home.position, roamingArea);
+        if (home != null) 
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(home.position, roamingArea);
+        }
+        
     }
 }

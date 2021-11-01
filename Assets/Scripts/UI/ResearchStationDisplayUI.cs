@@ -29,18 +29,20 @@ public class ResearchStationDisplayUI : MonoBehaviour
         playerInformation = PlayerInformation.instance;
         playerRecipes = PlayerCrafting.instance;
     }
-    public void ShowReasearchStationUI()
+
+    public void ShowUI()
     {
         UpdateResearchDisplay();
         playerInformation.TogglePlayerInput(false);
         researchStationUI.SetActive(true);
     }
 
-    public void HideReasearchStationUI()
+    public void HideUI()
     {
         playerInformation.TogglePlayerInput(true);
         researchStationUI.SetActive(false);
     }
+    
     public void UpdateResearchDisplay()
     {
         ClearInventorySlots();
@@ -53,9 +55,8 @@ public class ResearchStationDisplayUI : MonoBehaviour
             QI_ItemData item = playerInformation.playerInventory.Stacks[i].Item;
             if (item.ResearchRecipes.Count > 0)
             {
-
-                if (PlayerInformation.instance.GetTotalInventoryQuantity(item) >= item.RecipeRevealAmount)
-                {
+              
+                
                     foreach (var recipe in item.ResearchRecipes)
                     {
                         if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe))
@@ -64,7 +65,7 @@ public class ResearchStationDisplayUI : MonoBehaviour
                             newSlot.AddItem(item);
                         }
                     }
-                }
+                
 
                 
             }
@@ -79,4 +80,6 @@ public class ResearchStationDisplayUI : MonoBehaviour
             DestroyImmediate(inventoryItemArea.transform.GetChild(0).gameObject);
         }
     }
+
+    
 }

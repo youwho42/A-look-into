@@ -9,24 +9,31 @@ public class CraftingSlot : MonoBehaviour
 {
     QI_ItemData item;
     public Image icon;
-    public TextMeshProUGUI itemName;
+    
     public TextMeshProUGUI amount;
     public bool isIngredientSlot;
     public Button craftButton;
     bool addedToListener;
-    CraftingTable currentCraftingTable;
+    
 
-    public void AddItem(QI_ItemData newItem, int recipeQuantity, CraftingTable craftingTable)
+    public void ShowInformation()
+    {
+        if (item == null)
+            return;
+        ItemInformationDisplayUI.instance.ShowInformationDisplay(item);
+    }
+    public void HideInformation()
+    {
+        ItemInformationDisplayUI.instance.HideInformationDisplay();
+    }
+
+    // Recipe Result 
+    public void AddItem(QI_ItemData newItem, int recipeQuantity)
     {
         item = newItem;
         icon.sprite = item.Icon;
-        itemName.text = item.Name;
-        if (!addedToListener)
-        {
-            currentCraftingTable = craftingTable;
-            craftButton.onClick.AddListener(craftingTable.CraftItem);
-            addedToListener = true;
-        }
+        
+        
         
         if (!isIngredientSlot)
         {
@@ -36,11 +43,12 @@ public class CraftingSlot : MonoBehaviour
 
     }
 
+    // Recipe Ingredients
     public void AddItem(QI_ItemData newItem, int recipeQuantity, int inventoryQuantity)
     {
         item = newItem;
         icon.sprite = item.Icon;
-        itemName.text = item.Name;
+        
         
         if (isIngredientSlot)
         {
@@ -61,14 +69,10 @@ public class CraftingSlot : MonoBehaviour
     {
         item = null;
         icon.sprite = null;
-        itemName.text = "";
+        
         amount.text = "";
         icon.enabled = false;
-        if (addedToListener)
-        {
-            craftButton.onClick.RemoveListener(currentCraftingTable.CraftItem);
-            addedToListener = false;
-        }
+        
         
     }
 }

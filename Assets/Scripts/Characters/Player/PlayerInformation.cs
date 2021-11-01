@@ -11,11 +11,13 @@ public class PlayerInformation : MonoBehaviour
     public Transform player;
     public QI_Inventory playerInventory;
     public QI_CraftingRecipeDatabase playerRecipeDatabase;
+    
     public bool uiScreenVisible;
     
     public PlayerInput playerInput;
 
     public PlayerStats playerStats;
+
     private void Awake()
     {
         if (instance == null)
@@ -27,11 +29,12 @@ public class PlayerInformation : MonoBehaviour
             Destroy(gameObject);
         }
     }
-   
+
+
 
     public void TogglePlayerInput(bool toggle)
     {
-        playerInput.enabled = toggle;
+        playerInput.isInUI = !toggle;
     }
 
     public int GetTotalInventoryQuantity(QI_ItemData item)

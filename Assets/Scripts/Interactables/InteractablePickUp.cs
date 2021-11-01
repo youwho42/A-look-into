@@ -15,13 +15,14 @@ public class InteractablePickUp : Interactable
     {
         base.Start();
         interactableItem = GetComponent<QI_Item>();
+        interactVerb = interactableItem.Data.Name;
     }
 
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-
-        StartCoroutine(InteractCo(interactor));
+        if(InteractCostReward())
+            StartCoroutine(InteractCo(interactor));
 
         
     }
@@ -34,14 +35,39 @@ public class InteractablePickUp : Interactable
 
         
         if(PlayerInformation.instance.playerInventory.AddItem(interactableItem.Data, 1))
+        {
+            if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
+            {
+                obj.ShowObjects();
+            }
             Destroy(gameObject);
+
+        }
+            
         hasInteracted = false;
 
         WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
         
             
     }
-   
+
+
+
+    bool InteractCostReward()
+    {
+        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= playerEnergyCost)
+        {
+            PlayerInformation.instance.playerStats.AddGameEnergy(gameEnergyReward);
+            PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
+            return true;
+        }
+
+        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to pick this up.");
+        return false;
+    }
+
+
+
     void PlayInteractSound()
     {
         if (audioManager.CompareSoundNames("PickUp-" + interactSound))

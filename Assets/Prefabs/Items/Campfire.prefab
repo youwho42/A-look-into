@@ -5056,6 +5056,8 @@ GameObject:
   - component: {fileID: 1678774610974919400}
   - component: {fileID: -8689985029252523339}
   - component: {fileID: 1974885789181362753}
+  - component: {fileID: 7766967853655951408}
+  - component: {fileID: 8181011660677160059}
   m_Layer: 13
   m_Name: Campfire
   m_TagString: Untagged
@@ -5173,6 +5175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Light
+  playerEnergyCost: 1
+  gameEnergyReward: 0
   canInteract: 1
   fireAnimation: {fileID: 728350270}
   lightFlicker: {fileID: 1974885789181362753}
@@ -5206,3 +5210,59 @@ MonoBehaviour:
   useIntensity: 1
   flickerAmount: 0.2
   waitTimeAmount: 0
+--- !u!60 &7766967853655951408
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5497752}
+    oldSize: {x: 0.25, y: 0.25}
+    newSize: {x: 0.125, y: 0.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.08488321, y: 0.026552256}
+      - {x: -0.096692085, y: 0.015949897}
+      - {x: -0.10385442, y: 0.00013205409}
+      - {x: -0.10113931, y: -0.038983382}
+      - {x: -0.06375027, y: -0.06737398}
+      - {x: -0.020357132, y: -0.08767212}
+      - {x: 0.03166151, y: -0.08857754}
+      - {x: 0.06889868, y: -0.07727342}
+      - {x: 0.08313775, y: -0.064908564}
+      - {x: 0.09860659, y: -0.0467503}
+      - {x: 0.10721946, y: -0.020562455}
+      - {x: 0.10238671, y: 0.00047116727}
+      - {x: 0.09296751, y: 0.020705633}
+      - {x: 0.07436299, y: 0.039535016}
+      - {x: 0.03673935, y: 0.060538854}
+      - {x: -0.002768755, y: 0.058696702}
+      - {x: -0.052402496, y: 0.046696175}
+      - {x: -0.07364535, y: 0.037043497}
+--- !u!114 &8181011660677160059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRadius: 0.15

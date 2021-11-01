@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CrowAI : MonoBehaviour
+public class CrowAI : MonoBehaviour, IAnimal
 {
     public float roamingArea;
     float timeToStayAtDestination;
@@ -32,6 +32,8 @@ public class CrowAI : MonoBehaviour
 
     private void Start()
     {
+        if (home == null)
+            SetHome(transform);
         sounds = GetComponent<AnimalSounds>();
         DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
         animator.SetBool("isLanded", true);
@@ -41,12 +43,13 @@ public class CrowAI : MonoBehaviour
         detectionTimeOutAmount = SetRandomRange(5, 60);
 
         displacmentZ = home.GetComponent<DrawZasYDisplacement>();
-
-
+        
     }
 
     private void Update()
     {
+        if (home == null)
+            SetHome(transform);
 
         switch (currentState)
         {
@@ -151,9 +154,31 @@ public class CrowAI : MonoBehaviour
                 break;
         }
     }
+    public void SetHome(Transform location)
+    {
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 5);
+        Collider2D nearest = null;
+        float distance = 0;
 
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if (hit[i].CompareTag("OpenCrowSpot")) 
+            {
+                float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
+                if (nearest == null || tempDistance < distance)
+                {
+                    nearest = hit[i];
+                    distance = tempDistance;
+                }
+            }
+                
+        }
+        if(nearest != null)
+            home = nearest.transform;
+        
+    }
 
-    float SetRandomRange(Vector2 minMaxRange)
+        float SetRandomRange(Vector2 minMaxRange)
     {
         return Random.Range(minMaxRange.x, minMaxRange.y);
     }
@@ -242,9 +267,5 @@ public class CrowAI : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(home.position, roamingArea);
-    }
+    
 }

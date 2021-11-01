@@ -8,14 +8,17 @@ public class Interactable : MonoBehaviour
     public string interactSound = "Default";
     public string interactVerb = "whaaAA???";
 
+    public float playerEnergyCost;
+    public float gameEnergyReward;
     public bool canInteract = true;
 
     protected bool hasInteracted;
+    protected PlayerInformation playerInformation;
 
     public virtual void Start()
     {
         audioManager = AudioManager.instance;
-        
+        playerInformation = PlayerInformation.instance;
     }
 
     public virtual void Interact(GameObject interactor)
@@ -24,10 +27,13 @@ public class Interactable : MonoBehaviour
             return;
 
         
+
         hasInteracted = true;
+
         // The rest happens in child script...
     }
 
     
+
 
 }

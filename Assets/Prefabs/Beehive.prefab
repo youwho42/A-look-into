@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4471606465425354260}
   - component: {fileID: 5432038704536734980}
+  - component: {fileID: 6903536950274423817}
   m_Layer: 0
   m_Name: Beehive
   m_TagString: Beehive
@@ -46,6 +47,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionZ: 0.85
   displacedPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &6903536950274423817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160232884156040447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c9eb3141f96f945b2d57bb8e6ac9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprite: {fileID: 5958998893306059904}
+  displacementZ: {fileID: 5432038704536734980}
+  beeObject: {fileID: 4720702768676041353, guid: 4ddde209f507a4f4ba58296b6d977896,
+    type: 3}
+  maxBees: 10
 --- !u!1 &5958998893306059910
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +89,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5958998893306059910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1995, z: 0}
+  m_LocalPosition: {x: 0, y: 0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4471606465425354260}
@@ -88,10 +106,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -126,4 +146,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1

@@ -56,7 +56,11 @@ public class InventoryDisplaySlot : MonoBehaviour
         {
             entity.GenerateId();
         }
-        
+        if (go.TryGetComponent(out ReplaceObjectOnItemDrop obj))
+        {
+            obj.CheckForObjects();
+        }
+
         inventory.RemoveItem(item, 1);
     }
 
@@ -97,8 +101,9 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         if (t.CompareTag("Grass"))
             return true;
-        
-            
+        if (t.CompareTag("Path"))
+            return true;
+
 
         NotificationManager.instance.SetNewNotification("You can't place this here");
         return false;

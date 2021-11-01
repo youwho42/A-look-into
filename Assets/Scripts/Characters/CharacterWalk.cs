@@ -48,10 +48,8 @@ public class CharacterWalk : MonoBehaviour
 
         thisTransform.position = new Vector3(newPosM.x, newPosM.y, currentGridLocation.currentLevel);
 
-        if (Time.frameCount % 10 == 0)
-        {
-            currentGridLocation.UpdateLocation();
-        }
+        currentGridLocation.UpdateLocation();
+        
     }
 
     void SetAngledPath(Vector2 mainDestination, float time)

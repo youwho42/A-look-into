@@ -7,11 +7,13 @@ public class InteractableContainer : Interactable
 {
 
     bool isOpen;
-
+    ContainerInventoryDisplayUI containerUI;
+    QI_Inventory inventory;
     public override void Start()
     {
         base.Start();
-        
+        containerUI = ContainerInventoryDisplayUI.instance;
+        inventory = GetComponent<QI_Inventory>();
     }
 
     public override void Interact(GameObject interactor)
@@ -19,25 +21,17 @@ public class InteractableContainer : Interactable
         base.Interact(interactor);
 
         if (!isOpen) 
-        { 
-            OpenContainer();
+        {
+            containerUI.ShowContainerUI(inventory);
             isOpen = true;
         }
         else
         {
-            CloseContainer();
+            containerUI.HideContainerUI();
             isOpen = false;
         }
     }
-    private void CloseContainer()
-    {
-        gameObject.GetComponent<ContainerInventoryDisplay>().HideContainerUI();
-    }
-    private void OpenContainer()
-    {
-        
-        gameObject.GetComponent<ContainerInventoryDisplay>().ShowContainerUI();
-    }
+    
 
     public virtual void PlayInteractionSound()
     {

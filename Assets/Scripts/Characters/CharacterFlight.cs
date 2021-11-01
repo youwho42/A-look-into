@@ -75,10 +75,9 @@ public class CharacterFlight : MonoBehaviour
         
         totalZ = (characterSprite.position.z - screenPos.y) / 10;
         characterSprite.localScale = new Vector3(1 + totalZ, 1 + totalZ, 1);
-        if (Time.frameCount % 10 == 0)
-        {
-            currentGridLocation.UpdateLocation();
-        }
+        
+        currentGridLocation.UpdateLocation();
+        
     }
 
    

@@ -13,7 +13,8 @@ public class FixableAreaIngredient
 
 public class InteractableFixingArea : Interactable
 {
-    
+
+
 
     bool canStartGame;
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
@@ -28,8 +29,9 @@ public class InteractableFixingArea : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-        if (CheckForIngredients())
+        if (CheckForIngredients() && InteractCostReward())
         {
+            
             GetComponent<IFixArea>().Fix(ingredients);
         }
     }
@@ -39,7 +41,7 @@ public class InteractableFixingArea : Interactable
     {
         foreach (var ingredient in ingredients)
         {
-            int t = PlayerInformation.instance.GetTotalInventoryQuantity(ingredient.item);
+            int t = playerInformation.GetTotalInventoryQuantity(ingredient.item);
             if (t < ingredient.amount)
             {
                 NotificationManager.instance.SetNewNotification("You are missing " + (ingredient.amount - t) + " " + ingredient.item.Name + " to fix this.");
@@ -49,6 +51,20 @@ public class InteractableFixingArea : Interactable
         }
         return true;
     }
+
+    bool InteractCostReward()
+    {
+        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= playerEnergyCost)
+        {
+            playerInformation.playerStats.AddGameEnergy(gameEnergyReward);
+            playerInformation.playerStats.RemovePlayerEnergy(playerEnergyCost);
+            return true;
+        }
+
+        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to fix this.");
+        return false;
+    }
+
 
     void PlayInteractSound()
     {
