@@ -65,7 +65,8 @@ public class SleepDisplayUI : MonoBehaviour
     }
     public void CancelSleep()
     {
-        StopCoroutine(sleepCoroutine);
+        if(sleepCoroutine != null)
+            StopCoroutine(sleepCoroutine);
         dayNightCycle.cycleSpeed = originalCycleSpeed;
         playerInformation.TogglePlayerInput(true);
         sleepDisplay.SetActive(false);

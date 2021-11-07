@@ -2,13 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WindSpawner : MonoBehaviour
 {
+    public static WindSpawner instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     public Vector2 minMaxTimeToSpawn;
     float timeToSpawn;
     float nextTimeToSpawn;
     PlayerInformation player;
     ObjectPooler pool;
+   
+
     private void Start()
     {
         pool = GetComponent<ObjectPooler>();
@@ -45,12 +58,27 @@ public class WindSpawner : MonoBehaviour
             if(np != null)
             {
                 np.OnObjectSpawn();
-                
+                CheckAffectedObjects(go.transform);
             }
                 
         }
     }
 
+    private void CheckAffectedObjects(Transform location)
+    {
+        var hit = Physics2D.OverlapCircleAll(location.position, 1.5f);
+        if (hit.Length > 0)
+        {
+            for (int i = 0; i < hit.Length; i++)
+            {
+                if(hit[i].TryGetComponent(out IWindEffect affected))
+                {
+                    affected.Affect();
+                }
+            }
+        }
+
+    }
 
     Vector2 GetRandomPosition()
     {

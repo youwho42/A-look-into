@@ -114,7 +114,7 @@ public class FireflyAI : MonoBehaviour
 
     public void SetSleepOrWake(int time)
     {
-        if (time == 22)
+        if (time >= 22 || time <= 19)
         {
 
             flight.SetDestination(home.position, displacmentZ.displacedPosition);

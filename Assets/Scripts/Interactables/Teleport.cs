@@ -2,37 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Teleport : Interactable
+public class Teleport : MonoBehaviour
 {
-    public Transform teleportTwin;
+    
     [HideInInspector]
     public Material material;
     [HideInInspector]
     public GameObject objectToTeleport; 
-    public int teleportTwinLevel;
+    
     
 
     bool isInTeleportRange;
     [HideInInspector]
     public bool isIncoming;
 
-    public override void Interact(GameObject interactor)
+    public int currentLevel;
+
+    private void Start()
     {
-        base.Interact(interactor);
+        TeleportSystemManager.instance.allTeleports.Add(transform);
+        SetCurrentLevel();
+    }
+
+    public void StartTeleport(Transform teleporter)
+    {
+        StartCoroutine(TeleportCo(teleporter));
+    }
+
+    public void SetUpTeleporter(GameObject interactor)
+    {
         material = interactor.GetComponentInChildren<SpriteRenderer>().material;
         objectToTeleport = interactor.gameObject;
         isInTeleportRange = true;
-        StartTeleport();
     }
 
-    public void StartTeleport()
+    IEnumerator TeleportCo(Transform teleporter)
     {
-        StartCoroutine("TeleportCo");
-    }
-
-    IEnumerator TeleportCo()
-    {
-        teleportTwin.GetComponent<Teleport>().isIncoming = true;
+        teleporter.GetComponent<Teleport>().isIncoming = true;
         Material usingMaterial = material;
         GameObject activeTeleport = objectToTeleport;
         activeTeleport.GetComponent<Playermovement>().enabled = false;
@@ -40,7 +46,7 @@ public class Teleport : Interactable
         DissolveEffect.instance.StartDissolve(usingMaterial, 2f, false);
         yield return new WaitForSeconds(2f);
         activeTeleport.SetActive(false);
-        activeTeleport.transform.position = new Vector3(teleportTwin.position.x, teleportTwin.position.y, teleportTwinLevel);
+        activeTeleport.transform.position = new Vector3(teleporter.position.x, teleporter.position.y, teleporter.GetComponent<Teleport>().currentLevel);
         activeTeleport.GetComponent<PlayerLevelChange>().UpdatePlayerLocation();
         SetCollisionLayers.instance.SetCollisionLayer();
         yield return new WaitForSeconds(1f);
@@ -61,9 +67,10 @@ public class Teleport : Interactable
         activeTeleport.GetComponent<Playermovement>().enabled = true;
     }
 
-    private void OnDrawGizmosSelected()
+
+    public void SetCurrentLevel()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, teleportTwin.position);
+        transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel - 0.5f);
     }
+  
 }

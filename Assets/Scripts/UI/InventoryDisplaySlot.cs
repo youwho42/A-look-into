@@ -68,6 +68,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void DragItem()
     {
+        
         icon.transform.localPosition = GetMousePosition();
     }
 

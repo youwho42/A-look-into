@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RandomPlantGrowthAtStart : MonoBehaviour
 {
-    private void Start()
+    private IEnumerator Start()
     {
-        
+        yield return new WaitForSeconds(1);
         var allPlants = FindObjectsOfType<PlantLifeCycle>();
         foreach (var plant in allPlants)
         {

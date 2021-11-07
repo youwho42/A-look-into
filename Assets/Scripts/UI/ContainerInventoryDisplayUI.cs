@@ -21,8 +21,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     public GameObject containerDisplayUI;
     public GameObject containerSlotHolder;
     public GameObject playerSlotHolder;
-    public GameObject inventorySlot;
-    public QI_Inventory containerInventory;
+    public GameObject containerSlot;
+    QI_Inventory containerInventory;
     PlayerInformation playerInformation;
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
     public List<ContainerDisplaySlot> playerSlots = new List<ContainerDisplaySlot>();
@@ -32,26 +32,6 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         playerInformation = PlayerInformation.instance;
     }
 
-
-    void SetContainerUI()
-    {
-        ClearSlots();
-        for (int i = 0; i < containerInventory.MaxStacks; i++)
-        {
-
-            GameObject newSlot = Instantiate(inventorySlot, containerSlotHolder.transform);
-            containerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
-        }
-        for (int i = 0; i < playerInformation.playerInventory.MaxStacks; i++)
-        {
-
-            GameObject newSlot = Instantiate(inventorySlot, playerSlotHolder.transform);
-            playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
-            playerInformation.playerInventory.EventUIUpdateInventory.AddListener(UpdateContainerInventoryUI);
-        }
-        
-        UpdateContainerInventoryUI();
-    }
 
     public void ShowContainerUI(QI_Inventory container)
     {
@@ -69,9 +49,32 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         containerDisplayUI.SetActive(false);
     }
 
+    void SetContainerUI()
+    {
+        ClearSlots();
+        for (int i = 0; i < containerInventory.MaxStacks; i++)
+        {
+
+            GameObject newSlot = Instantiate(containerSlot, containerSlotHolder.transform);
+            containerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
+        }
+        for (int i = 0; i < playerInformation.playerInventory.MaxStacks; i++)
+        {
+
+            GameObject newSlot = Instantiate(containerSlot, playerSlotHolder.transform);
+            playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
+            playerInformation.playerInventory.EventUIUpdateInventory.AddListener(UpdateContainerInventoryUI);
+        }
+
+        UpdateContainerInventoryUI();
+    }
+
+    
+
     public void UpdateContainerInventoryUI()
     {
-        
+        if (containerInventory == null)
+            return;
         foreach (ContainerDisplaySlot containerSlot in containerSlots)
         {
             containerSlot.ClearSlot();
@@ -87,7 +90,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
         for (int i = 0; i < containerInventory.Stacks.Count; i++)
         {
-            
+
             if (containerInventory.Stacks[i].Item != null)
             {
                 containerSlots[i].containerInventory = containerInventory;
@@ -98,14 +101,10 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             }
 
         }
-        foreach (ContainerDisplaySlot playerSlot in playerSlots)
-        {
-            playerSlot.ClearSlot();
-            playerSlot.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-        }
+        
         for (int i = 0; i < playerInformation.playerInventory.Stacks.Count; i++)
         {
-            
+
             if (playerInformation.playerInventory.Stacks[i].Item != null)
             {
                 playerSlots[i].containerInventory = containerInventory;
@@ -127,7 +126,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         {
             DestroyImmediate(playerSlotHolder.transform.GetChild(0).gameObject);
         }
-        
+        playerInformation.playerInventory.EventUIUpdateInventory.RemoveListener(UpdateContainerInventoryUI);
         containerSlots.Clear();
         playerSlots.Clear();
     }

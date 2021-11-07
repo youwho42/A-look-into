@@ -23,18 +23,26 @@ public class ContainerDisplaySlot : MonoBehaviour
     {
         if(item != null)
         {
+
             if (isContainerSlot)
             {
-
-                PlayerInformation.instance.playerInventory.AddItem(item, 1);
-                RemoveItem();
+                
+                int a = Input.GetKey(KeyCode.LeftControl) ? containerInventory.GetStock(item.Name) : 1;
+                
+                PlayerInformation.instance.playerInventory.AddItem(item, a);
+                containerInventory.RemoveItem(item, a);
+                
+                
             }
             else
             {
-                containerInventory.AddItem(item, 1);
-                RemoveItem();
-
+                int a = Input.GetKey(KeyCode.LeftControl) ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
+                
+                containerInventory.AddItem(item, a);
+                PlayerInformation.instance.playerInventory.RemoveItem(item, a);
+               
             }
+            ClearSlot();
         }
         
     }
@@ -47,15 +55,7 @@ public class ContainerDisplaySlot : MonoBehaviour
         itemAmount.text = amount.ToString();
         icon.enabled = true;
     }
-    public void RemoveItem()
-    {
-        if (item == null)
-            return;
-        if (isContainerSlot)
-            containerInventory.RemoveItem(item, 1);
-        else
-            PlayerInformation.instance.playerInventory.RemoveItem(item, 1);
-    }
+    
 
     public void ClearSlot()
     {
