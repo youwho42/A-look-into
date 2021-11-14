@@ -8,8 +8,9 @@ public class InteractableTeleporter : Interactable
     bool isOpen;
     TeleportDisplayUI teleportUI;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         teleport = GetComponent<Teleport>();
         teleportUI = TeleportDisplayUI.instance;
     }

@@ -9,11 +9,11 @@ public class EntityReproduction : MonoBehaviour
     bool canReproduce;
     int tick;
     public AnimationCurve curve;
-    QI_ItemData itemData;
+    public QI_ItemData itemToBecomeData;
 
     private void Start()
     {
-        itemData = GetComponent<QI_Item>().Data;
+        
         DayNightCycle.instance.FullHourEventCallBack.AddListener(Reproduce);
     }
 
@@ -34,7 +34,7 @@ public class EntityReproduction : MonoBehaviour
         {
             if(curve.Evaluate(Random.Range(0.0f, 1.0f)) < 0.1f)
             {
-                Transform item = Instantiate(itemData.ItemPrefab, transform.position + GetOffset(), Quaternion.identity, transform.parent);
+                Transform item = Instantiate(itemToBecomeData.ItemPrefab, transform.position + GetOffset(), Quaternion.identity, transform.parent);
                 item.GetComponent<SaveableEntity>().GenerateId();
                 canReproduce = false;
                 tick = 0;

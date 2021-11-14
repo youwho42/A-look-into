@@ -5,27 +5,32 @@ using UnityEngine;
 
 public class GrowingItemSaveSystem : MonoBehaviour, ISaveable
 {
+
     public GrowingItem growingItem;
-
-
+    
+    
 
     public object CaptureState()
     {
+
         return new SaveData
         {
-            currentTimeTick = growingItem.currentTimeTick
+            currentTimeTick = growingItem.GetCurrentTick()
         };
     }
 
     public void RestoreState(object state)
     {
+        
         var saveData = (SaveData)state;
-        growingItem.currentTimeTick = saveData.currentTimeTick;
+        growingItem.SetCurrentTick(saveData.currentTimeTick);
     }
 
     [Serializable]
     private struct SaveData
     {
+        
         public int currentTimeTick;
+        
     }
 }

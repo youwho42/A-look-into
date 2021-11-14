@@ -30,9 +30,13 @@ public class TreeShadows : MonoBehaviour
     {
         if(time == shadowAppearTime)
         {
-            shadowTransform.gameObject.SetActive(true);
+            if (shadowSprite != null)
+            {
+                shadowTransform.gameObject.SetActive(true);
+
+                StartCoroutine("StartShadowsCo");
+            }
             
-            StartCoroutine("StartShadowsCo");
         }
     }
     IEnumerator StartShadowsCo()

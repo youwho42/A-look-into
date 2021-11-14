@@ -10,7 +10,7 @@ public class PlantLifeCycle : MonoBehaviour
     public struct PlantCycle
     {
         public Sprite mainSprite;
-        public GameObject shadowSprite;
+        public SpriteRenderer shadowSprite;
         public int timeTickPerCycle;
         public List<GameObject> birdLandingSpots;
     }
@@ -21,7 +21,7 @@ public class PlantLifeCycle : MonoBehaviour
     TreeShadows shadow;
     public GameObject homePoint;
     DayNightCycle dayNightCycle;
-    public int currentCycle = 0;
+    public int currentCycle;
     public string homeOccupiedBy = "";
 
     public int currentTimeTick;
@@ -30,7 +30,9 @@ public class PlantLifeCycle : MonoBehaviour
     
     private void Start()
     {
-        gatherableItem = GetComponent<GatherableItem>();
+        if(TryGetComponent(out GatherableItem item))
+            gatherableItem = item;
+
         dayNightCycle = DayNightCycle.instance;
         dayNightCycle.TickEventCallBack.AddListener(GetCurrentTime);
         shadow = GetComponent<TreeShadows>();
@@ -76,7 +78,8 @@ public class PlantLifeCycle : MonoBehaviour
         }
         if (currentCycle < plantCycles.Count - 1)
         {
-            gatherableItem.hasBeenHarvested = true;
+            if(gatherableItem != null)
+                gatherableItem.hasBeenHarvested = true;
         }
     }
 
@@ -86,10 +89,10 @@ public class PlantLifeCycle : MonoBehaviour
         {
             if(i == currentCycle)
             {
-                shadow.shadowSprite = plantCycles[i].shadowSprite.GetComponent<SpriteRenderer>();
+                shadow.shadowSprite = plantCycles[i].shadowSprite;
                 spriteMask.sprite = plantCycles[i].mainSprite;
                 spriteDisplay.sprite = plantCycles[i].mainSprite;
-                plantCycles[i].shadowSprite.SetActive(true);
+                plantCycles[i].shadowSprite.gameObject.SetActive(true);
                 foreach (var spot in plantCycles[i].birdLandingSpots)
                 {
                     spot.SetActive(true);
@@ -97,7 +100,7 @@ public class PlantLifeCycle : MonoBehaviour
             }
             else
             {
-                plantCycles[i].shadowSprite.SetActive(false);
+                plantCycles[i].shadowSprite.gameObject.SetActive(false);
                 foreach (var spot in plantCycles[i].birdLandingSpots)
                 {
                     spot.SetActive(false);

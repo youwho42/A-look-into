@@ -7,7 +7,7 @@ public class GrowingItem : MonoBehaviour
     DayNightCycle dayNightCycle;
     [SerializeField]
     int timeTickToGrow;
-    public int currentTimeTick;
+    int currentTimeTick;
     bool canGrow;
     public float checkRadius;
     public List<GameObject> itemsToBecome = new List<GameObject>();
@@ -20,6 +20,7 @@ public class GrowingItem : MonoBehaviour
         dayNightCycle = DayNightCycle.instance;
         dayNightCycle.TickEventCallBack.AddListener(GetCurrentTime);
         CheckForNeighboringPlants();
+       
     }
 
 
@@ -42,11 +43,23 @@ public class GrowingItem : MonoBehaviour
         
     }
 
+    public void SetCurrentTick(int tick)
+    {
+        
+        currentTimeTick = tick;
+       
+    }
+    public int GetCurrentTick()
+    {
+        
+        return currentTimeTick;
+        
+    }
     void Grow()
     {
         int r = Random.Range(0, itemsToBecome.Count);
         var go = Instantiate(itemsToBecome[r], transform.position, Quaternion.identity);
-        if(go.TryGetComponent(out SaveableEntity saveableEntity))
+        if(go.TryGetComponent(out SaveableItem saveableEntity))
         {
             saveableEntity.GenerateId();
         }

@@ -24,9 +24,13 @@ public class FadeTilesOnPlayer : MonoBehaviour
         }
         if (lastPlayerPos != CurrentGridLocation() && hit != null)
         {
-            ClearFadedTiles();
-            GetTileLocation();
-            lastPlayerPos = CurrentGridLocation();
+            if (hit.CompareTag("House"))
+            {
+                ClearFadedTiles();
+                GetTileLocation();
+                lastPlayerPos = CurrentGridLocation();
+            }
+            
         }
     }
 

@@ -39,8 +39,7 @@ public class AnimalSpawner : MonoBehaviour
     }
     void SetNewAnimals(int time)
     {
-        
-            CheckForViableTree();
+        CheckForViableTree();
         
     }
 
@@ -76,14 +75,36 @@ public class AnimalSpawner : MonoBehaviour
                 {
                     foreach (var animal in possibleAnimals)
                     {
+
+
+                        if (collider2D.CompareTag(animal.animalPrefab.tag))
+                            continue;
+
+
                         for (int i = 0; i < animal.animalReason.Count; i++)
                         {
                             if (item.Data == animal.animalReason[i])
                             {
-                                if (!animals.ContainsKey(animal))
-                                    animals.Add(animal, 1);
+                                if(item.TryGetComponent(out PlantLifeCycle lifeCycle))
+                                {
+                                    
+                                    if (lifeCycle.currentCycle == lifeCycle.plantCycles.Count - 1)
+                                    {
+                                        
+                                        if (!animals.ContainsKey(animal))
+                                            animals.Add(animal, 1);
+                                        else
+                                            animals[animal]++;
+                                    }
+                                }
                                 else
-                                    animals[animal]++;
+                                {
+                                    if (!animals.ContainsKey(animal))
+                                        animals.Add(animal, 1);
+                                    else
+                                        animals[animal]++;
+                                }
+                                
                             }
                         }
                     }
@@ -107,8 +128,11 @@ public class AnimalSpawner : MonoBehaviour
                         {
                             thisAnimal.SetHome(plant.transform);
                         }
+                        if (go.TryGetComponent(out SaveableEntity saveable))
+                        {
+                            saveable.GenerateId();
+                        }
 
-                      
                     }
                 }
             }

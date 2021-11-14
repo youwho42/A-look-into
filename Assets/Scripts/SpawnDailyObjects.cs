@@ -35,16 +35,18 @@ public class SpawnDailyObjects : MonoBehaviour
             if(hit == null || hit.CompareTag("Grass"))
             {
 
-                
-                   
                 int r = Random.Range(0, objectToSpawn.Count);
                 
                 var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
-                go.parent = point.transform;
-               if (go.TryGetComponent(out SaveableEntity entity))
-               {
-                   entity.GenerateId();
-               }
+                
+                if (go.TryGetComponent(out SaveableEntity entity))
+                {
+                    entity.GenerateId();
+                }
+                if (go.TryGetComponent(out SaveableItem itemToSpawn))
+                {
+                    itemToSpawn.GenerateId();
+                }
             }
 
         }

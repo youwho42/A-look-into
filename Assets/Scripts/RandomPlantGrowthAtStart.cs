@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class RandomPlantGrowthAtStart : MonoBehaviour
 {
-    private IEnumerator Start()
+
+    public static RandomPlantGrowthAtStart instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+    public void SetPlantGrowthAtStart()
+    {
+        StartCoroutine(SetPlantGrowthAtStartCo());
+    }
+
+    IEnumerator SetPlantGrowthAtStartCo()
     {
         yield return new WaitForSeconds(1);
         var allPlants = FindObjectsOfType<PlantLifeCycle>();

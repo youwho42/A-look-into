@@ -16,7 +16,7 @@ public class SaveableEntity : MonoBehaviour
     public object CaptureState()
     {
         var state = new Dictionary<string, object>();
-
+        Debug.Log("Saving");
         foreach (var saveable in GetComponents<ISaveable>())
         {
             state[saveable.GetType().ToString()] = saveable.CaptureState();
@@ -24,9 +24,13 @@ public class SaveableEntity : MonoBehaviour
 
         return state;
     }
-
+    public void SetID(string newID)
+    {
+        id = newID;
+    }
     public void RestoreState(object state)
     {
+        Debug.Log("Restoring");
         var stateDictionary = (Dictionary<string, object>)state;
 
         foreach (var saveable in GetComponents<ISaveable>())

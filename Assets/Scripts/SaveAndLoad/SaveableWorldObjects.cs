@@ -32,7 +32,8 @@ public class SaveableWorldObjects : MonoBehaviour, ISaveable
         return new SaveData
         {
             items = tempItem,
-            locations = tempLocations
+            locations = tempLocations,
+            itemID = tempItemID
         };
     }
 
@@ -45,13 +46,17 @@ public class SaveableWorldObjects : MonoBehaviour, ISaveable
             if(item.TryGetComponent(out QI_Item value))
                 Destroy(item.gameObject);
         }
-
+        
 
 
         for (int i = 0; i < saveData.items.Count; i++)
         {
             
-            Instantiate(itemDatabase.GetItem(saveData.items[i]).ItemPrefab, saveData.locations[i], Quaternion.identity);
+            var go = Instantiate(itemDatabase.GetItem(saveData.items[i]).ItemPrefab, saveData.locations[i], Quaternion.identity);
+            if(go.TryGetComponent(out SaveableEntity entity))
+            {
+                entity.SetID(saveData.itemID[i]);
+            }
             
             
         }

@@ -20,18 +20,7 @@ public class CurrentGridLocation : MonoBehaviour
 
     private void Start()
     {
-        if (groundGrid == null)
-        {
-            groundGrid = FindObjectOfType<Grid>();
-            Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
-            foreach (var map in maps)
-            {
-                if(map.gameObject.name == "GroundTiles")
-                {
-                    groundMap = map;
-                }
-            }
-        }
+        SetGrid();
 
         tileScale = (groundGrid.cellSize.y * -0.5f) - 0.01f;
         UpdateLocation();
@@ -59,35 +48,30 @@ public class CurrentGridLocation : MonoBehaviour
     public int GetTileLocation()
     {
 
-        if (groundGrid == null)
-        {
-            groundGrid = FindObjectOfType<Grid>();
-            Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
-            foreach (var map in maps)
-            {
-                if (map.gameObject.name == "GroundTiles")
-                {
-                    groundMap = map;
-                }
-            }
-        }
+        SetGrid();
+
+
 
         int tilesHit = 0;
 
         Vector3Int currentPosition = GetCurrentGridLocation();
 
 
-        for (int i = 0; i < groundMap.size.z; i++)
+       
+
+        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
         {
             currentPosition.z = i;
             TileBase tile = groundMap.GetTile(currentPosition);
             if (tile != null)
             {
-                tilesHit++;
-                
+                tilesHit = i+1;
+                break;
             }
         }
+
         return tilesHit;
+        
     }
 
     public Vector3Int GetCurrentGridLocation()
@@ -101,5 +85,21 @@ public class CurrentGridLocation : MonoBehaviour
     }
 
 
+    void SetGrid()
+    {
+        if (groundGrid == null)
+        {
+            groundGrid = FindObjectOfType<Grid>();
+            Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
+            foreach (var map in maps)
+            {
+                if (map.gameObject.name == "GroundTiles")
+                {
+                    groundMap = map;
+                }
+            }
+        }
+    }
  
+
 }

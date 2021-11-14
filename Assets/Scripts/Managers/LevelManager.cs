@@ -62,8 +62,8 @@ public class LevelManager : MonoBehaviour
     }
     public void StartNewGame(string levelName)
     {
-        SavingLoading.instance.DeleteFile();
-        SavingLoading.instance.Save();
+        //SavingLoading.instance.DeleteFile();
+        //SavingLoading.instance.Save();
         titleMenu.SetActive(false);
         EventLevelLoaded.Invoke();
     }

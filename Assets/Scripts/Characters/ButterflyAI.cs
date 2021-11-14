@@ -91,7 +91,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
                     if (timeToStayAtDestination <= 0)
                     {
                         if (currentFlower != null)
-                            currentFlower.GetComponent<EntityReproduction>().AllowForReproduction();
+                            currentFlower.GetComponentInParent<EntityReproduction>().AllowForReproduction();
                         flight.SetRandomDestination(roamingArea);
                         animator.SetBool("IsLanded", false);
                         reproduction.AllowForReproduction();

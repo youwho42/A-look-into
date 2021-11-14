@@ -9,6 +9,8 @@ public class SavingLoading : MonoBehaviour
 
     public static SavingLoading instance;
 
+    public SaveableWorldObjects saveableWorldObjects;
+
     private void Awake()
     {
         if (instance != null)
@@ -66,12 +68,30 @@ public class SavingLoading : MonoBehaviour
             state[saveable.ID] = saveable.CaptureState();
         }
     }
-
     private void RestoreState(Dictionary<string, object> state)
     {
-
-        foreach (var saveable in FindObjectsOfType<SaveableEntity>())
+        StartCoroutine(RestoreStateCo(state));
+    }
+    private IEnumerator RestoreStateCo(Dictionary<string, object> state)
+    {
+        var allObjects = FindObjectsOfType<SaveableEntity>();
+        foreach (var saveable in allObjects)
         {
+            if (saveable.TryGetComponent(out SaveableWorldObjects sava))
+            {
+                if (state.TryGetValue(saveable.ID, out object value))
+                {
+                    saveable.RestoreState(value);
+                }
+            }
+                
+            
+        }
+        yield return new WaitForSeconds(2.0f);
+        foreach (var saveable in allObjects)
+        {
+            if (saveable == saveableWorldObjects)
+                continue;
             if(state.TryGetValue(saveable.ID, out object value))
             {
                 saveable.RestoreState(value);

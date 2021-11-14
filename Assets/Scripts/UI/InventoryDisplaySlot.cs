@@ -56,6 +56,10 @@ public class InventoryDisplaySlot : MonoBehaviour
         {
             entity.GenerateId();
         }
+        if (go.TryGetComponent(out SaveableItem itemToDrop))
+        {
+            itemToDrop.GenerateId();
+        }
         if (go.TryGetComponent(out ReplaceObjectOnItemDrop obj))
         {
             obj.CheckForObjects();
