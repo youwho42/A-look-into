@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4471606465425354260}
   - component: {fileID: 5432038704536734980}
   - component: {fileID: 6903536950274423817}
+  - component: {fileID: 8909593353864532084}
   m_Layer: 0
   m_Name: Beehive
   m_TagString: Beehive
@@ -64,6 +65,19 @@ MonoBehaviour:
   beeObject: {fileID: 4720702768676041353, guid: 4ddde209f507a4f4ba58296b6d977896,
     type: 3}
   maxBees: 10
+--- !u!114 &8909593353864532084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160232884156040447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 04d812f3bdeae174e921e72b08789f0f, type: 2}
 --- !u!1 &5958998893306059910
 GameObject:
   m_ObjectHideFlags: 0

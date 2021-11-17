@@ -253,10 +253,9 @@ GameObject:
   - component: {fileID: 6243013556377035721}
   - component: {fileID: 6243013556377035766}
   - component: {fileID: 4060084444284158102}
-  - component: {fileID: 1767106595907192400}
-  - component: {fileID: -477491445125053398}
   - component: {fileID: 2115133684}
   - component: {fileID: 5762479817680838440}
+  - component: {fileID: 1429562818349207961}
   m_Layer: 13
   m_Name: Teleporter
   m_TagString: Untagged
@@ -327,34 +326,8 @@ MonoBehaviour:
   glowAppearTime: 20
   glowDisappearTime: 5
   bloomMinIntensity: 1
-  bloomMaxIntensity: 12
+  bloomMaxIntensity: 8
   spriteMaterial: {fileID: 6243013557540376264}
---- !u!114 &1767106595907192400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6243013556377035764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
---- !u!114 &-477491445125053398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6243013556377035764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0381d8d35619c434fb06ed12e104dfed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayer: 0
 --- !u!114 &2115133684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +360,20 @@ MonoBehaviour:
   checkRadius: 0.25
   checkOffset: {x: 0, y: 0.03}
   grassObjects: []
+--- !u!114 &1429562818349207961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6243013556377035764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: b42b66260e239a942a71dba3e96cfb11, type: 2}
 --- !u!1 &6243013557540376311
 GameObject:
   m_ObjectHideFlags: 0

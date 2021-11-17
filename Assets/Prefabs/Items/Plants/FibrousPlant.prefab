@@ -14,9 +14,8 @@ GameObject:
   - component: {fileID: 7863569838572924200}
   - component: {fileID: 522790634477481630}
   - component: {fileID: 5247146421993626994}
-  - component: {fileID: 3767715108317101576}
   - component: {fileID: 8101374786852265420}
-  - component: {fileID: 7769693434075779759}
+  - component: {fileID: 765698134621234782}
   m_Layer: 13
   m_Name: FibrousPlant
   m_TagString: Untagged
@@ -149,19 +148,6 @@ MonoBehaviour:
   playerEnergyCost: 0.5
   gameEnergyReward: 0.1
   canInteract: 1
---- !u!114 &3767715108317101576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459197263679992930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &8101374786852265420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,52 +162,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 1314339209700361901}
   shadowSprite: {fileID: 7909383838140338833}
---- !u!114 &7769693434075779759
+--- !u!114 &765698134621234782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3459197263679992930}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71c6bbe4e050a3e42bdb4e65e8e51195, type: 3}
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ticksToReproduce: 5
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.08292109
-      value: 0.36682156
-      inSlope: 0.6766477
-      outSlope: 0.6766477
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  id: 
+  item: {fileID: 11400000, guid: 60d4cd0b3836de34ea87c90880a071b4, type: 2}
 --- !u!1 &4964545557207372249
 GameObject:
   m_ObjectHideFlags: 0

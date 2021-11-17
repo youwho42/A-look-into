@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3028905092986889510}
   - component: {fileID: 67944884844770456}
   - component: {fileID: 1879540528}
-  - component: {fileID: 60589952}
   - component: {fileID: -5433169088697301695}
+  - component: {fileID: -7828885472732882627}
   m_Layer: 13
   m_Name: RewardCertificatC
   m_TagString: Untagged
@@ -134,19 +134,6 @@ MonoBehaviour:
   playerEnergyCost: 0.5
   gameEnergyReward: 0.1
   canInteract: 1
---- !u!114 &60589952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2214919984761411202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &-5433169088697301695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,3 +147,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkRadius: 0
+  checkOffset: {x: 0, y: 0}
+  grassObjects: []
+--- !u!114 &-7828885472732882627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214919984761411202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: 871aee236cdf4634ba16b14e3a6752bf, type: 2}

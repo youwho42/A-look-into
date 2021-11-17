@@ -39,10 +39,7 @@ public class SpawnDailyObjects : MonoBehaviour
                 
                 var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
                 
-                if (go.TryGetComponent(out SaveableEntity entity))
-                {
-                    entity.GenerateId();
-                }
+                
                 if (go.TryGetComponent(out SaveableItem itemToSpawn))
                 {
                     itemToSpawn.GenerateId();

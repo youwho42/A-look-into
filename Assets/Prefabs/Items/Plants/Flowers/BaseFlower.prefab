@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5518729531771902418}
   - component: {fileID: 2464339742171293173}
   - component: {fileID: 1746602961939792828}
-  - component: {fileID: 8582128823797255627}
+  - component: {fileID: 3985607472048139474}
+  - component: {fileID: -8580629901927402759}
   m_Layer: 13
   m_Name: BaseFlower
   m_TagString: GrowingItem
@@ -80,6 +81,7 @@ MonoBehaviour:
   homeOccupiedBy: 
   currentTimeTick: 0
   gatherableCycle: 3
+  isAnimalShelter: 0
 --- !u!114 &5518729531771902420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +194,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   itemToBecomeData: {fileID: 11400000, guid: 26c2a491b76b0c94fb3098357303a2cd, type: 2}
---- !u!114 &8582128823797255627
+--- !u!114 &3985607472048139474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,11 +203,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 5518729531771902423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a43f5fc04d02024bbbccd252004417d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fb66dc3ba8683244a2fae1eb210c29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
   item: {fileID: 0}
+--- !u!114 &-8580629901927402759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52dcc3ae942c24389bf688ddfe153b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: whaaAA???
+  playerEnergyCost: 0.5
+  gameEnergyReward: 0
+  canInteract: 1
 --- !u!1 &5518729531953178509
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +810,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5bb3dbc7fb82040179ddb9f2dede596b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -106,8 +106,8 @@ public class BeeAI : MonoBehaviour
                     timeToStayAtDestination -= Time.deltaTime;
                     if (timeToStayAtDestination <= 0)
                     {
-                        if(currentFlower != null)
-                            currentFlower.GetComponent<EntityReproduction>().AllowForReproduction();
+                        /*if(currentFlower != null)
+                            currentFlower.GetComponent<EntityReproduction>().AllowForReproduction();*/
                         flight.SetRandomDestination(roamingArea);
                         currentState = FlyingState.isFlying;
                         animator.SetBool("IsLanded", false);

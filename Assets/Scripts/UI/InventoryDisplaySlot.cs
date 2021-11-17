@@ -52,7 +52,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (item == null)
             return;
         var go = Instantiate(item.ItemPrefab, position, Quaternion.identity);
-        if(go.TryGetComponent(out SaveableEntity entity))
+        if(go.TryGetComponent(out SaveableItem entity))
         {
             entity.GenerateId();
         }

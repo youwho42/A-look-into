@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 6750399011244368915}
   - component: {fileID: 6750399011244368912}
   - component: {fileID: 6750399011244368918}
-  - component: {fileID: 6750399011244368919}
-  - component: {fileID: 6750399011244368916}
   - component: {fileID: 6750399011244368917}
   - component: {fileID: 6750399011244368914}
+  - component: {fileID: 5341501006872362860}
   m_Layer: 13
   m_Name: ShelteredBedBroken
   m_TagString: Untagged
@@ -115,32 +114,6 @@ MonoBehaviour:
     amount: 10
   - item: {fileID: 11400000, guid: d1d7ea66e0d2c1946a12c959c74f2e02, type: 2}
     amount: 10
---- !u!114 &6750399011244368919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750399011244368913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
---- !u!114 &6750399011244368916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750399011244368913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: d772232c15b812344a407d2d912c7b0b, type: 2}
 --- !u!114 &6750399011244368917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fixingEffect: {fileID: 489651736155108232}
-  fixableReplacementObject: {fileID: 4296435715911598134, guid: 50abbadea167dff41bc0a7a446a0fdcd,
+  fixableReplacementObject: {fileID: 4296435715911598125, guid: 50abbadea167dff41bc0a7a446a0fdcd,
     type: 3}
   fixableSprite: {fileID: 6750399011244368912}
 --- !u!60 &6750399011244368914
@@ -198,6 +171,20 @@ PolygonCollider2D:
       - {x: 0.5020075, y: 0.103924155}
       - {x: 0.4566455, y: 0.1626808}
       - {x: 0.2552458, y: 0.21903205}
+--- !u!114 &5341501006872362860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750399011244368913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: d772232c15b812344a407d2d912c7b0b, type: 2}
 --- !u!1 &8899666191770706392
 GameObject:
   m_ObjectHideFlags: 0

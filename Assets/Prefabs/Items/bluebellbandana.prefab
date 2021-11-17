@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7437597556877749901}
   - component: {fileID: 3796595456441089329}
   - component: {fileID: -3944244787544571831}
+  - component: {fileID: 7230187784526376614}
   m_Layer: 13
   m_Name: bluebellbandana
   m_TagString: Untagged
@@ -165,6 +166,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkRadius: 0.03
+  checkOffset: {x: 0, y: 0}
+  grassObjects: []
+--- !u!114 &7230187784526376614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249755112104138815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: 0432e70505ae2c747aa1845e01eb4729, type: 2}
 --- !u!1 &249755113732338353
 GameObject:
   m_ObjectHideFlags: 0

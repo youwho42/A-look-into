@@ -80,7 +80,7 @@ public class SleepDisplayUI : MonoBehaviour
         {
             float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy");
             PlayerInformation.instance.playerStats.playerAttributes.SetAttributeValue("PlayerEnergy", currentEnergy + 0.1f);
-            dayNightCycle.cycleSpeed = 100;
+            dayNightCycle.cycleSpeed = 200;
             yield return null;
         }
         dayNightCycle.cycleSpeed = originalCycleSpeed;

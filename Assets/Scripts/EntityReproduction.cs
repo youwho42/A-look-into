@@ -35,14 +35,20 @@ public class EntityReproduction : MonoBehaviour
             if(curve.Evaluate(Random.Range(0.0f, 1.0f)) < 0.1f)
             {
                 Transform item = Instantiate(itemToBecomeData.ItemPrefab, transform.position + GetOffset(), Quaternion.identity, transform.parent);
-                item.GetComponent<SaveableEntity>().GenerateId();
+                item.GetComponent<SaveableItem>().GenerateId();
                 canReproduce = false;
                 tick = 0;
             }
         }
     }
-
-  
+    public void SetTick(int newTick)
+    {
+        tick = newTick;
+    }
+    public int GetTick()
+    {
+        return tick;
+    }
     Vector3 GetOffset()
     {
         return Random.insideUnitCircle * 0.2f;

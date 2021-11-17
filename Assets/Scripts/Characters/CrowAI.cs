@@ -230,7 +230,7 @@ public class CrowAI : MonoBehaviour, IAnimal
             detectionTimeOutTimer = 0;
             detectionTimeOutAmount = SetRandomRange(5,60);
             animator.SetBool("isLanded", false);
-            sounds.SetCrySounds();
+            
             if (currentLandingSpot != null)
             {
                 currentLandingSpot.tag = "OpenCrowSpot";

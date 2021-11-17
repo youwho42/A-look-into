@@ -62,8 +62,8 @@ public class LevelManager : MonoBehaviour
     }
     public void StartNewGame(string levelName)
     {
-        //SavingLoading.instance.DeleteFile();
-        //SavingLoading.instance.Save();
+
+        SaveAndLoadAll.instance.SaveAll();
         titleMenu.SetActive(false);
         EventLevelLoaded.Invoke();
     }
@@ -81,7 +81,7 @@ public class LevelManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        SavingLoading.instance.Save();
+        SaveAndLoadAll.instance.SaveAll();
     }
     private void ChangeLevel(string levelName)
     {
@@ -154,10 +154,10 @@ public class LevelManager : MonoBehaviour
             
             yield return null;
         }
-        
-        
-        SavingLoading.instance.Load();
 
+
+        SaveAndLoadAll.instance.LoadAll();
+        yield return new WaitForSeconds(0.5f);
         EventLevelLoaded.Invoke();
 
         GameObject player = FindObjectOfType<PlayerInput>().gameObject;

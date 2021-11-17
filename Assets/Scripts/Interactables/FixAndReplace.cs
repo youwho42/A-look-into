@@ -5,7 +5,7 @@ using UnityEngine;
 public class FixAndReplace : MonoBehaviour, IFixArea
 {
     public ParticleSystem fixingEffect;
-    public SaveableEntity fixableReplacementObject;
+    public GameObject fixableReplacementObject;
     public SpriteRenderer fixableSprite;
     bool isFixing;
     
@@ -29,8 +29,12 @@ public class FixAndReplace : MonoBehaviour, IFixArea
             timer += Time.deltaTime;
             yield return null;
         }
-        SaveableEntity s = Instantiate(fixableReplacementObject, transform.position, Quaternion.identity);
-        s.GenerateId();
+        var go = Instantiate(fixableReplacementObject, transform.position, Quaternion.identity);
+        if(go.TryGetComponent(out SaveableItem item))
+        {
+            item.GenerateId();
+        }
+        
         fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
         yield return new WaitForSeconds(3);
         

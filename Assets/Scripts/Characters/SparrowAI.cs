@@ -230,7 +230,7 @@ public class SparrowAI : MonoBehaviour
             detectionTimeOutTimer = 0;
             detectionTimeOutAmount = SetRandomRange(5, 15);
             animator.SetBool("IsLanded", false);
-            sounds.SetCrySounds();
+            
             if (currentLandingSpot != null)
             {
                 currentLandingSpot.tag = "OpenSparrowSpot";

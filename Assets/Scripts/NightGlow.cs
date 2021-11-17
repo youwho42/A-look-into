@@ -21,6 +21,7 @@ public class NightGlow : MonoBehaviour
         dayNightCycle.FullHourEventCallBack.AddListener(StartGlow);
         material = spriteMaterial.material;
         initialIntensity = material.GetColor("_EmissionColor");
+        SetInitialGlow();
     }
 
     public void StartGlow(int time)
@@ -29,6 +30,18 @@ public class NightGlow : MonoBehaviour
             StartCoroutine(StartGlowCo(true));
         if (time == glowDisappearTime)
             StartCoroutine(StartGlowCo(false));
+    }
+    
+    void SetInitialGlow()
+    {
+        if(dayNightCycle.hours>=5 || dayNightCycle.hours <= 20)
+        {
+            material.SetColor("_EmissionColor", initialIntensity * bloomMinIntensity);
+        }
+        else
+        {
+            material.SetColor("_EmissionColor", initialIntensity * bloomMaxIntensity);
+        }
     }
 
     IEnumerator StartGlowCo(bool on) 

@@ -68,7 +68,7 @@ public class AnimalSounds : MonoBehaviour
     public Vector2 minMaxBetweenCries;
     public bool continuous;
     public bool mute;
-    
+    public float maxSpeachPause;
 
     public AnimationCurve curve;
     public Animator animator;
@@ -110,7 +110,7 @@ public class AnimalSounds : MonoBehaviour
             if (PlaySound(AudioSet))
                 t++;
                 
-            yield return null;
+            yield return new WaitForSeconds(Random.Range(0.0f, maxSpeachPause));
         }
         isCrying = false;
         SetNextCry();

@@ -43,14 +43,11 @@ public class CharacterFlight : MonoBehaviour
         currentGridLocation = GetComponent<CurrentGridLocation>();
         currentGridLocation.UpdateLocationAndPosition();
         thisTransform = transform;
+
         if (centerOfActiveArea == null)
-        {
-            Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 10);
-            if (hit.Length > 0)
-            {
-                GetNearestBase(hit);
-            }
-        }
+            GetNearestBase();
+        
+
         mainPoints = new Vector2[3];
         subPoints = new Vector3[3];
         SetRandomDestination();
@@ -98,6 +95,9 @@ public class CharacterFlight : MonoBehaviour
 
     public void SetRandomDestination(float dist = 1)
     {
+        if (centerOfActiveArea == null)
+            GetNearestBase();
+
         Vector2 rand = Random.insideUnitCircle * dist;
         currentDestination = new Vector3(centerOfActiveArea.position.x + rand.x, centerOfActiveArea.position.y + rand.y, transform.position.z);
         float randZ = Random.Range(minMaxZRange.x, minMaxZRange.y);
@@ -116,6 +116,12 @@ public class CharacterFlight : MonoBehaviour
         SetAngledPath(currentDestination, destinationZ, distance * flyBaseSpeed);
     }
 
+    public void SetPosition(Vector3 location)
+    {
+        transform.position = location;
+        SetRandomDestination();
+    }
+
     public void SetFacingDirection()
     {
         // Set facing direction
@@ -124,29 +130,38 @@ public class CharacterFlight : MonoBehaviour
         characterRenderer.flipX = direction > 0;
     }
 
-    public void GetNearestBase(Collider2D[] colliders)
+    public void GetNearestBase()
     {
-        // Find nearest item.
-        Collider2D nearest = null;
-        float distance = 0;
 
-        for (int i = 0; i < colliders.Length; i++)
+        
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 10);
+        if (hit.Length > 0)
         {
-            if (colliders[i].CompareTag(activeAreaBaseTagName))
+            // Find nearest item.
+            Collider2D nearest = null;
+            float distance = 0;
+
+            for (int i = 0; i < hit.Length; i++)
             {
-                float tempDistance = Vector3.Distance(transform.position, colliders[i].transform.position);
-                if (nearest == null || tempDistance < distance)
+                if (hit[i].CompareTag(activeAreaBaseTagName))
                 {
-                    nearest = colliders[i];
-                    distance = tempDistance;
+                    float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
+                    if (nearest == null || tempDistance < distance)
+                    {
+                        nearest = hit[i];
+                        distance = tempDistance;
+                    }
                 }
-            }
 
+            }
+            if (nearest != null)
+            {
+                centerOfActiveArea = nearest.transform;
+                
+            }
         }
-        if (nearest != null)
-        {
-            centerOfActiveArea = nearest.transform;
-        }
+        centerOfActiveArea =  PlayerInformation.instance.player;
+        
 
     }
 }

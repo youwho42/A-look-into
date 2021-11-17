@@ -10,7 +10,8 @@ public class AnimalSpawner : MonoBehaviour
     [Serializable]
     public struct Animal
     {
-        public GameObject animalPrefab;
+        public QI_ItemData item;
+        //public GameObject animalPrefab;
         public List<QI_ItemData> animalReason;
         public int reasonAmountNeeded;
         public GameObject animalHome;
@@ -54,7 +55,7 @@ public class AnimalSpawner : MonoBehaviour
                 {
                     if(hit[i].TryGetComponent(out PlantLifeCycle plant))
                     {
-                        if(plant.currentCycle >= plant.gatherableCycle)
+                        if(plant.isAnimalShelter && plant.currentCycle >= plant.gatherableCycle)
                             CheckEnvironment(plant);
                     }
                 }
@@ -65,43 +66,56 @@ public class AnimalSpawner : MonoBehaviour
     public void CheckEnvironment(PlantLifeCycle plant)
     {
         Dictionary<Animal, int> animals = new Dictionary<Animal, int>();
+        List<Animal> existingAnimals = new List<Animal>();
         // check that reasons are met to spawn an animal
-        var hit = Physics2D.OverlapCircleAll(plant.transform.position, 1);
+        var hit = Physics2D.OverlapCircleAll(plant.transform.position, 1.5f);
         if (hit.Length > 0)
         {
-            foreach (var collider2D in hit)
+            foreach (var collider2D in hit)//for every object hit
             {
-                if (collider2D.TryGetComponent(out QI_Item item))
+                if (collider2D.TryGetComponent(out QI_Item item))//is it an item?
                 {
-                    foreach (var animal in possibleAnimals)
+                    foreach (var animal in possibleAnimals)//for every animal possible
                     {
 
-
-                        if (collider2D.CompareTag(animal.animalPrefab.tag))
-                            continue;
-
-
-                        for (int i = 0; i < animal.animalReason.Count; i++)
+                        if (item.Data == animal.item)// if the item hit and animal are the same
                         {
-                            if (item.Data == animal.animalReason[i])
+                            existingAnimals.Add(animal);//add the animal to the list...
+                        }
+                            
+                    }
+
+                    foreach (var animal in possibleAnimals)//for every animal possible
+                    {
+
+                        
+
+
+                        for (int i = 0; i < animal.animalReason.Count; i++)//What reasons are there to spawn this animal
+                        {
+                            
+                            if (item.Data == animal.animalReason[i])//if the hit object is of the right reason...
                             {
-                                if(item.TryGetComponent(out PlantLifeCycle lifeCycle))
+                                
+                                if (item.TryGetComponent(out PlantLifeCycle lifeCycle))//check if it is a growing plant
                                 {
                                     
-                                    if (lifeCycle.currentCycle == lifeCycle.plantCycles.Count - 1)
+                                    if (lifeCycle.currentCycle == lifeCycle.plantCycles.Count - 1)//check what stage its at
                                     {
-                                        
+                                        //Add it to the animal dictionary if it isn't already there
                                         if (!animals.ContainsKey(animal))
                                             animals.Add(animal, 1);
-                                        else
+                                        else//if it does exist just up the quantity
                                             animals[animal]++;
+                                        
                                     }
                                 }
                                 else
                                 {
+                                    //Add it to the animal dictionary if it isn't already there
                                     if (!animals.ContainsKey(animal))
                                         animals.Add(animal, 1);
-                                    else
+                                    else//if it does exist just up the quantity
                                         animals[animal]++;
                                 }
                                 
@@ -111,26 +125,35 @@ public class AnimalSpawner : MonoBehaviour
                 }
             }
         }
+
+
+
+
         // animal can be spawned
         foreach (var animal in possibleAnimals)
         {
+            
+            if (existingAnimals.Contains(animal))
+                continue;
+
             if (animals.TryGetValue(animal, out int i))
             {
-
+                
                 if (i >= animal.reasonAmountNeeded)
                 {
                     // get chance to spawn animal
                     if (animal.spawnChanceCurve.Evaluate(UnityEngine.Random.Range(0.0f, 1.0f)) < 0.1f)
                     {
-                        var go = Instantiate(animal.animalPrefab, plant.transform.position, Quaternion.identity);
+                        var go = Instantiate(animal.item.ItemPrefab, plant.transform.position, Quaternion.identity);
 
                         if (go.TryGetComponent(out IAnimal thisAnimal))
                         {
                             thisAnimal.SetHome(plant.transform);
                         }
-                        if (go.TryGetComponent(out SaveableEntity saveable))
+                       
+                        if (go.TryGetComponent(out SaveableItem saveItem))
                         {
-                            saveable.GenerateId();
+                            saveItem.GenerateId();
                         }
 
                     }

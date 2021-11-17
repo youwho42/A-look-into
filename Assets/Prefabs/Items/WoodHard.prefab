@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5194983041506339069}
   - component: {fileID: 8645996153089970369}
   - component: {fileID: 5768035969076710107}
-  - component: {fileID: 6804224159354319494}
   - component: {fileID: 2827569493296489943}
   - component: {fileID: 1736777718676195170}
+  - component: {fileID: -1644889071014550140}
   m_Layer: 13
   m_Name: WoodHard
   m_TagString: Untagged
@@ -117,19 +117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: fa67655462b22984690264cd226e12cf, type: 2}
---- !u!114 &6804224159354319494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4806734095490554465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &2827569493296489943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +149,17 @@ MonoBehaviour:
   checkRadius: 0.05
   checkOffset: {x: 0.01, y: 0.01}
   grassObjects: []
+--- !u!114 &-1644889071014550140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: fa67655462b22984690264cd226e12cf, type: 2}

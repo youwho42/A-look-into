@@ -24,7 +24,8 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     {
         isFlying,
         isLanding,
-        isAtDestination
+        isAtDestination,
+        isLeaving
     }
 
     private void Start()
@@ -35,6 +36,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
+        flight.SetRandomDestination(roamingArea);
         currentState = FlyingState.isFlying;
         
     }
@@ -63,8 +65,11 @@ public class ButterflyAI : MonoBehaviour, IAnimal
                 }
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
                 {
-                    flight.SetRandomDestination(roamingArea);
                     
+                    flight.SetRandomDestination(roamingArea);
+
+
+
                 }
                 captureCollider.offset = flight.characterSprite.localPosition;
                 break;
@@ -102,6 +107,14 @@ public class ButterflyAI : MonoBehaviour, IAnimal
                 
 
                 break;
+
+            case FlyingState.isLeaving:
+
+                flight.Move();
+                if (flight.characterSprite.localPosition.z == flight.currentDestination.z)
+                    Destroy(gameObject);
+
+                break;
         }
     }
 
@@ -126,34 +139,19 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
     public void SetHome(Transform location)
     {
-        /*Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 5);
-        Collider2D nearest = null;
-        float distance = 0;
-
-        for (int i = 0; i < hit.Length; i++)
-        {
-            if (hit[i].CompareTag("OpenCrowSpot"))
-            {
-                float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
-                if (nearest == null || tempDistance < distance)
-                {
-                    nearest = hit[i];
-                    distance = tempDistance;
-                }
-            }
-
-        }
-        if (nearest != null)
-            home = nearest.transform;
-*/
+        
     }
+    
 
+    
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<DrawZasYDisplacement>() != null && !justTookOff && collision.CompareTag("OpenFlower") && currentState == FlyingState.isFlying)
         {
             var temp = collision.GetComponent<DrawZasYDisplacement>();
+            flight.centerOfActiveArea = temp.gameObject.transform;
             flight.SetDestination(temp.transform.position, temp.displacedPosition);
             currentState = FlyingState.isLanding;
             justTookOff = true;

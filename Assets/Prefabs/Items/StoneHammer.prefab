@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6978717323848209374}
   - component: {fileID: 522756923}
   - component: {fileID: 1644589846858681769}
-  - component: {fileID: 7708475564934672672}
   - component: {fileID: -540926753097364450}
+  - component: {fileID: -7514586362432598640}
   m_Layer: 13
   m_Name: StoneHammer
   m_TagString: Untagged
@@ -134,19 +134,6 @@ MonoBehaviour:
   playerEnergyCost: 0.5
   gameEnergyReward: 0.1
   canInteract: 1
---- !u!114 &7708475564934672672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9201185386304742779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &-540926753097364450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +149,17 @@ MonoBehaviour:
   checkRadius: 0.07
   checkOffset: {x: 0.04, y: 0.02}
   grassObjects: []
+--- !u!114 &-7514586362432598640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: 7292281f494e0e347908db4f54ca3139, type: 2}

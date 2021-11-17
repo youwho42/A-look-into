@@ -178,8 +178,7 @@ GameObject:
   - component: {fileID: 29696981353999431}
   - component: {fileID: 29696981353999430}
   - component: {fileID: 29696981353999428}
-  - component: {fileID: -7551989811992192626}
-  - component: {fileID: 8003139244776861084}
+  - component: {fileID: -6906101249628876102}
   m_Layer: 13
   m_Name: ResearchPost
   m_TagString: Untagged
@@ -271,6 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Research
+  playerEnergyCost: 0
+  gameEnergyReward: 0
   canInteract: 1
 --- !u!60 &29696981353999430
 PolygonCollider2D:
@@ -333,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 29696981916716236}
   shadowSprite: {fileID: 29696981106953808}
---- !u!114 &-7551989811992192626
+--- !u!114 &-6906101249628876102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,23 +343,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 29696981353999451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 5ea144cd5600e4c4dbfd19f9ee1fd4da, type: 2}
---- !u!114 &8003139244776861084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29696981353999451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  item: {fileID: 11400000, guid: 5ea144cd5600e4c4dbfd19f9ee1fd4da, type: 2}
 --- !u!1 &29696981916716237
 GameObject:
   m_ObjectHideFlags: 0

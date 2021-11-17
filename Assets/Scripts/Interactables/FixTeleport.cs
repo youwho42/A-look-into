@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FixTeleport : MonoBehaviour, IFixArea
 {
-    public SaveableEntity teleportObject;
+    public SaveableItem teleportObject;
 
 
 

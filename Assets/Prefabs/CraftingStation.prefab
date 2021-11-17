@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 4241898056432885086}
   - component: {fileID: 4241898056432885087}
   - component: {fileID: 2061663795955200273}
-  - component: {fileID: 1883363030054610811}
-  - component: {fileID: 8328529919874300707}
+  - component: {fileID: 142184509842288229}
   m_Layer: 13
   m_Name: CraftingStation
   m_TagString: Untagged
@@ -147,8 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Craft
+  playerEnergyCost: 0
+  gameEnergyReward: 0
   canInteract: 1
---- !u!114 &1883363030054610811
+--- !u!114 &142184509842288229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,20 +158,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4241898056432885092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
---- !u!114 &8328529919874300707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4241898056432885092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: c20cdaca1d1abc746bb37a953b4d764f, type: 2}
+  item: {fileID: 11400000, guid: c20cdaca1d1abc746bb37a953b4d764f, type: 2}

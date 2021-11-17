@@ -119,8 +119,8 @@ GameObject:
   - component: {fileID: 4720702768676041349}
   - component: {fileID: 4720702768676041406}
   - component: {fileID: 4720702768676041345}
-  - component: {fileID: 9189907479289052596}
   - component: {fileID: 7316263827973527426}
+  - component: {fileID: 9139721457735949506}
   m_Layer: 14
   m_Name: RedButterfly
   m_TagString: Butterfly
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5330bf02ff0d4daa8cbaf1b23807a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roamingArea: 2
+  roamingArea: 0.8
   detectionTimeOutAmount: 3
   captureCollider: {fileID: 4720702768676041345}
   animator: {fileID: 4720702768505272702}
@@ -265,19 +265,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.04
---- !u!114 &9189907479289052596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &7316263827973527426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +312,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   itemToBecomeData: {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
+--- !u!114 &9139721457735949506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768676041353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8cc62bcaf717c43986ea9ed50d541b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  item: {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

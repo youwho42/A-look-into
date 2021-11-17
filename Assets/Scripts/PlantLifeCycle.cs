@@ -27,6 +27,7 @@ public class PlantLifeCycle : MonoBehaviour
     public int currentTimeTick;
     public int gatherableCycle;
     GatherableItem gatherableItem;
+    public bool isAnimalShelter;
     
     private void Start()
     {

@@ -21,6 +21,8 @@ public class TreeShadows : MonoBehaviour
         LevelManager.instance.EventLevelLoaded.AddListener(ResetShadows);
         ResetShadows();
     }
+
+
     public void ResetShadows()
     {
         StopCoroutine("DayTimeShadows");
