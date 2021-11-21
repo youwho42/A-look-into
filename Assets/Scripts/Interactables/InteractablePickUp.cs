@@ -6,7 +6,7 @@ using UnityEngine;
 public class InteractablePickUp : Interactable
 {
     QI_Item interactableItem;
-
+    QI_ItemData pickUpItem;
     QI_Inventory inventoryToAddTo;
 
     bool addedToInventory;
@@ -16,6 +16,7 @@ public class InteractablePickUp : Interactable
         base.Start();
         interactableItem = GetComponent<QI_Item>();
         interactVerb = interactableItem.Data.Name;
+        pickUpItem = interactableItem.Data.pickUpItem == null ? interactableItem.Data : interactableItem.Data.pickUpItem;
     }
 
     public override void Interact(GameObject interactor)
@@ -34,7 +35,7 @@ public class InteractablePickUp : Interactable
         PlayInteractSound();
 
         
-        if(PlayerInformation.instance.playerInventory.AddItem(interactableItem.Data, 1))
+        if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, 1))
         {
             if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
             {

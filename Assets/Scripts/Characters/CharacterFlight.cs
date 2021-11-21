@@ -34,7 +34,7 @@ public class CharacterFlight : MonoBehaviour
 
     float totalZ;
     Camera cam;
-    int lastZ;
+    public bool followingPlayer;
 
     private void Start()
     {
@@ -50,6 +50,7 @@ public class CharacterFlight : MonoBehaviour
 
         mainPoints = new Vector2[3];
         subPoints = new Vector3[3];
+        
         SetRandomDestination();
         
     }
@@ -132,8 +133,13 @@ public class CharacterFlight : MonoBehaviour
 
     public void GetNearestBase()
     {
-
+        if (followingPlayer)
+        {
+            centerOfActiveArea = PlayerInformation.instance.player.transform;
+            return;
+        }
         
+
         Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 10);
         if (hit.Length > 0)
         {

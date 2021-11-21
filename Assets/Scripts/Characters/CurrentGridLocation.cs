@@ -50,14 +50,9 @@ public class CurrentGridLocation : MonoBehaviour
 
         SetGrid();
 
-
-
         int tilesHit = 0;
 
         Vector3Int currentPosition = GetCurrentGridLocation();
-
-
-       
 
         for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
         {
@@ -76,6 +71,8 @@ public class CurrentGridLocation : MonoBehaviour
 
     public Vector3Int GetCurrentGridLocation()
     {
+        SetGrid();
+
         Vector3 currentPosition = groundPosition.position;
         currentPosition = new Vector3(currentPosition.x, currentPosition.y + (tileScale * (currentLevel - 1)), 0f);
 
@@ -87,18 +84,19 @@ public class CurrentGridLocation : MonoBehaviour
 
     void SetGrid()
     {
-        if (groundGrid == null)
+        if (groundGrid != null)
+            return;
+        
+        groundGrid = FindObjectOfType<Grid>();
+        Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
+        foreach (var map in maps)
         {
-            groundGrid = FindObjectOfType<Grid>();
-            Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
-            foreach (var map in maps)
+            if (map.gameObject.name == "GroundTiles")
             {
-                if (map.gameObject.name == "GroundTiles")
-                {
-                    groundMap = map;
-                }
+                groundMap = map;
             }
         }
+        
     }
  
 

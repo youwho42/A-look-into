@@ -10,6 +10,7 @@ public class CrowAI : MonoBehaviour, IAnimal
     
     Collider2D currentLandingSpot;
     CharacterFlight flight;
+    CharacterWalk walk;
     public Animator animator;
     float glideTimer;
     bool glide;
@@ -38,6 +39,7 @@ public class CrowAI : MonoBehaviour, IAnimal
         DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
         animator.SetBool("isLanded", true);
         flight = GetComponent<CharacterFlight>();
+        walk = GetComponent<CharacterWalk>();
         glideTimer = SetRandomRange(3, 10);
         timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
         detectionTimeOutAmount = SetRandomRange(5, 60);
@@ -55,7 +57,10 @@ public class CrowAI : MonoBehaviour, IAnimal
         {
             case FlyingState.isFlying:
 
-                if(animator.GetBool("isLanded"))
+                if (animator.GetBool("IsWalking"))
+                    animator.SetBool("IsWalking", false);
+
+                if (animator.GetBool("isLanded"))
                     animator.SetBool("isLanded", false);
 
                 if (sounds.mute)
@@ -118,6 +123,20 @@ public class CrowAI : MonoBehaviour, IAnimal
 
                     timeToStayAtDestination -= Time.deltaTime;
 
+                    if (flight.characterSprite.transform.localPosition.y == 0)
+                    {
+                        if (timeToStayAtDestination >= 4)
+                        {
+                            if (Random.Range(0.0f, 1.0f) <= 0.0075f)
+                            {
+                                walk.SetRandomDestination();
+                                animator.SetBool("IsWalking", true);
+                                currentState = FlyingState.isWalking;
+                            }
+
+                        }
+                    }
+
                     if (timeToStayAtDestination <= 3)
                         flight.SetFacingDirection();
 
@@ -149,6 +168,18 @@ public class CrowAI : MonoBehaviour, IAnimal
                 {
                     currentState = FlyingState.isAtDestination;
                     animator.SetBool("isLanded", true);
+                }
+
+                break;
+
+            case FlyingState.isWalking:
+                walk.Move();
+
+                if (Vector2.Distance(transform.position, walk.currentDestination) <= 0.01f)
+                {
+                    animator.SetBool("IsWalking", false);
+                    currentState = FlyingState.isAtDestination;
+
                 }
 
                 break;

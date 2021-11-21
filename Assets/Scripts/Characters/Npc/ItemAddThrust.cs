@@ -23,21 +23,21 @@ public class ItemAddThrust : MonoBehaviour
             AddThrust(thrustForce);
             destination = transform.position + thrustDirection;
         }
-        /*if (!gravity.isGrounded)
+        if (!gravity.isGrounded)
         {
             MoveMainItem();
-        }*/
-        
+        }
+
 
     }
-    
-    /*void MoveMainItem()
+
+    void MoveMainItem()
     {
         float step = 1 * Time.deltaTime;
 
         transform.position = Vector3.MoveTowards(transform.position, destination, step);
-    }*/
-    void AddThrust(float thrust)
+    }
+    public void AddThrust(float thrust)
     {
         gravity.positionZ += thrust;
         gravity.displacedPosition = new Vector3(0, gravity.spriteDisplacementY * gravity.positionZ, gravity.positionZ);

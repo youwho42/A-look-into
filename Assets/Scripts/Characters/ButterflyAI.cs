@@ -19,6 +19,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     EntityReproduction reproduction;
     [SerializeField]
     public FlyingState currentState;
+    
 
     public enum FlyingState
     {
@@ -151,7 +152,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         if(collision.GetComponent<DrawZasYDisplacement>() != null && !justTookOff && collision.CompareTag("OpenFlower") && currentState == FlyingState.isFlying)
         {
             var temp = collision.GetComponent<DrawZasYDisplacement>();
-            flight.centerOfActiveArea = temp.gameObject.transform;
+            flight.centerOfActiveArea = flight.followingPlayer ? PlayerInformation.instance.player.transform : temp.gameObject.transform;
             flight.SetDestination(temp.transform.position, temp.displacedPosition);
             currentState = FlyingState.isLanding;
             justTookOff = true;

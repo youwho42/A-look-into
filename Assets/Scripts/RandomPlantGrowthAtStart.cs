@@ -27,7 +27,7 @@ public class RandomPlantGrowthAtStart : MonoBehaviour
         {
             
             plant.currentCycle = Random.Range(2, plant.plantCycles.Count);
-            plant.currentTimeTick = Random.Range(400, 1200);
+            plant.currentTimeTick = Random.Range(100, 500);
             plant.SetCurrentCycle();
         }
     }

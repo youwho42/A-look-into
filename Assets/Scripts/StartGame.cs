@@ -11,9 +11,12 @@ public class StartGame : MonoBehaviour
 
     public CinemachineVirtualCamera startCam;
     public GameObject player;
+    public SpriteRenderer shadow;
+    public Transform introPosition, startPosition;
     public PlayableDirector director;
     PlayerInput input;
     Material material;
+    
 
     public QD_DialogueHandler handler;
     public GameObject dialoguePanel;
@@ -26,6 +29,8 @@ public class StartGame : MonoBehaviour
         input = player.GetComponent<PlayerInput>();
         material = player.GetComponentInChildren<SpriteRenderer>().material;
         material.SetFloat("_Fade", 0);
+        shadow.enabled = false;
+        player.transform.position = introPosition.position;
         director.Stop();
         handler.SetConversation(conversation);
         SetText();
@@ -46,13 +51,15 @@ public class StartGame : MonoBehaviour
     // Start the beginning game timeline and make the player appear
     public void StartBeginningTimeline()
     {
+        player.transform.position = startPosition.position;
         director.Play();
     }
 
 
     public void BeginGame(bool isNewGame)
     {
-        if(isNewGame)
+        
+        if (isNewGame)
             StartCoroutine("BeginNewGameCo");
         else
             StartCoroutine("BeginLoadGameCo");
@@ -63,8 +70,10 @@ public class StartGame : MonoBehaviour
         
         float timeToWait = 2f;
         
+        
         yield return new WaitForSeconds(3f);
         DissolveEffect.instance.StartDissolve(material, timeToWait, true);
+        shadow.enabled = true;
         startCam.Priority = 0;
         yield return new WaitForSeconds(4f);
         ended = false;
@@ -78,6 +87,7 @@ public class StartGame : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         DissolveEffect.instance.StartDissolve(material, timeToWait, true);
+        shadow.enabled = true;
         startCam.Priority = 0;
         yield return new WaitForSeconds(4f);
         

@@ -67,7 +67,7 @@ public class PlantLifeCycle : MonoBehaviour
     void UpdateCycle()
     {
         
-        if (currentTimeTick == plantCycles[currentCycle].timeTickPerCycle)
+        if (currentTimeTick >= plantCycles[currentCycle].timeTickPerCycle)
         {
             currentCycle++;
             if (currentCycle == plantCycles.Count)
@@ -94,6 +94,7 @@ public class PlantLifeCycle : MonoBehaviour
                 spriteMask.sprite = plantCycles[i].mainSprite;
                 spriteDisplay.sprite = plantCycles[i].mainSprite;
                 plantCycles[i].shadowSprite.gameObject.SetActive(true);
+                
                 foreach (var spot in plantCycles[i].birdLandingSpots)
                 {
                     spot.SetActive(true);
@@ -102,11 +103,18 @@ public class PlantLifeCycle : MonoBehaviour
             else
             {
                 plantCycles[i].shadowSprite.gameObject.SetActive(false);
+                
                 foreach (var spot in plantCycles[i].birdLandingSpots)
                 {
                     spot.SetActive(false);
                 }
             }
+        }
+        
+           
+        if (TryGetComponent(out InteractablePickUp pickUp))
+        {
+            pickUp.canInteract = currentCycle >= plantCycles.Count - 1;
         }
         
         

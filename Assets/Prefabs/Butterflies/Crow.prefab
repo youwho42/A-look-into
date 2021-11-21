@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 4720702768676041348}
   - component: {fileID: 4720702768676041351}
   - component: {fileID: 4720702768676041350}
+  - component: {fileID: 2986883006867324020}
   - component: {fileID: 5976396792754375801}
   - component: {fileID: 4720702768676041346}
   - component: {fileID: 4720702768676041349}
@@ -180,6 +181,23 @@ MonoBehaviour:
   displacedPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   pathAngle: 0.5
+--- !u!114 &2986883006867324020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768676041353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b5ba05d04fc3f4f9cc094f18de1bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveBaseSpeed: 8
+  centerOfActiveArea: {fileID: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
+  pathAngle: 0.5
+  characterSprite: {fileID: 1171894187104016982}
 --- !u!114 &5976396792754375801
 MonoBehaviour:
   m_ObjectHideFlags: 0

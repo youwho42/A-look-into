@@ -8,8 +8,8 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
 
 
     ItemGravity itemGravity;
-
-
+    ItemAddThrust thrust;
+    Vector2 destination;
     public CurrentState currentState;
 
     public enum CurrentState
@@ -21,22 +21,34 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
     void Start()
     {
         itemGravity = GetComponent<ItemGravity>();
+        thrust = GetComponent<ItemAddThrust>();
     }
-    void Update()
+    /*void Update()
     {
         if (itemGravity.isGrounded)
         {
-            Jump();
+            thrust.AddThrust(0.5f);
+            GetRandomDestination();
         }
-    }
+        else
+        {
+            MoveMainItem();
+        }
+    }*/
 
-    void Jump()
+
+    void MoveMainItem()
     {
-        itemGravity.positionZ = 0.5f;
-        itemGravity.displacedPosition = new Vector3(0, itemGravity.spriteDisplacementY * itemGravity.positionZ, itemGravity.positionZ);
-        itemGravity.itemObject.localPosition = itemGravity.displacedPosition;
+        float step = 1 * Time.deltaTime;
+
+        transform.position = Vector3.MoveTowards(transform.position, destination, step); ;
     }
 
+    void GetRandomDestination()
+    {
+        destination = transform.position + (Vector3)Random.insideUnitCircle * 0.3f;
+        
+    }
 
     public void SetHome(Transform transform)
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QuantumTek.QuantumInventory;
 using QuantumTek.EncryptedSave;
+using SerializableTypes;
 
 public class SaveWorldItemInventory : SaveableItem
 {
@@ -28,7 +29,8 @@ public class SaveWorldItemInventory : SaveableItem
             inventoryItems.Add(inventory.Stacks[i].Item.Name);
             inventoryQuantities.Add(inventory.Stacks[i].Amount);
         }
-        ES_Save.SaveTransform(transform, ID + "transform");
+        SVector3 location = transform.position;
+        ES_Save.Save(location, ID);
         ES_Save.Save(inventoryItems, ID + "items");
         ES_Save.Save(inventoryQuantities, ID + "quantities");
     }
@@ -45,7 +47,7 @@ public class SaveWorldItemInventory : SaveableItem
         inventoryItems.Clear();
         inventoryQuantities.Clear();
         inventory = GetComponent<QI_Inventory>();
-        ES_Save.LoadTransform(transform, ID + "transform");
+        transform.position = ES_Save.Load<SVector3>(ID);
         inventoryItems = ES_Save.Load<List<string>>(ID + "items");
         inventoryQuantities = ES_Save.Load<List<int>>(ID + "quantities");
 

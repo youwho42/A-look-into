@@ -1,4 +1,5 @@
 using QuantumTek.EncryptedSave;
+using SerializableTypes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,8 @@ public class SavePlantLifeCycle : SaveableItem
     public override void Save()
     {
         base.Save();
-        ES_Save.SaveTransform(transform, ID);
+        SVector3 location = transform.position;
+        ES_Save.Save(location, ID);
         ES_Save.Save(plantLifeCycle.currentCycle, ID + "currentCycle");
         ES_Save.Save(plantLifeCycle.currentTimeTick, ID + "currentTimeTick");
         ES_Save.Save(plantLifeCycle.homeOccupiedBy, ID + "homeOccupiedBy");
@@ -33,7 +35,7 @@ public class SavePlantLifeCycle : SaveableItem
     IEnumerator LoadCo()
     {
         plantLifeCycle = GetComponent<PlantLifeCycle>();
-        ES_Save.LoadTransform(transform, ID);
+        transform.position = ES_Save.Load<SVector3>(ID);
 
         yield return new WaitForSeconds(.01f);
         

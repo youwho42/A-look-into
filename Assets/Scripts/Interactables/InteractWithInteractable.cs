@@ -51,21 +51,20 @@ public class InteractWithInteractable : MonoBehaviour
         if (currentInteractables.Count > 0)
         {
             Interactable closest = GetNearestInteractable(currentInteractables);
-            if (closest.canInteract)
+            
+            if (closest.TryGetComponent(out SpriteRenderer renderer))
             {
-                if (closest.TryGetComponent(out SpriteRenderer renderer))
-                {
-                    canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
-                } else
-                {
-                    canvasOffset = new Vector3(0, closest.GetComponentInChildren<SpriteRenderer>().bounds.size.y / 2, 1);
-                }
+                canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
+            } else
+            {
+                canvasOffset = new Vector3(0, closest.GetComponentInChildren<SpriteRenderer>().bounds.size.y / 2, 1);
+            }
 
                 
-                interactCanvas.transform.position = closest.transform.position + canvasOffset;
-                interactVerb.text = closest.interactVerb;
-                interactUI.SetActive(true);
-            }
+            interactCanvas.transform.position = closest.transform.position + canvasOffset;
+            interactVerb.text = closest.interactVerb;
+            interactUI.SetActive(true);
+            
             
         }
     }
