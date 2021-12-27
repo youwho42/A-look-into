@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1353761666577134135}
   - component: {fileID: 1314758974102040809}
   - component: {fileID: 2042405257530868948}
+  - component: {fileID: -8345639047977298260}
+  - component: {fileID: 1897042741002837680}
   m_Layer: 14
   m_Name: ClayRockB
   m_TagString: OpenCrowSpot
@@ -168,6 +170,31 @@ MonoBehaviour:
   maxPerDay: 5
   timeToReset: 5
   hasBeenHarvested: 0
+--- !u!114 &-8345639047977298260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4046367404901123074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &1897042741002837680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4046367404901123074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6289728753406849618
 GameObject:
   m_ObjectHideFlags: 0

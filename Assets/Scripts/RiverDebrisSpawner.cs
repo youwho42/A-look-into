@@ -17,8 +17,9 @@ public class RiverDebrisSpawner : MonoBehaviour
     {
         
         var item = riverDebrisDatabase.GetRandomWeightedItem();
-       Instantiate(item.ItemPrefab, transform.position + GetRandomOffset(), Quaternion.identity);
-
+        var go = Instantiate(item.ItemPrefab, transform.position + GetRandomOffset(), Quaternion.identity);
+        if (go.TryGetComponent(out SaveableItemEntity saveableItem))
+            saveableItem.GenerateId();
         // reset next time a random item will spawn.
         float rand = Random.Range(1, 30);
         Invoke("SpawnRandomItem", rand);

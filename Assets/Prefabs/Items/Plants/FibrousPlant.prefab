@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 522790634477481630}
   - component: {fileID: 5247146421993626994}
   - component: {fileID: 8101374786852265420}
-  - component: {fileID: 765698134621234782}
+  - component: {fileID: 3525222170554690915}
+  - component: {fileID: 3643044242165082458}
   m_Layer: 13
   m_Name: FibrousPlant
   m_TagString: Untagged
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 1314339209700361901}
   shadowSprite: {fileID: 7909383838140338833}
---- !u!114 &765698134621234782
+--- !u!114 &3525222170554690915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,11 +172,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3459197263679992930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 60d4cd0b3836de34ea87c90880a071b4, type: 2}
+--- !u!114 &3643044242165082458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459197263679992930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
 --- !u!1 &4964545557207372249
 GameObject:
   m_ObjectHideFlags: 0

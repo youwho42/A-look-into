@@ -584,7 +584,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.35
+  m_fontSize: 140
   m_fontSizeBase: 124.18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1576,7 +1576,8 @@ GameObject:
   - component: {fileID: 2541510180111138325}
   - component: {fileID: 2541510180111138324}
   - component: {fileID: 802031844}
-  - component: {fileID: 1133364617}
+  - component: {fileID: 8641245773627639908}
+  - component: {fileID: 738483762805600183}
   m_Layer: 5
   m_Name: LoadTitlePause
   m_TagString: Untagged
@@ -1691,7 +1692,19 @@ MonoBehaviour:
   EventLevelLoaded:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1133364617
+--- !u!114 &8641245773627639908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2541510180111138327}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8708500c444ff1b4280797f869bd240c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &738483762805600183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1700,7 +1713,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2541510180111138327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9f98b9cff61be42821aa5836cc6fab, type: 3}
+  m_Script: {fileID: 11500000, guid: 77347f463253bba4c8f3143c11954598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2541510180584952793
@@ -3652,7 +3665,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1133364617}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SaveAndLoadAll, Assembly-CSharp
         m_MethodName: SaveAll
         m_Mode: 1

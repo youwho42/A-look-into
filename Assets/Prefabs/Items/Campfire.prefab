@@ -5057,7 +5057,8 @@ GameObject:
   - component: {fileID: 1974885789181362753}
   - component: {fileID: 7766967853655951408}
   - component: {fileID: 8181011660677160059}
-  - component: {fileID: -312121960978638806}
+  - component: {fileID: -3899742487778839439}
+  - component: {fileID: 3393916304729849210}
   m_Layer: 13
   m_Name: Campfire
   m_TagString: Untagged
@@ -5255,7 +5256,7 @@ MonoBehaviour:
   checkRadius: 0.15
   checkOffset: {x: 0, y: 0}
   grassObjects: []
---- !u!114 &-312121960978638806
+--- !u!114 &-3899742487778839439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5264,8 +5265,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 9201185386304742779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 61477bc0105594a7ab5b7a3e8116cfb2, type: 2}
+--- !u!114 &3393916304729849210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

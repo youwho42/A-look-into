@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 835383707523805092}
   - component: {fileID: 835383707523805093}
   - component: {fileID: 98811696379014608}
-  - component: {fileID: -128779739579530270}
+  - component: {fileID: 8646525146799694233}
+  - component: {fileID: -2692007534422712274}
   m_Layer: 13
   m_Name: WaterBowl
   m_TagString: Untagged
@@ -149,7 +150,7 @@ MonoBehaviour:
   checkRadius: 0.03
   checkOffset: {x: 0, y: 0.01}
   grassObjects: []
---- !u!114 &-128779739579530270
+--- !u!114 &8646525146799694233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +159,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 835383707523805090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 4f52864ce589299498fb263530172d2b, type: 2}
+--- !u!114 &-2692007534422712274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835383707523805090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

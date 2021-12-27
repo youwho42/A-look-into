@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 7978275981284351350}
   - component: {fileID: 2433350104178614536}
   - component: {fileID: 1864024247}
-  - component: {fileID: 7374553124293676763}
+  - component: {fileID: -4950748446576074683}
+  - component: {fileID: -7434295632874742283}
+  - component: {fileID: 8715076016445280478}
   m_Layer: 13
   m_Name: CraftingStationBroken
   m_TagString: Untagged
@@ -163,7 +165,7 @@ PolygonCollider2D:
       - {x: -0.1143868, y: 0.063913494}
       - {x: -0.12501001, y: 0.028021805}
       - {x: -0.22414875, y: -0.021599602}
---- !u!114 &7374553124293676763
+--- !u!114 &-4950748446576074683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,11 +174,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 332219147347811253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 92dbabd8547e97945bc3765c3bc38e0a, type: 2}
+--- !u!114 &-7434295632874742283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332219147347811253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+--- !u!114 &8715076016445280478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332219147347811253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 92dbabd8547e97945bc3765c3bc38e0a, type: 2}
 --- !u!1 &3537928039075533617
 GameObject:
   m_ObjectHideFlags: 0

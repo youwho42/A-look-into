@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 522756923}
   - component: {fileID: 1644589846858681769}
   - component: {fileID: 4100336734256399367}
-  - component: {fileID: -3993993350304434091}
+  - component: {fileID: 3424495829659648823}
+  - component: {fileID: -4201695806129758739}
   m_Layer: 13
   m_Name: OreAxe
   m_TagString: Untagged
@@ -149,7 +150,7 @@ MonoBehaviour:
   checkRadius: 0.06
   checkOffset: {x: 0.04, y: 0.03}
   grassObjects: []
---- !u!114 &-3993993350304434091
+--- !u!114 &3424495829659648823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +159,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 9201185386304742779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: bf8b06cdc4a952e46913f9816b3c47d1, type: 2}
+--- !u!114 &-4201695806129758739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

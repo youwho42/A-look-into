@@ -16,6 +16,7 @@ public class CameraZoom : MonoBehaviour
 	bool zoomActive;
 	void Start() 
 	{
+		brain = Camera.main.GetComponent<CinemachineBrain>();
 		SetCamera();
 	}
 	private void Update()
@@ -41,7 +42,7 @@ public class CameraZoom : MonoBehaviour
 		SetCamera();
 		if (Input.mouseScrollDelta.y > 0)
 		{
-			if(resetZoom!=null)
+			if(resetZoom != null)
 				StopCoroutine(resetZoom);
 			cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize -= zoomValue, minZoom, maxZoom);
 			zoomActive = true;
@@ -59,7 +60,7 @@ public class CameraZoom : MonoBehaviour
 
 	IEnumerator ResetZoomCo()
     {
-
+		SetCamera();
 		cam.m_Lens.OrthographicSize = Mathf.Lerp(cam.m_Lens.OrthographicSize, 1.5f, Time.deltaTime);
 		zoomActive = false;
 		yield return null;
@@ -67,11 +68,12 @@ public class CameraZoom : MonoBehaviour
 
 	void SetCamera()
     {
-		if(cam == null)
+		
+		cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+		/*if (cam == null || cam != tempCam)
         {
-			brain = Camera.main.GetComponent<CinemachineBrain>();
-			cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
-		}
-			
+			cam = tempCam;
+		}*/
+		
 	}
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2516286620615609906}
   - component: {fileID: 7706590566051360295}
   - component: {fileID: 3409001262384743535}
+  - component: {fileID: -3445859455730096817}
+  - component: {fileID: -4203395981951932210}
   m_Layer: 14
   m_Name: BigRockB
   m_TagString: OpenCrowSpot
@@ -171,6 +173,31 @@ MonoBehaviour:
   maxPerDay: 5
   timeToReset: 5
   hasBeenHarvested: 0
+--- !u!114 &-3445859455730096817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126026502769112801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &-4203395981951932210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126026502769112801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1739433848246217218
 GameObject:
   m_ObjectHideFlags: 0

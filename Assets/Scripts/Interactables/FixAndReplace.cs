@@ -30,7 +30,7 @@ public class FixAndReplace : MonoBehaviour, IFixArea
             yield return null;
         }
         var go = Instantiate(fixableReplacementObject, transform.position, Quaternion.identity);
-        if(go.TryGetComponent(out SaveableItem item))
+        if(go.TryGetComponent(out SaveableItemEntity item))
         {
             item.GenerateId();
         }

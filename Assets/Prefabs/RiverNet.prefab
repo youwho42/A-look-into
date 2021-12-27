@@ -263,6 +263,9 @@ GameObject:
   - component: {fileID: 1998361174863684506}
   - component: {fileID: 1998361174863684198}
   - component: {fileID: 7982700779047660643}
+  - component: {fileID: -2627420282267733717}
+  - component: {fileID: -466399135120337013}
+  - component: {fileID: -460805337375754252}
   m_Layer: 13
   m_Name: RiverNet
   m_TagString: RiverItem
@@ -340,6 +343,7 @@ MonoBehaviour:
   playerEnergyCost: 0
   gameEnergyReward: 0
   canInteract: 1
+  isOpen: 0
 --- !u!114 &1998361174863684506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +408,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 7139fa8cedf417e4cbcc228e2b248385, type: 2}
+--- !u!114 &-2627420282267733717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998361174863684507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &-466399135120337013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998361174863684507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+--- !u!114 &-460805337375754252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998361174863684507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50099efb614781844bd07a12855ff0de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 1998361174863684506}
+  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!1 &1998361174947968539
 GameObject:
   m_ObjectHideFlags: 0

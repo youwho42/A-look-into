@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 5083672725285063118}
   - component: {fileID: 1457659248047754161}
   - component: {fileID: -8280844943756277748}
+  - component: {fileID: -8834782059880152664}
+  - component: {fileID: 1090832573345095650}
   m_Layer: 16
   m_Name: RiverDebris_Generic
   m_TagString: RiverDebris
@@ -181,3 +183,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeInWorld: 60
+--- !u!114 &-8834782059880152664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5083672725285063113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &1090832573345095650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5083672725285063113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

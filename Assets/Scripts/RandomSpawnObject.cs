@@ -57,7 +57,7 @@ public class RandomSpawnObject : MonoBehaviour
                 int rand = UnityEngine.Random.Range(0, objectsToSpawn.Count);
                 var go = Instantiate(objectsToSpawn[rand].ItemPrefab, SetPositionY(temp), Quaternion.identity);
                 go.transform.parent = this.transform;
-                if (go.TryGetComponent(out SaveableItem entity))
+                if (go.TryGetComponent(out SaveableItemEntity entity))
                 {
                     entity.GenerateId();
                 }

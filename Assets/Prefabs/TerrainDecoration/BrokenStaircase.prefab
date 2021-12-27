@@ -95,7 +95,9 @@ GameObject:
   - component: {fileID: 2609095515313935177}
   - component: {fileID: 2609095515313935176}
   - component: {fileID: 4256958936932042742}
-  - component: {fileID: 5662733758570627959}
+  - component: {fileID: 269794019948693530}
+  - component: {fileID: 2987498271092214927}
+  - component: {fileID: 2646165752156677765}
   m_Layer: 13
   m_Name: BrokenStaircase
   m_TagString: Untagged
@@ -182,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fixingEffect: {fileID: 9093254275021997503}
   fixableSprite: {fileID: 2609095515298941352}
---- !u!114 &5662733758570627959
+--- !u!114 &269794019948693530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,11 +193,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 2609095515313935180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 192f09ad888ec8b49929c272114f3e3d, type: 2}
+--- !u!114 &2987498271092214927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609095515313935180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+--- !u!114 &2646165752156677765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609095515313935180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 192f09ad888ec8b49929c272114f3e3d, type: 2}
 --- !u!1 &6095471416137850924
 GameObject:
   m_ObjectHideFlags: 0

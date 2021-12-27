@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: 5518729531771902418}
   - component: {fileID: 2464339742171293173}
   - component: {fileID: 1746602961939792828}
-  - component: {fileID: 3985607472048139474}
   - component: {fileID: -8580629901927402759}
+  - component: {fileID: 9119110315175285948}
+  - component: {fileID: -8838643702165024295}
+  - component: {fileID: -4842972098866649009}
   m_Layer: 13
   m_Name: BaseFlower
   m_TagString: GrowingItem
@@ -194,20 +196,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   itemToBecomeData: {fileID: 11400000, guid: 26c2a491b76b0c94fb3098357303a2cd, type: 2}
---- !u!114 &3985607472048139474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5518729531771902423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fb66dc3ba8683244a2fae1eb210c29b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
-  item: {fileID: 0}
 --- !u!114 &-8580629901927402759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +213,43 @@ MonoBehaviour:
   playerEnergyCost: 0.5
   gameEnergyReward: 0
   canInteract: 1
+--- !u!114 &9119110315175285948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &-8838643702165024295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef57d01923838b4fb2a34e594a11e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4842972098866649009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e149e212d3d0fd943a30f864a32b6aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5518729531953178509
 GameObject:
   m_ObjectHideFlags: 0

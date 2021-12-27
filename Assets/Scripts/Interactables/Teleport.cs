@@ -70,7 +70,7 @@ public class Teleport : MonoBehaviour
 
     public void SetCurrentLevel()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel - 0.5f);
+        transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel - 0.4f);
     }
   
 }

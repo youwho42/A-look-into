@@ -56,7 +56,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             return;
         
         
-        if (itemToDrop.TryGetComponent(out SaveableItem itemDrop))
+        if (itemToDrop.TryGetComponent(out SaveableItemEntity itemDrop))
         {
             itemDrop.GenerateId();
         }

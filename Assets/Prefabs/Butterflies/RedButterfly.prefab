@@ -120,7 +120,8 @@ GameObject:
   - component: {fileID: 4720702768676041406}
   - component: {fileID: 4720702768676041345}
   - component: {fileID: 7316263827973527426}
-  - component: {fileID: 9139721457735949506}
+  - component: {fileID: 6555791408567115079}
+  - component: {fileID: 7826607934961609977}
   m_Layer: 14
   m_Name: RedButterfly
   m_TagString: Butterfly
@@ -315,7 +316,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   itemToBecomeData: {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
---- !u!114 &9139721457735949506
+--- !u!114 &6555791408567115079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,11 +325,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4720702768676041353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f8cc62bcaf717c43986ea9ed50d541b, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
+--- !u!114 &7826607934961609977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768676041353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314c004b9c93ba94a95c312f9d2d3cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

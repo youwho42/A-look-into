@@ -22,6 +22,7 @@ public class SavingLoading : MonoBehaviour
     [ContextMenu("Save")]
     public void Save()
     {
+        DeleteFile();
         var state = LoadFile();
         CaptureState(state);
         SaveFile(state);
@@ -59,7 +60,7 @@ public class SavingLoading : MonoBehaviour
         }
     }
 
-    private void  CaptureState(Dictionary<string, object> state)
+    private void CaptureState(Dictionary<string, object> state)
     {
         foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
         {

@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 3340633912972864975}
   - component: {fileID: 3205467184418445630}
   - component: {fileID: -3408826983127947495}
-  - component: {fileID: -2308940091480977248}
+  - component: {fileID: 269489782608738649}
+  - component: {fileID: -2753123647903799989}
   m_Layer: 13
   m_Name: Fiber
   m_TagString: Untagged
@@ -149,7 +150,7 @@ MonoBehaviour:
   checkRadius: 0.06
   checkOffset: {x: 0, y: 0.01}
   grassObjects: []
---- !u!114 &-2308940091480977248
+--- !u!114 &269489782608738649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +159,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5591675364925599087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
+--- !u!114 &-2753123647903799989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591675364925599087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

@@ -81,11 +81,7 @@ public class PlantLifeCycle : MonoBehaviour
 
             currentTimeTick = 0;
         }
-        if (currentCycle < plantCycles.Count - 1)
-        {
-            if(gatherableItem != null)
-                gatherableItem.hasBeenHarvested = true;
-        }
+        
     }
     
     IEnumerator UpdateCycleCo()
@@ -131,8 +127,17 @@ public class PlantLifeCycle : MonoBehaviour
                 }
             }
         }
-        
-           
+        if (currentCycle < gatherableCycle)
+        {
+            if (gatherableItem != null)
+                gatherableItem.hasBeenHarvested = true;
+        }
+        else
+        {
+            gatherableItem.hasBeenHarvested = false;
+        }
+
+
         if (TryGetComponent(out InteractablePickUp pickUp))
         {
             pickUp.canInteract = currentCycle >= plantCycles.Count - 1;

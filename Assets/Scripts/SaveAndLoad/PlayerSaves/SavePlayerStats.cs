@@ -11,6 +11,11 @@ public class SavePlayerStats : SaveableManager
     List<string> attribute = new List<string>();
     List<float> value = new List<float>();
 
+    private void Start()
+    {
+        
+    }
+
     public override void Save()
     {
         base.Save();

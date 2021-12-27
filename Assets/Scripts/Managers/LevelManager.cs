@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
     public void StartNewGame(string levelName)
     {
 
-        SaveAndLoadAll.instance.SaveAll();
+        SavingLoading.instance.Save();
         titleMenu.SetActive(false);
         EventLevelLoaded.Invoke();
     }
@@ -81,7 +81,7 @@ public class LevelManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        SaveAndLoadAll.instance.SaveAll();
+        SavingLoading.instance.Save();
     }
     private void ChangeLevel(string levelName)
     {
@@ -156,7 +156,7 @@ public class LevelManager : MonoBehaviour
         }
 
 
-        SaveAndLoadAll.instance.LoadAll();
+        SavingLoading.instance.Load();
         yield return new WaitForSeconds(0.5f);
         EventLevelLoaded.Invoke();
 

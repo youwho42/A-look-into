@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 2827569493296489943}
   - component: {fileID: 3601135888271772632}
   - component: {fileID: 4169175394159801238}
-  - component: {fileID: 1812128766454636416}
+  - component: {fileID: -8489922534359793243}
+  - component: {fileID: -7358030287148332892}
   m_Layer: 13
   m_Name: Clay
   m_TagString: Untagged
@@ -171,7 +172,7 @@ MonoBehaviour:
   checkRadius: 0.06
   checkOffset: {x: 0, y: 0}
   grassObjects: []
---- !u!114 &1812128766454636416
+--- !u!114 &-8489922534359793243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,8 +181,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4806734095490554465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 8fd5f772e506873458a56d495adbecbc, type: 2}
+--- !u!114 &-7358030287148332892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

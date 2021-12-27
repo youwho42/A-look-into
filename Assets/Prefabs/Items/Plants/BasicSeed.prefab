@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 2827569493296489943}
   - component: {fileID: 4169175394159801238}
   - component: {fileID: 445403753940302961}
-  - component: {fileID: 8472293002574596602}
+  - component: {fileID: 6126646994597112785}
+  - component: {fileID: 5602583184588347520}
   m_Layer: 13
   m_Name: BasicSeed
   m_TagString: GrowingItem
@@ -168,7 +169,7 @@ MonoBehaviour:
   - {fileID: 5518729531771902423, guid: 9186d10a782f55e42847ea4465819be9, type: 3}
   growSprite: {fileID: 21300000, guid: e3070d749444fe34a95eb72c2007a3f7, type: 3}
   idleSprite: {fileID: 21300000, guid: 36363a09406ea3b4ca4168641fd502b8, type: 3}
---- !u!114 &8472293002574596602
+--- !u!114 &6126646994597112785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,8 +178,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4806734095490554465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7893e618b57291f49aa4c1ee372f978a, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 0}
+--- !u!114 &5602583184588347520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c93f0aff96a0f9341918d1ebdcfb0e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

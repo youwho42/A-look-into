@@ -10,6 +10,12 @@ public class SavePlayerCraftingRecipes : SaveableManager
     public QI_CraftingRecipeDatabase allRecipesDatabase;
     public QI_CraftingRecipeDatabase playerRecipesDatabase;
     List<string> recipes = new List<string>();
+
+    private void Start()
+    {
+
+
+    }
     public override void Save()
     {
         

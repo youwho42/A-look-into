@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 522756923}
   - component: {fileID: 319447175}
   - component: {fileID: 4627136792417602951}
-  - component: {fileID: -7970714577407951194}
+  - component: {fileID: -1490386100588566007}
+  - component: {fileID: 5441310638463217461}
   m_Layer: 13
   m_Name: Stone
   m_TagString: Untagged
@@ -149,7 +150,7 @@ MonoBehaviour:
   checkRadius: 0.05
   checkOffset: {x: 0, y: 0.01}
   grassObjects: []
---- !u!114 &-7970714577407951194
+--- !u!114 &-1490386100588566007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +159,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 9201185386304742779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
+--- !u!114 &5441310638463217461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

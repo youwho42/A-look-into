@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 9124014349825039081}
   - component: {fileID: 1454281417689639542}
   - component: {fileID: -265669277991091001}
-  - component: {fileID: 1615452410306098597}
+  - component: {fileID: -5649246021513396867}
+  - component: {fileID: -8366094194570192842}
   m_Layer: 13
   m_Name: TeleportBuildArea
   m_TagString: Untagged
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c49b91424bd6045a67a7b04729cd23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportObject: {fileID: 1429562818349207961, guid: 42ad06b4003f5491a807c9ea338bc18e,
+  teleportObject: {fileID: -7130579346718382907, guid: 42ad06b4003f5491a807c9ea338bc18e,
     type: 3}
 --- !u!114 &9124014349825039081
 MonoBehaviour:
@@ -202,7 +203,7 @@ MonoBehaviour:
   checkRadius: 0.25
   checkOffset: {x: 0, y: 0.03}
   grassObjects: []
---- !u!114 &1615452410306098597
+--- !u!114 &-5649246021513396867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,8 +212,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 9124014349825038870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: 28f973ce5fe6ed444beb2a1d3bdc0e42, type: 2}
+--- !u!114 &-8366094194570192842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124014349825038870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0

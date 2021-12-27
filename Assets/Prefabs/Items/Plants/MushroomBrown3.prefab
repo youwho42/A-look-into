@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5564964828298822263}
   - component: {fileID: 3137271387357331568}
   - component: {fileID: 7212826125077345180}
-  - component: {fileID: 5478527665831701082}
+  - component: {fileID: -2759427487039068446}
+  - component: {fileID: -4781276801444693637}
   m_Layer: 13
   m_Name: MushroomBrown3
   m_TagString: Untagged
@@ -134,7 +135,7 @@ MonoBehaviour:
   playerEnergyCost: 0.5
   gameEnergyReward: 0.1
   canInteract: 1
---- !u!114 &5478527665831701082
+--- !u!114 &-2759427487039068446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,11 +144,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2074199475343465100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: b1805d1b278dd0c4fb15a1c8526d2986, type: 2}
+--- !u!114 &-4781276801444693637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074199475343465100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
 --- !u!1 &8468610283254862691
 GameObject:
   m_ObjectHideFlags: 0

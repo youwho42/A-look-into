@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 4296435715911598122}
   - component: {fileID: 4296435715911598120}
   - component: {fileID: 4296435715911598121}
-  - component: {fileID: 502175873626279662}
+  - component: {fileID: 1919678170436386925}
+  - component: {fileID: -1867308594368328382}
+  - component: {fileID: 7355453028296819538}
   m_Layer: 13
   m_Name: ShelteredBed
   m_TagString: Untagged
@@ -137,7 +139,7 @@ MonoBehaviour:
   playerEnergyCost: 0
   gameEnergyReward: 0
   canInteract: 1
---- !u!114 &502175873626279662
+--- !u!114 &1919678170436386925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,11 +148,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 4296435715911598125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0acf3bed2a85cf84995f129872a0d7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  item: {fileID: 11400000, guid: e6ff0f3aed9c73a448c3178eb1ee56a2, type: 2}
+--- !u!114 &-1867308594368328382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4296435715911598125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+--- !u!114 &7355453028296819538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4296435715911598125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: e6ff0f3aed9c73a448c3178eb1ee56a2, type: 2}
 --- !u!1 &6937386290772896201
 GameObject:
   m_ObjectHideFlags: 0
