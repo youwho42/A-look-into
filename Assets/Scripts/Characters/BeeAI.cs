@@ -89,7 +89,7 @@ public class BeeAI : MonoBehaviour
                     beeSounds.PlaySound();
 
                 flight.Move();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(flight.characterSprite.localPosition, flight.destinationZ) <= 0.001f)
                 {
                     timeToStayAtDestination = SetTimeToStayAtDestination();
                     animator.SetBool("IsLanded", true);

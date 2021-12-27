@@ -29,7 +29,7 @@ public class StartGame : MonoBehaviour
         input = player.GetComponent<PlayerInput>();
         material = player.GetComponentInChildren<SpriteRenderer>().material;
         material.SetFloat("_Fade", 0);
-        shadow.enabled = false;
+        
         player.transform.position = introPosition.position;
         director.Stop();
         handler.SetConversation(conversation);

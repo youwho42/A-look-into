@@ -6,6 +6,7 @@ public class CharacterFlight : MonoBehaviour
 {
 
     public float flyBaseSpeed;
+    public float mainSpeed = 2;
     public Transform centerOfActiveArea;
     public string activeAreaBaseTagName;
     public Vector2 minMaxZRange;
@@ -18,7 +19,7 @@ public class CharacterFlight : MonoBehaviour
     public Vector3 displacedPosition;
 
     public Vector3 currentDestination;
-    Vector3 destinationZ;
+    public Vector3 destinationZ;
 
     Vector2[] mainPoints = null;
     Vector3[] subPoints = null;
@@ -60,18 +61,26 @@ public class CharacterFlight : MonoBehaviour
 
         
 
-        t += Time.deltaTime / timeToReachTarget;
+        t += Time.deltaTime/* / timeToReachTarget*/;
         Vector2 m1 = Vector2.Lerp(mainPoints[0], mainPoints[1], t);
         Vector2 m2 = Vector2.Lerp(mainPoints[1], mainPoints[2], t);
         Vector3 s1 = Vector3.Lerp(subPoints[0], subPoints[1], t);
         Vector3 s2 = Vector3.Lerp(subPoints[1], subPoints[2], t);
+
+
         Vector2 newPosM = Vector2.Lerp(m1, m2, t);
         Vector3 newPosS = Vector3.Lerp(s1, s2, t);
-        thisTransform.position = new Vector3(newPosM.x, newPosM.y, currentGridLocation.currentLevel);
-        characterSprite.localPosition = newPosS;
-        Vector3 screenPos = cam.WorldToScreenPoint(transform.position).normalized;
-        
-        totalZ = (characterSprite.position.z - screenPos.y) / 10;
+
+        thisTransform.position = Vector2.MoveTowards(thisTransform.position, newPosM, Time.deltaTime * mainSpeed);
+        thisTransform.position = new Vector3(thisTransform.position.x, thisTransform.position.y, currentGridLocation.currentLevel);
+        characterSprite.localPosition = Vector3.MoveTowards(characterSprite.localPosition, newPosS, Time.deltaTime * mainSpeed);
+        /*thisTransform.position = new Vector3(newPosM.x, newPosM.y, currentGridLocation.currentLevel);*/
+        //characterSprite.localPosition = newPosS;
+
+
+        // setting size depending on z height of sprite and screen y position
+        Vector3 screenPos = cam.WorldToScreenPoint(thisTransform.position).normalized;
+        totalZ = (characterSprite.localPosition.z - screenPos.y) / 10;
         characterSprite.localScale = new Vector3(1 + totalZ, 1 + totalZ, 1);
         
         currentGridLocation.UpdateLocation();
@@ -86,7 +95,7 @@ public class CharacterFlight : MonoBehaviour
         t = 0;
         timeToReachTarget = time;
 
-        mainPoints[0] = transform.position;
+        mainPoints[0] = thisTransform.position;
         mainPoints[2] = mainDestination;
         mainPoints[1] = mainPoints[0] + (mainPoints[2] - mainPoints[0]) / 2 + Vector2.up * pathAngle;
         subPoints[0] = characterSprite.localPosition;
@@ -100,10 +109,10 @@ public class CharacterFlight : MonoBehaviour
             GetNearestBase();
 
         Vector2 rand = Random.insideUnitCircle * dist;
-        currentDestination = new Vector3(centerOfActiveArea.position.x + rand.x, centerOfActiveArea.position.y + rand.y, transform.position.z);
+        currentDestination = new Vector3(centerOfActiveArea.position.x + rand.x, centerOfActiveArea.position.y + rand.y, thisTransform.position.z);
         float randZ = Random.Range(minMaxZRange.x, minMaxZRange.y);
         destinationZ = new Vector3(0, spriteDisplacementY * randZ, randZ);
-        float distanceA = Vector2.Distance(transform.position, currentDestination);
+        float distanceA = Vector2.Distance(thisTransform.position, currentDestination);
         float distanceB = Vector2.Distance(characterSprite.localPosition, destinationZ);
         float distance = distanceA > distanceB ? distanceA : distanceB;
         SetAngledPath(currentDestination, destinationZ, distance * flyBaseSpeed);
@@ -113,20 +122,20 @@ public class CharacterFlight : MonoBehaviour
     {
         currentDestination = mainDestination;
         destinationZ = subDestination;
-        float distance = Vector2.Distance(transform.position, currentDestination);
+        float distance = Vector2.Distance(thisTransform.position, currentDestination);
         SetAngledPath(currentDestination, destinationZ, distance * flyBaseSpeed);
     }
 
     public void SetPosition(Vector3 location)
     {
-        transform.position = location;
+        thisTransform.position = location;
         SetRandomDestination();
     }
 
     public void SetFacingDirection()
     {
         // Set facing direction
-        Vector2 dir = currentDestination - transform.position;
+        Vector2 dir = currentDestination - thisTransform.position;
         var direction = Mathf.Sign(dir.x);
         characterRenderer.flipX = direction > 0;
     }
@@ -140,7 +149,7 @@ public class CharacterFlight : MonoBehaviour
         }
         
 
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 10);
+        Collider2D[] hit = Physics2D.OverlapCircleAll(thisTransform.position, 10);
         if (hit.Length > 0)
         {
             // Find nearest item.
@@ -151,7 +160,7 @@ public class CharacterFlight : MonoBehaviour
             {
                 if (hit[i].CompareTag(activeAreaBaseTagName))
                 {
-                    float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
+                    float tempDistance = Vector3.Distance(thisTransform.position, hit[i].transform.position);
                     if (nearest == null || tempDistance < distance)
                     {
                         nearest = hit[i];

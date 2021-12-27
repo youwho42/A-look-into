@@ -32,7 +32,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     private void Start()
     {
 
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+        
         reproduction = GetComponent<EntityReproduction>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
@@ -40,6 +40,14 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         flight.SetRandomDestination(roamingArea);
         currentState = FlyingState.isFlying;
         
+    }
+    private void OnEnable()
+    {
+        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+    }
+    private void OnDisable()
+    {
+        DayNightCycle.instance.FullHourEventCallBack.RemoveListener(SetSleepOrWake);
     }
 
     private void Update()
@@ -79,7 +87,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
             case FlyingState.isLanding:
 
                 flight.Move();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(flight.characterSprite.localPosition, flight.destinationZ) <= 0.001f)
                 {
                     timeToStayAtDestination = SetTimeToStayAtDestination();
                     animator.SetBool("IsLanded", true);

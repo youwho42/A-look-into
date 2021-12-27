@@ -41,7 +41,11 @@ public class PlantLifeCycle : MonoBehaviour
        
         
     }
-
+    
+    private void OnDisable()
+    {
+        dayNightCycle.TickEventCallBack.RemoveListener(GetCurrentTime);
+    }
     public void SetHomeOccupation()
     {
         if (homeOccupiedBy != "" && homeOccupiedBy != null)
@@ -83,6 +87,23 @@ public class PlantLifeCycle : MonoBehaviour
                 gatherableItem.hasBeenHarvested = true;
         }
     }
+    
+    IEnumerator UpdateCycleCo()
+    {
+        float startTime = dayNightCycle.tick;
+        float elapsedTime = currentTimeTick;
+        int waitTime = plantCycles[currentCycle].timeTickPerCycle;
+
+        while (elapsedTime < waitTime)
+        {
+
+            elapsedTime = dayNightCycle.tick - startTime;
+        }
+
+
+            yield return null;
+        
+    }
 
     public void SetCurrentCycle()
     {
@@ -115,6 +136,7 @@ public class PlantLifeCycle : MonoBehaviour
         if (TryGetComponent(out InteractablePickUp pickUp))
         {
             pickUp.canInteract = currentCycle >= plantCycles.Count - 1;
+            PlayerInformation.instance.playerStats.AddGameEnergy(2);
         }
         
         

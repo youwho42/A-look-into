@@ -54,14 +54,14 @@ public class InteractableFixingArea : Interactable
 
     bool InteractCostReward()
     {
-        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= playerEnergyCost)
+        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
         {
             playerInformation.playerStats.AddGameEnergy(gameEnergyReward);
             playerInformation.playerStats.RemovePlayerEnergy(playerEnergyCost);
             return true;
         }
 
-        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to fix this.");
+        NotificationManager.instance.SetNewNotification("You are missing Bounce to fix this.");
         return false;
     }
 

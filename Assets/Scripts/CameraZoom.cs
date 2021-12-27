@@ -20,8 +20,7 @@ public class CameraZoom : MonoBehaviour
 	}
 	private void Update()
 	{
-		if (brain == null || cam == null)
-			SetCamera();
+		
 
 		if(zoomActive)
 			timer += Time.deltaTime;
@@ -39,6 +38,7 @@ public class CameraZoom : MonoBehaviour
 
 	void SetZoom()
     {
+		SetCamera();
 		if (Input.mouseScrollDelta.y > 0)
 		{
 			if(resetZoom!=null)
@@ -67,7 +67,11 @@ public class CameraZoom : MonoBehaviour
 
 	void SetCamera()
     {
-		brain = Camera.main.GetComponent<CinemachineBrain>();
-		cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+		if(cam == null)
+        {
+			brain = Camera.main.GetComponent<CinemachineBrain>();
+			cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+		}
+			
 	}
 }

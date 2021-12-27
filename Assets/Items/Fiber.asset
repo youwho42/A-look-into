@@ -16,12 +16,15 @@ MonoBehaviour:
   Description: Plain old fiber, probably from a fibrous plant.
   Weight: 0.3
   Price: 0.8
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 66540358aae3a844786ea0349e91af65, type: 3}
   ItemPrefab: {fileID: 2997377886582240980, guid: 80644444097f3694d89102e7e26b7dcc,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 0
   ResearchRecipes:
   - {fileID: 11400000, guid: d632619b4a7f4412eaf1886132dd04b9, type: 2}
-  RecipeRevealAmount: 25
+  - {fileID: 11400000, guid: 0502cb3ab7916dd47bf8ec57e079f9a4, type: 2}
+  RecipeRevealAmount: 15
   GameDificulty: 0

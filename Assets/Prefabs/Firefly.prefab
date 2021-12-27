@@ -445,7 +445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619cdeda451bc2340b6b224a381bb792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyBaseSpeed: 6
+  flyBaseSpeed: 2
+  mainSpeed: 0.2
   centerOfActiveArea: {fileID: 0}
   activeAreaBaseTagName: 
   minMaxZRange: {x: 0.1, y: 1}
@@ -453,7 +454,9 @@ MonoBehaviour:
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
+  destinationZ: {x: 0, y: 0, z: 0}
   pathAngle: 1.2
+  followingPlayer: 0
 --- !u!114 &8250971924934002602
 MonoBehaviour:
   m_ObjectHideFlags: 0

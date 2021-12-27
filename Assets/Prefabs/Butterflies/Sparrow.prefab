@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flyBaseSpeed: 1.25
+  mainSpeed: 1
   centerOfActiveArea: {fileID: 0}
   activeAreaBaseTagName: OpenSparrowSpot
   minMaxZRange: {x: 0.5, y: 4}
@@ -180,7 +181,9 @@ MonoBehaviour:
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
+  destinationZ: {x: 0, y: 0, z: 0}
   pathAngle: 0.7
+  followingPlayer: 0
 --- !u!114 &7814302058630119006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +197,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveBaseSpeed: 2.5
+  mainSpeed: 0.4
   centerOfActiveArea: {fileID: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   pathAngle: 0.5
   characterSprite: {fileID: 6913489156025027317}
+  flipSpriteRenderer: 1
+  isWalking: 0
 --- !u!114 &7814302058630119007
 MonoBehaviour:
   m_ObjectHideFlags: 0

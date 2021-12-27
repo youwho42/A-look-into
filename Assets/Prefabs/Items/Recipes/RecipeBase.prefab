@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2495245449712169209}
   - component: {fileID: 2495245449712169210}
-  - component: {fileID: 2495245449712169206}
   - component: {fileID: 2495245449712169207}
   - component: {fileID: 2495245449712169208}
   - component: {fileID: 2920559445753931777}
@@ -87,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &2495245449712169206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2495245449712169211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd92be91d6650f4c88a9802af46f28e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &2495245449712169207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Learn
+  playerEnergyCost: 0
+  gameEnergyReward: 0
   canInteract: 1
   craftingRecipe: {fileID: 11400000, guid: 41dac76e78cdb44b9bbf19c5abfc71db, type: 2}
 --- !u!58 &2495245449712169208

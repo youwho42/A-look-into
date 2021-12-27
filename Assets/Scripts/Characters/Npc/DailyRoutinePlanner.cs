@@ -21,10 +21,10 @@ public class DailyRoutinePlanner : MonoBehaviour
     public List<DailyLocation> dailyLocations = new List<DailyLocation>();
 
     DayNightCycle dayNightCycle;
-    PathfindingGoToNode pathfinding;
+    PathfindingGoToDestination pathfinding;
     private void Start()
     {
-        pathfinding = GetComponent<PathfindingGoToNode>();
+        pathfinding = GetComponent<PathfindingGoToDestination>();
         dayNightCycle = DayNightCycle.instance;
         dayNightCycle.FullHourEventCallBack.AddListener(SetRoutine);
     }

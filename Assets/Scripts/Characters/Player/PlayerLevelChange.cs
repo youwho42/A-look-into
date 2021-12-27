@@ -25,23 +25,17 @@ public class PlayerLevelChange : MonoBehaviour
 
     private void Update()
     {
-        if (Time.frameCount % 30 == 0)
-        {
-            if (currentLocation.lastTilePosition != currentLocation.GetCurrentGridLocation())
-            {
-                currentLocation.UpdateLocation();
-            }
-
-            if (playerLevel != currentLocation.currentLevel && Mathf.Abs(playerLevel - currentLocation.currentLevel) == 1)
-            {
-                playerLevel = currentLocation.currentLevel;
-                Vector3 v = new Vector3(transform.position.x, transform.position.y, playerLevel);
-                transform.position = v;
-                playerChangeLevelEvent.Invoke();
-            }
-        }
+        
+        currentLocation.UpdateLocation();
         
 
+        if (playerLevel != currentLocation.currentLevel && Mathf.Abs(playerLevel - currentLocation.currentLevel) == 1)
+        {
+            playerLevel = currentLocation.currentLevel;
+            Vector3 v = new Vector3(transform.position.x, transform.position.y, playerLevel);
+            transform.position = v;
+            playerChangeLevelEvent.Invoke();
+        }
         
     }
 

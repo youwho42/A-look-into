@@ -1,4 +1,5 @@
 ﻿using QuantumTek.QuantumInventory;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +13,10 @@ public class InventoryDisplaySlot : MonoBehaviour
     public TextMeshProUGUI itemAmount;
     public QI_Inventory inventory;
     public EquipmentManager equipmentManager;
+    GameObject itemToDrop;
+    bool isDragged;
+    public LayerMask waterLayer;
 
-    
     public void ShowInformation()
     {
         if (item == null)
@@ -51,16 +54,13 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         if (item == null)
             return;
-        var go = Instantiate(item.ItemPrefab, position, Quaternion.identity);
-        if(go.TryGetComponent(out SaveableItem entity))
+        
+        
+        if (itemToDrop.TryGetComponent(out SaveableItem itemDrop))
         {
-            entity.GenerateId();
+            itemDrop.GenerateId();
         }
-        if (go.TryGetComponent(out SaveableItem itemToDrop))
-        {
-            itemToDrop.GenerateId();
-        }
-        if (go.TryGetComponent(out ReplaceObjectOnItemDrop obj))
+        if (itemToDrop.TryGetComponent(out ReplaceObjectOnItemDrop obj))
         {
             obj.CheckForObjects();
         }
@@ -72,53 +72,64 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void DragItem()
     {
+        if (!isDragged)
+        {
+            var go = Instantiate(item.ItemPrefab, GetMousePosition(), Quaternion.identity);
+            itemToDrop = go.gameObject;
+            isDragged = true;
+        }
         
-        icon.transform.localPosition = GetMousePosition();
+        
+        itemToDrop.transform.position = GetMousePosition();
     }
 
     public void EndDragItem()
     {
         //Check if in player vicinity :)
         if (CheckPlayerVicinity() && CheckForGameObjects())
-        {
-            DropItem(GetDropPosition());
-            icon.transform.localPosition = Vector3.zero;
-        }
+            DropItem(GetMousePosition());
         else
-        {
-            
-            icon.transform.localPosition = Vector3.zero;
-        }
+            Destroy(itemToDrop);
+          
+        isDragged = false;
     }
-
-    Vector3 GetDropPosition()
-    {
-        Vector3 temp = Camera.main.ScreenToWorldPoint(icon.transform.position);
-        temp.z = PlayerInformation.instance.player.position.z;
-        return temp;
-    }
+    
+    
 
     bool CheckForGameObjects()
     {
-        var t = Physics2D.OverlapPoint(GetDropPosition());
-        if (t == null)
-            return true;
+        Collider2D coll = itemToDrop.GetComponent<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D().NoFilter();
+        List<Collider2D> results = new List<Collider2D>();
+        if (Physics2D.OverlapCollider(coll, filter, results) > 0)
+        {
+            foreach (var hit in results)
+            {
+                if (hit.gameObject == itemToDrop)
+                    continue;
+                if(hit.CompareTag("Water") && itemToDrop.CompareTag("RiverItem"))
+                    return true;
+                if (!itemToDrop.CompareTag("RiverItem"))
+                {
+                    if (hit.CompareTag("Grass") || hit.CompareTag("Path"))
+                        return true;
+                }
+                NotificationManager.instance.SetNewNotification($"You can't place {item.Name} on {hit.tag}.");
+                return false;
+            }
+            
+        }
 
-        if (t.CompareTag("Grass"))
-            return true;
-        if (t.CompareTag("Path"))
-            return true;
+        return true;
 
-
-        NotificationManager.instance.SetNewNotification("You can't place this here");
-        return false;
+        
     }
 
     bool CheckPlayerVicinity()
     {
         Vector3 playerPos = PlayerInformation.instance.player.position;
         
-        float dist = Vector2.Distance(playerPos, GetDropPosition());
+        float dist = Vector2.Distance(playerPos, GetMousePosition());
         if (dist <= 0.5f)
             return true;
 
@@ -126,13 +137,12 @@ public class InventoryDisplaySlot : MonoBehaviour
         return false;
     }
    
-    Vector2 GetMousePosition()
+    Vector3 GetMousePosition()
     {
-        Vector2 movePos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            transform as RectTransform,
-            Input.mousePosition, Camera.current,
-            out movePos);
+        Vector3 movePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        movePos.z = PlayerInformation.instance.player.position.z;
+        
+
         return movePos;
     }
 
@@ -143,8 +153,5 @@ public class InventoryDisplaySlot : MonoBehaviour
         itemAmount.text = "";
         icon.enabled = false;
     }
-    Vector3 ItemDropOffset()
-    {
-        return new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
-    }
+    
 }

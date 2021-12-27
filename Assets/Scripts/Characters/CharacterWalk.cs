@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterWalk : MonoBehaviour
 {
     public float moveBaseSpeed;
+    public float mainSpeed=2;
     public Transform centerOfActiveArea;
 
 
@@ -23,7 +24,8 @@ public class CharacterWalk : MonoBehaviour
     public Transform characterSprite;
     SpriteRenderer characterRenderer;
 
-
+    public bool flipSpriteRenderer = true;
+    public bool isWalking;
     private void Start()
     {
         characterRenderer = characterSprite.GetComponent<SpriteRenderer>();
@@ -40,14 +42,18 @@ public class CharacterWalk : MonoBehaviour
 
 
 
-        t += Time.deltaTime / timeToReachTarget;
+        t += Time.deltaTime;
         Vector2 m1 = Vector2.Lerp(mainPoints[0], mainPoints[1], t);
         Vector2 m2 = Vector2.Lerp(mainPoints[1], mainPoints[2], t);
 
         Vector2 newPosM = Vector2.Lerp(m1, m2, t);
 
-        thisTransform.position = new Vector3(newPosM.x, newPosM.y, currentGridLocation.currentLevel);
+        //Vector3 finalPosM = new Vector3(newPosM.x, newPosM.y, currentGridLocation.currentLevel);
 
+
+        //thisTransform.position = new Vector3(newPosM.x, newPosM.y, currentGridLocation.currentLevel);
+        transform.position = Vector2.MoveTowards(transform.position, newPosM, Time.deltaTime * mainSpeed);
+        transform.position = new Vector3(transform.position.x, transform.position.y, currentGridLocation.currentLevel);
         currentGridLocation.UpdateLocation();
         
     }
@@ -85,9 +91,27 @@ public class CharacterWalk : MonoBehaviour
 
     public void SetFacingDirection()
     {
+        Vector2 dir = GetDirection();
         // Set facing direction
-        Vector2 dir = currentDestination - transform.position;
-        var direction = Mathf.Sign(dir.x);
-        characterRenderer.flipX = direction > 0;
+        if (flipSpriteRenderer)
+        {
+            
+            var direction = Mathf.Sign(dir.x);
+            characterRenderer.flipX = direction > 0;
+        }
+        else
+        {
+            
+            var direction = Mathf.Sign(dir.x);
+            int d = direction < 0 ? 1 : -1;
+            transform.localScale = new Vector3(d, 1, 1);
+        }
+        
+    }
+
+    public Vector2 GetDirection()
+    {
+        var dir = currentDestination - transform.position;
+        return dir;
     }
 }

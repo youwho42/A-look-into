@@ -153,7 +153,7 @@ public class EquipmentGatherData : EquipmentData
 
             bool InteractCostReward()
             {
-                if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= playerEnergyCost)
+                if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
                 {
                     
                     PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);

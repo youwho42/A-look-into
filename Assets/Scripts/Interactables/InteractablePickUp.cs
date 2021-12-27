@@ -56,14 +56,14 @@ public class InteractablePickUp : Interactable
 
     bool InteractCostReward()
     {
-        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= playerEnergyCost)
+        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
         {
             PlayerInformation.instance.playerStats.AddGameEnergy(gameEnergyReward);
             PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
             return true;
         }
 
-        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to pick this up.");
+        NotificationManager.instance.SetNewNotification("You are missing Bounce to pick this up.");
         return false;
     }
 

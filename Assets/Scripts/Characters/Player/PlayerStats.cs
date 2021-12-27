@@ -12,36 +12,57 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         
-        playerAttributes.AddAttribute("PlayerEnergy");
-        playerAttributes.AddAttribute("GameEnergy");
-        playerAttributes.SetAttributeValue("PlayerEnergy", 100);
-        playerAttributes.SetAttributeValue("GameEnergy", 0);
+        playerAttributes.AddAttribute("Bounce");
+        playerAttributes.AddAttribute("Agency");
+        playerAttributes.AddAttribute("Luck");
+        playerAttributes.SetAttributeValue("Bounce", 100);
+        playerAttributes.SetAttributeValue("Agency", 0);
+        playerAttributes.SetAttributeValue("Luck", 5);
+        
     }
    
     public void AddGameEnergy(float energyToAdd)
     {
         
-        float e = playerAttributes.GetAttributeValue("GameEnergy");
+        float e = playerAttributes.GetAttributeValue("Agency");
         e += energyToAdd;
-        playerAttributes.SetAttributeValue("GameEnergy", e);
+        playerAttributes.SetAttributeValue("Agency", e);
     }
     public void AddPlayerEnergy(float energyToAdd)
     {
-        float e = playerAttributes.GetAttributeValue("PlayerEnergy");
+        float e = playerAttributes.GetAttributeValue("Bounce");
         e += energyToAdd;
-        playerAttributes.SetAttributeValue("PlayerEnergy", e);
+        playerAttributes.SetAttributeValue("Bounce", e);
+    }
+    public void AddPlayerLuck(float luckToAdd)
+    {
+        float e = playerAttributes.GetAttributeValue("Luck");
+        e += luckToAdd;
+        playerAttributes.SetAttributeValue("Luck", e);
     }
     public void RemoveGameEnergy(float energyToAdd)
     {
     
-        float e = playerAttributes.GetAttributeValue("GameEnergy");
+        float e = playerAttributes.GetAttributeValue("Agency");
         e -= energyToAdd;
-        playerAttributes.SetAttributeValue("GameEnergy", e);
+        playerAttributes.SetAttributeValue("Agency", e);
     }
     public void RemovePlayerEnergy(float energyToAdd)
     {
-        float e = playerAttributes.GetAttributeValue("PlayerEnergy");
+        float e = playerAttributes.GetAttributeValue("Bounce");
         e -= energyToAdd;
-        playerAttributes.SetAttributeValue("PlayerEnergy", e);
+        playerAttributes.SetAttributeValue("Bounce", e);
+    }
+    public void RemovePlayerLuck(float luckToAdd)
+    {
+        float e = playerAttributes.GetAttributeValue("Luck");
+        e -= luckToAdd;
+        playerAttributes.SetAttributeValue("Luck", e);
+    }
+
+    public float GetPlayerLuck(float luckToAdd)
+    {
+        float l = (luckToAdd / 100) * playerAttributes.GetAttributeValue("Luck");
+        return luckToAdd + l;
     }
 }

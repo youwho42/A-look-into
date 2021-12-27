@@ -22,8 +22,10 @@ public class CurrentGridLocation : MonoBehaviour
     {
         SetGrid();
 
-        tileScale = (groundGrid.cellSize.y * -0.5f) - 0.01f;
-        UpdateLocation();
+        tileScale = Mathf.Abs((groundGrid.cellSize.y * -0.5f) - 0.01f);
+
+
+        lastTilePosition = groundGrid.WorldToCell(transform.position);
     }
   
 
@@ -52,12 +54,12 @@ public class CurrentGridLocation : MonoBehaviour
 
         int tilesHit = 0;
 
-        Vector3Int currentPosition = GetCurrentGridLocation();
+       
 
         for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
         {
-            currentPosition.z = i;
-            TileBase tile = groundMap.GetTile(currentPosition);
+            lastTilePosition.z = i;
+            TileBase tile = groundMap.GetTile(lastTilePosition);
             if (tile != null)
             {
                 tilesHit = i+1;
@@ -73,14 +75,21 @@ public class CurrentGridLocation : MonoBehaviour
     {
         SetGrid();
 
-        Vector3 currentPosition = groundPosition.position;
-        currentPosition = new Vector3(currentPosition.x, currentPosition.y + (tileScale * (currentLevel - 1)), 0f);
+        var pos = new Vector3(groundPosition.position.x, groundPosition.position.y, transform.position.z-1); // this is the self world position
 
-        Vector3Int checkPosition = groundGrid.WorldToCell(currentPosition);
+        Vector3Int tilepos = groundGrid.WorldToCell(pos); // this is Tile grid position
+        var tileworldpos = groundMap.GetCellCenterWorld(tilepos); // this is tile center in world position
 
-        return checkPosition;
+        var relativeDistance = Vector2.Distance(pos, tileworldpos); // get distance between self and tile position in world
+        if (relativeDistance < 0.2f)
+            return lastTilePosition;
+        else
+            return tilepos;
+
+
     }
 
+   
 
     void SetGrid()
     {
@@ -98,6 +107,6 @@ public class CurrentGridLocation : MonoBehaviour
         }
         
     }
- 
 
+  
 }

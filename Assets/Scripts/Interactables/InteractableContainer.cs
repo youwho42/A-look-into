@@ -6,7 +6,7 @@ using UnityEngine;
 public class InteractableContainer : Interactable
 {
 
-    bool isOpen;
+    public bool isOpen;
     ContainerInventoryDisplayUI containerUI;
     QI_Inventory inventory;
     public override void Start()

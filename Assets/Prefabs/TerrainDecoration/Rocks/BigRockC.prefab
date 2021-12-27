@@ -95,6 +95,7 @@ Transform:
   - {fileID: 8609293976354993560}
   - {fileID: 8537386107780516711}
   - {fileID: 3190419660013477918}
+  - {fileID: 8804167113573864273}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,7 +204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn:
   - {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
-  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!114 &3171684388695469473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +235,76 @@ MonoBehaviour:
   maxPerDay: 5
   timeToReset: 5
   hasBeenHarvested: 0
+--- !u!1 &7468462322818468945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8804167113573864273}
+  - component: {fileID: 3359926979584197384}
+  m_Layer: 19
+  m_Name: ObstacleCollision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8804167113573864273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468462322818468945}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7236998486443415216}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &3359926979584197384
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468462322818468945}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.4662815}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.065232754, y: -0.08843279}
+      - {x: 0.19429326, y: -0.16702104}
+      - {x: 0.26505113, y: -0.13251269}
+      - {x: 0.31901932, y: -0.16104662}
+      - {x: 0.38660216, y: -0.119491816}
+      - {x: 0.15516281, y: 0.03921914}
+      - {x: -0.0009508133, y: 0.11088908}
+      - {x: -0.1578176, y: 0.046432853}
+      - {x: -0.35859275, y: -0.05865836}
+      - {x: -0.22566342, y: -0.17012393}
+      - {x: -0.19677424, y: -0.17411125}
+      - {x: -0.15482378, y: -0.13812733}
+      - {x: -0.12767911, y: -0.16097617}
+      - {x: 0.006485939, y: -0.12895894}
 --- !u!1 &9140046738108732444
 GameObject:
   m_ObjectHideFlags: 0

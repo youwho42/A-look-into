@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: PlayerAttributes
   m_EditorClassIdentifier: 
   Attributes:
-  - Name: GameEnergy
+  - Name: Bounce
     MinimumValue: 0
     MaximumValue: 100
     Value: 0
     PermanentModifiers: []
     TemporaryModifiers: []
-  - Name: PlayerEnergy
+  - Name: Agency
+    MinimumValue: 0
+    MaximumValue: 1000
+    Value: 0
+    PermanentModifiers: []
+    TemporaryModifiers: []
+  - Name: Luck
     MinimumValue: 0
     MaximumValue: 100
     Value: 0

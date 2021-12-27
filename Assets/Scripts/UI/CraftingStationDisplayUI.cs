@@ -145,7 +145,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     bool InteractCostReward()
     {
-        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("PlayerEnergy") >= craftableItem.PlayerEnergyCost)
+        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= craftableItem.PlayerEnergyCost)
         {
             
             PlayerInformation.instance.playerStats.RemovePlayerEnergy(craftableItem.PlayerEnergyCost);

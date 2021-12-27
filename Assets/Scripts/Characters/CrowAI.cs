@@ -86,7 +86,7 @@ public class CrowAI : MonoBehaviour, IAnimal
                 }
 
 
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
                 {
                     if (!isSleeping)
                     {
@@ -164,7 +164,7 @@ public class CrowAI : MonoBehaviour, IAnimal
 
             case FlyingState.isLanding:
                 flight.Move();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f && Vector2.Distance(flight.characterSprite.localPosition, flight.destinationZ) <= 0.001f)
                 {
                     currentState = FlyingState.isAtDestination;
                     animator.SetBool("isLanded", true);

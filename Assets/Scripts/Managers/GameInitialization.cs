@@ -8,7 +8,8 @@ public class GameInitialization
     [RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
-        RandomPlantGrowthAtStart.instance.SetPlantGrowthAtStart();
+        if(RandomPlantGrowthAtStart.instance != null)
+            RandomPlantGrowthAtStart.instance.SetPlantGrowthAtStart();
     }
 
     /*[RuntimeInitializeOnLoadMethod]

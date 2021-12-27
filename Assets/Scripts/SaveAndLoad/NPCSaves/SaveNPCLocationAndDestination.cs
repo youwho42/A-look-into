@@ -6,11 +6,11 @@ using SerializableTypes;
 
 public class SaveNPCLocationAndDestination : SaveableManager
 {
-    PathfindingGoToNode pathfinding;
+    PathfindingGoToDestination pathfinding;
 
     private void Start()
     {
-        pathfinding = GetComponent<PathfindingGoToNode>();
+        pathfinding = GetComponent<PathfindingGoToDestination>();
     }
 
     public override void Save()

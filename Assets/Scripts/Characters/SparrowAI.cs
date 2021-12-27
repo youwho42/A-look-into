@@ -78,7 +78,7 @@ public class SparrowAI : MonoBehaviour
                 
 
 
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
                 {
                     if (!isSleeping)
                     {
@@ -154,7 +154,7 @@ public class SparrowAI : MonoBehaviour
             case FlyingState.isLanding:
                 
                 flight.Move();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f && Vector2.Distance(flight.characterSprite.localPosition, flight.destinationZ) <= 0.001f)
                 {
                     animator.SetBool("IsLanded", true);
                     currentState = FlyingState.isAtDestination;
