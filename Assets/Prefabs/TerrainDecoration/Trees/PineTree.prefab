@@ -24,7 +24,7 @@ GameObject:
   m_TagString: GrowingItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5518729531771902421
 Transform:
@@ -71,22 +71,26 @@ MonoBehaviour:
   plantCycles:
   - mainSprite: {fileID: 21300000, guid: 9aadfe3e72b7be345853be9053ed9f27, type: 3}
     shadowSprite: {fileID: 5518729532074262114}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 1440
     birdLandingSpots:
     - {fileID: 2039083576623547493}
   - mainSprite: {fileID: 21300000, guid: 738ff853c32702446b55b1dceb7f5e87, type: 3}
     shadowSprite: {fileID: 5518729531953178507}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 1440
     birdLandingSpots:
     - {fileID: 2540985149515455312}
   - mainSprite: {fileID: 21300000, guid: 9a6902167879e2041b1ec2d437bfd863, type: 3}
     shadowSprite: {fileID: 5518729533477468624}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 1440
     birdLandingSpots:
     - {fileID: 8714878334326080086}
     - {fileID: 6041597696927194570}
   - mainSprite: {fileID: 21300000, guid: 58c66cfcde7929249896443a1551ba7f, type: 3}
     shadowSprite: {fileID: 5518729532353304384}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 1440
     birdLandingSpots:
     - {fileID: 4568455721802661165}
@@ -94,6 +98,7 @@ MonoBehaviour:
     - {fileID: 1047181387276597531}
   - mainSprite: {fileID: 21300000, guid: 2cc5bfee52e192e4d9703809b9e1897c, type: 3}
     shadowSprite: {fileID: 5518729532945011619}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 50000
     birdLandingSpots:
     - {fileID: 7698918996918927084}
@@ -812,7 +817,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5518729533477859499
 Transform:
@@ -894,7 +899,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5518729533509488750
 Transform:

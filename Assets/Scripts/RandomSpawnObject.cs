@@ -70,7 +70,7 @@ public class RandomSpawnObject : MonoBehaviour
     }
     Vector3 SetPositionY(Vector3Int currentPosition)
     {
-        Vector3 newPosition = groundMap.CellToWorld(currentPosition);
+        Vector3 newPosition = groundMap.GetCellCenterWorld(currentPosition);
         Vector3 displacement = new Vector3(UnityEngine.Random.Range(-.2f, .2f), UnityEngine.Random.Range(-.2f, .2f),0);
         return newPosition + displacement;
     }

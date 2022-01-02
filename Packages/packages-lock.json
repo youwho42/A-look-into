@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.h8man.2d.navmeshplus": {
-      "version": "file:C:/Users/Julian/Downloads/NavMeshPlus-master/NavMeshPlus-master",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.2d.animation": {
       "version": "6.0.7",
       "depth": 1,
@@ -90,6 +84,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.burst": {
+      "version": "1.5.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.cinemachine": {
       "version": "2.7.9",
       "depth": 0,
@@ -112,7 +115,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.7",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {

@@ -41,7 +41,9 @@ public class LevelManager : MonoBehaviour
     private GameObject newGameWarning;
     [SerializeField]
     private GameObject controlsPanel;
-    
+    [SerializeField]
+    private Toggle vSync;
+
 
 
 
@@ -67,6 +69,15 @@ public class LevelManager : MonoBehaviour
         titleMenu.SetActive(false);
         EventLevelLoaded.Invoke();
     }
+
+    public void SetVSync()
+    {
+        if (QualitySettings.vSyncCount == 0)
+            QualitySettings.vSyncCount = 1;
+        else
+            QualitySettings.vSyncCount = 0;
+    }
+
     public void CancelNewGame()
     {
         newGameWarning.SetActive(false);
@@ -149,15 +160,20 @@ public class LevelManager : MonoBehaviour
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading scene: {Mathf.RoundToInt(progress * 100)}%";
 
             
             yield return null;
         }
 
-
+        text.text = "Loading data from save.";
+        // Something needs to be done about this. the scene is shown as loaded at his point,
+        // but the data still load after this... figure it out?
         SavingLoading.instance.Load();
+
         yield return new WaitForSeconds(0.5f);
+
+        text.text = "Thank you for waiting.";
         EventLevelLoaded.Invoke();
 
         GameObject player = FindObjectOfType<PlayerInput>().gameObject;

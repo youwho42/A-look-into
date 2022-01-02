@@ -35,7 +35,7 @@ public class EntityReproduction : MonoBehaviour
             if(curve.Evaluate(Random.Range(0.0f, 1.0f)) < 0.1f)
             {
                 Transform item = Instantiate(itemToBecomeData.ItemPrefab, transform.position + GetOffset(), Quaternion.identity, transform.parent);
-                item.GetComponent<SaveableItem>().GenerateId();
+                item.GetComponent<SaveableItemEntity>().GenerateId();
                 canReproduce = false;
                 tick = 0;
             }

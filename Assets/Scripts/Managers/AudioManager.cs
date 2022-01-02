@@ -25,6 +25,12 @@ public class Sound
     public float randomPitch = 0.1f;
 
     public AudioSource source;
+    [Space]
+    [Header("3D Properties")]
+    public bool is3D;
+    public float minDistance = 0;
+    public float maxDisance = 5;
+
 
     public void SetSource(AudioSource _source)
     {
@@ -32,6 +38,14 @@ public class Sound
         source.clip = clip;
         source.loop = loop;
         source.playOnAwake = false;
+        if (is3D)
+        {
+            source.spatialBlend = 1;
+            source.rolloffMode = AudioRolloffMode.Linear;
+            source.dopplerLevel = 0;
+            source.minDistance = minDistance;
+            source.maxDistance = maxDisance;
+        }
     }
 
     public void Play()
@@ -69,6 +83,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void Start()
     {
         GameObject go = new GameObject("Audio");

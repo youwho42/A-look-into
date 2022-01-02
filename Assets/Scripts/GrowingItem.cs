@@ -59,7 +59,7 @@ public class GrowingItem : MonoBehaviour
     {
         int r = Random.Range(0, itemsToBecome.Count);
         var go = Instantiate(itemsToBecome[r], transform.position, Quaternion.identity);
-        if(go.TryGetComponent(out SaveableItem saveable))
+        if(go.TryGetComponent(out SaveableItemEntity saveable))
         {
             saveable.GenerateId();
         }

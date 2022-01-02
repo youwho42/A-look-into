@@ -151,7 +151,7 @@ public class AnimalSpawner : MonoBehaviour
                             thisAnimal.SetHome(plant.transform);
                         }
                        
-                        if (go.TryGetComponent(out SaveableItem saveItem))
+                        if (go.TryGetComponent(out SaveableItemEntity saveItem))
                         {
                             saveItem.GenerateId();
                         }

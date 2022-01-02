@@ -11,6 +11,7 @@ public class PlantLifeCycle : MonoBehaviour
     {
         public Sprite mainSprite;
         public SpriteRenderer shadowSprite;
+        public Sprite spriteMask;
         public int timeTickPerCycle;
         public List<GameObject> birdLandingSpots;
     }
@@ -108,7 +109,12 @@ public class PlantLifeCycle : MonoBehaviour
             if(i == currentCycle)
             {
                 shadow.shadowSprite = plantCycles[i].shadowSprite;
-                spriteMask.sprite = plantCycles[i].mainSprite;
+
+                if (plantCycles[i].spriteMask == null)
+                    spriteMask.sprite = plantCycles[i].mainSprite;
+                else
+                    spriteMask.sprite = plantCycles[i].spriteMask;
+
                 spriteDisplay.sprite = plantCycles[i].mainSprite;
                 plantCycles[i].shadowSprite.gameObject.SetActive(true);
                 
@@ -127,15 +133,14 @@ public class PlantLifeCycle : MonoBehaviour
                 }
             }
         }
-        if (currentCycle < gatherableCycle)
+        if (gatherableItem != null)
         {
-            if (gatherableItem != null)
+            if (currentCycle < gatherableCycle)
                 gatherableItem.hasBeenHarvested = true;
+            else
+                gatherableItem.hasBeenHarvested = false;
         }
-        else
-        {
-            gatherableItem.hasBeenHarvested = false;
-        }
+            
 
 
         if (TryGetComponent(out InteractablePickUp pickUp))

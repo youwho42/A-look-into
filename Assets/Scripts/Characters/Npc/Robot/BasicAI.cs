@@ -18,11 +18,14 @@ public class BasicAI : MonoBehaviour
     public QI_ItemDatabase seedDatabase;
     bool isRetiring;
     bool headOpen;
+    bool gathering;
+    bool activated;
     public bool isActivated = true;
     public Vector3Int homeBaseTilePosition;
 
     public Transform headBone;
 
+    WorldObjectAudioManager audioManager;
     
 
     // Inventory slot lights system
@@ -69,6 +72,7 @@ public class BasicAI : MonoBehaviour
         tileBasedMovement = GetComponent<TileBasedMovement>();
         animator = GetComponent<Animator>();
         interactableContainer = GetComponent<InteractableSeedRobot>();
+        audioManager = GetComponent<WorldObjectAudioManager>();
         currentGridLocation.UpdateLocation();
         currentState = RobotStates.Roaming;
         homeBaseTilePosition = currentGridLocation.lastTilePosition;
@@ -86,8 +90,16 @@ public class BasicAI : MonoBehaviour
     {
         if (lightstate != currentState)
             SetFunctionLight(currentState);
-        
-        
+
+        if (currentState != RobotStates.Deactivated && !audioManager.IsPlaying("Engine"))
+        {
+            activated = true;
+            audioManager.PlaySound("Deactivate");
+            audioManager.PlaySound("Engine");
+            
+        }
+        else if (currentState == RobotStates.Deactivated && !activated)
+            audioManager.StopSound("Engine");
         switch (currentState)
         {
             case RobotStates.Open:
@@ -98,16 +110,16 @@ public class BasicAI : MonoBehaviour
                 if (!interactableContainer.isOpen)
                     currentState = RobotStates.Waiting;
                
-                
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("RobotOpen") && interactableContainer.isOpen && !headOpen)
                 {
                     animator.SetTrigger("Open");
                     headOpen = true;
+                    audioManager.PlaySound("OpenHeadAir");
                 }
                     
-
                 break;
                 
+
             case RobotStates.Waiting:
                 
                 // the player is passing by, wait now, either it leaves or it might want to interact... or something...
@@ -119,17 +131,21 @@ public class BasicAI : MonoBehaviour
                 {
                     animator.SetTrigger("Close");
                     headOpen = false;
+                    audioManager.PlaySound("CloseHeadAir");
                 }
-                    
+                
 
-
-                break;
+                    break;
 
 
             case RobotStates.Roaming:
                 SetMovementDirection();
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MovementTree"))
+                {
                     animator.SetTrigger("Wander");
+                    
+                }
+                    
                 if (lightstate != currentState)
                     SetFunctionLight(currentState);
 
@@ -154,6 +170,7 @@ public class BasicAI : MonoBehaviour
 
                 break;
 
+
             case RobotStates.Deviate:
                 SetMovementDirection();
                 if (isRetiring)
@@ -169,28 +186,33 @@ public class BasicAI : MonoBehaviour
                 
                 break;
 
+
             case RobotStates.Gathering:
 
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("RobotGather"))
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("RobotGather") && !gathering)
+                {
+                    audioManager.PlaySound("ArmMove");
                     animator.SetTrigger("Gather");
-
-                
+                    gathering = true;
+                }
                     
 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("RobotGather") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
                     interactableContainer.inventory.AddItem(seedDatabase.GetRandomWeightedItem(), 1);
-                    
+                    audioManager.StopSound("ArmMove");
                     SetInventoryLights();
                     SetNewDestination();
-                    
+                    gathering = false;
                     if (!isRetiring)
                         currentState = RobotStates.Roaming;
                     else
                         currentState = RobotStates.Retiring;
+                    
                 }
                     
                 break;
+
 
             case RobotStates.Retiring:
                 SetMovementDirection();
@@ -224,19 +246,46 @@ public class BasicAI : MonoBehaviour
                 }
                 break;
 
+
             case RobotStates.Deactivated:
                 
                 SetIdleDirection();
                 tileBasedMovement.SetDestination(currentGridLocation.lastTilePosition);
                 isRetiring = false;
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("RobotDeactivated"))
+                {
                     animator.SetTrigger("Deactivate");
-                break;
+                    audioManager.PlaySound("Deactivate");
+                    Invoke("PlayDeactivateSound", .33f);
+                }
+                    
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("RobotDeactivated") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                {
+                    activated = false;
+                    
+                }
+                    
+                    break;
         }
         
 
     }
-
+    public void PlayLandedSound()
+    {
+        audioManager.PlaySound("Landed");
+    }
+    public void PlayDeactivateSound()
+    {
+        audioManager.PlaySound("DeactivateSwoosh");
+    }
+    public void PlayOpenHeadSound()
+    {
+        audioManager.PlaySound("OpenHeadAir");
+    }
+    public void PlayCloseHeadSound()
+    {
+        audioManager.PlaySound("CloseHeadAir");
+    }
     void SetMovementDirection()
     {
         if (animator.GetFloat("DirectionX") != GetDirection().x && !changingDirection)
@@ -298,6 +347,8 @@ public class BasicAI : MonoBehaviour
 
     void SetRandomDestination()
     {
+        if (surroundingTiles.directions.Count == 0)
+            return;
         List<Vector3Int> dirs = new List<Vector3Int>();
         foreach (var item in surroundingTiles.directions)
         {
@@ -435,8 +486,11 @@ public class BasicAI : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (isActivated)
+            
+            if (isActivated && !isRetiring)
                 currentState = RobotStates.Roaming;
+            else if (isActivated && isRetiring)
+                currentState = RobotStates.Retiring;
             else
                 currentState = RobotStates.Deactivated;
         }

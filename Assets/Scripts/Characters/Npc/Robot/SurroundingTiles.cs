@@ -14,8 +14,9 @@ public class SurroundingTiles : MonoBehaviour
     private void Start()
     {
         currentLocation = GetComponent<CurrentGridLocation>();
-        
-        
+        GetSurroundingTiles();
+
+
     }
    
     public void GetSurroundingTiles()
@@ -46,13 +47,9 @@ public class SurroundingTiles : MonoBehaviour
                 if (tile != null) //if tile is not null
                 {
                     if (z == 0) // we are on z0
-                    {
                         walkable = true;
-                    }
                     else // we are on z1
                         walkable = false;
-                    
-                       
                 }
                 else// the tile is null
                 {

@@ -37,13 +37,13 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
-        flight.SetRandomDestination(roamingArea);
-        currentState = FlyingState.isFlying;
         
+        currentState = FlyingState.isFlying;
+        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
     }
     private void OnEnable()
     {
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+        
     }
     private void OnDisable()
     {

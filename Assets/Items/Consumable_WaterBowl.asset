@@ -13,18 +13,20 @@ MonoBehaviour:
   m_Name: Consumable_WaterBowl
   m_EditorClassIdentifier: 
   Name: Water Bowl
-  Description: Abowl of, well, water.
+  Description: A bowl of, well, water.
   Weight: 1
   Price: 1
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: d68e8fafe1aaa64468d5ba864ccb0e13, type: 3}
   ItemPrefab: {fileID: 835383707523805113, guid: e1d140593ac387a4ba00830b8f6d777e,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 1
   ResearchRecipes: []
   RecipeRevealAmount: 1
   GameDificulty: 0
   attributeModifiers:
-  - attributeToModify: PlayerEnergy
-    amount: 10
+  - attributeToModify: Bounce
+    amount: 20
   itemToBecome: {fileID: 11400000, guid: b886aba0eb71d4c4c88c8713361a1c6e, type: 2}

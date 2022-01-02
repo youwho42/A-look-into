@@ -12,104 +12,80 @@ public class TreeShadows : MonoBehaviour
     int shadowAppearTime = 5;
     int shadowDisappearTime = 20;
 
-
-
+    bool shadowFade;
+    
     private void Start()
     {
-
         dayNightCycle = DayNightCycle.instance;
-        dayNightCycle.FullHourEventCallBack.AddListener(StartShadows);
-        LevelManager.instance.EventLevelLoaded.AddListener(ResetShadows);
-        ResetShadows();
+        dayNightCycle.TickEventCallBack.AddListener(SetShadowRotation);
+        dayNightCycle.FullHourEventCallBack.AddListener(StartShadowFade);
     }
     
     private void OnDisable()
     {
-        dayNightCycle.FullHourEventCallBack.RemoveListener(StartShadows);
-        LevelManager.instance.EventLevelLoaded.RemoveListener(ResetShadows);
+        dayNightCycle.TickEventCallBack.RemoveListener(SetShadowRotation);
+        dayNightCycle.FullHourEventCallBack.RemoveListener(StartShadowFade);
     }
 
-    public void ResetShadows()
+    public void StartShadowFade(int time)
     {
-        StopCoroutine("DayTimeShadows");
-        StartCoroutine("DayTimeShadows");
+        if (time == shadowAppearTime)
+            StartCoroutine("StartShadowsCo");
+        if (time == shadowDisappearTime)
+            StartCoroutine("EndShadowsCo");
     }
-    public void StartShadows(int time)
-    {
-        if(time == shadowAppearTime)
-        {
-            if (shadowSprite != null)
-            {
-                shadowTransform.gameObject.SetActive(true);
 
-                StartCoroutine("StartShadowsCo");
-            }
-            
-        }
-    }
     IEnumerator StartShadowsCo()
     {
-        StartCoroutine("DayTimeShadows");
+        
         float startTime = dayNightCycle.tick;
         float elapsedTime = 0;
         float waitTime = elapsedTime + 40;
-        /*float elapsedTime = dayNightCycle.minutes;
-        float waitTime = dayNightCycle.minutes + 40f;*/
+        shadowSprite.transform.parent.gameObject.SetActive(true);
         float alpha = 0;
         while (elapsedTime < waitTime)
         {
             alpha = Mathf.Lerp(0, .5f, (elapsedTime / waitTime));
-
             shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
-            //elapsedTime = dayNightCycle.minutes;
             elapsedTime = dayNightCycle.tick - startTime;
+
             yield return null;
         }
 
         shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, .5f);
         yield return null;
+        
     }
 
-    IEnumerator DayTimeShadows()
+
+
+    public void SetShadowRotation(int tick)
     {
-
-
         float elapsedTime = dayNightCycle.currentTimeRaw;
         float waitTime = shadowDisappearTime * 60;
         float zRotation = 0;
 
+        zRotation = Mathf.Lerp(60, -60, (elapsedTime - 300) / (waitTime - 300));
 
-        while (elapsedTime < waitTime + 40)
-        {
-            zRotation = Mathf.Lerp(60, -60, (elapsedTime - 300) / (waitTime - 300));
-            
-            shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
-            elapsedTime = dayNightCycle.currentTimeRaw;
-            if(elapsedTime==waitTime)
-                StartCoroutine("EndShadowsCo");
-            yield return null;
-        }
+        shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
+
         
-        
-        
-        yield return null;
     }
+
 
     IEnumerator EndShadowsCo()
     {
-
+        
         float startTime = dayNightCycle.tick;
         float elapsedTime = 0;
         float waitTime = elapsedTime + 40;
-        /*float elapsedTime = dayNightCycle.minutes;
-        float waitTime = dayNightCycle.minutes + 40f;*/
         float alpha = 0;
+
         while (elapsedTime < waitTime)
         {
-            alpha = Mathf.Lerp(.5f, 0, (elapsedTime / waitTime));
 
+            alpha = Mathf.Lerp(.5f, 0, (elapsedTime / waitTime));
             shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
-            //elapsedTime = dayNightCycle.minutes;
             elapsedTime = dayNightCycle.tick - startTime;
 
             yield return null;
@@ -117,7 +93,9 @@ public class TreeShadows : MonoBehaviour
 
         shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, 0);
         yield return null;
-        shadowTransform.gameObject.SetActive(false);
+        shadowSprite.transform.parent.gameObject.SetActive(false);
         shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, 0);
+        
     }
+
 }

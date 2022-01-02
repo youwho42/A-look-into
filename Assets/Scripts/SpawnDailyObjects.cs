@@ -40,7 +40,7 @@ public class SpawnDailyObjects : MonoBehaviour
                 var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
                 
                 
-                if (go.TryGetComponent(out SaveableItem itemToSpawn))
+                if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
                 {
                     itemToSpawn.GenerateId();
                 }
@@ -48,5 +48,8 @@ public class SpawnDailyObjects : MonoBehaviour
 
         }
     }
-    
+    private void OnDestroy()
+    {
+        DayNightCycle.instance.FullHourEventCallBack.RemoveListener(SpawnObjects);
+    }
 }

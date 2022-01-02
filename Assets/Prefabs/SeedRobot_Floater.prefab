@@ -831,6 +831,8 @@ GameObject:
   - component: {fileID: 6532531064297967037}
   - component: {fileID: -7166911021578711956}
   - component: {fileID: -3774344670458866670}
+  - component: {fileID: 5124456065576058630}
+  - component: {fileID: 166016357289754056}
   m_Layer: 13
   m_Name: SeedRobot_Floater
   m_TagString: Untagged
@@ -1159,6 +1161,116 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: a3885b807d4f34147b2eed07b44e1221, type: 2}
+--- !u!114 &5124456065576058630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402162093560618366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5536631eca0b5940a91a352260c33cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Engine
+    clip: {fileID: 8300000, guid: a8d530b2e3374477fba9dc1831d4c21d, type: 3}
+    loop: 1
+    overlap: 0
+    volume: 0.2
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 2
+  - name: OpenHeadAir
+    clip: {fileID: 8300000, guid: 85dcc172d2edb4b6fad2afb9b21f3765, type: 3}
+    loop: 0
+    overlap: 1
+    volume: 0.25
+    pitch: 1
+    randomVolume: 0.1
+    randomPitch: 0
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 1
+  - name: CloseHeadAir
+    clip: {fileID: 8300000, guid: 6a934ec9f36be40288b89b4f4de47eec, type: 3}
+    loop: 0
+    overlap: 1
+    volume: 0.25
+    pitch: 1
+    randomVolume: 0.1
+    randomPitch: 0
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 1
+  - name: ArmMove
+    clip: {fileID: 8300000, guid: c2794aec04c5a4be5bf99a8c642e45bf, type: 3}
+    loop: 1
+    overlap: 0
+    volume: 0.25
+    pitch: 0.7
+    randomVolume: 0.1
+    randomPitch: 0.1
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 1.5
+  - name: Deactivate
+    clip: {fileID: 8300000, guid: e7e3b9a0cfcbc4f4192738549d512cbb, type: 3}
+    loop: 0
+    overlap: 0
+    volume: 0.35
+    pitch: 0.5
+    randomVolume: 0.1
+    randomPitch: 0.1
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 2
+  - name: DeactivateSwoosh
+    clip: {fileID: 8300000, guid: 9ca197db4e2894121a1f6b5f77656258, type: 3}
+    loop: 0
+    overlap: 0
+    volume: 0.3
+    pitch: 0.7
+    randomVolume: 0.1
+    randomPitch: 0.1
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 2
+  - name: Landed
+    clip: {fileID: 8300000, guid: 661a073607f6741d3a64eb6b201c1682, type: 3}
+    loop: 0
+    overlap: 0
+    volume: 0.7
+    pitch: 0.5
+    randomVolume: 0.1
+    randomPitch: 0.1
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 2
+  sound3dOffset: {x: 0, y: 0.25, z: 0}
+--- !u!114 &166016357289754056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402162093560618366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a246d86dda4eab40a607504e89b2f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6417495996242073321
 GameObject:
   m_ObjectHideFlags: 0
