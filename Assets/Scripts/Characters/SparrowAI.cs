@@ -36,7 +36,7 @@ public class SparrowAI : MonoBehaviour
     private void Start()
     {
         sounds = GetComponent<AnimalSounds>();
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
         animator.SetBool("IsLanded", true);
         flight = GetComponent<CharacterFlight>();
         walk = GetComponent<CharacterWalk>();
@@ -45,6 +45,12 @@ public class SparrowAI : MonoBehaviour
 
         displacmentZ = home.GetComponent<DrawZasYDisplacement>();
 
+
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
 
     }
 

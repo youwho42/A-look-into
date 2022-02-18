@@ -17,14 +17,14 @@ public class TreeShadows : MonoBehaviour
     private void Start()
     {
         dayNightCycle = DayNightCycle.instance;
-        dayNightCycle.TickEventCallBack.AddListener(SetShadowRotation);
-        dayNightCycle.FullHourEventCallBack.AddListener(StartShadowFade);
+        GameEventManager.onTimeHourEvent.AddListener(StartShadowFade);
+        GameEventManager.onTimeTickEvent.AddListener(SetShadowRotation);
     }
     
-    private void OnDisable()
+    private void OnDestroy()
     {
-        dayNightCycle.TickEventCallBack.RemoveListener(SetShadowRotation);
-        dayNightCycle.FullHourEventCallBack.RemoveListener(StartShadowFade);
+        GameEventManager.onTimeHourEvent.RemoveListener(StartShadowFade);
+        GameEventManager.onTimeTickEvent.RemoveListener(SetShadowRotation);
     }
 
     public void StartShadowFade(int time)

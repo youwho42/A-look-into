@@ -18,12 +18,16 @@ public class NightGlow : MonoBehaviour
     private void Start()
     {
         dayNightCycle = DayNightCycle.instance;
-        dayNightCycle.FullHourEventCallBack.AddListener(StartGlow);
+        GameEventManager.onTimeHourEvent.AddListener(StartGlow);
         material = spriteMaterial.material;
         initialIntensity = material.GetColor("_EmissionColor");
         SetInitialGlow();
     }
 
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(StartGlow);
+    }
     public void StartGlow(int time)
     {
         if (time == glowAppearTime)

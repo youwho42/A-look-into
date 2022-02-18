@@ -9,7 +9,7 @@ public class EquipmentManager : MonoBehaviour
     public QI_ItemData[] currentEquipment;
     int totalSlots;
     public static EquipmentManager instance;
-    public UnityEvent EventUIUpdateEquipment;
+    //public UnityEvent EventUIUpdateEquipment;
     public SpriteRenderer handEquipmentHolder;
     public SpriteRenderer hatEquipmentHolder;
     private void Awake()
@@ -39,7 +39,7 @@ public class EquipmentManager : MonoBehaviour
             var go = Instantiate(newItem.EquipedItem, hatEquipmentHolder.transform);
             go.transform.localPosition = Vector3.zero;
         }
-        EventUIUpdateEquipment.Invoke();
+        GameEventManager.onEquipmentUpdateEvent.Invoke();
     }
   
     public bool UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
@@ -55,7 +55,7 @@ public class EquipmentManager : MonoBehaviour
             {
                 Destroy(hatEquipmentHolder.transform.GetChild(0).gameObject);
             }
-            EventUIUpdateEquipment.Invoke();
+            GameEventManager.onEquipmentUpdateEvent.Invoke();
             return true;
         }
         return false;
@@ -68,7 +68,7 @@ public class EquipmentManager : MonoBehaviour
             handEquipmentHolder.sprite = null;
         }
         currentEquipment[equipedIndex] = null;
-        EventUIUpdateEquipment.Invoke();
+        GameEventManager.onEquipmentUpdateEvent.Invoke();
     }
     public void UnEquipAndDestroyAll()
     {
@@ -77,6 +77,6 @@ public class EquipmentManager : MonoBehaviour
             currentEquipment[i] = null;
         }
         handEquipmentHolder.sprite = null;
-        EventUIUpdateEquipment.Invoke();
+        GameEventManager.onEquipmentUpdateEvent.Invoke();
     }
 }

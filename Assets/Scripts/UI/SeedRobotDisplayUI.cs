@@ -17,7 +17,7 @@ public class SeedRobotDisplayUI : MonoBehaviour
             Destroy(this);
     }
 
-    BasicAI robotAI;
+    RobotAI robotAI;
 
     public GameObject seedRobotDisplayUI;
     public GameObject containerSlotHolder;
@@ -42,7 +42,7 @@ public class SeedRobotDisplayUI : MonoBehaviour
         seedRobotInventory = container;
         SetContainerUI();
         seedRobotDisplayUI.SetActive(true);
-        robotAI = container.GetComponent<BasicAI>();
+        robotAI = container.GetComponent<RobotAI>();
         activeImage.color = robotAI.isActivated ? Color.green : Color.red;
         activeText.text = robotAI.isActivated ? "Deactivate" : "Activate";
     }
@@ -106,7 +106,7 @@ public class SeedRobotDisplayUI : MonoBehaviour
             DestroyImmediate(containerSlotHolder.transform.GetChild(0).gameObject);
         }
         
-        playerInformation.playerInventory.EventUIUpdateInventory.RemoveListener(UpdateContainerInventoryUI);
+        
         seedRobotSlots.Clear();
         
     }

@@ -36,7 +36,9 @@ public class CrowAI : MonoBehaviour, IAnimal
         if (home == null)
             SetHome(transform);
         sounds = GetComponent<AnimalSounds>();
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+
         animator.SetBool("isLanded", true);
         flight = GetComponent<CharacterFlight>();
         walk = GetComponent<CharacterWalk>();
@@ -46,6 +48,12 @@ public class CrowAI : MonoBehaviour, IAnimal
 
         displacmentZ = home.GetComponent<DrawZasYDisplacement>();
         
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
+
     }
 
     private void Update()

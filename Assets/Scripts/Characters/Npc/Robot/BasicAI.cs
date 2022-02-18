@@ -76,8 +76,14 @@ public class BasicAI : MonoBehaviour
         currentGridLocation.UpdateLocation();
         currentState = RobotStates.Roaming;
         homeBaseTilePosition = currentGridLocation.lastTilePosition;
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetActive);
+        GameEventManager.onTimeHourEvent.AddListener(SetActive);
         Invoke("SetInventoryLights", 2f);
+    }
+
+    private void OnDisable()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetActive);
+
     }
 
     public void SetActive(int time)

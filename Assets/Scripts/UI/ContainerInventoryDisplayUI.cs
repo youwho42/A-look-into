@@ -63,7 +63,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
             GameObject newSlot = Instantiate(containerSlot, playerSlotHolder.transform);
             playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
-            playerInformation.playerInventory.EventUIUpdateInventory.AddListener(UpdateContainerInventoryUI);
+            GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
         }
 
         UpdateContainerInventoryUI();
@@ -126,7 +126,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         {
             DestroyImmediate(playerSlotHolder.transform.GetChild(0).gameObject);
         }
-        playerInformation.playerInventory.EventUIUpdateInventory.RemoveListener(UpdateContainerInventoryUI);
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
         containerSlots.Clear();
         playerSlots.Clear();
     }

@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class RobotSaveSystem : MonoBehaviour, ISaveable
 {
-    BasicAI basicAI;
+    RobotAI robotAI;
     void Start()
     {
-        basicAI = GetComponent<BasicAI>();
+        robotAI = GetComponent<RobotAI>();
     }
 
     public object CaptureState()
@@ -17,11 +17,11 @@ public class RobotSaveSystem : MonoBehaviour, ISaveable
 
         return new SaveData
         {
-            homeBaseTilePositionX = basicAI.homeBaseTilePosition.x,
-            homeBaseTilePositionY = basicAI.homeBaseTilePosition.y,
-            homeBaseTilePositionZ = basicAI.homeBaseTilePosition.z,
-            currentState = (int)basicAI.currentState,
-            isActivated = basicAI.isActivated
+            homeBaseTilePositionX = robotAI.homeBaseTilePosition.x,
+            homeBaseTilePositionY = robotAI.homeBaseTilePosition.y,
+            homeBaseTilePositionZ = robotAI.homeBaseTilePosition.z,
+            currentState = (int)robotAI.currentState,
+            isActivated = robotAI.isActivated
         };
     }
 
@@ -33,9 +33,9 @@ public class RobotSaveSystem : MonoBehaviour, ISaveable
     {
         var saveData = (SaveData)state;
         yield return new WaitForSeconds(0.35f);
-        basicAI.homeBaseTilePosition = new Vector3Int(saveData.homeBaseTilePositionX, saveData.homeBaseTilePositionY, saveData.homeBaseTilePositionZ);
-        basicAI.currentState = (BasicAI.RobotStates)saveData.currentState;
-        basicAI.isActivated = saveData.isActivated;
+        robotAI.homeBaseTilePosition = new Vector3Int(saveData.homeBaseTilePositionX, saveData.homeBaseTilePositionY, saveData.homeBaseTilePositionZ);
+        robotAI.currentState = (RobotAI.RobotStates)saveData.currentState;
+        robotAI.isActivated = saveData.isActivated;
     }
 
     [Serializable]

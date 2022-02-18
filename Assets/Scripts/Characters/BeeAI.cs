@@ -32,13 +32,18 @@ public class BeeAI : MonoBehaviour
     private void Start()
     {
 
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
         beeSounds = GetComponent<RandomBeeSounds>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CharacterFlight>();
         
         //displacmentZ = home.GetComponent<DrawZasYDisplacement>();
+    }
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
+
     }
 
     private void Update()

@@ -26,7 +26,7 @@ public class AnimalSpawner : MonoBehaviour
 
     private void Start()
     {
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetNewAnimals);
+        GameEventManager.onTimeHourEvent.AddListener(SetNewAnimals);
 
         for (int x = groundMap.cellBounds.xMin + 7; x <= groundMap.cellBounds.xMax -7; x++)
         {
@@ -36,8 +36,13 @@ public class AnimalSpawner : MonoBehaviour
             }
         }
 
-
     }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetNewAnimals);
+    }
+
     void SetNewAnimals(int time)
     {
         CheckForViableTree();

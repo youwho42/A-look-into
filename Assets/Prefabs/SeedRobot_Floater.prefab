@@ -568,7 +568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3282173412763177578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2621164004027186708}
@@ -818,9 +818,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2621164004027186708}
-  - component: {fileID: 7526923467749329768}
-  - component: {fileID: 7170645452487110685}
-  - component: {fileID: 6737059309665852467}
   - component: {fileID: 2208369053366922085}
   - component: {fileID: 3823068079423715391}
   - component: {fileID: 4297725488491919284}
@@ -833,6 +830,8 @@ GameObject:
   - component: {fileID: -3774344670458866670}
   - component: {fileID: 5124456065576058630}
   - component: {fileID: 166016357289754056}
+  - component: {fileID: 8891826842862160176}
+  - component: {fileID: 6968429712864448787}
   m_Layer: 13
   m_Name: SeedRobot_Floater
   m_TagString: Untagged
@@ -857,140 +856,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7526923467749329768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16027dbe38bd5d04593b2fbc00d9b16d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 524288
-  seedSpawnChance:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1.6982282
-      outSlope: 1.6982282
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.29835585
-    - serializedVersion: 3
-      time: 0.03601532
-      value: 0.099712275
-      inSlope: 2.052852
-      outSlope: 2.052852
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.3427659
-      outWeight: 0.78409785
-    - serializedVersion: 3
-      time: 0.062334575
-      value: 0.19779636
-      inSlope: 2.886571
-      outSlope: 2.886571
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.85553294
-      outSlope: 0.85553294
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  seedDatabase: {fileID: 11400000, guid: 3ff1e68d57409c245b88a7d015795115, type: 2}
-  isActivated: 1
-  homeBaseTilePosition: {x: 0, y: 0, z: 0}
-  headBone: {fileID: 4715615117632705829}
-  inventoryLights:
-  - {fileID: 5563663060610730241}
-  - {fileID: 3033002114420610443}
-  - {fileID: 3403711211823354582}
-  - {fileID: 8016653779756307264}
-  - {fileID: 2363916279852745120}
-  - {fileID: 2139545070558166749}
-  - {fileID: 6603284807804486558}
-  - {fileID: 7250738187906545748}
-  - {fileID: 6948854332554442862}
-  - {fileID: 6425330480214184626}
-  inventoryLightStates:
-  - color: {r: 0.06863769, g: 0.31132078, b: 0, a: 1}
-    intensity: 0
-    state: Empty
-  - color: {r: 0.9528302, g: 0.6694466, b: 0.05842829, a: 1}
-    intensity: 2
-    state: Holding
-  - color: {r: 1, g: 0, b: 0, a: 1}
-    intensity: 3
-    state: Full
-  functionLight: {fileID: 113788793186702572}
-  functionLights:
-  - color: {r: 0.36044857, g: 0.6659936, b: 0.9433962, a: 1}
-    intensity: 3
-    state: 0
-  - color: {r: 0.8490566, g: 0.50079936, b: 0.14017442, a: 1}
-    intensity: 3
-    state: 1
-  - color: {r: 0, g: 0.745283, b: 0.11658196, a: 1}
-    intensity: 3
-    state: 2
-  - color: {r: 0.8490566, g: 0.20096436, b: 0.06007475, a: 1}
-    intensity: 3
-    state: 3
-  - color: {r: 0.08223567, g: 0.35905364, b: 0.8301887, a: 1}
-    intensity: 3
-    state: 4
-  - color: {r: 0.9339623, g: 0.057271298, b: 0.77953374, a: 1}
-    intensity: 3
-    state: 5
-  - color: {r: 0.4433962, g: 0, b: 0.0045765657, a: 1}
-    intensity: 5
-    state: 6
-  currentState: 0
---- !u!114 &7170645452487110685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b3549c3eb7ed34ca387176b7fa8104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.2
-  worldDestination: {x: 0, y: 0}
---- !u!114 &6737059309665852467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68fe9dd8af506044d9942257013b94e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
 --- !u!114 &2208369053366922085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,6 +1136,129 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a246d86dda4eab40a607504e89b2f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8891826842862160176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402162093560618366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548be061f9e84154686e54ac4a88c78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesLayers:
+    serializedVersion: 2
+    m_Bits: 524288
+  seedSpawnChance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.6982282
+      outSlope: 1.6982282
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.29835585
+    - serializedVersion: 3
+      time: 0.03601532
+      value: 0.099712275
+      inSlope: 2.052852
+      outSlope: 2.052852
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3427659
+      outWeight: 0.78409785
+    - serializedVersion: 3
+      time: 0.062334575
+      value: 0.19779636
+      inSlope: 2.886571
+      outSlope: 2.886571
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.85553294
+      outSlope: 0.85553294
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  seedDatabase: {fileID: 11400000, guid: 3ff1e68d57409c245b88a7d015795115, type: 2}
+  isActivated: 1
+  homeBaseTilePosition: {x: 0, y: 0, z: 0}
+  headBone: {fileID: 4715615117632705829}
+  inventoryLights:
+  - {fileID: 5563663060610730241}
+  - {fileID: 3033002114420610443}
+  - {fileID: 3403711211823354582}
+  - {fileID: 8016653779756307264}
+  - {fileID: 2363916279852745120}
+  - {fileID: 2139545070558166749}
+  - {fileID: 6603284807804486558}
+  - {fileID: 7250738187906545748}
+  - {fileID: 6948854332554442862}
+  - {fileID: 6425330480214184626}
+  inventoryLightStates:
+  - color: {r: 0.06863769, g: 0.31132078, b: 0, a: 1}
+    intensity: 0
+    state: Empty
+  - color: {r: 0.9528302, g: 0.6694466, b: 0.05842829, a: 1}
+    intensity: 2
+    state: Holding
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    intensity: 3
+    state: Full
+  functionLight: {fileID: 113788793186702572}
+  functionLights:
+  - color: {r: 0.36044857, g: 0.6659936, b: 0.9433962, a: 1}
+    intensity: 3
+    state: 0
+  - color: {r: 0.8490566, g: 0.50079936, b: 0.14017442, a: 1}
+    intensity: 3
+    state: 1
+  - color: {r: 0, g: 0.745283, b: 0.11658196, a: 1}
+    intensity: 3
+    state: 2
+  - color: {r: 0.8490566, g: 0.20096436, b: 0.06007475, a: 1}
+    intensity: 3
+    state: 3
+  - color: {r: 0.08223567, g: 0.35905364, b: 0.8301887, a: 1}
+    intensity: 3
+    state: 4
+  - color: {r: 0.9339623, g: 0.057271298, b: 0.77953374, a: 1}
+    intensity: 3
+    state: 5
+  - color: {r: 0.4433962, g: 0, b: 0.0045765657, a: 1}
+    intensity: 5
+    state: 6
+  currentState: 2
+--- !u!114 &6968429712864448787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402162093560618366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41373e51eaf2b8c47bb29bbd8420a532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGridLocation: {fileID: 2208369053366922085}
+  currentDestination: {x: 0, y: 0, z: 0}
+  speed: 0.2
+  hasPath: 0
+  pathComplete: 0
 --- !u!1 &6417495996242073321
 GameObject:
   m_ObjectHideFlags: 0

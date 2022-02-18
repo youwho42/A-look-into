@@ -13,8 +13,14 @@ public class EntityReproduction : MonoBehaviour
 
     private void Start()
     {
-        
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(Reproduce);
+
+        GameEventManager.onTimeHourEvent.AddListener(Reproduce);
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(Reproduce);
+
     }
 
     public void AllowForReproduction()

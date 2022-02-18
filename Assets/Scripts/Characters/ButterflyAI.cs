@@ -39,15 +39,12 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         flight = GetComponent<CharacterFlight>();
         
         currentState = FlyingState.isFlying;
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
     }
-    private void OnEnable()
+    
+    private void OnDestroy()
     {
-        
-    }
-    private void OnDisable()
-    {
-        DayNightCycle.instance.FullHourEventCallBack.RemoveListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
     }
 
     private void Update()

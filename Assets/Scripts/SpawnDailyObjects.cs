@@ -23,7 +23,7 @@ public class SpawnDailyObjects : MonoBehaviour
             if(points[i].CompareTag("ItemSpawnPoint"))
                 spawnPoints.Add(points[i]);
         }
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SpawnObjects);
+        GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
     }
     public void SpawnObjects(int timeOfDay)
     {
@@ -50,6 +50,6 @@ public class SpawnDailyObjects : MonoBehaviour
     }
     private void OnDestroy()
     {
-        DayNightCycle.instance.FullHourEventCallBack.RemoveListener(SpawnObjects);
+        GameEventManager.onTimeHourEvent.RemoveListener(SpawnObjects);
     }
 }

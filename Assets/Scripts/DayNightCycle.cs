@@ -45,8 +45,9 @@ public class DayNightCycle : MonoBehaviour
 
     bool lightIsChanging;
 
-    public FullHourEvent FullHourEventCallBack;
-    public TickEvent TickEventCallBack;
+    /*public FullHourEvent FullHourEventCallBack;
+    public TickEvent TickEventCallBack;*/
+
     private Coroutine changeLightCoroutine;
 
     // Day and Night Script for 2d,
@@ -84,9 +85,8 @@ public class DayNightCycle : MonoBehaviour
     void ChimeHour()
     {
         fullHour = true;
-        FullHourEventCallBack.Invoke(hours);
-        /*if (hours == 5)
-            AudioManager.instance.PlaySound("Rooster");*/
+        //FullHourEventCallBack.Invoke(hours);
+        GameEventManager.onTimeHourEvent.Invoke(hours);
     }
 
     void SetDayOrNight()
@@ -217,15 +217,18 @@ public class DayNightCycle : MonoBehaviour
             SetDayOrNight();
 
             tick++;
-            TickEventCallBack.Invoke(tick);
+            //TickEventCallBack.Invoke(tick);
+            GameEventManager.onTimeTickEvent.Invoke(tick);
 
-            yield return new WaitForSeconds(1F / cycleSpeed);
+            yield return new WaitForSeconds(1f / cycleSpeed);
         }
     }
 
-    [System.Serializable]
+    /*[System.Serializable]
     public class FullHourEvent : UnityEvent<int> { }
+
+
     [System.Serializable]
     public class TickEvent : UnityEvent<int> { }
-
+*/
 }

@@ -20,7 +20,13 @@ public class RandomSpawnObject : MonoBehaviour
 
     private void Start()
     {
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(DailySpawnObjects);
+        
+        GameEventManager.onTimeHourEvent.AddListener(DailySpawnObjects);
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(DailySpawnObjects);
     }
     public void DailySpawnObjects(int time)
     {
@@ -52,7 +58,7 @@ public class RandomSpawnObject : MonoBehaviour
         if (temp.z >= 1)
         {
             var hit = Physics2D.OverlapCircle(SetPositionY(temp), .01f);
-            if (hit == null)
+            if (hit == null || hit.CompareTag("Grass"))
             {
                 int rand = UnityEngine.Random.Range(0, objectsToSpawn.Count);
                 var go = Instantiate(objectsToSpawn[rand].ItemPrefab, SetPositionY(temp), Quaternion.identity);
@@ -95,7 +101,7 @@ public class RandomSpawnObject : MonoBehaviour
 
     Vector3Int GetRandomTilePosition()
     {
-        Vector3Int rand = new Vector3Int(UnityEngine.Random.Range(groundMap.cellBounds.xMin+5, groundMap.cellBounds.xMax-5), UnityEngine.Random.Range(groundMap.cellBounds.yMin+6, groundMap.cellBounds.yMax-6), 0);
+        Vector3Int rand = new Vector3Int(UnityEngine.Random.Range(groundMap.cellBounds.xMin+5, groundMap.cellBounds.xMax-5), UnityEngine.Random.Range(groundMap.cellBounds.yMin+40, groundMap.cellBounds.yMax-6), 0);
         
         rand.z = GetTileLocation(rand);
         

@@ -30,12 +30,18 @@ public class ChickenAI : MonoBehaviour
     private void Start()
     {
 
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
 
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         walk = GetComponent<CharacterWalk>();
 
+
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
 
     }
 

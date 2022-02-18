@@ -11,12 +11,18 @@ public class DiplayTimeUI : MonoBehaviour
 
     private void Start()
     {
+
         dayNightCycle = DayNightCycle.instance;
-        dayNightCycle.TickEventCallBack.AddListener(SetTime);
+        GameEventManager.onTimeTickEvent.AddListener(SetTime);
     }
 
     void SetTime(int tick)
     {
         text.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(SetTime);
     }
 }

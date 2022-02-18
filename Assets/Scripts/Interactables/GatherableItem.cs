@@ -16,7 +16,12 @@ public class GatherableItem : MonoBehaviour
     private void Start()
     {
         currentAmount = maxPerDay;
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(DailyReset);
+        GameEventManager.onTimeHourEvent.AddListener(DailyReset);
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(DailyReset);
     }
     public bool RemoveItem()
     {

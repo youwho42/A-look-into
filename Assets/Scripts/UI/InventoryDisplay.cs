@@ -44,9 +44,16 @@ public class InventoryDisplay : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(2f);
+        GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
+        GameEventManager.onInventoryUpdateEvent.AddListener(UpdateInventoryUI);
         UpdateInventoryUI();
         mainUI.SetActive(false);
         mainUI.transform.position -= offset;
+    }
+    private void OnDestroy()
+    {
+        GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
     }
 
     private void Update()

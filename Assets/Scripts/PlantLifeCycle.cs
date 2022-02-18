@@ -21,7 +21,7 @@ public class PlantLifeCycle : MonoBehaviour
     public SpriteMask spriteMask;
     TreeShadows shadow;
     public GameObject homePoint;
-    DayNightCycle dayNightCycle;
+    
     public int currentCycle;
     public string homeOccupiedBy = "";
 
@@ -35,17 +35,17 @@ public class PlantLifeCycle : MonoBehaviour
         if(TryGetComponent(out GatherableItem item))
             gatherableItem = item;
 
-        dayNightCycle = DayNightCycle.instance;
-        dayNightCycle.TickEventCallBack.AddListener(GetCurrentTime);
+        
+        GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
         shadow = GetComponent<TreeShadows>();
         SetCurrentCycle();
        
         
     }
     
-    private void OnDisable()
+    private void OnDestroy()
     {
-        dayNightCycle.TickEventCallBack.RemoveListener(GetCurrentTime);
+        GameEventManager.onTimeTickEvent.RemoveListener(GetCurrentTime);
     }
     public void SetHomeOccupation()
     {
@@ -85,22 +85,8 @@ public class PlantLifeCycle : MonoBehaviour
         
     }
     
-    IEnumerator UpdateCycleCo()
-    {
-        float startTime = dayNightCycle.tick;
-        float elapsedTime = currentTimeTick;
-        int waitTime = plantCycles[currentCycle].timeTickPerCycle;
-
-        while (elapsedTime < waitTime)
-        {
-
-            elapsedTime = dayNightCycle.tick - startTime;
-        }
-
-
-            yield return null;
-        
-    }
+    
+    
 
     public void SetCurrentCycle()
     {

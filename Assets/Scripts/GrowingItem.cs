@@ -17,13 +17,17 @@ public class GrowingItem : MonoBehaviour
     private void Start()
     {
         mainSprite = GetComponent<SpriteRenderer>();
-        dayNightCycle = DayNightCycle.instance;
-        dayNightCycle.TickEventCallBack.AddListener(GetCurrentTime);
+        
+        GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
+
         CheckForNeighboringPlants();
        
     }
 
-
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(GetCurrentTime);
+    }
     void GetCurrentTime(int tick)
     {
         CheckForNeighboringPlants();

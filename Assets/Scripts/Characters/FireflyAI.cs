@@ -34,8 +34,8 @@ public class FireflyAI : MonoBehaviour
     private void Start()
     {
 
-        DayNightCycle.instance.FullHourEventCallBack.AddListener(SetSleepOrWake);
-        
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+
 
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
@@ -56,7 +56,11 @@ public class FireflyAI : MonoBehaviour
             currentState = FlyingState.isFlying;
         }
     }
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
 
+    }
     private void Update()
     {
 
