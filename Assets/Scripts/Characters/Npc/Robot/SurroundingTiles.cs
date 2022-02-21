@@ -9,69 +9,101 @@ public class SurroundingTiles : MonoBehaviour
     public Tilemap groundMap;
     CurrentGridLocation currentLocation;
     
-    public Dictionary<Vector3Int, bool> directions = new Dictionary<Vector3Int, bool>();
+
+    public class DirectionInfo
+    {
+        public bool isValid;
+        public int difference;
+        public string tileName = "";
+
+        public DirectionInfo(bool valid, int diff, string tile)
+        {
+            isValid = valid;
+            difference = diff;
+            tileName = tile;
+        }
+    }
+
+    Vector3Int lastTilePosition;
+
+    public Dictionary<Vector3Int, DirectionInfo> allCurrentDirections = new Dictionary<Vector3Int, DirectionInfo>();
     
     private void Start()
     {
         currentLocation = GetComponent<CurrentGridLocation>();
         GetSurroundingTiles();
-
-
+        lastTilePosition = currentLocation.lastTilePosition;
     }
    
+
+
+
     public void GetSurroundingTiles()
     {
         SetGrid();
-        directions.Clear();
-        CheckDirection(true);
-        CheckDirection(false);
-
+        
+        allCurrentDirections.Clear();
+        
+        GetAllSurroundingPositions();
     }
-    void CheckDirection(bool onX)
+    
+
+    void GetAllSurroundingPositions()
     {
         for (int x = -1; x < 2; x++)
         {
-            if (x == 0)
-                continue;
-
-            bool walkable = false;
-
-            for (int z = 0; z < 2; z++)
+            for (int y = -1; y < 2; y++)
             {
-                Vector3Int currentPosition = currentLocation.lastTilePosition;
-                currentPosition.x += onX ? x : 0;
-                currentPosition.y += onX ? 0 : x;
-                currentPosition.z += z;
-                TileBase tile = groundMap.GetTile(currentPosition);
-                
-                if (tile != null) //if tile is not null
-                {
-                    if (z == 0) // we are on z0
-                        walkable = true;
-                    else // we are on z1
-                        walkable = false;
-                }
-                else// the tile is null
-                {
-                    if (z != 0)// we are on z1
-                        walkable = true;
-                    else //we are on z0
-                        walkable = false;
-                }
+                if (x == 0 && y == 0)
+                    continue;
 
-                if (directions.ContainsKey(new Vector3Int(onX ? x : 0, onX ? 0 : x, 0)))
+                bool walkable = false;
+
+                for (int z = 2; z >= 0; z--)
                 {
-                    if (!directions[new Vector3Int(onX ? x : 0, onX ? 0 : x, 0)])
-                        continue;
+                    Vector3Int currentPosition = currentLocation.lastTilePosition;
+                    currentPosition.x += x;
+                    currentPosition.y += y;
+                    currentPosition.z += z;
+                    TileBase tile = groundMap.GetTile(currentPosition);
+                    string tileName = "notSlope";
+
+                    if (tile != null) // if tile exists here
+                    {
+                        if (z > 0) // we are on z1 or z2
+                        {
+                            walkable = false;
+                            tileName = tile.name;
+                        }
+                        else // we are on z0
+                        {
+                            walkable = true;
+                        }
+                    }
+                    else// the tile is null
+                    {
+                        if (z != 0)// we are on z1 or z2
+                            walkable = true;
+                        else // we are on z0
+                            walkable = false;
+                    }
+
+
+                    if (allCurrentDirections.ContainsKey(new Vector3Int(x, y, 0)))
+                    {
+                        if (!allCurrentDirections[new Vector3Int(x, y, 0)].isValid)
+                            continue;
+                        else
+                            allCurrentDirections[new Vector3Int(x, y, 0)] = new DirectionInfo(walkable, z, tileName);
+                    }
                     else
-                        directions[new Vector3Int(onX ? x : 0, onX ? 0 : x, 0)] = walkable;
+                    {
+                        allCurrentDirections.Add(new Vector3Int(x, y, 0), new DirectionInfo(walkable, z, tileName));
+                    }
+
                 }
-                    
-                else
-                    directions.Add(new Vector3Int(onX ? x : 0, onX ? 0 : x, 0), walkable);
 
             }
-
         }
     }
 
@@ -91,11 +123,12 @@ public class SurroundingTiles : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         
-        if (directions.Count > 0)
+        if (allCurrentDirections.Count > 0)
         {
-            foreach (var item in directions)
+            foreach (var item in allCurrentDirections)
             {
-                Gizmos.color = item.Value ? Color.green : Color.red;
+                Gizmos.color = item.Value.isValid ? Color.green : Color.red;
+
                 var p = item.Key + currentLocation.lastTilePosition;
                 Gizmos.DrawWireSphere(GetTileWorldPosition(p), 0.1f);
             }

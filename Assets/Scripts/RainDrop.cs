@@ -40,8 +40,8 @@ public class RainDrop : MonoBehaviour, IPoolPrefab
     public void DeactivateObject()
     {
         
-        if (gravity != null)
-            gravity.ResetStartingPosition(10);
+        /*if (gravity != null)
+            gravity.ResetStartingPosition(10);*/
         this.gameObject.SetActive(false);
        
     }

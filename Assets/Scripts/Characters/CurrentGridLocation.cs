@@ -25,23 +25,32 @@ public class CurrentGridLocation : MonoBehaviour
         tileScale = Mathf.Abs((groundGrid.cellSize.y * -0.5f) - 0.01f);
 
 
-        lastTilePosition = groundGrid.WorldToCell(transform.position);
+        lastTilePosition = GetCurrentGridLocation();
     }
   
 
-    public void UpdateLocation()
+    public bool UpdateLocation()
     {
-        lastTilePosition = GetCurrentGridLocation();
+        
         tilePosZ = GetTileLocation();
         currentLevel = tilePosZ;
+        Vector3Int tempPos = GetCurrentGridLocation();
+        if (tempPos != lastTilePosition)
+        {
+            lastTilePosition = tempPos;
+            return true;
+        }
+
+        return false;
+            
         
-        //transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
+        
     }
+
     public void UpdateLocationAndPosition()
     {
-        lastTilePosition = GetCurrentGridLocation();
-        tilePosZ = GetTileLocation();
-        currentLevel = tilePosZ;
+
+        UpdateLocation();
         transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
     }
 
@@ -78,13 +87,23 @@ public class CurrentGridLocation : MonoBehaviour
         var pos = new Vector3(groundPosition.position.x, groundPosition.position.y, transform.position.z-1); // this is the self world position
 
         Vector3Int tilepos = groundGrid.WorldToCell(pos); // this is Tile grid position
-        var tileworldpos = groundMap.GetCellCenterWorld(tilepos); // this is tile center in world position
+        /*var tileworldpos = groundMap.GetCellCenterWorld(tilepos); // this is tile center in world position
 
         var relativeDistance = Vector2.Distance(pos, tileworldpos); // get distance between self and tile position in world
         if (relativeDistance < 0.2f)
+        {
+            
+
             return lastTilePosition;
-        else
-            return tilepos;
+        }
+
+
+        if (gameObject.CompareTag("Ball"))
+            Debug.Log(relativeDistance);*/
+
+        return tilepos;
+        
+            
 
 
     }

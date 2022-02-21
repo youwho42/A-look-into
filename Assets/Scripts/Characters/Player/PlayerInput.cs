@@ -17,6 +17,8 @@ public class PlayerInput : MonoBehaviour
     public bool isPaused;
     [HideInInspector]
     public bool isInUI;
+    [HideInInspector]
+    public bool isJumping;
 
 
 
@@ -39,7 +41,8 @@ public class PlayerInput : MonoBehaviour
                 isRunning = !isRunning;
             if (movement == Vector2.zero)
                 isRunning = false;
-             
+            
+            isJumping = Input.GetKeyDown(KeyCode.Space);
         }
         if (!isPaused)
             usingEquippedItem = Input.GetMouseButtonDown(0);

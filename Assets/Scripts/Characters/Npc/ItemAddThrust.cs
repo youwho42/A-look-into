@@ -5,11 +5,11 @@ using UnityEngine;
 public class ItemAddThrust : MonoBehaviour
 {
     public float thrustForce = 2f;
-    public Vector3 thrustDirection;
-    Vector3 destination;
+    //public Vector3 thrustDirection;
+    //Vector3 destination;
     ItemGravity gravity;
-    public bool isMoving;
-    public bool bounced;
+    //public bool isMoving;
+    //public bool bounced;
 
     public void Start()
     {
@@ -18,25 +18,25 @@ public class ItemAddThrust : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && gravity.isGrounded)
+        /*if (Input.GetKeyDown(KeyCode.Space) && gravity.isGrounded)
         {
             AddThrust(thrustForce);
-            destination = transform.position + thrustDirection;
-        }
-        if (!gravity.isGrounded)
+            *//*destination = transform.position + thrustDirection;*//*
+        }*/
+        /*if (!gravity.isGrounded)
         {
             MoveMainItem();
-        }
+        }*/
 
 
     }
 
-    void MoveMainItem()
+    /*void MoveMainItem()
     {
         float step = 1 * Time.deltaTime;
 
         transform.position = Vector3.MoveTowards(transform.position, destination, step);
-    }
+    }*/
     public void AddThrust(float thrust)
     {
         gravity.positionZ += thrust;

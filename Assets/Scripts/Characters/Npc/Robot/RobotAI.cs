@@ -509,13 +509,19 @@ public class RobotAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && currentState != RobotStates.Gathering && currentState != RobotStates.Deactivated)
+        if (currentState == RobotStates.Gathering || currentState == RobotStates.Deactivated)
+            return;
+
+        if (collision.CompareTag("Player"))
         {
             currentState = RobotStates.Waiting;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (currentState == RobotStates.Gathering || currentState == RobotStates.Deactivated)
+            return;
+
         if (collision.CompareTag("Player"))
         {
 

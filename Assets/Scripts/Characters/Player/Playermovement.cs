@@ -8,16 +8,19 @@ public class Playermovement : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     PlayerInput playerInput;
-    CharacterMovement characterMovement;
+    GravityItemMovement gravityItemMovement;
     public bool facingRight;
-    public bool isInAction;
+    public bool isInInteractAction;
+    ItemGravity itemGravity;
 
     // Start is called before the first frame update
     void Start()
     {
         
         playerInput = GetComponent<PlayerInput>();
-        characterMovement = GetComponent<CharacterMovement>();
+        gravityItemMovement = GetComponent<GravityItemMovement>();
+        itemGravity = GetComponent<ItemGravity>();
+
     }
 
     private void Update()
@@ -30,17 +33,19 @@ public class Playermovement : MonoBehaviour
             else if (playerInput.movement.x < 0.01f && facingRight)
                 Flip();
         }
-            
+
+        if (itemGravity.isGrounded && playerInput.isJumping)
+            itemGravity.Bounce(8);
         
     }
 
 
     void FixedUpdate()
     {
-        if (!isInAction)
-            characterMovement.Move(playerInput.movement, playerInput.isRunning ? runSpeed : walkSpeed);
+        if (!isInInteractAction)
+            gravityItemMovement.Move(playerInput.movement, (playerInput.isRunning ? runSpeed : walkSpeed));
         else
-            characterMovement.Move(Vector2.zero, 0);
+            gravityItemMovement.Move(Vector2.zero, 0);
     }
 
     void Flip()
