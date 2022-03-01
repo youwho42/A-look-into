@@ -6,12 +6,14 @@ public class AnimatePlayer : MonoBehaviour
 {
 
     public Animator animator;
-    GravityItemMovement itemMovement;
+    Playermovement playerMovement;
+    GravityItemMovement gravityItemMovement;
     PlayerInput playerInput;
 
     private void Start()
     {
-        itemMovement = GetComponent<GravityItemMovement>();
+        gravityItemMovement = GetComponent<GravityItemMovement>();
+        playerMovement = GetComponent<Playermovement>();
         playerInput = GetComponent<PlayerInput>();
     }
 
@@ -19,8 +21,9 @@ public class AnimatePlayer : MonoBehaviour
     {
         
         animator.SetBool("IsRunning", playerInput.isRunning);
-        animator.SetFloat("VelocityX", Mathf.Abs(itemMovement.moveSpeed));
-        
+        animator.SetFloat("VelocityX", Mathf.Abs(playerMovement.moveSpeed));
+        animator.SetBool("IsGrounded", gravityItemMovement.isGrounded);
+        animator.SetFloat("VelocityY", gravityItemMovement.displacedPosition.y);
     }
 
     public void TriggerPickUp()

@@ -6,20 +6,20 @@ public class RainDrop : MonoBehaviour, IPoolPrefab
 {
    
     public Animator animator;
-    ItemGravity gravity;
+    //ItemGravity gravity;
     void Start()
     {
-        gravity = GetComponent<ItemGravity>();
+        //gravity = GetComponent<ItemGravity>();
         
     }
 
     void Update()
     {
-        if (gravity.isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("RainFall"))
+        /*if (gravity.isGrounded && animator.GetCurrentAnimatorStateInfo(0).IsName("RainFall"))
         {
             animator.SetTrigger("HitGround");
             
-        }
+        }*/
             
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("RainHit"))

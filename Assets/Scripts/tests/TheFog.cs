@@ -48,11 +48,12 @@ public class TheFog : MonoBehaviour
 
     private void Start()
     {
-
+        //the object that we move lives here
         fogMovements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
         fogDisplacements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
 
-        movementAccessArray = new TransformAccessArray(amountOfFog);
+        //the object that we move lives here
+        movementAccessArray = new TransformAccessArray(amountOfFog); 
         displacementAccessArray = new TransformAccessArray(amountOfFog);
 
 
@@ -147,7 +148,6 @@ public class TheFog : MonoBehaviour
         public void Execute(int i, TransformAccess transform)
         {
             
-            Vector3 currentVelocity = objectMovements[i];
             
             random randomGen = new random((uint)(i * time + 1 + seed));
 

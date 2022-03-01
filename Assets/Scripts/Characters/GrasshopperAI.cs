@@ -7,8 +7,8 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
 
 
 
-    ItemGravity itemGravity;
-    ItemAddThrust thrust;
+    //ItemGravity itemGravity;
+    
     Vector2 destination;
     public CurrentState currentState;
 
@@ -20,8 +20,8 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
 
     void Start()
     {
-        itemGravity = GetComponent<ItemGravity>();
-        thrust = GetComponent<ItemAddThrust>();
+        //itemGravity = GetComponent<ItemGravity>();
+        
     }
     /*void Update()
     {

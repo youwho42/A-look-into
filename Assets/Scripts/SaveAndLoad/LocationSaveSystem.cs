@@ -20,11 +20,11 @@ public class LocationSaveSystem : MonoBehaviour, ISaveable
     {
         var saveData = (SaveData)state;
         transform.position = saveData.location;
-        if (isPlayer)
+        /*if (isPlayer)
         {
-            SetCollisionLayers.instance.SetCollisionLayer();
+            //SetCollisionLayers.instance.SetCollisionLayer();
             FindObjectOfType<PlayerLevelChange>().UpdatePlayerLocation();
-        }
+        }*/
             
     }
 

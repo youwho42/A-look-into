@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class SurroundingTiles : MonoBehaviour
 {
-    public Grid grid;
-    public Tilemap groundMap;
+    Grid grid;
+    Tilemap groundMap;
     CurrentGridLocation currentLocation;
     
 
@@ -54,8 +54,7 @@ public class SurroundingTiles : MonoBehaviour
         {
             for (int y = -1; y < 2; y++)
             {
-                if (x == 0 && y == 0)
-                    continue;
+                
 
                 bool walkable = false;
 
@@ -68,8 +67,19 @@ public class SurroundingTiles : MonoBehaviour
                     TileBase tile = groundMap.GetTile(currentPosition);
                     string tileName = "notSlope";
 
+                    
+                        
+
                     if (tile != null) // if tile exists here
                     {
+                        if (x == 0 && y == 0) //this is where we are, but is it a slope?
+                        {
+                            if (z != 0)
+                                continue;
+                            walkable = true;
+                            tileName = tile.name;
+                        }
+
                         if (z > 0) // we are on z1 or z2
                         {
                             walkable = false;
@@ -78,6 +88,7 @@ public class SurroundingTiles : MonoBehaviour
                         else // we are on z0
                         {
                             walkable = true;
+                            tileName = tile.name;
                         }
                     }
                     else// the tile is null

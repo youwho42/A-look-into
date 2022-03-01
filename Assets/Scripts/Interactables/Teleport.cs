@@ -48,7 +48,7 @@ public class Teleport : MonoBehaviour
         activeTeleport.SetActive(false);
         activeTeleport.transform.position = new Vector3(teleporter.position.x, teleporter.position.y, teleporter.GetComponent<Teleport>().currentLevel);
         activeTeleport.GetComponent<PlayerLevelChange>().UpdatePlayerLocation();
-        SetCollisionLayers.instance.SetCollisionLayer();
+        //SetCollisionLayers.instance.SetCollisionLayer();
         yield return new WaitForSeconds(1f);
 
         activeTeleport.SetActive(true);

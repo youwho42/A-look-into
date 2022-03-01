@@ -29,7 +29,7 @@ public class SetCollisionLayers : MonoBehaviour
     
 
 
-    public void SetCollisionLayer()
+    /*public void SetCollisionLayer()
     {
         for (int i = 0; i < collisionTilemap.Count; i++)
         {
@@ -42,7 +42,7 @@ public class SetCollisionLayers : MonoBehaviour
                 collisionTilemap[i].gameObject.SetActive(false);
             }
         }
-    }
+    }*/
     //private void OnDisable()
     //{
     //    player.playerChangeLevelEvent.RemoveListener(SetCollisionLayer);
