@@ -35,7 +35,7 @@ public class PlayerInput : MonoBehaviour
         {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
-            movement.y = Mathf.Clamp(movement.y, -0.5761719f, 0.5761719f);
+            movement.y = Mathf.Clamp(movement.y, -0.578125f, 0.578125f);
             movement = movement.normalized;
             if (Input.GetKeyDown(KeyCode.LeftShift))
                 isRunning = !isRunning;

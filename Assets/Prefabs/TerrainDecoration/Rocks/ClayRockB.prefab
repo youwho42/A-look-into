@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6235004213922306122}
   - component: {fileID: 567497541064787451}
   - component: {fileID: 1353761666577134135}
-  - component: {fileID: 1314758974102040809}
   - component: {fileID: 2042405257530868948}
   - component: {fileID: -8345639047977298260}
   - component: {fileID: 1897042741002837680}
+  - component: {fileID: 1519831173135655579}
   m_Layer: 14
   m_Name: ClayRockB
   m_TagString: OpenCrowSpot
@@ -139,20 +139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToSpawn:
   - {fileID: 11400000, guid: 8fd5f772e506873458a56d495adbecbc, type: 2}
---- !u!114 &1314758974102040809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4046367404901123074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed518dcf945f49e6b61f82928905b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionZ: 0.87
-  displacedPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2042405257530868948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +181,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1519831173135655579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4046367404901123074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3530c8aa8666e7498cc22eabd4bac95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionZ: 0.84
+  displacedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &6289728753406849618
 GameObject:
   m_ObjectHideFlags: 0

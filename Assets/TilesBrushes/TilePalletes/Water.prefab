@@ -675,7 +675,7 @@ Tilemap:
       - {fileID: 21300000, guid: a3ceecd512fc0f044a9c96f1985df702, type: 3}
       - {fileID: 21300000, guid: a8632a4fe5ee4724d85072013c9d8435, type: 3}
       - {fileID: 21300000, guid: fba95755402c737428563fd479bcac4d, type: 3}
-      m_AnimationSpeed: 12
+      m_AnimationSpeed: 12.000001
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -6, y: -11, z: 0}
@@ -1247,11 +1247,11 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8640502662930020062}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 0.57735, z: 1}
+  m_CellSize: {x: 1, y: 0.578125, z: 1}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 3
   m_CellSwizzle: 0
---- !u!114 &4180754499433579264
+--- !u!114 &1076660944279942729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1264,5 +1264,5 @@ MonoBehaviour:
   m_Name: Palette Settings
   m_EditorClassIdentifier: 
   cellSizing: 100
-  m_TransparencySortMode: 0
-  m_TransparencySortAxis: {x: 0, y: 0, z: 1}
+  m_TransparencySortMode: 3
+  m_TransparencySortAxis: {x: 0, y: 0, z: -0.2790625}

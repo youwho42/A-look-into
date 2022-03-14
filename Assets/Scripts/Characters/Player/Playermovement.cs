@@ -26,7 +26,7 @@ public class Playermovement : MonoBehaviour
     private void Update()
     {
 
-        if (playerInput.movement.x != 0)
+        if (playerInput.movement.x != 0 && !isInInteractAction)
         {
             if (playerInput.movement.x > 0.01f && !facingRight)
                 Flip();
@@ -38,12 +38,7 @@ public class Playermovement : MonoBehaviour
             gravityItemMovement.Bounce(jumpHeight);
 
         moveSpeed = playerInput.movement.x + playerInput.movement.y;
-        if (!gravityItemMovement.CanReachNextPosition(playerInput.movement))
-        {
-            moveSpeed = 0;
-            return;
-
-        }
+        
     }
 
 
@@ -52,10 +47,11 @@ public class Playermovement : MonoBehaviour
         if (isInInteractAction)
             return;
 
-        if (gravityItemMovement.CanReachNextPosition(playerInput.movement))
+        /*if (gravityItemMovement.CanReachNextTile(dir))
+        {*/
             gravityItemMovement.Move(playerInput.movement, (playerInput.isRunning ? runSpeed : walkSpeed));
-        else
-            gravityItemMovement.Move(Vector2.zero, 0);
+        /*}*/
+            
     }
 
 

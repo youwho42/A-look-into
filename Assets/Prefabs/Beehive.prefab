@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4471606465425354260}
-  - component: {fileID: 5432038704536734980}
   - component: {fileID: 6903536950274423817}
   - component: {fileID: 8909593353864532084}
+  - component: {fileID: 4516963421395631243}
   m_Layer: 0
   m_Name: Beehive
   m_TagString: Beehive
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5432038704536734980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160232884156040447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed518dcf945f49e6b61f82928905b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionZ: 0.85
-  displacedPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &6903536950274423817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainSprite: {fileID: 5958998893306059904}
-  displacementZ: {fileID: 5432038704536734980}
+  displacementZ: {fileID: 4516963421395631243}
   beeObject: {fileID: 4720702768676041353, guid: 4ddde209f507a4f4ba58296b6d977896,
     type: 3}
   maxBees: 10
@@ -78,6 +64,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 04d812f3bdeae174e921e72b08789f0f, type: 2}
+--- !u!114 &4516963421395631243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160232884156040447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3530c8aa8666e7498cc22eabd4bac95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionZ: 0.75
+  displacedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &5958998893306059910
 GameObject:
   m_ObjectHideFlags: 0

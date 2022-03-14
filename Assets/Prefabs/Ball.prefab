@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3702226551936212650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8918310489227012798}
+  m_Layer: 0
+  m_Name: CorrectionZ
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8918310489227012798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3702226551936212650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7641767149655810990}
+  - {fileID: 7641767149877798794}
+  m_Father: {fileID: 7641767150185757761}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7641767149655810989
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +60,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7641767150185757761}
+  m_Father: {fileID: 8918310489227012798}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7641767149655810984
@@ -107,11 +139,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7641767149877798793}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7641767150185757761}
+  m_Father: {fileID: 8918310489227012798}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7641767149877798795
@@ -181,6 +213,8 @@ GameObject:
   - component: {fileID: 7641767150185757772}
   - component: {fileID: 1056378774875510150}
   - component: {fileID: 5365242902789203519}
+  - component: {fileID: 2157980361316234061}
+  - component: {fileID: 4283517860427210916}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -199,8 +233,7 @@ Transform:
   m_LocalPosition: {x: 3.26, y: 2.597, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7641767149655810990}
-  - {fileID: 7641767149877798794}
+  - {fileID: 8918310489227012798}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -216,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e70a65b00bab334cbdc9244fd4a0eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundPosition: {fileID: 7641767150185757761}
   groundGrid: {fileID: 0}
   groundMap: {fileID: 0}
   currentLevel: 0
@@ -233,8 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fe9dd8af506044d9942257013b94e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
 --- !u!58 &7641767150185757763
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -284,20 +314,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170aa32b947abbe42bade1ef3ab3ba69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slopeDisplacement: 0
   itemObject: {fileID: 7641767149655810990}
-  currentGridLocation: {fileID: 0}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  onSlope: 0
-  surroundingTiles: {fileID: 0}
+  itemShadow: {fileID: 7641767149877798794}
+  slopeObject: {fileID: 8918310489227012798}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 524288
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  currentGridLocation: {fileID: 7641767150185757773}
+  surroundingTiles: {fileID: 7641767150185757762}
+  positionZ: 0
+  displacedPosition: {x: 0, y: 0, z: 0}
+  isGrounded: 0
   nextTilePosition: {x: 0, y: 0, z: 0}
+  canDropOffEdges: 1
+  onCliffEdge: 0
   bounceFriction: 0.82
   bounciness: 5.2
-  lastLevel: 0
   currentVelocity: 0
 --- !u!114 &5365242902789203519
 MonoBehaviour:
@@ -313,3 +349,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDrag: 0.1
   itemBounceFriction: 0.8
+  canInteractWithOtherInteractables: 1
+--- !u!114 &2157980361316234061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7641767150185757767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3530c8aa8666e7498cc22eabd4bac95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionZ: 0.3
+  displacedPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &4283517860427210916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7641767150185757767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCorrectionZ: {fileID: 8918310489227012798}
+  isHidden: 0

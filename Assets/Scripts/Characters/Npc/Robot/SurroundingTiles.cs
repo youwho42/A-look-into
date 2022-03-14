@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 public class SurroundingTiles : MonoBehaviour
 {
     Grid grid;
@@ -13,13 +14,13 @@ public class SurroundingTiles : MonoBehaviour
     public class DirectionInfo
     {
         public bool isValid;
-        public int difference;
+        public int levelZ;
         public string tileName = "";
 
-        public DirectionInfo(bool valid, int diff, string tile)
+        public DirectionInfo(bool valid, int z, string tile)
         {
             isValid = valid;
-            difference = diff;
+            levelZ = z;
             tileName = tile;
         }
     }
@@ -56,84 +57,97 @@ public class SurroundingTiles : MonoBehaviour
             {
                 
 
-                bool walkable = false;
+                bool valid = false;
 
-                for (int z = 2; z >= 0; z--)
+                for (int z = 2; z >= -1; z--)
                 {
                     Vector3Int currentPosition = currentLocation.lastTilePosition;
                     currentPosition.x += x;
                     currentPosition.y += y;
                     currentPosition.z += z;
                     TileBase tile = groundMap.GetTile(currentPosition);
-                    string tileName = "notSlope";
+                    string tileName = "Empty";
 
                     
                         
 
                     if (tile != null) // if tile exists here
                     {
-                        if (x == 0 && y == 0) //this is where we are, but is it a slope?
+                        tileName = tile.name;
+                        if (x == 0 && y == 0) //this is where we are
                         {
                             if (z != 0)
                                 continue;
-                            walkable = true;
-                            tileName = tile.name;
+                            valid = true;
                         }
-
-                        if (z > 0) // we are on z1 or z2
+                        if (z < 0) // we are on z1 or z2
                         {
-                            walkable = false;
-                            tileName = tile.name;
+                            valid = tile.name.Contains("Slope");
                         }
-                        else // we are on z0
+                        else if (z == 0) // we are on z0
                         {
-                            walkable = true;
-                            tileName = tile.name;
+                            valid = true;
+                        }
+                        else
+                        {
+                            valid = false;
                         }
                     }
                     else// the tile is null
                     {
-                        if (z != 0)// we are on z1 or z2
-                            walkable = true;
-                        else // we are on z0
-                            walkable = false;
+                        if (z > 0)// we are on z1 or z2
+                            valid = true;
+                        else // we are on or below z0
+                            valid = false;
                     }
 
 
                     if (allCurrentDirections.ContainsKey(new Vector3Int(x, y, 0)))
                     {
                         if (!allCurrentDirections[new Vector3Int(x, y, 0)].isValid)
-                            continue;
+                        {
+                            if(z < 0 && valid)
+                                allCurrentDirections[new Vector3Int(x, y, 0)] = new DirectionInfo(valid, z, tileName);
+                            else
+                                continue;
+                        }
                         else
-                            allCurrentDirections[new Vector3Int(x, y, 0)] = new DirectionInfo(walkable, z, tileName);
+                        {
+                            if (z < 0)
+                                continue;
+                            allCurrentDirections[new Vector3Int(x, y, 0)] = new DirectionInfo(valid, z, tileName);
+                        }
+                           
                     }
                     else
                     {
-                        allCurrentDirections.Add(new Vector3Int(x, y, 0), new DirectionInfo(walkable, z, tileName));
+                        allCurrentDirections.Add(new Vector3Int(x, y, 0), new DirectionInfo(valid, z, tileName));
                     }
-
+                    
                 }
 
             }
         }
-    }
 
-    
+        // check if on slope, set respective slope direction z1 to valid
+        if (allCurrentDirections[Vector3Int.zero].tileName.Contains("Slope"))
+        {
+            
+            Vector3Int tileDirection = allCurrentDirections[Vector3Int.zero].tileName.Contains("X") ? Vector3Int.right : Vector3Int.up;
+            tileDirection = allCurrentDirections[Vector3Int.zero].tileName.Contains("1") ? tileDirection : -tileDirection;
+            allCurrentDirections[tileDirection].isValid = true;
+           
+        }
+    }
 
     public Vector3 GetTileWorldPosition(Vector3Int tile)
     {
-
         var tileworldpos = groundMap.GetCellCenterWorld(tile);
         return tileworldpos;
     }
 
-
-    
-
-
     private void OnDrawGizmosSelected()
     {
-        
         if (allCurrentDirections.Count > 0)
         {
             foreach (var item in allCurrentDirections)
@@ -146,9 +160,8 @@ public class SurroundingTiles : MonoBehaviour
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(GetTileWorldPosition(currentLocation.lastTilePosition), 0.1f);
         }
-        
-        
     }
+
     void SetGrid()
     {
         if (grid != null)
@@ -163,6 +176,5 @@ public class SurroundingTiles : MonoBehaviour
                 groundMap = map;
             }
         }
-
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DrawZasYDisplacement : MonoBehaviour
 {
     public float positionZ;
-    readonly float spriteDisplacementY = 0.27808595f;
+    readonly float spriteDisplacementY = 0.2790625f;
     public Vector3 displacedPosition;
     private void Start()
     {

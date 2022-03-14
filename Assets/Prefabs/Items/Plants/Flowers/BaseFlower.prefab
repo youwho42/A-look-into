@@ -57,21 +57,25 @@ MonoBehaviour:
   plantCycles:
   - mainSprite: {fileID: 21300000, guid: 936f6a0aed258d54faad9f0b6105f1e3, type: 3}
     shadowSprite: {fileID: 5518729531953178507}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 720
     birdLandingSpots:
     - {fileID: 2039083576623547493}
   - mainSprite: {fileID: 0}
     shadowSprite: {fileID: 5518729533477468624}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 720
     birdLandingSpots:
     - {fileID: 2039083576623547493}
   - mainSprite: {fileID: 0}
     shadowSprite: {fileID: 5518729532353304384}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 720
     birdLandingSpots:
     - {fileID: 2039083576623547493}
   - mainSprite: {fileID: 0}
     shadowSprite: {fileID: 5518729532945011619}
+    spriteMask: {fileID: 0}
     timeTickPerCycle: 50000
     birdLandingSpots:
     - {fileID: 2039083576623547493}
@@ -1034,6 +1038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
+        type: 3}
+      propertyPath: positionZ
+      value: 0.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc9361ac0ecc6d94abb476599cfc3e97, type: 3}
