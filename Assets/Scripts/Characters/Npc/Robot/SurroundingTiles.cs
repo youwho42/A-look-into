@@ -136,7 +136,7 @@ public class SurroundingTiles : MonoBehaviour
             Vector3Int tileDirection = allCurrentDirections[Vector3Int.zero].tileName.Contains("X") ? Vector3Int.right : Vector3Int.up;
             tileDirection = allCurrentDirections[Vector3Int.zero].tileName.Contains("1") ? tileDirection : -tileDirection;
             allCurrentDirections[tileDirection].isValid = true;
-           
+            
         }
     }
 

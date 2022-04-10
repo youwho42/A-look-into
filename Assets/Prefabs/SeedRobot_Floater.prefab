@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 6968429712864448787}
   m_Layer: 13
   m_Name: SeedRobot_Floater
-  m_TagString: Untagged
+  m_TagString: Robot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -868,7 +868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e70a65b00bab334cbdc9244fd4a0eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundPosition: {fileID: 8540917421940290322}
   groundGrid: {fileID: 0}
   groundMap: {fileID: 0}
   currentLevel: 0
@@ -887,9 +886,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: SeedRobotInventory
   MaxStacks: 10
-  EventUIUpdateInventory:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4297725488491919284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,6 +1144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548be061f9e84154686e54ac4a88c78b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotID: 0
   obstaclesLayers:
     serializedVersion: 2
     m_Bits: 524288

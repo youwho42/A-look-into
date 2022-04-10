@@ -41,13 +41,13 @@ public class Teleport : MonoBehaviour
         teleporter.GetComponent<Teleport>().isIncoming = true;
         Material usingMaterial = material;
         GameObject activeTeleport = objectToTeleport;
-        activeTeleport.GetComponent<Playermovement>().enabled = false;
+        activeTeleport.GetComponent<GravityItemMovementController>().enabled = false;
 
         DissolveEffect.instance.StartDissolve(usingMaterial, 2f, false);
         yield return new WaitForSeconds(2f);
         activeTeleport.SetActive(false);
         activeTeleport.transform.position = new Vector3(teleporter.position.x, teleporter.position.y, teleporter.GetComponent<Teleport>().currentLevel);
-        activeTeleport.GetComponent<PlayerLevelChange>().UpdatePlayerLocation();
+        //activeTeleport.GetComponent<PlayerLevelChange>().UpdatePlayerLocation();
         //SetCollisionLayers.instance.SetCollisionLayer();
         yield return new WaitForSeconds(1f);
 
@@ -64,7 +64,7 @@ public class Teleport : MonoBehaviour
         material = null; ;
         objectToTeleport = null;
         isInTeleportRange = false;
-        activeTeleport.GetComponent<Playermovement>().enabled = true;
+        activeTeleport.GetComponent<GravityItemMovementController>().enabled = true;
     }
 
 

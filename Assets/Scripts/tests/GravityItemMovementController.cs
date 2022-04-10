@@ -25,9 +25,9 @@ public class GravityItemMovementController : GravityItem
     
 
     
-    int lastLevel;
+    
 
-    Vector3 currentPosition;
+    
 
     Vector3Int nextTilePosition;
     [HideInInspector]
@@ -42,10 +42,8 @@ public class GravityItemMovementController : GravityItem
         
         yield return new WaitForSeconds(0.25f);
 
-        currentGridLocation.UpdateLocationAndPosition();
         surroundingTiles.GetSurroundingTiles();
 
-        lastLevel = currentGridLocation.currentLevel;
         isGrounded = true;
         
     }
@@ -55,9 +53,8 @@ public class GravityItemMovementController : GravityItem
     private new void Update()
     {
         base.Update();
-        SetIsGrounded();
+        
 
-        currentGridLocation.UpdateLocation();
 
         if (playerInput.movement.x != 0 && !isInInteractAction)
         {
@@ -73,10 +70,7 @@ public class GravityItemMovementController : GravityItem
         moveSpeed = playerInput.movement.x + playerInput.movement.y;
 
 
-        if (currentGridLocation.currentLevel != lastLevel && isGrounded)//either jumping or falling down a cliff
-        {
-            ChangeLevel();
-        }
+        
         
     }
 
@@ -106,10 +100,13 @@ public class GravityItemMovementController : GravityItem
         if (CheckForObstacles(checkPosition))
             return false;
 
-        nextTilePosition = currentGridLocation.groundGrid.WorldToCell(checkPosition);
-        Vector3Int nextTileKey = nextTilePosition - currentGridLocation.lastTilePosition;
+        nextTilePosition = surroundingTiles.grid.WorldToCell(checkPosition);
+        Vector3Int nextTileKey = nextTilePosition - surroundingTiles.currentTilePosition;
         onCliffEdge = false;
 
+        surroundingTiles.GetSurroundingTiles();
+
+        int level = 0;
 
         foreach (var tile in surroundingTiles.allCurrentDirections)
         {
@@ -127,29 +124,49 @@ public class GravityItemMovementController : GravityItem
                         slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
                     continue;
                 }
+                
             }
+            if (tile.Key == nextTileKey)
+                level = tile.Value.levelZ;
+            else
+                continue;
 
-
+            
             // JUMPING! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
-            if (tile.Key == nextTileKey && !isGrounded && Mathf.Abs(displacedPosition.y) >= tile.Value.levelZ)
+            if (tile.Key == nextTileKey && !isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
             {
-                onCliffEdge = false;
+                
+                surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+
+                if (tile.Value.tileName.Contains("Slope"))
+                    onSlope = true;
+
                 return true;
             }
 
 
             // GROUNDED! ----------------------------------------------------------------------------------------------------
             // the next tile is valid
+
+            
+
             if (tile.Key == nextTileKey && tile.Value.isValid)
             {
-                nextTileIsSlope = false;
+                
                 // if the next tile is a slope, am i approaching it in the right direction?
                 if (tile.Value.tileName.Contains("Slope"))
                 {
                     if (tile.Value.tileName.Contains("X") && nextTileKey.x == 0 || tile.Value.tileName.Contains("Y") && nextTileKey.y == 0)
                         return false;
-                    nextTileIsSlope = true;
+
+                    onSlope = true;
+                    
+                    // is the slope is lower?
+                    if (tile.Value.levelZ < 0)
+                        getOnSlope = true;
+                    
+
                 }
 
                 // I am on a slope
@@ -161,6 +178,8 @@ public class GravityItemMovementController : GravityItem
                         onCliffEdge = true;
                         return false;
                     }
+                    if (tile.Value.levelZ > 0)
+                        getOffSlope = true;
                 }
 
             }
@@ -177,51 +196,52 @@ public class GravityItemMovementController : GravityItem
                 }
 
                 // This is where we are on top of a cliff
-                if (tile.Value.levelZ == 0)
+                if (tile.Value.levelZ <= 0)
                 {
                     onCliffEdge = true;
                 }
-
-
 
                 // This is where we hit a wall of height 1 or above
                 return false;
             }
         }
+        
+        surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+        
+
+
         return true;
     }
 
+
+
+   
     bool CheckForObstacles(Vector3 checkPosition)
     {
-        // Check for gameobjects on the obstacle layer
+        // Check for a positive gameobject on the obstacle layer
         var hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer);
         if (hit != null)
         {
+            // is the object on the same world z
             if (hit.gameObject.transform.position.z == transform.position.z)
+            {
+                // do it got a thing
+                if(hit.TryGetComponent(out DrawZasYDisplacement displacement))
+                {
+                    // is our local z higher than the thing
+                    if(Mathf.Abs(itemObject.localPosition.z) >= displacement.positionZ)
+                        return false;
+
+                }
                 return true;
+            }
+                
         }
         return false;
     }
 
 
-    void ChangeLevel()
-    {
-        //displacing = true;
-        //bounceFactor = 1;
-
-        if(nextTileIsSlope)
-        {
-
-        }
-        int dif = currentGridLocation.currentLevel - lastLevel;
-        float displacement = dif * spriteDisplacementY;
-        currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, currentPosition.y + displacement, currentGridLocation.currentLevel);
-        
-        lastLevel = currentGridLocation.currentLevel;
-
-        //Invoke(nameof(ResetDisplacing), 0.3f);
-    }
+    
 
 
 

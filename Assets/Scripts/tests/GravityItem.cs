@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DetectVisibility))]
-[RequireComponent(typeof(SurroundingTiles))]
-[RequireComponent(typeof(CurrentGridLocation))]
+[RequireComponent(typeof(SurroundingTilesInfo))]
+
 public class GravityItem : MonoBehaviour
 {
     // Gravity
@@ -31,17 +31,19 @@ public class GravityItem : MonoBehaviour
     float bounceFactor = 0;
 
     // Movement
+    
     [HideInInspector]
-    public CurrentGridLocation currentGridLocation;
-    [HideInInspector]
-    public SurroundingTiles surroundingTiles;
+    public SurroundingTilesInfo surroundingTiles;
     [HideInInspector]
     public float currentVelocity;
     Vector2 currentDirection;
+    int currentLevel;
+    
 
     // slopes
+    protected bool getOnSlope;
+    protected bool getOffSlope;
     protected bool onSlope;
-    protected bool nextTileIsSlope;
     float slopeDisplacement;
     Vector2 slopeCollisionPoint;
     Vector2 slopeCheckPosition;
@@ -57,16 +59,29 @@ public class GravityItem : MonoBehaviour
 
     public void Start()
     {
-        currentGridLocation = GetComponent<CurrentGridLocation>();
-        surroundingTiles = GetComponent<SurroundingTiles>();
+        surroundingTiles = GetComponent<SurroundingTilesInfo>();
     }
     public void Update()
     {
+        SetIsGrounded();
         
         if (onSlope)
             HandleSlopes();
         else
+        {
+            slopeDisplacement = 0;
             slopeObject.localPosition = Vector3.zero;
+        }
+            
+
+        if (getOnSlope)
+            ChangeLevelOnSlope();
+        if (getOffSlope)
+            ChangeLevelOffSlope();
+
+        int dif = Mathf.Abs(surroundingTiles.currentTilePosition.z - currentLevel);
+        if (dif != 0 && !isGrounded)
+            ChangeLevel(dif);
     }
 
     public void FixedUpdate()
@@ -75,9 +90,69 @@ public class GravityItem : MonoBehaviour
             ApplyGravity();
     }
 
-    void HandleSlopes()
+    
+    void ChangeLevelOffSlope()
     {
 
+        int dif = surroundingTiles.currentTilePosition.z - currentLevel;
+
+        float displacement = dif * spriteDisplacementY;
+        Vector3 currentPosition = transform.position;
+        slopeObject.localPosition = Vector3.zero;
+        currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, surroundingTiles.currentTilePosition.z + 1);
+        transform.position = currentPosition;
+
+        currentLevel = surroundingTiles.currentTilePosition.z;
+        getOffSlope = false;
+
+    }
+
+    void ChangeLevelOnSlope()
+    {
+        
+        int dif = surroundingTiles.currentTilePosition.z - currentLevel;
+
+        float displacement = dif * spriteDisplacementY;
+        Vector3 currentPosition = transform.position;
+        slopeObject.localPosition = new Vector3(0, spriteDisplacementY, 1);
+        currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, surroundingTiles.currentTilePosition.z + 1);
+        transform.position = currentPosition;
+
+        currentLevel = surroundingTiles.currentTilePosition.z;
+        getOnSlope = false;
+    }
+
+    void ChangeLevel(int dif)
+    {
+        bounceFactor = 1;
+        float displacement = dif * spriteDisplacementY;
+        Vector3 currentPosition = transform.position;
+        
+        if (surroundingTiles.currentTilePosition.z > currentLevel)
+        {
+            currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, surroundingTiles.currentTilePosition.z + 1);
+            transform.position = currentPosition;
+            positionZ += dif;
+            displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y - displacement, displacedPosition.z - dif);
+            itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y - displacement, itemObject.localPosition.z - dif);
+            
+        }
+        else if (surroundingTiles.currentTilePosition.z < currentLevel)
+        {
+            currentPosition = new Vector3(currentPosition.x, currentPosition.y - displacement, surroundingTiles.currentTilePosition.z + 1);
+            transform.position = currentPosition;
+            positionZ -= dif;
+            displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y + displacement, displacedPosition.z + dif);
+            itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y + displacement, itemObject.localPosition.z + dif);
+            
+        }
+        currentLevel = surroundingTiles.currentTilePosition.z;
+
+    }
+
+    void HandleSlopes()
+    {
+       
         slopeCheckPosition = (Vector2)transform.position - (slopeDirection * 0.6f);
         RaycastHit2D hitA = Physics2D.Raycast(slopeCheckPosition, slopeDirection, 0.6f, groundLayer);
 
@@ -94,26 +169,17 @@ public class GravityItem : MonoBehaviour
         slopeObject.localPosition = new Vector3(0, displacementY, slopeDisplacement);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(slopeCheckPosition, 0.05f);
-        Gizmos.DrawRay(slopeCheckPosition, slopeDirection * 0.6f);
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(slopeCollisionPoint, 0.05f);
-    }
+    
 
     protected void Move(Vector2 dir, float velocity)
     {
         currentDirection = dir;
         currentVelocity = velocity;
-        currentGridLocation.UpdateLocationAndPosition();
-        surroundingTiles.GetSurroundingTiles();
-
+        
         
         Vector3 currentPosition = transform.position;
         currentPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + dir, Time.deltaTime * velocity);
-        currentPosition.z = currentGridLocation.currentLevel;
+        currentPosition.z = surroundingTiles.currentTilePosition.z + 1;
         transform.position = currentPosition;
         
     }
@@ -162,6 +228,16 @@ public class GravityItem : MonoBehaviour
         displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
         itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);
         bounceFactor *= bounceFriction;
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(slopeCheckPosition, 0.05f);
+        Gizmos.DrawRay(slopeCheckPosition, slopeDirection * 0.6f);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(slopeCollisionPoint, 0.05f);
     }
 
 

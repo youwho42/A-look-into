@@ -14,6 +14,8 @@ public class PlantLifeCycle : MonoBehaviour
         public Sprite spriteMask;
         public int timeTickPerCycle;
         public List<GameObject> birdLandingSpots;
+        
+        public float obstacleCollisionHeights;
     }
 
     public List<PlantCycle> plantCycles = new List<PlantCycle>();
@@ -21,7 +23,11 @@ public class PlantLifeCycle : MonoBehaviour
     public SpriteMask spriteMask;
     TreeShadows shadow;
     public GameObject homePoint;
-    
+
+
+    public DrawZasYDisplacement heightDisplacement;
+
+
     public int currentCycle;
     public string homeOccupiedBy = "";
 
@@ -34,8 +40,9 @@ public class PlantLifeCycle : MonoBehaviour
     {
         if(TryGetComponent(out GatherableItem item))
             gatherableItem = item;
-
         
+
+
         GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
         shadow = GetComponent<TreeShadows>();
         SetCurrentCycle();
@@ -103,7 +110,9 @@ public class PlantLifeCycle : MonoBehaviour
 
                 spriteDisplay.sprite = plantCycles[i].mainSprite;
                 plantCycles[i].shadowSprite.gameObject.SetActive(true);
-                
+                if(heightDisplacement != null)
+                    heightDisplacement.positionZ = plantCycles[i].obstacleCollisionHeights;
+
                 foreach (var spot in plantCycles[i].birdLandingSpots)
                 {
                     spot.SetActive(true);
