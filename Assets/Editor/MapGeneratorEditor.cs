@@ -14,14 +14,18 @@ public class MapGeneratorEditor : Editor
         {
             if (mapGenerator.autoUpdate)
             {
-                mapGenerator.GenerateMap();
+                mapGenerator.GenerateMapFromNoise();
             }
         }
 
 
-        if(GUILayout.Button("Generate Map"))
+        if(GUILayout.Button("Generate Map From Noise"))
         {
-            mapGenerator.GenerateMap();
+            mapGenerator.GenerateMapFromNoise();
+        }
+        if (GUILayout.Button("Generate Map From Image"))
+        {
+            mapGenerator.GenerateMapFromImage();
         }
         if (GUILayout.Button("Erase Map"))
         {
