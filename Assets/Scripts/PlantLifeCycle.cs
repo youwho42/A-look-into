@@ -12,13 +12,15 @@ public class PlantLifeCycle : MonoBehaviour
         public Sprite mainSprite;
         public SpriteRenderer shadowSprite;
         public Sprite spriteMask;
-        public int timeTickPerCycle;
+        
         public List<GameObject> birdLandingSpots;
         
         public float obstacleCollisionHeights;
     }
 
+    DayNightCycle dayNightCycle;
     public List<PlantCycle> plantCycles = new List<PlantCycle>();
+    public int daysPerCycle;
     public SpriteRenderer spriteDisplay;
     public SpriteMask spriteMask;
     TreeShadows shadow;
@@ -27,10 +29,12 @@ public class PlantLifeCycle : MonoBehaviour
 
     public DrawZasYDisplacement heightDisplacement;
 
-
+    
     public int currentCycle;
     public string homeOccupiedBy = "";
 
+    
+    public int currentDay;
     public int currentTimeTick;
     public int gatherableCycle;
     GatherableItem gatherableItem;
@@ -40,19 +44,31 @@ public class PlantLifeCycle : MonoBehaviour
     {
         if(TryGetComponent(out GatherableItem item))
             gatherableItem = item;
-        
 
+        dayNightCycle = DayNightCycle.instance;
 
-        GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
         shadow = GetComponent<TreeShadows>();
         SetCurrentCycle();
-       
-        
+        GameEventManager.onTimeTickEvent.AddListener(UpdateCycle);
     }
-    
-    private void OnDestroy()
+    private void OnBecameVisible()
     {
-        GameEventManager.onTimeTickEvent.RemoveListener(GetCurrentTime);
+        GameEventManager.onTimeTickEvent.AddListener(UpdateCycle);
+    }
+
+    private void OnBecameInvisible()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(UpdateCycle);
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(UpdateCycle);
+    }
+
+    void SetCurrentTimeDay(int day, int time)
+    {
+        currentDay = dayNightCycle.currentDayRaw;
+        currentTimeTick = dayNightCycle.currentTimeRaw;
     }
     public void SetHomeOccupation()
     {
@@ -68,18 +84,12 @@ public class PlantLifeCycle : MonoBehaviour
         }
     }
 
-    void GetCurrentTime(int tick)
-    {
-       
-        currentTimeTick++;
-        if (currentCycle < plantCycles.Count)
-            UpdateCycle();
-    }
+    
 
-    void UpdateCycle()
+    void UpdateCycle(int tick)
     {
         
-        if (currentTimeTick >= plantCycles[currentCycle].timeTickPerCycle)
+        if (currentTimeTick == dayNightCycle.currentTimeRaw && currentDay + daysPerCycle == dayNightCycle.currentDayRaw)
         {
             currentCycle++;
             if (currentCycle == plantCycles.Count)
@@ -87,7 +97,7 @@ public class PlantLifeCycle : MonoBehaviour
 
             SetCurrentCycle();
 
-            currentTimeTick = 0;
+            
         }
         
     }

@@ -12,7 +12,9 @@ public static class GameEventManager
     public static readonly GameEvent<int> onTimeHourEvent = new GameEvent<int>();
 
 
-
+    /// <summary>
+    ///  Inventory and Equipment Updating
+    /// </summary>
     public static readonly GameEvent onInventoryUpdateEvent = new GameEvent();
     public static readonly GameEvent onEquipmentUpdateEvent = new GameEvent();
 

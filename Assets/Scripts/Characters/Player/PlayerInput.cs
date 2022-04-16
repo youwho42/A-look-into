@@ -19,7 +19,8 @@ public class PlayerInput : MonoBehaviour
     public bool isInUI;
     [HideInInspector]
     public bool isJumping;
-
+    [HideInInspector]
+    public bool canWalkOffCliff;
 
 
 
@@ -41,7 +42,7 @@ public class PlayerInput : MonoBehaviour
                 isRunning = !isRunning;
             if (movement == Vector2.zero)
                 isRunning = false;
-            
+            canWalkOffCliff = Input.GetKey(KeyCode.C);
             isJumping = Input.GetKeyDown(KeyCode.Space);
         }
         if (!isPaused)

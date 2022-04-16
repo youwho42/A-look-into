@@ -13,15 +13,25 @@ public class TreeShadows : MonoBehaviour
     int shadowDisappearTime = 20;
 
     bool shadowFade;
-    
+    bool visible;
     private void Start()
     {
         dayNightCycle = DayNightCycle.instance;
         GameEventManager.onTimeHourEvent.AddListener(StartShadowFade);
         GameEventManager.onTimeTickEvent.AddListener(SetShadowRotation);
     }
-    
-    private void OnDestroy()
+    private void OnBecameVisible()
+    {
+        GameEventManager.onTimeHourEvent.AddListener(StartShadowFade);
+        GameEventManager.onTimeTickEvent.AddListener(SetShadowRotation);
+    }
+
+    private void OnBecameInvisible()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(StartShadowFade);
+        GameEventManager.onTimeTickEvent.RemoveListener(SetShadowRotation);
+    }
+    private void OnDisable()
     {
         GameEventManager.onTimeHourEvent.RemoveListener(StartShadowFade);
         GameEventManager.onTimeTickEvent.RemoveListener(SetShadowRotation);
@@ -29,10 +39,12 @@ public class TreeShadows : MonoBehaviour
 
     public void StartShadowFade(int time)
     {
+        
         if (time == shadowAppearTime)
             StartCoroutine("StartShadowsCo");
         if (time == shadowDisappearTime)
-            StartCoroutine("EndShadowsCo");
+            StartCoroutine("EndShadowsCo"); 
+        
     }
 
     IEnumerator StartShadowsCo()
@@ -57,10 +69,11 @@ public class TreeShadows : MonoBehaviour
         
     }
 
-
+    
 
     public void SetShadowRotation(int tick)
     {
+        
         float elapsedTime = dayNightCycle.currentTimeRaw;
         float waitTime = shadowDisappearTime * 60;
         float zRotation = 0;
@@ -68,6 +81,8 @@ public class TreeShadows : MonoBehaviour
         zRotation = Mathf.Lerp(60, -60, (elapsedTime - 300) / (waitTime - 300));
 
         shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
+        
+        
 
         
     }

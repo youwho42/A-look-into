@@ -25,6 +25,7 @@ public class ObjectManagerEditor : Editor
         Tools.hidden = false;
     }
 
+    
     private void OnSceneGUI()
     {
         //Move the circle when moving the mouse
@@ -33,8 +34,10 @@ public class ObjectManagerEditor : Editor
 
         //var hit = Camera.current.ScreenPointToRay(HandleUtility.GUIPointToWorldRay(Event.current.mousePosition).origin);
         var position = hit.origin;
-        position.z = objectManager.z;
         
+        position.z = 0;
+
+        int offsetZ = objectManager.GetTileZ(position);
 
         
 
@@ -43,8 +46,10 @@ public class ObjectManagerEditor : Editor
 
         //Need to tell Unity that we have moved the circle or the circle may be displayed at the old position
         SceneView.RepaintAll();
-        
 
+        Handles.color = Color.blue;
+
+        Handles.DrawWireDisc(center + new Vector3(0, offsetZ * 0.2790625f, offsetZ), Vector3.forward, objectManager.radius);
 
         //Display the circle
         Handles.color = Color.white;
@@ -63,7 +68,7 @@ public class ObjectManagerEditor : Editor
             //Should we add or remove objects?
             if (objectManager.action == ObjectManagerCircle.Actions.AddObjects)
             {
-                AddNewPrefabs(center);
+                AddNewPrefabs(center + new Vector3(0, offsetZ * 0.2790625f, offsetZ));
 
                 MarkSceneAsDirty();
             }

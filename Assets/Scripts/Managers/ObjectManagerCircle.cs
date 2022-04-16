@@ -1,32 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ObjectManagerCircle : MonoBehaviour
 {
     //The object we want to add
     public GameObject[] prefabGO;
-
+    public Tilemap groundMap;
     //Whats the radius of the circle we will add objects inside of?
-    public float radius = 5f;
+    public float radius = 1f;
 
     //How many GOs will we add each time we press a button?
-    public int howManyObjects = 5;
-    public int z;
+    public int howManyObjects = 1;
+    //public int z;
     //Should we add or remove objects within the circle
     public enum Actions { AddObjects, RemoveObjects }
 
     public Actions action;
 
+
+    public int GetTileZ(Vector3 point)
+    {
+        Vector3Int cellIndex = groundMap.WorldToCell(point);
+        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
+        {
+            cellIndex.z = i;
+            var tile = groundMap.GetTile(cellIndex);
+            if (tile != null)
+                return i;
+
+        }
+        return 1000;
+
+    }
+
+
     //Add a prefab that we instantiated in the editor script
     public void AddPrefab(GameObject newPrefabObj, Vector3 center)
     {
+        
+        
         //Get a random position within a circle in 2d space
         Vector2 randomPos2D = Random.insideUnitCircle * radius;
 
-        //But we are in 3d, so make it 3d and move it to where the center is
+        //But we are in pseudo3d, so make it so and move it to where the center is
         Vector3 randomPos = new Vector3(randomPos2D.x, randomPos2D.y, 0) + center;
 
+
+        randomPos.z += 1;
         newPrefabObj.transform.position = randomPos;
 
         newPrefabObj.transform.parent = transform;

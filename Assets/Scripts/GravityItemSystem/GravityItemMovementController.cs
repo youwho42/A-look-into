@@ -130,27 +130,29 @@ public class GravityItemMovementController : GravityItem
             else
                 continue;
 
-            
+
             // JUMPING! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
-            if (tile.Key == nextTileKey && !isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
+            if (tile.Key == nextTileKey)
             {
-                
-                surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
 
-                if (tile.Value.tileName.Contains("Slope"))
-                    onSlope = true;
+                if (isGrounded && playerInput.canWalkOffCliff && level <= 0 || !isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
+                {
+                    surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
 
-                return true;
+                    if (tile.Value.tileName.Contains("Slope"))
+                        onSlope = true;
+
+                    return true;
+                }
             }
-
 
             // GROUNDED! ----------------------------------------------------------------------------------------------------
             // the next tile is valid
 
-            
 
-            if (tile.Key == nextTileKey && tile.Value.isValid)
+
+                if (tile.Key == nextTileKey && tile.Value.isValid)
             {
                 
                 // if the next tile is a slope, am i approaching it in the right direction?

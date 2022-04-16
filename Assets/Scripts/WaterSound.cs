@@ -17,35 +17,47 @@ public class WaterSound : MonoBehaviour
     public float maxDist;
     AudioSource audioSource;
 
+    BoundsInt waterBounds;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         player = PlayerInformation.instance;
-        groundMap.CompressBounds();
-        var bounds = groundMap.cellBounds;
-        
 
-        for (int x = 0; x < bounds.size.x; x++)
+        GetWaterTiles();
+        
+    }
+
+    void GetWaterTiles()
+    {
+        var bounds = groundMap.cellBounds;
+        if (bounds != waterBounds)
+            waterBounds = bounds;
+        else
+            return;
+
+        for (int x = 0; x < waterBounds.size.x; x++)
         {
-            for (int y = 0; y < bounds.size.y; y++)
+            for (int y = 0; y < waterBounds.size.y; y++)
             {
-                var px = bounds.xMin + x;
-                var py = bounds.yMin + y;
+                var px = waterBounds.xMin + x;
+                var py = waterBounds.yMin + y;
 
                 if (groundMap.HasTile(new Vector3Int(px, py, 0)))
                 {
                     spots.Add(new Vector3Int(px, py, 0));
                 }
-                
+
             }
         }
-        
     }
 
     private void Update()
     {
+
         if (Time.frameCount % 33 == 0)
         {
+            GetWaterTiles();
             GetClosestDistanceFromPlayer();
             
             if (closestTileDistance < minDist)

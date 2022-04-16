@@ -18,7 +18,8 @@ public class SeedSaveSystem : MonoBehaviour, ISaveable
         return new SaveData
         {
             location = transform.position,
-            currentTick = growingItem.GetCurrentTick()
+            currentDay = growingItem.currentDay,
+            currentTimeTick = growingItem.currentTimeTick
         };
     }
 
@@ -32,7 +33,7 @@ public class SeedSaveSystem : MonoBehaviour, ISaveable
         var saveData = (SaveData)state;
         yield return new WaitForSeconds(.6f);
         transform.position = saveData.location;
-        growingItem.SetCurrentTick(saveData.currentTick);
+        growingItem.SetCurrentDayTime(saveData.currentDay, saveData.currentTimeTick);
 
     }
 
@@ -40,6 +41,7 @@ public class SeedSaveSystem : MonoBehaviour, ISaveable
     private struct SaveData
     {
         public SVector3 location;
-        public int currentTick;
+        public int currentDay;
+        public int currentTimeTick;
     }
 }

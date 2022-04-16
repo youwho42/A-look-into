@@ -6,8 +6,9 @@ public class GrowingItem : MonoBehaviour
 {
     DayNightCycle dayNightCycle;
     [SerializeField]
-    int timeTickToGrow;
-    int currentTimeTick;
+    int daysToGrow;
+    public int currentDay;
+    public int currentTimeTick;
     bool canGrow;
     public float checkRadius;
     public List<GameObject> itemsToBecome = new List<GameObject>();
@@ -17,16 +18,30 @@ public class GrowingItem : MonoBehaviour
     private void Start()
     {
         mainSprite = GetComponent<SpriteRenderer>();
-        
-        GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
+        dayNightCycle = DayNightCycle.instance;
 
         CheckForNeighboringPlants();
-       
+        
+        GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
+    }
+    private void OnBecameVisible()
+    {
+        GameEventManager.onTimeTickEvent.AddListener(GetCurrentTime);
     }
 
-    private void OnDestroy()
+    private void OnBecameInvisible()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(GetCurrentTime);
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(GetCurrentTime);
+    }
+
+    public void SetCurrentDayTime(int day, int time)
+    {
+        currentDay = dayNightCycle.currentDayRaw;
+        currentTimeTick = dayNightCycle.currentTimeRaw;
     }
     void GetCurrentTime(int tick)
     {
@@ -35,30 +50,20 @@ public class GrowingItem : MonoBehaviour
         if (canGrow)
         {
 
-            if(currentTimeTick == timeTickToGrow)
+            if(currentTimeTick == dayNightCycle.currentTimeRaw && dayNightCycle.currentDayRaw >=  currentDay + daysToGrow)
             {
                 Grow();
             }
 
-            currentTimeTick++;
+            
 
         }
             
         
     }
 
-    public void SetCurrentTick(int tick)
-    {
-        
-        currentTimeTick = tick;
-       
-    }
-    public int GetCurrentTick()
-    {
-        
-        return currentTimeTick;
-        
-    }
+    
+    
     void Grow()
     {
         int r = Random.Range(0, itemsToBecome.Count);
@@ -69,6 +74,7 @@ public class GrowingItem : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
     public void CheckForNeighboringPlants()
     {
         

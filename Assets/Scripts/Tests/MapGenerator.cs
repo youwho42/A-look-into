@@ -1,14 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
+[Serializable]
+public class WorldMap
+{
+    public BoundsInt chunkArea;
+    public TileBase[] tileArray;
+   
+
+    public WorldMap(BoundsInt area, TileBase[] tiles)
+    {
+        chunkArea = area;
+        tileArray = tiles;
+        
+    }
+}
+
 public class MapGenerator : MonoBehaviour
 {
-    public RuleTile tile;
-    public Tilemap tilemap;
+    public RuleTile gColorTile;
+    public RuleTile rColorTile;
+    public AnimatedTile bColorTile;
+    public RuleTile snowColorTile;
+    public Tile mud;
+    public Tilemap groundTilemap;
+    public Tilemap waterTilemap;
+    [Space]
     public int mapSize;
-   
+    public int mapMaxSizeZ;
+    public int mapMinZ;
+
+    
+    [Header("Perlin Noise")]
+    public bool autoUpdate;
+    public string mapName;
+
     public float noiseScale;
 
     public int octaves;
@@ -20,68 +48,84 @@ public class MapGenerator : MonoBehaviour
     public int seed;
     public Vector2 offset;
 
-    public bool autoUpdate;
+    
 
-    public int mapMinZ;
+    [Space]
     public Vector2Int mapOffset;
     BoundsInt area;
 
     public Texture2D mapImage;
+    
+    
 
     public void GenerateMapFromNoise()
     {
-        //tilemap.ClearAllTiles();
         ClearTilesBlock();
         float[,] noiseMap = NoiseGenerator.GenerateNoiseMap(mapSize, mapSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
-        TileBase[] tileArray = new TileBase[area.size.x * area.size.y * area.size.z];
-        int index = 0;
-        for (int y = 0; y < mapSize; y++)
-        {
-            for (int x = 0; x < mapSize; x++)
-            {
-
-                int currentZ = Mathf.RoundToInt(noiseMap[x, y] * 10);
-                
-                for (int z = 0; z < 10; z++)
-                {
-                    if(z <= currentZ)
-                    {
-                        tileArray[index] = tile;
-                    }
-                    index++; 
-                    
-                }
-                
-            }
-        }
-        tilemap.SetTilesBlock(area, tileArray);
+        GenerateMap(noiseMap);
+        
         MapDisplay display = FindObjectOfType<MapDisplay>();
         display.DrawNoiseMap(noiseMap);
-        tilemap.CompressBounds();
-       
+        
     }
 
     public void GenerateMapFromImage()
     {
         if (mapImage == null)
             return;
-        ClearTilesBlock();
 
-        float[,] imageMap = ConvertImage();
-        TileBase[] tileArray = new TileBase[area.size.x * area.size.y * area.size.z];
+        ClearTilesBlock();
+        Color[,] imageMap = ConvertImage();
+        GenerateMap(imageMap);
+        
+        
+    }
+
+   
+
+    void GenerateMap(Color[,] map)
+    {
+        TileBase[] groundTileArray = new TileBase[area.size.x * area.size.y * area.size.z];
+        TileBase[] waterTileArray = new TileBase[area.size.x * area.size.y * area.size.z];
         int index = 0;
         for (int y = 0; y < mapSize; y++)
         {
             for (int x = 0; x < mapSize; x++)
             {
 
-                int currentZ = Mathf.RoundToInt(imageMap[x, y] * 10);
+                int currentLandZ = Mathf.RoundToInt(map[x, y].g * mapMaxSizeZ);
+                
 
-                for (int z = 0; z < 10; z++)
+                for (int z = 0; z < mapMaxSizeZ; z++)
                 {
-                    if (z <= currentZ)
+                    if(z == Mathf.Abs(mapMinZ) && currentLandZ < Mathf.Abs(mapMinZ))
                     {
-                        tileArray[index] = tile;
+                        waterTileArray[index] = bColorTile;
+                    }
+
+                    if (z <= currentLandZ)
+                    {
+                        if (currentLandZ == 0)
+                            groundTileArray[index] = null;
+                        else if (currentLandZ > 0 && currentLandZ <= Mathf.Abs(mapMinZ)-1)
+                            groundTileArray[index] = mud;
+                        else if (currentLandZ > 0 && currentLandZ >= 15)
+                            groundTileArray[index] = snowColorTile;
+                        else
+                        {
+                            if (map[x, y].r == 1)
+                            {
+                                groundTileArray[index] = rColorTile;
+                            }
+                            else if (map[x, y].b == 1)
+                            {
+                                groundTileArray[index] = bColorTile;
+                            }
+                            else
+                                groundTileArray[index] = gColorTile;
+                            
+                        }
+                            
                     }
                     index++;
 
@@ -89,21 +133,67 @@ public class MapGenerator : MonoBehaviour
 
             }
         }
-        tilemap.SetTilesBlock(area, tileArray);
         
-        tilemap.CompressBounds();
-
+        groundTilemap.SetTilesBlock(area, groundTileArray);
+        groundTilemap.CompressBounds();
+        waterTilemap.SetTilesBlock(area, waterTileArray);
+        waterTilemap.CompressBounds();
     }
 
-    float[,] ConvertImage() 
+    void GenerateMap(float[,] map)
+    {
+        TileBase[] groundTileArray = new TileBase[area.size.x * area.size.y * area.size.z];
+        TileBase[] waterTileArray = new TileBase[area.size.x * area.size.y * area.size.z];
+
+        int index = 0;
+        for (int y = 0; y < mapSize; y++)
+        {
+            for (int x = 0; x < mapSize; x++)
+            {
+
+                int currentZ = Mathf.RoundToInt(map[x, y] * mapMaxSizeZ);
+
+                for (int z = 0; z < mapMaxSizeZ; z++)
+                {
+                    if (z == Mathf.Abs(mapMinZ) && currentZ <= Mathf.Abs(mapMinZ) - 1)
+                        waterTileArray[index] = bColorTile;
+
+                    if (z <= currentZ)
+                    {
+                        if (currentZ == 0)
+                            groundTileArray[index] = null;
+                        else if (currentZ > 0 && currentZ <= Mathf.Abs(mapMinZ) - 1)
+                            groundTileArray[index] = mud;
+                        else if (currentZ > 0 && currentZ >= Mathf.Abs(15))
+                            groundTileArray[index] = snowColorTile;
+                        else
+                            groundTileArray[index] = gColorTile;
+
+                        
+                    }
+                    index++;
+
+                }
+
+            }
+        }
+
+        groundTilemap.SetTilesBlock(area, groundTileArray);
+        groundTilemap.CompressBounds();
+        waterTilemap.SetTilesBlock(area, waterTileArray);
+        waterTilemap.CompressBounds();
+    }
+
+
+    Color[,] ConvertImage() 
     {
         
-        float[,] convertedImage = new float[mapImage.width, mapImage.height];
+        Color[,] convertedImage = new Color[mapImage.width, mapImage.height];
         for (int x = 0; x < mapImage.width; x++)
         {
             for (int y = 0; y < mapImage.height; y++)
             {
-                convertedImage[x, y] = mapImage.GetPixel(x, y).grayscale;
+                convertedImage[x, y] = mapImage.GetPixel(x, y);
             }
         }
         return convertedImage;
@@ -118,8 +208,10 @@ public class MapGenerator : MonoBehaviour
             tileArray[index] = null;
         }
        
-        tilemap.SetTilesBlock(area, tileArray);
-        tilemap.CompressBounds();
+        groundTilemap.SetTilesBlock(area, tileArray);
+        groundTilemap.CompressBounds();
+        waterTilemap.SetTilesBlock(area, tileArray);
+        waterTilemap.CompressBounds();
     }
     
     
@@ -132,7 +224,7 @@ public class MapGenerator : MonoBehaviour
         if (mapSize < 1)
             mapSize = 1;
 
-        area = new BoundsInt(new Vector3Int(mapOffset.x, mapOffset.y, mapMinZ), new Vector3Int(mapSize, mapSize, 10));
+        area = new BoundsInt(new Vector3Int(mapOffset.x, mapOffset.y, mapMinZ), new Vector3Int(mapSize, mapSize, mapMaxSizeZ));
 
         if (lacunarity < 1)
             lacunarity = 1;

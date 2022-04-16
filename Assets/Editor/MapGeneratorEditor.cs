@@ -27,6 +27,7 @@ public class MapGeneratorEditor : Editor
         {
             mapGenerator.GenerateMapFromImage();
         }
+        
         if (GUILayout.Button("Erase Map"))
         {
             mapGenerator.ClearTilesBlock();
