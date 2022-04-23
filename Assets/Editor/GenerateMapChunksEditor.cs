@@ -16,14 +16,15 @@ public class GenerateMapChunksEditor : Editor
         serializedObject.Update();
         
 
-        if (GUILayout.Button("Generate Chunks"))
+        if (GUILayout.Button("Generate/Save Chunks"))
         {
             mapChunks.GenerateChunks();
+            SaveChunks(mapChunks);
         }
-        if (GUILayout.Button("Save Chunk Map Object"))
+        /*if (GUILayout.Button("Save Chunk Map Object"))
         {
-            mapChunks.SaveChunks();
-        }
+            SaveChunks(mapChunks);
+        }*/
         if (GUILayout.Button("Load Chunk Map Object"))
         {
             mapChunks.LoadChunksFromSave();
@@ -55,19 +56,58 @@ public class GenerateMapChunksEditor : Editor
         if (GUILayout.Button("Update Selected Chunks"))
         {
             mapChunks.UpdateSelectedChunks(SelectedChunks);
+            UpdateMapChunk(mapChunks, SelectedChunks);
         }
         
         serializedObject.ApplyModifiedProperties();
 
     }
 
+    public void UpdateMapChunk(GenerateMapChunks mapChunks, List<MapChunk> chunks)
+    {
+        foreach (MapChunk chunk in chunks)
+        {
+            
+            mapChunks.chunkLoadScriptableObject.UpdateChunks(chunk);
+                    
+        }
+    }
+
+    public void SaveChunks(GenerateMapChunks map)
+    {
+        if (map.allMapChunks.Count <= 0)
+            return;
+        ChunkTerrainData newMap = ScriptableObject.CreateInstance<ChunkTerrainData>();
+
+        newMap.SaveTerrainData(map.allMapChunks, (Vector2Int)map.fullMap.position);
+        if (!AssetDatabase.IsValidFolder("Assets/Terrain/"))
+            AssetDatabase.CreateFolder("Assets/", "Terrain");
+
+        string path = "Assets/Terrain/" + map.mapName + ".asset";
+
+        AssetDatabase.CreateAsset(newMap, path);
+        map.chunkLoadScriptableObject = newMap;
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = newMap;
+    }
+
     protected virtual void OnSceneGUI()
     {
+        
         GenerateMapChunks mapChunks = (GenerateMapChunks)target;
-
-        foreach (var chunk in mapChunks.allMapChunks)
+        if (mapChunks.allMapChunks == null || mapChunks.allMapChunks.Count <= 0)
         {
-            Handles.color = !SelectedChunks.Contains(chunk) ? Color.green: Color.red;
+            if (mapChunks.chunkLoadScriptableObject != null)
+                mapChunks.LoadChunksFromSave(); 
+            return;
+        }
+            
+
+        
+        foreach (var chunk in mapChunks.chunkLoadScriptableObject.allChunks)
+        {
+            
+            Handles.color = !SelectedChunks.Contains(chunk) ? Color.green : Color.red;
             if (Handles.Button(chunk.centerTilePosition, Quaternion.identity, 0.5f, 0.5f, Handles.SphereHandleCap))
             {
                 if (Event.current.shift)
@@ -78,7 +118,7 @@ public class GenerateMapChunksEditor : Editor
                     }
                     else
                     {
-                        
+
                         SelectedChunks.Add(chunk);
                     }
 
@@ -89,9 +129,12 @@ public class GenerateMapChunksEditor : Editor
                     SelectedChunks.Add(chunk);
                 }
             }
-
             
         }
+        
+
+            
+        
 
         
     }

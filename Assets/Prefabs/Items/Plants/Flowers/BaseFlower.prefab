@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5518729531771902421}
-  - component: {fileID: 5518729531771902422}
   - component: {fileID: 5518729531771902420}
   - component: {fileID: 5518729531771902418}
   - component: {fileID: 2464339742171293173}
@@ -18,6 +17,7 @@ GameObject:
   - component: {fileID: 9119110315175285948}
   - component: {fileID: -8838643702165024295}
   - component: {fileID: -4842972098866649009}
+  - component: {fileID: 8173992823938766858}
   m_Layer: 13
   m_Name: BaseFlower
   m_TagString: GrowingItem
@@ -42,52 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5518729531771902422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5518729531771902423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2c40d80277fa54fb9ccc45e1d0b59e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantCycles:
-  - mainSprite: {fileID: 21300000, guid: 936f6a0aed258d54faad9f0b6105f1e3, type: 3}
-    shadowSprite: {fileID: 5518729531953178507}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 720
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
-  - mainSprite: {fileID: 0}
-    shadowSprite: {fileID: 5518729533477468624}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 720
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
-  - mainSprite: {fileID: 0}
-    shadowSprite: {fileID: 5518729532353304384}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 720
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
-  - mainSprite: {fileID: 0}
-    shadowSprite: {fileID: 5518729532945011619}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 50000
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
-    - {fileID: 6695410892499397205}
-  spriteDisplay: {fileID: 5518729533509488751}
-  spriteMask: {fileID: 5518729533477859498}
-  homePoint: {fileID: 2039083576623547493}
-  currentCycle: 0
-  homeOccupiedBy: 
-  currentTimeTick: 0
-  gatherableCycle: 3
-  isAnimalShelter: 0
 --- !u!114 &5518729531771902420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +208,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e149e212d3d0fd943a30f864a32b6aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8173992823938766858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d116ced2bae698442906e8653ea48f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedIdleSprite: {fileID: 21300000, guid: 587c0f79f8dcaf043b3a224930389b3c, type: 3}
+  seedGrowSprite: {fileID: 21300000, guid: d5512907ffad1fa40bbf5128941b9148, type: 3}
+  seedCheckRadius: 0.05
+  plantCycles:
+  - mainSprite: {fileID: 21300000, guid: 936f6a0aed258d54faad9f0b6105f1e3, type: 3}
+    shadowSprite: {fileID: 5518729531953178507}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 2039083576623547493}
+    obstacleCollisionHeights: 0
+  - mainSprite: {fileID: 0}
+    shadowSprite: {fileID: 5518729533477468624}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 2039083576623547493}
+    obstacleCollisionHeights: 0
+  - mainSprite: {fileID: 0}
+    shadowSprite: {fileID: 5518729532353304384}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 2039083576623547493}
+    obstacleCollisionHeights: 0
+  - mainSprite: {fileID: 0}
+    shadowSprite: {fileID: 5518729532945011619}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 2039083576623547493}
+    - {fileID: 6695410892499397205}
+    obstacleCollisionHeights: 0
+  daysPerCycle: 1
+  spriteDisplay: {fileID: 5518729533509488751}
+  spriteMask: {fileID: 5518729533477859498}
+  shadowHolder: {fileID: 5518729533234794968}
+  homePoint: {fileID: 0}
+  heightDisplacement: {fileID: 0}
+  currentCycle: 0
+  homeOccupiedBy: 
+  dayPlanted: 0
+  timeTickPlanted: 0
+  gatherableCycle: 4
+  isAnimalShelter: 0
 --- !u!1 &5518729531953178509
 GameObject:
   m_ObjectHideFlags: 0

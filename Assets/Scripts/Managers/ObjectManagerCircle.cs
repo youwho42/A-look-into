@@ -22,6 +22,7 @@ public class ObjectManagerCircle : MonoBehaviour
 
     public int GetTileZ(Vector3 point)
     {
+        
         Vector3Int cellIndex = groundMap.WorldToCell(point);
         for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
         {

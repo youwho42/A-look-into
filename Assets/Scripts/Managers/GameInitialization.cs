@@ -5,12 +5,12 @@ public class GameInitialization
 {
 
 
-    [RuntimeInitializeOnLoadMethod]
+    /*[RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
         if(RandomPlantGrowthAtStart.instance != null)
             RandomPlantGrowthAtStart.instance.SetPlantGrowthAtStart();
-    }
+    }*/
 
     /*[RuntimeInitializeOnLoadMethod]
     static void OnSecondRuntimeMethodLoad()

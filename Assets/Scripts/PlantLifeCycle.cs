@@ -17,7 +17,17 @@ public class PlantLifeCycle : MonoBehaviour
         
         public float obstacleCollisionHeights;
     }
+    [Serializable]
+    public struct SeedCycle
+    {
+        public SpriteRenderer mainSprite;
+        public Sprite growSprite;
+        public Sprite idleSprite;
+    }
 
+    bool canGrow;
+    public float seedCheckRadius;
+    public SeedCycle plantSeed;
     DayNightCycle dayNightCycle;
     public List<PlantCycle> plantCycles = new List<PlantCycle>();
     public int daysPerCycle;
@@ -33,8 +43,9 @@ public class PlantLifeCycle : MonoBehaviour
     public int currentCycle;
     public string homeOccupiedBy = "";
 
-    
+    [HideInInspector]
     public int currentDay;
+    [HideInInspector]
     public int currentTimeTick;
     public int gatherableCycle;
     GatherableItem gatherableItem;
@@ -48,7 +59,7 @@ public class PlantLifeCycle : MonoBehaviour
         dayNightCycle = DayNightCycle.instance;
 
         shadow = GetComponent<TreeShadows>();
-        SetCurrentCycle();
+        //SetCurrentCycle();
         GameEventManager.onTimeTickEvent.AddListener(UpdateCycle);
     }
     private void OnBecameVisible()
@@ -65,7 +76,12 @@ public class PlantLifeCycle : MonoBehaviour
         GameEventManager.onTimeTickEvent.RemoveListener(UpdateCycle);
     }
 
-    void SetCurrentTimeDay(int day, int time)
+    public void SetPlantedTimeAndDay(int time, int day)
+    {
+        currentDay = day;
+        currentTimeTick = time;
+    }
+    public void SetCurrentTimeAndDay(int time, int day)
     {
         currentDay = dayNightCycle.currentDayRaw;
         currentTimeTick = dayNightCycle.currentTimeRaw;
@@ -138,6 +154,9 @@ public class PlantLifeCycle : MonoBehaviour
                 }
             }
         }
+
+
+
         if (gatherableItem != null)
         {
             if (currentCycle < gatherableCycle)
@@ -156,4 +175,34 @@ public class PlantLifeCycle : MonoBehaviour
         
         
     }
+
+
+    public void CheckSeedNeighboringPlants()
+    {
+
+        canGrow = true;
+        var hit = Physics2D.OverlapCircleAll(transform.position, seedCheckRadius);
+        if (hit.Length > 0)
+        {
+
+            foreach (var item in hit)
+            {
+                if (item.CompareTag("GrowingItem") && item.gameObject != this.gameObject)
+                {
+
+                    canGrow = false;
+                }
+            }
+        }
+
+
+    }
+
+    public void SetSeedSprite()
+    {
+
+        //mainSprite.sprite = canGrow ? growSprite : idleSprite;
+
+    }
+
 }

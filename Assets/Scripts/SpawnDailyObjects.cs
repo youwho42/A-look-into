@@ -29,6 +29,11 @@ public class SpawnDailyObjects : MonoBehaviour
     {
         if (timeOfDay != hourToDailySpawn)
             return;
+        if(TryGetComponent(out PlantGrowCycle plantCycle))
+        {
+            if (plantCycle.currentCycle < plantCycle.gatherableCycle)
+                return;
+        }
         foreach (var point in spawnPoints)
         {
             var hit = Physics2D.OverlapCircle(point.position, .05f);

@@ -25,7 +25,9 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-       
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Terrain", LoadSceneMode.Additive);
+
     }
 
     [SerializeField]
@@ -150,7 +152,9 @@ public class LevelManager : MonoBehaviour
     IEnumerator LoadLevelCo(string levelName)
     {
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName);
-        
+
+        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
+
         titleMenu.SetActive(false);
         loadScreen.SetActive(true);
         

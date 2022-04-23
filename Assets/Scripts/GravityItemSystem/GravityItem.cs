@@ -188,7 +188,13 @@ public class GravityItem : MonoBehaviour
         
     }
 
-
+    public void Nudge(Vector2 dir)
+    {
+        Vector3 currentPosition = transform.position;
+        currentPosition += (Vector3)dir * checkTileDistance;
+        
+        transform.position = currentPosition;
+    }
     protected void SetIsGrounded()
     {
         //Check and set if grounded

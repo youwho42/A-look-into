@@ -32,7 +32,8 @@ public class InteractWithInteractable : MonoBehaviour
             {
                 if (colliders[i].GetComponent<Interactable>() != null)
                 {
-                    currentInteractables.Add(colliders[i].gameObject.GetComponent<Interactable>());
+                    if(colliders[i].transform.position.z == transform.position.z)
+                        currentInteractables.Add(colliders[i].gameObject.GetComponent<Interactable>());
                     
                 }
             }

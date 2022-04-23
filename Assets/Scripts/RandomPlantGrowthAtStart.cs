@@ -14,6 +14,10 @@ public class RandomPlantGrowthAtStart : MonoBehaviour
         else
             Destroy(this);
     }
+    private void Start()
+    {
+        SetPlantGrowthAtStart();
+    }
     public void SetPlantGrowthAtStart()
     {
         StartCoroutine(SetPlantGrowthAtStartCo());
@@ -21,15 +25,18 @@ public class RandomPlantGrowthAtStart : MonoBehaviour
 
     IEnumerator SetPlantGrowthAtStartCo()
     {
-        yield return new WaitForSeconds(2);
-        var allPlants = FindObjectsOfType<PlantLifeCycle>();
+        
+        var allPlants = FindObjectsOfType<PlantGrowCycle>();
         foreach (var plant in allPlants)
         {
             
-            plant.currentCycle = Random.Range(2, plant.plantCycles.Count);
-            plant.currentTimeTick = Random.Range(100, 500);
-            plant.SetCurrentCycle();
+            plant.dayPlanted = Random.Range(-plant.plantCycles.Count, 3);
+            plant.timeTickPlanted = Random.Range(300, 1000);
+            plant.UpdateCycle(0);
+            
+            
         }
+        yield return null;
     }
 
 }

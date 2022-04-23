@@ -14,6 +14,9 @@ public class GravityItemMovementFree : GravityItem
     float velocity;
     Vector2 mainDirection;
     Vector3Int nextTilePosition;
+    public bool canCollideWithGravityItems;
+    
+
 
     private new IEnumerator Start()
     {
@@ -74,6 +77,7 @@ public class GravityItemMovementFree : GravityItem
             return false;
 
         Vector3 checkPosition = (transform.position + (Vector3)movement * checkTileDistance) - Vector3.forward;
+        Vector3 doubleCheckPosition = transform.position - Vector3.forward;
 
         if (CheckForObstacles(checkPosition))
         {
@@ -114,7 +118,7 @@ public class GravityItemMovementFree : GravityItem
                 level = tile.Value.levelZ;
             else
                 continue;
-
+            Vector3Int doubleCheckTilePosition = surroundingTiles.grid.WorldToCell(doubleCheckPosition);
 
             // IN AIR! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is in the air and has a y above the tile height
@@ -171,6 +175,10 @@ public class GravityItemMovementFree : GravityItem
             // the next tile is NOT valid
             if (tile.Key == nextTileKey && !tile.Value.isValid)
             {
+                if (doubleCheckTilePosition == nextTilePosition)
+                {
+                    Nudge(movement);
+                }
 
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
                 if (onSlope)
@@ -211,7 +219,7 @@ public class GravityItemMovementFree : GravityItem
         if (collision.collider is CompositeCollider2D)
             return;
         
-        if (collision.gameObject.TryGetComponent(out GravityItem gravityItem))
+        if (collision.gameObject.TryGetComponent(out GravityItem gravityItem) && canCollideWithGravityItems)
         {
             Vector2 direction = transform.position - collision.transform.position;
             

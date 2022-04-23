@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5518729531771902421}
-  - component: {fileID: 5518729531771902422}
   - component: {fileID: 5518729531771902420}
   - component: {fileID: 5518729531771902419}
   - component: {fileID: 5518729531771902418}
@@ -19,6 +18,8 @@ GameObject:
   - component: {fileID: 7392595784245344820}
   - component: {fileID: 1251641701233696066}
   - component: {fileID: 8676191415380341445}
+  - component: {fileID: 1588631018761947306}
+  - component: {fileID: 6965910483024876330}
   m_Layer: 14
   m_Name: PineTree
   m_TagString: GrowingItem
@@ -56,68 +57,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5518729531771902422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5518729531771902423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2c40d80277fa54fb9ccc45e1d0b59e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plantCycles:
-  - mainSprite: {fileID: 21300000, guid: 9aadfe3e72b7be345853be9053ed9f27, type: 3}
-    shadowSprite: {fileID: 5518729532074262114}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 1440
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
-    obstacleCollisionHeights: 0.3
-  - mainSprite: {fileID: 21300000, guid: 738ff853c32702446b55b1dceb7f5e87, type: 3}
-    shadowSprite: {fileID: 5518729531953178507}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 1440
-    birdLandingSpots:
-    - {fileID: 2540985149515455312}
-    obstacleCollisionHeights: 1.3
-  - mainSprite: {fileID: 21300000, guid: 9a6902167879e2041b1ec2d437bfd863, type: 3}
-    shadowSprite: {fileID: 5518729533477468624}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 1440
-    birdLandingSpots:
-    - {fileID: 8714878334326080086}
-    - {fileID: 6041597696927194570}
-    obstacleCollisionHeights: 2.4
-  - mainSprite: {fileID: 21300000, guid: 58c66cfcde7929249896443a1551ba7f, type: 3}
-    shadowSprite: {fileID: 5518729532353304384}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 1440
-    birdLandingSpots:
-    - {fileID: 4568455721802661165}
-    - {fileID: 7892496701653810293}
-    - {fileID: 1047181387276597531}
-    obstacleCollisionHeights: 3.4
-  - mainSprite: {fileID: 21300000, guid: 2cc5bfee52e192e4d9703809b9e1897c, type: 3}
-    shadowSprite: {fileID: 5518729532945011619}
-    spriteMask: {fileID: 0}
-    timeTickPerCycle: 50000
-    birdLandingSpots:
-    - {fileID: 7698918996918927084}
-    - {fileID: 1925227834761300341}
-    - {fileID: 6763842529941544549}
-    obstacleCollisionHeights: 4.5
-  spriteDisplay: {fileID: 5518729533509488751}
-  spriteMask: {fileID: 5518729533477859498}
-  homePoint: {fileID: 7537681024120712762}
-  heightDisplacement: {fileID: 3481256951840279566}
-  currentCycle: 0
-  homeOccupiedBy: 
-  currentTimeTick: 0
-  gatherableCycle: 4
-  isAnimalShelter: 1
 --- !u!114 &5518729531771902420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,16 +98,16 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.59273916}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -358,6 +297,121 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef57d01923838b4fb2a34e594a11e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1588631018761947306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d116ced2bae698442906e8653ea48f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedIdleSprite: {fileID: 21300000, guid: 36363a09406ea3b4ca4168641fd502b8, type: 3}
+  seedGrowSprite: {fileID: 21300000, guid: e3070d749444fe34a95eb72c2007a3f7, type: 3}
+  seedCheckRadius: 0.2
+  plantCycles:
+  - mainSprite: {fileID: 21300000, guid: 9aadfe3e72b7be345853be9053ed9f27, type: 3}
+    shadowSprite: {fileID: 5518729532074262114}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 2039083576623547493}
+    obstacleCollisionHeights: 0.3
+  - mainSprite: {fileID: 21300000, guid: 738ff853c32702446b55b1dceb7f5e87, type: 3}
+    shadowSprite: {fileID: 5518729531953178507}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 2540985149515455312}
+    obstacleCollisionHeights: 1.3
+  - mainSprite: {fileID: 21300000, guid: 9a6902167879e2041b1ec2d437bfd863, type: 3}
+    shadowSprite: {fileID: 5518729533477468624}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 8714878334326080086}
+    - {fileID: 6041597696927194570}
+    obstacleCollisionHeights: 2.4
+  - mainSprite: {fileID: 21300000, guid: 58c66cfcde7929249896443a1551ba7f, type: 3}
+    shadowSprite: {fileID: 5518729532353304384}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 4568455721802661165}
+    - {fileID: 7892496701653810293}
+    - {fileID: 1047181387276597531}
+    obstacleCollisionHeights: 3.4
+  - mainSprite: {fileID: 21300000, guid: 2cc5bfee52e192e4d9703809b9e1897c, type: 3}
+    shadowSprite: {fileID: 5518729532945011619}
+    spriteMask: {fileID: 0}
+    birdLandingSpots:
+    - {fileID: 7698918996918927084}
+    - {fileID: 1925227834761300341}
+    - {fileID: 6763842529941544549}
+    obstacleCollisionHeights: 4.5
+  daysPerCycle: 1
+  spriteDisplay: {fileID: 5518729533509488751}
+  spriteMask: {fileID: 5518729533477859498}
+  shadowHolder: {fileID: 5518729533234794968}
+  homePoint: {fileID: 7537681024120712762}
+  heightDisplacement: {fileID: 3481256951840279566}
+  currentCycle: 0
+  homeOccupiedBy: 
+  dayPlanted: 0
+  timeTickPlanted: 0
+  gatherableCycle: 4
+  isAnimalShelter: 0
+--- !u!212 &6965910483024876330
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 649079b5272c73c48b837b7181fabedf, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &5518729531953178509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,7 +2068,7 @@ PrefabInstance:
     - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
       propertyPath: positionZ
-      value: 0
+      value: 0.82
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc9361ac0ecc6d94abb476599cfc3e97, type: 3}

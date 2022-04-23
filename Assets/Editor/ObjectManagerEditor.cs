@@ -28,6 +28,8 @@ public class ObjectManagerEditor : Editor
     
     private void OnSceneGUI()
     {
+        if (objectManager.groundMap == null)
+            return;
         //Move the circle when moving the mouse
         //A ray from the mouse position
         var hit = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
@@ -37,7 +39,10 @@ public class ObjectManagerEditor : Editor
         
         position.z = 0;
 
+        
         int offsetZ = objectManager.GetTileZ(position);
+        
+       
 
         
 

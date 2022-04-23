@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class PlantSaveSystem : MonoBehaviour, ISaveable
 {
-    PlantLifeCycle plantLifeCycle;
+    PlantGrowCycle plantGrowCycle;
 
     public virtual void Start()
     {
-        plantLifeCycle = GetComponent<PlantLifeCycle>();
+        plantGrowCycle = GetComponent<PlantGrowCycle>();
     }
 
     public object CaptureState()
@@ -18,9 +18,10 @@ public class PlantSaveSystem : MonoBehaviour, ISaveable
         return new SaveData
         {
             location = transform.position,
-            currentCycle = plantLifeCycle.currentCycle,
-            currentTimeTick = plantLifeCycle.currentTimeTick,
-            homeOccupiedBy = plantLifeCycle.homeOccupiedBy
+            currentCycle = plantGrowCycle.currentCycle,
+            timeTickPlanted = plantGrowCycle.timeTickPlanted,
+            dayPlanted = plantGrowCycle.dayPlanted,
+            homeOccupiedBy = plantGrowCycle.homeOccupiedBy
             
         };
     }
@@ -35,11 +36,12 @@ public class PlantSaveSystem : MonoBehaviour, ISaveable
         
         yield return new WaitForSeconds(1f);
         transform.position = saveData.location;
-        plantLifeCycle.currentCycle = saveData.currentCycle;
-        plantLifeCycle.currentTimeTick = saveData.currentTimeTick;
-        plantLifeCycle.homeOccupiedBy = saveData.homeOccupiedBy;
-        plantLifeCycle.SetCurrentCycle();
-        plantLifeCycle.SetHomeOccupation();
+        plantGrowCycle.currentCycle = saveData.currentCycle;
+        plantGrowCycle.timeTickPlanted = saveData.timeTickPlanted;
+        plantGrowCycle.dayPlanted = saveData.dayPlanted;
+        plantGrowCycle.homeOccupiedBy = saveData.homeOccupiedBy;
+        plantGrowCycle.SetCurrentCycle();
+        plantGrowCycle.SetHomeOccupation();
     }
 
     [Serializable]
@@ -47,7 +49,8 @@ public class PlantSaveSystem : MonoBehaviour, ISaveable
     {
         public SVector3 location;
         public int currentCycle;
-        public int currentTimeTick;
+        public int timeTickPlanted;
+        public int dayPlanted;
         public string homeOccupiedBy;
     }
 }

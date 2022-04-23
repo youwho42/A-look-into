@@ -13,23 +13,22 @@ public class TreeShadows : MonoBehaviour
     int shadowDisappearTime = 20;
 
     bool shadowFade;
-    bool visible;
+    bool isVisible = true;
     private void Start()
     {
         dayNightCycle = DayNightCycle.instance;
         GameEventManager.onTimeHourEvent.AddListener(StartShadowFade);
         GameEventManager.onTimeTickEvent.AddListener(SetShadowRotation);
+        
     }
     private void OnBecameVisible()
     {
-        GameEventManager.onTimeHourEvent.AddListener(StartShadowFade);
-        GameEventManager.onTimeTickEvent.AddListener(SetShadowRotation);
+        isVisible = true;
     }
 
     private void OnBecameInvisible()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(StartShadowFade);
-        GameEventManager.onTimeTickEvent.RemoveListener(SetShadowRotation);
+        isVisible = false;
     }
     private void OnDisable()
     {
@@ -39,7 +38,8 @@ public class TreeShadows : MonoBehaviour
 
     public void StartShadowFade(int time)
     {
-        
+        if (shadowSprite == null || !isVisible)
+            return;
         if (time == shadowAppearTime)
             StartCoroutine("StartShadowsCo");
         if (time == shadowDisappearTime)
@@ -53,11 +53,13 @@ public class TreeShadows : MonoBehaviour
         float startTime = dayNightCycle.tick;
         float elapsedTime = 0;
         float waitTime = elapsedTime + 40;
+        
         shadowSprite.transform.parent.gameObject.SetActive(true);
         float alpha = 0;
         while (elapsedTime < waitTime)
         {
             alpha = Mathf.Lerp(0, .5f, (elapsedTime / waitTime));
+            if(shadowSprite != null)
             shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
             elapsedTime = dayNightCycle.tick - startTime;
 
@@ -73,7 +75,9 @@ public class TreeShadows : MonoBehaviour
 
     public void SetShadowRotation(int tick)
     {
-        
+        if (!isVisible)
+            return;
+
         float elapsedTime = dayNightCycle.currentTimeRaw;
         float waitTime = shadowDisappearTime * 60;
         float zRotation = 0;
@@ -91,6 +95,7 @@ public class TreeShadows : MonoBehaviour
     IEnumerator EndShadowsCo()
     {
         
+
         float startTime = dayNightCycle.tick;
         float elapsedTime = 0;
         float waitTime = elapsedTime + 40;

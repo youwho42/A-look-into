@@ -95,11 +95,12 @@ public class GravityItemMovementController : GravityItem
             return false;
 
         Vector3 checkPosition = (transform.position + (Vector3)movement * checkTileDistance) - Vector3.forward;
-
+        Vector3 doubleCheckPosition = transform.position - Vector3.forward;
         if (CheckForObstacles(checkPosition))
             return false;
 
         nextTilePosition = surroundingTiles.grid.WorldToCell(checkPosition);
+        
         Vector3Int nextTileKey = nextTilePosition - surroundingTiles.currentTilePosition;
         onCliffEdge = false;
 
@@ -113,6 +114,7 @@ public class GravityItemMovementController : GravityItem
             // right now, where we are, what it be? is it be a slope?
             if (tile.Key == Vector3Int.zero)
             {
+                
                 slopeDirection = Vector2.zero;
                 onSlope = tile.Value.tileName.Contains("Slope");
                 if (onSlope)
@@ -129,7 +131,9 @@ public class GravityItemMovementController : GravityItem
                 level = tile.Value.levelZ;
             else
                 continue;
-
+            Vector3Int doubleCheckTilePosition = surroundingTiles.grid.WorldToCell(doubleCheckPosition);
+            
+            
 
             // JUMPING! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
@@ -188,6 +192,10 @@ public class GravityItemMovementController : GravityItem
             // the next tile is NOT valid
             if (tile.Key == nextTileKey && !tile.Value.isValid)
             {
+                if(doubleCheckTilePosition == nextTilePosition)
+                {
+                    Nudge(movement);
+                }
 
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
                 if (onSlope)
