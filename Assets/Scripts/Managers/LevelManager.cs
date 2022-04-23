@@ -25,10 +25,14 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Terrain", LoadSceneMode.Additive);
+        if (Application.isPlaying)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Terrain", LoadSceneMode.Additive);
+        }
+            
 
     }
+    
 
     [SerializeField]
     private CinemachineVirtualCamera startCam;
