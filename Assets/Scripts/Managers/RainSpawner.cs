@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class RainSpawner : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class RainSpawner : MonoBehaviour
     int nextLightningStrike;
     
     public SpriteRenderer lightningRenderer;
-    public Light2D lightningLight;
+    public UnityEngine.Rendering.Universal.Light2D lightningLight;
     public CurrentGridLocation lightningLocation;
     public AudioSource thunder;
     bool isLightning;

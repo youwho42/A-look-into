@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using UnityEngine.Events;
 using System;
 
@@ -36,7 +36,7 @@ public class DayNightCycle : MonoBehaviour
     public float cycleSpeed;
     private bool isDay;
     
-    public Light2D sun;
+    public UnityEngine.Rendering.Universal.Light2D sun;
 
     public int hours;
     public int minutes;
@@ -93,7 +93,7 @@ public class DayNightCycle : MonoBehaviour
     {
         if (sun == null)
         {
-            Light2D[] tempSun = FindObjectsOfType<Light2D>();
+            UnityEngine.Rendering.Universal.Light2D[] tempSun = FindObjectsOfType<UnityEngine.Rendering.Universal.Light2D>();
             for (int i = 0; i < tempSun.Length; i++)
             {
                 if (!tempSun[i].CompareTag("Sun"))

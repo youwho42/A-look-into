@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class LightFlicker : MonoBehaviour
 {
-    public Light2D lightToAffect;
+    public UnityEngine.Rendering.Universal.Light2D lightToAffect;
 
     float startFalloff;
     float startIntensity;

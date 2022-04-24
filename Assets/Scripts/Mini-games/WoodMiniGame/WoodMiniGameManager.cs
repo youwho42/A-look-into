@@ -43,30 +43,36 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public List<DificultyArea> dificultyAreas = new List<DificultyArea>();
     MiniGameDificulty currentDificulty;
     GameObject currentGameObject;
+    bool minigameIsAcive;
+
     private void Start() 
     {
         source = GetComponent<AudioSource>();
         material = balls[0].ballSprite.material;
         initialIntensity = material.GetColor("_EmissionColor");
-        ResetBalls(0);
+       
         ResetMiniGame();
     }
 
     private void Update()
     {
-        if(currentAttempts != maxAttempts && !transitioning)
+        if (minigameIsAcive)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (currentAttempts != maxAttempts && !transitioning)
             {
-                StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
+                }
+            }
+            if (currentAttempts == maxAttempts && !transitioning)
+            {
+                Destroy(currentGameObject);
+                currentGameObject = null;
+                MiniGameManager.instance.EndMiniGame(miniGameType);
             }
         }
-        if (currentAttempts == maxAttempts && !transitioning)
-        {
-            Destroy(currentGameObject);
-            currentGameObject = null;
-            MiniGameManager.instance.EndMiniGame(miniGameType);
-        }
+        
     }
 
     IEnumerator GlowOn(int amount)
@@ -159,6 +165,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         currentGameObject = gameObject;
         this.item = item;
         SetDificulty(gameDificulty);
+        minigameIsAcive = true;
+        ResetBalls(0);
     }
     void SetDificulty(MiniGameDificulty dificulty)
     {
@@ -197,6 +205,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
     public void ResetMiniGame()
     {
+        minigameIsAcive = false;
         currentAttemptHits = 0;
         currentAttempts = 0;
         currentIndex = 0;
