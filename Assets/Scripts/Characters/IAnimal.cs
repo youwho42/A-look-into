@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAnimal
 {
-    void SetHome(Transform transform);
+    
 }

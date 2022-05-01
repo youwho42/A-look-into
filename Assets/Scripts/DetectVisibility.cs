@@ -69,7 +69,7 @@ public class DetectVisibility : MonoBehaviour
 
     void ChangeObjectZ(bool isHidden)
     {
-        Vector3 pos = new Vector3(0, 0, isHidden ? -1 : 0);
+        Vector3 pos = new Vector3(0, 0, isHidden ? -.9f : 0);
         objectCorrectionZ.localPosition = pos;
 
     }

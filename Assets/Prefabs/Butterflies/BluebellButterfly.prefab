@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6353099332426618819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2394199819085082887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0219e31de5041c48b8804996bea123b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  glowAppearTime: 20
-  glowDisappearTime: 5
-  bloomMinIntensity: 1
-  bloomMaxIntensity: 8
-  spriteMaterial: {fileID: 2394199818886462193}
 --- !u!1001 &6970066050230354830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105,16 +88,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4720702768676041349, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4720702768676041349, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 4720702768676041353, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3,
         type: 3}
       propertyPath: m_Name
@@ -134,15 +107,32 @@ PrefabInstance:
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3, type: 3}
---- !u!1 &2394199819085082887 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4720702768676041353, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3,
-    type: 3}
-  m_PrefabInstance: {fileID: 6970066050230354830}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &2394199818886462193 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 4720702768505272703, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3,
     type: 3}
   m_PrefabInstance: {fileID: 6970066050230354830}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2394199819085082887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4720702768676041353, guid: 1a004c703e0ff464ab3a69e7bd5f8ed3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6970066050230354830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6353099332426618819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394199819085082887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0219e31de5041c48b8804996bea123b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowAppearTime: 20
+  glowDisappearTime: 5
+  bloomMinIntensity: 1
+  bloomMaxIntensity: 8
+  spriteMaterial: {fileID: 2394199818886462193}

@@ -55,7 +55,7 @@ AnimatorStateMachine:
     m_Position: {x: 50, y: -260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6943297527079121995}
-    m_Position: {x: 500, y: -390, z: 0}
+    m_Position: {x: 450, y: -400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5567289771778348034}
     m_Position: {x: 700, y: -250, z: 0}
@@ -66,7 +66,7 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: -400, z: 0}
+  m_AnyStatePosition: {x: 60, y: -400, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -80,7 +80,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1879698494046253945}
@@ -210,7 +210,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1879698494046253945}
@@ -257,7 +257,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isGliding
+    m_ConditionEvent: IsGliding
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1211127632434771398}
@@ -285,7 +285,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Caw
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6943297527079121995}
@@ -339,7 +339,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1211127632434771398}
@@ -389,13 +389,13 @@ AnimatorController:
   m_Name: CrowIdle0000
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: isLanded
+  - m_Name: IsLanded
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isGliding
+  - m_Name: IsGliding
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -444,7 +444,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Caw
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2643660159304273507}
@@ -497,7 +497,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isGliding
+    m_ConditionEvent: IsGliding
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9169808212007455066}
@@ -574,7 +574,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1211127632434771398}
@@ -646,7 +646,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isLanded
+    m_ConditionEvent: IsLanded
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1211127632434771398}

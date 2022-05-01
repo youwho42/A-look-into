@@ -93,10 +93,7 @@ public class PlantLifeCycle : MonoBehaviour
             
             var go = Instantiate(AllItemsDatabaseManager.instance.allItemsDatabase.GetItem(homeOccupiedBy).ItemPrefab, transform.position, Quaternion.identity);
 
-            if (go.TryGetComponent(out IAnimal thisAnimal))
-            {
-                thisAnimal.SetHome(transform);
-            }
+            
         }
     }
 

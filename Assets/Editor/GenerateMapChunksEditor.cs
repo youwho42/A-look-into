@@ -102,6 +102,7 @@ public class GenerateMapChunksEditor : Editor
             return;
         }
             
+        
 
         
         foreach (var chunk in mapChunks.chunkLoadScriptableObject.allChunks)

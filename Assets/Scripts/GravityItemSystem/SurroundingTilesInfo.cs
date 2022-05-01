@@ -7,7 +7,8 @@ public class SurroundingTilesInfo : MonoBehaviour
 {
     [HideInInspector]
     public Grid grid;
-    Tilemap groundMap;
+    [HideInInspector]
+    public Tilemap groundMap;
     public Vector3Int currentTilePosition;
 
     public class DirectionInfo
@@ -30,8 +31,9 @@ public class SurroundingTilesInfo : MonoBehaviour
 
     private void Start()
     {
-        currentTilePosition = CheckCurrentTilePosition();
-        GetSurroundingTiles();
+        SetGrid();
+        //currentTilePosition = GetTileZ();
+        //GetSurroundingTiles();
     }
 
     
@@ -140,10 +142,35 @@ public class SurroundingTilesInfo : MonoBehaviour
         }
     }
 
+    
+
     public Vector3 GetTileWorldPosition(Vector3Int tile)
     {
         var tileworldpos = groundMap.GetCellCenterWorld(tile);
         return tileworldpos;
+    }
+
+
+    public Vector3Int GetTileZ(Vector3 position)
+    {
+        SetGrid();
+        
+        Vector3Int cellIndex = groundMap.WorldToCell(position - Vector3.forward);
+        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin-1; i--)
+        {
+            cellIndex.z = i;
+            var tile = groundMap.GetTile(cellIndex);
+            if (tile != null)
+            {
+               
+                return cellIndex;
+            }
+                
+
+        }
+        
+        return cellIndex;
+
     }
 
     private Vector3Int CheckCurrentTilePosition()

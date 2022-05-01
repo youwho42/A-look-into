@@ -135,6 +135,13 @@ public class PlantGrowCycle : MonoBehaviour
             spriteMask.sprite = null;
             if(heightDisplacement != null)
                 heightDisplacement.gameObject.SetActive(false);
+            foreach (var cycle in plantCycles)
+            {
+                foreach (var spot in cycle.birdLandingSpots)
+                {
+                    spot.SetActive(false);
+                }
+            }
             return;
         }
 
@@ -209,10 +216,7 @@ public class PlantGrowCycle : MonoBehaviour
 
             var go = Instantiate(AllItemsDatabaseManager.instance.allItemsDatabase.GetItem(homeOccupiedBy).ItemPrefab, transform.position, Quaternion.identity);
 
-            if (go.TryGetComponent(out IAnimal thisAnimal))
-            {
-                thisAnimal.SetHome(transform);
-            }
+            
         }
     }
 

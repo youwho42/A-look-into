@@ -86,6 +86,8 @@ public class GenerateMapChunks : MonoBehaviour
         {
             throw new Exception("You need to name the map doofus");
         }
+
+        
         fullMap = groundTilemap.cellBounds;
         int chunksX = Mathf.CeilToInt(fullMap.size.x / (float)chunkSize);
         int chunksY = Mathf.CeilToInt(fullMap.size.y / (float)chunkSize);

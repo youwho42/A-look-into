@@ -7,7 +7,7 @@ public class GravityItemMovementController : GravityItem
 {
 
     [Space]
-    [Header("Movement")]
+    [Header("Player Movement")]
     public float walkSpeed;
     public float runSpeed;
     public float jumpHeight;

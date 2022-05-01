@@ -68,7 +68,7 @@ public class ObjectManagerEditor : Editor
         HandleUtility.AddDefaultControl(0);
 
         //Have we clicked with the left mouse button?
-        if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        if (Event.current.type == EventType.MouseUp && Event.current.button == 0)
         {
             //Should we add or remove objects?
             if (objectManager.action == ObjectManagerCircle.Actions.AddObjects)
@@ -119,16 +119,14 @@ public class ObjectManagerEditor : Editor
         //How many prefabs do we want to add
         int howManyObjects = objectManager.howManyObjects;
 
-        //Which prefab to we want to add
-        
-        
+        //Which prefab do we want to add
 
         for (int i = 0; i < howManyObjects; i++)
         {
             int rand = Random.Range(0, objectManager.prefabGO.Length);
             GameObject prefabGO = objectManager.prefabGO[rand];
             GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
-
+            
             //Send it to the main script to add it at a random position within the circle
             objectManager.AddPrefab(newGO, center);
         }

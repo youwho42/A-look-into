@@ -1,0 +1,317 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class CanReachTileFlight : MonoBehaviour
+{
+    GravityItem gravityItem;
+    [HideInInspector]
+    public Transform centerOfActiveArea;
+
+    public FlockingItem flockingItem;
+
+    public float flightSpeed;
+    public float flyRoamingDistance;
+    public Vector2 minMaxFlyZ;
+    [HideInInspector]
+    public Vector2 currentDestination;
+    [HideInInspector]
+    public Vector3 mainDestinationZ;
+    public Vector3 currentDestinationZ;
+
+    [HideInInspector]
+    public Vector2 currentDirection;
+    [HideInInspector]
+    public Vector3 currentDirectionZ;
+    bool onSlope;
+    public bool isLanding;
+    public Tilemap waterMap;
+    
+    Vector3Int nextTilePosition;
+    public SpriteRenderer characterRenderer;
+    
+    const float spriteDisplacementY = 0.2790625f;
+    
+
+    private void Start()
+    {
+        gravityItem = GetComponent<GravityItem>();
+        SetWaterMap();
+    }
+
+
+    public void Fly()
+    {
+
+        CheckOverWater();
+
+        if (CanReachNextTile(currentDirection))
+        {
+            gravityItem.isWeightless = true;
+            SetDirectionZ();
+            if (flockingItem != null)
+            {
+                currentDirection = flockingItem.ApplyFlockingRules(currentDirection);
+                SetDirection();
+            }
+            else
+                SetDirection();
+            gravityItem.MoveZ(currentDirectionZ, isLanding ? flightSpeed * 3 : flightSpeed);
+            gravityItem.Move(currentDirection, flightSpeed);
+            
+        }
+        else
+        {
+            SetRandomDestination();
+        }
+
+        if (!isLanding)
+        {
+            if (Vector2.Distance(transform.position, currentDestination) <= 0.001f)
+            {
+                SetRandomDestination();
+            }
+            if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.001f)
+            {
+                SetRandomDestinationZ();
+            }
+        }
+        
+
+    }
+
+    public void CheckOverWater()
+    {
+        SetWaterMap();
+        Vector3 displace = mainDestinationZ;
+        var d = gravityItem.surroundingTiles.currentTilePosition;
+        
+        d.z = 0;
+        var tile = waterMap.GetTile(d);
+        if (tile != null)
+        {
+            displace = new Vector3(0, mainDestinationZ.y + spriteDisplacementY * 3, mainDestinationZ.z + 3);
+            
+        }
+
+        currentDestinationZ = displace;
+    }
+
+    public bool CanReachNextTile(Vector2 movement)
+    {
+        if (gravityItem.surroundingTiles.grid == null)
+            return false;
+
+        Vector3 checkPosition = (transform.position + (Vector3)movement * gravityItem.checkTileDistance) - Vector3.forward;
+        Vector3 doubleCheckPosition = transform.position - Vector3.forward;
+        if (gravityItem.CheckForObstacles(checkPosition))
+            return false;
+
+        nextTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(checkPosition);
+
+        Vector3Int nextTileKey = nextTilePosition - gravityItem.surroundingTiles.currentTilePosition;
+
+        gravityItem.surroundingTiles.GetSurroundingTiles();
+
+        int level = 0;
+
+        foreach (var tile in gravityItem.surroundingTiles.allCurrentDirections)
+        {
+            // CURRENT TILE ----------------------------------------------------------------------------------------------------
+            // right now, where we are, what it be? is it be a slope?
+            if (tile.Key == Vector3Int.zero)
+            {
+
+                gravityItem.slopeDirection = Vector2.zero;
+                onSlope = tile.Value.tileName.Contains("Slope");
+                if (onSlope)
+                {
+                    if (tile.Value.tileName.Contains("X"))
+                        gravityItem.slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                    else
+                        gravityItem.slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                    continue;
+                }
+
+            }
+            if (tile.Key == nextTileKey)
+                level = tile.Value.levelZ;
+            else
+                continue;
+            Vector3Int doubleCheckTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(doubleCheckPosition);
+
+
+
+            // JUMPING! ----------------------------------------------------------------------------------------------------
+            // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
+            if (tile.Key == nextTileKey)
+            {
+                
+                if (Mathf.Abs(gravityItem.itemObject.localPosition.z) >= level)
+                {
+                    gravityItem.surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+
+                    if (tile.Value.tileName.Contains("Slope"))
+                        onSlope = true;
+
+                    return true;
+                }
+            }
+
+            // GROUNDED! ----------------------------------------------------------------------------------------------------
+            // the next tile is valid
+
+
+
+            if (tile.Key == nextTileKey && tile.Value.isValid)
+            {
+
+                // if the next tile is a slope, am i approaching it in the right direction?
+                if (tile.Value.tileName.Contains("Slope"))
+                {
+                    if (tile.Value.tileName.Contains("X") && nextTileKey.x == 0 || tile.Value.tileName.Contains("Y") && nextTileKey.y == 0)
+                        return false;
+
+                    onSlope = true;
+
+                    // is the slope is lower?
+                    if (tile.Value.levelZ < 0)
+                        gravityItem.getOnSlope = true;
+
+
+                }
+
+                // I am on a slope
+                if (onSlope)
+                {
+                    //am i walking 'off' the slope on the upper part in the right direction?
+                    if (gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x == 0 || gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y == 0)
+                    {
+                        //onCliffEdge = true;
+                        return false;
+                    }
+                    if (tile.Value.levelZ > 0)
+                        gravityItem.getOffSlope = true;
+                }
+
+            }
+
+            // the next tile is NOT valid
+            if (tile.Key == nextTileKey && !tile.Value.isValid)
+            {
+                if (doubleCheckTilePosition == nextTilePosition)
+                {
+                    gravityItem.Nudge(movement);
+                }
+
+                // If I am on a slope, am i approaching or leaving the slope in a valid direction?
+                if (onSlope)
+                {
+                    if (gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x != 0 || gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y != 0)
+                        continue;
+                }
+
+                // This is where we are on top of a cliff
+                /*if (tile.Value.levelZ <= 0)
+                {
+                    return false;
+                }*/
+
+                // This is where we hit a wall of height 1 or above
+                return false;
+            }
+        }
+
+        gravityItem.surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+
+
+
+        return true;
+    }
+
+    
+
+    public void SetFacingDirection(Vector2 direction)
+    {
+        // Set facing direction
+        //Vector2 dir = currentDestination - (Vector2)transform.position;
+        var dir = Mathf.Sign(direction.x);
+        characterRenderer.flipX = dir > 0;
+    }
+
+    public void SetRandomDestinationZ()
+    {
+        float randZ = Random.Range(minMaxFlyZ.x, minMaxFlyZ.y);
+        mainDestinationZ = new Vector3(0, spriteDisplacementY * randZ, randZ);
+        currentDestinationZ = mainDestinationZ;
+        SetDirectionZ();
+    }
+    
+
+    public void SetRandomDestination()
+    {
+        if (gravityItem == null|| gravityItem.surroundingTiles == null|| gravityItem.surroundingTiles.groundMap == null)
+            return;
+        Vector2 rand = (Random.insideUnitCircle * flyRoamingDistance);
+        var d = gravityItem.surroundingTiles.groundMap.WorldToCell(new Vector2(centerOfActiveArea.position.x + rand.x, centerOfActiveArea.position.y + rand.y));
+        for (int z = gravityItem.surroundingTiles.groundMap.size.z; z >= 0; z--)
+        {
+            d.z = z;
+            if(gravityItem.surroundingTiles.groundMap.GetTile(d) != null)
+            {
+                currentDestination = gravityItem.surroundingTiles.groundMap.GetCellCenterWorld(d);
+                break;
+            }
+                
+        }
+        
+        
+        SetDirection();
+    }
+
+    
+
+    public void SetDestination(DrawZasYDisplacement destination)
+    {
+        currentDestination = destination.transform.position;
+        mainDestinationZ = destination.displacedPosition;
+        currentDestinationZ = mainDestinationZ;
+        SetDirection();
+        SetDirectionZ();
+    }
+
+    public void SetDirectionZ()
+    {
+        
+        currentDirectionZ = currentDestinationZ - gravityItem.itemObject.localPosition;
+       
+    }
+    public void SetDirection()
+    {
+        currentDirection = currentDestination - (Vector2)transform.position;
+        SetFacingDirection(currentDirection);
+    }
+
+
+    void SetWaterMap()
+    {
+        if (waterMap != null)
+            return;
+
+        var grid = FindObjectOfType<Grid>();
+        Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
+        foreach (var map in maps)
+        {
+            if (map.gameObject.name == "WaterTiles")
+            {
+                waterMap = map;
+            }
+        }
+    }
+
+
+
+}
+
+

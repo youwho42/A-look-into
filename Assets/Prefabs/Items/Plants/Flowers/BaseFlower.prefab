@@ -35,6 +35,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.431, y: -0.024, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5518729533509488750}
   - {fileID: 2039083576623547495}
@@ -227,26 +228,22 @@ MonoBehaviour:
   - mainSprite: {fileID: 21300000, guid: 936f6a0aed258d54faad9f0b6105f1e3, type: 3}
     shadowSprite: {fileID: 5518729531953178507}
     spriteMask: {fileID: 0}
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
+    birdLandingSpots: []
     obstacleCollisionHeights: 0
   - mainSprite: {fileID: 0}
     shadowSprite: {fileID: 5518729533477468624}
     spriteMask: {fileID: 0}
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
+    birdLandingSpots: []
     obstacleCollisionHeights: 0
   - mainSprite: {fileID: 0}
     shadowSprite: {fileID: 5518729532353304384}
     spriteMask: {fileID: 0}
-    birdLandingSpots:
-    - {fileID: 2039083576623547493}
+    birdLandingSpots: []
     obstacleCollisionHeights: 0
   - mainSprite: {fileID: 0}
     shadowSprite: {fileID: 5518729532945011619}
     spriteMask: {fileID: 0}
     birdLandingSpots:
-    - {fileID: 2039083576623547493}
     - {fileID: 6695410892499397205}
     obstacleCollisionHeights: 0
   daysPerCycle: 1
@@ -288,6 +285,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0014, y: -0.3391, z: 0}
   m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5518729533234794967}
   m_RootOrder: 1
@@ -371,6 +369,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0073, y: -0.155, z: 0}
   m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5518729533234794967}
   m_RootOrder: 0
@@ -454,6 +453,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0096, y: -0.7682, z: 0}
   m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5518729533234794967}
   m_RootOrder: 3
@@ -537,6 +537,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.008, y: -0.999, z: 0}
   m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5518729533234794967}
   m_RootOrder: 4
@@ -619,6 +620,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
   m_LocalPosition: {x: 0.0028, y: 0.0233, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5518729532074262115}
   - {fileID: 5518729531953178508}
@@ -655,6 +657,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0035, y: -0.5597, z: 0}
   m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5518729533234794967}
   m_RootOrder: 2
@@ -738,6 +741,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5518729533509488750}
   m_RootOrder: 1
@@ -820,6 +824,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5518729533234794967}
   - {fileID: 5518729533477859499}
@@ -957,12 +962,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc9361ac0ecc6d94abb476599cfc3e97, type: 3}
---- !u!1 &2039083576623547493 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4456420677667414223, guid: bc9361ac0ecc6d94abb476599cfc3e97,
-    type: 3}
-  m_PrefabInstance: {fileID: 2419599905433101482}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2039083576623547495 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,

@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10,7 +10,8 @@ Material:
   m_Name: Shader Graphs_SeaweedSwayGraph
   m_Shader: {fileID: -6465566751694194690, guid: d273b70d28098443599eb95bcec07f92,
     type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,8 +39,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _WindDensity: 1
-    - _WindStrength: 0.1
+    - _WindDensity: 2
+    - _WindStrength: 0.01
     m_Colors:
-    - _WindMovement: {r: 0.5, g: 0, b: 0, a: 0}
+    - _WindMovement: {r: 1.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

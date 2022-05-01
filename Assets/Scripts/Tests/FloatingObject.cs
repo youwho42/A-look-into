@@ -28,9 +28,10 @@ public class FloatingObject : MonoBehaviour
         if(destinationIsValid)
             Move();
 
-        if (Vector2.Distance(transform.position, currentDestination) <= 0.001f && destinationIsValid)
+        if (Vector2.Distance(transform.position, currentDestination) <= 0.001f)
         {
-            destinationIsValid = false;
+            Debug.Log("reached...");
+            StopCoroutine(SetNewDestination());
             StartCoroutine(SetNewDestination());
         }
             
@@ -51,7 +52,7 @@ public class FloatingObject : MonoBehaviour
        
 
         transform.position = Vector2.MoveTowards(transform.position, newPosM, Time.deltaTime * floatingSpeed);
-        
+        transform.position = new Vector3(transform.position.x, transform.position.y, 1);
 
     }
     
@@ -65,20 +66,21 @@ public class FloatingObject : MonoBehaviour
         {
             Vector2 rand = Random.insideUnitCircle * floatingDistanceMax;
             Vector3 possibleDestination = new Vector3(transform.position.x + rand.x, transform.position.y + rand.y, transform.position.z);
-
+            
             Vector3Int tilePos = waterTiles.WorldToCell(possibleDestination - Vector3.forward);
             if(waterTiles.GetTile(tilePos) != null)
             {
-                Debug.Log(tilePos);
+                
                 currentDestination = possibleDestination;
                 float distanceA = Vector2.Distance(transform.position, currentDestination);
                 SetAngledPath(currentDestination, distanceA * floatingSpeed);
                 destinationIsValid = true;
                 isValidDestination = true;
+                yield return null;
             }
-            
-            
-            
+
+            yield return null;
+
         }
         yield return null;
         

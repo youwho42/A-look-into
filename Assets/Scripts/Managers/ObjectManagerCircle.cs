@@ -12,7 +12,7 @@ public class ObjectManagerCircle : MonoBehaviour
     public float radius = 1f;
 
     //How many GOs will we add each time we press a button?
-    public int howManyObjects = 1;
+    public int howManyObjects;
     //public int z;
     //Should we add or remove objects within the circle
     public enum Actions { AddObjects, RemoveObjects }
@@ -24,7 +24,7 @@ public class ObjectManagerCircle : MonoBehaviour
     {
         
         Vector3Int cellIndex = groundMap.WorldToCell(point);
-        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
+        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin-1; i--)
         {
             cellIndex.z = i;
             var tile = groundMap.GetTile(cellIndex);

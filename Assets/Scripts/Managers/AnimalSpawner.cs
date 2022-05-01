@@ -151,10 +151,7 @@ public class AnimalSpawner : MonoBehaviour
                     {
                         var go = Instantiate(animal.item.ItemPrefab, plant.transform.position, Quaternion.identity);
                         PlayerInformation.instance.playerStats.AddGameEnergy(2);
-                        if (go.TryGetComponent(out IAnimal thisAnimal))
-                        {
-                            thisAnimal.SetHome(plant.transform);
-                        }
+                        
                        
                         if (go.TryGetComponent(out SaveableItemEntity saveItem))
                         {

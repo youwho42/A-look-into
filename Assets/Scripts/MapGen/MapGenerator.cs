@@ -22,7 +22,7 @@ public class MapGenerator : MonoBehaviour
 {
     public RuleTile gColorTile;
     public RuleTile rColorTile;
-    public AnimatedTile bColorTile;
+    public RuleTile bColorTile;
     public RuleTile snowColorTile;
     public Tile mud;
     public Tilemap groundTilemap;

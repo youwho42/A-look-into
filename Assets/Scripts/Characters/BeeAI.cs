@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeeAI : MonoBehaviour
+public class BeeAI : MonoBehaviour, IAnimal
 {
+    GravityItem gravityItem;
     public float roamingArea;
     float timeToStayAtDestination;
     bool justTookOff;
     public float detectionTimeOutAmount = 3;
     float detectionTimeOutTimer;
-    public CircleCollider2D captureCollider;
-    Collider2D currentFlower;
-    CharacterFlight flight;
+    //public CircleCollider2D captureCollider;
+    DrawZasYDisplacement currentFlower;
+    CanReachTileFlight flight;
     public Animator animator;
     bool isSleeping;
     bool isRaining;
@@ -19,6 +20,10 @@ public class BeeAI : MonoBehaviour
     public GameObject homeObject;
     DrawZasYDisplacement displacmentZ;
     RandomBeeSounds beeSounds;
+
+    static int landed_hash = Animator.StringToHash("IsLanded");
+
+
     [SerializeField]
     public FlyingState currentState;
 
@@ -31,24 +36,28 @@ public class BeeAI : MonoBehaviour
 
     private void Start()
     {
-
-        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        gravityItem = GetComponent<GravityItem>();
+        //GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
         beeSounds = GetComponent<RandomBeeSounds>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
-        flight = GetComponent<CharacterFlight>();
-        
+        flight = GetComponent<CanReachTileFlight>();
+        SetHome(transform);
+        flight.SetRandomDestination();
+        currentState = FlyingState.isFlying;
+
         //displacmentZ = home.GetComponent<DrawZasYDisplacement>();
     }
-    private void OnDestroy()
+   /* private void OnDestroy()
     {
         GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
 
-    }
+    }*/
 
     private void Update()
     {
-
+        if (flight.centerOfActiveArea == null)
+            SetHome(transform);
         switch (currentState)
         {
             case FlyingState.isFlying:
@@ -56,13 +65,14 @@ public class BeeAI : MonoBehaviour
                 if (!beeSounds.isMakingSound)
                     beeSounds.PlaySound();
 
-                flight.Move();
+                flight.Fly();
                 if (justTookOff)
                 {
 
                     if (currentFlower != null)
                     {
-                        currentFlower.tag = "OpenFlower";
+                        currentFlower.isInUse = false;
+                        currentFlower = null;
                     }
 
                     detectionTimeOutTimer += Time.deltaTime;
@@ -71,20 +81,8 @@ public class BeeAI : MonoBehaviour
                         justTookOff = false;
                     }
                 }
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
-                {
-                    if (!isSleeping)
-                    {
-                        flight.SetRandomDestination(roamingArea);
-                    }
-                    else
-                    {
-                        flight.SetDestination(home.position, displacmentZ.displacedPosition);
-                        currentState = FlyingState.isLanding;
-                    }
-                        
-                }
-                captureCollider.offset = flight.characterSprite.localPosition;
+                
+                //captureCollider.offset = flight.characterSprite.localPosition;
                 break;
 
 
@@ -93,14 +91,14 @@ public class BeeAI : MonoBehaviour
                 if (!beeSounds.isMakingSound)
                     beeSounds.PlaySound();
 
-                flight.Move();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(flight.characterSprite.localPosition, flight.destinationZ) <= 0.001f)
+                flight.Fly();
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
                 {
                     timeToStayAtDestination = SetTimeToStayAtDestination();
-                    animator.SetBool("IsLanded", true);
+                    animator.SetBool(landed_hash, true);
                     currentState = FlyingState.isAtDestination;
                 }
-                captureCollider.offset = flight.characterSprite.localPosition;
+                //captureCollider.offset = flight.characterSprite.localPosition;
                 break;
 
 
@@ -113,9 +111,9 @@ public class BeeAI : MonoBehaviour
                     {
                         /*if(currentFlower != null)
                             currentFlower.GetComponent<EntityReproduction>().AllowForReproduction();*/
-                        flight.SetRandomDestination(roamingArea);
+                        flight.SetRandomDestination();
                         currentState = FlyingState.isFlying;
-                        animator.SetBool("IsLanded", false);
+                        animator.SetBool(landed_hash, false);
                     }
                 }
                 if(beeSounds.isMakingSound)
@@ -132,7 +130,7 @@ public class BeeAI : MonoBehaviour
         return Random.Range(0.5f, 10.0f);
     }
 
-    public void SetSleepOrWake(int time)
+    /*public void SetSleepOrWake(int time)
     {
         if (time == 20)
         {
@@ -147,69 +145,86 @@ public class BeeAI : MonoBehaviour
         {
             isSleeping = false;
         }
-    }
+    }*/
 
     public void SetHome(Transform location)
     {
-        flight = GetComponent<CharacterFlight>();
-        home = location;
-        flight.centerOfActiveArea = home;
-        displacmentZ = home.GetComponent<DrawZasYDisplacement>();
-        
-    }
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 1);
+        Collider2D nearest = null;
+        float distance = 0;
 
-
-    
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<DrawZasYDisplacement>() != null && !justTookOff && collision.CompareTag("OpenFlower") && currentState == FlyingState.isFlying)
+        for (int i = 0; i < hit.Length; i++)
         {
-            var temp = collision.GetComponent<DrawZasYDisplacement>();
-            flight.SetDestination(temp.transform.position, temp.displacedPosition);
-            currentState = FlyingState.isLanding;
-            justTookOff = true;
-            detectionTimeOutTimer = 0;
-            currentFlower = collision;
-            currentFlower.tag = "ClosedFlower";
-        }
-        if (collision.CompareTag("Player"))
-        {
-            flight.SetRandomDestination(roamingArea * 2);
-            currentState = FlyingState.isFlying;
-            justTookOff = true;
-            detectionTimeOutTimer = 0;
-            animator.SetBool("IsLanded", false);
-            if (currentFlower != null)
+            if (hit[i].CompareTag("Beehive"))
             {
-                currentFlower.tag = "ClosedFlower";
-            }
-        }
-        if (collision.CompareTag("RainStorm") && !isRaining)
-        {
-            isRaining = true;
-            flight.SetDestination(home.position, displacmentZ.displacedPosition);
-            currentState = FlyingState.isLanding;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("RainStorm"))
-        {
-            if (isRaining && !isSleeping)
-            {
-                flight.SetRandomDestination(roamingArea);
-                currentState = FlyingState.isFlying;
-                justTookOff = true;
-                detectionTimeOutTimer = 0;
-
-                animator.SetBool("IsLanded", false);
-                if (currentFlower != null)
+                float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
+                if (nearest == null || tempDistance < distance)
                 {
-                    currentFlower.tag = "ClosedFlower";
+                    nearest = hit[i];
+                    distance = tempDistance;
                 }
             }
-            isRaining = false;
+
+        }
+        if (nearest != null)
+        {
+            home = nearest.transform;
+
+        }
+        flight.centerOfActiveArea = home;
+
+    }
+
+    float SetRandomRange(float min, float max)
+    {
+        return Random.Range(min, max);
+    }
+
+    void CheckForLandingArea()
+    {
+        if (justTookOff || currentState != FlyingState.isFlying)
+            return;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, .3f);
+        if (hits.Length > 0)
+        {
+
+            foreach (var hit in hits)
+            {
+                if (hit.GetComponent<DrawZasYDisplacement>() == null)
+                    continue;
+
+                if (hit.CompareTag("OpenFlower"))
+                {
+                    var temp = hit.GetComponent<DrawZasYDisplacement>();
+                    if (temp.isInUse)
+                        continue;
+                    flight.centerOfActiveArea = temp.gameObject.transform;
+                    flight.SetDestination(temp);
+                    justTookOff = false;
+                    detectionTimeOutAmount = SetRandomRange(5, 30);
+                    currentFlower = temp;
+                    flight.isLanding = true;
+                    currentFlower.isInUse = true;
+                    currentState = FlyingState.isLanding;
+                    return;
+                }
+                if (hit.CompareTag("Player"))
+                {
+                    flight.SetRandomDestination();
+
+                    justTookOff = true;
+                    detectionTimeOutAmount = SetRandomRange(5, 30);
+                    animator.SetBool(landed_hash, false);
+                    if (currentFlower != null)
+                    {
+                        currentFlower.isInUse = false;
+                    }
+                    currentState = FlyingState.isFlying;
+                    return;
+                }
+            }
         }
     }
+
+    
 }

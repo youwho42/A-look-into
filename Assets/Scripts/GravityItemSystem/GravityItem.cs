@@ -44,30 +44,35 @@ public class GravityItem : MonoBehaviour
     public LayerMask obstacleLayer;
 
     // slopes
-    protected bool getOnSlope;
-    protected bool getOffSlope;
-    protected bool onSlope;
+    public bool getOnSlope;
+    public bool getOffSlope;
+    public bool onSlope;
     float slopeDisplacement;
     Vector2 slopeCollisionPoint;
     Vector2 slopeCheckPosition;
-    protected Vector2 slopeDirection;
+    public Vector2 slopeDirection;
 
     [Header("Slope Detection")]
     [Range(0.0f, 0.1f)]
     public float checkTileDistance = 0.08f;
     public LayerMask groundLayer;
 
-    
+    public bool isWeightless;
 
 
     public void Start()
     {
+   
         surroundingTiles = GetComponent<SurroundingTilesInfo>();
-        
+        surroundingTiles.currentTilePosition = surroundingTiles.GetTileZ(transform.position);
+        surroundingTiles.GetSurroundingTiles();
+        currentLevel = surroundingTiles.currentTilePosition.z;
+
     }
     public void Update()
     {
-        SetIsGrounded();
+        if (!isWeightless)
+            SetIsGrounded();
         
         if (onSlope)
             HandleSlopes();
@@ -90,7 +95,7 @@ public class GravityItem : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (!isGrounded)
+        if (!isGrounded && !isWeightless)
             ApplyGravity();
     }
 
@@ -128,6 +133,7 @@ public class GravityItem : MonoBehaviour
 
     void ChangeLevel(int dif)
     {
+        
         bounceFactor = 1;
         float displacement = dif * spriteDisplacementY;
         Vector3 currentPosition = transform.position;
@@ -175,7 +181,7 @@ public class GravityItem : MonoBehaviour
 
     
 
-    protected void Move(Vector2 dir, float velocity)
+    public void Move(Vector2 dir, float velocity)
     {
         currentDirection = dir;
         currentVelocity = velocity;
@@ -187,6 +193,22 @@ public class GravityItem : MonoBehaviour
         transform.position = currentPosition;
         
     }
+
+    public void MoveZ(Vector3 dir, float speed)
+    {
+        
+        Vector3 currentPosition = itemObject.localPosition;
+        currentPosition = Vector3.MoveTowards(itemObject.localPosition, itemObject.localPosition + dir, Time.deltaTime * speed);
+        
+        itemObject.localPosition  = currentPosition;
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position).normalized;
+        var totalZ = (itemObject.localPosition.z - screenPos.y) / 10;
+        itemObject.localScale = new Vector3(1 + totalZ, 1 + totalZ, 1);
+
+    }
+
+    
 
     public void Nudge(Vector2 dir)
     {
@@ -208,7 +230,7 @@ public class GravityItem : MonoBehaviour
         }
     }
 
-    protected bool CheckForObstacles(Vector3 checkPosition)
+    public bool CheckForObstacles(Vector3 checkPosition)
     {
         // Check for a positive gameobject on the obstacle layer
         var hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer);
@@ -254,12 +276,13 @@ public class GravityItem : MonoBehaviour
 
 
 
-    protected void Bounce(float bounceAmount)
+    public void Bounce(float bounceAmount)
     {
-        positionZ += bounceAmount;
+        positionZ = bounceAmount;
         displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
-        itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);
+        //itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);
         bounceFactor *= bounceFriction;
+        ApplyGravity();
     }
 
 

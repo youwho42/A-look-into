@@ -19,7 +19,6 @@ public class SeaweedSway : MonoBehaviour
     {
         if(collision.gameObject.transform.position.z == transform.position.z)
             StartCoroutine("SwayCo");
-        
     }
 
 

@@ -12,6 +12,7 @@ public class WaterSound : MonoBehaviour
 
     List<Vector3Int> spots = new List<Vector3Int>();
 
+    public bool playerActive = true;
     PlayerInformation player;
     public float minDist;
     public float maxDist;
@@ -22,7 +23,8 @@ public class WaterSound : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        player = PlayerInformation.instance;
+        if(playerActive)
+            player = PlayerInformation.instance;
 
         GetWaterTiles();
         
@@ -82,8 +84,8 @@ public class WaterSound : MonoBehaviour
         for (int i = 0; i < spots.Count; i++)
         {
             Vector3 tile = groundGrid.CellToWorld(spots[i]);
-            
-            float dist = Vector2.Distance(tile, player.player.position);
+            Vector3 pos = playerActive ? player.player.position : Camera.main.transform.position;
+            float dist = Vector2.Distance(tile, pos);
             if (dist < closestTileDistance)
             {
                 closestTileDistance = dist;

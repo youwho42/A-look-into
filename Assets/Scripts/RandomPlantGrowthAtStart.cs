@@ -30,7 +30,7 @@ public class RandomPlantGrowthAtStart : MonoBehaviour
         foreach (var plant in allPlants)
         {
             
-            plant.dayPlanted = Random.Range(-plant.plantCycles.Count, 3);
+            plant.dayPlanted = Random.Range(-plant.plantCycles.Count+2, 3);
             plant.timeTickPlanted = Random.Range(300, 1000);
             plant.UpdateCycle(0);
             

@@ -7,6 +7,9 @@ public class DrawZasYDisplacement : MonoBehaviour
     public float positionZ;
     readonly float spriteDisplacementY = 0.2790625f;
     public Vector3 displacedPosition;
+
+    public bool isInUse;
+
     private void Start()
     {
         displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
