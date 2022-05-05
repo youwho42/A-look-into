@@ -7,8 +7,8 @@ public class BirdAI : MonoBehaviour, IAnimal
     bool justTookOff;
     public float detectionTimeOutAmount = 3;
     float detectionTimeOutTimer;
-    
 
+    public InteractAreasManager interactAreas;
     DrawZasYDisplacement currentLandingSpot;
     GravityItem gravityItem;
     CanReachTileFlight flight;
@@ -16,19 +16,19 @@ public class BirdAI : MonoBehaviour, IAnimal
     public Animator animator;
     float glideTimer;
     bool glide;
-
+    public DrawZasYDisplacement currentSpot;
     bool isSleeping;
-    public Transform home;
-    DrawZasYDisplacement displacmentZ;
+    
     AnimalSounds sounds;
     bool isRaining;
-
-    public string landingSpotTagName;
+    public Vector2Int wakeSleepTimes;
+    public bool isNocturnal;
    
 
     static int landed_hash = Animator.StringToHash("IsLanded");
     static int walking_hash = Animator.StringToHash("IsWalking");
     static int gliding_hash = Animator.StringToHash("IsGliding");
+    static int idle_hash = Animator.StringToHash("Idle");
 
     [SerializeField]
     public FlyingState currentState;
@@ -45,32 +45,34 @@ public class BirdAI : MonoBehaviour, IAnimal
         
         sounds = GetComponent<AnimalSounds>();
 
-        //GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
 
         animator.SetBool(landed_hash, true);
         gravityItem = GetComponent<GravityItem>();
         flight = GetComponent<CanReachTileFlight>();
         walk = GetComponent<CanReachTileWalk>();
-        SetHome(transform);
+        CheckForLandingArea();
         glideTimer = SetRandomRange(3, 10);
         timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
         detectionTimeOutAmount = SetRandomRange(5, 60);
         flight.SetRandomDestination();
-        displacmentZ = home.GetComponent<DrawZasYDisplacement>();
-        
+
+        Invoke("SetSleepState", 1f);
     }
 
+    void SetSleepState()
+    {
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+    }
     private void OnDestroy()
     {
-        //GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
 
     }
 
     private void Update()
     {
-        if (home == null)
-            SetHome(transform);
-
+        
         switch (currentState)
         {
             case FlyingState.isFlying:
@@ -83,16 +85,19 @@ public class BirdAI : MonoBehaviour, IAnimal
 
                 if (sounds.mute)
                     sounds.mute = false;
-
-
-
-
+                if (isSleeping)
+                {
+                    flight.SetDestination(flight.centerOfActiveArea, true);
+                    justTookOff = false;
+                    detectionTimeOutAmount = SetRandomRange(5, 30);
+                    currentLandingSpot = flight.centerOfActiveArea;
+                    flight.isLanding = true;
+                    currentLandingSpot.isInUse = true;
+                    currentState = FlyingState.isLanding;
+                }
+                    
                 flight.Fly();
                 
-                CheckForLandingArea();
-
-
-
                 if (justTookOff)
                 {
                     if (currentLandingSpot != null)
@@ -122,6 +127,8 @@ public class BirdAI : MonoBehaviour, IAnimal
                     glideTimer = SetRandomRange(0.8f, 10);
                     animator.SetBool(gliding_hash, glide);
                 }
+                if (!justTookOff)
+                    CheckForLandingArea();
 
                 break;
 
@@ -129,13 +136,14 @@ public class BirdAI : MonoBehaviour, IAnimal
             
 
             case FlyingState.isAtDestination:
-                if (!isSleeping || !isRaining)
+               
+                if (!isSleeping)
                 {
                     glideTimer -= Time.deltaTime;
                     if (glideTimer <= 0)
                     {
                         glideTimer = SetRandomRange(0.2f, 5.0f);
-                        animator.SetTrigger("Idle");
+                        animator.SetTrigger(idle_hash);
                     }
 
                     timeToStayAtDestination -= Time.deltaTime;
@@ -159,9 +167,9 @@ public class BirdAI : MonoBehaviour, IAnimal
                     if (timeToStayAtDestination <= 0)
                     {
                         flight.SetRandomDestination();
-                        currentState = FlyingState.isFlying;
                         animator.SetBool(landed_hash, false);
                         justTookOff = true;
+                        currentState = FlyingState.isFlying;
                     }
                     if (sounds.mute)
                         sounds.mute = false;
@@ -169,6 +177,13 @@ public class BirdAI : MonoBehaviour, IAnimal
                 }
                 else
                 {
+                    if(Vector2.Distance(transform.position, flight.centerOfActiveArea.transform.position) >= 0.01f)
+                    {
+                        flight.SetRandomDestination();
+                        animator.SetBool(landed_hash, false);
+                        justTookOff = true;
+                        currentState = FlyingState.isFlying;
+                    }
                     if (!sounds.mute)
                         sounds.mute = true;
                 }
@@ -184,10 +199,21 @@ public class BirdAI : MonoBehaviour, IAnimal
 
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
                 {
+                    
+                    /*if (!CheckCurrentSpot())
+                    {
+                        Debug.Log("no good landing spot");
+                        flight.SetRandomDestination();
+                        animator.SetBool(landed_hash, false);
+                        justTookOff = true;
+                        currentState = FlyingState.isFlying;
+                        break;
+                    }*/
                     timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
                     flight.isLanding = false;
-                    currentState = FlyingState.isAtDestination;
                     animator.SetBool(landed_hash, true);
+                    currentState = FlyingState.isAtDestination;
+                    
                 }
 
                 break;
@@ -209,34 +235,7 @@ public class BirdAI : MonoBehaviour, IAnimal
                 break;
         }
     }
-    public void SetHome(Transform location)
-    {
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 5);
-        Collider2D nearest = null;
-        float distance = 0;
-
-        for (int i = 0; i < hit.Length; i++)
-        {
-            if (hit[i].CompareTag("Open" + landingSpotTagName)) 
-            {
-                float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
-                if (nearest == null || tempDistance < distance)
-                {
-                    nearest = hit[i];
-                    distance = tempDistance;
-                }
-            }
-                
-        }
-        if(nearest != null)
-        {
-            home = nearest.transform;
-            
-        }
-        flight.centerOfActiveArea = home;
-
-    }
-
+    
     float SetRandomRange(Vector2 minMaxRange)
     {
         return Random.Range(minMaxRange.x, minMaxRange.y);
@@ -247,68 +246,80 @@ public class BirdAI : MonoBehaviour, IAnimal
         return Random.Range(min, max);
     }
 
-    /*public void SetSleepOrWake(int time)
+    public void SetSleepOrWake(int time)
     {
-        if (time == 21)
+        if (!isNocturnal) 
         {
-
-            flight.SetDestination(home.position, displacmentZ.displacedPosition);
-            currentState = FlyingState.isLanding;
-
-            isSleeping = true;
-
-        }
-        else if (time == 6)
+            if (time >= wakeSleepTimes.y || time < wakeSleepTimes.x)
+                isSleeping = true;
+            else if (time >= wakeSleepTimes.x && time < wakeSleepTimes.y)
+                isSleeping = false;
+        } 
+        else
         {
-            isSleeping = false;
+            if (time >= wakeSleepTimes.y && time < wakeSleepTimes.x)
+                isSleeping = true;
+            else if (time >= wakeSleepTimes.x || time < wakeSleepTimes.y)
+                isSleeping = false;
         }
-    }*/
+        
+    }
+
+    bool CheckCurrentSpot()
+    {
+        DrawZasYDisplacement bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector2 currentPosition = transform.position;
+        foreach (var item in interactAreas.allAreas)
+        {
+            if (item.isInUse)
+                continue;
+            Vector2 directionToTarget = (Vector2)item.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = item;
+            }
+        }
+        return bestTarget == currentLandingSpot;
+    }
 
     void CheckForLandingArea()
     {
-        if (justTookOff || currentState != FlyingState.isFlying)
+        if (interactAreas == null || justTookOff || currentState != FlyingState.isFlying)
             return;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, .5f);
-        if (hits.Length > 0)
+        
+        DrawZasYDisplacement bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector2 currentPosition = transform.position;
+        foreach (var item in interactAreas.allAreas)
         {
-            foreach (var hit in hits)
+            if (item.isInUse)
+                continue;
+            Vector2 directionToTarget = (Vector2)item.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
             {
-                if (hit.GetComponent<DrawZasYDisplacement>() == null)
-                    continue;
-                if (hit.CompareTag("Open" + landingSpotTagName))
-                {
-                    var temp = hit.GetComponent<DrawZasYDisplacement>();
-                    if (temp.isInUse)
-                        continue;
-                    flight.centerOfActiveArea = temp.gameObject.transform;
-                    flight.SetDestination(temp);
-                    
-                    justTookOff = false;
-                    detectionTimeOutAmount = SetRandomRange(5, 30);
-                    currentLandingSpot = temp;
-                    flight.isLanding = true;
-                    currentLandingSpot.isInUse = true;
-                    currentState = FlyingState.isLanding;
-                    return;
-                }
-                if (hit.CompareTag("Player"))
-                {
-                    flight.SetRandomDestination();
-                    
-                    justTookOff = true;
-                    detectionTimeOutAmount = SetRandomRange(5, 30);
-                    animator.SetBool(landed_hash, false);
-                    if (currentLandingSpot != null)
-                    {
-                        currentLandingSpot.tag = "Open" + landingSpotTagName;
-                    }
-                    currentState = FlyingState.isFlying;
-                    return;
-                }
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = item;
             }
         }
+
+        
+        flight.SetDestination(bestTarget, true);
+
+        justTookOff = false;
+        detectionTimeOutAmount = SetRandomRange(5, 30);
+        currentLandingSpot = bestTarget;
+        flight.isLanding = true;
+        currentLandingSpot.isInUse = true;
+        currentState = FlyingState.isLanding;
+
+
     }
 
+    
     
 
     

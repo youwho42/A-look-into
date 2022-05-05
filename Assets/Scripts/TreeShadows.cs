@@ -7,23 +7,21 @@ public class TreeShadows : MonoBehaviour
     public Transform shadowTransform;
     public SpriteRenderer shadowSprite;
 
-    DayNightCycle dayNightCycle;
-
-    int shadowAppearTime = 5;
-    int shadowDisappearTime = 20;
-
-    bool shadowFade;
+    RealTimeDayNightCycle realTimeDayNightCycle;
+    
     bool isVisible = true;
+
     private void Start()
     {
-        dayNightCycle = DayNightCycle.instance;
-        GameEventManager.onTimeHourEvent.AddListener(StartShadowFade);
-        GameEventManager.onTimeTickEvent.AddListener(SetShadowRotation);
+        
+        realTimeDayNightCycle = RealTimeDayNightCycle.instance;
+        GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         
     }
     private void OnBecameVisible()
     {
         isVisible = true;
+        SetShadows(0);
     }
 
     private void OnBecameInvisible()
@@ -32,90 +30,60 @@ public class TreeShadows : MonoBehaviour
     }
     private void OnDisable()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(StartShadowFade);
-        GameEventManager.onTimeTickEvent.RemoveListener(SetShadowRotation);
+        GameEventManager.onTimeTickEvent.RemoveListener(SetShadows);
     }
 
-    public void StartShadowFade(int time)
-    {
-        if (shadowSprite == null || !isVisible)
-            return;
-        if (time == shadowAppearTime)
-            StartCoroutine("StartShadowsCo");
-        if (time == shadowDisappearTime)
-            StartCoroutine("EndShadowsCo"); 
-        
-    }
-
-    IEnumerator StartShadowsCo()
-    {
-        
-        float startTime = dayNightCycle.tick;
-        float elapsedTime = 0;
-        float waitTime = elapsedTime + 40;
-        
-        shadowSprite.transform.parent.gameObject.SetActive(true);
-        float alpha = 0;
-        while (elapsedTime < waitTime)
-        {
-            alpha = Mathf.Lerp(0, .5f, (elapsedTime / waitTime));
-            if(shadowSprite != null)
-            shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
-            elapsedTime = dayNightCycle.tick - startTime;
-
-            yield return null;
-        }
-
-        shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, .5f);
-        yield return null;
-        
-    }
-
-    
-
-    public void SetShadowRotation(int tick)
+    public void SetShadows(int time)
     {
         if (!isVisible)
             return;
+        SetShadowRotation();
+        StartShadowFade();
+    }
 
-        float elapsedTime = dayNightCycle.currentTimeRaw;
-        float waitTime = shadowDisappearTime * 60;
-        float zRotation = 0;
-
-        zRotation = Mathf.Lerp(60, -60, (elapsedTime - 300) / (waitTime - 300));
-
-        shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
+    public void StartShadowFade()
+    {
+        if (shadowSprite == null)
+            return;
+        if (realTimeDayNightCycle.dayState == RealTimeDayNightCycle.DayState.Sunrise)
+            SetShadowVisibility(false);
+        else if (realTimeDayNightCycle.dayState == RealTimeDayNightCycle.DayState.Sunset)
+            SetShadowVisibility(true);
+        else if (realTimeDayNightCycle.dayState == RealTimeDayNightCycle.DayState.Day)
+            shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, 0.5f);
+        else
+            shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, 0.0f);
         
-        
-
-        
+        shadowSprite.enabled = realTimeDayNightCycle.dayState != RealTimeDayNightCycle.DayState.Night;
     }
 
 
-    IEnumerator EndShadowsCo()
+    void SetShadowVisibility(bool dayToNight)
+    {
+        float elapsedTime = realTimeDayNightCycle.currentTimeRaw - (dayToNight ? realTimeDayNightCycle.nightStart : realTimeDayNightCycle.dayStart);
+        float waitTime = realTimeDayNightCycle.dayNightTransitionTime;
+        float alpha = dayToNight ? 0.5f : 0.0f;
+        float amount = dayToNight ? 0.0f : 0.5f;
+        alpha = Mathf.Lerp(alpha, amount, elapsedTime / waitTime);
+        if (shadowSprite != null)
+            shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
+
+    }
+
+
+    public void SetShadowRotation()
     {
         
 
-        float startTime = dayNightCycle.tick;
-        float elapsedTime = 0;
-        float waitTime = elapsedTime + 40;
-        float alpha = 0;
+        float elapsedTime = realTimeDayNightCycle.currentTimeRaw - realTimeDayNightCycle.dayStart;
+        float waitTime = (realTimeDayNightCycle.nightStart + realTimeDayNightCycle.dayNightTransitionTime) - realTimeDayNightCycle.dayStart;
+        float zRotation = 0;
 
-        while (elapsedTime < waitTime)
-        {
+        zRotation = Mathf.Lerp(60, -60, elapsedTime / waitTime);
 
-            alpha = Mathf.Lerp(.5f, 0, (elapsedTime / waitTime));
-            shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, alpha);
-            elapsedTime = dayNightCycle.tick - startTime;
+        shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
 
-            yield return null;
-        }
-
-        shadowSprite.color = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, 0);
-        yield return null;
-        shadowSprite.transform.parent.gameObject.SetActive(false);
-        shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, 0);
-        
     }
+
 
 }

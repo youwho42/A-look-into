@@ -230,25 +230,28 @@ public class GravityItem : MonoBehaviour
         }
     }
 
-    public bool CheckForObstacles(Vector3 checkPosition)
+    public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction)
     {
         // Check for a positive gameobject on the obstacle layer
-        var hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer);
+        var hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer, transform.position.z, transform.position.z);
+        
         if (hit != null)
         {
-            // is the object on the same world z
-            if (hit.gameObject.transform.position.z == transform.position.z)
+           
+            
+            // do it got a thing
+            if (hit.TryGetComponent(out DrawZasYDisplacement displacement))
             {
-                // do it got a thing
-                if (hit.TryGetComponent(out DrawZasYDisplacement displacement))
-                {
-                    // is our local z higher than the thing
-                    if (Mathf.Abs(itemObject.localPosition.z) >= displacement.positionZ)
-                        return false;
+                // is our local z higher than the thing
+                if (Mathf.Abs(itemObject.localPosition.z) >= displacement.positionZ)
+                    return false;
 
-                }
-                return true;
             }
+            var doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
+            if (doubleHit != null)
+                Nudge(direction);
+            return true;
+           
 
         }
         return false;

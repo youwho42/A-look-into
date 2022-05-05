@@ -58,13 +58,13 @@ public class WindSpawner : MonoBehaviour
             if(np != null)
             {
                 np.OnObjectSpawn();
-                CheckAffectedObjects(go.transform);
+                StartCoroutine(CheckAffectedObjects(go.transform));
             }
                 
         }
     }
 
-    private void CheckAffectedObjects(Transform location)
+    private IEnumerator CheckAffectedObjects(Transform location)
     {
         var hit = Physics2D.OverlapCircleAll(location.position, 1.5f);
         if (hit.Length > 0)
@@ -74,10 +74,11 @@ public class WindSpawner : MonoBehaviour
                 if(hit[i].TryGetComponent(out IWindEffect affected))
                 {
                     affected.Affect();
+                    yield return new WaitForSeconds(.33f);
                 }
             }
         }
-
+        yield return null;
     }
 
     Vector2 GetRandomPosition()

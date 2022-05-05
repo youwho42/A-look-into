@@ -11,7 +11,7 @@ public class SoundSet
     [Range(0.0f, 1.0f)]
     public float volume = 0.7f;
 
-    [Range(0.5f, 1.5f)]
+    [Range(0.1f, 3.0f)]
     public float pitch = 1.0f;
 
     [Range(0.0f, 0.5f)]

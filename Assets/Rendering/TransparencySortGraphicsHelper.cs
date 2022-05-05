@@ -19,7 +19,7 @@ class TransparencySortGraphicsHelper
     static void OnLoad()
     {
         GraphicsSettings.transparencySortMode = TransparencySortMode.CustomAxis;
-        GraphicsSettings.transparencySortAxis = new Vector3(0.0f, 1.0f, -0.278675f);
+        GraphicsSettings.transparencySortAxis = new Vector3(0.0f, 1.0f, -0.2790625f);
     }
 }
 

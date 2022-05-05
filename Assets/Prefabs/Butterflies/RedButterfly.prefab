@@ -91,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4720702768505272640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2780858, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -180,8 +180,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4720702768676041348}
   - component: {fileID: 4720702768676041347}
-  - component: {fileID: 4720702768676041406}
-  - component: {fileID: 4720702768676041345}
   - component: {fileID: 6231963745924462699}
   - component: {fileID: 800158779934631817}
   - component: {fileID: 8372439942461537481}
@@ -223,39 +221,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roamingArea: 0.8
   detectionTimeOutAmount: 3
-  captureCollider: {fileID: 4720702768676041345}
+  captureCollider: {fileID: 0}
   animator: {fileID: 4720702768505272702}
-  home: {fileID: 0}
+  interactAreas: {fileID: 0}
   currentState: 2
---- !u!114 &4720702768676041406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
---- !u!58 &4720702768676041345
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.04
 --- !u!114 &6231963745924462699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,7 +283,7 @@ MonoBehaviour:
   getOffSlope: 0
   onSlope: 0
   slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.08
+  checkTileDistance: 0.075
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -332,6 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfActiveArea: {fileID: 0}
+  flockingItem: {fileID: 0}
   flightSpeed: 0.1
   flyRoamingDistance: 1.5
   minMaxFlyZ: {x: 0.2, y: 2}
@@ -368,7 +338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4720702770224426184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.029999994, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

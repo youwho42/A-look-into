@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class FireflyAI : MonoBehaviour
+public class FireflyAI : MonoBehaviour, IAnimal
 {
+    GravityItem gravityItem;
     public float roamingArea;
     
-    public CircleCollider2D captureCollider;
     public SpriteRenderer lightMaterial;
 
 
 
-    CharacterFlight flight;
+    CanReachTileFlight flight;
     public Animator animator;
     bool isSleeping;
-    public Transform home;
-    DrawZasYDisplacement displacmentZ;
+    
+    public DrawZasYDisplacement home;
 
     
-    
+    bool isRaining;
+
+    static int landed_hash = Animator.StringToHash("IsLanded");
+
 
     [SerializeField]
     public FlyingState currentState;
@@ -39,22 +42,10 @@ public class FireflyAI : MonoBehaviour
 
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
-        flight = GetComponent<CharacterFlight>();
-
-        displacmentZ = home.GetComponent<DrawZasYDisplacement>();
-       if(DayNightCycle.instance.hours < 20 || DayNightCycle.instance.hours > 22)
-        {
-            flight.SetDestination(home.position, displacmentZ.displacedPosition);
-            currentState = FlyingState.isLanding;
-            
-            isSleeping = true;
-        }
-        else
-        {
-            isSleeping = false;
-            flight.SetRandomDestination(roamingArea);
-            currentState = FlyingState.isFlying;
-        }
+        flight = GetComponent<CanReachTileFlight>();
+        flight.centerOfActiveArea = home;
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+       
     }
     private void OnDestroy()
     {
@@ -63,6 +54,7 @@ public class FireflyAI : MonoBehaviour
     }
     private void Update()
     {
+        
 
         switch (currentState)
         {
@@ -70,22 +62,12 @@ public class FireflyAI : MonoBehaviour
 
                 
 
-                flight.Move();
+                flight.Fly();
                 
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f)
-                {
-                    if (!isSleeping)
-                    {
-                        flight.SetRandomDestination(roamingArea);
-                    }
-                    else
-                    {
-                        flight.SetDestination(home.position, displacmentZ.displacedPosition);
-                        currentState = FlyingState.isLanding;
-                    }
-
-                }
-                captureCollider.offset = flight.characterSprite.localPosition;
+                
+                
+                
+                
                 break;
 
 
@@ -93,14 +75,14 @@ public class FireflyAI : MonoBehaviour
 
                 
 
-                flight.Move();
+                flight.Fly();
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
                 {
                     
                     
                     currentState = FlyingState.isAtDestination;
                 }
-                captureCollider.offset = flight.characterSprite.localPosition;
+                
                 break;
 
 
@@ -118,21 +100,24 @@ public class FireflyAI : MonoBehaviour
 
     public void SetSleepOrWake(int time)
     {
-        if (time >= 22 || time <= 19)
+       
+        if (time >= 4 && time < 20)
         {
-
-            flight.SetDestination(home.position, displacmentZ.displacedPosition);
-            currentState = FlyingState.isLanding;
-
+            
+            flight.SetDestination(home, true);
             isSleeping = true;
+            if(currentState != FlyingState.isAtDestination)
+                currentState = FlyingState.isLanding;
 
         }
-        else if (time == 20)
+        if (time == 20)
         {
+            
             isSleeping = false;
-            flight.SetRandomDestination(roamingArea);
-            currentState = FlyingState.isFlying;
+            flight.SetRandomDestination();
             lightMaterial.enabled = true;
+            currentState = FlyingState.isFlying;
+            
         }
     }
 

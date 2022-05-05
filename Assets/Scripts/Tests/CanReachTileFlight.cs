@@ -6,10 +6,10 @@ using UnityEngine.Tilemaps;
 public class CanReachTileFlight : MonoBehaviour
 {
     GravityItem gravityItem;
-    [HideInInspector]
-    public Transform centerOfActiveArea;
 
-    public FlockingItem flockingItem;
+    public DrawZasYDisplacement centerOfActiveArea;
+
+    
 
     public float flightSpeed;
     public float flyRoamingDistance;
@@ -50,13 +50,7 @@ public class CanReachTileFlight : MonoBehaviour
         {
             gravityItem.isWeightless = true;
             SetDirectionZ();
-            if (flockingItem != null)
-            {
-                currentDirection = flockingItem.ApplyFlockingRules(currentDirection);
-                SetDirection();
-            }
-            else
-                SetDirection();
+            SetDirection();
             gravityItem.MoveZ(currentDirectionZ, isLanding ? flightSpeed * 3 : flightSpeed);
             gravityItem.Move(currentDirection, flightSpeed);
             
@@ -98,19 +92,22 @@ public class CanReachTileFlight : MonoBehaviour
         currentDestinationZ = displace;
     }
 
-    public bool CanReachNextTile(Vector2 movement)
+    public bool CanReachNextTile(Vector2 direction)
     {
         if (gravityItem.surroundingTiles.grid == null)
             return false;
 
-        Vector3 checkPosition = (transform.position + (Vector3)movement * gravityItem.checkTileDistance) - Vector3.forward;
+        Vector3 checkPosition = (transform.position + (Vector3)direction * gravityItem.checkTileDistance) - Vector3.forward;
         Vector3 doubleCheckPosition = transform.position - Vector3.forward;
-        if (gravityItem.CheckForObstacles(checkPosition))
+        if (gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, direction))
             return false;
 
         nextTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(checkPosition);
 
         Vector3Int nextTileKey = nextTilePosition - gravityItem.surroundingTiles.currentTilePosition;
+
+        if (nextTileKey == Vector3Int.zero)
+            return true;
 
         gravityItem.surroundingTiles.GetSurroundingTiles();
 
@@ -202,7 +199,7 @@ public class CanReachTileFlight : MonoBehaviour
             {
                 if (doubleCheckTilePosition == nextTilePosition)
                 {
-                    gravityItem.Nudge(movement);
+                    gravityItem.Nudge(direction);
                 }
 
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
@@ -254,7 +251,7 @@ public class CanReachTileFlight : MonoBehaviour
         if (gravityItem == null|| gravityItem.surroundingTiles == null|| gravityItem.surroundingTiles.groundMap == null)
             return;
         Vector2 rand = (Random.insideUnitCircle * flyRoamingDistance);
-        var d = gravityItem.surroundingTiles.groundMap.WorldToCell(new Vector2(centerOfActiveArea.position.x + rand.x, centerOfActiveArea.position.y + rand.y));
+        var d = gravityItem.surroundingTiles.groundMap.WorldToCell(new Vector2(centerOfActiveArea.transform.position.x + rand.x, centerOfActiveArea.transform.position.y + rand.y));
         for (int z = gravityItem.surroundingTiles.groundMap.size.z; z >= 0; z--)
         {
             d.z = z;
@@ -272,13 +269,20 @@ public class CanReachTileFlight : MonoBehaviour
 
     
 
-    public void SetDestination(DrawZasYDisplacement destination)
+    public void SetDestination(DrawZasYDisplacement destination, bool useZ)
     {
         currentDestination = destination.transform.position;
-        mainDestinationZ = destination.displacedPosition;
-        currentDestinationZ = mainDestinationZ;
+        if (useZ)
+        {
+            mainDestinationZ = destination.displacedPosition;
+            currentDestinationZ = mainDestinationZ;
+            SetDirectionZ();
+        }
+        else
+        {
+            SetRandomDestinationZ();
+        }
         SetDirection();
-        SetDirectionZ();
     }
 
     public void SetDirectionZ()

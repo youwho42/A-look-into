@@ -148,8 +148,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4720702768676041348}
   - component: {fileID: 2728778270901500398}
-  - component: {fileID: 4720702768676041406}
-  - component: {fileID: 4720702768676041345}
   - component: {fileID: 6455273728522960521}
   - component: {fileID: 6999954201648174798}
   - component: {fileID: 3653841959630871549}
@@ -191,42 +189,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4107eda953b664345900266bcc71b792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roamingArea: 0.8
+  roamingArea: 4
   detectionTimeOutAmount: 3
   animator: {fileID: 4720702768505272702}
-  home: {fileID: 0}
-  homeObject: {fileID: 160232884156040447, guid: ba049b26d7d4f4118896562c3f409f39,
-    type: 3}
-  currentState: 0
---- !u!114 &4720702768676041406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
---- !u!58 &4720702768676041345
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.04
+  interactAreas: {fileID: 0}
+  currentState: 2
 --- !u!82 &6455273728522960521
 AudioSource:
   m_ObjectHideFlags: 0
@@ -239,7 +206,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -417,7 +384,7 @@ MonoBehaviour:
   centerOfActiveArea: {fileID: 0}
   flockingItem: {fileID: 0}
   flightSpeed: 1
-  flyRoamingDistance: 1
+  flyRoamingDistance: 3.5
   minMaxFlyZ: {x: 0.2, y: 2}
   currentDestination: {x: 0, y: 0}
   mainDestinationZ: {x: 0, y: 0, z: 0}

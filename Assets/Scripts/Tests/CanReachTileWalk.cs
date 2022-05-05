@@ -11,7 +11,8 @@ public class CanReachTileWalk : MonoBehaviour
     public float roamingDistance;
     [HideInInspector]
     public Vector2 currentDestination;
-    Vector2 currentDirection;
+    [HideInInspector]
+    public Vector2 currentDirection;
     bool onSlope;
     
     public float walkSpeed;
@@ -20,7 +21,17 @@ public class CanReachTileWalk : MonoBehaviour
     public bool canJump;
     public float jumpHeight;
     bool jumpAhead;
+    public bool canClimb;
+    public bool isClimbing;
 
+    [HideInInspector]
+    public Vector3 mainDestinationZ;
+    [HideInInspector]
+    public Vector3 currentDestinationZ;
+    [HideInInspector]
+    public Vector3 currentDirectionZ;
+
+    const float spriteDisplacementY = 0.2790625f;
 
     private void Start()
     {
@@ -33,11 +44,12 @@ public class CanReachTileWalk : MonoBehaviour
     {
 
        
-        if (CanReachNextTile(currentDirection))
+        if (CanReachNextTile(currentDirection) && !isClimbing)
         {
             gravityItem.isWeightless = false;
             gravityItem.Move(currentDirection, walkSpeed);
             
+                
         }
         else
         {
@@ -48,25 +60,34 @@ public class CanReachTileWalk : MonoBehaviour
                 gravityItem.Bounce(jumpHeight);
             
         }
-        
+
+        if (canClimb && isClimbing)
+        {
+            SetDirectionZ();
+            //SetFacingDirectionZ(currentDirection, currentDirectionZ);
+            gravityItem.MoveZ(currentDirectionZ, walkSpeed*2);
+        }
 
 
-        
     }
 
-    public bool CanReachNextTile(Vector2 movement)
+    public bool CanReachNextTile(Vector2 direction)
     {
         if (gravityItem.surroundingTiles.grid == null)
             return false;
 
-        Vector3 checkPosition = (transform.position + (Vector3)movement * gravityItem.checkTileDistance) - Vector3.forward;
+        Vector3 checkPosition = (transform.position + (Vector3)direction * gravityItem.checkTileDistance) - Vector3.forward;
         Vector3 doubleCheckPosition = transform.position - Vector3.forward;
-        if (gravityItem.CheckForObstacles(checkPosition))
+        if (gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, direction))
             return false;
 
         nextTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(checkPosition);
 
         Vector3Int nextTileKey = nextTilePosition - gravityItem.surroundingTiles.currentTilePosition;
+
+        if (nextTileKey == Vector3Int.zero)
+            return true;
+
 
         gravityItem.surroundingTiles.GetSurroundingTiles();
 
@@ -158,7 +179,7 @@ public class CanReachTileWalk : MonoBehaviour
             {
                 if (doubleCheckTilePosition == nextTilePosition)
                 {
-                    gravityItem.Nudge(movement);
+                    gravityItem.Nudge(direction);
                 }
 
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
@@ -194,12 +215,11 @@ public class CanReachTileWalk : MonoBehaviour
     public void SetFacingDirection(Vector2 direction)
     {
         // Set facing direction
-        //Vector2 dir = currentDestination - (Vector2)transform.position;
         var dir = Mathf.Sign(direction.x);
         characterRenderer.flipX = dir > 0;
     }
 
-
+    
 
     public void SetRandomDestination()
     {
@@ -225,9 +245,38 @@ public class CanReachTileWalk : MonoBehaviour
         SetDirection();
     }
 
+    public void SetDestination(DrawZasYDisplacement destination)
+    {
+        currentDestination = destination.transform.position;
+        SetDirection();
+    }
+
     void SetDirection()
     {
         currentDirection = currentDestination - (Vector2)gravityItem.gameObject.transform.position;
-        SetFacingDirection(currentDirection);
+        if(!isClimbing)
+            SetFacingDirection(currentDirection);
     }
+
+    public void SetDestinationZ(DrawZasYDisplacement displacement)
+    {
+
+        mainDestinationZ = displacement.displacedPosition;
+        currentDestinationZ = mainDestinationZ;
+        SetDirectionZ();
+    }
+    public void ResetDestinationZ()
+    {
+
+        mainDestinationZ = Vector3Int.zero;
+        currentDestinationZ = mainDestinationZ;
+        SetDirectionZ();
+    }
+    public void SetDirectionZ()
+    {
+
+        currentDirectionZ = currentDestinationZ - gravityItem.itemObject.localPosition;
+
+    }
+
 }

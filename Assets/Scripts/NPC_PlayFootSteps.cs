@@ -17,4 +17,6 @@ public class NPC_PlayFootSteps : MonoBehaviour
         soundSet.SetSource(source, t);
         soundSet.Play();
     }
+
+    
 }

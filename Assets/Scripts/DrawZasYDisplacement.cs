@@ -2,8 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SpotType
+{
+    None,
+    Flower,
+    Sparrow,
+    Crow,
+    Mouse,
+    Fish,
+    Squirrel,
+    Chicken,
+    Owl
+}
+
 public class DrawZasYDisplacement : MonoBehaviour
 {
+    public SpotType spotType;
+
     public float positionZ;
     readonly float spriteDisplacementY = 0.2790625f;
     public Vector3 displacedPosition;

@@ -268,7 +268,6 @@ GameObject:
   - component: {fileID: 5053319575899458627}
   - component: {fileID: 5053319575899458626}
   - component: {fileID: 5053319575899458684}
-  - component: {fileID: 359202597231676232}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -350,7 +349,7 @@ MonoBehaviour:
   getOffSlope: 0
   onSlope: 0
   slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.01
+  checkTileDistance: 0.075
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -368,7 +367,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamingArea: 1
-  home: {fileID: 0}
   currentState: 1
 --- !u!114 &5053319575899458684
 MonoBehaviour:
@@ -383,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfActiveArea: {fileID: 0}
-  flockingItem: {fileID: 359202597231676232}
+  flockingItem: {fileID: 0}
   swimSpeed: 0.25
   swimRoamingDistance: 1
   minMaxSwimZ: {x: 0.2, y: 1.2}
@@ -393,19 +391,3 @@ MonoBehaviour:
   currentDirection: {x: 0, y: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 5053319574232304288}
---- !u!114 &359202597231676232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053319575899458629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c9332d75c42344188c9360a2db9cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.25
-  flockManager: {fileID: 0}
-  neighborDistanceFarthest: 1
-  neighborDistanceClosest: 0.1

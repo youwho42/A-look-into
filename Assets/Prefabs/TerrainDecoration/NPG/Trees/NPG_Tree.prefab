@@ -113,9 +113,9 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 21c89ea15ff2c794780694fcd15f0f36, type: 3}
     volume: 0.3
     pitch: 1
-    randomVolume: 0.1
-    randomPitch: 0.1
-    overlap: 0
+    randomVolume: 0.05
+    randomPitch: 0.25
+    overlap: 1
 --- !u!82 &4119440924775301619
 AudioSource:
   m_ObjectHideFlags: 0
@@ -574,7 +574,7 @@ PrefabInstance:
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
@@ -621,6 +621,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: OpenCrowSpot
       objectReference: {fileID: 0}
+    - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
+        type: 3}
+      propertyPath: spotType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc9361ac0ecc6d94abb476599cfc3e97, type: 3}
 --- !u!4 &4056096172495742522 stripped
@@ -654,7 +659,7 @@ PrefabInstance:
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
@@ -701,6 +706,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: OpenSparrowSpot
       objectReference: {fileID: 0}
+    - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
+        type: 3}
+      propertyPath: spotType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc9361ac0ecc6d94abb476599cfc3e97, type: 3}
 --- !u!4 &3730746286644528816 stripped
@@ -734,7 +744,7 @@ PrefabInstance:
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
@@ -780,6 +790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: OpenSparrowSpot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
+        type: 3}
+      propertyPath: spotType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
@@ -1034,7 +1049,7 @@ PrefabInstance:
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
@@ -1080,6 +1095,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: OpenCrowSpot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
+        type: 3}
+      propertyPath: spotType
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7184120441470994335, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}

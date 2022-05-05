@@ -142,7 +142,7 @@ PrefabInstance:
         type: 3}
       propertyPath: flockingItem
       value: 
-      objectReference: {fileID: 1514528063605756148}
+      objectReference: {fileID: 0}
     - target: {fileID: 3980435461219289158, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
       propertyPath: minMaxFlyZ.x
@@ -157,6 +157,16 @@ PrefabInstance:
         type: 3}
       propertyPath: flyRoamingDistance
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980435461219289159, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: wakeSleepTimes.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980435461219289159, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: wakeSleepTimes.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3980435461219289159, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
@@ -353,6 +363,36 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a60f9ac738368dc448ac58b88e5a891a, type: 2}
+    - target: {fileID: 6230241538022661077, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: soundSet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230241538022661077, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: soundSet.Array.data[1].pitch
+      value: 1.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230241538022661077, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: soundSet.Array.data[0].volume
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230241538022661077, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: soundSet.Array.data[1].volume
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230241538022661077, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: soundSet.Array.data[1].randomPitch
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6763693112741076043, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: soundSet.volume
+      value: 0.015
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da7845d26e6fc6346a4258468f513eb2, type: 3}
 --- !u!95 &2254681426391830057 stripped
@@ -361,25 +401,3 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 5273585318538243745}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6438566509200353897 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1186113323787273416, guid: da7845d26e6fc6346a4258468f513eb2,
-    type: 3}
-  m_PrefabInstance: {fileID: 5273585318538243745}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1514528063605756148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6438566509200353897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c9332d75c42344188c9360a2db9cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.2
-  flockManager: {fileID: 0}
-  neighborDistanceFarthest: 2
-  neighborDistanceClosest: 0.2

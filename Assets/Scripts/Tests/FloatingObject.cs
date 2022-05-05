@@ -15,26 +15,52 @@ public class FloatingObject : MonoBehaviour
     bool destinationIsValid;
 
     public Tilemap waterTiles;
-
-
+    public Animator anim;
+    float animTimer;
+    public AnimationCurve curve;
+    public Vector2 minMaxBetweenAnims;
+    
     private void Start()
     {
         mainPoints = new Vector2[3];
         destinationIsValid = false;
         StartCoroutine(SetNewDestination());
+        SetNextAnimTime();
     }
     private void Update()
     {
         if(destinationIsValid)
             Move();
-
+        ChooseAnim();
         if (Vector2.Distance(transform.position, currentDestination) <= 0.001f)
         {
-            Debug.Log("reached...");
+            
             StopCoroutine(SetNewDestination());
             StartCoroutine(SetNewDestination());
         }
             
+    }
+
+    void ChooseAnim()
+    {
+        animTimer -= Time.deltaTime;
+        if (animTimer <= 0)
+        {
+            
+            SetAnim();
+            
+        }
+    }
+    void SetAnim()
+    {
+        int i = Random.Range(1, 3);
+        anim.SetTrigger(i.ToString());
+        SetNextAnimTime();
+    }
+    void SetNextAnimTime()
+    {
+        animTimer = (curve.Evaluate(Random.Range(0.0f, 1.0f)) * (minMaxBetweenAnims.y - minMaxBetweenAnims.x)) + minMaxBetweenAnims.x;
+        
     }
 
     public void Move()

@@ -18,7 +18,8 @@ public class ViewerAI : MonoBehaviour
     float currentStateTimeWait;
     float timer;
     int currentLevel;
-
+    Vector3Int min;
+    Vector3Int max;
     public ViewerState currentState;
     public enum ViewerState
     {
@@ -31,6 +32,10 @@ public class ViewerAI : MonoBehaviour
         SetRandomDestination();
         ChooseRandomState();
         SetCurrentLevel();
+
+        min = new Vector3Int(groundMap.cellBounds.min.x + 6, groundMap.cellBounds.min.y + 6, groundMap.cellBounds.min.z);
+        max = new Vector3Int(groundMap.cellBounds.max.x - 6, groundMap.cellBounds.max.y - 6, groundMap.cellBounds.min.z);
+
     }
 
 
@@ -41,6 +46,7 @@ public class ViewerAI : MonoBehaviour
         {
             case ViewerState.Idle:
                 timer += Time.deltaTime;
+                SetCurrentLevel();
                 if (timer >= currentStateTimeWait)
                 {
                     SetRandomDestination();
@@ -66,8 +72,9 @@ public class ViewerAI : MonoBehaviour
     }
     void SetCurrentLevel()
     {
-        currentLevel = GetTileZ(transform.position).z;
-        transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
+        currentLevel = GetTileZ(transform.position).z + 1;
+        if(transform.position.z!=currentLevel)
+            transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel);
     }
 
     public Vector3Int GetTileZ(Vector3 position)
@@ -82,7 +89,7 @@ public class ViewerAI : MonoBehaviour
             if (tile != null)
             {
                 if (i < 0)
-                    cellIndex.z = 1;
+                    cellIndex.z = 0;
                 return cellIndex;
             }
 
@@ -115,16 +122,18 @@ public class ViewerAI : MonoBehaviour
 
     public Vector2 SetRandomPosition()
     {
-        Vector2 rand = (UnityEngine.Random.insideUnitCircle * 8);
+        Vector2 rand = (UnityEngine.Random.insideUnitCircle * 5);
         Vector2 newPosition = (Vector2)basePosition.position + rand;
         return newPosition;
     }
 
     public void SetRandomDestination()
     {
+        
 
         Vector2 rand = (UnityEngine.Random.insideUnitCircle * (roamingDistance - 1)) + Vector2.one;
         var d = groundMap.WorldToCell(new Vector2(transform.position.x + rand.x, transform.position.y + rand.y));
+        d.Clamp(min, max);
         Vector2 newDestination = basePosition.position;
         for (int z = groundMap.size.z; z >= 0; z--)
         {

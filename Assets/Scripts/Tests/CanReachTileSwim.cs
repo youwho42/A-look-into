@@ -5,10 +5,10 @@ using UnityEngine;
 public class CanReachTileSwim : MonoBehaviour
 {
     GravityItem gravityItem;
-    [HideInInspector]
+   
     public Transform centerOfActiveArea;
 
-    public FlockingItem flockingItem;
+    
 
     public float swimSpeed;
     public float swimRoamingDistance;
@@ -51,13 +51,7 @@ public class CanReachTileSwim : MonoBehaviour
             
             gravityItem.isWeightless = true;
             SetDirectionZ();
-            if (flockingItem != null)
-            {
-                currentDirection = flockingItem.ApplyFlockingRules(currentDirection);
-                SetDirection();
-            }
-            else
-                SetDirection();
+            SetDirection();
             gravityItem.MoveZ(currentDirectionZ, swimSpeed);
             gravityItem.Move(currentDirection, swimSpeed);
 
@@ -83,19 +77,24 @@ public class CanReachTileSwim : MonoBehaviour
 
     
 
-    public bool CanReachNextTile(Vector2 movement)
+    public bool CanReachNextTile(Vector2 direction)
     {
         if (gravityItem.surroundingTiles.grid == null)
             return false;
 
-        Vector3 checkPosition = (transform.position + (Vector3)movement * gravityItem.checkTileDistance) - Vector3.forward;
+        Vector3 checkPosition = (transform.position + (Vector3)direction * gravityItem.checkTileDistance) - Vector3.forward;
         Vector3 doubleCheckPosition = transform.position - Vector3.forward;
-        if (gravityItem.CheckForObstacles(checkPosition))
+        if (gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, direction))
             return false;
 
         nextTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(checkPosition);
 
         Vector3Int nextTileKey = nextTilePosition - gravityItem.surroundingTiles.currentTilePosition;
+
+        if (nextTileKey == Vector3Int.zero)
+            return true;
+
+
 
         gravityItem.surroundingTiles.GetSurroundingTiles();
 
@@ -187,7 +186,7 @@ public class CanReachTileSwim : MonoBehaviour
             {
                 if (doubleCheckTilePosition == nextTilePosition)
                 {
-                    gravityItem.Nudge(movement);
+                    gravityItem.Nudge(direction);
                 }
 
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?

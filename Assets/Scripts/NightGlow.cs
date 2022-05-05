@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NightGlow : MonoBehaviour
 {
-    DayNightCycle dayNightCycle;
+    RealTimeDayNightCycle dayNightCycle;
 
     public int glowAppearTime;
     public int glowDisappearTime;
@@ -17,7 +17,7 @@ public class NightGlow : MonoBehaviour
 
     private void Start()
     {
-        dayNightCycle = DayNightCycle.instance;
+        dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeHourEvent.AddListener(StartGlow);
         material = spriteMaterial.material;
         initialIntensity = material.GetColor("_EmissionColor");

@@ -7,11 +7,9 @@ public class FishAI : MonoBehaviour, IAnimal
     GravityItem gravityItem;
     public float roamingArea;
     float timeToStayAtDestination;
-    CanReachTileSwim swim
-        ;
+    CanReachTileSwim swim;
 
-    public Transform home;
-
+    
 
     [SerializeField]
     public SwimmingState currentState;
@@ -26,11 +24,8 @@ public class FishAI : MonoBehaviour, IAnimal
     private void Start()
     {
         gravityItem = GetComponent<GravityItem>();
-
-        
         swim = GetComponent<CanReachTileSwim>();
         timeToStayAtDestination = SetTimeToStayAtDestination();
-        SetHome(home);
         swim.SetRandomDestination();
         swim.SetRandomDestinationZ();
     }
@@ -39,10 +34,7 @@ public class FishAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
-        if (swim.centerOfActiveArea == null)
-            SetHome(transform);
-
-        //captureCollider.offset = gravityItem.itemObject.localPosition;
+        
 
         switch (currentState)
         {
@@ -95,33 +87,7 @@ public class FishAI : MonoBehaviour, IAnimal
 
 
 
-    public void SetHome(Transform location)
-    {
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, 5);
-        Collider2D nearest = null;
-        float distance = 0;
-
-        for (int i = 0; i < hit.Length; i++)
-        {
-            if (hit[i].CompareTag("OpenFishSpot"))
-            {
-                float tempDistance = Vector3.Distance(transform.position, hit[i].transform.position);
-                if (nearest == null || tempDistance < distance)
-                {
-                    nearest = hit[i];
-                    distance = tempDistance;
-                }
-            }
-
-        }
-        if (nearest != null)
-        {
-            home = nearest.transform;
-
-        }
-        swim.centerOfActiveArea = home;
-
-    }
+    
 
 
 

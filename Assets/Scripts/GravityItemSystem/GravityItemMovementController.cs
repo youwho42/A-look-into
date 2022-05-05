@@ -89,14 +89,14 @@ public class GravityItemMovementController : GravityItem
     }
 
 
-    bool CanReachNextTile(Vector2 movement)
+    bool CanReachNextTile(Vector2 direction)
     {
         if (surroundingTiles.grid == null)
             return false;
 
-        Vector3 checkPosition = (transform.position + (Vector3)movement * checkTileDistance) - Vector3.forward;
+        Vector3 checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
         Vector3 doubleCheckPosition = transform.position - Vector3.forward;
-        if (CheckForObstacles(checkPosition))
+        if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
             return false;
 
         nextTilePosition = surroundingTiles.grid.WorldToCell(checkPosition);
@@ -194,7 +194,7 @@ public class GravityItemMovementController : GravityItem
             {
                 if(doubleCheckTilePosition == nextTilePosition)
                 {
-                    Nudge(movement);
+                    Nudge(direction);
                 }
 
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
