@@ -27,7 +27,6 @@ public class CanReachTileFlight : MonoBehaviour
     bool onSlope;
     public bool isLanding;
     public Tilemap waterMap;
-    
     Vector3Int nextTilePosition;
     public SpriteRenderer characterRenderer;
     
@@ -77,6 +76,7 @@ public class CanReachTileFlight : MonoBehaviour
 
     public void CheckOverWater()
     {
+        
         SetWaterMap();
         Vector3 displace = mainDestinationZ;
         var d = gravityItem.surroundingTiles.currentTilePosition;
@@ -85,8 +85,7 @@ public class CanReachTileFlight : MonoBehaviour
         var tile = waterMap.GetTile(d);
         if (tile != null)
         {
-            displace = new Vector3(0, mainDestinationZ.y + spriteDisplacementY * 3, mainDestinationZ.z + 3);
-            
+            displace = new Vector3(0, mainDestinationZ.y + (spriteDisplacementY * 4), mainDestinationZ.z + 4);
         }
 
         currentDestinationZ = displace;

@@ -7,118 +7,157 @@ public class FireflyAI : MonoBehaviour, IAnimal
 {
     GravityItem gravityItem;
     public float roamingArea;
-    
-    public SpriteRenderer lightMaterial;
-
-
-
+    float timeToStayAtDestination;
+    bool justTookOff;
+    public float detectionTimeOutAmount = 3;
+    float detectionTimeOutTimer;
+    DrawZasYDisplacement currentFlower;
     CanReachTileFlight flight;
     public Animator animator;
     bool isSleeping;
     
-    public DrawZasYDisplacement home;
 
     
-    bool isRaining;
 
-    static int landed_hash = Animator.StringToHash("IsLanded");
+    
 
 
     [SerializeField]
     public FlyingState currentState;
 
+
     public enum FlyingState
     {
         isFlying,
         isLanding,
-        isAtDestination
+        isAtDestination,
+
     }
 
     private void Start()
     {
+        gravityItem = GetComponent<GravityItem>();
 
-        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
-
-
+        
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CanReachTileFlight>();
-        flight.centerOfActiveArea = home;
+        
+        flight.SetRandomDestination();
+        currentState = FlyingState.isFlying;
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        Invoke("SetSleepState", 1f);
+    }
+
+    void SetSleepState()
+    {
         SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
-       
     }
     private void OnDestroy()
     {
         GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
-
     }
+
     private void Update()
     {
-        
 
         switch (currentState)
         {
             case FlyingState.isFlying:
 
                 
+                if (isSleeping)
+                {
+                    flight.SetDestination(flight.centerOfActiveArea, true);
+                    justTookOff = false;
+                    detectionTimeOutAmount = SetRandomRange(5, 30);
+                    currentFlower = flight.centerOfActiveArea;
+                    flight.isLanding = true;
+                    currentState = FlyingState.isLanding;
+                }
+
 
                 flight.Fly();
-                
-                
-                
-                
-                
+
+
                 break;
 
 
             case FlyingState.isLanding:
 
-                
-
                 flight.Fly();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f)
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
                 {
-                    
+                    flight.isLanding = false;
+                    timeToStayAtDestination = SetTimeToStayAtDestination();
                     
                     currentState = FlyingState.isAtDestination;
                 }
-                
+
                 break;
 
 
             case FlyingState.isAtDestination:
 
-                lightMaterial.enabled = false;
                 
+
+                if (!isSleeping)
+                {
+                    timeToStayAtDestination -= Time.deltaTime;
+                    if (timeToStayAtDestination <= 0)
+                    {
+                        flight.SetRandomDestination();
+                        
+                        justTookOff = true;
+                        currentState = FlyingState.isFlying;
+                    }
+
+                }
+                else
+                {
+                    if (Vector2.Distance(transform.position, flight.centerOfActiveArea.transform.position) >= 0.01f)
+                    {
+                        flight.SetRandomDestination();
+                        
+                        justTookOff = true;
+                        currentState = FlyingState.isFlying;
+                    }
+                }
+
                 break;
+
+
         }
     }
+
+
+
+    float SetTimeToStayAtDestination()
+    {
+        return Random.Range(0.5f, 10.0f);
+    }
+
+    public void SetSleepOrWake(int time)
+    {
+        if (time >= 5 && time < 20)
+        {
+            isSleeping = true;
+        }
+        else if (time >= 20 || time < 5)
+        {
+            isSleeping = false;
+        }
+    }
+
+    float SetRandomRange(float min, float max)
+    {
+        return Random.Range(min, max);
+    }
+
 
     
 
 
 
-    public void SetSleepOrWake(int time)
-    {
-       
-        if (time >= 4 && time < 20)
-        {
-            
-            flight.SetDestination(home, true);
-            isSleeping = true;
-            if(currentState != FlyingState.isAtDestination)
-                currentState = FlyingState.isLanding;
-
-        }
-        if (time == 20)
-        {
-            
-            isSleeping = false;
-            flight.SetRandomDestination();
-            lightMaterial.enabled = true;
-            currentState = FlyingState.isFlying;
-            
-        }
-    }
 
 }

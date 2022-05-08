@@ -25,11 +25,11 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-       /* if (Application.isPlaying)
+        if (Application.isPlaying)
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Terrain", LoadSceneMode.Additive);
-        }*/
-            
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TerrainDecoraion-StartArea", LoadSceneMode.Additive);
+        }
+
 
     }
     

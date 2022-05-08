@@ -6,13 +6,13 @@ using TMPro;
 public class DiplayTimeUI : MonoBehaviour
 {
 
-    DayNightCycle dayNightCycle;
+    RealTimeDayNightCycle dayNightCycle;
     public TextMeshProUGUI text;
 
     private void Start()
     {
 
-        dayNightCycle = DayNightCycle.instance;
+        dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetTime);
     }
 

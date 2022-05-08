@@ -17,7 +17,7 @@ public class SleepDisplayUI : MonoBehaviour
             Destroy(this);
     }
 
-    DayNightCycle dayNightCycle;
+    RealTimeDayNightCycle dayNightCycle;
 
     public GameObject sleepDisplay;
     PlayerInformation playerInformation;
@@ -30,8 +30,8 @@ public class SleepDisplayUI : MonoBehaviour
     public void Start()
     {
         playerInformation = PlayerInformation.instance;
-        dayNightCycle = DayNightCycle.instance;
-        originalCycleSpeed = dayNightCycle.cycleSpeed;
+        dayNightCycle = RealTimeDayNightCycle.instance;
+        //originalCycleSpeed = dayNightCycle.cycleSpeed;
     }
 
     private void Update()
@@ -67,7 +67,7 @@ public class SleepDisplayUI : MonoBehaviour
     {
         if(sleepCoroutine != null)
             StopCoroutine(sleepCoroutine);
-        dayNightCycle.cycleSpeed = originalCycleSpeed;
+        //dayNightCycle.cycleSpeed = originalCycleSpeed;
         playerInformation.TogglePlayerInput(true);
         sleepDisplay.SetActive(false);
     }
@@ -80,10 +80,10 @@ public class SleepDisplayUI : MonoBehaviour
         {
             //float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
             PlayerInformation.instance.playerStats.AddPlayerEnergy(0.1f);
-            dayNightCycle.cycleSpeed = 200;
+            //dayNightCycle.cycleSpeed = 200;
             yield return null;
         }
-        dayNightCycle.cycleSpeed = originalCycleSpeed;
+        //dayNightCycle.cycleSpeed = originalCycleSpeed;
         sleepDisplay.SetActive(false);
         playerInformation.TogglePlayerInput(true);
         yield return null;

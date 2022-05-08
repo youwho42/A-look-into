@@ -43,7 +43,7 @@ public class GravityItemMovementFree : GravityItem
         base.FixedUpdate();
         if (!CanReachNextTile(mainDirection))
         {
-            CheckBounce();
+            //CheckBounce();
             
         }
 
@@ -54,7 +54,7 @@ public class GravityItemMovementFree : GravityItem
 
     }
 
-    void CheckBounce()
+    /*void CheckBounce()
     {
         Vector3Int diff = nextTilePosition - surroundingTiles.currentTilePosition;
         if (surroundingTiles.allCurrentDirections.TryGetValue(diff, out SurroundingTilesInfo.DirectionInfo tile))
@@ -69,7 +69,7 @@ public class GravityItemMovementFree : GravityItem
 
             }
         }
-    }
+    }*/
 
     bool CanReachNextTile(Vector2 direction)
     {

@@ -11,7 +11,7 @@ public class ChickenAI : MonoBehaviour, IAnimal
     CanReachTileWalk walk;
     public Animator animator;
     
-    public Transform home;
+    public DrawZasYDisplacement home;
     
     static int walking_hash = Animator.StringToHash("IsWalking");
     static int peck_hash = Animator.StringToHash("Peck");
@@ -21,8 +21,13 @@ public class ChickenAI : MonoBehaviour, IAnimal
     public float detectionTimeOutAmount = 3;
 
     bool isPecking;
-    
+    bool isSleeping;
+
     float peckTimer;
+
+    public GameObject nightDisappearObject;
+
+    AnimalSounds sounds;
 
     [SerializeField]
     public CurrentState currentState;
@@ -31,19 +36,32 @@ public class ChickenAI : MonoBehaviour, IAnimal
     {
         isWalking,
         isPecking,
-        isAtDestination
+        isAtDestination,
+        isGoingHome,
+        Deviate
     }
 
     private void Start()
     {
-
+        sounds = GetComponent<AnimalSounds>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         walk = GetComponent<CanReachTileWalk>();
 
+        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        Invoke("SetSleepState", 1f);
     }
 
-   
+    void SetSleepState()
+    {
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+    }
+    private void OnDestroy()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
+
+    }
+
 
     private void Update()
     {
@@ -51,15 +69,28 @@ public class ChickenAI : MonoBehaviour, IAnimal
         switch (currentState)
         {
             case CurrentState.isWalking:
-                walk.Walk();
-                isPecking = false;
-                animator.SetBool(walking_hash, true);
-                if (Vector2.Distance(transform.position, walk.currentDestination) <= 0.01f)
+
+                if (sounds.mute)
+                    sounds.mute = false;
+
+                if (!isSleeping)
                 {
-                    animator.SetBool(walking_hash, false);
-                    timeToStayAtDestination = SetRandomRange(2.0f, 12.0f);
-                    peckTimer = SetRandomRange(0.2f, 6.0f);
-                    currentState = CurrentState.isAtDestination;
+                    walk.Walk();
+                    isPecking = false;
+                    animator.SetBool(walking_hash, true);
+                    if (Vector2.Distance(transform.position, walk.currentDestination) <= 0.01f)
+                    {
+                        animator.SetBool(walking_hash, false);
+                        timeToStayAtDestination = SetRandomRange(2.0f, 12.0f);
+                        peckTimer = SetRandomRange(0.2f, 6.0f);
+                        currentState = CurrentState.isAtDestination;
+                    }
+                }
+                else
+                {
+                    walk.SetDestination(home);
+                    animator.SetBool(walking_hash, true);
+                    currentState = CurrentState.isGoingHome;
                 }
                 
                 break;
@@ -80,24 +111,71 @@ public class ChickenAI : MonoBehaviour, IAnimal
 
 
             case CurrentState.isAtDestination:
-                peckTimer -= Time.deltaTime;
-                
-                if (peckTimer <= 0)
+                if (!isSleeping)
                 {
-                    peckTimer = SetRandomRange(0.2f, 5.0f);
-                    currentState = CurrentState.isPecking;
+                    if (sounds.mute)
+                        sounds.mute = false;
+
+                    if (!nightDisappearObject.activeSelf)
+                        nightDisappearObject.SetActive(true);
+                    peckTimer -= Time.deltaTime;
+                    if (peckTimer <= 0)
+                    {
+                        peckTimer = SetRandomRange(0.2f, 5.0f);
+                        currentState = CurrentState.isPecking;
+                    }
+
+
+                    timeToStayAtDestination -= Time.deltaTime;
+                    if (timeToStayAtDestination <= 0 && !AnimatorIsPlaying("NewChickenPeck"))
+                    {
+                        walk.SetRandomDestination();
+                        animator.SetBool(walking_hash, true);
+                        currentState = CurrentState.isWalking;
+                    }
+                }
+                else
+                {
+                    if (Vector2.Distance(transform.position, home.transform.position) >= 0.01f)
+                    {
+                        walk.SetDestination(home);
+                        animator.SetBool(walking_hash, true);
+                        currentState = CurrentState.isGoingHome;
+                    }
+                    else
+                    {
+                        nightDisappearObject.SetActive(false);
+                    }
                 }
                 
+                break;
 
-                timeToStayAtDestination -= Time.deltaTime;
-                if (timeToStayAtDestination <= 0 && !AnimatorIsPlaying("NewChickenPeck"))
+            case CurrentState.isGoingHome:
+                walk.Walk();
+                if (Vector2.Distance(transform.position, home.transform.position) < 0.011f)
                 {
-                    walk.SetRandomDestination();
+                    if (!sounds.mute)
+                        sounds.mute = true;
+                    timeToStayAtDestination = SetRandomRange(2.0f, 12.0f);
+                    animator.SetBool(walking_hash, false);
+                    currentState = CurrentState.isAtDestination;
+                }
+                if(walk.currentDestination != (Vector2)home.transform.position)
+                {
+                    
+                    currentState = CurrentState.Deviate;
+                }
+                break;
+
+            case CurrentState.Deviate:
+                walk.Walk();
+                if (Vector2.Distance(transform.position, walk.currentDestination) <= 0.03f)
+                {
+                    
+                    walk.SetDestination(home);
                     animator.SetBool(walking_hash, true);
-                    currentState = CurrentState.isWalking;
+                    currentState = CurrentState.isGoingHome;
                 }
-                
-
                 break;
         }
     }
@@ -119,7 +197,17 @@ public class ChickenAI : MonoBehaviour, IAnimal
         return false;
     }
 
-    
+    public void SetSleepOrWake(int time)
+    {
+        if (time >= 19 || time < 6)
+        {
+            isSleeping = true;
+        }
+        else if (time >= 6 && time < 19)
+        {
+            isSleeping = false;
+        }
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)

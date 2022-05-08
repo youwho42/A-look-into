@@ -20,14 +20,14 @@ public class BirdAI : MonoBehaviour, IAnimal
     bool isSleeping;
     
     AnimalSounds sounds;
-    bool isRaining;
     public Vector2Int wakeSleepTimes;
     public bool isNocturnal;
-   
+
 
     static int landed_hash = Animator.StringToHash("IsLanded");
     static int walking_hash = Animator.StringToHash("IsWalking");
     static int gliding_hash = Animator.StringToHash("IsGliding");
+    static int sleeping_hash = Animator.StringToHash("IsSleeping");
     static int idle_hash = Animator.StringToHash("Idle");
 
     [SerializeField]
@@ -79,8 +79,8 @@ public class BirdAI : MonoBehaviour, IAnimal
 
                 
                 animator.SetBool(walking_hash, false);
+                flight.isLanding = false;
 
-                
                 animator.SetBool(landed_hash, false);
 
                 if (sounds.mute)
@@ -139,10 +139,11 @@ public class BirdAI : MonoBehaviour, IAnimal
                
                 if (!isSleeping)
                 {
+                    animator.SetBool(sleeping_hash, false);
                     glideTimer -= Time.deltaTime;
                     if (glideTimer <= 0)
                     {
-                        glideTimer = SetRandomRange(0.2f, 5.0f);
+                        glideTimer = SetRandomRange(1.5f, 15.0f);
                         animator.SetTrigger(idle_hash);
                     }
 
@@ -183,11 +184,15 @@ public class BirdAI : MonoBehaviour, IAnimal
                         animator.SetBool(landed_hash, false);
                         justTookOff = true;
                         currentState = FlyingState.isFlying;
+                        break;
                     }
+                    animator.SetBool(sleeping_hash, true);
                     if (!sounds.mute)
                         sounds.mute = true;
                 }
+
                 
+
                 break;
 
 
@@ -199,19 +204,12 @@ public class BirdAI : MonoBehaviour, IAnimal
 
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
                 {
+
                     
-                    /*if (!CheckCurrentSpot())
-                    {
-                        Debug.Log("no good landing spot");
-                        flight.SetRandomDestination();
-                        animator.SetBool(landed_hash, false);
-                        justTookOff = true;
-                        currentState = FlyingState.isFlying;
-                        break;
-                    }*/
                     timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
                     flight.isLanding = false;
                     animator.SetBool(landed_hash, true);
+                    
                     currentState = FlyingState.isAtDestination;
                     
                 }
@@ -265,25 +263,7 @@ public class BirdAI : MonoBehaviour, IAnimal
         
     }
 
-    bool CheckCurrentSpot()
-    {
-        DrawZasYDisplacement bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        Vector2 currentPosition = transform.position;
-        foreach (var item in interactAreas.allAreas)
-        {
-            if (item.isInUse)
-                continue;
-            Vector2 directionToTarget = (Vector2)item.transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqrToTarget;
-                bestTarget = item;
-            }
-        }
-        return bestTarget == currentLandingSpot;
-    }
+
 
     void CheckForLandingArea()
     {
@@ -291,22 +271,24 @@ public class BirdAI : MonoBehaviour, IAnimal
             return;
         
         DrawZasYDisplacement bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
+        float closestDistance = Mathf.Infinity;
         Vector2 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
-            if (item.isInUse)
+            if (item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
-            Vector2 directionToTarget = (Vector2)item.transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            var dist = Vector2.Distance(currentPosition, item.transform.position);
+           
+            if (dist < closestDistance)
             {
-                closestDistanceSqr = dSqrToTarget;
+                closestDistance = dist;
                 bestTarget = item;
             }
         }
 
-        
+        if (bestTarget == null)
+            return;
+
         flight.SetDestination(bestTarget, true);
 
         justTookOff = false;

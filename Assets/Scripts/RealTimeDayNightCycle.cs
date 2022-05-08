@@ -129,6 +129,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
             {
                 hourTicked = true;
                 hours = now.Hour;
+                
                 GameEventManager.onTimeHourEvent.Invoke(now.Hour);
                 
             }

@@ -221,7 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roamingArea: 0.8
   detectionTimeOutAmount: 3
-  captureCollider: {fileID: 0}
   animator: {fileID: 4720702768505272702}
   interactAreas: {fileID: 0}
   currentState: 2
@@ -301,10 +300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfActiveArea: {fileID: 0}
-  flockingItem: {fileID: 0}
   flightSpeed: 0.1
   flyRoamingDistance: 1.5
-  minMaxFlyZ: {x: 0.2, y: 2}
+  minMaxFlyZ: {x: 1.1, y: 2}
   currentDestination: {x: 0, y: 0}
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}

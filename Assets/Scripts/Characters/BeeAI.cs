@@ -70,7 +70,7 @@ public class BeeAI : MonoBehaviour, IAnimal
                 {
                     flight.SetDestination(flight.centerOfActiveArea, true);
                     justTookOff = false;
-                    detectionTimeOutAmount = SetRandomRange(5, 30);
+                    detectionTimeOutAmount = SetRandomRange(2, 15);
                     currentFlower = flight.centerOfActiveArea;
                     flight.isLanding = true;
                     currentState = FlyingState.isLanding;
@@ -186,7 +186,7 @@ public class BeeAI : MonoBehaviour, IAnimal
         Vector3 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
-            if (item.isInUse)
+            if (item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
             Vector3 directionToTarget = item.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
@@ -197,7 +197,8 @@ public class BeeAI : MonoBehaviour, IAnimal
             }
         }
 
-
+        if (bestTarget == null)
+            return;
         
         flight.SetDestination(bestTarget, true);
         justTookOff = false;

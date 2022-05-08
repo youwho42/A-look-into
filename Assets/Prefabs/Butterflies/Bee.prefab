@@ -206,7 +206,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.01
+  m_Volume: 0.015
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -382,10 +382,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfActiveArea: {fileID: 0}
-  flockingItem: {fileID: 0}
   flightSpeed: 1
   flyRoamingDistance: 3.5
-  minMaxFlyZ: {x: 0.2, y: 2}
+  minMaxFlyZ: {x: 1.1, y: 2}
   currentDestination: {x: 0, y: 0}
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}

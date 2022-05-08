@@ -37,6 +37,8 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     {
         gravityItem = GetComponent<GravityItem>();
         
+
+        
         
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
@@ -45,9 +47,14 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         flight.SetRandomDestination();
         currentState = FlyingState.isFlying;
         GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        
+        Invoke("InitializeTime", 2f);
+    }
+    void InitializeTime()
+    {
         SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
     }
-    
+
     private void OnDestroy()
     {
         GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
@@ -160,7 +167,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         Vector3 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
-            if (item.isInUse)
+            if (item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
             Vector3 directionToTarget = item.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
@@ -171,7 +178,9 @@ public class ButterflyAI : MonoBehaviour, IAnimal
             }
         }
 
-       
+        if (bestTarget == null)
+            return;
+
         flight.centerOfActiveArea = bestTarget;
         flight.SetDestination(bestTarget, true);
         justTookOff = false;

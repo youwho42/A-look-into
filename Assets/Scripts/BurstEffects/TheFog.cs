@@ -40,20 +40,20 @@ public class TheFog : MonoBehaviour
     public Vector2 generalDirection;
     
 
-    private MovementUpdateJob movementUpdateJob;
+    //private MovementUpdateJob movementUpdateJob;
     private DisplacementUpdateJob displacementUpdateJob;
 
-    private JobHandle movementUpdateJobHandle;
+    //private JobHandle movementUpdateJobHandle;
     private JobHandle displacementUpdateJobHandle;
 
     private void Start()
     {
         //the object that we move lives here
-        fogMovements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
+        //fogMovements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
         fogDisplacements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
 
         //the object that we move lives here
-        movementAccessArray = new TransformAccessArray(amountOfFog); 
+        //movementAccessArray = new TransformAccessArray(amountOfFog); 
         displacementAccessArray = new TransformAccessArray(amountOfFog);
 
 
@@ -75,14 +75,14 @@ public class TheFog : MonoBehaviour
             tc.localScale = new Vector3(size, size, 1);
             float z = Random.Range(0, maxHeightZ / 2);
             fogDisplacements[i] = new Vector3(transform.localPosition.x, 0.27808595f * z, z);
-            movementAccessArray.Add(t);
+            //movementAccessArray.Add(t);
             displacementAccessArray.Add(t.GetChild(0));
         }
     }
 
     private void Update()
     {
-        movementUpdateJob = new MovementUpdateJob()
+        /*movementUpdateJob = new MovementUpdateJob()
         {
             objectMovements = fogMovements,
             jobDeltaTime = Time.deltaTime,
@@ -93,7 +93,7 @@ public class TheFog : MonoBehaviour
             
             seed = System.DateTimeOffset.Now.Millisecond
         };
-
+*/
         
         displacementUpdateJob = new DisplacementUpdateJob()
         {
@@ -102,29 +102,29 @@ public class TheFog : MonoBehaviour
             time = Time.time,
 
             frequency = sinFrequency,
-            speed = speeds.y,
+            speed = speeds.y + Random.Range(-0.01f,0.01f),
             maxHeight = maxHeightZ,
             sizeMinMax = minMaxSize,
             noise = pseudoNoise,
             seed = System.DateTimeOffset.Now.Millisecond
         };
 
-        movementUpdateJobHandle = movementUpdateJob.Schedule(movementAccessArray);
+        //movementUpdateJobHandle = movementUpdateJob.Schedule(movementAccessArray);
         displacementUpdateJobHandle = displacementUpdateJob.Schedule(displacementAccessArray);
         
     }
 
     private void LateUpdate()
     {
-        movementUpdateJobHandle.Complete();
+        //movementUpdateJobHandle.Complete();
         displacementUpdateJobHandle.Complete();
     }
 
     private void OnDestroy()
     {
-        movementAccessArray.Dispose();
+        //movementAccessArray.Dispose();
         displacementAccessArray.Dispose();
-        fogMovements.Dispose();
+        //fogMovements.Dispose();
         fogDisplacements.Dispose();
     }
 
@@ -133,7 +133,7 @@ public class TheFog : MonoBehaviour
 
 
 
-    [BurstCompile]
+    /*[BurstCompile]
     struct MovementUpdateJob : IJobParallelForTransform
     {
         public NativeArray<Vector3> objectMovements;
@@ -157,7 +157,7 @@ public class TheFog : MonoBehaviour
             
         }
 
-    }
+    }*/
 
     [BurstCompile]
     struct DisplacementUpdateJob : IJobParallelForTransform
@@ -184,9 +184,9 @@ public class TheFog : MonoBehaviour
             positionZ = currentVelocity.z;
 
             random randomGen = new random((uint)(i * time + 1 + seed));
-
-            var sin = Mathf.Sin(time * frequency + randomGen.NextFloat(-noise, noise));
-            positionZ += gravity * sin * speed * jobDeltaTime * randomGen.NextFloat(-noise * 0.1f, noise * 0.1f);
+            
+            var sin = Mathf.Sin(time * frequency * randomGen.NextFloat(-noise, noise));
+            positionZ += gravity * sin * speed * jobDeltaTime;
             displacedPosition = new Vector3(transform.localPosition.x, displacementY * positionZ, positionZ);
             transform.localPosition = displacedPosition;
 

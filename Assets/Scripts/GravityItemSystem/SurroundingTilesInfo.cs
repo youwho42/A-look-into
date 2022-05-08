@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
+public class DirectionInfo
+{
+    public bool isValid;
+    public int levelZ;
+    public string tileName = "";
+
+    public DirectionInfo(bool valid, int z, string tile)
+    {
+        isValid = valid;
+        levelZ = z;
+        tileName = tile;
+    }
+}
+
 public class SurroundingTilesInfo : MonoBehaviour
 {
     [HideInInspector]
@@ -11,19 +26,7 @@ public class SurroundingTilesInfo : MonoBehaviour
     public Tilemap groundMap;
     public Vector3Int currentTilePosition;
 
-    public class DirectionInfo
-    {
-        public bool isValid;
-        public int levelZ;
-        public string tileName = "";
-
-        public DirectionInfo(bool valid, int z, string tile)
-        {
-            isValid = valid;
-            levelZ = z;
-            tileName = tile;
-        }
-    }
+    
 
     
 

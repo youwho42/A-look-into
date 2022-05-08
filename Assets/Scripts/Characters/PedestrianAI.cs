@@ -13,11 +13,8 @@ public class PedestrianAI : MonoBehaviour, IAnimal
     CanReachTileWalk walk;
     public Animator animator;
     float idleTimer;
-    bool glide;
     bool justClimbed;
-    public Transform home;
-    DrawZasYDisplacement displacmentZ;
-
+    
     TreeRustling currentClimable;
 
     
@@ -46,17 +43,12 @@ public class PedestrianAI : MonoBehaviour, IAnimal
     private void Start()
     {
 
-        
-        
         gravityItem = GetComponent<GravityItem>();
         
         walk = GetComponent<CanReachTileWalk>();
-        SetHome(transform);
         idleTimer = SetRandomRange(3, 10);
         timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
         
-        displacmentZ = home.GetComponent<DrawZasYDisplacement>();
-
     }
 
     void Update()
@@ -258,7 +250,7 @@ public class PedestrianAI : MonoBehaviour, IAnimal
         Vector2 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
-            if (item.isInUse)
+            if (item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
             Vector2 directionToTarget = (Vector2)item.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
@@ -268,6 +260,9 @@ public class PedestrianAI : MonoBehaviour, IAnimal
                 bestTarget = item;
             }
         }
+
+        if (bestTarget == null)
+            return;
 
         walk.SetDestination(bestTarget);
 
@@ -280,15 +275,6 @@ public class PedestrianAI : MonoBehaviour, IAnimal
 
     }
 
-    private void OnDrawGizmosSelected()
-    { 
-        
     
-    }
-
-        public void SetHome(Transform transform)
-    {
-        
-    }
 
 }

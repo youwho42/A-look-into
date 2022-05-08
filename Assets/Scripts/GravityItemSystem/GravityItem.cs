@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DetectVisibility))]
-[RequireComponent(typeof(SurroundingTilesInfo))]
 
 public class GravityItem : MonoBehaviour
 {
@@ -60,7 +59,7 @@ public class GravityItem : MonoBehaviour
     public bool isWeightless;
 
 
-    public void Start()
+    public virtual void Start()
     {
    
         surroundingTiles = GetComponent<SurroundingTilesInfo>();

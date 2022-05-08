@@ -18,16 +18,5 @@ public class TreeRustling : MonoBehaviour, IWindEffect
         soundSet.Play();
     }
 
-    /*bool PlaySound()
-    {
-        if (!source.isPlaying)
-        {
-            int t = Random.Range(0, soundSet.clips.Length);
-            soundSet.SetSource(source, t);
-            soundSet.Play();
-            
-            return true;
-        }
-        return false;
-    }*/
+    
 }

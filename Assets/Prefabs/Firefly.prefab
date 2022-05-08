@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 99cb560a320aeaf4ea7653e6ab171ec0, type: 3}
-  m_Color: {r: 0.71851695, g: 0.9150943, b: 0.12517802, a: 0.54509807}
+  m_Color: {r: 0.71851695, g: 0.9150943, b: 0.12517802, a: 0.2}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 2829225786983457373}
   - component: {fileID: 6158486392671895598}
   - component: {fileID: 3650211970267406262}
+  - component: {fileID: 6176664188329943089}
   m_Layer: 14
   m_Name: Firefly
   m_TagString: Untagged
@@ -336,9 +337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamingArea: 2
-  lightMaterial: {fileID: 1106581084448674377}
+  detectionTimeOutAmount: 3
   animator: {fileID: 86832707635355978}
-  home: {fileID: 0}
   currentState: 2
 --- !u!114 &6899902777278734306
 MonoBehaviour:
@@ -402,7 +402,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  isWeightless: 0
+  isWeightless: 1
 --- !u!114 &3650211970267406262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,10 +416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfActiveArea: {fileID: 0}
-  flockingItem: {fileID: 0}
   flightSpeed: 0.2
   flyRoamingDistance: 1.5
-  minMaxFlyZ: {x: 0.2, y: 1}
+  minMaxFlyZ: {x: 1, y: 1.5}
   currentDestination: {x: 0, y: 0}
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
@@ -428,3 +427,17 @@ MonoBehaviour:
   isLanding: 0
   waterMap: {fileID: 0}
   characterRenderer: {fileID: 2296586684663807708}
+--- !u!114 &6176664188329943089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274208581712867227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36276ca5818534409d46be8d588c52f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireflyLight: {fileID: 1106581084448674377}
+  firefly: {fileID: 2296586684663807708}

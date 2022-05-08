@@ -72,6 +72,7 @@ public class AnimalSounds : MonoBehaviour
 
     public AnimationCurve curve;
     public Animator animator;
+    int caw_hash = Animator.StringToHash("Caw");
 
     private void Start()
     {
@@ -140,7 +141,7 @@ public class AnimalSounds : MonoBehaviour
             int t = Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
             soundSets[soundSet].Play();
-            animator.SetTrigger("Caw");
+            animator.SetTrigger(caw_hash);
             
             
             return true;

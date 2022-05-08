@@ -42,7 +42,7 @@ public class PlantGrowCycle : MonoBehaviour
     public DrawZasYDisplacement heightDisplacement;
 
 
-    DayNightCycle dayNightCycle;
+    RealTimeDayNightCycle dayNightCycle;
     public int currentCycle;
     public string homeOccupiedBy = "";
 
@@ -56,7 +56,7 @@ public class PlantGrowCycle : MonoBehaviour
 
     void Initialize()
     {
-        dayNightCycle = DayNightCycle.instance;
+        dayNightCycle = RealTimeDayNightCycle.instance;
         shadow = GetComponent<TreeShadows>();
     }
     private void Start()
@@ -64,7 +64,7 @@ public class PlantGrowCycle : MonoBehaviour
         if (TryGetComponent(out GatherableItem item))
             gatherableItem = item;
 
-        dayNightCycle = DayNightCycle.instance;
+        dayNightCycle = RealTimeDayNightCycle.instance;
 
         shadow = GetComponent<TreeShadows>();
         //SetCurrentCycle();
@@ -96,7 +96,7 @@ public class PlantGrowCycle : MonoBehaviour
             return;
 
         // get the amount of days that have passed since last update
-        int daysPassed = dayNightCycle.currentDayRaw - dayPlanted;
+        int daysPassed = 1 - dayPlanted;
 
         
         // more days have passed than the total plant cylces, set the plant to its final cycle and get out of here
@@ -231,7 +231,7 @@ public class PlantGrowCycle : MonoBehaviour
             {
                 if (item.TryGetComponent(out PlantGrowCycle plant))
                 {
-                    dayPlanted = dayNightCycle.currentDayRaw;
+                    dayPlanted = 0;
                     timeTickPlanted = dayNightCycle.currentTimeRaw;
                     return false;
                 }

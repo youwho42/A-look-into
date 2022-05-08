@@ -12,7 +12,9 @@ public enum SpotType
     Fish,
     Squirrel,
     Chicken,
-    Owl
+    Owl, 
+    Bat
+
 }
 
 public class DrawZasYDisplacement : MonoBehaviour

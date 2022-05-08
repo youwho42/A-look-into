@@ -61,10 +61,11 @@ public class CanReachTileWalk : MonoBehaviour
             
         }
 
+        
         if (canClimb && isClimbing)
         {
             SetDirectionZ();
-            //SetFacingDirectionZ(currentDirection, currentDirectionZ);
+            
             gravityItem.MoveZ(currentDirectionZ, walkSpeed*2);
         }
 
