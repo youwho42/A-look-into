@@ -33,6 +33,31 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 873992a537ccdd049925ea2792db5158, type: 2}
+    - target: {fileID: 5053319574706302183, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053319574706302183, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053319574706302183, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053319575899458625, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053319575899458626, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: roamingArea
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5053319575899458629, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
         type: 3}
       propertyPath: m_Name
@@ -45,13 +70,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5053319575899458684, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
         type: 3}
-      propertyPath: minMaxSwimZ.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5053319575899458684, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
-        type: 3}
-      propertyPath: minMaxSwimZ.y
-      value: 1.1
+      propertyPath: swimRoamingDistance
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5053319575899458687, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
         type: 3}
@@ -107,6 +127,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557966947250640110, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: boidManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557966947250640110, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: neighborDistanceClosest
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8557966947250640110, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce,
+        type: 3}
+      propertyPath: neighborDistanceFarthest
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a8b8151c0aa23046b4afe3fe1c6e4ce, type: 3}

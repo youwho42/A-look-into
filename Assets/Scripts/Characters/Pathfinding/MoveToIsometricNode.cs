@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class MoveToIsometricNode : MonoBehaviour
 {
-    
-    public CurrentGridLocation currentGridLocation;
 
+    CurrentGridLocation currentGridLocation;
     List<Vector3> path = new List<Vector3>();
     int currentPathIndex;
     Vector3 targetPos;
@@ -17,8 +16,9 @@ public class MoveToIsometricNode : MonoBehaviour
     public bool pathComplete;
     private IEnumerator Start()
     {
-
         currentGridLocation = GetComponent<CurrentGridLocation>();
+
+        
         yield return new WaitForSeconds(0.3f);
         pathComplete = true;
         currentPathIndex = 0;

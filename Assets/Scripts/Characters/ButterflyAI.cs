@@ -71,7 +71,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
             case FlyingState.isFlying:
 
                 flight.Fly();
-                
+                flight.isLanding = false;
 
                 if (justTookOff)
                 {
@@ -92,12 +92,23 @@ public class ButterflyAI : MonoBehaviour, IAnimal
                 if (!justTookOff)
                     CheckForLandingArea();
 
+                if (flight.isOverWater)
+                    Deviate();
                 break;
 
 
             case FlyingState.isLanding:
 
                 flight.Fly();
+
+                if ((Vector2)currentFlower.transform.position != flight.currentDestination || flight.isOverWater || !flight.canReachNextTile)
+                {
+                    Deviate();
+                    break;
+                }
+
+                
+
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
                 {
                     flight.isLanding = false;
@@ -116,10 +127,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
                     timeToStayAtDestination -= Time.deltaTime;
                     if (timeToStayAtDestination <= 0)
                     {
-                        flight.SetRandomDestination();
-                        animator.SetBool(landed_hash, false);
-                        justTookOff = true;
-                        currentState = FlyingState.isFlying;
+                        SetToFlyingState();
                     }
                        
                 }
@@ -132,7 +140,25 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         }
     }
 
-  
+    void Deviate()
+    {
+        isSleeping = false;
+        SetToFlyingState();
+        Invoke("ResetSleep", 2f);
+    }
+    private void ResetSleep()
+    {
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+    }
+
+    void SetToFlyingState()
+    {
+        flight.SetRandomDestination();
+        animator.SetBool(landed_hash, false);
+        justTookOff = true;
+        detectionTimeOutAmount = SetRandomRange(5, 30);
+        currentState = FlyingState.isFlying;
+    }
 
     float SetTimeToStayAtDestination()
     {
@@ -163,17 +189,18 @@ public class ButterflyAI : MonoBehaviour, IAnimal
             return;
 
         DrawZasYDisplacement bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
+        float closestDistance = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
             if (item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
-            Vector3 directionToTarget = item.transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            var dist = Vector2.Distance(currentPosition, item.transform.position);
+            if (dist < closestDistance)
             {
-                closestDistanceSqr = dSqrToTarget;
+                if (dist < 0.3f)
+                    continue;
+                closestDistance = dist;
                 bestTarget = item;
             }
         }

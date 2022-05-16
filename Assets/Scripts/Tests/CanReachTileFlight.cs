@@ -31,12 +31,24 @@ public class CanReachTileFlight : MonoBehaviour
     public SpriteRenderer characterRenderer;
     
     const float spriteDisplacementY = 0.2790625f;
-    
+
+    public bool isOverWater;
+    public bool useBoids;
+    public Boid boid;
+
+    public bool canReachNextTile;
 
     private void Start()
     {
+        
         gravityItem = GetComponent<GravityItem>();
         SetWaterMap();
+        SetRandomDirection();
+        if (boid != null)
+            boid.currentDirection = currentDirection;
+
+        var s = flightSpeed / 10;
+        flightSpeed += Random.Range(-s, s);
     }
 
 
@@ -47,25 +59,56 @@ public class CanReachTileFlight : MonoBehaviour
 
         if (CanReachNextTile(currentDirection))
         {
+            canReachNextTile = true;
             gravityItem.isWeightless = true;
             SetDirectionZ();
-            SetDirection();
+            
+            if (!useBoids)
+                SetDirection();
+            else
+                SetFacingDirection(currentDirection);
+
             gravityItem.MoveZ(currentDirectionZ, isLanding ? flightSpeed * 3 : flightSpeed);
             gravityItem.Move(currentDirection, flightSpeed);
             
+            if(useBoids)
+                currentDirection = boid.SteerBoid(currentDirection, flyRoamingDistance);
         }
         else
         {
-            SetRandomDestination();
+            canReachNextTile = false;
+            if (useBoids)
+            {
+                var desiredDirection = Vector2.Perpendicular(currentDirection) * Mathf.Sign(currentDirection.y);
+                desiredDirection -= currentDirection;
+                currentDirection += desiredDirection;
+                currentDirection = currentDirection.normalized;
+            }
+            else
+                SetRandomDestination();
+            if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.01f)
+            {
+                SetRandomDestinationZ();
+            }
+
+            gravityItem.MoveZ(currentDirectionZ, isLanding ? flightSpeed * 3 : flightSpeed);
         }
 
         if (!isLanding)
         {
-            if (Vector2.Distance(transform.position, currentDestination) <= 0.001f)
+            if (!useBoids)
             {
-                SetRandomDestination();
+                if (Vector2.Distance(transform.position, currentDestination) <= 0.01f)
+                {
+                    SetRandomDestination();
+                } 
             }
-            if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.001f)
+            else
+            {
+                if (boid.currentDirection == Vector2.zero)
+                    SetRandomDirection();
+            }
+            if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.01f)
             {
                 SetRandomDestinationZ();
             }
@@ -80,12 +123,13 @@ public class CanReachTileFlight : MonoBehaviour
         SetWaterMap();
         Vector3 displace = mainDestinationZ;
         var d = gravityItem.surroundingTiles.currentTilePosition;
-        
+        isOverWater = false;
         d.z = 0;
         var tile = waterMap.GetTile(d);
         if (tile != null)
         {
             displace = new Vector3(0, mainDestinationZ.y + (spriteDisplacementY * 4), mainDestinationZ.z + 4);
+            isOverWater = true;
         }
 
         currentDestinationZ = displace;
@@ -118,7 +162,7 @@ public class CanReachTileFlight : MonoBehaviour
             // right now, where we are, what it be? is it be a slope?
             if (tile.Key == Vector3Int.zero)
             {
-
+                
                 gravityItem.slopeDirection = Vector2.zero;
                 onSlope = tile.Value.tileName.Contains("Slope");
                 if (onSlope)
@@ -147,7 +191,8 @@ public class CanReachTileFlight : MonoBehaviour
                 if (Mathf.Abs(gravityItem.itemObject.localPosition.z) >= level)
                 {
                     gravityItem.surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
-
+                    if (level < -4)
+                        return false;
                     if (tile.Value.tileName.Contains("Slope"))
                         onSlope = true;
 
@@ -162,6 +207,7 @@ public class CanReachTileFlight : MonoBehaviour
 
             if (tile.Key == nextTileKey && tile.Value.isValid)
             {
+                
 
                 // if the next tile is a slope, am i approaching it in the right direction?
                 if (tile.Value.tileName.Contains("Slope"))
@@ -226,7 +272,15 @@ public class CanReachTileFlight : MonoBehaviour
         return true;
     }
 
-    
+
+
+    void SetRandomDirection()
+    {
+        currentDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+        currentDirection = currentDirection.normalized;
+        SetFacingDirection(currentDirection);
+    }
+
 
     public void SetFacingDirection(Vector2 direction)
     {
@@ -293,7 +347,9 @@ public class CanReachTileFlight : MonoBehaviour
     public void SetDirection()
     {
         currentDirection = currentDestination - (Vector2)transform.position;
-        SetFacingDirection(currentDirection);
+        currentDirection = currentDirection.normalized;
+        if(Vector2.Distance(currentDestination, transform.position) >= 0.01f)
+            SetFacingDirection(currentDirection);
     }
 
 

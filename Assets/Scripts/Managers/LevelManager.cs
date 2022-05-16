@@ -25,14 +25,15 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Application.isPlaying)
+        if (Application.isPlaying && loadTerrains)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TerrainDecoraion-StartArea", LoadSceneMode.Additive);
         }
 
 
     }
-    
+
+    public bool loadTerrains;
 
     [SerializeField]
     private CinemachineVirtualCamera startCam;

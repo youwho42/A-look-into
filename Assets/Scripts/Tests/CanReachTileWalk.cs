@@ -77,6 +77,7 @@ public class CanReachTileWalk : MonoBehaviour
         if (gravityItem.surroundingTiles.grid == null)
             return false;
 
+        jumpAhead = false;
         Vector3 checkPosition = (transform.position + (Vector3)direction * gravityItem.checkTileDistance) - Vector3.forward;
         Vector3 doubleCheckPosition = transform.position - Vector3.forward;
         if (gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, direction))
@@ -93,7 +94,7 @@ public class CanReachTileWalk : MonoBehaviour
         gravityItem.surroundingTiles.GetSurroundingTiles();
 
         int level = 0;
-        jumpAhead = false;
+        
         foreach (var tile in gravityItem.surroundingTiles.allCurrentDirections)
         {
             // CURRENT TILE ----------------------------------------------------------------------------------------------------

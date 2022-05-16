@@ -74,9 +74,10 @@ public class FireflyAI : MonoBehaviour, IAnimal
                     currentFlower = flight.centerOfActiveArea;
                     flight.isLanding = true;
                     currentState = FlyingState.isLanding;
+                    break;
                 }
 
-
+                flight.isLanding = false;
                 flight.Fly();
 
 
@@ -86,6 +87,13 @@ public class FireflyAI : MonoBehaviour, IAnimal
             case FlyingState.isLanding:
 
                 flight.Fly();
+                flight.isLanding = true;
+
+                if (flight.isOverWater || !flight.canReachNextTile)
+                {
+                    Deviate();
+                    break;
+                }
                 if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
                 {
                     flight.isLanding = false;
@@ -110,6 +118,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
                         
                         justTookOff = true;
                         currentState = FlyingState.isFlying;
+                        break;
                     }
 
                 }
@@ -121,6 +130,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
                         
                         justTookOff = true;
                         currentState = FlyingState.isFlying;
+                        break;
                     }
                 }
 
@@ -130,7 +140,16 @@ public class FireflyAI : MonoBehaviour, IAnimal
         }
     }
 
-
+    void Deviate()
+    {
+        isSleeping = false;
+        
+        Invoke("ResetSleep", 2f);
+    }
+    private void ResetSleep()
+    {
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+    }
 
     float SetTimeToStayAtDestination()
     {
@@ -139,11 +158,11 @@ public class FireflyAI : MonoBehaviour, IAnimal
 
     public void SetSleepOrWake(int time)
     {
-        if (time >= 5 && time < 20)
+        if (time < 20 || time >= 22)
         {
             isSleeping = true;
         }
-        else if (time >= 20 || time < 5)
+        else if (time >= 20 && time < 22)
         {
             isSleeping = false;
         }

@@ -10,6 +10,12 @@ public class FireflyFlicker : MonoBehaviour
     Material fireflyMaterial;
     float timeOut;
     float timer;
+    
+    [ColorUsageAttribute(true, true)]
+    public Color bright;
+    [ColorUsageAttribute(true, true)]
+    public Color dark;
+
     private void Start()
     {
         fireflyAI = GetComponent<FireflyAI>();
@@ -32,6 +38,11 @@ public class FireflyFlicker : MonoBehaviour
             }
 
         }
+        else
+        {
+            fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, 0);
+            fireflyMaterial.SetColor("_EmissionColor", dark);
+        }
 
     }
 
@@ -41,23 +52,23 @@ public class FireflyFlicker : MonoBehaviour
         float waitTime = timeToFlick;
         float startLight = fireflyLight.color.a;
         float endLight = startLight > 0 ? 0 : 0.4f;
-        Color initialColor = fireflyMaterial.GetColor("_EmissionColor");
-        float startIntensity = startLight > 0 ? 1 : -1;
-        float endIntensity = startLight > 0 ? -1 : 1;
+       
+        Color startIntensity = startLight > 0 ? bright : dark;
+        Color endIntensity = startLight > 0 ? dark : bright;
         while (elapsedTime < waitTime)
         {
             float a = Mathf.Lerp(startLight, endLight, elapsedTime / waitTime);
-            float b = Mathf.Lerp(startIntensity, endIntensity, elapsedTime / waitTime);
+            Color b = Color.Lerp(startIntensity, endIntensity, elapsedTime / waitTime);
             
             fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, a);
-            if(b != 0)
-                fireflyMaterial.SetColor("_EmissionColor", initialColor * b); 
+            
+            fireflyMaterial.SetColor("_EmissionColor", b); 
             
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, endLight);
-        fireflyMaterial.SetColor("_EmissionColor", initialColor * endIntensity);
+        fireflyMaterial.SetColor("_EmissionColor", endIntensity);
         yield return null;
 
     }

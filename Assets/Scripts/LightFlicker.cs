@@ -1,71 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal;
 
 public class LightFlicker : MonoBehaviour
 {
-    public UnityEngine.Rendering.Universal.Light2D lightToAffect;
 
-    float startFalloff;
-    float startIntensity;
+    public Light2D light;
+    public bool lightsOn;
 
-    public bool useFalloff;
-    public bool useIntensity;
-    [Range(0,1)]
-    public float flickerAmount;
-    public float waitTimeAmount;
-    bool isFlickering;
     private void Start()
     {
-        startIntensity = lightToAffect.intensity;
-        startFalloff = lightToAffect.falloffIntensity;
+        Exinguish();
     }
-    public void StartLightFlicker()
+    public void LightAndFlicker()
     {
-        StartCoroutine(FadeInAndOutRepeat());
+        StartCoroutine(Flicker());
     }
-    IEnumerator FadeInAndOut()
+
+    public void Exinguish()
     {
+        light.enabled = false;
+        lightsOn = false;
+    }
+    IEnumerator Flicker()
+    {
+        int flickerAmount = Random.Range(1, 5);
+        int timesFlicked = 0;
+        float timeBetweenFlickers = Random.Range(0.1f, 0.5f);
 
-        isFlickering = true;
-        
-        float elapsedTime = 0;
-        float waitTime = Random.Range(0.01f, 0.2f);
-        float intensity = lightToAffect.intensity;
-        float tempIntensity = startIntensity + Random.Range(-flickerAmount, flickerAmount);
 
-        while (elapsedTime < waitTime)
+        while (timesFlicked <= flickerAmount)
         {
-
-            lightToAffect.intensity = Mathf.Lerp(intensity, tempIntensity, (elapsedTime / waitTime));
-            elapsedTime += Time.deltaTime;
+            light.enabled = true;
+            yield return new WaitForSeconds(timeBetweenFlickers);
+            timeBetweenFlickers = Random.Range(0.1f, 0.5f);
+            light.enabled = false;
+            yield return new WaitForSeconds(timeBetweenFlickers);
+            timeBetweenFlickers = Random.Range(0.1f, 0.7f);
+            timesFlicked++;
 
             yield return null;
+
         }
 
-        lightToAffect.intensity = tempIntensity;
+        yield return new WaitForSeconds(timeBetweenFlickers);
 
+        light.enabled = true;
+        lightsOn = true;
         yield return null;
-        isFlickering = false;
+
     }
-
-    IEnumerator FadeInAndOutRepeat()
-    {
-        
-
-        while (true)
-        {
-            
-            if (!isFlickering)
-                StartCoroutine(FadeInAndOut());
-
-            
-            yield return null;
-
-            
-        }
-    }
-
 }
 

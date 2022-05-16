@@ -74,8 +74,9 @@ public class BeeAI : MonoBehaviour, IAnimal
                     currentFlower = flight.centerOfActiveArea;
                     flight.isLanding = true;
                     currentState = FlyingState.isLanding;
+                    break;
                 }
-
+                flight.isLanding = false;
 
                 flight.Fly();
 
@@ -106,9 +107,18 @@ public class BeeAI : MonoBehaviour, IAnimal
             case FlyingState.isLanding:
 
                 flight.Fly();
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
+
+                
+                if ((Vector2)currentFlower.transform.position != flight.currentDestination || flight.isOverWater || !flight.canReachNextTile)
                 {
-                    flight.isLanding = false;
+                    Deviate();
+                    break;
+                }
+                    
+                
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.01f)
+                {
+                    
                     timeToStayAtDestination = SetTimeToStayAtDestination();
                     animator.SetBool(landed_hash, true);
                     currentState = FlyingState.isAtDestination;
@@ -127,10 +137,8 @@ public class BeeAI : MonoBehaviour, IAnimal
                     timeToStayAtDestination -= Time.deltaTime;
                     if (timeToStayAtDestination <= 0)
                     {
-                        flight.SetRandomDestination();
-                        animator.SetBool(landed_hash, false);
-                        justTookOff = true;
-                        currentState = FlyingState.isFlying;
+                        SetToFlyingState();
+                        break;
                     }
 
                 }
@@ -138,10 +146,8 @@ public class BeeAI : MonoBehaviour, IAnimal
                 {
                     if (Vector2.Distance(transform.position, flight.centerOfActiveArea.transform.position) >= 0.01f)
                     {
-                        flight.SetRandomDestination();
-                        animator.SetBool(landed_hash, false);
-                        justTookOff = true;
-                        currentState = FlyingState.isFlying;
+                        SetToFlyingState();
+                        break;
                     }
                 }
 
@@ -152,6 +158,26 @@ public class BeeAI : MonoBehaviour, IAnimal
     }
 
 
+    void Deviate()
+    {
+        isSleeping = false;
+        SetToFlyingState();
+        Invoke("ResetSleep", 2f);
+    }
+    private void ResetSleep()
+    {
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+    }
+    void SetToFlyingState()
+    {
+        
+        flight.isLanding = false;
+        flight.SetRandomDestination();
+        animator.SetBool(landed_hash, false);
+        justTookOff = true;
+        detectionTimeOutAmount = SetRandomRange(5, 20);
+        currentState = FlyingState.isFlying;
+    }
 
     float SetTimeToStayAtDestination()
     {
@@ -182,17 +208,18 @@ public class BeeAI : MonoBehaviour, IAnimal
             return;
 
         DrawZasYDisplacement bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
+        float closestDistance = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
             if (item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
-            Vector3 directionToTarget = item.transform.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            var dist = Vector2.Distance(currentPosition, item.transform.position);
+            if (dist < closestDistance)
             {
-                closestDistanceSqr = dSqrToTarget;
+                if (dist < 0.25f)
+                    continue;
+                closestDistance = dist;
                 bestTarget = item;
             }
         }
@@ -202,7 +229,7 @@ public class BeeAI : MonoBehaviour, IAnimal
         
         flight.SetDestination(bestTarget, true);
         justTookOff = false;
-        detectionTimeOutAmount = SetRandomRange(5, 30);
+        detectionTimeOutAmount = SetRandomRange(5, 20);
         currentFlower = bestTarget;
         flight.isLanding = true;
         currentFlower.isInUse = true;

@@ -75,6 +75,7 @@ public class IsometricGrid : MonoBehaviour
 
     void SetNodes()
     {
+        
         for (int x = groundMap.cellBounds.xMin; x <= groundMap.cellBounds.xMax; x++)
         {
             for (int y = groundMap.cellBounds.yMin; y <= groundMap.cellBounds.yMax; y++)
@@ -82,19 +83,27 @@ public class IsometricGrid : MonoBehaviour
                 // add for loop on groundMap.cellBounds.zMin/zMax
                 bool walkable = true;
                 var currentPosition = new Vector3Int(x, y, 0);
-
+                // maybe... z = -1; z < 2; z++ - - well, no i think...
                 for (int z = 0; z < 2; z++)
                 {
                     currentPosition.z = z;
                     TileBase tile = groundMap.GetTile(currentPosition);
+                    // for going down a level...
+                    // need to check slopes as walkable on z == -1
+                    // but maybe i need to backcheck that while on z == 0
+
+                    // for going up a level...
+                    // need to check slopes as walkable on z == 0
                     
-                    if(tile == null && z == 0)
+
+                    if (tile == null && z == 0) // if the neighbor is lower
                     {
+                        
                         walkable = false;
                     }
-                    else if(tile != null && z == 1)
+                    else if(tile != null && z == 1) // if the neighbor is higher
                     {
-                        //check here for slope tile
+                        
                         walkable = false;
                     }
                     
@@ -116,6 +125,7 @@ public class IsometricGrid : MonoBehaviour
                 }
                 
                 isometricNodes.Add(new IsometricNode(walkable, new Vector3Int(x,y,0), Mathf.Abs(groundMap.cellBounds.xMin-x), Mathf.Abs(groundMap.cellBounds.yMin - y), movementPenalty));
+                
             }
         }
     }

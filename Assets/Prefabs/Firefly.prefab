@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2393734267040525637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.007, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8431127206422430142}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 99cb560a320aeaf4ea7653e6ab171ec0, type: 3}
-  m_Color: {r: 0.71851695, g: 0.9150943, b: 0.12517802, a: 0.2}
+  m_Color: {r: 0.71851695, g: 0.9150943, b: 0.12517802, a: 0.2509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -391,6 +391,7 @@ MonoBehaviour:
   bounciness: 0
   surroundingTiles: {fileID: 0}
   currentVelocity: 0
+  currentLevel: 0
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 524288
@@ -427,6 +428,10 @@ MonoBehaviour:
   isLanding: 0
   waterMap: {fileID: 0}
   characterRenderer: {fileID: 2296586684663807708}
+  isOverWater: 0
+  useBoids: 0
+  boid: {fileID: 0}
+  canReachNextTile: 0
 --- !u!114 &6176664188329943089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,3 +446,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireflyLight: {fileID: 1106581084448674377}
   firefly: {fileID: 2296586684663807708}
+  bright: {r: 1.830748, g: 2.270603, b: 2.270603, a: 0}
+  dark: {r: 0.1509804, g: 0.1872549, b: 0.1872549, a: 0}

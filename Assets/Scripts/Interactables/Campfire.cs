@@ -17,7 +17,7 @@ public class Campfire : Interactable
         {
             isLit = true;
             fireAnimation.SetActive(true);
-            lightFlicker.StartLightFlicker();
+            
             interactVerb = "extinguish";
         }
         else

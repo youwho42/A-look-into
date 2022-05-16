@@ -13,7 +13,7 @@ public class GravityItem : MonoBehaviour
     public Transform slopeObject;
 
     const float tileSize = 0.578125f;
-    const float gravity = 20f;
+    public const float gravity = 20f;
     protected const float spriteDisplacementY = 0.2790625f;
     [HideInInspector]
     public float positionZ;
@@ -36,7 +36,7 @@ public class GravityItem : MonoBehaviour
     [HideInInspector]
     public float currentVelocity;
     Vector2 currentDirection;
-    protected int currentLevel;
+    public int currentLevel;
 
     // surroundings
     [Header("Obstacles")]
@@ -233,25 +233,19 @@ public class GravityItem : MonoBehaviour
     {
         // Check for a positive gameobject on the obstacle layer
         var hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer, transform.position.z, transform.position.z);
-        
         if (hit != null)
         {
-           
-            
             // do it got a thing
             if (hit.TryGetComponent(out DrawZasYDisplacement displacement))
             {
                 // is our local z higher than the thing
                 if (Mathf.Abs(itemObject.localPosition.z) >= displacement.positionZ)
                     return false;
-
             }
             var doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
             if (doubleHit != null)
                 Nudge(direction);
             return true;
-           
-
         }
         return false;
     }

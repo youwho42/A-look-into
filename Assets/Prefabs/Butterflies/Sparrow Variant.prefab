@@ -146,7 +146,7 @@ PrefabInstance:
     - target: {fileID: 3980435461219289158, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
       propertyPath: minMaxFlyZ.x
-      value: 1.1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3980435461219289158, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
@@ -156,7 +156,7 @@ PrefabInstance:
     - target: {fileID: 3980435461219289158, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
       propertyPath: flyRoamingDistance
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3980435461219289159, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
@@ -392,6 +392,21 @@ PrefabInstance:
         type: 3}
       propertyPath: soundSet.volume
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510586649099672996, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: boidManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510586649099672996, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: neighborDistanceClosest
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510586649099672996, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: neighborDistanceFarthest
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da7845d26e6fc6346a4258468f513eb2, type: 3}

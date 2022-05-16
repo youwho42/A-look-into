@@ -28,6 +28,11 @@ public class PathRequestManager : MonoBehaviour
 
     private void Start()
     {
+        Invoke("GetWalkableNodes", 2f);
+    }
+
+    public void GetWalkableNodes()
+    {
         List<IsometricNode> tempNodes = pathfinding.isometricGrid.isometricNodes;
         for (int i = 0; i < tempNodes.Count; i++)
         {
@@ -35,6 +40,7 @@ public class PathRequestManager : MonoBehaviour
                 walkableNodes.Add(tempNodes[i]);
         }
     }
+
     public static void RequestPath(Vector3Int pathStart, Vector3Int pathEnd, Action<List<Vector3>, bool> callback)
     {
         PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
@@ -75,7 +81,9 @@ public class PathRequestManager : MonoBehaviour
 
     public static Vector3Int GetRandomWalkableNode()
     {
-        int r = UnityEngine.Random.Range(0, walkableNodes.Count);
+        if (walkableNodes.Count == 0)
+            instance.GetWalkableNodes();
+        int r = UnityEngine.Random.Range(0, walkableNodes.Count-1);
         return walkableNodes[r].worldPosition;
     }
     

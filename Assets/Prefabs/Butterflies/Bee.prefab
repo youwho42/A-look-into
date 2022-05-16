@@ -357,6 +357,7 @@ MonoBehaviour:
   bounciness: 0
   surroundingTiles: {fileID: 0}
   currentVelocity: 0
+  currentLevel: 0
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 524288
@@ -364,7 +365,7 @@ MonoBehaviour:
   getOffSlope: 0
   onSlope: 0
   slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.08
+  checkTileDistance: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -393,6 +394,9 @@ MonoBehaviour:
   isLanding: 0
   waterMap: {fileID: 0}
   characterRenderer: {fileID: 4720702768505272703}
+  isOverWater: 0
+  useBoids: 0
+  boid: {fileID: 0}
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

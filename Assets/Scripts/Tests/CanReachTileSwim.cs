@@ -8,8 +8,7 @@ public class CanReachTileSwim : MonoBehaviour
    
     public Transform centerOfActiveArea;
 
-    
-
+    public Boid boid;
     public float swimSpeed;
     public float swimRoamingDistance;
     public Vector2 minMaxSwimZ;
@@ -19,24 +18,29 @@ public class CanReachTileSwim : MonoBehaviour
     public Vector3 mainDestinationZ;
     public Vector3 currentDestinationZ;
 
-    [HideInInspector]
+    
     public Vector2 currentDirection;
     [HideInInspector]
     public Vector3 currentDirectionZ;
     bool onSlope;
-    
 
+    
 
     Vector3Int nextTilePosition;
     public SpriteRenderer characterRenderer;
 
     const float spriteDisplacementY = 0.2790625f;
 
-
+    
+    float boidTimer = 0;
     private void Start()
     {
+        boid = GetComponent<Boid>();
         gravityItem = GetComponent<GravityItem>();
-
+        SetRandomDirection();
+        boid.currentDirection = currentDirection;
+        var s = swimSpeed / 5;
+        swimSpeed += Random.Range(-s, s);
     }
 
 
@@ -44,37 +48,53 @@ public class CanReachTileSwim : MonoBehaviour
     {
 
 
-
+        
         if (CanReachNextTile(currentDirection))
         {
-            
+            if (!boid.inBoidPool)
+            {
+                boidTimer += Time.deltaTime;
+                if (boidTimer > 4f)
+                {
+                    boid.inBoidPool = true;
+                    boidTimer = 0;
+                }
+                    
+            }
             
             gravityItem.isWeightless = true;
             SetDirectionZ();
-            SetDirection();
+            SetFacingDirection(currentDirection);
             gravityItem.MoveZ(currentDirectionZ, swimSpeed);
             gravityItem.Move(currentDirection, swimSpeed);
+            if(boid.inBoidPool)
+                currentDirection = boid.SteerBoid(currentDirection, swimRoamingDistance);
 
         }
         else
         {
-            SetRandomDestination();
+            
+            boid.inBoidPool = false;
+            SetRandomDirection();
+            
+
+            
         }
 
-        
-        if (Vector2.Distance(transform.position, currentDestination) <= 0.001f)
-        {
-            SetRandomDestination();
-        }
-        if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.001f)
+
+        if (boid.currentDirection == Vector2.zero)
+            SetRandomDirection();
+
+        if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.01f)
         {
             SetRandomDestinationZ();
         }
-        
 
+        
 
     }
 
+    
     
 
     public bool CanReachNextTile(Vector2 direction)
@@ -155,7 +175,11 @@ public class CanReachTileSwim : MonoBehaviour
                 if (tile.Value.tileName.Contains("Slope"))
                 {
                     if (tile.Value.tileName.Contains("X") && nextTileKey.x == 0 || tile.Value.tileName.Contains("Y") && nextTileKey.y == 0)
+                    {
+                        
                         return false;
+                    }
+                        
 
                     onSlope = true;
 
@@ -199,9 +223,8 @@ public class CanReachTileSwim : MonoBehaviour
                 // This is where we are at he bottom of a cliff
                 if (tile.Value.levelZ > 0)
                 {
-                    return true;
+                    return false;
                 }
-
                 // This is where we hit a wall of height 1 or above
                 return false;
             }
@@ -215,6 +238,12 @@ public class CanReachTileSwim : MonoBehaviour
     }
 
 
+    void SetRandomDirection()
+    {
+        currentDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+        currentDirection = currentDirection.normalized;
+        SetFacingDirection(currentDirection);
+    }
 
     public void SetFacingDirection(Vector2 direction)
     {

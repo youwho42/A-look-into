@@ -55,7 +55,7 @@ public class DetectVisibility : MonoBehaviour
         Vector3Int tilepos = surroundingTiles.grid.WorldToCell(pos);
         Vector3 tileworldpos = surroundingTiles.grid.CellToWorld(tilepos);
         Vector3 relativePos = pos - tileworldpos;
-        if (relativePos.y < 0.24f)
+        if (relativePos.y < 0.33f)
             return true;
 
         return false;
@@ -64,7 +64,7 @@ public class DetectVisibility : MonoBehaviour
     void ChangeObjectZ(bool isHidden)
     {
         
-        Vector3 pos = new Vector3(0, 0, isHidden ? -1f : 0);
+        Vector3 pos = new Vector3(0, 0, isHidden ? -0.9f : 0);
         objectCorrectionZ.localPosition = pos;
 
     }

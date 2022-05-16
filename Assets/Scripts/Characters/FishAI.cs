@@ -5,10 +5,9 @@ using UnityEngine;
 public class FishAI : MonoBehaviour, IAnimal
 {
     GravityItem gravityItem;
-    public float roamingArea;
     float timeToStayAtDestination;
     CanReachTileSwim swim;
-
+    Animator animator;
     
 
     [SerializeField]
@@ -23,8 +22,13 @@ public class FishAI : MonoBehaviour, IAnimal
 
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         gravityItem = GetComponent<GravityItem>();
         swim = GetComponent<CanReachTileSwim>();
+
+        float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.Play(0, 0, randomIdleStart);
+
         timeToStayAtDestination = SetTimeToStayAtDestination();
         swim.SetRandomDestination();
         swim.SetRandomDestinationZ();
@@ -39,9 +43,9 @@ public class FishAI : MonoBehaviour, IAnimal
         switch (currentState)
         {
             case SwimmingState.isSwimming:
-
+                
                 swim.Swim();
-                if (Vector2.Distance(transform.position, swim.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, swim.currentDestinationZ) <= 0.001f)
+                if (Vector2.Distance(transform.position, swim.currentDestination) <= 0.01f && Vector2.Distance(gravityItem.itemObject.localPosition, swim.currentDestinationZ) <= 0.01f)
                 {
                     
                     timeToStayAtDestination = SetTimeToStayAtDestination();
@@ -77,6 +81,14 @@ public class FishAI : MonoBehaviour, IAnimal
         }
     }
 
+    void SetBoidsState(bool isInBoids)
+    {
+        if (swim.boid != null)
+        {
+            swim.boid.inBoidPool = isInBoids;
+        }
+
+    }
 
 
     float SetTimeToStayAtDestination()

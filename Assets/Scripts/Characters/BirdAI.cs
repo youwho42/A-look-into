@@ -53,7 +53,7 @@ public class BirdAI : MonoBehaviour, IAnimal
         walk = GetComponent<CanReachTileWalk>();
         CheckForLandingArea();
         glideTimer = SetRandomRange(3, 10);
-        timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
+        timeToStayAtDestination = SetRandomRange(new Vector2(2.0f, 4.0f));
         detectionTimeOutAmount = SetRandomRange(5, 60);
         flight.SetRandomDestination();
 
@@ -76,10 +76,12 @@ public class BirdAI : MonoBehaviour, IAnimal
         switch (currentState)
         {
             case FlyingState.isFlying:
+                SetBoidsState(true);
 
-                
+                gravityItem.isWeightless = true;
+
                 animator.SetBool(walking_hash, false);
-                flight.isLanding = false;
+                
 
                 animator.SetBool(landed_hash, false);
 
@@ -94,8 +96,10 @@ public class BirdAI : MonoBehaviour, IAnimal
                     flight.isLanding = true;
                     currentLandingSpot.isInUse = true;
                     currentState = FlyingState.isLanding;
+                    break;
                 }
-                    
+
+                flight.isLanding = false;
                 flight.Fly();
                 
                 if (justTookOff)
@@ -136,7 +140,7 @@ public class BirdAI : MonoBehaviour, IAnimal
             
 
             case FlyingState.isAtDestination:
-               
+                SetBoidsState(false);
                 if (!isSleeping)
                 {
                     animator.SetBool(sleeping_hash, false);
@@ -158,6 +162,7 @@ public class BirdAI : MonoBehaviour, IAnimal
                                 walk.SetRandomDestination();
                                 animator.SetBool(walking_hash, true);
                                 currentState = FlyingState.isWalking;
+                                break;
                             }
 
                         }
@@ -167,10 +172,7 @@ public class BirdAI : MonoBehaviour, IAnimal
 
                     if (timeToStayAtDestination <= 0)
                     {
-                        flight.SetRandomDestination();
-                        animator.SetBool(landed_hash, false);
-                        justTookOff = true;
-                        currentState = FlyingState.isFlying;
+                        SetToFlyingState();
                     }
                     if (sounds.mute)
                         sounds.mute = false;
@@ -180,10 +182,7 @@ public class BirdAI : MonoBehaviour, IAnimal
                 {
                     if(Vector2.Distance(transform.position, flight.centerOfActiveArea.transform.position) >= 0.01f)
                     {
-                        flight.SetRandomDestination();
-                        animator.SetBool(landed_hash, false);
-                        justTookOff = true;
-                        currentState = FlyingState.isFlying;
+                        SetToFlyingState();
                         break;
                     }
                     animator.SetBool(sleeping_hash, true);
@@ -200,24 +199,36 @@ public class BirdAI : MonoBehaviour, IAnimal
 
             case FlyingState.isLanding:
 
+                SetBoidsState(false);
                 flight.Fly();
 
-                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.001f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.001f)
+                if ((Vector2)currentLandingSpot.transform.position != flight.currentDestination || flight.isOverWater || !flight.canReachNextTile)
                 {
+                    Deviate();
+                    break;
+                }
+                
 
-                    
+                if (Vector2.Distance(transform.position, flight.currentDestination) <= 0.01f && Vector2.Distance(gravityItem.itemObject.localPosition, flight.currentDestinationZ) <= 0.01f)
+                {
                     timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
                     flight.isLanding = false;
                     animator.SetBool(landed_hash, true);
-                    
                     currentState = FlyingState.isAtDestination;
-                    
                 }
 
                 break;
 
             case FlyingState.isWalking:
+                SetBoidsState(false);
+                gravityItem.isWeightless = false;
                 walk.Walk();
+
+                timeToStayAtDestination -= Time.deltaTime;
+                if (timeToStayAtDestination <= 0)
+                {
+                    SetToFlyingState();
+                }
                 if (currentLandingSpot != null)
                 {
                     currentLandingSpot.isInUse = false;
@@ -232,6 +243,36 @@ public class BirdAI : MonoBehaviour, IAnimal
                 
                 break;
         }
+    }
+
+    void Deviate()
+    {
+        isSleeping = false;
+        SetToFlyingState();
+        Invoke("ResetSleep", 2f);
+    }
+    private void ResetSleep()
+    {
+        SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
+    }
+
+    void SetBoidsState(bool isInBoids)
+    {
+        if (flight.boid != null)
+        {
+            flight.useBoids = isInBoids;
+            flight.boid.inBoidPool = isInBoids;
+        }
+        
+    }
+
+    void SetToFlyingState()
+    {
+        flight.SetRandomDestination();
+        animator.SetBool(landed_hash, false);
+        justTookOff = true;
+        detectionTimeOutAmount = SetRandomRange(5, 30);
+        currentState = FlyingState.isFlying;
     }
     
     float SetRandomRange(Vector2 minMaxRange)
@@ -281,6 +322,8 @@ public class BirdAI : MonoBehaviour, IAnimal
            
             if (dist < closestDistance)
             {
+                if (dist < 1f)
+                    continue;
                 closestDistance = dist;
                 bestTarget = item;
             }

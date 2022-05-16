@@ -8,21 +8,15 @@ public class NightLights : MonoBehaviour
 
     RealTimeDayNightCycle dayNightCycle;
 
-    public Light2D[] lights;
+    public LightFlicker[] lights;
 
-    bool lightsOn;
+
 
     private void Start()
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetLights);
-        foreach (var light in lights)
-        {
-            if (light.enabled)
-                light.enabled = false;
-
-        }
-        lightsOn = false;
+       
         Invoke("SetInitialLights", 1f);
     }
 
@@ -38,52 +32,27 @@ public class NightLights : MonoBehaviour
     }
     public void SetLights(int time)
     {
-        if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Night && !lightsOn)
-        {
-            
-            foreach (var light in lights)
-            {
-                StartCoroutine(SetLight(light));
-            }
-            lightsOn = true;
-        }
-        else if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Day && lightsOn)
-        {
-            foreach (var light in lights)
-            {
-                light.enabled = false;
-            }
-            lightsOn = false;
-        }
-
-    }
-
-    IEnumerator SetLight(Light2D light)
-    {
-        int flickerAmount = Random.Range(1, 8);
-        int timesFlicked = 0;
-        float timeBetweenFlickers = Random.Range(0.2f, .8f);
         
-
-        while (timesFlicked <= flickerAmount) 
+        if (dayNightCycle.currentTimeRaw >= dayNightCycle.nightStart + (dayNightCycle.dayNightTransitionTime - 10) || dayNightCycle.currentTimeRaw < dayNightCycle.dayStart)
         {
-            light.enabled = true;
-            yield return new WaitForSeconds(timeBetweenFlickers);
-            timeBetweenFlickers = Random.Range(0.2f, .8f);
-            light.enabled = false;
-            yield return new WaitForSeconds(timeBetweenFlickers);
-            timeBetweenFlickers = Random.Range(0.2f, .8f);
-            timesFlicked++;
-                
-            yield return null;
-                
+
+            foreach (var light in lights)
+            {
+                if(!light.lightsOn)
+                    light.LightAndFlicker();
+            }
+
+        }
+        else if (dayNightCycle.currentTimeRaw >= dayNightCycle.dayStart + 10 && dayNightCycle.currentTimeRaw < dayNightCycle.nightStart)
+        {
+            foreach (var light in lights)
+            {
+                if (light.lightsOn)
+                    light.Exinguish();
+            }
         }
 
-        yield return new WaitForSeconds(timeBetweenFlickers);
-
-        light.enabled = true;
-
-        yield return null;
-
     }
+
+    
 }

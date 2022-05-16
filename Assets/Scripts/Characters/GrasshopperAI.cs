@@ -4,54 +4,101 @@ using UnityEngine;
 
 public class GrasshopperAI : MonoBehaviour, IAnimal
 {
+    float timeToStayAtDestination;
 
-
-
-    //ItemGravity itemGravity;
+    //public InteractAreasManager interactAreas;
+    float detectionTimeOutTimer;
+    GravityItem gravityItem;
+    CanReachTileJump jump;
+    public Animator animator;
+    float idleTimer;
     
-    Vector2 destination;
-    public CurrentState currentState;
+    
+    static int isGrounded_hash = Animator.StringToHash("IsGrounded");
+    static int velocityY_hash = Animator.StringToHash("VelocityY");
 
-    public enum CurrentState
+    NPC_PlayFootSteps footSteps;
+    bool playedFootStep;
+    
+    float detectionTimeOutAmount;
+
+    [SerializeField]
+    public PedestrianState currentState;
+    public enum PedestrianState
     {
         isJumping,
         isAtDestination
     }
 
-    void Start()
+    private void Start()
     {
-        //itemGravity = GetComponent<ItemGravity>();
-        
+
+        gravityItem = GetComponent<GravityItem>();
+
+        jump = GetComponent<CanReachTileJump>();
+
+        footSteps = GetComponent<NPC_PlayFootSteps>();
+
+        timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
+
     }
-    /*void Update()
+
+    void Update()
     {
-        if (itemGravity.isGrounded)
+        if (!gravityItem.isGrounded)
+            playedFootStep = false;
+        if (gravityItem.isGrounded && !playedFootStep)
         {
-            thrust.AddThrust(0.5f);
-            GetRandomDestination();
+            playedFootStep = true;
+            footSteps.PlayFootStep();
         }
-        else
+
+        switch (currentState)
         {
-            MoveMainItem();
+            case PedestrianState.isJumping:
+
+                jump.Move();
+
+                if (Vector2.Distance(transform.position, jump.currentDestination) <= 0.01f)
+                {
+                    timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
+                    
+                    currentState = PedestrianState.isAtDestination;
+                }
+
+                break;
+
+
+            case PedestrianState.isAtDestination:
+
+                timeToStayAtDestination -= Time.deltaTime;
+
+                if (timeToStayAtDestination <= 0)
+                {
+                    jump.SetRandomDestination();
+                    currentState = PedestrianState.isJumping;
+                }
+
+                break;
+           
         }
-    }*/
-
-
-    void MoveMainItem()
-    {
-        float step = 1 * Time.deltaTime;
-
-        transform.position = Vector3.MoveTowards(transform.position, destination, step); ;
     }
 
-    void GetRandomDestination()
+
+    void LateUpdate()
     {
-        destination = transform.position + (Vector3)Random.insideUnitCircle * 0.3f;
+        animator.SetBool(isGrounded_hash, gravityItem.isGrounded);
+        animator.SetFloat(velocityY_hash, gravityItem.isGrounded ? 0 : gravityItem.displacedPosition.y);
         
     }
-
-    public void SetHome(Transform transform)
+    
+    float SetRandomRange(Vector2 minMaxRange)
     {
-        
+        return Random.Range(minMaxRange.x, minMaxRange.y);
+    }
+
+    float SetRandomRange(float min, float max)
+    {
+        return Random.Range(min, max);
     }
 }
