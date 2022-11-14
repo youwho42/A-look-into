@@ -22,10 +22,12 @@ public class RealTimeDayNightCycle : MonoBehaviour
     public int dayStart = 300;     // in minutes
     public int nightStart = 1200;     // in minutes
     [Range(0, 1440)]
-    public int currentTimeRaw;  // in minutes
-    
+    public int currentTimeRaw;     // in minutes
+    public int currentDayRaw = 1;
+    public int cycleSpeed;
+    public bool isPaused;
 
-    public UnityEngine.Rendering.Universal.Light2D sun;
+    UnityEngine.Rendering.Universal.Light2D sun;
 
     public int hours;
     public int minutes;
@@ -54,10 +56,10 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
     void Start()
     {
-        var now = System.DateTime.Now;
-        currentTimeRaw = ((now.Hour + hourOffset) * 60) + (now.Minute + minuteOffset);
-        minutes = now.Minute + minuteOffset;
-        hours = now.Hour + hourOffset;
+        isPaused = true;
+        sun = GameObject.FindGameObjectWithTag("Sun").GetComponent< UnityEngine.Rendering.Universal.Light2D>();
+        hours = Mathf.RoundToInt(currentTimeRaw / 60);
+        minutes = currentTimeRaw % 60;
         gradientIndex = Random.Range(0, sunsetColors.Length);
         SetDayState();
         
@@ -68,7 +70,17 @@ public class RealTimeDayNightCycle : MonoBehaviour
     {
         GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
     }
-    
+
+    public void SetDayTime(int time, int day)
+    {
+        if(sun == null)
+            sun = GameObject.FindGameObjectWithTag("Sun").GetComponent<UnityEngine.Rendering.Universal.Light2D>();
+        currentTimeRaw = time;
+        currentDayRaw = day;
+        SetDayState();
+        InitializeTick();
+    }
+
     
 
     void SetDayOrNightLight()
@@ -109,50 +121,41 @@ public class RealTimeDayNightCycle : MonoBehaviour
         float waitTime = dayNightTransitionTime;
         float intensity = dayToNight ? 1.2f : 0.3f;
         float amount = dayToNight ? 0.3f : 1.2f;
+        
         sun.intensity = Mathf.Lerp(intensity, amount, elapsedTime / waitTime);
         sun.color = dayToNight ? sunsetColors[gradientIndex].Evaluate(elapsedTime / waitTime) : sunriseColors[gradientIndex].Evaluate(elapsedTime / waitTime);
     }
     
-
-    
-
     // current time, ticking by
     IEnumerator TimeOfDay()
     {
-        
         while (true)
         {
-            var now = System.DateTime.Now;
-            var m = now.Minute + minuteOffset;
-            var h = now.Hour + hourOffset;
-            currentTimeRaw = (h * 60) + m;
+            if (!isPaused) {
+                currentTimeRaw += 1;
+                if (currentTimeRaw == 1440)
+                {
+                    currentDayRaw++;
+                    currentTimeRaw = 0;
+                }
+                hours = Mathf.RoundToInt(currentTimeRaw / 60);
+                minutes = currentTimeRaw % 60;
 
-
-            if (now.Second == 0 && !minuteTicked)
-            {
-                minuteTicked = true;
-                minutes = m;
-                GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
+                if (minutes == 0 && !hourTicked)
+                {
+                    hourTicked = true;
+                    GameEventManager.onTimeHourEvent.Invoke(hours);
+                }
+                if (minutes != 0 && hourTicked)
+                    hourTicked = false;
 
                 SetDayState();
-                
-                
+                GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
             }
-            if (now.Second != 0 && minuteTicked)
-                minuteTicked = false;
-
-            if (m == 0 && !hourTicked)
-            {
-                hourTicked = true;
-                hours = h;
-                
-                GameEventManager.onTimeHourEvent.Invoke(hours);
-                
-            }
-            if (m != 0 && hourTicked)
-                hourTicked = false;
-
-            yield return null;
+            yield return new WaitForSeconds(1f / cycleSpeed);
         }
+        
     }
+
+
 }

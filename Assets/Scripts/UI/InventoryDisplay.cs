@@ -58,7 +58,7 @@ public class InventoryDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !PlayerInformation.instance.playerInput.isPaused)
         {
             mainUI.SetActive(!mainUI.activeSelf);
             PlayerInformation.instance.uiScreenVisible = !PlayerInformation.instance.uiScreenVisible;

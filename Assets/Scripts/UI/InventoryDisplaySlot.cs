@@ -105,7 +105,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         {
             foreach (var hit in results)
             {
-                if (hit.gameObject == itemToDrop)
+                if (hit.gameObject == itemToDrop || hit.transform.parent.gameObject == itemToDrop)
                     continue;
                 if(hit.CompareTag("Water") && itemToDrop.CompareTag("RiverItem"))
                     return true;
@@ -114,7 +114,7 @@ public class InventoryDisplaySlot : MonoBehaviour
                     if (hit.CompareTag("Grass") || hit.CompareTag("Path"))
                         return true;
                 }
-                NotificationManager.instance.SetNewNotification($"You can't place {item.Name} on {hit.tag}.");
+                NotificationManager.instance.SetNewNotification($"You can't place {item.Name} on {hit.transform.parent.name}.");
                 return false;
             }
             

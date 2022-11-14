@@ -33,8 +33,9 @@ public class StatsSaveSystem : MonoBehaviour, ISaveable
         {
             
             playerAttributes.SetAttributeValue(saveData.attribute[i], saveData.value[i]);
+            
         }
-
+        GameEventManager.onStatUpdateEvent.Invoke();
     }
 
     [Serializable]

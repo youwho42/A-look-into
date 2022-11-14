@@ -15,11 +15,11 @@ public class FireflyAI : MonoBehaviour, IAnimal
     CanReachTileFlight flight;
     public Animator animator;
     bool isSleeping;
-    
 
-    
+    public Vector2Int wakeSleepTimes;
 
-    
+    RealTimeDayNightCycle realTimeDayNightCycle;
+
 
 
     [SerializeField]
@@ -37,7 +37,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
     private void Start()
     {
         gravityItem = GetComponent<GravityItem>();
-
+        realTimeDayNightCycle = RealTimeDayNightCycle.instance;
         
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
@@ -45,7 +45,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
         
         flight.SetRandomDestination();
         currentState = FlyingState.isFlying;
-        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeTickEvent.AddListener(SetSleepOrWake);
         Invoke("SetSleepState", 1f);
     }
 
@@ -55,7 +55,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
     }
     private void OnDestroy()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
+        GameEventManager.onTimeTickEvent.RemoveListener(SetSleepOrWake);
     }
 
     private void Update()
@@ -158,14 +158,10 @@ public class FireflyAI : MonoBehaviour, IAnimal
 
     public void SetSleepOrWake(int time)
     {
-        if (time < 20 || time >= 22)
-        {
-            isSleeping = true;
-        }
-        else if (time >= 20 && time < 22)
-        {
+        if (realTimeDayNightCycle.currentTimeRaw >= wakeSleepTimes.x && realTimeDayNightCycle.currentTimeRaw < wakeSleepTimes.y)
             isSleeping = false;
-        }
+        else if (realTimeDayNightCycle.currentTimeRaw >= wakeSleepTimes.y || realTimeDayNightCycle.currentTimeRaw < wakeSleepTimes.x)
+            isSleeping = true;
     }
 
     float SetRandomRange(float min, float max)

@@ -15,8 +15,8 @@ public class GravityItemMovementFree : GravityItem
     Vector2 mainDirection;
     Vector3Int nextTilePosition;
     public bool canCollideWithGravityItems;
-    
 
+    DrawZasYDisplacement displacement;
 
     private new IEnumerator Start()
     {
@@ -24,7 +24,7 @@ public class GravityItemMovementFree : GravityItem
         
 
         yield return new WaitForSeconds(0.25f);
-
+        displacement = GetComponent<DrawZasYDisplacement>();
         
         surroundingTiles.GetSurroundingTiles();
         
@@ -43,7 +43,7 @@ public class GravityItemMovementFree : GravityItem
         base.FixedUpdate();
         if (!CanReachNextTile(mainDirection))
         {
-            //CheckBounce();
+            CheckBounce();
             
         }
 
@@ -54,10 +54,10 @@ public class GravityItemMovementFree : GravityItem
 
     }
 
-    /*void CheckBounce()
+    void CheckBounce()
     {
         Vector3Int diff = nextTilePosition - surroundingTiles.currentTilePosition;
-        if (surroundingTiles.allCurrentDirections.TryGetValue(diff, out SurroundingTilesInfo.DirectionInfo tile))
+        if (surroundingTiles.allCurrentDirections.TryGetValue(diff, out DirectionInfo tile))
         {
             if (tile.levelZ >= 0)
             {
@@ -69,7 +69,8 @@ public class GravityItemMovementFree : GravityItem
 
             }
         }
-    }*/
+    }
+    
 
     bool CanReachNextTile(Vector2 direction)
     {
@@ -218,14 +219,23 @@ public class GravityItemMovementFree : GravityItem
     {
         if (collision.collider is CompositeCollider2D)
             return;
-        
+       
         if (collision.gameObject.TryGetComponent(out GravityItem gravityItem) && canCollideWithGravityItems)
         {
+            
+            if (gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ)
+                return;
             Vector2 direction = transform.position - collision.transform.position;
             
             AddMovement(direction, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity : velocity * itemBounceFriction);
         }
-        
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            var direction = transform.position - collision.transform.position;
+            AddMovement(direction, velocity * itemBounceFriction);
+        }
+
     }
 
 

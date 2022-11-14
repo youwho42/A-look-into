@@ -44,9 +44,9 @@ public class PlayerInput : MonoBehaviour
                 isRunning = false;
             canWalkOffCliff = Input.GetKey(KeyCode.C);
             isJumping = Input.GetKeyDown(KeyCode.Space);
-        }
-        if (!isPaused)
             usingEquippedItem = Input.GetMouseButtonDown(0);
+        }
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;

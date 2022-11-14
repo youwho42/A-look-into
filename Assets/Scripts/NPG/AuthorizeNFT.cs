@@ -5,10 +5,15 @@ using FusedVR.Web3;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
+using System.Threading.Tasks;
 
 public class AuthorizeNFT : MonoBehaviour
 {
     public string paintingName;
+    string contract = "0x20536AaBb2f8BC36420E0424404A16739ABAA8E3";
+    public string token_id;
+
     public TMP_InputField inputFieldEmail;
 
     public GameObject alertBox;
@@ -22,38 +27,68 @@ public class AuthorizeNFT : MonoBehaviour
     public Camera loadCamera;
     public Button continueButton;
     public Button saveButton;
-    public Toggle saveToggle;
+    public Button deleteSaveButton;
 
     public string alertEmailError;
     public string alertEmailSent;
     public string alertPleaseVerify;
     public string alertVerifyBeforeSave;
-    public string alertVerificationsaved;
-   
-    
+    public string alertVerificationFailed;
+    public string alertVerificationSaved;
+    [HideInInspector]
+    public string dateSaved;
+    DateTime currentDate;
+    public Toggle fullscreen;
+
+
+  
     private void Awake()
     {
         DontDestroyOnLoad(this);
         
     }
-        private void Start()
+    private void Start()
     {
+        fullscreen.isOn = Screen.fullScreen;
         verified = false;
-        
-        
+        saveButton.interactable = false;
+        deleteSaveButton.interactable = false;
         SavingLoading.instance.Load();
+        
         continueButton.interactable = verified;
-        saveButton.interactable = verified;
-        saveToggle.isOn = verified;
+
+        SetSaveDeleteButtons();
     }
 
-    public void SaveVerified()
+    public void SetFullScreen()
+    {
+        Screen.fullScreen = fullscreen.isOn;
+    }
+
+    public void SetSaveDeleteButtons()
+    {
+        if (!SavingLoading.instance.SaveExists() && verified)
+            saveButton.interactable = true;
+        else
+            saveButton.interactable = false;
+        
+        deleteSaveButton.interactable = SavingLoading.instance.SaveExists();
+        
+    }
+    public void DeleteVerifiedState()
+    {
+        verified = false;
+        saveButton.interactable = false;
+    }
+
+    public void SaveVerifiedAndDate()
     {
         if (verified)
         {
+            dateSaved = DateTime.Now.AddDays(30).ToString();
             SavingLoading.instance.Save();
-            ShowAlertBox(alertVerificationsaved);
-            saveToggle.isOn = true;
+            ShowAlertBox(alertVerificationSaved);
+            SetSaveDeleteButtons();
         }
         else
             ShowAlertBox(alertVerifyBeforeSave);
@@ -100,12 +135,35 @@ public class AuthorizeNFT : MonoBehaviour
 
     async void SendVerificationMail()
     {
+
         if (await Web3Manager.Login(inputFieldEmail.text, "id"))
         {
-            // check if nft is in said wallet
-            verified = true;
-            continueButton.interactable = true;
-            saveButton.interactable = true;
+
+            var ethTokens = await Web3Manager.GetNFTTokens("eth");
+            bool success = false;
+            foreach (Dictionary<string, string> nft in ethTokens)
+            {
+                if (nft.ContainsValue(contract.ToLower()))
+                {
+                    if (nft.TryGetValue("token_id", out string id))
+                    {
+                        if (id == token_id)
+                        {
+                            verified = true;
+                            continueButton.interactable = true;
+                            SetSaveDeleteButtons();
+                            success = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!success)
+                ShowAlertBox(alertVerificationFailed);
+        }
+        else
+        {
+            ShowAlertBox(alertVerificationFailed);
         }
     }
 

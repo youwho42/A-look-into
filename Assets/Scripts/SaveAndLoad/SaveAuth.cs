@@ -10,15 +10,15 @@ public class SaveAuth : MonoBehaviour, ISaveable
     
     void Start()
     {
-       
+        auth = GetComponent<AuthorizeNFT>();
     }
-    
     public object CaptureState()
     {
+        
         return new SaveData
         {
-            saveAuth = auth.verified
-            
+            saveAuth = auth.verified,
+            date = auth.dateSaved
         };
     }
 
@@ -26,6 +26,15 @@ public class SaveAuth : MonoBehaviour, ISaveable
     {
         auth = GetComponent<AuthorizeNFT>();
         var saveData = (SaveData)state;
+
+        DateTime parsedDate = DateTime.Parse(saveData.date);
+
+        if (DateTime.Now > parsedDate)
+        {
+            SavingLoading.instance.DeleteFile();
+            return;
+        }
+            
         auth.verified = saveData.saveAuth;
 
     }
@@ -34,6 +43,6 @@ public class SaveAuth : MonoBehaviour, ISaveable
     private struct SaveData
     {
         public bool saveAuth;
-        
+        public string date;
     }
 }

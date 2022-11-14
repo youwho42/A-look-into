@@ -12,10 +12,16 @@ public class PlayerAttributesDisplay : MonoBehaviour
     private void Start()
     {
         playerInformation = PlayerInformation.instance;
+        GameEventManager.onStatUpdateEvent.AddListener(UpdateStatsUI);
+        UpdateStatsUI();
     }
-    private void Update()
+    private void UpdateStatsUI()
     {
         energySlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce");
         hydrationSlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+    }
+    private void OnDestroy()
+    {
+        GameEventManager.onStatUpdateEvent.RemoveListener(UpdateStatsUI);
     }
 }

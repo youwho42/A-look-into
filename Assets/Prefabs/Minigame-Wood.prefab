@@ -464,6 +464,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5890292658422954183, guid: 649a4882a38353540b17cf601bb86920,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2937f916ae7566043b30eba292ccaff4, type: 2}
     - target: {fileID: 6113785083732976854, guid: 649a4882a38353540b17cf601bb86920,
         type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -564,6 +569,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2937f916ae7566043b30eba292ccaff4, type: 2}
+    - target: {fileID: 8128980139756383031, guid: 649a4882a38353540b17cf601bb86920,
+        type: 3}
+      propertyPath: m_Bounds.m_Center.x
+      value: -0.000056631863
+      objectReference: {fileID: 0}
+    - target: {fileID: 8128980139756383031, guid: 649a4882a38353540b17cf601bb86920,
+        type: 3}
+      propertyPath: m_Bounds.m_Center.y
+      value: 0.001023531
+      objectReference: {fileID: 0}
+    - target: {fileID: 8128980139756383031, guid: 649a4882a38353540b17cf601bb86920,
+        type: 3}
+      propertyPath: m_Bounds.m_Extent.x
+      value: 0.028138675
+      objectReference: {fileID: 0}
     - target: {fileID: 8994354041157659581, guid: 649a4882a38353540b17cf601bb86920,
         type: 3}
       propertyPath: m_Layer
@@ -798,6 +818,13 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
     overlap: 0
+  - clips:
+    - {fileID: 8300000, guid: aa371b0c1b8adad4e98a0114a479f846, type: 3}
+    volume: 0.7
+    pitch: 1
+    randomVolume: 0
+    randomPitch: 0
+    overlap: 0
   maxAttempts: 3
   attemptSteps: 3
   hasCompletedMiniGame: 0
@@ -819,15 +846,15 @@ MonoBehaviour:
   - dificultyAreaGameObject: {fileID: 5296201657330710635}
     gameDificulty: 1
     rotate: {fileID: 6699779203012478959}
-    collider: {fileID: 0}
+    collider: {fileID: 6699779203012478958}
   - dificultyAreaGameObject: {fileID: 7746455613973838139}
     gameDificulty: 2
     rotate: {fileID: 6699779203012478867}
-    collider: {fileID: 0}
+    collider: {fileID: 6699779203012478866}
   - dificultyAreaGameObject: {fileID: 4009150950075962541}
     gameDificulty: 3
     rotate: {fileID: 6699779203012478957}
-    collider: {fileID: 0}
+    collider: {fileID: 6699779203012478956}
 --- !u!1 &3809930973844339646 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1718688712706737093, guid: 649a4882a38353540b17cf601bb86920,

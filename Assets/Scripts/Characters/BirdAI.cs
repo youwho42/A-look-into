@@ -22,7 +22,7 @@ public class BirdAI : MonoBehaviour, IAnimal
     AnimalSounds sounds;
     public Vector2Int wakeSleepTimes;
     public bool isNocturnal;
-
+    RealTimeDayNightCycle realTimeDayNightCycle;
 
     static int landed_hash = Animator.StringToHash("IsLanded");
     static int walking_hash = Animator.StringToHash("IsWalking");
@@ -42,10 +42,10 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     private void Start()
     {
-        
+        realTimeDayNightCycle = RealTimeDayNightCycle.instance;
         sounds = GetComponent<AnimalSounds>();
 
-        GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        GameEventManager.onTimeTickEvent.AddListener(SetSleepOrWake);
 
         animator.SetBool(landed_hash, true);
         gravityItem = GetComponent<GravityItem>();
@@ -66,7 +66,7 @@ public class BirdAI : MonoBehaviour, IAnimal
     }
     private void OnDestroy()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
+        GameEventManager.onTimeTickEvent.RemoveListener(SetSleepOrWake);
 
     }
 
@@ -285,8 +285,9 @@ public class BirdAI : MonoBehaviour, IAnimal
         return Random.Range(min, max);
     }
 
-    public void SetSleepOrWake(int time)
+    public void SetSleepOrWake(int tick)
     {
+        var time = realTimeDayNightCycle.currentTimeRaw;
         if (!isNocturnal) 
         {
             if (time >= wakeSleepTimes.y || time < wakeSleepTimes.x)
@@ -316,7 +317,7 @@ public class BirdAI : MonoBehaviour, IAnimal
         Vector2 currentPosition = transform.position;
         foreach (var item in interactAreas.allAreas)
         {
-            if (item.isInUse || item.transform.position.z != transform.position.z)
+            if (item == null || item.isInUse || item.transform.position.z != transform.position.z)
                 continue;
             var dist = Vector2.Distance(currentPosition, item.transform.position);
            

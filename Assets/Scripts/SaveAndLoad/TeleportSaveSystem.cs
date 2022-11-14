@@ -15,7 +15,8 @@ public class TeleportSaveSystem : MonoBehaviour, ISaveable
     {
         return new SaveData
         {
-            currentLevel = teleporter.currentLevel
+            currentLevel = teleporter.currentLevel,
+            name = teleporter.teleportName
         };
     }
 
@@ -29,6 +30,7 @@ public class TeleportSaveSystem : MonoBehaviour, ISaveable
         var saveData = (SaveData)state;
         yield return new WaitForSeconds(0.5f);
         teleporter.currentLevel = saveData.currentLevel;
+        teleporter.teleportName = saveData.name;
         teleporter.SetCurrentLevel();
         
     }
@@ -37,5 +39,6 @@ public class TeleportSaveSystem : MonoBehaviour, ISaveable
     private struct SaveData
     {
         public int currentLevel;
+        public string name;
     }
 }

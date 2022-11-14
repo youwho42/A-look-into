@@ -18,4 +18,10 @@ public static class GameEventManager
     public static readonly GameEvent onInventoryUpdateEvent = new GameEvent();
     public static readonly GameEvent onEquipmentUpdateEvent = new GameEvent();
 
+    /// <summary>
+    ///  Stats Updating
+    /// </summary>
+    public static readonly GameEvent onStatUpdateEvent = new GameEvent();
+    //public static readonly GameEvent onEquipmentUpdateEvent = new GameEvent();
+
 }

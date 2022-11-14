@@ -12,7 +12,7 @@ public class RandomSpriteForItems : MonoBehaviour
         public Sprite shadow;
     }
 
-    public SpriteRenderer mainGrass;
+    public SpriteRenderer mainImage;
     public SpriteRenderer mainShadow;
 
     public List<ItemSprites> itemSpritesList = new List<ItemSprites>();
@@ -25,8 +25,8 @@ public class RandomSpriteForItems : MonoBehaviour
     private void SetRandomSprites()
     {
         int i = UnityEngine.Random.Range(0, itemSpritesList.Count);
-        if(mainGrass != null)
-            mainGrass.sprite = itemSpritesList[i].item;
+        if(mainImage != null)
+            mainImage.sprite = itemSpritesList[i].item;
         if (mainShadow != null)
             mainShadow.sprite = itemSpritesList[i].shadow;
     }

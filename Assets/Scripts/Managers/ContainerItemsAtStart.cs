@@ -15,6 +15,14 @@ public class ContainerItemsAtStart : MonoBehaviour
 
     QI_Inventory inventory;
     public List<ContainerSlotItem> slotItems = new List<ContainerSlotItem>();
+    public bool addStockAtStart;
+
+    private void Start()
+    {
+        if (addStockAtStart)
+            AddStock();
+    }
+
 
     [ContextMenu("Add Stock")]
     public void AddStock()

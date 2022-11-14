@@ -17,6 +17,7 @@ public class InteractableTeleporter : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
+
         if (!isOpen)
         {
             teleportUI.ShowUI(teleport);

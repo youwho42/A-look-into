@@ -7,7 +7,7 @@ using UnityEngine;
 public class LocationSaveSystem : MonoBehaviour, ISaveable
 {
 
-    public bool isPlayer;
+   
     public object CaptureState()
     {
         return new SaveData
@@ -20,12 +20,7 @@ public class LocationSaveSystem : MonoBehaviour, ISaveable
     {
         var saveData = (SaveData)state;
         transform.position = saveData.location;
-        /*if (isPlayer)
-        {
-            //SetCollisionLayers.instance.SetCollisionLayer();
-            FindObjectOfType<PlayerLevelChange>().UpdatePlayerLocation();
-        }*/
-            
+         
     }
 
     [Serializable]

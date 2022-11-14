@@ -25,13 +25,13 @@ public class SleepDisplayUI : MonoBehaviour
     public TextMeshProUGUI sleepUntilTime;
     public Slider slider;
     private Coroutine sleepCoroutine;
-    float originalCycleSpeed;
+    int originalCycleSpeed;
     bool isShowing;
     public void Start()
     {
         playerInformation = PlayerInformation.instance;
         dayNightCycle = RealTimeDayNightCycle.instance;
-        //originalCycleSpeed = dayNightCycle.cycleSpeed;
+        originalCycleSpeed = dayNightCycle.cycleSpeed;
     }
 
     private void Update()
@@ -67,7 +67,7 @@ public class SleepDisplayUI : MonoBehaviour
     {
         if(sleepCoroutine != null)
             StopCoroutine(sleepCoroutine);
-        //dayNightCycle.cycleSpeed = originalCycleSpeed;
+        dayNightCycle.cycleSpeed = originalCycleSpeed;
         playerInformation.TogglePlayerInput(true);
         sleepDisplay.SetActive(false);
     }
@@ -80,10 +80,10 @@ public class SleepDisplayUI : MonoBehaviour
         {
             //float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
             PlayerInformation.instance.playerStats.AddPlayerEnergy(0.1f);
-            //dayNightCycle.cycleSpeed = 200;
+            dayNightCycle.cycleSpeed = 100;
             yield return null;
         }
-        //dayNightCycle.cycleSpeed = originalCycleSpeed;
+        dayNightCycle.cycleSpeed = originalCycleSpeed;
         sleepDisplay.SetActive(false);
         playerInformation.TogglePlayerInput(true);
         yield return null;

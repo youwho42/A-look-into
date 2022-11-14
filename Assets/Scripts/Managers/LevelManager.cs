@@ -29,8 +29,6 @@ public class LevelManager : MonoBehaviour
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TerrainDecoraion-StartArea", LoadSceneMode.Additive);
         }
-
-
     }
 
     public bool loadTerrains;
@@ -45,14 +43,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
     [SerializeField]
+    private GameObject savedAlert;
+    [SerializeField]
     private GameObject newGameWarning;
     [SerializeField]
     private GameObject controlsPanel;
     [SerializeField]
     private Toggle vSync;
-
-
-
 
     [SerializeField]
     private Slider loadScreenSlider;
@@ -60,20 +57,18 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI text;
 
-
     public UnityEvent EventLevelLoaded;
-
-    
 
     public string GetCurrentLevel()
     {
         return SceneManager.GetActiveScene().name;
     }
+
     public void StartNewGame(string levelName)
     {
-
         SavingLoading.instance.Save();
         titleMenu.SetActive(false);
+        RealTimeDayNightCycle.instance.isPaused = false;
         EventLevelLoaded.Invoke();
     }
 
@@ -89,18 +84,23 @@ public class LevelManager : MonoBehaviour
     {
         newGameWarning.SetActive(false);
     }
+
     public void NewGameWarning()
     {
         newGameWarning.SetActive(true);
     }
+
     public void LoadCurrentGame(string levelName)
     {
         LoadLevel(levelName);
     }
+
     public void SaveGame()
     {
         SavingLoading.instance.Save();
+        savedAlert.SetActive(true);
     }
+
     private void ChangeLevel(string levelName)
     {
         StartCoroutine(ChangeLevelCo(levelName));
@@ -113,13 +113,17 @@ public class LevelManager : MonoBehaviour
 
     public void Pause(bool isPaused)
     {
+        RealTimeDayNightCycle.instance.isPaused = isPaused;
         pauseMenu.SetActive(isPaused);
+        savedAlert.SetActive(false);
         HideControls();
     }
+
     public void ViewControls()
     {
         controlsPanel.SetActive(true);
     }
+
     public void HideControls()
     {
         controlsPanel.SetActive(false);
@@ -145,17 +149,13 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
-        
-            
-       
-
         loadScreen.SetActive(false);
-
 
     }
 
     IEnumerator LoadLevelCo(string levelName)
     {
+        pauseMenu.SetActive(false);
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName);
 
         //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
@@ -176,8 +176,8 @@ public class LevelManager : MonoBehaviour
         }
 
         text.text = "Loading data from save.";
-        // Something needs to be done about this. the scene is shown as loaded at his point,
-        // but the data still load after this... figure it out?
+        // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
+        // but the data still loads after this... figure it out?
         SavingLoading.instance.Load();
 
         yield return new WaitForSeconds(0.5f);
@@ -195,7 +195,7 @@ public class LevelManager : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(3f);
-        
+        Pause(false);
         loadScreen.SetActive(false);
         DissolveEffect.instance.StartDissolve(player.GetComponentInChildren<SpriteRenderer>().material, 2f, true);
         yield return new WaitForSeconds(0.01f);

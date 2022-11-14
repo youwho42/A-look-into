@@ -238,6 +238,7 @@ public class CanReachTileWalk : MonoBehaviour
             {
                 
                 currentDestination = gravityItem.surroundingTiles.groundMap.GetCellCenterWorld(d);
+                currentDestination += new Vector2(Random.Range(0f, .3f), Random.Range(0f, .3f));
                 break;
             }
 

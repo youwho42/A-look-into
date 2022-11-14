@@ -32,8 +32,9 @@ public class MapGenerator : MonoBehaviour
     public int mapMaxSizeZ;
     public int mapMinZ;
 
-    
-    [Header("Perlin Noise")]
+
+    [Header("Noise")]
+    public bool useOpenSimplex;
     public bool autoUpdate;
     public string mapName;
 
@@ -56,16 +57,19 @@ public class MapGenerator : MonoBehaviour
 
     public Texture2D mapImage;
     
-    
+    public void GenerateFromSimplex()
+    {
+
+    }
 
     public void GenerateMapFromNoise()
     {
         ClearTilesBlock();
-        float[,] noiseMap = NoiseGenerator.GenerateNoiseMap(mapSize, mapSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMap = NoiseGenerator.GenerateNoiseMap(useOpenSimplex, mapSize, mapSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
         GenerateMap(noiseMap);
         
-        MapDisplay display = FindObjectOfType<MapDisplay>();
-        display.DrawNoiseMap(noiseMap);
+        //MapDisplay display = FindObjectOfType<MapDisplay>();
+        //display.DrawNoiseMap(noiseMap);
         
     }
 

@@ -5,12 +5,18 @@ using UnityEngine;
 public class FixTeleport : MonoBehaviour, IFixArea
 {
     public SaveableItemEntity teleportObject;
-
-
+    
+    
 
     public void Fix(List<FixableAreaIngredient> ingredients)
     {
         RemoveItemsFromInventory(ingredients);
+        NameTeleport();
+        
+    }
+    void NameTeleport()
+    {
+
         SetUpTeleportSystem();
     }
 
@@ -23,6 +29,7 @@ public class FixTeleport : MonoBehaviour, IFixArea
         if (go.TryGetComponent(out Teleport teleporter))
         {
             teleporter.currentLevel = (int)transform.position.z;
+            teleporter.teleportName = "";
             teleporter.SetCurrentLevel();
         }
         //generate saveable id

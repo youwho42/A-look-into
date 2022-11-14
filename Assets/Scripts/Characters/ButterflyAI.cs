@@ -15,7 +15,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     public Animator animator;
     bool isSleeping;
     bool isRaining;
-    
+    public bool isNocturnal;
     public InteractAreasManager interactAreas;
 
     static int landed_hash = Animator.StringToHash("IsLanded");
@@ -167,14 +167,29 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
     public void SetSleepOrWake(int time)
     {
-        if (time >= 20 || time < 7)
+        if (!isNocturnal)
         {
-            isSleeping = true;
-        } 
-        else if(time >= 7 && time < 20)
-        {
-            isSleeping = false;
+            if (time >= 20 || time < 7)
+            {
+                isSleeping = true;
+            }
+            else if (time >= 7 && time < 20)
+            {
+                isSleeping = false;
+            }
         }
+        else
+        {
+            if (time >= 20 || time < 7)
+            {
+                isSleeping = false;
+            }
+            else if (time >= 7 && time < 20)
+            {
+                isSleeping = true;
+            }
+        }
+        
     }
 
     float SetRandomRange(float min, float max)

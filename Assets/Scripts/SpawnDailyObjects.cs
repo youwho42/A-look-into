@@ -24,6 +24,7 @@ public class SpawnDailyObjects : MonoBehaviour
                 spawnPoints.Add(points[i]);
         }
         GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
+        SpawnObjects(hourToDailySpawn);
     }
     public void SpawnObjects(int timeOfDay)
     {
@@ -36,21 +37,23 @@ public class SpawnDailyObjects : MonoBehaviour
         }
         foreach (var point in spawnPoints)
         {
-            var hit = Physics2D.OverlapCircle(point.position, .05f);
-            if(hit == null || hit.CompareTag("Grass"))
+            if (Random.Range(0.0f, 1.0f) > 0.3f)
             {
-
-                int r = Random.Range(0, objectToSpawn.Count);
-                
-                var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
-                
-                
-                if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
+                var hit = Physics2D.OverlapCircle(point.position, .05f);
+                if (hit == null || hit.CompareTag("Grass"))
                 {
-                    itemToSpawn.GenerateId();
+
+                    int r = Random.Range(0, objectToSpawn.Count);
+
+                    var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
+
+
+                    if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
+                    {
+                        itemToSpawn.GenerateId();
+                    }
                 }
             }
-
         }
     }
     private void OnDestroy()

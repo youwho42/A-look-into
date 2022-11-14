@@ -60,8 +60,8 @@ public class TreeShadows : MonoBehaviour
 
     void SetShadowVisibility(bool dayToNight)
     {
-        float elapsedTime = realTimeDayNightCycle.currentTimeRaw - (dayToNight ? realTimeDayNightCycle.nightStart : realTimeDayNightCycle.dayStart + 10);
-        float waitTime = dayToNight ? realTimeDayNightCycle.dayNightTransitionTime - 10: realTimeDayNightCycle.dayNightTransitionTime;
+        float elapsedTime = realTimeDayNightCycle.currentTimeRaw - (dayToNight ? realTimeDayNightCycle.nightStart : realTimeDayNightCycle.dayStart);
+        float waitTime = realTimeDayNightCycle.dayNightTransitionTime;
         float alpha = dayToNight ? 0.5f : 0.0f;
         float amount = dayToNight ? 0.0f : 0.5f;
         alpha = Mathf.Lerp(alpha, amount, elapsedTime / waitTime);
@@ -80,7 +80,7 @@ public class TreeShadows : MonoBehaviour
         float zRotation = 0;
         
         zRotation = Mathf.Lerp(80, -80, elapsedTime / waitTime);
-        float shadowLength = Mathf.Lerp(0.45f,1f, Mathf.Abs(zRotation) / 80);
+        float shadowLength = Mathf.Lerp(0.4f,1.4f, Mathf.Abs(zRotation)/80);
         shadowTransform.eulerAngles = new Vector3(shadowTransform.eulerAngles.x, shadowTransform.eulerAngles.y, zRotation);
         shadowSprite.transform.localScale = new Vector3(1, shadowLength, 1);
     }

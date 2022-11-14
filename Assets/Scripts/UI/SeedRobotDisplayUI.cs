@@ -17,7 +17,7 @@ public class SeedRobotDisplayUI : MonoBehaviour
             Destroy(this);
     }
 
-    RobotAI robotAI;
+    NPG_RobotAI robotAI;
 
     public GameObject seedRobotDisplayUI;
     public GameObject containerSlotHolder;
@@ -42,7 +42,7 @@ public class SeedRobotDisplayUI : MonoBehaviour
         seedRobotInventory = container;
         SetContainerUI();
         seedRobotDisplayUI.SetActive(true);
-        robotAI = container.GetComponent<RobotAI>();
+        robotAI = container.GetComponent<NPG_RobotAI>();
         activeImage.color = robotAI.isActivated ? Color.green : Color.red;
         activeText.text = robotAI.isActivated ? "Deactivate" : "Activate";
     }

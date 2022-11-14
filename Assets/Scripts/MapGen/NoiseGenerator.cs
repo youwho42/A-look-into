@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using NoiseTest;
 public static class NoiseGenerator
 {
     
-    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
+    public static float[,] GenerateNoiseMap(bool useOpenSimplex, int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
     {
+        
+        OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise(seed);
         float[,] noiseMap = new float[mapWidth, mapHeight];
 
         System.Random prng = new System.Random(seed);
@@ -39,8 +41,12 @@ public static class NoiseGenerator
                 {
                     float sampleX = (x - halfWidth) / scale * frequency + octaveOffsets[i].x;
                     float sampleY = (y - halfHeight) / scale * frequency + octaveOffsets[i].y;
-
-                    float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
+                    float perlinValue = 0;
+                    if (!useOpenSimplex)
+                        perlinValue = Mathf.PerlinNoise(sampleX, sampleY);
+                    else
+                        perlinValue = (float)openSimplexNoise.Evaluate(sampleX, sampleY);
+                    perlinValue = map(perlinValue, -1, 1, 0, 1);
                     noiseHeight += perlinValue * amplitude;
                     amplitude *= persistance;
                     frequency *= lacunarity;
@@ -70,4 +76,8 @@ public static class NoiseGenerator
         return noiseMap;
     }
 
+    static float map(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2;
+    }
 }

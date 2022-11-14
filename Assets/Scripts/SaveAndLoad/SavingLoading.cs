@@ -19,7 +19,7 @@ public class SavingLoading : MonoBehaviour
 
     private string SavePath => $"{Application.persistentDataPath}/save.ali";
     
-    [ContextMenu("Save")]
+    [ContextMenu("Save")] 
     public void Save()
     {
         DeleteFile();
@@ -28,17 +28,17 @@ public class SavingLoading : MonoBehaviour
         SaveFile(state);
     }
 
+    
+
     [ContextMenu("Load")]
     public void Load()
     {
         var state = LoadFile();
         RestoreState(state);
-        
     }
 
     private void SaveFile(object state)
     {
-        
         using (var stream = File.Open(SavePath, FileMode.Create))
         {
             var formatter = new BinaryFormatter();
@@ -75,14 +75,12 @@ public class SavingLoading : MonoBehaviour
 
     private void RestoreState(Dictionary<string, object> state)
     {
-
         foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
         {
             if(state.TryGetValue(saveableWorldEntity.ID, out object value))
             {
                 saveableWorldEntity.RestoreState(value);
             }
-            
         }
         foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
         {
@@ -90,9 +88,12 @@ public class SavingLoading : MonoBehaviour
             {
                 saveableItemEntity.RestoreState(value);
             }
-            
         }
+    }
 
+    public bool SaveExists()
+    {
+        return File.Exists(SavePath);
     }
 
     public void DeleteFile()

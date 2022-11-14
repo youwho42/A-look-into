@@ -10,6 +10,7 @@ public class Interactable : MonoBehaviour
 
     public float playerEnergyCost;
     public float gameEnergyReward;
+    public float gameEnergyCost;
     public bool canInteract = true;
 
     protected bool hasInteracted;

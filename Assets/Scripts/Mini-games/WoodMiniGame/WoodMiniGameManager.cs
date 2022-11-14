@@ -67,8 +67,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             }
             if (currentAttempts == maxAttempts && !transitioning)
             {
-                Destroy(currentGameObject);
-                currentGameObject = null;
+                //Destroy(currentGameObject);
+                //currentGameObject = null;
                 MiniGameManager.instance.EndMiniGame(miniGameType);
             }
         }

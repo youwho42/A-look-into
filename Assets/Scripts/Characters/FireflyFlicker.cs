@@ -10,7 +10,9 @@ public class FireflyFlicker : MonoBehaviour
     Material fireflyMaterial;
     float timeOut;
     float timer;
-    
+
+    bool isOff;
+
     [ColorUsageAttribute(true, true)]
     public Color bright;
     [ColorUsageAttribute(true, true)]
@@ -28,6 +30,7 @@ public class FireflyFlicker : MonoBehaviour
     {
         if(fireflyAI.currentState == FireflyAI.FlyingState.isFlying)
         {
+            isOff = false;
             timer += Time.deltaTime;
             if (timer >= timeOut)
             {
@@ -40,8 +43,13 @@ public class FireflyFlicker : MonoBehaviour
         }
         else
         {
-            fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, 0);
-            fireflyMaterial.SetColor("_EmissionColor", dark);
+            if (!isOff)
+            {
+                fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, 0);
+                fireflyMaterial.SetColor("_EmissionColor", dark);
+                isOff = true;
+            }
+            
         }
 
     }

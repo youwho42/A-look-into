@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10,7 +10,9 @@ Material:
   m_Name: Shader Graphs_SwayAndGlowGraph
   m_Shader: {fileID: -6465566751694194690, guid: b82c3af60ae6ce24ab80695ff5524715,
     type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,9 +30,24 @@ Material:
         m_Texture: {fileID: 2800000, guid: d6d4d07f605ee4ad9821f9bc2fa5748a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _WindDensity: 3
     - _WindStrength: 0.01
     m_Colors:
     - EmissionColor: {r: 0.4392157, g: 1.4980392, b: 1.4980392, a: 0}
+    - _EmissionColor: {r: 2.9960785, g: 0.03137255, b: 1.5529412, a: 0}
     - _WindMovement: {r: 1.5, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7316366533430306331}
   - component: {fileID: 1748626086008490583}
   - component: {fileID: -4724633185608668304}
+  - component: {fileID: 6793559515206251402}
   m_Layer: 13
   m_Name: Stick
   m_TagString: Untagged
@@ -33,6 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.7578123, y: -0.085935265, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -133,7 +135,8 @@ MonoBehaviour:
   interactSound: Stick
   interactVerb: Grab
   playerEnergyCost: 0.5
-  gameEnergyReward: 0.1
+  gameEnergyReward: 0
+  gameEnergyCost: 0
   canInteract: 1
 --- !u!114 &7316366533430306331
 MonoBehaviour:
@@ -175,4 +178,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
+--- !u!114 &6793559515206251402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainImage: {fileID: 5956515340350763639}
+  mainShadow: {fileID: 0}
+  itemSpritesList:
+  - item: {fileID: 21300000, guid: a03d9caf6156e4af0a256d6ecde58a54, type: 3}
+    shadow: {fileID: 0}
+  - item: {fileID: 21300000, guid: 06b6a76c4cf73df438ee98634a7b4cac, type: 3}
+    shadow: {fileID: 0}

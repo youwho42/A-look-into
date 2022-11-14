@@ -16,12 +16,12 @@ public class GatherableItem : MonoBehaviour
     private void Start()
     {
         currentAmount = maxPerDay;
-        GameEventManager.onTimeHourEvent.AddListener(DailyReset);
+        GameEventManager.onTimeTickEvent.AddListener(DailyReset);
     }
 
     private void OnDestroy()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(DailyReset);
+        GameEventManager.onTimeTickEvent.RemoveListener(DailyReset);
     }
     public bool RemoveItem()
     {

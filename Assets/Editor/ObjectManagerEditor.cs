@@ -52,15 +52,17 @@ public class ObjectManagerEditor : Editor
         //Need to tell Unity that we have moved the circle or the circle may be displayed at the old position
         SceneView.RepaintAll();
 
+        
+
+        //Display the circles
         Handles.color = Color.blue;
+
+        Handles.DrawWireDisc(center, Vector3.forward, objectManager.radius);
+
+        Handles.color = Color.white;
 
         Handles.DrawWireDisc(center + new Vector3(0, offsetZ * 0.2790625f, offsetZ), Vector3.forward, objectManager.radius);
 
-        //Display the circle
-        Handles.color = Color.white;
-
-        Handles.DrawWireDisc(center, Vector3.forward, objectManager.radius);
-        
 
         //Add or remove objects with left mouse click
 

@@ -145,14 +145,12 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     bool InteractCostReward()
     {
-        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= craftableItem.PlayerEnergyCost)
-        {
-            
-            PlayerInformation.instance.playerStats.RemovePlayerEnergy(craftableItem.PlayerEnergyCost);
+        float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+        if (agency >= craftableItem.AgencyCost)
             return true;
-        }
 
-        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to craft this.");
+
+        NotificationManager.instance.SetNewNotification("You need " + craftableItem.AgencyCost + " Agency to fix this.");
         return false;
     }
 

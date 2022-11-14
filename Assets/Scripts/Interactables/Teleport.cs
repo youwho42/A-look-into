@@ -17,6 +17,7 @@ public class Teleport : MonoBehaviour
     public bool isIncoming;
 
     public int currentLevel;
+    public string teleportName;
 
     private void Start()
     {
@@ -47,8 +48,7 @@ public class Teleport : MonoBehaviour
         yield return new WaitForSeconds(2f);
         activeTeleport.SetActive(false);
         activeTeleport.transform.position = new Vector3(teleporter.position.x, teleporter.position.y, teleporter.GetComponent<Teleport>().currentLevel);
-        //activeTeleport.GetComponent<PlayerLevelChange>().UpdatePlayerLocation();
-        //SetCollisionLayers.instance.SetCollisionLayer();
+        
         yield return new WaitForSeconds(1f);
 
         activeTeleport.SetActive(true);
@@ -70,7 +70,7 @@ public class Teleport : MonoBehaviour
 
     public void SetCurrentLevel()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel - 0.4f);
+        GetComponentInChildren<SpriteRenderer>().transform.position = new Vector3(transform.position.x, transform.position.y, currentLevel - 0.4f);
     }
   
 }

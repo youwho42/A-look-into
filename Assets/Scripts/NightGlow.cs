@@ -6,49 +6,48 @@ public class NightGlow : MonoBehaviour
 {
     RealTimeDayNightCycle dayNightCycle;
 
-    public int glowAppearTime;
-    public int glowDisappearTime;
+    
     public float bloomMinIntensity;
     public float bloomMaxIntensity;
 
     public SpriteRenderer spriteMaterial;
     Material material;
-    Color initialIntensity;
+    Color initialColor;
 
     private void Start()
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
-        GameEventManager.onTimeHourEvent.AddListener(StartGlow);
+        GameEventManager.onTimeTickEvent.AddListener(StartGlow);
         material = spriteMaterial.material;
-        initialIntensity = material.GetColor("_EmissionColor");
+        initialColor = material.GetColor("_EmissionColor");
         SetInitialGlow();
     }
 
     private void OnDestroy()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(StartGlow);
+        GameEventManager.onTimeTickEvent.RemoveListener(StartGlow);
     }
     public void StartGlow(int time)
     {
-        if (time == glowAppearTime)
-            StartCoroutine(StartGlowCo(true));
-        if (time == glowDisappearTime)
-            StartCoroutine(StartGlowCo(false));
+        if (time >= dayNightCycle.nightStart || time < dayNightCycle.dayStart)
+            StartGlowCo(true);
+        if (time <= dayNightCycle.dayStart || time > dayNightCycle.nightStart)
+            StartGlowCo(false);
     }
-    
+
     void SetInitialGlow()
     {
-        if(dayNightCycle.hours>=5 || dayNightCycle.hours <= 20)
+        if (dayNightCycle.hours >= 5 || dayNightCycle.hours <= 20)
         {
-            material.SetColor("_EmissionColor", initialIntensity * bloomMinIntensity);
+            material.SetColor("_EmissionColor", initialColor * bloomMinIntensity);
         }
         else
         {
-            material.SetColor("_EmissionColor", initialIntensity * bloomMaxIntensity);
+            material.SetColor("_EmissionColor", initialColor * bloomMaxIntensity);
         }
     }
 
-    IEnumerator StartGlowCo(bool on) 
+    void StartGlowCo(bool on) 
     {
         
         float elapsedTime = dayNightCycle.minutes;
@@ -56,19 +55,23 @@ public class NightGlow : MonoBehaviour
         
         float startIntensity = on ? bloomMinIntensity : bloomMaxIntensity;
         float endIntinsity = on ? bloomMaxIntensity : bloomMinIntensity;
+
+        float i = Mathf.Lerp(startIntensity, endIntinsity, (elapsedTime / waitTime));
+        
+        material.SetColor("_EmissionColor", initialColor * i);
+        //elapsedTime = dayNightCycle.minutes;
+
+        //while (elapsedTime < waitTime)
+        //{
+        //    float i = Mathf.Lerp(startIntensity, endIntinsity, (elapsedTime / waitTime));
+
+        //    material.SetColor("_EmissionColor", initialIntensity * i);
+        //    elapsedTime = dayNightCycle.minutes;
+
+            
+        //}
+
         
         
-        while (elapsedTime < waitTime)
-        {
-            float i = Mathf.Lerp(startIntensity, endIntinsity, (elapsedTime / waitTime));
-
-            material.SetColor("_EmissionColor", initialIntensity * i);
-            elapsedTime = dayNightCycle.minutes;
-
-            yield return null;
-        }
-
-        material.SetColor("_EmissionColor", initialIntensity * endIntinsity);
-        yield return null;
     }
 }

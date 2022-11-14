@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class DisableOnInvisible : MonoBehaviour
 {
+
+    public bool isVisible;
+    
     void OnBecameVisible()
     {
+        isVisible = true;
         
-        enabled = true;
     }
     void OnBecameInvisible()
     {
+        isVisible = false;
         
-        enabled = false;
     }
 
 }

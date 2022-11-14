@@ -31,7 +31,7 @@ public class InteractableFixingArea : Interactable
         base.Interact(interactor);
         if (CheckForIngredients() && InteractCostReward())
         {
-            
+            //playerInformation.playerStats.RemoveGameEnergy(gameEnergyCost);
             GetComponent<IFixArea>().Fix(ingredients);
         }
     }
@@ -54,14 +54,12 @@ public class InteractableFixingArea : Interactable
 
     bool InteractCostReward()
     {
-        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
-        {
-            playerInformation.playerStats.AddGameEnergy(gameEnergyReward);
-            playerInformation.playerStats.RemovePlayerEnergy(playerEnergyCost);
+        float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+        if (agency >= gameEnergyCost)
             return true;
-        }
+        
 
-        NotificationManager.instance.SetNewNotification("You are missing Bounce to fix this.");
+        NotificationManager.instance.SetNewNotification("You need " + gameEnergyCost + " Agency to fix this.");
         return false;
     }
 

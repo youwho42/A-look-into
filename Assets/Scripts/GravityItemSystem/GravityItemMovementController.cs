@@ -16,15 +16,15 @@ public class GravityItemMovementController : GravityItem
     public bool isInInteractAction;
     [HideInInspector]
     public float moveSpeed;
-    
 
-    
-    
 
-    
-    
 
-    
+
+
+    AllTilesInfoManager allTilesManager;
+
+
+    Vector3Int currentPosition;
 
     Vector3Int nextTilePosition;
     [HideInInspector]
@@ -35,6 +35,9 @@ public class GravityItemMovementController : GravityItem
     private new IEnumerator Start()
     {
         base.Start();
+
+        allTilesManager = AllTilesInfoManager.instance;
+
         playerInput = GetComponent<PlayerInput>();
         
         yield return new WaitForSeconds(0.25f);
@@ -89,6 +92,8 @@ public class GravityItemMovementController : GravityItem
     }
 
 
+
+
     bool CanReachNextTile(Vector2 direction)
     {
         if (surroundingTiles.grid == null)
@@ -100,7 +105,7 @@ public class GravityItemMovementController : GravityItem
             return false;
 
         nextTilePosition = surroundingTiles.grid.WorldToCell(checkPosition);
-        
+
         Vector3Int nextTileKey = nextTilePosition - surroundingTiles.currentTilePosition;
         onCliffEdge = false;
 
@@ -108,13 +113,17 @@ public class GravityItemMovementController : GravityItem
 
         int level = 0;
 
+
+        //TileBlockInfo tileBlock = allTilesManager.allTilesObject.allDirectionsValues.Find(item => item.tilePosition == surroundingTiles.currentTilePosition);
+        
+
         foreach (var tile in surroundingTiles.allCurrentDirections)
         {
             // CURRENT TILE ----------------------------------------------------------------------------------------------------
             // right now, where we are, what it be? is it be a slope?
             if (tile.Key == Vector3Int.zero)
             {
-                
+
                 slopeDirection = Vector2.zero;
                 onSlope = tile.Value.tileName.Contains("Slope");
                 if (onSlope)
@@ -125,15 +134,15 @@ public class GravityItemMovementController : GravityItem
                         slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
                     continue;
                 }
-                
+
             }
             if (tile.Key == nextTileKey)
                 level = tile.Value.levelZ;
             else
                 continue;
             Vector3Int doubleCheckTilePosition = surroundingTiles.grid.WorldToCell(doubleCheckPosition);
-            
-            
+
+
 
             // JUMPING! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
@@ -156,9 +165,9 @@ public class GravityItemMovementController : GravityItem
 
 
 
-                if (tile.Key == nextTileKey && tile.Value.isValid)
+            if (tile.Key == nextTileKey && tile.Value.isValid)
             {
-                
+
                 // if the next tile is a slope, am i approaching it in the right direction?
                 if (tile.Value.tileName.Contains("Slope"))
                 {
@@ -166,11 +175,11 @@ public class GravityItemMovementController : GravityItem
                         return false;
 
                     onSlope = true;
-                    
+
                     // is the slope is lower?
                     if (tile.Value.levelZ < 0)
                         getOnSlope = true;
-                    
+
 
                 }
 
@@ -192,7 +201,7 @@ public class GravityItemMovementController : GravityItem
             // the next tile is NOT valid
             if (tile.Key == nextTileKey && !tile.Value.isValid)
             {
-                if(doubleCheckTilePosition == nextTilePosition)
+                if (doubleCheckTilePosition == nextTilePosition)
                 {
                     Nudge(direction);
                 }
@@ -214,9 +223,9 @@ public class GravityItemMovementController : GravityItem
                 return false;
             }
         }
-        
+
         surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
-        
+
 
 
         return true;
@@ -224,10 +233,10 @@ public class GravityItemMovementController : GravityItem
 
 
 
-   
-    
 
-    
+
+
+
 
 
 

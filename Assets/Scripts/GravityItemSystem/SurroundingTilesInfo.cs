@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
+[System.Serializable]
 public class DirectionInfo
 {
     public bool isValid;
@@ -26,9 +26,10 @@ public class SurroundingTilesInfo : MonoBehaviour
     public Tilemap groundMap;
     public Vector3Int currentTilePosition;
 
-    
 
-    
+
+    //public List<Vector3Int> allDirectionsKeys = new List<Vector3Int>();
+    //public List<DirectionInfo> allDirectionsValues = new List<DirectionInfo>();
 
     public Dictionary<Vector3Int, DirectionInfo> allCurrentDirections = new Dictionary<Vector3Int, DirectionInfo>();
 
@@ -102,15 +103,17 @@ public class SurroundingTilesInfo : MonoBehaviour
                             valid = false;
                     }
 
+                    
+
 
                     if (allCurrentDirections.ContainsKey(new Vector3Int(x, y, 0)))
                     {
                         if (!allCurrentDirections[new Vector3Int(x, y, 0)].isValid)
                         {
-                            
+
                             if (z < 0)
                             {
-                                if(valid || allCurrentDirections[new Vector3Int(x, y, 0)].tileName == "Empty")
+                                if (valid || allCurrentDirections[new Vector3Int(x, y, 0)].tileName == "Empty")
                                     allCurrentDirections[new Vector3Int(x, y, 0)] = new DirectionInfo(valid, z, tileName);
                             }
                             else
@@ -133,6 +136,7 @@ public class SurroundingTilesInfo : MonoBehaviour
 
             }
         }
+        
 
         // check if on slope, set respective slope direction z1 to valid
         if (allCurrentDirections[Vector3Int.zero].tileName.Contains("Slope"))

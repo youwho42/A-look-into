@@ -9,15 +9,15 @@ public class SaveTimeAndDate : MonoBehaviour, ISaveable
     {
         return new SaveData
         {
-            currentTimeRaw = DayNightCycle.instance.currentTimeRaw,
-            currentDayRaw = DayNightCycle.instance.currentDayRaw
+            currentTimeRaw = RealTimeDayNightCycle.instance.currentTimeRaw,
+            currentDayRaw = RealTimeDayNightCycle.instance.currentDayRaw
         };
     }
 
     public void RestoreState(object state)
     {
         var saveData = (SaveData)state;
-        DayNightCycle.instance.SetDayTime(saveData.currentTimeRaw, saveData.currentDayRaw);
+        RealTimeDayNightCycle.instance.SetDayTime(saveData.currentTimeRaw, saveData.currentDayRaw);
         
     }
 

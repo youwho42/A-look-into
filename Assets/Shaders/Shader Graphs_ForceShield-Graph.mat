@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10,7 +10,8 @@ Material:
   m_Name: Shader Graphs_ForceShield-Graph
   m_Shader: {fileID: -6465566751694194690, guid: 6f36380c8f725d744999c4ebc95d6d73,
     type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,7 +26,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: 82db0e802a036e644a684ddea4c1b1a7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 45cbf33fe076c7143af87902b6ad505f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -47,12 +48,12 @@ Material:
     m_Ints: []
     m_Floats:
     - CORNERS: 0
-    - Float_1: 0.41
-    - Speed: 0.1
-    - _Float: 0.58
+    - Float_1: 1
+    - Speed: 0
+    - _Float: 0
     m_Colors:
-    - Color_1: {r: 27.72488, g: 71.75851, b: 77.87429, a: 1}
+    - Color_1: {r: 1.2235295, g: 0.10980392, b: 2.9960785, a: 1}
     - EmissionColor: {r: 0.78185, g: 2.0914485, b: 3.7333336, a: 0}
-    - _Color: {r: 0.19339623, g: 0.7735849, b: 0.33651304, a: 0}
-    - _EmissionColor: {r: 0.7921569, g: 1.2078432, b: 1.6078432, a: 0}
+    - _Color: {r: 0.19215687, g: 0.2661951, b: 0.77254903, a: 0}
+    - _EmissionColor: {r: 16.815687, g: 0, b: 47.937256, a: 0}
   m_BuildTextureStacks: []
