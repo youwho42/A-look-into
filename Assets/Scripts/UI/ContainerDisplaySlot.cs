@@ -29,7 +29,7 @@ public class ContainerDisplaySlot : MonoBehaviour
                 
                 int a = Input.GetKey(KeyCode.LeftControl) ? containerInventory.GetStock(item.Name) : 1;
                 
-                if(PlayerInformation.instance.playerInventory.AddItem(item, a))
+                if(PlayerInformation.instance.playerInventory.AddItem(item, a, false))
                     containerInventory.RemoveItem(item, a);
                 
                 
@@ -38,7 +38,7 @@ public class ContainerDisplaySlot : MonoBehaviour
             {
                 int a = Input.GetKey(KeyCode.LeftControl) ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
                 
-                if(containerInventory.AddItem(item, a))
+                if(containerInventory.AddItem(item, a, false))
                     PlayerInformation.instance.playerInventory.RemoveItem(item, a);
                
             }

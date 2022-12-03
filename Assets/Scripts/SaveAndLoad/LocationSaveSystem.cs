@@ -7,7 +7,6 @@ using UnityEngine;
 public class LocationSaveSystem : MonoBehaviour, ISaveable
 {
 
-   
     public object CaptureState()
     {
         return new SaveData
@@ -20,12 +19,13 @@ public class LocationSaveSystem : MonoBehaviour, ISaveable
     {
         var saveData = (SaveData)state;
         transform.position = saveData.location;
-         
+        
     }
 
     [Serializable]
     private struct SaveData
     {
         public SVector3 location;
+        
     }
 }

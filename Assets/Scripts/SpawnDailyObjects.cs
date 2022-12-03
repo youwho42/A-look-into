@@ -8,7 +8,7 @@ public class SpawnDailyObjects : MonoBehaviour
 
     public List<QI_ItemData> objectToSpawn = new List<QI_ItemData>();
 
-    
+    public bool hideOnStart;
     
 
     int hourToDailySpawn = 5;
@@ -17,6 +17,11 @@ public class SpawnDailyObjects : MonoBehaviour
 
     private void Start()
     {
+        
+        if(gameObject.TryGetComponent(out SpriteRenderer rend) && hideOnStart)
+        {
+            rend.enabled = false;
+        }
         Transform[] points = GetComponentsInChildren<Transform>();
         for (int i = 0; i < points.Length; i++)
         {
@@ -56,6 +61,9 @@ public class SpawnDailyObjects : MonoBehaviour
             }
         }
     }
+
+    
+
     private void OnDestroy()
     {
         GameEventManager.onTimeHourEvent.RemoveListener(SpawnObjects);

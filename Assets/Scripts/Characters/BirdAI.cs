@@ -10,7 +10,7 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     public InteractAreasManager interactAreas;
     DrawZasYDisplacement currentLandingSpot;
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     CanReachTileFlight flight;
     CanReachTileWalk walk;
     public Animator animator;
@@ -30,6 +30,8 @@ public class BirdAI : MonoBehaviour, IAnimal
     static int sleeping_hash = Animator.StringToHash("IsSleeping");
     static int idle_hash = Animator.StringToHash("Idle");
 
+    bool activeState = true;
+
     [SerializeField]
     public FlyingState currentState;
     public enum FlyingState
@@ -48,7 +50,7 @@ public class BirdAI : MonoBehaviour, IAnimal
         GameEventManager.onTimeTickEvent.AddListener(SetSleepOrWake);
 
         animator.SetBool(landed_hash, true);
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
         flight = GetComponent<CanReachTileFlight>();
         walk = GetComponent<CanReachTileWalk>();
         CheckForLandingArea();
@@ -72,7 +74,10 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
-        
+
+        if (!activeState)
+            return;
+
         switch (currentState)
         {
             case FlyingState.isFlying:
@@ -345,8 +350,8 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     }
 
-    
-    
-
-    
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
+    }
 }

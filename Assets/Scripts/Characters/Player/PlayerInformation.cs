@@ -9,14 +9,19 @@ public class PlayerInformation : MonoBehaviour
     public static PlayerInformation instance;
 
     public Transform player;
+    public GravityItemMovementControllerNew playerController;
     public QI_Inventory playerInventory;
+    public EquipmentManager equipmentManager;
     public QI_CraftingRecipeDatabase playerRecipeDatabase;
-    
+    public QI_ItemDatabase playerResourceCompendiumDatabase;
+    public QI_ItemDatabase playerAnimalCompendiumDatabase;
     public bool uiScreenVisible;
     
     public PlayerInput playerInput;
 
     public PlayerStats playerStats;
+    public CurrentTilePosition currentTilePosition;
+    public Animator playerAnimator;
 
     private void Awake()
     {
@@ -30,8 +35,18 @@ public class PlayerInformation : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        currentTilePosition = player.GetComponent<CurrentTilePosition>();
+        playerAnimalCompendiumDatabase.Items.Clear();
+        playerResourceCompendiumDatabase.Items.Clear();
+        GameEventManager.onInventoryUpdateEvent.AddListener(UpdatePlayerResources);
+    }
 
-
+    private void OnDestroy()
+    {
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdatePlayerResources);
+    }
     public void TogglePlayerInput(bool toggle)
     {
         playerInput.isInUI = !toggle;
@@ -50,5 +65,18 @@ public class PlayerInformation : MonoBehaviour
         return amountInInventory;
     }
 
+    void UpdatePlayerResources()
+    {
+        foreach (var item in playerInventory.Stacks)
+        {
+            if (!PlayerInformation.instance.playerResourceCompendiumDatabase.Items.Contains(item.Item))
+            {
+                PlayerInformation.instance.playerResourceCompendiumDatabase.Items.Add(item.Item);
+                NotificationManager.instance.SetNewNotification($"{item.Item.Name} was added to your resources compendium.");
+                GameEventManager.onResourceCompediumUpdateEvent.Invoke();
+            }
+        }
+        
+    }
 
 }

@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: Clay
   m_EditorClassIdentifier: 
   Name: Clay
+  AnimationName: 
   Description: Clay! Make a bowl? I guess?
   Weight: 1
   Price: 2
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 9f31d4c7f44ce314f8ec9e91edfc3be8, type: 3}
   ItemPrefab: {fileID: 3193338031072352893, guid: c1b4f12461f97494cb5dfdfced3de602,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 10
   ResearchRecipes:
   - {fileID: 11400000, guid: 0934823ebe77b554d96d2e7e18568450, type: 2}
-  RecipeRevealAmount: 5
+  RevealAgencyAmount: 10
   GameDificulty: 1

@@ -44,7 +44,9 @@ GameObject:
   - component: {fileID: 4720702768505272641}
   - component: {fileID: 4720702768505272703}
   - component: {fileID: 4720702768505272702}
-  m_Layer: 0
+  - component: {fileID: 3068471770465851757}
+  - component: {fileID: 2127316656769708729}
+  m_Layer: 14
   m_Name: Bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +140,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &3068471770465851757
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768505272640}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.03125
+--- !u!114 &2127316656769708729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768505272640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
 --- !u!1 &4720702768676041353
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,9 +182,9 @@ GameObject:
   - component: {fileID: 6455273728522960521}
   - component: {fileID: 6999954201648174798}
   - component: {fileID: 3653841959630871549}
-  - component: {fileID: 2610390624774886095}
-  - component: {fileID: 4681340403207796059}
   - component: {fileID: 2580509081598303110}
+  - component: {fileID: 4916607501585020372}
+  - component: {fileID: 9004632507671748036}
   m_Layer: 14
   m_Name: Bee
   m_TagString: Untagged
@@ -320,56 +351,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 4034495559522009183}
   isHidden: 0
---- !u!114 &2610390624774886095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdef3c7d81ef1b14398c17678116a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
-  currentTilePosition: {x: 0, y: 0, z: 0}
---- !u!114 &4681340403207796059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561e1e230feaa6e4f9b44cda924d6557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemObject: {fileID: 4720702768505272641}
-  itemShadow: {fileID: 4720702770224426185}
-  slopeObject: {fileID: 7521478813575426687}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  bounceFriction: 0
-  bounciness: 0
-  surroundingTiles: {fileID: 0}
-  currentVelocity: 0
-  currentLevel: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  getOnSlope: 0
-  getOffSlope: 0
-  onSlope: 0
-  slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  isWeightless: 1
 --- !u!114 &2580509081598303110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +378,61 @@ MonoBehaviour:
   isOverWater: 0
   useBoids: 0
   boid: {fileID: 0}
+  canReachNextTile: 0
+--- !u!114 &4916607501585020372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768676041353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b0913c9e7a6546bbd0aeaeb343a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 4720702768505272641}
+  itemShadow: {fileID: 4720702770224426185}
+  slopeObject: {fileID: 7521478813575426687}
+  positionZ: 0
+  displacedPosition: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  bounceFriction: 0
+  bounciness: 0
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
+  currentVelocity: 0
+  currentLevel: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  getOnSlope: 0
+  getOffSlope: 0
+  onSlope: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
+  slopeDirection: {x: 0, y: 0}
+  checkTileDistance: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  isWeightless: 1
+  tileBlockInfo: []
+--- !u!114 &9004632507671748036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768676041353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

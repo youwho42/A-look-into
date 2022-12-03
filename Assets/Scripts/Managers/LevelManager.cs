@@ -63,11 +63,18 @@ public class LevelManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().name;
     }
-
+    private void Start()
+    {
+        PlayerInformation.instance.TogglePlayerInput(false);
+    }
     public void StartNewGame(string levelName)
     {
         SavingLoading.instance.Save();
-        titleMenu.SetActive(false);
+        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+
+        PlayerInformation.instance.TogglePlayerInput(true);
         RealTimeDayNightCycle.instance.isPaused = false;
         EventLevelLoaded.Invoke();
     }
@@ -114,7 +121,18 @@ public class LevelManager : MonoBehaviour
     public void Pause(bool isPaused)
     {
         RealTimeDayNightCycle.instance.isPaused = isPaused;
-        pauseMenu.SetActive(isPaused);
+        if (isPaused)
+        {
+            UIScreenManager.instance.HideAllScreens();
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
+            PlayerInformation.instance.TogglePlayerInput(false);
+        }
+        else
+        {
+            UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            PlayerInformation.instance.TogglePlayerInput(true);
+        }
         savedAlert.SetActive(false);
         HideControls();
     }
@@ -137,8 +155,8 @@ public class LevelManager : MonoBehaviour
     IEnumerator ChangeLevelCo (string levelName)
     {
         AsyncOperation currentLevelLoading =  SceneManager.LoadSceneAsync(levelName);
-        titleMenu.SetActive(false);
-        loadScreen.SetActive(true);
+        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         while (!currentLevelLoading.isDone)
         {
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
@@ -149,20 +167,20 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
-        loadScreen.SetActive(false);
+        UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
 
     }
 
     IEnumerator LoadLevelCo(string levelName)
     {
-        pauseMenu.SetActive(false);
+        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName);
 
         //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
 
-        titleMenu.SetActive(false);
-        loadScreen.SetActive(true);
-        
+        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
+        PlayerInformation.instance.TogglePlayerInput(false);
         while (!currentLevelLoading.isDone)
         {
             
@@ -196,11 +214,12 @@ public class LevelManager : MonoBehaviour
         }
         yield return new WaitForSeconds(3f);
         Pause(false);
-        loadScreen.SetActive(false);
+        UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        
         DissolveEffect.instance.StartDissolve(player.GetComponentInChildren<SpriteRenderer>().material, 2f, true);
         yield return new WaitForSeconds(0.01f);
-        player.GetComponent<PlayerInput>().enabled = true;
-
+        PlayerInformation.instance.TogglePlayerInput(true);
     }
 
 

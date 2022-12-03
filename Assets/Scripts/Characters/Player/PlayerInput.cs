@@ -30,7 +30,7 @@ public class PlayerInput : MonoBehaviour
     {
         if(isPaused || isInUI)
         {
-
+            movement = Vector2.zero;
         }
         else
         {
@@ -44,10 +44,14 @@ public class PlayerInput : MonoBehaviour
                 isRunning = false;
             canWalkOffCliff = Input.GetKey(KeyCode.C);
             isJumping = Input.GetKeyDown(KeyCode.Space);
+            
+        }
+        if (!isPaused || !isInUI)
+        {
             usingEquippedItem = Input.GetMouseButtonDown(0);
         }
         
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && UIScreenManager.instance.canChangeUI)
         {
             isPaused = !isPaused;
             LevelManager.instance.Pause(isPaused);

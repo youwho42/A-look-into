@@ -17,7 +17,7 @@ public class InteractWithInteractable : MonoBehaviour
     public TextMeshProUGUI interactVerb;
 
     Vector3 canvasOffset;
-    public GravityItemMovementController playermovement;
+    public GravityItemMovementControllerNew playermovement;
     
 
     private void Update()

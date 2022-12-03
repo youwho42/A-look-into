@@ -30,7 +30,7 @@ public class ContainerItemsAtStart : MonoBehaviour
         inventory = GetComponent<QI_Inventory>();
         foreach (var item in slotItems)
         {
-            inventory.AddItem(item.itemData, item.amount);
+            inventory.AddItem(item.itemData, item.amount, true);
         }
     }
 }

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5967451856108394458}
   - component: {fileID: 5967451856108394433}
   - component: {fileID: 5967451856108394438}
-  - component: {fileID: 5967451856108394439}
-  - component: {fileID: 5967451856108394436}
   - component: {fileID: 5967451856108394437}
+  - component: {fileID: 1509863019125266258}
+  - component: {fileID: 2395931891320984845}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
@@ -51,7 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactAreas: {fileID: 0}
   animator: {fileID: 5967451856495238896}
-  home: {fileID: 0}
   currentState: 1
 --- !u!114 &5967451856108394438
 MonoBehaviour:
@@ -67,55 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 5967451857122541975}
   isHidden: 0
---- !u!114 &5967451856108394439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5967451856108394459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdef3c7d81ef1b14398c17678116a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
-  currentTilePosition: {x: 0, y: 0, z: 0}
---- !u!114 &5967451856108394436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5967451856108394459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561e1e230feaa6e4f9b44cda924d6557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemObject: {fileID: 5967451856495238897}
-  itemShadow: {fileID: 5967451856273523166}
-  slopeObject: {fileID: 5967451856984917291}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  bounceFriction: 0
-  bounciness: 0
-  surroundingTiles: {fileID: 0}
-  currentVelocity: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  getOnSlope: 0
-  getOffSlope: 0
-  onSlope: 0
-  slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.075
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  isWeightless: 0
 --- !u!114 &5967451856108394437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +90,60 @@ MonoBehaviour:
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
+--- !u!114 &1509863019125266258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967451856108394459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b0913c9e7a6546bbd0aeaeb343a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 5967451856495238897}
+  itemShadow: {fileID: 5967451856273523166}
+  slopeObject: {fileID: 5967451856984917291}
+  positionZ: 0
+  displacedPosition: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  bounceFriction: 0
+  bounciness: 0
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
+  currentVelocity: 0
+  currentLevel: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  getOnSlope: 0
+  getOffSlope: 0
+  onSlope: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
+  slopeDirection: {x: 0, y: 0}
+  checkTileDistance: 0.04
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  isWeightless: 0
+  tileBlockInfo: []
+--- !u!114 &2395931891320984845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967451856108394459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1 &5967451856273523167
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +241,9 @@ GameObject:
   - component: {fileID: 5967451856495238896}
   - component: {fileID: 1811554867345994488}
   - component: {fileID: 3725231716656796218}
-  m_Layer: 0
+  - component: {fileID: 4695394095835541605}
+  - component: {fileID: 5694352649017631056}
+  m_Layer: 14
   m_Name: mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,6 +462,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &4695394095835541605
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967451856495238902}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.065}
+  serializedVersion: 2
+  m_Radius: 0.15625
+--- !u!114 &5694352649017631056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967451856495238902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 7cbbf56ee35194d4da597fb15b6eb359, type: 2}
 --- !u!1 &5967451856984917288
 GameObject:
   m_ObjectHideFlags: 0

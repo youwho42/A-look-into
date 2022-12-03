@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 5769325092054554965}
   - component: {fileID: 5769325092054554966}
   - component: {fileID: 5769325092054554967}
+  - component: {fileID: 4096953219318713192}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -73,12 +74,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerController: {fileID: 0}
   playerInventory: {fileID: 5769325092054554960}
+  equipmentManager: {fileID: 5769325092054554963}
   playerRecipeDatabase: {fileID: 11400000, guid: d0aefd46193a58d49982ad6dc18b2bd5,
+    type: 2}
+  playerResourceCompendiumDatabase: {fileID: 11400000, guid: 8dfe7ff5a2454d247b9accc627e0ee38,
+    type: 2}
+  playerAnimalCompendiumDatabase: {fileID: 11400000, guid: 93d396add2f17a641980694e58ce63c9,
     type: 2}
   uiScreenVisible: 0
   playerInput: {fileID: 0}
   playerStats: {fileID: 5769325092054554954}
+  currentTilePosition: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!114 &5769325092054554960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,3 +255,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAttributes: {fileID: 5769325092054554955}
+--- !u!114 &4096953219318713192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8051b7d55fd53446bd6f53d35392127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimalCompendiumDatabase: {fileID: 11400000, guid: 93d396add2f17a641980694e58ce63c9,
+    type: 2}
+  playerResourceCompendiumDatabase: {fileID: 11400000, guid: 8dfe7ff5a2454d247b9accc627e0ee38,
+    type: 2}
+  allItemsDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}

@@ -39,5 +39,6 @@ public class GenerateAllTilesInfoEditor : Editor
         
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = newTileInfo;
+        allTiles.ClearAllTiles();
     }
 }

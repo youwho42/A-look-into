@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButterflyAI : MonoBehaviour, IAnimal
 {
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     public float roamingArea;
     float timeToStayAtDestination;
     bool justTookOff;
@@ -20,6 +20,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
     static int landed_hash = Animator.StringToHash("IsLanded");
 
+    bool activeState = true;
 
     [SerializeField]
     public FlyingState currentState;
@@ -35,7 +36,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
     private void Start()
     {
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
         
 
         
@@ -62,6 +63,9 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
+        if (!activeState)
+            return;
+
         if (flight.centerOfActiveArea == null)
             CheckForLandingArea();
 
@@ -234,13 +238,8 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
     }
 
-
-    
-
-   
-    
-   
-
-
-
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
+    }
 }

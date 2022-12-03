@@ -44,7 +44,7 @@ public class EquipmentManager : MonoBehaviour
   
     public bool UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
     {
-        if(PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
+        if(PlayerInformation.instance.playerInventory.AddItem(itemData, 1, false))
         {
             currentEquipment[equipedIndex] = null;
             if (equipedIndex == (int)EquipmentSlot.Hands)

@@ -29,6 +29,8 @@ public class ChickenAI : MonoBehaviour, IAnimal
 
     AnimalSounds sounds;
 
+    bool activeState = true;
+
     [SerializeField]
     public CurrentState currentState;
 
@@ -65,6 +67,9 @@ public class ChickenAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
+
+        if (!activeState)
+            return;
 
         switch (currentState)
         {
@@ -219,5 +224,10 @@ public class ChickenAI : MonoBehaviour, IAnimal
             currentState = CurrentState.isPecking;
         }
         
+    }
+
+    public void SetActiveState(bool active)
+    {
+        activeState = active;    
     }
 }

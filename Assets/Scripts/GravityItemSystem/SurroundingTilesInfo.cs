@@ -36,7 +36,7 @@ public class SurroundingTilesInfo : MonoBehaviour
     private void Start()
     {
         SetGrid();
-        //currentTilePosition = GetTileZ();
+        //currentTilePosition = GetTileZ(transform.position);
         //GetSurroundingTiles();
     }
 

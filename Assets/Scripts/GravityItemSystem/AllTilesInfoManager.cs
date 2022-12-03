@@ -15,7 +15,15 @@ public class AllTilesInfoManager : MonoBehaviour
     }
 
     public TileInfoObject allTilesObject;
+    public Dictionary<Vector3Int, List<TileDirectionInfo>> allTilesDictionary = new Dictionary<Vector3Int, List<TileDirectionInfo>>();
 
-
-
+    private void Start()
+    {
+        for (int i = 0; i < allTilesObject.allDirectionsValues.Count; i++)
+        {
+            allTilesDictionary.Add(allTilesObject.allDirectionsValues[i].tilePosition, allTilesObject.allDirectionsValues[i].allTilesValues);
+            
+        }
+        
+    }
 }

@@ -16,7 +16,8 @@ public class FadeTilesOnPlayer : MonoBehaviour
     Collider2D lastHit;
     private void Update()
     {
-        Collider2D hit = Physics2D.OverlapPoint(transform.position, fadableAreaMask);
+        
+        Collider2D hit = Physics2D.OverlapPoint(playerPosition.position, fadableAreaMask);
         if(lastHit != hit)
         {
             lastHit = hit;
@@ -33,6 +34,8 @@ public class FadeTilesOnPlayer : MonoBehaviour
             
         }
     }
+
+    
 
     void ClearFadedTiles()
     {

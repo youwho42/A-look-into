@@ -32,7 +32,7 @@ public class MiniGameManager : MonoBehaviour
  
     public void StartMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
     {
-        if (!gameStarted)
+        if (!gameStarted && UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
         {
             foreach (var game in miniGames)
             {
@@ -44,6 +44,7 @@ public class MiniGameManager : MonoBehaviour
                     
                 }
             }
+            UIScreenManager.instance.canChangeUI = false;
             PlayerInformation.instance.TogglePlayerInput(false);
             gameStarted = true;
         }
@@ -55,9 +56,10 @@ public class MiniGameManager : MonoBehaviour
             if (game.miniGameType == miniGameType)
             {
                 game.miniGame.GetComponentInChildren<IMinigame>().ResetMiniGame();
-                
+               
             }
         }
+        UIScreenManager.instance.canChangeUI = true;
         PlayerInformation.instance.TogglePlayerInput(true);
         gameStarted = false;
     }

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class TileInfoObject : ScriptableObject
 {
-    
- 
+
     public List<TileBlockInfo> allDirectionsValues = new List<TileBlockInfo>();
 
 

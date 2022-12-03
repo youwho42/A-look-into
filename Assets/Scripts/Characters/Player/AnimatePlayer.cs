@@ -6,14 +6,14 @@ public class AnimatePlayer : MonoBehaviour
 {
 
     public Animator animator;
-    GravityItemMovementController playerMovement;
+    GravityItemMovementControllerNew playerMovement;
     //GravityItemMovement gravityItemMovement;
     PlayerInput playerInput;
     bool lostBalance;
     private void Start()
     {
         //gravityItemMovement = GetComponent<GravityItemMovement>();
-        playerMovement = GetComponent<GravityItemMovementController>();
+        playerMovement = GetComponent<GravityItemMovementControllerNew>();
         playerInput = GetComponent<PlayerInput>();
     }
     private void Update()

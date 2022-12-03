@@ -22,7 +22,7 @@ public class InteractablePickUp : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-        if(InteractCostReward())
+        if(/*InteractCostReward() && */UIScreenManager.instance.canChangeUI)
             StartCoroutine(InteractCo(interactor));
 
         
@@ -35,12 +35,13 @@ public class InteractablePickUp : Interactable
         PlayInteractSound();
 
         
-        if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, 1))
+        if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, 1, false))
         {
             if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
             {
                 obj.ShowObjects();
             }
+            
             Destroy(gameObject);
 
         }
@@ -54,18 +55,18 @@ public class InteractablePickUp : Interactable
 
 
 
-    bool InteractCostReward()
-    {
-        if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
-        {
-            PlayerInformation.instance.playerStats.AddGameEnergy(gameEnergyReward);
-            PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
-            return true;
-        }
+    //bool InteractCostReward()
+    //{
+    //    if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
+    //    {
+    //        PlayerInformation.instance.playerStats.AddGameEnergy(gameEnergyReward);
+    //        PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
+    //        return true;
+    //    }
 
-        NotificationManager.instance.SetNewNotification("You are missing Bounce to pick this up.");
-        return false;
-    }
+    //    NotificationManager.instance.SetNewNotification("You are missing Bounce to pick this up.");
+    //    return false;
+    //}
 
 
 

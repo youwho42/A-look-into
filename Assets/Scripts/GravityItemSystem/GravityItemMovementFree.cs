@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityItemMovementFree : GravityItem
+public class GravityItemMovementFree : GravityItemNew
 {
 
 
@@ -26,7 +26,7 @@ public class GravityItemMovementFree : GravityItem
         yield return new WaitForSeconds(0.25f);
         displacement = GetComponent<DrawZasYDisplacement>();
         
-        surroundingTiles.GetSurroundingTiles();
+        
         
 
         isGrounded = true;
@@ -56,17 +56,22 @@ public class GravityItemMovementFree : GravityItem
 
     void CheckBounce()
     {
-        Vector3Int diff = nextTilePosition - surroundingTiles.currentTilePosition;
-        if (surroundingTiles.allCurrentDirections.TryGetValue(diff, out DirectionInfo tile))
+        Vector3Int diff = nextTilePosition - currentTilePosition.position;
+        List<TileDirectionInfo> tileBlock;
+        allTilesManager.allTilesDictionary.TryGetValue(currentTilePosition.position, out tileBlock);
+        foreach (var tile in tileBlock)
         {
-            if (tile.levelZ >= 0)
+            if (tile.direction == diff)
             {
-                mainDirection = new Vector2(mainDirection.y, mainDirection.x);
-                if (diff.x > 0)
-                    mainDirection *= -1;
+                if (tile.levelZ >= 0)
+                {
+                    mainDirection = new Vector2(mainDirection.y, mainDirection.x);
+                    if (diff.x > 0)
+                        mainDirection *= -1;
 
-                velocity *= itemBounceFriction;
+                    velocity *= itemBounceFriction;
 
+                }
             }
         }
     }
@@ -74,8 +79,7 @@ public class GravityItemMovementFree : GravityItem
 
     bool CanReachNextTile(Vector2 direction)
     {
-        if (surroundingTiles.grid == null)
-            return false;
+        
 
         Vector3 checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
         Vector3 doubleCheckPosition = transform.position - Vector3.forward;
@@ -88,47 +92,49 @@ public class GravityItemMovementFree : GravityItem
         }
             
 
-        nextTilePosition = surroundingTiles.grid.WorldToCell(checkPosition);
-        Vector3Int nextTileKey = nextTilePosition - surroundingTiles.currentTilePosition;
+        nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
+        Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
         
 
-        surroundingTiles.GetSurroundingTiles();
-
+        
 
         int level = 0;
-
-        foreach (var tile in surroundingTiles.allCurrentDirections)
+        List<TileDirectionInfo> tileBlock;
+        allTilesManager.allTilesDictionary.TryGetValue(currentTilePosition.position, out tileBlock);
+        if (tileBlock == null)
+            return true;
+        foreach (var tile in tileBlock)
         {
             // CURRENT TILE ----------------------------------------------------------------------------------------------------
             // right now, where we are, what it be? is it be a slope?
-            if (tile.Key == Vector3Int.zero)
+            if (tile.direction == Vector3Int.zero)
             {
                 slopeDirection = Vector2.zero;
-                onSlope = tile.Value.tileName.Contains("Slope");
+                onSlope = tile.tileName.Contains("Slope");
                 if (onSlope)
                 {
-                    if (tile.Value.tileName.Contains("X"))
-                        slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                    if (tile.tileName.Contains("X"))
+                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
                     else
-                        slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
                     continue;
                 }
 
             }
-            if (tile.Key == nextTileKey)
-                level = tile.Value.levelZ;
+            if (tile.direction == nextTileKey)
+                level = tile.levelZ;
             else
                 continue;
-            Vector3Int doubleCheckTilePosition = surroundingTiles.grid.WorldToCell(doubleCheckPosition);
+            Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
             // IN AIR! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is in the air and has a y above the tile height
-            if (tile.Key == nextTileKey && !isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
+            if (tile.direction == nextTileKey && !isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
             {
 
-                surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
 
-                if (tile.Value.tileName.Contains("Slope"))
+                if (tile.tileName.Contains("Slope"))
                     onSlope = true;
 
                 return true;
@@ -140,19 +146,19 @@ public class GravityItemMovementFree : GravityItem
 
 
 
-            if (tile.Key == nextTileKey && tile.Value.isValid)
+            if (tile.direction == nextTileKey && tile.isValid)
             {
 
                 // if the next tile is a slope, am i approaching it in the right direction?
-                if (tile.Value.tileName.Contains("Slope"))
+                if (tile.tileName.Contains("Slope"))
                 {
-                    if (tile.Value.tileName.Contains("X") && nextTileKey.x == 0 || tile.Value.tileName.Contains("Y") && nextTileKey.y == 0)
+                    if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
                         return false;
 
                     onSlope = true;
 
                     // is the slope is lower?
-                    if (tile.Value.levelZ < 0)
+                    if (tile.levelZ < 0)
                         getOnSlope = true;
 
 
@@ -167,14 +173,14 @@ public class GravityItemMovementFree : GravityItem
                         onCliffEdge = true;
                         return false;
                     }*/
-                    if (tile.Value.levelZ > 0)
+                    if (tile.levelZ > 0)
                         getOffSlope = true;
                 }
 
             }
 
             // the next tile is NOT valid
-            if (tile.Key == nextTileKey && !tile.Value.isValid)
+            if (tile.direction == nextTileKey && !tile.isValid)
             {
                 if (doubleCheckTilePosition == nextTilePosition)
                 {
@@ -184,14 +190,14 @@ public class GravityItemMovementFree : GravityItem
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
                 if (onSlope)
                 {
-                    if (surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x != 0 || surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y != 0)
+                    if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x != 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y != 0)
                         continue;
                 }
 
                 // This is where we are at the top of a cliff
-                if (tile.Value.levelZ <= 0)
+                if (tile.levelZ <= 0)
                 {
-                    surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                    currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
                     return true;
                 }
                     
@@ -201,7 +207,7 @@ public class GravityItemMovementFree : GravityItem
             }
         }
 
-        surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+        currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
 
         return true;
     }
@@ -220,7 +226,7 @@ public class GravityItemMovementFree : GravityItem
         if (collision.collider is CompositeCollider2D)
             return;
        
-        if (collision.gameObject.TryGetComponent(out GravityItem gravityItem) && canCollideWithGravityItems)
+        if (collision.gameObject.TryGetComponent(out GravityItemNew gravityItem) && canCollideWithGravityItems)
         {
             
             if (gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ)

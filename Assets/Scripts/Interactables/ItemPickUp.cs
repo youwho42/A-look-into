@@ -76,7 +76,7 @@ public class ItemPickUp : MonoBehaviour
         }
         
         
-        inventoryToAddTo.AddItem(nearest.Data, 1);
+        inventoryToAddTo.AddItem(nearest.Data, 1, false);
         // Remove from list.
         items.Remove(nearest);
 

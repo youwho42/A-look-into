@@ -109,7 +109,7 @@ public class PurpleFireSheet : MonoBehaviour
     {
         for (int i = 0; i < allDrops.Count; i++)
         {
-            Vector3 spawnPoint = GetRandomVector3Between(posA.position, posB.position) + Vector3.forward;
+            Vector3 spawnPoint = GetRandomVector3Between(posA.position, posB.position) + new Vector3(0,0,.5f);
             allDrops[i].position = spawnPoint;
         }
     }

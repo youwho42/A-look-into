@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,17 +7,18 @@ using UnityEngine.Tilemaps;
 public class DetectVisibility : MonoBehaviour
 {
 
-    SurroundingTilesInfo surroundingTiles;
+    AllTilesInfoManager allTilesInfo;
+    CurrentTilePosition currentPosition;
 
-
+    
     public Transform objectCorrectionZ;
 
     public bool isHidden;
 
     private void Start()
     {
-        surroundingTiles = GetComponent<SurroundingTilesInfo>();
-        
+        allTilesInfo = AllTilesInfoManager.instance;
+        currentPosition = GetComponent<CurrentTilePosition>();
     }
 
 
@@ -29,16 +31,22 @@ public class DetectVisibility : MonoBehaviour
     void CheckTiles()
     {
         isHidden = false;
-        foreach (var tile in surroundingTiles.allCurrentDirections)
+        List<TileDirectionInfo> tileBlock;
+        allTilesInfo.allTilesDictionary.TryGetValue(currentPosition.position, out tileBlock); 
+        if (tileBlock == null)
+            return;
+        foreach (var tile in tileBlock)
         {
-            if (tile.Key == Vector3Int.left || tile.Key == -(Vector3Int)Vector2Int.one || tile.Key == Vector3Int.down)
+            if (tile.direction == Vector3Int.left || tile.direction == -(Vector3Int)Vector2Int.one || tile.direction == Vector3Int.down)
             {
-                if (tile.Value.levelZ > 0 && !tile.Value.isValid)
+                if (tile.levelZ > 0 && !tile.isValid)
                 {
                     if (CheckObjectPosition())
                         isHidden = true;
+                    
+                    
                 }
-                if (tile.Value.levelZ == 0 && tile.Value.isValid && tile.Value.tileName.Contains("Slope"))
+                if (tile.levelZ == 0 && tile.isValid && tile.tileName.Contains("Slope"))
                 {
                     if (CheckObjectPosition())
                         isHidden = true;
@@ -50,11 +58,14 @@ public class DetectVisibility : MonoBehaviour
     }
     bool CheckObjectPosition()
     {
+
+        
         Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
 
-        Vector3Int tilepos = surroundingTiles.grid.WorldToCell(pos);
-        Vector3 tileworldpos = surroundingTiles.grid.CellToWorld(tilepos);
+        Vector3Int tilepos = currentPosition.grid.WorldToCell(pos);
+        Vector3 tileworldpos = currentPosition.grid.CellToWorld(tilepos);
         Vector3 relativePos = pos - tileworldpos;
+
         if (relativePos.y < 0.33f)
             return true;
 
@@ -66,7 +77,8 @@ public class DetectVisibility : MonoBehaviour
         
         Vector3 pos = new Vector3(0, 0, isHidden ? -0.9f : 0);
         objectCorrectionZ.localPosition = pos;
-
+        
+        
     }
 
 

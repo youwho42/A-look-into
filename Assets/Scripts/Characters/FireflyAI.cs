@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class FireflyAI : MonoBehaviour, IAnimal
 {
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     public float roamingArea;
     float timeToStayAtDestination;
     bool justTookOff;
@@ -20,7 +21,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
 
     RealTimeDayNightCycle realTimeDayNightCycle;
 
-
+    bool activeState = true;
 
     [SerializeField]
     public FlyingState currentState;
@@ -36,7 +37,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
 
     private void Start()
     {
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
         realTimeDayNightCycle = RealTimeDayNightCycle.instance;
         
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
@@ -60,6 +61,8 @@ public class FireflyAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
+        if (!activeState)
+            return;
 
         switch (currentState)
         {
@@ -169,10 +172,8 @@ public class FireflyAI : MonoBehaviour, IAnimal
         return Random.Range(min, max);
     }
 
-
-    
-
-
-
-
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
+    }
 }

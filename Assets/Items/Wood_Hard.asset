@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: Wood_Hard
   m_EditorClassIdentifier: 
   Name: Hard Wood
+  AnimationName: 
   Description: Wood, but this one is hard.
   Weight: 1
   Price: 2
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 47e6cd5da5041cd4ab3e41ab3f26c758, type: 3}
   ItemPrefab: {fileID: 3193338031072352893, guid: 0ad13446ae3635145a5fc22a548a8db0,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 100
   ResearchRecipes: []
-  RecipeRevealAmount: 1
+  RevealAgencyAmount: 15
   GameDificulty: 3

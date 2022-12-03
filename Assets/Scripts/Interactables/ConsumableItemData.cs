@@ -32,6 +32,6 @@ public class ConsumableItemData : QI_ItemData
         }
         PlayerInformation.instance.playerInventory.RemoveItem(this.Name, 1);
         if(itemToBecome != null)
-            PlayerInformation.instance.playerInventory.AddItem(itemToBecome, 1); 
+            PlayerInformation.instance.playerInventory.AddItem(itemToBecome, 1, false); 
     }
 }

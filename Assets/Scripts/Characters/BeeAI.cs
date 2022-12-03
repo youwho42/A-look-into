@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeeAI : MonoBehaviour, IAnimal
 {
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     public float roamingArea;
     float timeToStayAtDestination;
     bool justTookOff;
@@ -20,6 +20,7 @@ public class BeeAI : MonoBehaviour, IAnimal
 
     static int landed_hash = Animator.StringToHash("IsLanded");
 
+    bool activeState = true;
 
     [SerializeField]
     public FlyingState currentState;
@@ -35,7 +36,7 @@ public class BeeAI : MonoBehaviour, IAnimal
 
     private void Start()
     {
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
 
         audio = GetComponent<AudioSource>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
@@ -59,7 +60,9 @@ public class BeeAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
-        
+        if (!activeState)
+            return;
+
         switch (currentState)
         {
             case FlyingState.isFlying:
@@ -237,14 +240,8 @@ public class BeeAI : MonoBehaviour, IAnimal
 
     }
 
-
-
-
-
-
-
-
-
-
-
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
+    }
 }

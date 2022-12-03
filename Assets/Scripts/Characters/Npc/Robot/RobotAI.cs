@@ -254,7 +254,7 @@ public class RobotAI : MonoBehaviour
 
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("RobotGather") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
-                    interactableContainer.inventory.AddItem(seedDatabase.GetRandomWeightedItem(), 1);
+                    interactableContainer.inventory.AddItem(seedDatabase.GetRandomWeightedItem(), 1, false);
                     audioManager.StopSound("ArmMove");
                     SetInventoryLights();
                     SetRandomDestination(15);

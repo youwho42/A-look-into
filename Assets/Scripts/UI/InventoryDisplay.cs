@@ -7,8 +7,8 @@ using UnityEngine.Events;
 
 public class InventoryDisplay : MonoBehaviour
 {
-    public QI_Inventory inventory;
-    public EquipmentManager equipmentManager;
+    //public QI_Inventory inventory;
+    //public EquipmentManager equipmentManager;
     public GameObject mainUI;
     public GameObject inventoryUI;
     public GameObject equipmentUI;
@@ -27,7 +27,7 @@ public class InventoryDisplay : MonoBehaviour
 
         mainUI.transform.position += offset;
         mainUI.SetActive(true);
-        for (int i = 0; i < inventory.MaxStacks; i++)
+        for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
         {
             
             GameObject newSlot = Instantiate(inventorySlot, inventoryUI.transform);
@@ -58,11 +58,23 @@ public class InventoryDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && !PlayerInformation.instance.playerInput.isPaused)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            mainUI.SetActive(!mainUI.activeSelf);
-            PlayerInformation.instance.uiScreenVisible = !PlayerInformation.instance.uiScreenVisible;
-            ItemInformationDisplayUI.instance.HideInformationDisplay();
+            if(UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            {
+                UIScreenManager.instance.DisplayScreen(UIScreenType.InventoryScreen);
+                PlayerInformation.instance.uiScreenVisible = true;
+                ItemInformationDisplayUI.instance.HideInformationDisplay();
+            }
+            else if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.InventoryScreen)
+            {
+                UIScreenManager.instance.HideScreens(UIScreenType.InventoryScreen);
+                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+
+                PlayerInformation.instance.uiScreenVisible = false;
+                ItemInformationDisplayUI.instance.HideInformationDisplay();
+            }
+            
         }
     }
     public void UpdateInventoryUI()
@@ -73,13 +85,13 @@ public class InventoryDisplay : MonoBehaviour
         {
             slot.ClearSlot();
         }
-        for (int i = 0; i < inventory.Stacks.Count; i++)
+        for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
-            if(inventory.Stacks[i].Item != null)
+            if(PlayerInformation.instance.playerInventory.Stacks[i].Item != null)
             {
-                inventorySlots[i].inventory = inventory;
-                inventorySlots[i].equipmentManager = equipmentManager;
-                inventorySlots[i].AddItem(inventory.Stacks[i].Item, inventory.Stacks[i].Amount);
+                inventorySlots[i].inventory = PlayerInformation.instance.playerInventory;
+                inventorySlots[i].equipmentManager = PlayerInformation.instance.equipmentManager;
+                inventorySlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
                 inventorySlots[i].icon.enabled = true;
             }
             

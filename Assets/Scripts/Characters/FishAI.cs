@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class FishAI : MonoBehaviour, IAnimal
 {
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     float timeToStayAtDestination;
     CanReachTileSwim swim;
     Animator animator;
-    
+
+    bool activeState = true;
 
     [SerializeField]
     public SwimmingState currentState;
@@ -23,7 +24,7 @@ public class FishAI : MonoBehaviour, IAnimal
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
         swim = GetComponent<CanReachTileSwim>();
 
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
@@ -38,7 +39,8 @@ public class FishAI : MonoBehaviour, IAnimal
 
     private void Update()
     {
-        
+        if (!activeState)
+            return;
 
         switch (currentState)
         {
@@ -96,11 +98,8 @@ public class FishAI : MonoBehaviour, IAnimal
         return Random.Range(0.5f, 10.0f);
     }
 
-
-
-
-    
-
-
-
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
+    }
 }

@@ -18,15 +18,31 @@ public class InteractableBed : Interactable
         base.Interact(interactor);
         if (!isOpen)
         {
-            sleepDisplay.ShowUI();
-            isOpen = true;
+            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            {
+                OpenSleeping();
+                isOpen = true;
+            }
+            
         }
         else
         {
-            sleepDisplay.HideUI();
+            CloseSleeping();
             isOpen = false;
         }
     }
 
-   
+    private void OpenSleeping()
+    {
+        UIScreenManager.instance.DisplayScreen(UIScreenType.SleepScreen);
+        UIScreenManager.instance.DisplayPlayerUI();
+        sleepDisplay.ShowUI();
+    }
+
+    private void CloseSleeping()
+    {
+        UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        sleepDisplay.HideUI();
+    }
 }

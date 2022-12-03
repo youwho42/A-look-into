@@ -33,6 +33,9 @@ public class GravityItem : MonoBehaviour
     
     [HideInInspector]
     public SurroundingTilesInfo surroundingTiles;
+
+    AllTilesInfoManager allTilesManager;
+
     [HideInInspector]
     public float currentVelocity;
     Vector2 currentDirection;
@@ -61,7 +64,7 @@ public class GravityItem : MonoBehaviour
 
     public virtual void Start()
     {
-   
+        allTilesManager = AllTilesInfoManager.instance;
         surroundingTiles = GetComponent<SurroundingTilesInfo>();
         surroundingTiles.currentTilePosition = surroundingTiles.GetTileZ(transform.position);
         surroundingTiles.GetSurroundingTiles();

@@ -20,15 +20,27 @@ public class InteractableTeleporter : Interactable
 
         if (!isOpen)
         {
-            teleportUI.ShowUI(teleport);
+            OpenTeleporter();
             isOpen = true;
         }
         else
         {
-            teleportUI.HideUI();
+            CloseTeleporter();
             isOpen = false;
         }
 
         teleport.SetUpTeleporter(interactor);
+    }
+    private void OpenTeleporter()
+    {
+        UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
+        teleportUI.ShowUI(teleport);
+    }
+
+    private void CloseTeleporter()
+    {
+        UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        teleportUI.HideUI();
     }
 }

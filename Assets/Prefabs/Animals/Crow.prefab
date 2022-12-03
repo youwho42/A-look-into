@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 304862212094775487}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: CorrectionZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 304862213367814950}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SlopeZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,13 +77,13 @@ GameObject:
   - component: {fileID: 536565924102336754}
   - component: {fileID: 3980435461219289164}
   - component: {fileID: 3980435461219289152}
-  - component: {fileID: 3980435461219289155}
-  - component: {fileID: 3980435461219289154}
+  - component: {fileID: 7349923195876346395}
   - component: {fileID: 3980435461219289159}
   - component: {fileID: 3980435461219289158}
   - component: {fileID: 3980435461219289156}
   - component: {fileID: 7510586649099672996}
-  m_Layer: 0
+  - component: {fileID: 2910552320548766059}
+  m_Layer: 14
   m_Name: Crow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 304862212094775487}
   isHidden: 0
---- !u!114 &3980435461219289155
+--- !u!114 &7349923195876346395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -309,22 +309,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1186113323787273416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdef3c7d81ef1b14398c17678116a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
-  currentTilePosition: {x: 0, y: 0, z: 0}
---- !u!114 &3980435461219289154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561e1e230feaa6e4f9b44cda924d6557, type: 3}
+  m_Script: {fileID: 11500000, guid: fa0b0913c9e7a6546bbd0aeaeb343a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemObject: {fileID: 4734904358238399511}
@@ -335,7 +320,8 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
-  surroundingTiles: {fileID: 0}
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
   currentVelocity: 0
   currentLevel: 0
   obstacleLayer:
@@ -344,12 +330,15 @@ MonoBehaviour:
   getOnSlope: 0
   getOffSlope: 0
   onSlope: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.075
+  checkTileDistance: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
   isWeightless: 0
+  tileBlockInfo: []
 --- !u!114 &3980435461219289159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +427,21 @@ MonoBehaviour:
   neighborDistanceClosest: 0.1
   currentDirection: {x: 0, y: 0}
   inBoidPool: 0
+--- !u!114 &2910552320548766059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1 &1186113324396075657
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186113324396075656}
   - component: {fileID: 1186113324396075655}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +539,9 @@ GameObject:
   - component: {fileID: 6225581241868902536}
   - component: {fileID: 6325525508577029593}
   - component: {fileID: 6230241538022661077}
-  m_Layer: 0
+  - component: {fileID: 5966771426077238506}
+  - component: {fileID: 8639330285524751449}
+  m_Layer: 14
   m_Name: CrowIdle0000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,3 +767,32 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0.05
     overlap: 1
+--- !u!58 &5966771426077238506
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859352282203003539}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.01, y: 0.06}
+  serializedVersion: 2
+  m_Radius: 0.13
+--- !u!114 &8639330285524751449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859352282203003539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 8985f7fdd00cae944bb6723f3b13a194, type: 2}

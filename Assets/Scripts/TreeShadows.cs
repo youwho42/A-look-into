@@ -16,7 +16,7 @@ public class TreeShadows : MonoBehaviour
         
         realTimeDayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
-        
+        SetShadowRotation();
     }
     private void OnBecameVisible()
     {

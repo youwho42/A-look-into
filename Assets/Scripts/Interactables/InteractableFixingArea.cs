@@ -16,7 +16,7 @@ public class InteractableFixingArea : Interactable
 
 
 
-    bool canStartGame;
+    
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
     
 

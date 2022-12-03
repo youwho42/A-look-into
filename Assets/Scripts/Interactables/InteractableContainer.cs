@@ -22,16 +22,29 @@ public class InteractableContainer : Interactable
 
         if (!isOpen) 
         {
-            containerUI.ShowContainerUI(inventory);
+            OpenContainer();
             isOpen = true;
         }
         else
         {
-            containerUI.HideContainerUI();
+            CloseContainer();
             isOpen = false;
         }
     }
-    
+
+    private void OpenContainer()
+    {
+        UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
+        containerUI.ShowContainerUI(inventory);
+    }
+
+    private void CloseContainer()
+    {
+        UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        containerUI.HideContainerUI();
+    }
+
 
     public virtual void PlayInteractionSound()
     {

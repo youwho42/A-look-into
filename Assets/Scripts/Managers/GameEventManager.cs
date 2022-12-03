@@ -22,6 +22,17 @@ public static class GameEventManager
     ///  Stats Updating
     /// </summary>
     public static readonly GameEvent onStatUpdateEvent = new GameEvent();
-    //public static readonly GameEvent onEquipmentUpdateEvent = new GameEvent();
+
+    /// <summary>
+    ///  Player Position Update
+    /// </summary>
+    public static readonly GameEvent onPlayerPositionUpdateEvent = new GameEvent();
+
+    /// <summary>
+    ///  Player Compendiums Update
+    /// </summary>
+    public static readonly GameEvent onAnimalCompediumUpdateEvent = new GameEvent();
+    public static readonly GameEvent onResourceCompediumUpdateEvent = new GameEvent();
+    public static readonly GameEvent onRecipeCompediumUpdateEvent = new GameEvent();
 
 }

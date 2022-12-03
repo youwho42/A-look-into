@@ -9,12 +9,14 @@ public class DetectAreaHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isInArea = true;
+        if(collision.gameObject.layer == LayerMask.NameToLayer("MiniGame"))
+            isInArea = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isInArea = false;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("MiniGame"))
+            isInArea = false;
     }
 
 }

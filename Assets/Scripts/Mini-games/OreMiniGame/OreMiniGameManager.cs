@@ -163,7 +163,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentSection++;
-            PlayerInformation.instance.playerInventory.AddItem(item, 1);
+            PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
             PlaySound(0);
             StartCoroutine(GlowOn(material, 10));
             StartCoroutine(GlowOn(centerMaterial, currentSection * 10));

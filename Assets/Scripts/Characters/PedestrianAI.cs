@@ -9,7 +9,7 @@ public class PedestrianAI : MonoBehaviour, IAnimal
 
     public InteractAreasManager interactAreas;
     float detectionTimeOutTimer;
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     CanReachTileWalk walk;
     public Animator animator;
     float idleTimer;
@@ -25,6 +25,7 @@ public class PedestrianAI : MonoBehaviour, IAnimal
     static int isGrounded_hash = Animator.StringToHash("IsGrounded");
     static int velocityY_hash = Animator.StringToHash("VelocityY");
 
+    bool activeState = true;
 
     DrawZasYDisplacement currentClimbingSpot;
     float detectionTimeOutAmount;
@@ -43,7 +44,7 @@ public class PedestrianAI : MonoBehaviour, IAnimal
     private void Start()
     {
 
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
         
         walk = GetComponent<CanReachTileWalk>();
         idleTimer = SetRandomRange(3, 10);
@@ -53,6 +54,8 @@ public class PedestrianAI : MonoBehaviour, IAnimal
 
     void Update()
     {
+        if (!activeState)
+            return;
 
         switch (currentState)
         {
@@ -275,6 +278,8 @@ public class PedestrianAI : MonoBehaviour, IAnimal
 
     }
 
-    
-
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
+    }
 }

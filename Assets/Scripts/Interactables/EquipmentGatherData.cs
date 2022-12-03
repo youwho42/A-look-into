@@ -15,13 +15,34 @@ public class EquipmentGatherData : EquipmentData
 
     public float playerEnergyCost;
 
+   
     public override void UseEquippedItem()
     {
         base.UseEquippedItem();
-        Collider2D[] hit = Physics2D.OverlapCircleAll(PlayerInformation.instance.player.position, detectionRadius, gathererLayer);
+        Vector3 pos;
+        
+        if(this.AnimationName == "Spyglass")
+        {
+           
+            var mouse = Input.mousePosition;
+            pos = Camera.main.ScreenToWorldPoint(mouse);
+            if (Mathf.Sign(pos.x - PlayerInformation.instance.player.position.x) < 0 && PlayerInformation.instance.playerController.facingRight || 
+                Mathf.Sign(pos.x - PlayerInformation.instance.player.position.x) > 0 && !PlayerInformation.instance.playerController.facingRight)
+                PlayerInformation.instance.playerController.Flip();
+            pos.z = 0;
+        }
+        else
+        {
+            pos = PlayerInformation.instance.player.position;
+        }
+        Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, gathererLayer); ;
         if (hit.Length > 0)
         {
             GetNearestItem(hit);
+        }
+        else
+        {
+            PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
         }
     }
 
@@ -55,7 +76,7 @@ public class EquipmentGatherData : EquipmentData
                         {
                             continue;
                         }
-                        if (PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1))
+                        if (PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1, false))
                         {
 
                             if (!takeSample)
@@ -78,7 +99,7 @@ public class EquipmentGatherData : EquipmentData
                             }
                             if (nearestItemList.RemoveItem())
                             {
-                                if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1))
+                                if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1, false))
                                 {
 
                                     if (!takeSample)
@@ -127,10 +148,9 @@ public class EquipmentGatherData : EquipmentData
                         }
                         if (none)
                         {
+                            PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
                             NotificationManager.instance.SetNewNotification("Cannot gather " + nearestItemList.dataList[0].Name + " with this tool.");
                         }
-                        
-
                         
                     }
                 }
@@ -138,32 +158,32 @@ public class EquipmentGatherData : EquipmentData
                 if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
                 {
                     
-
                     foreach (QI_ItemData itemData in gatherItemData)
                     {
                         if (itemData == nearestItem.Data)
                         {
                             if (InteractCostReward())
+                            {
+                                PlayerInformation.instance.uiScreenVisible = true;
                                 MiniGameManager.instance.StartMiniGame(miniGameType, nearestItem.Data, nearest.gameObject);
+                            }
+                                
                         }
                     }
-                    
                 }
-            }
-
-            bool InteractCostReward()
-            {
-                if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
-                {
-                    
-                    PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
-                    return true;
-                }
-
-                NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to do this.");
-                return false;
             }
         }
     }
+    bool InteractCostReward()
+    {
+        if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
+        {
 
+            PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
+            return true;
+        }
+        PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to do this.");
+        return false;
+    }
 }

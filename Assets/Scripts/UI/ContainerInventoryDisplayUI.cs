@@ -38,7 +38,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         playerInformation.TogglePlayerInput(false);
         containerInventory = container;
         SetContainerUI();
-        containerDisplayUI.SetActive(true);
+        //containerDisplayUI.SetActive(true);
 
     }
     public void HideContainerUI()
@@ -46,7 +46,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         ClearSlots();
         containerInventory = null;
         playerInformation.TogglePlayerInput(true);
-        containerDisplayUI.SetActive(false);
+        //containerDisplayUI.SetActive(false);
     }
 
     void SetContainerUI()

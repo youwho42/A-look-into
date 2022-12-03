@@ -21,7 +21,7 @@ public class GravityItemMovementController : GravityItem
 
 
 
-    AllTilesInfoManager allTilesManager;
+    
 
 
     Vector3Int currentPosition;
@@ -36,7 +36,7 @@ public class GravityItemMovementController : GravityItem
     {
         base.Start();
 
-        allTilesManager = AllTilesInfoManager.instance;
+        
 
         playerInput = GetComponent<PlayerInput>();
         
@@ -84,6 +84,7 @@ public class GravityItemMovementController : GravityItem
 
         if (CanReachNextTile(playerInput.movement))
         {
+            
             Move(playerInput.movement, (playerInput.isRunning ? runSpeed : walkSpeed));
         }
 

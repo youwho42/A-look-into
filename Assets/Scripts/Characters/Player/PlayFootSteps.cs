@@ -19,27 +19,28 @@ public class PlayFootSteps : MonoBehaviour
     }
     public void PlayFootstepSound()
     {
-        
-        Collider2D hit = Physics2D.OverlapCircle(transform.position , .01f, groundSoundsLayer);
+        bool right = PlayerInformation.instance.playerController.facingRight;
+        Vector3 newOff = right ? offset : -offset;
+        Collider2D hit = Physics2D.OverlapCircle(transform.position + newOff , .01f, groundSoundsLayer);
         PlaySound(hit);
 
     }
 
-    public void PlayLeftFootstepSound()
-    {
+    //public void PlayLeftFootstepSound()
+    //{
 
-        Collider2D hit = Physics2D.OverlapCircle(transform.position - offset, .01f, groundSoundsLayer);
-        PlaySound(hit);
+    //    Collider2D hit = Physics2D.OverlapCircle(transform.position - offset, .01f, groundSoundsLayer);
+    //    PlaySound(hit);
 
-    }
+    //}
 
-    public void PlayRightFootstepSound()
-    {
+    //public void PlayRightFootstepSound()
+    //{
 
-        Collider2D hit = Physics2D.OverlapCircle(transform.position + offset, .01f, groundSoundsLayer);
+    //    Collider2D hit = Physics2D.OverlapCircle(transform.position + offset, .01f, groundSoundsLayer);
 
-        PlaySound(hit);
-    }
+    //    PlaySound(hit);
+    //}
 
     void PlaySound(Collider2D hit)
     {

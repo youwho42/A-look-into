@@ -26,6 +26,7 @@ public class PlayerCrafting : MonoBehaviour
         if (!craftingRecipeDatabase.CraftingRecipes.Contains(recipe))
         {
             craftingRecipeDatabase.CraftingRecipes.Add(recipe);
+            GameEventManager.onRecipeCompediumUpdateEvent.Invoke();
             return true;
         }
         return false;

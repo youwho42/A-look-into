@@ -36,7 +36,7 @@ PrefabInstance:
     - target: {fileID: 536565924102336754, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
       propertyPath: MaxDistance
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273411, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
@@ -358,6 +358,21 @@ PrefabInstance:
       propertyPath: soundSets.Array.data[1].clips.Array.data[12]
       value: 
       objectReference: {fileID: 8300000, guid: 80d1add7ebeffe745bbfa43c4ae82c8e, type: 3}
+    - target: {fileID: 5966771426077238506, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966771426077238506, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966771426077238506, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 6225581241868902536, guid: da7845d26e6fc6346a4258468f513eb2,
         type: 3}
       propertyPath: m_Controller
@@ -408,6 +423,12 @@ PrefabInstance:
       propertyPath: neighborDistanceFarthest
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8639330285524751449, guid: da7845d26e6fc6346a4258468f513eb2,
+        type: 3}
+      propertyPath: Data
+      value: 
+      objectReference: {fileID: 11400000, guid: 01a85339e4eee0d45a2ee3a245dda221,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da7845d26e6fc6346a4258468f513eb2, type: 3}
 --- !u!95 &2254681426391830057 stripped

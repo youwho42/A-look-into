@@ -45,16 +45,16 @@ public class SleepDisplayUI : MonoBehaviour
     }
     public void ShowUI()
     {
-        //UpdateSleepDisplay();
+        
         playerInformation.TogglePlayerInput(false);
-        sleepDisplay.SetActive(true);
+        
         isShowing = true;
     }
 
     public void HideUI()
     {
         playerInformation.TogglePlayerInput(true);
-        sleepDisplay.SetActive(false);
+        
         isShowing = false;
     }
 
@@ -84,7 +84,8 @@ public class SleepDisplayUI : MonoBehaviour
             yield return null;
         }
         dayNightCycle.cycleSpeed = originalCycleSpeed;
-        sleepDisplay.SetActive(false);
+        UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         playerInformation.TogglePlayerInput(true);
         yield return null;
 

@@ -106,7 +106,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentAttemptHits++;
-            PlayerInformation.instance.playerInventory.AddItem(item, 1);
+            PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
             PlaySound(0);
             StartCoroutine(GlowOn(15));
         }

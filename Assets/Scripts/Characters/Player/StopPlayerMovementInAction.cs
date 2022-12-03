@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class StopPlayerMovementInAction : MonoBehaviour
 {
-    GravityItemMovementController playerMovement;
+    GravityItemMovementControllerNew playerMovement;
 
     void Start()
     {
-        playerMovement = GetComponentInParent<GravityItemMovementController>();
+        playerMovement = GetComponentInParent<GravityItemMovementControllerNew>();
     }
 
     public void StopPlayerInput()

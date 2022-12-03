@@ -9,16 +9,32 @@ public class CurrentTilePosition : MonoBehaviour
     public Grid grid;
     [HideInInspector]
     public Tilemap groundMap;
-    public Vector3Int currentTilePosition;
+    public Vector3Int position;
 
     private void Start()
     {
-        currentTilePosition = CheckCurrentTilePosition();
+        SetGrid();
+        position = GetCurrentTilePosition(transform.position);
     }
-    private Vector3Int CheckCurrentTilePosition()
+    public Vector3Int GetCurrentTilePosition(Vector3 position)
     {
         SetGrid();
-        return grid.WorldToCell(transform.position - Vector3.forward);
+
+        Vector3Int cellIndex = groundMap.WorldToCell(position - Vector3.forward);
+        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin - 1; i--)
+        {
+            cellIndex.z = i;
+            var tile = groundMap.GetTile(cellIndex);
+            if (tile != null)
+            {
+
+                return cellIndex;
+            }
+
+
+        }
+
+        return cellIndex;
     }
 
 

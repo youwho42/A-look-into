@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class CanReachTileFlight : MonoBehaviour
 {
-    GravityItem gravityItem;
-
+    GravityItemNew gravityItem;
+    
+    
     public DrawZasYDisplacement centerOfActiveArea;
 
     
@@ -38,17 +41,22 @@ public class CanReachTileFlight : MonoBehaviour
 
     public bool canReachNextTile;
 
+
+    Vector2 lastPos;
+
+
     private void Start()
     {
         
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
+       
         SetWaterMap();
         SetRandomDirection();
         if (boid != null)
             boid.currentDirection = currentDirection;
 
         var s = flightSpeed / 10;
-        flightSpeed += Random.Range(-s, s);
+        flightSpeed += UnityEngine.Random.Range(-s, s);
     }
 
 
@@ -56,6 +64,8 @@ public class CanReachTileFlight : MonoBehaviour
     {
 
         CheckOverWater();
+
+        lastPos = transform.position;
 
         if (CanReachNextTile(currentDirection))
         {
@@ -83,11 +93,16 @@ public class CanReachTileFlight : MonoBehaviour
                 desiredDirection -= currentDirection;
                 currentDirection += desiredDirection;
                 currentDirection = currentDirection.normalized;
+                
             }
-            else
+            else 
+            {
                 SetRandomDestination();
+            }
+                
             if (Vector2.Distance(gravityItem.itemObject.localPosition, currentDestinationZ) <= 0.01f)
             {
+                
                 SetRandomDestinationZ();
             }
 
@@ -112,17 +127,27 @@ public class CanReachTileFlight : MonoBehaviour
             {
                 SetRandomDestinationZ();
             }
+            if (!canReachNextTile)
+                SetRandomDestination();
         }
         
-
+        
     }
+
+    void TileFound(List<TileDirectionInfo> tileBlock, bool success)
+    {
+        if (success)
+            gravityItem.tileBlockInfo = tileBlock;
+    }
+
+
 
     public void CheckOverWater()
     {
         
         SetWaterMap();
         Vector3 displace = mainDestinationZ;
-        var d = gravityItem.surroundingTiles.currentTilePosition;
+        var d = gravityItem.currentTilePosition.position;
         isOverWater = false;
         d.z = 0;
         var tile = waterMap.GetTile(d);
@@ -137,7 +162,7 @@ public class CanReachTileFlight : MonoBehaviour
 
     public bool CanReachNextTile(Vector2 direction)
     {
-        if (gravityItem.surroundingTiles.grid == null)
+        if (gravityItem.currentTilePosition.grid == null)
             return false;
 
         Vector3 checkPosition = (transform.position + (Vector3)direction * gravityItem.checkTileDistance) - Vector3.forward;
@@ -145,55 +170,59 @@ public class CanReachTileFlight : MonoBehaviour
         if (gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, direction))
             return false;
 
-        nextTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(checkPosition);
+        nextTilePosition = gravityItem.currentTilePosition.grid.WorldToCell(checkPosition);
 
-        Vector3Int nextTileKey = nextTilePosition - gravityItem.surroundingTiles.currentTilePosition;
+        Vector3Int nextTileKey = nextTilePosition - gravityItem.currentTilePosition.position;
 
         if (nextTileKey == Vector3Int.zero)
             return true;
 
-        gravityItem.surroundingTiles.GetSurroundingTiles();
 
         int level = 0;
 
-        foreach (var tile in gravityItem.surroundingTiles.allCurrentDirections)
+        TileInfoRequestManager.RequestTileInfo(gravityItem.currentTilePosition.position, TileFound);
+
+        if (gravityItem.tileBlockInfo == null)
+            return false;
+
+        foreach (var tile in gravityItem.tileBlockInfo)
         {
             // CURRENT TILE ----------------------------------------------------------------------------------------------------
             // right now, where we are, what it be? is it be a slope?
-            if (tile.Key == Vector3Int.zero)
+            if (tile.direction == Vector3Int.zero)
             {
                 
                 gravityItem.slopeDirection = Vector2.zero;
-                onSlope = tile.Value.tileName.Contains("Slope");
+                onSlope = tile.tileName.Contains("Slope");
                 if (onSlope)
                 {
-                    if (tile.Value.tileName.Contains("X"))
-                        gravityItem.slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                    if (tile.tileName.Contains("X"))
+                        gravityItem.slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
                     else
-                        gravityItem.slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                        gravityItem.slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
                     continue;
                 }
 
             }
-            if (tile.Key == nextTileKey)
-                level = tile.Value.levelZ;
+            if (tile.direction == nextTileKey)
+                level = tile.levelZ;
             else
                 continue;
-            Vector3Int doubleCheckTilePosition = gravityItem.surroundingTiles.grid.WorldToCell(doubleCheckPosition);
+            Vector3Int doubleCheckTilePosition = gravityItem.currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
 
 
             // JUMPING! ----------------------------------------------------------------------------------------------------
             // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
-            if (tile.Key == nextTileKey)
+            if (tile.direction == nextTileKey)
             {
                 
                 if (Mathf.Abs(gravityItem.itemObject.localPosition.z) >= level)
                 {
-                    gravityItem.surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                    gravityItem.currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
                     if (level < -4)
                         return false;
-                    if (tile.Value.tileName.Contains("Slope"))
+                    if (tile.tileName.Contains("Slope"))
                         onSlope = true;
 
                     return true;
@@ -205,20 +234,20 @@ public class CanReachTileFlight : MonoBehaviour
 
 
 
-            if (tile.Key == nextTileKey && tile.Value.isValid)
+            if (tile.direction == nextTileKey && tile.isValid)
             {
                 
 
                 // if the next tile is a slope, am i approaching it in the right direction?
-                if (tile.Value.tileName.Contains("Slope"))
+                if (tile.tileName.Contains("Slope"))
                 {
-                    if (tile.Value.tileName.Contains("X") && nextTileKey.x == 0 || tile.Value.tileName.Contains("Y") && nextTileKey.y == 0)
+                    if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
                         return false;
 
                     onSlope = true;
 
                     // is the slope is lower?
-                    if (tile.Value.levelZ < 0)
+                    if (tile.levelZ < 0)
                         gravityItem.getOnSlope = true;
 
 
@@ -228,19 +257,19 @@ public class CanReachTileFlight : MonoBehaviour
                 if (onSlope)
                 {
                     //am i walking 'off' the slope on the upper part in the right direction?
-                    if (gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x == 0 || gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y == 0)
+                    if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
                     {
                         //onCliffEdge = true;
                         return false;
                     }
-                    if (tile.Value.levelZ > 0)
+                    if (tile.levelZ > 0)
                         gravityItem.getOffSlope = true;
                 }
 
             }
 
             // the next tile is NOT valid
-            if (tile.Key == nextTileKey && !tile.Value.isValid)
+            if (tile.direction == nextTileKey && !tile.isValid)
             {
                 if (doubleCheckTilePosition == nextTilePosition)
                 {
@@ -250,10 +279,11 @@ public class CanReachTileFlight : MonoBehaviour
                 // If I am on a slope, am i approaching or leaving the slope in a valid direction?
                 if (onSlope)
                 {
-                    if (gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x != 0 || gravityItem.surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y != 0)
+                    if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x != 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y != 0)
                         continue;
                 }
 
+                
                 // This is where we are on top of a cliff
                 /*if (tile.Value.levelZ <= 0)
                 {
@@ -265,7 +295,7 @@ public class CanReachTileFlight : MonoBehaviour
             }
         }
 
-        gravityItem.surroundingTiles.currentTilePosition += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+        gravityItem.currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
 
 
 
@@ -276,7 +306,7 @@ public class CanReachTileFlight : MonoBehaviour
 
     void SetRandomDirection()
     {
-        currentDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+        currentDirection = new Vector2(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f));
         currentDirection = currentDirection.normalized;
         SetFacingDirection(currentDirection);
     }
@@ -292,7 +322,8 @@ public class CanReachTileFlight : MonoBehaviour
 
     public void SetRandomDestinationZ()
     {
-        float randZ = Random.Range(minMaxFlyZ.x, minMaxFlyZ.y);
+        
+        float randZ = UnityEngine.Random.Range(minMaxFlyZ.x, minMaxFlyZ.y);
         mainDestinationZ = new Vector3(0, spriteDisplacementY * randZ, randZ);
         currentDestinationZ = mainDestinationZ;
         SetDirectionZ();
@@ -301,16 +332,16 @@ public class CanReachTileFlight : MonoBehaviour
 
     public void SetRandomDestination()
     {
-        if (gravityItem == null|| gravityItem.surroundingTiles == null|| gravityItem.surroundingTiles.groundMap == null)
+        if (gravityItem == null ||  gravityItem.currentTilePosition == null || gravityItem.currentTilePosition.groundMap == null)
             return;
-        Vector2 rand = (Random.insideUnitCircle * flyRoamingDistance);
-        var d = gravityItem.surroundingTiles.groundMap.WorldToCell(new Vector2(centerOfActiveArea.transform.position.x + rand.x, centerOfActiveArea.transform.position.y + rand.y));
-        for (int z = gravityItem.surroundingTiles.groundMap.size.z; z >= 0; z--)
+        Vector2 rand = (UnityEngine.Random.insideUnitCircle * flyRoamingDistance);
+        var d = gravityItem.currentTilePosition.groundMap.WorldToCell(new Vector2(centerOfActiveArea.transform.position.x + rand.x, centerOfActiveArea.transform.position.y + rand.y));
+        for (int z = gravityItem.currentTilePosition.groundMap.size.z; z >= 0; z--)
         {
             d.z = z;
-            if(gravityItem.surroundingTiles.groundMap.GetTile(d) != null)
+            if(gravityItem.currentTilePosition.groundMap.GetTile(d) != null)
             {
-                currentDestination = gravityItem.surroundingTiles.groundMap.GetCellCenterWorld(d);
+                currentDestination = gravityItem.currentTilePosition.groundMap.GetCellCenterWorld(d);
                 break;
             }
                 
@@ -369,8 +400,7 @@ public class CanReachTileFlight : MonoBehaviour
         }
     }
 
-
-
+    
 }
 
 

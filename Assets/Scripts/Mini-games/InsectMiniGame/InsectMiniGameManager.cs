@@ -23,8 +23,8 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     //public GameObject playerCircle;
     public BezierSpline bezierSpline;
     public int points;
-    public QI_ItemData insect;
-    public SpriteRenderer insectHolder;
+    public QI_ItemData animal;
+    public SpriteRenderer animalHolder;
     public float areaSize;
     public MiniGameType miniGameType;
     public BezierWalkerWithTime walker;
@@ -58,22 +58,20 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         {
             if (!transitioning)
             {
-                //if (!shrinking)
-                //{
-                //    shrinkPlayerArea = StartCoroutine(ShrinkPlayerAreaCo(targetAreas[currentIndex].shrinkSpeed));
-                //}
+                
                 if (currentAttempts != maxAttempts)
                 {
 
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        //StopCoroutine(shrinkPlayerArea);
                         StartCoroutine(NextTargetAreaCo(targetAreas[currentIndex].targetHitDetection.isInArea));
                     }
                 }
                 if (currentAttempts == maxAttempts)
                 {
+                    
                     MiniGameManager.instance.EndMiniGame(miniGameType);
+
                 }
             }
 
@@ -82,26 +80,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         
     }
 
-    //IEnumerator ShrinkPlayerAreaCo(float time)
-    //{
-    //    shrinking = true;
-    //    float elapsedTime = 0;
-    //    float waitTime = time;
-    //    playerCircle.transform.localScale = Vector3.one;
-    //    while (elapsedTime < waitTime)
-    //    {
-    //        float i = Mathf.Lerp(1, 0, (elapsedTime / waitTime));
-
-    //        playerCircle.transform.localScale = new Vector3(i, i, i);
-    //        elapsedTime += Time.deltaTime;
-
-    //        yield return null;
-    //    }
-
-    //    playerCircle.transform.localScale = Vector3.zero;
-    //    yield return null;
-    //}
-
+    
     IEnumerator GlowOn(int amount, Material material)
     {
 
@@ -164,8 +143,15 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         }
         if (currentAttemptHits == attemptSteps)
         {
-            PlayerInformation.instance.playerInventory.AddItem(insect, 1);
-            Destroy(targetGameObject);
+
+            // Give player some agency... !!!!!!!!!!!!
+            if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal)){
+                PlayerInformation.instance.playerStats.AddGameEnergy(animal.RevealAgencyAmount);
+                PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
+                GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
+                NotificationManager.instance.SetNewNotification($"The {animal.name} was added to your animal compendium.");
+            }
+
             currentAttemptHits = 0;
         }
         ResetTargetArea(currentIndex);
@@ -176,7 +162,6 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     {
         transitioning = false;
         shrinking = false;
-        //playerCircle.transform.localScale = Vector3.one;
         GlowOff();
         for (int i = 0; i < targetAreas.Count; i++)
         {
@@ -186,7 +171,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
             }
             else
             {
-                transform.position = bezierSpline[(int)bezierSpline.Count / 4 * i].position;
+                animalHolder.transform.position = bezierSpline[(int)bezierSpline.Count / 4 * i].position;
                 targetAreas[i].targetAreaSprite.gameObject.SetActive(true);
             }
         }
@@ -218,19 +203,57 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
 
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) 
     {
-        insect = item;
-        insectHolder.sprite = insect.Icon;
+        animal = item;
+        animalHolder.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+        UpdateShapeToSprite(animalHolder.GetComponent<PolygonCollider2D>(), animalHolder.sprite);
         targetGameObject = gameObject;
-        if(insectHolder.gameObject.TryGetComponent(out BezierWalkerWithTime newWalker))
+
+        SetAnimalState(false);
+
+
+        for (int i = 0; i < targetAreas.Count; i++)
         {
-            walker = newWalker;
+            if (targetAreas[i].targetAreaSprite.gameObject.activeSelf)
+            {
+                if (targetAreas[i].targetAreaSprite.gameObject.TryGetComponent(out BezierWalkerWithTime newWalker))
+                {
+                    walker = newWalker;
+                }
+            }
         }
+        
+        
         SetBezierPath();
+    }
+
+    public static void UpdateShapeToSprite(PolygonCollider2D collider, Sprite sprite)
+    {
+        // ensure both valid
+        if (collider != null && sprite != null)
+        {
+            // update count
+            collider.pathCount = sprite.GetPhysicsShapeCount();
+
+            // new paths variable
+            List<Vector2> path = new List<Vector2>();
+
+            // loop path count
+            for (int i = 0; i < collider.pathCount; i++)
+            {
+                // clear
+                path.Clear();
+                // get shape
+                sprite.GetPhysicsShape(i, path);
+                // set path
+                collider.SetPath(i, path.ToArray());
+            }
+        }
     }
 
 
     public void ResetMiniGame()
     {
+        
         bezierSpline.ResetSpline();
         currentAttemptHits = 0;
         currentAttempts = 0;
@@ -238,6 +261,21 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         shrinking = false;
         ResetTargetArea(currentIndex);
         transform.parent.gameObject.SetActive(false);
+        PlayerInformation.instance.uiScreenVisible = false;
+        PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+        SetAnimalState(true);
+
+    }
+
+    void SetAnimalState(bool active)
+    {
+        if (targetGameObject != null)
+        {
+            IAnimal thisAnimal = targetGameObject.transform.GetComponentInParent<IAnimal>();
+            if (thisAnimal != null)
+                thisAnimal.SetActiveState(active);
+            targetGameObject.GetComponent<Animator>().speed = active? 1 : 0;
+        }
     }
 
     private void OnDrawGizmosSelected()

@@ -32,13 +32,13 @@ public class TeleportDisplayUI : MonoBehaviour
     {
         UpdateDestinationList(teleport);
         playerInformation.TogglePlayerInput(false);
-        teleportUI.SetActive(true);
+        //teleportUI.SetActive(true);
     }
 
     public void HideUI()
     {
         playerInformation.TogglePlayerInput(true);
-        teleportUI.SetActive(false);
+        //teleportUI.SetActive(false);
     }
     void UpdateDestinationList(Teleport teleport)
     {

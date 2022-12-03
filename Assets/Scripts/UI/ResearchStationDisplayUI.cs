@@ -16,7 +16,7 @@ public class ResearchStationDisplayUI : MonoBehaviour
             Destroy(this);
     }
 
-    PlayerInformation playerInformation;
+    //PlayerInformation playerInformation;
     PlayerCrafting playerRecipes;
     public GameObject researchStationUI;
     public ResearchStationInventorySlot inventoryItemDisplaySlot;
@@ -26,21 +26,21 @@ public class ResearchStationDisplayUI : MonoBehaviour
     private void Start()
     {
         researchStationUI.SetActive(false);
-        playerInformation = PlayerInformation.instance;
+        //playerInformation = PlayerInformation.instance;
         playerRecipes = PlayerCrafting.instance;
     }
 
     public void ShowUI()
     {
         UpdateResearchDisplay();
-        playerInformation.TogglePlayerInput(false);
-        researchStationUI.SetActive(true);
+        PlayerInformation.instance.TogglePlayerInput(false);
+        //researchStationUI.SetActive(true);
     }
 
     public void HideUI()
     {
-        playerInformation.TogglePlayerInput(true);
-        researchStationUI.SetActive(false);
+        PlayerInformation.instance.TogglePlayerInput(true);
+        //researchStationUI.SetActive(false);
     }
     
     public void UpdateResearchDisplay()
@@ -49,10 +49,10 @@ public class ResearchStationDisplayUI : MonoBehaviour
 
         
         
-        for (int i = 0; i < playerInformation.playerInventory.Stacks.Count; i++)
+        for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
 
-            QI_ItemData item = playerInformation.playerInventory.Stacks[i].Item;
+            QI_ItemData item = PlayerInformation.instance.playerInventory.Stacks[i].Item;
             if (item.ResearchRecipes.Count > 0)
             {
               

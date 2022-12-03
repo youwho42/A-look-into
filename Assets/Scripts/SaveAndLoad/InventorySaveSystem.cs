@@ -34,7 +34,7 @@ public class InventorySaveSystem : MonoBehaviour, ISaveable
         for (int i = 0; i < saveData.itemName.Count; i++)
         {
             
-            inventory.AddItem(itemDatabase.GetItem(saveData.itemName[i]), saveData.itemAmount[i]);
+            inventory.AddItem(itemDatabase.GetItem(saveData.itemName[i]), saveData.itemAmount[i], true);
 
         }
     }

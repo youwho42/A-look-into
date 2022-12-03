@@ -264,11 +264,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5053319575899458687}
   - component: {fileID: 5053319575899458625}
-  - component: {fileID: 5053319575899458624}
-  - component: {fileID: 5053319575899458627}
   - component: {fileID: 5053319575899458626}
   - component: {fileID: 5053319575899458684}
   - component: {fileID: 8557966947250640110}
+  - component: {fileID: 4261047719401067300}
+  - component: {fileID: 8905337796864549974}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -306,56 +306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 5053319574530619217}
   isHidden: 0
---- !u!114 &5053319575899458624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053319575899458629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdef3c7d81ef1b14398c17678116a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
-  currentTilePosition: {x: 0, y: 0, z: 0}
---- !u!114 &5053319575899458627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053319575899458629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561e1e230feaa6e4f9b44cda924d6557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemObject: {fileID: 5053319574232304290}
-  itemShadow: {fileID: 5053319574706302183}
-  slopeObject: {fileID: 5053319575862251730}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  bounceFriction: 0
-  bounciness: 0
-  surroundingTiles: {fileID: 0}
-  currentVelocity: 0
-  currentLevel: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  getOnSlope: 0
-  getOffSlope: 0
-  onSlope: 0
-  slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.075
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  isWeightless: 1
 --- !u!114 &5053319575899458626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,3 +359,54 @@ MonoBehaviour:
   neighborDistanceClosest: 0.2
   currentDirection: {x: 0, y: 0}
   inBoidPool: 0
+--- !u!114 &4261047719401067300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053319575899458629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b0913c9e7a6546bbd0aeaeb343a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 5053319574232304290}
+  itemShadow: {fileID: 5053319574706302183}
+  slopeObject: {fileID: 5053319575862251730}
+  positionZ: 0
+  displacedPosition: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  bounceFriction: 0
+  bounciness: 0
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
+  currentVelocity: 0
+  currentLevel: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  getOnSlope: 0
+  getOffSlope: 0
+  onSlope: 0
+  slopeDirection: {x: 0, y: 0}
+  checkTileDistance: 0.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  isWeightless: 1
+--- !u!114 &8905337796864549974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053319575899458629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}

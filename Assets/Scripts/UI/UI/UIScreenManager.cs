@@ -9,47 +9,60 @@ public class UIScreenManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
-    private List<GameObject> screens = new List<GameObject>();
+    public List<GameObject> screens = new List<GameObject>();
 
+   
     private UIScreenType currentScreen;
+
+    public bool canChangeUI;
 
     private void Start()
     {
-
-        foreach (GameObject g in Resources.LoadAll("Screens", typeof(GameObject)))
+        
+        canChangeUI = true;
+        foreach (GameObject go in screens)
         {
-            GameObject go = Instantiate(g.gameObject, transform.position, Quaternion.identity) as GameObject;
-            go.transform.SetParent(transform);
+           
             go.SetActive(false);
-            screens.Add(go);
+            
         }
-       
+        DisplayScreen(UIScreenType.StartScreen);
     }
 
-
+    public void DisplayPlayerUI()
+    {
+        foreach (var s in screens)
+        {
+            if (s.GetComponent<UIScreen>().GetScreenType() == UIScreenType.PlayerUI)
+            {
+                s.SetActive(true);
+                
+            }
+        }
+    }
 
     public void DisplayScreen(UIScreenType screen)
     {
+        if (!canChangeUI)
+            return;
         foreach (var s in screens)
         {
             if(s.GetComponent<UIScreen>().GetScreenType() == screen)
             {
                 s.SetActive(true);
                 currentScreen = screen;
+                
             }
             else
             {
                 s.SetActive(false);
             }
         }
+       
     }
 
     public void HideScreens(UIScreenType screenType)
@@ -58,7 +71,6 @@ public class UIScreenManager : MonoBehaviour
         {
             if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
             {
-                currentScreen = UIScreenType.None;
                 s.SetActive(false);
             }
         }

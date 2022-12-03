@@ -12,7 +12,7 @@ public enum MiniGameType
 {
     None,
     Wood,
-    Insect,
+    Animal,
     Ore,
     Fixing
 }

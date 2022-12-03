@@ -6,12 +6,11 @@ public class InteractableResearchStation : Interactable
 {
 
     bool isOpen;
-    ResearchStationDisplayUI researchDisplay;
-
+    //ResearchStationDisplayUI researchDisplay;
     public override void Start()
     {
         base.Start();
-        researchDisplay = ResearchStationDisplayUI.instance;
+        //researchDisplay = ResearchStationDisplayUI.instance;
     }
 
     public override void Interact(GameObject interactor)
@@ -19,8 +18,12 @@ public class InteractableResearchStation : Interactable
         base.Interact(interactor);
         if (!isOpen)
         {
-            OpenResearch();
-            isOpen = true;
+            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            {
+                OpenResearch();
+                isOpen = true;
+            }
+            
         }
         else
         {
@@ -31,13 +34,15 @@ public class InteractableResearchStation : Interactable
 
     private void OpenResearch()
     {
-        researchDisplay.ShowUI();
+        UIScreenManager.instance.DisplayScreen(UIScreenType.ResearchStationScreen);
+        ResearchStationDisplayUI.instance.ShowUI();
     }
 
     private void CloseResearch()
     {
-        
-        researchDisplay.HideUI();
+        UIScreenManager.instance.HideScreens(UIScreenType.ResearchStationScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        ResearchStationDisplayUI.instance.HideUI();
     }
    
 

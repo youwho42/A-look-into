@@ -132,6 +132,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
         while (true)
         {
             if (!isPaused) {
+                
                 currentTimeRaw += 1;
                 if (currentTimeRaw == 1440)
                 {
@@ -151,6 +152,8 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
                 SetDayState();
                 GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
+                    
+                
             }
             yield return new WaitForSeconds(1f / cycleSpeed);
         }

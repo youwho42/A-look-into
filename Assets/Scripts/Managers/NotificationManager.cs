@@ -31,13 +31,11 @@ public class NotificationManager : MonoBehaviour
 
     public void SetNewNotification(string message)
     {
-        
         notificationQueue.Enqueue(new Notification { textToDisplay = message });
-
     }
+
     private void Update()
     {
-
         if (notificationQueue.Count > 0 && !notificationActive)
         {
             if (notificationCoroutine != null)

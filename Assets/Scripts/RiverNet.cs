@@ -45,7 +45,7 @@ public class RiverNet : MonoBehaviour
         {
             if (collision.TryGetComponent(out QI_Item item))
             {
-                if (inventory.AddItem(item.Data.pickUpItem, 1))
+                if (inventory.AddItem(item.Data.pickUpItem, 1, false))
                 {
                     Destroy(collision.gameObject);
                 }

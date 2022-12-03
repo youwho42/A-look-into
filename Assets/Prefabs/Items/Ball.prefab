@@ -243,14 +243,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7924754858217846132}
   - component: {fileID: 7924754858217846133}
-  - component: {fileID: 7924754858217846131}
   - component: {fileID: 7924754858217846130}
   - component: {fileID: 7924754858217846134}
   - component: {fileID: 7924754858217846135}
   - component: {fileID: 6308747498628135592}
-  - component: {fileID: 8124849842403351839}
   - component: {fileID: 3648034579959380729}
   - component: {fileID: 140474248822717978}
+  - component: {fileID: 3918326343213773838}
+  - component: {fileID: 2102037779340491033}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -288,21 +288,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 7924754857800506253}
   isHidden: 0
---- !u!114 &7924754858217846131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924754858217846129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdef3c7d81ef1b14398c17678116a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
-  currentTilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &7924754858217846130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +308,8 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0.9
   bounciness: 5
-  surroundingTiles: {fileID: 0}
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
   currentVelocity: 0
   currentLevel: 0
   obstacleLayer:
@@ -332,12 +318,15 @@ MonoBehaviour:
   getOnSlope: 0
   getOffSlope: 0
   onSlope: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
   checkTileDistance: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
   isWeightless: 0
+  tileBlockInfo: []
   itemDrag: 0.1
   itemBounceFriction: 0.95
   canCollideWithGravityItems: 1
@@ -390,19 +379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8124849842403351839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924754858217846129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
 --- !u!114 &3648034579959380729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,3 +408,31 @@ MonoBehaviour:
   positionZ: 0.3
   displacedPosition: {x: 0, y: 0, z: 0}
   isInUse: 0
+--- !u!114 &3918326343213773838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924754858217846129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
+--- !u!114 &2102037779340491033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924754858217846129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

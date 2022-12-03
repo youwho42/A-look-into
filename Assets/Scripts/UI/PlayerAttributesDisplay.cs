@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 public class PlayerAttributesDisplay : MonoBehaviour
 {
-    public Slider energySlider;
-    public Slider hydrationSlider;
-    PlayerInformation playerInformation;
+    public Slider bounceSlider;
+    public Slider agencySlider;
+    //PlayerInformation playerInformation;
 
     private void Start()
     {
-        playerInformation = PlayerInformation.instance;
+        //playerInformation = PlayerInformation.instance;
         GameEventManager.onStatUpdateEvent.AddListener(UpdateStatsUI);
         UpdateStatsUI();
     }
     private void UpdateStatsUI()
     {
-        energySlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce");
-        hydrationSlider.value = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+        bounceSlider.value = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
+        agencySlider.value = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
     }
     private void OnDestroy()
     {

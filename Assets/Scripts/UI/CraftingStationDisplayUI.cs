@@ -16,13 +16,13 @@ public class CraftingStationDisplayUI : MonoBehaviour
     }
 
 
-    PlayerInformation playerInformation;
+    //PlayerInformation playerInformation;
     PlayerCrafting playerRecipes;
     public GameObject craftingStationUI;
     
 
 
-    QI_Inventory playerInventory;
+    //QI_Inventory playerInventory;
     QI_CraftingHandler craftingHandler;
     public QI_ItemDatabase itemDatabase;
     
@@ -50,8 +50,8 @@ public class CraftingStationDisplayUI : MonoBehaviour
     private void Start()
     {
         craftingStationUI.SetActive(false);
-        playerInformation = PlayerInformation.instance;
-        playerInventory = playerInformation.playerInventory;
+        //playerInformation = PlayerInformation.instance;
+        //playerInventory = PlayerInformation.instance.playerInventory;
         playerRecipes = PlayerCrafting.instance;
         craftingHandler = GetComponent<QI_CraftingHandler>();
     }
@@ -61,14 +61,14 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public void ShowUI()
     {
         SetAvailableRecipes();
-        playerInformation.TogglePlayerInput(false);
-        craftingStationUI.SetActive(true);
+        PlayerInformation.instance.TogglePlayerInput(false);
+        //craftingStationUI.SetActive(true);
     }
 
     public void HideUI()
     {
-        playerInformation.TogglePlayerInput(true);
-        craftingStationUI.SetActive(false);
+        PlayerInformation.instance.TogglePlayerInput(true);
+        //craftingStationUI.SetActive(false);
     }
 
     
@@ -127,7 +127,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         for (int i = 0; i < craftableItem.Ingredients.Count; i++)
         {
 
-            ingredientSlots[i].AddItem(craftableItem.Ingredients[i].Item, craftableItem.Ingredients[i].Amount, playerInventory.GetStock(craftableItem.Ingredients[i].Item.Name));
+            ingredientSlots[i].AddItem(craftableItem.Ingredients[i].Item, craftableItem.Ingredients[i].Amount, PlayerInformation.instance.playerInventory.GetStock(craftableItem.Ingredients[i].Item.Name));
         }
 
     }
@@ -145,12 +145,12 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     bool InteractCostReward()
     {
-        float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+        float agency = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
         if (agency >= craftableItem.AgencyCost)
             return true;
 
 
-        NotificationManager.instance.SetNewNotification("You need " + craftableItem.AgencyCost + " Agency to fix this.");
+        NotificationManager.instance.SetNewNotification("You need " + craftableItem.AgencyCost + " Agency to craft this.");
         return false;
     }
 

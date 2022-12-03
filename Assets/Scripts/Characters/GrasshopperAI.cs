@@ -8,7 +8,7 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
 
     //public InteractAreasManager interactAreas;
     float detectionTimeOutTimer;
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     CanReachTileJump jump;
     public Animator animator;
     float idleTimer;
@@ -22,6 +22,8 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
     
     float detectionTimeOutAmount;
 
+    bool activeState = true;
+
     [SerializeField]
     public PedestrianState currentState;
     public enum PedestrianState
@@ -33,7 +35,7 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
     private void Start()
     {
 
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
 
         jump = GetComponent<CanReachTileJump>();
 
@@ -45,6 +47,9 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
 
     void Update()
     {
+        if (!activeState)
+            return;
+
         if (!gravityItem.isGrounded)
             playedFootStep = false;
         if (gravityItem.isGrounded && !playedFootStep)
@@ -100,5 +105,10 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
     float SetRandomRange(float min, float max)
     {
         return Random.Range(min, max);
+    }
+
+    public void SetActiveState(bool active)
+    {
+        activeState = active;
     }
 }
