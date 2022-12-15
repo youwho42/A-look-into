@@ -10,10 +10,12 @@ public class ObjectManagerCircle : MonoBehaviour
     public Tilemap groundMap;
     //Whats the radius of the circle we will add objects inside of?
     public float radius = 1f;
-
     //How many GOs will we add each time we press a button?
     public int howManyObjects;
-    //public int z;
+    //Should we use poisson
+    public bool usePoissonDisc;
+    
+    public float poissonDiscMinRadius = 0.1f;
     //Should we add or remove objects within the circle
     public enum Actions { AddObjects, RemoveObjects }
 
@@ -51,6 +53,20 @@ public class ObjectManagerCircle : MonoBehaviour
 
         randomPos.z += 1;
         newPrefabObj.transform.position = randomPos;
+
+        newPrefabObj.transform.parent = transform;
+    }
+
+    //Add a prefab that we instantiated in the editor script
+    public void AddPrefab(GameObject newPrefabObj, Vector3 center, Vector2 position)
+    {
+
+        position.x -= radius;
+        position.y -= radius;
+        Vector3 newPos = center + (Vector3)position;
+
+        newPos.z += 1;
+        newPrefabObj.transform.position = newPos;
 
         newPrefabObj.transform.parent = transform;
     }

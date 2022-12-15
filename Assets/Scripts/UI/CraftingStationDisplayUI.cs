@@ -1,6 +1,7 @@
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CraftingStationDisplayUI : MonoBehaviour
@@ -33,7 +34,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
 
     public CraftingSlot recipeResultSlot;
-
+    public TextMeshProUGUI recipeAgencyText;
 
     public GameObject recipeButtonHolder;
     public GameObject recipeButton;
@@ -100,7 +101,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     {
         craftableItem = null;
         recipeResultSlot.ClearSlot();
-
+        recipeAgencyText.text = "";
         foreach (CraftingSlot slot in ingredientSlots)
         {
             slot.ClearSlot();
@@ -121,12 +122,11 @@ public class CraftingStationDisplayUI : MonoBehaviour
         ClearCurrentRecipe();
         craftableItem = itemToCraft;
         recipeResultSlot.AddItem(craftableItem.Product.Item, craftableItem.Product.Amount);
-
+        recipeAgencyText.text = craftableItem.AgencyCost.ToString();
 
 
         for (int i = 0; i < craftableItem.Ingredients.Count; i++)
         {
-
             ingredientSlots[i].AddItem(craftableItem.Ingredients[i].Item, craftableItem.Ingredients[i].Amount, PlayerInformation.instance.playerInventory.GetStock(craftableItem.Ingredients[i].Item.Name));
         }
 

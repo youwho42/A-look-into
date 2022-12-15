@@ -4,6 +4,7 @@ using QuantumTek.QuantumInventory;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using Klaxon.GravitySystem;
 
 public class InteractWithInteractable : MonoBehaviour
 {

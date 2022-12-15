@@ -32,22 +32,25 @@ public class ObjectManagerEditor : Editor
             return;
         //Move the circle when moving the mouse
         //A ray from the mouse position
-        var hit = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        Vector3 mousePosition = Event.current.mousePosition;
+        mousePosition.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePosition.y;
+        mousePosition = SceneView.currentDrawingSceneView.camera.ScreenToWorldPoint(mousePosition);
+        //var hit = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
 
         //var hit = Camera.current.ScreenPointToRay(HandleUtility.GUIPointToWorldRay(Event.current.mousePosition).origin);
-        var position = hit.origin;
-        
-        position.z = 0;
+        //var position = hit.origin;
+
+        mousePosition.z = 0;
 
         
-        int offsetZ = objectManager.GetTileZ(position);
+        int offsetZ = objectManager.GetTileZ(mousePosition);
         
        
 
         
 
             //Where did we hit the ground?
-        center = position;
+        center = mousePosition;
 
         //Need to tell Unity that we have moved the circle or the circle may be displayed at the old position
         SceneView.RepaintAll();
@@ -118,19 +121,47 @@ public class ObjectManagerEditor : Editor
     //Instantiate prefabs at random positions within the circle
     private void AddNewPrefabs(Vector3 center)
     {
-        //How many prefabs do we want to add
-        int howManyObjects = objectManager.howManyObjects;
-
-        //Which prefab do we want to add
-
-        for (int i = 0; i < howManyObjects; i++)
+        if (!objectManager.usePoissonDisc)
         {
-            int rand = Random.Range(0, objectManager.prefabGO.Length);
-            GameObject prefabGO = objectManager.prefabGO[rand];
-            GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
-            
-            //Send it to the main script to add it at a random position within the circle
-            objectManager.AddPrefab(newGO, center);
+            //How many prefabs do we want to add
+            int howManyObjects = objectManager.howManyObjects;
+
+            //Which prefab do we want to add
+            for (int i = 0; i < howManyObjects; i++)
+            {
+                
+                GameObject newGO = CreateGameObjectFromPrefab();
+
+                //Send it to the main script to add it at a random position within the circle
+                objectManager.AddPrefab(newGO, center);
+            }
         }
+        else
+        {
+            Vector2 area = new Vector2(objectManager.radius*2, objectManager.radius*2);
+
+            List<Vector2> positions = new List<Vector2>();
+            positions = PoissonDiscSampler.GeneratePoints(objectManager.poissonDiscMinRadius, area);
+            for (int i = 0; i < positions.Count; i++)
+            {
+                //Check if position is in the circle
+                if (Vector2.Distance(positions[i], area/2) < objectManager.radius)
+                {
+                    GameObject newGO = CreateGameObjectFromPrefab();
+
+                    //Send it to the main script to add it at a random position within the circle
+                    objectManager.AddPrefab(newGO, center, positions[i]);
+                }
+                
+            }
+        }
+        
+    }
+    GameObject CreateGameObjectFromPrefab()
+    {
+        int rand = Random.Range(0, objectManager.prefabGO.Length);
+        GameObject prefabGO = objectManager.prefabGO[rand];
+        GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
+        return newGO;
     }
 }

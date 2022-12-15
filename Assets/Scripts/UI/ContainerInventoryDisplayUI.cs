@@ -23,19 +23,15 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     public GameObject playerSlotHolder;
     public GameObject containerSlot;
     QI_Inventory containerInventory;
-    PlayerInformation playerInformation;
+    //PlayerInformation playerInformation;
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
     public List<ContainerDisplaySlot> playerSlots = new List<ContainerDisplaySlot>();
 
-    private void Start()
-    {
-        playerInformation = PlayerInformation.instance;
-    }
-
+    
 
     public void ShowContainerUI(QI_Inventory container)
     {
-        playerInformation.TogglePlayerInput(false);
+        PlayerInformation.instance.TogglePlayerInput(false);
         containerInventory = container;
         SetContainerUI();
         //containerDisplayUI.SetActive(true);
@@ -45,7 +41,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     {
         ClearSlots();
         containerInventory = null;
-        playerInformation.TogglePlayerInput(true);
+        PlayerInformation.instance.TogglePlayerInput(true);
         //containerDisplayUI.SetActive(false);
     }
 
@@ -58,7 +54,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             GameObject newSlot = Instantiate(containerSlot, containerSlotHolder.transform);
             containerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
         }
-        for (int i = 0; i < playerInformation.playerInventory.MaxStacks; i++)
+        for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
         {
 
             GameObject newSlot = Instantiate(containerSlot, playerSlotHolder.transform);
@@ -102,13 +98,13 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
         }
         
-        for (int i = 0; i < playerInformation.playerInventory.Stacks.Count; i++)
+        for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
 
-            if (playerInformation.playerInventory.Stacks[i].Item != null)
+            if (PlayerInformation.instance.playerInventory.Stacks[i].Item != null)
             {
                 playerSlots[i].containerInventory = containerInventory;
-                playerSlots[i].AddItem(playerInformation.playerInventory.Stacks[i].Item, playerInformation.playerInventory.Stacks[i].Amount);
+                playerSlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
                 playerSlots[i].GetComponentInChildren<Button>().onClick.AddListener(UpdateContainerInventoryUI);
                 playerSlots[i].icon.enabled = true;
             }

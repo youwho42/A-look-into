@@ -34,10 +34,12 @@ public class IsometricGrid : MonoBehaviour
     {
         get { return groundMap.size.x + groundMap.size.y; }
     }
+
     public List<IsometricNode> GetNeighbours(IsometricNode node)
     {
-
-        // somewhere here i can prevent diagonal paths... i think...
+        // Here somewhere I check the z level
+        // if z level is lower by one, is it a slope?
+        // if z level is higher by one, am I on a slope?
 
         List<IsometricNode> neighbours = new List<IsometricNode>();
 
@@ -88,22 +90,19 @@ public class IsometricGrid : MonoBehaviour
                 {
                     currentPosition.z = z;
                     TileBase tile = groundMap.GetTile(currentPosition);
-                    // for going down a level...
-                    // need to check slopes as walkable on z == -1
-                    // but maybe i need to backcheck that while on z == 0
-
-                    // for going up a level...
-                    // need to check slopes as walkable on z == 0
                     
-
                     if (tile == null && z == 0) // if the neighbor is lower
                     {
-                        
+                        // for going down a level...
+                        // need to check slopes as walkable on z == -1 -> -1
+                        //else
                         walkable = false;
                     }
                     else if(tile != null && z == 1) // if the neighbor is higher
                     {
-                        
+                        // for going up a level...
+                        // need to check slopes as walkable on z == 0 -> +1
+                        //else
                         walkable = false;
                     }
                     

@@ -3,7 +3,7 @@ using QuantumTek.QuantumAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Klaxon.GravitySystem;
 public class PlayerInformation : MonoBehaviour
 {
     public static PlayerInformation instance;
@@ -15,6 +15,7 @@ public class PlayerInformation : MonoBehaviour
     public QI_CraftingRecipeDatabase playerRecipeDatabase;
     public QI_ItemDatabase playerResourceCompendiumDatabase;
     public QI_ItemDatabase playerAnimalCompendiumDatabase;
+    public QI_ItemDatabase playerNotesCompendiumDatabase;
     public bool uiScreenVisible;
     
     public PlayerInput playerInput;
@@ -40,6 +41,7 @@ public class PlayerInformation : MonoBehaviour
         currentTilePosition = player.GetComponent<CurrentTilePosition>();
         playerAnimalCompendiumDatabase.Items.Clear();
         playerResourceCompendiumDatabase.Items.Clear();
+        playerNotesCompendiumDatabase.Items.Clear();
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdatePlayerResources);
     }
 

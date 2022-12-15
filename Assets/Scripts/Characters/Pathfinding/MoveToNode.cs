@@ -61,6 +61,7 @@ public class MoveToNode : MonoBehaviour
             {
                 currentPathIndex++;
                 currentDestination = path[currentPathIndex];
+                
             }
 
 
@@ -73,4 +74,5 @@ public class MoveToNode : MonoBehaviour
         var tileworldpos = gravityItem.surroundingTiles.groundMap.GetCellCenterWorld(tile);
         return tileworldpos;
     }
+    
 }

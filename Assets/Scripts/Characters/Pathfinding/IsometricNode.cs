@@ -28,6 +28,10 @@ public class IsometricNode : IHeapItem<IsometricNode>
         gridX = x;
         gridY = y;
         movementPenalty = penalty;
+        //gridZ = int z
+        //bool isSlope
+        
+        //int slopeHeightDir -1 or 1
     }
 
     public int FCost 

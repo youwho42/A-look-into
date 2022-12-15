@@ -111,7 +111,7 @@ public class InventoryDisplaySlot : MonoBehaviour
                     return true;
                 if (!itemToDrop.CompareTag("RiverItem"))
                 {
-                    if (hit.CompareTag("Grass") || hit.CompareTag("Path"))
+                    if (hit.CompareTag("Grass") || hit.CompareTag("Path") || hit.CompareTag("House"))
                         return true;
                 }
                 NotificationManager.instance.SetNewNotification($"You can't place {item.Name} on {hit.transform.parent.name}.");

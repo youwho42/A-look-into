@@ -9,12 +9,14 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
 
     public QI_ItemDatabase playerAnimalCompendiumDatabase;
     public QI_ItemDatabase playerResourceCompendiumDatabase;
+    public QI_ItemDatabase playerNoteCompendiumDatabase;
     public QI_ItemDatabase allItemsDatabase;
     public object CaptureState()
     {
         
         List<string> animalNames = new List<string>();
         List<string> resourcesNames = new List<string>();
+        List<string> noteNames = new List<string>();
 
         for (int i = 0; i < playerAnimalCompendiumDatabase.Items.Count; i++)
         {
@@ -26,11 +28,17 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
             resourcesNames.Add(playerResourceCompendiumDatabase.Items[i].Name);
 
         }
+        for (int i = 0; i < playerNoteCompendiumDatabase.Items.Count; i++)
+        {
+            noteNames.Add(playerNoteCompendiumDatabase.Items[i].Name);
+
+        }
 
         return new SaveData
         {
             animalItemName = animalNames,
-            resourceItemName = resourcesNames
+            resourceItemName = resourcesNames,
+            noteItemName = noteNames
         };
     }
 
@@ -39,6 +47,7 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
         var saveData = (SaveData)state;
         playerAnimalCompendiumDatabase.Items.Clear();
         playerResourceCompendiumDatabase.Items.Clear();
+        playerNoteCompendiumDatabase.Items.Clear();
         for (int i = 0; i < saveData.animalItemName.Count; i++)
         {
             playerAnimalCompendiumDatabase.Items.Add(allItemsDatabase.GetItem(saveData.animalItemName[i]));
@@ -47,6 +56,10 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
         {
             playerResourceCompendiumDatabase.Items.Add(allItemsDatabase.GetItem(saveData.resourceItemName[i]));
         }
+        for (int i = 0; i < saveData.noteItemName.Count; i++)
+        {
+            playerNoteCompendiumDatabase.Items.Add(allItemsDatabase.GetItem(saveData.noteItemName[i]));
+        }
     }
 
     [Serializable]
@@ -54,6 +67,7 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
     {
         public List<string> animalItemName;
         public List<string> resourceItemName;
+        public List<string> noteItemName;
 
 
     }

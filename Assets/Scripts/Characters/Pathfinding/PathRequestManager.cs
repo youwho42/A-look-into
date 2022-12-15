@@ -15,16 +15,16 @@ public class PathRequestManager : MonoBehaviour
         else
             Destroy(this);
 
-        pathfinding = GetComponent<IsometricPathfinding>();
+        pathfinding = GetComponent<IsometricPathfindingXYZ>();
     }
 
 
     Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
     PathRequest currentPathRequest;
 
-    IsometricPathfinding pathfinding;
+    IsometricPathfindingXYZ pathfinding;
     bool isProcessingPath;
-    static List<IsometricNode> walkableNodes = new List<IsometricNode>();
+    static List<IsometricNodeXYZ> walkableNodes = new List<IsometricNodeXYZ>();
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class PathRequestManager : MonoBehaviour
 
     public void GetWalkableNodes()
     {
-        List<IsometricNode> tempNodes = pathfinding.isometricGrid.isometricNodes;
+        List<IsometricNodeXYZ> tempNodes = pathfinding.isometricGrid.isometricNodes;
         for (int i = 0; i < tempNodes.Count; i++)
         {
             if (tempNodes[i].walkable)

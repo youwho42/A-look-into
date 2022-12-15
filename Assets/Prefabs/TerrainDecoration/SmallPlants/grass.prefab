@@ -95,7 +95,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3459197263679992928}
   - component: {fileID: 3459197263679992931}
-  - component: {fileID: 7921997384040644584}
   - component: {fileID: 6969653852910887198}
   m_Layer: 0
   m_Name: grass
@@ -173,20 +172,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &7921997384040644584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459197263679992930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9835724afc84cae4fbcb9d3c3ad2a793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowTransform: {fileID: 8271058987136722636}
-  shadowSprite: {fileID: 240180295711428233}
 --- !u!58 &6969653852910887198
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -218,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8271058987136722636
 Transform:
   m_ObjectHideFlags: 0

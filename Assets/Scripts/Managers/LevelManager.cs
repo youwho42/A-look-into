@@ -25,10 +25,14 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Application.isPlaying && loadTerrains)
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TerrainDecoraion-StartArea", LoadSceneMode.Additive);
-        }
+        //if (Application.isPlaying && loadTerrains)
+        //{
+        //    if (!SceneManager.GetSceneByName("TerrainDecoration-StartArea").isLoaded)
+        //    {
+        //        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TerrainDecoration-StartArea", LoadSceneMode.Additive);
+        //    }
+                
+        //}
     }
 
     public bool loadTerrains;

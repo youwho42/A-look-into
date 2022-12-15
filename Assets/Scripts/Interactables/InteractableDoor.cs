@@ -14,7 +14,7 @@ public class InteractableDoor : Interactable
     {
         base.Start();
         animator = GetComponentInChildren<Animator>();
-        
+        doorOpen.enabled = false;
     }
 
     public override void Interact(GameObject interactor)

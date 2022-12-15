@@ -87,6 +87,7 @@ public class PurpleFireSheet : MonoBehaviour
 
     private void OnDestroy()
     {
+        positionUpdateJobHandle.Complete();
         transformAccessArray.Dispose();
         dropVelocities.Dispose();
     }
@@ -109,14 +110,15 @@ public class PurpleFireSheet : MonoBehaviour
     {
         for (int i = 0; i < allDrops.Count; i++)
         {
-            Vector3 spawnPoint = GetRandomVector3Between(posA.position, posB.position) + new Vector3(0,0,.5f);
+            Vector3 spawnPoint = GetRandomVector3Between(posA.position, posB.position) - new Vector3(0,0,0.5f);
             allDrops[i].position = spawnPoint;
         }
     }
-    public Vector3 GetRandomVector3Between(Vector2 min, Vector2 max)
+    public Vector3 GetRandomVector3Between(Vector3 min, Vector3 max)
     {
-        float dist = Vector2.Distance(min, max);
-        return min + Random.Range(0.0f, dist) * (max - min);
+        float r = Random.Range(0.0f, 1.0f);
+        return Vector3.Lerp(min, max, r);
+        
     }
     void SetDisplacement(Transform t, int i)
     {

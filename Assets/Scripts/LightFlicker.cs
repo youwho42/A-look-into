@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class LightFlicker : MonoBehaviour
 {
 
-    public Light2D light;
+    public Light2D lightObject;
     public bool lightsOn;
 
     private void Start()
@@ -20,7 +20,7 @@ public class LightFlicker : MonoBehaviour
 
     public void Exinguish()
     {
-        light.enabled = false;
+        lightObject.enabled = false;
         lightsOn = false;
     }
     IEnumerator Flicker()
@@ -32,10 +32,10 @@ public class LightFlicker : MonoBehaviour
 
         while (timesFlicked <= flickerAmount)
         {
-            light.enabled = true;
+            lightObject.enabled = true;
             yield return new WaitForSeconds(timeBetweenFlickers);
             timeBetweenFlickers = Random.Range(0.1f, 0.5f);
-            light.enabled = false;
+            lightObject.enabled = false;
             yield return new WaitForSeconds(timeBetweenFlickers);
             timeBetweenFlickers = Random.Range(0.1f, 0.7f);
             timesFlicked++;
@@ -46,7 +46,7 @@ public class LightFlicker : MonoBehaviour
 
         yield return new WaitForSeconds(timeBetweenFlickers);
 
-        light.enabled = true;
+        lightObject.enabled = true;
         lightsOn = true;
         yield return null;
 

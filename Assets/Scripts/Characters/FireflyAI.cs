@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UIElements;
-
+using Klaxon.GravitySystem;
 public class FireflyAI : MonoBehaviour, IAnimal
 {
     GravityItemNew gravityItem;

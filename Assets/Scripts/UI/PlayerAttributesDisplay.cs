@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerAttributesDisplay : MonoBehaviour
 {
     public Slider bounceSlider;
-    public Slider agencySlider;
+    public TextMeshProUGUI agencyText;
     //PlayerInformation playerInformation;
 
     private void Start()
@@ -18,7 +19,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
     private void UpdateStatsUI()
     {
         bounceSlider.value = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
-        agencySlider.value = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
+        agencyText.text = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency").ToString();
     }
     private void OnDestroy()
     {

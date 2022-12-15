@@ -34,5 +34,6 @@ public static class GameEventManager
     public static readonly GameEvent onAnimalCompediumUpdateEvent = new GameEvent();
     public static readonly GameEvent onResourceCompediumUpdateEvent = new GameEvent();
     public static readonly GameEvent onRecipeCompediumUpdateEvent = new GameEvent();
+    public static readonly GameEvent onNoteCompediumUpdateEvent = new GameEvent();
 
 }
