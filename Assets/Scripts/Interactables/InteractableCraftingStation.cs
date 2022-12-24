@@ -1,16 +1,21 @@
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class InteractableCraftingStation : Interactable
 {
     bool isOpen;
     CraftingStationDisplayUI craftingDisplay;
-
+    QI_CraftingHandler craftingHandler;
+    public QI_CraftingRecipeDatabase recipeDatabase;
+    public QI_Inventory selfInventory;
     public override void Start()
     {
         base.Start();
         craftingDisplay = CraftingStationDisplayUI.instance;
+        craftingHandler = GetComponent<QI_CraftingHandler>();
     }
 
     public override void Interact(GameObject interactor)
@@ -34,7 +39,9 @@ public class InteractableCraftingStation : Interactable
     private void OpenCrafting()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.CraftingStationScreen);
-        craftingDisplay.ShowUI();
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+        selfInventory = selfInventory != null ? selfInventory : playerInformation.playerInventory;
+        craftingDisplay.ShowUI(craftingHandler, recipeDatabase, selfInventory);
     }
 
     private void CloseCrafting()

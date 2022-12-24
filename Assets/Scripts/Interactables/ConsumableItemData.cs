@@ -27,8 +27,7 @@ public class ConsumableItemData : QI_ItemData
     {
         for (int i = 0; i < attributeModifiers.Count; i++)
         {
-            float attributeValue = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue(attributeModifiers[i].attributeToModify);
-            PlayerInformation.instance.playerStats.playerAttributes.SetAttributeValue(attributeModifiers[i].attributeToModify, attributeValue + attributeModifiers[i].amount);
+            PlayerInformation.instance.playerStats.AddToStat(attributeModifiers[i].attributeToModify, attributeModifiers[i].amount);
         }
         PlayerInformation.instance.playerInventory.RemoveItem(this.Name, 1);
         if(itemToBecome != null)

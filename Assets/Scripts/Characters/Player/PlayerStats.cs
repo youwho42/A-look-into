@@ -7,7 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
 
     public QA_AttributeHandler playerAttributes;
-
+    public float maxBounce;
 
     private void Start()
     {
@@ -15,13 +15,23 @@ public class PlayerStats : MonoBehaviour
         playerAttributes.AddAttribute("Bounce");
         playerAttributes.AddAttribute("Agency");
         playerAttributes.AddAttribute("Luck");
-        playerAttributes.SetAttributeValue("Bounce", 100);
+        playerAttributes.SetAttributeValue("Bounce", maxBounce);
         playerAttributes.SetAttributeValue("Agency", 0);
         playerAttributes.SetAttributeValue("Luck", 5);
         
     }
+
+    public void AddToStat(string attributeName, float amountToAdd)
+    {
+        float e = playerAttributes.GetAttributeValue(attributeName);
+        e += amountToAdd;
+        if(attributeName == "Bounce")
+            e = Mathf.Clamp(e, 0, maxBounce);
+        playerAttributes.SetAttributeValue(attributeName, e);
+        GameEventManager.onStatUpdateEvent.Invoke();
+    }
    
-    public void AddGameEnergy(float energyToAdd)
+    public void AddToAgency(float energyToAdd)
     {
         
         float e = playerAttributes.GetAttributeValue("Agency");
@@ -29,10 +39,11 @@ public class PlayerStats : MonoBehaviour
         playerAttributes.SetAttributeValue("Agency", e);
         GameEventManager.onStatUpdateEvent.Invoke();
     }
-    public void AddPlayerEnergy(float energyToAdd)
+    public void AddToBounce(float energyToAdd)
     {
         float e = playerAttributes.GetAttributeValue("Bounce");
         e += energyToAdd;
+        e = Mathf.Clamp(e, 0, maxBounce);
         playerAttributes.SetAttributeValue("Bounce", e);
         GameEventManager.onStatUpdateEvent.Invoke();
     }
@@ -43,7 +54,7 @@ public class PlayerStats : MonoBehaviour
         playerAttributes.SetAttributeValue("Luck", e);
         GameEventManager.onStatUpdateEvent.Invoke();
     }
-    public void RemoveGameEnergy(float energyToAdd)
+    public void RemoveFromAgency(float energyToAdd)
     {
     
         float e = playerAttributes.GetAttributeValue("Agency");
@@ -51,10 +62,11 @@ public class PlayerStats : MonoBehaviour
         playerAttributes.SetAttributeValue("Agency", e);
         GameEventManager.onStatUpdateEvent.Invoke();
     }
-    public void RemovePlayerEnergy(float energyToAdd)
+    public void RemoveFromBounce(float energyToAdd)
     {
         float e = playerAttributes.GetAttributeValue("Bounce");
         e -= energyToAdd;
+        e = Mathf.Clamp(e, 0, maxBounce);
         playerAttributes.SetAttributeValue("Bounce", e);
         GameEventManager.onStatUpdateEvent.Invoke();
     }
@@ -70,6 +82,6 @@ public class PlayerStats : MonoBehaviour
     {
         float l = (luckToAdd / 100) * playerAttributes.GetAttributeValue("Luck");
         return luckToAdd + l;
-        GameEventManager.onStatUpdateEvent.Invoke();
+        //GameEventManager.onStatUpdateEvent.Invoke();
     }
 }

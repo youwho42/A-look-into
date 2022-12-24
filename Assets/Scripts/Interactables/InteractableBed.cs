@@ -35,7 +35,7 @@ public class InteractableBed : Interactable
     private void OpenSleeping()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.SleepScreen);
-        UIScreenManager.instance.DisplayPlayerUI();
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         sleepDisplay.ShowUI();
     }
 

@@ -16,12 +16,14 @@ public class IsometricGridXYZ : MonoBehaviour
     public TerrainType[] terrainTypes;
     LayerMask walkableMask;
     Dictionary<int, int> terrainDictionary = new Dictionary<int, int>();
-
+    public int maxSize;
+    BoundsInt groundBounds;
     private void Start()
     {
         SetGrid();
         SetNodes();
-
+        maxSize = MaxSize;
+        groundBounds = groundMap.cellBounds;
         foreach (TerrainType terrain in terrainTypes)
         {
             walkableMask.value |= terrain.terrainMask.value;
@@ -56,9 +58,9 @@ public class IsometricGridXYZ : MonoBehaviour
                     int checkY = node.worldPosition.y + y;
                     int checkZ = node.worldPosition.z + z;
 
-                    if (checkX >= groundMap.cellBounds.xMin && checkX <= groundMap.cellBounds.xMax
-                        && checkY >= groundMap.cellBounds.yMin && checkY <= groundMap.cellBounds.yMax
-                        && checkZ >= groundMap.cellBounds.zMin && checkZ <= groundMap.cellBounds.zMax)
+                    if (checkX >= groundBounds.xMin && checkX <= groundBounds.xMax
+                        && checkY >= groundBounds.yMin && checkY <= groundBounds.yMax
+                        && checkZ >= groundBounds.zMin && checkZ <= groundBounds.zMax)
                     {
                         neighbours.Add(GetIsometricNode(new Vector3Int(checkX, checkY, checkZ)));
                     }
@@ -120,15 +122,17 @@ public class IsometricGridXYZ : MonoBehaviour
 
                     if (walkable)
                     {
-                        Collider2D hit = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.1f, terrainTypes[0].terrainMask);
-                        if (hit != null)
+                        for (int i = 0; i < terrainTypes.Length; i++)
                         {
-                            Debug.Log("path tile Found");
-                            movementPenalty = terrainTypes[0].terrainPenalty;
+                            Collider2D hit = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.2f, terrainTypes[i].terrainMask);
+                            if (hit != null)
+                            {
+                                movementPenalty = terrainTypes[i].terrainPenalty;
+                            }
                         }
+                        
                     }
                     isometricNodes.Add(new IsometricNodeXYZ(walkable, new Vector3Int(x, y, z), Mathf.Abs(groundMap.cellBounds.xMin - x), Mathf.Abs(groundMap.cellBounds.yMin - y), Mathf.Abs(groundMap.cellBounds.zMin - z), movementPenalty, isSlope, slopeName));
-                    
                 }
             }
         }

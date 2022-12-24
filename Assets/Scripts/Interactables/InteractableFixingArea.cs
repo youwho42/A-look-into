@@ -29,9 +29,10 @@ public class InteractableFixingArea : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-        if (CheckForIngredients() && InteractCostReward())
+        bool ingr = CheckForIngredients();
+        bool cost = InteractCostReward();
+        if (ingr && cost)
         {
-            //playerInformation.playerStats.RemoveGameEnergy(gameEnergyCost);
             GetComponent<IFixArea>().Fix(ingredients);
         }
     }
@@ -39,17 +40,20 @@ public class InteractableFixingArea : Interactable
     
     public bool CheckForIngredients()
     {
+        bool hasAll = true;
         foreach (var ingredient in ingredients)
         {
+            
             int t = playerInformation.GetTotalInventoryQuantity(ingredient.item);
             if (t < ingredient.amount)
             {
-                NotificationManager.instance.SetNewNotification("You are missing " + (ingredient.amount - t) + " " + ingredient.item.Name + " to fix this.");
-                return false;
+                string plural = ingredient.amount - t == 1 ? "" : "'s";
+                NotificationManager.instance.SetNewNotification($"Missing {ingredient.amount - t} {ingredient.item.Name}{plural}", NotificationManager.NotificationType.Warning);
+                hasAll = false;
             }
             
         }
-        return true;
+        return hasAll;
     }
 
     bool InteractCostReward()
@@ -59,7 +63,7 @@ public class InteractableFixingArea : Interactable
             return true;
         
 
-        NotificationManager.instance.SetNewNotification("You need " + gameEnergyCost + " Agency to fix this.");
+        NotificationManager.instance.SetNewNotification($"{gameEnergyCost} Agency missing", NotificationManager.NotificationType.Warning);
         return false;
     }
 

@@ -10,35 +10,30 @@ public class PlayerLocationTextureMap : MonoBehaviour
 
     public int maxPositionsViewed;
     Queue<int> positions = new Queue<int>();
-    private void Start()
+    private IEnumerator Start()
     {
         GameEventManager.onPlayerPositionUpdateEvent.AddListener(DrawPlayerMap);
+        yield return new WaitForSeconds(2);
+        DrawPlayerMap();
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(DrawPlayerMap);
 
     }
-
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (!mapDisplayed)
-            {
-                UIScreenManager.instance.DisplayScreen(UIScreenType.MapScreen);
-                PlayerInformation.instance.TogglePlayerInput(false);
-                mapDisplayed = true;
-            }
-            else
-            {
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-                PlayerInformation.instance.TogglePlayerInput(true);
-                mapDisplayed = false;
-            }
-            
-        }
+        mapDisplayed = true;
     }
+    private void OnDisable()
+    {
+        mapDisplayed = false;
+    }
+
+
+
+    
+
     public void DrawPlayerMap()
     {
         int width = 128;

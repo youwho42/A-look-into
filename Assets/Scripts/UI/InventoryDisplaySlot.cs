@@ -1,4 +1,5 @@
 ﻿using QuantumTek.QuantumInventory;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,12 +12,21 @@ public class InventoryDisplaySlot : MonoBehaviour
     public Image icon;
     
     public TextMeshProUGUI itemAmount;
+    public TextMeshProUGUI itemUse;
     public QI_Inventory inventory;
     public EquipmentManager equipmentManager;
     GameObject itemToDrop;
     bool isDragged;
     public LayerMask waterLayer;
+    string itemTypeName = "";
+    public List<ItemTypeNames> itemTypes = new List<ItemTypeNames>();
 
+    [Serializable]
+    public struct ItemTypeNames
+    {
+        public string itemDataName;
+        public string itemUseName;
+    }
     public void ShowInformation()
     {
         if (item == null)
@@ -36,6 +46,27 @@ public class InventoryDisplaySlot : MonoBehaviour
         
     }
 
+    public string GetItemType()
+    {
+        string n = item.GetType().Name;
+        if (n == "QI_ItemData")
+            return "";
+        for (int i = 0; i < itemTypes.Count; i++)
+        {
+            if (n.Contains(itemTypes[i].itemDataName))
+                return itemTypes[i].itemUseName;
+        }
+
+        return "";
+    }
+
+    public void ShowItemUse(bool active)
+    {
+        if (item != null)
+            itemUse.text = active ? itemTypeName : "";
+        
+    }
+
     public void AddItem(QI_ItemData newItem, int amount)
     {
         item = newItem;
@@ -43,6 +74,8 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         itemAmount.text = amount.ToString();
         icon.enabled = true;
+        itemTypeName = GetItemType();
+        ShowItemUse(false);
     }
     public void RemoveItem()
     {
@@ -114,7 +147,7 @@ public class InventoryDisplaySlot : MonoBehaviour
                     if (hit.CompareTag("Grass") || hit.CompareTag("Path") || hit.CompareTag("House"))
                         return true;
                 }
-                NotificationManager.instance.SetNewNotification($"You can't place {item.Name} on {hit.transform.parent.name}.");
+                NotificationManager.instance.SetNewNotification("Invalid placement", NotificationManager.NotificationType.Warning);
                 return false;
             }
             
@@ -133,7 +166,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (dist <= 0.5f)
             return true;
 
-        NotificationManager.instance.SetNewNotification("Try placing the " + item.Name + " closer to you.");
+        NotificationManager.instance.SetNewNotification("Too far", NotificationManager.NotificationType.Warning);
         return false;
     }
    
@@ -152,6 +185,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         icon.sprite = null;
         itemAmount.text = "";
         icon.enabled = false;
+        itemUse.text = "";
     }
     
 }

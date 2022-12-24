@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/Equipment Item/GathererItem", fileName = "New Gatherer Item")]
 public class EquipmentGatherData : EquipmentData
 {
+
+    
     public List<QI_ItemData> gatherItemData = new List<QI_ItemData>();
     public MiniGameType miniGameType;
     public LayerMask gathererLayer;
@@ -15,7 +17,8 @@ public class EquipmentGatherData : EquipmentData
 
     public float playerEnergyCost;
 
-   
+    
+
     public override void UseEquippedItem()
     {
         base.UseEquippedItem();
@@ -125,7 +128,7 @@ public class EquipmentGatherData : EquipmentData
                 if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
                     
-                    if (!nearestItemList.hasBeenHarvested)
+                    if (!nearestItemList.hasBeenHarvested && !PlayerInformation.instance.uiScreenVisible)
                     {
                         
 
@@ -142,6 +145,7 @@ public class EquipmentGatherData : EquipmentData
                                 if (InteractCostReward())
                                 {
                                     nearestItemList.hasBeenHarvested = true;
+                                    PlayerInformation.instance.uiScreenVisible = true;
                                     MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
                                 }
                             }
@@ -149,28 +153,18 @@ public class EquipmentGatherData : EquipmentData
                         if (none)
                         {
                             PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-                            NotificationManager.instance.SetNewNotification("Cannot gather " + nearestItemList.dataList[0].Name + " with this tool.");
+                            NotificationManager.instance.SetNewNotification($"Cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.");
                         }
                         
                     }
-                }
-                // If singular item (butterflies, bees...)
-                if (nearest.gameObject.TryGetComponent(out QI_Item nearestItem))
-                {
-                    
-                    foreach (QI_ItemData itemData in gatherItemData)
+                    else
                     {
-                        if (itemData == nearestItem.Data)
-                        {
-                            if (InteractCostReward())
-                            {
-                                PlayerInformation.instance.uiScreenVisible = true;
-                                MiniGameManager.instance.StartMiniGame(miniGameType, nearestItem.Data, nearest.gameObject);
-                            }
-                                
-                        }
+                        PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+                        NotificationManager.instance.SetNewNotification($"You already used the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name} on this {nearestItemList.dataList[0].Name} today.");
+
                     }
                 }
+                
             }
         }
     }
@@ -179,7 +173,7 @@ public class EquipmentGatherData : EquipmentData
         if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
         {
 
-            PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
+            PlayerInformation.instance.playerStats.RemoveFromBounce(playerEnergyCost);
             return true;
         }
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);

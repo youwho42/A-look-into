@@ -56,27 +56,7 @@ public class InventoryDisplay : MonoBehaviour
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if(UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
-            {
-                UIScreenManager.instance.DisplayScreen(UIScreenType.InventoryScreen);
-                PlayerInformation.instance.uiScreenVisible = true;
-                ItemInformationDisplayUI.instance.HideInformationDisplay();
-            }
-            else if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.InventoryScreen)
-            {
-                UIScreenManager.instance.HideScreens(UIScreenType.InventoryScreen);
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
 
-                PlayerInformation.instance.uiScreenVisible = false;
-                ItemInformationDisplayUI.instance.HideInformationDisplay();
-            }
-            
-        }
-    }
     public void UpdateInventoryUI()
     {
 

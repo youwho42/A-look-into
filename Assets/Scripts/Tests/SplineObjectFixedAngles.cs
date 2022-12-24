@@ -20,6 +20,7 @@ public class SplineObjectFixedAngles : MonoBehaviour
     public int zPosition;
     public bool closeObject;
 
+#if (UNITY_EDITOR)
     public void SetAllPositions()
     {
         ClearObjects();
@@ -59,7 +60,7 @@ public class SplineObjectFixedAngles : MonoBehaviour
             go.transform.position = spawnPoint;
         }
     }
-
+#endif
     public Vector3 GetPositionOnSpline(Vector3 startPos, Vector3 endPos, float indexPos)
     {
         var p = Vector3.Lerp(startPos, endPos, indexPos);

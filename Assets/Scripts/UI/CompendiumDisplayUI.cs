@@ -75,39 +75,22 @@ public class CompendiumDisplayUI : MonoBehaviour
     }
     public void ShowUI()
     {
+        PlayerInformation.instance.uiScreenVisible = true;
         ClearItemInformation();
         playerInformation.TogglePlayerInput(false);
     }
 
     public void HideUI()
     {
-        
-        
+        PlayerInformation.instance.uiScreenVisible = false;
+
         playerInformation.TogglePlayerInput(true);
     }
-
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
-            {
-                ClearItemInformation();
-                UIScreenManager.instance.DisplayScreen(UIScreenType.CompendiumScreen);
-                PlayerInformation.instance.uiScreenVisible = true;
-                ItemInformationDisplayUI.instance.HideInformationDisplay();
-            }
-            else if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.CompendiumScreen)
-            {
-                UIScreenManager.instance.HideScreens(UIScreenType.CompendiumScreen);
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-
-                PlayerInformation.instance.uiScreenVisible = false;
-                ItemInformationDisplayUI.instance.HideInformationDisplay();
-            }
-
-        }
+        ClearItemInformation();
     }
+
 
     void SetButtonSelectedColor(Button butt, bool selected)
     {

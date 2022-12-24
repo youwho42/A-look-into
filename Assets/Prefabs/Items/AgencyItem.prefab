@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGlow: 0.05
-  maxGlow: 0.15
+  minGlow: 0.1
+  maxGlow: 0.2
   bloomMinIntensity: 2
   bloomMaxIntensity: 6
   useAlpha: 1
@@ -238,10 +238,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4512748395779608294}
   - component: {fileID: 8464820155600132354}
-  - component: {fileID: 1774965035644422823}
   - component: {fileID: 3717007433731677191}
   - component: {fileID: 4952562270674669458}
   - component: {fileID: 4497035025832832090}
+  - component: {fileID: 4541828706023747027}
   m_Layer: 13
   m_Name: AgencyItem
   m_TagString: Untagged
@@ -281,24 +281,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.05
---- !u!114 &1774965035644422823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4512748395779608293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea67e6a75ea17f740a0a6e4d14b08d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactSound: Default
-  interactVerb: Take
-  playerEnergyCost: 0
-  gameEnergyReward: 10
-  gameEnergyCost: 0
-  canInteract: 1
 --- !u!114 &3717007433731677191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 4659880e7a3a7464abde62109b056f8d, type: 2}
+  Data: {fileID: 11400000, guid: c8e5cc38c91f0d34a86879947a8eca3c, type: 2}
 --- !u!114 &4952562270674669458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,3 +319,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4541828706023747027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512748395779608293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52dcc3ae942c24389bf688ddfe153b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: Pick up
+  playerEnergyCost: 0
+  gameEnergyReward: 0
+  gameEnergyCost: 0
+  canInteract: 1

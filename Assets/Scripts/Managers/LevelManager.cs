@@ -73,8 +73,18 @@ public class LevelManager : MonoBehaviour
     }
     public void StartNewGame(string levelName)
     {
-        SavingLoading.instance.Save();
+        
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
+
+        
+    }
+
+    public void PlayerSpriteAndNameAccepted()
+    {
+        SavingLoading.instance.Save();
+        UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
 
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingStationDisplayUI : MonoBehaviour
 {
@@ -18,13 +19,14 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
 
     //PlayerInformation playerInformation;
-    PlayerCrafting playerRecipes;
+    QI_CraftingRecipeDatabase recipeDatabase;
     public GameObject craftingStationUI;
     
 
 
     //QI_Inventory playerInventory;
     QI_CraftingHandler craftingHandler;
+    QI_Inventory finalInventory;
     public QI_ItemDatabase itemDatabase;
     
 
@@ -41,8 +43,8 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     QI_CraftingRecipe craftableItem;
 
-    
-
+    public Slider quantityToCraftSlider;
+    public TextMeshProUGUI quantitySelectedText;
 
 
 
@@ -51,24 +53,31 @@ public class CraftingStationDisplayUI : MonoBehaviour
     private void Start()
     {
         craftingStationUI.SetActive(false);
-        //playerInformation = PlayerInformation.instance;
-        //playerInventory = PlayerInformation.instance.playerInventory;
-        playerRecipes = PlayerCrafting.instance;
-        craftingHandler = GetComponent<QI_CraftingHandler>();
+        
     }
 
 
 
-    public void ShowUI()
+    public void ShowUI(QI_CraftingHandler handler, QI_CraftingRecipeDatabase database, QI_Inventory inventory)
     {
+        craftingHandler = handler;
+        recipeDatabase = database;
+        finalInventory = inventory;
         SetAvailableRecipes();
+        quantityToCraftSlider.maxValue = 0;
+        quantityToCraftSlider.value = 0;
+        SetQuantityText();
+        PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
+        
         //craftingStationUI.SetActive(true);
     }
 
     public void HideUI()
     {
+        PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
+        craftingHandler = null;
         //craftingStationUI.SetActive(false);
     }
 
@@ -80,7 +89,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     {
         ClearRecipeSlots();
 
-        for (int i = 0; i < playerRecipes.craftingRecipeDatabase.CraftingRecipes.Count; i++)
+        for (int i = 0; i < recipeDatabase.CraftingRecipes.Count; i++)
         {
             GameObject newRecipe = Instantiate(recipeButton, recipeButtonHolder.transform);
             recipeButtons.Add(newRecipe.GetComponent<CraftingRecipeButton>());
@@ -93,7 +102,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     {
         for (int i = 0; i < recipeButtons.Count; i++)
         {
-            recipeButtons[i].AddItem(playerRecipes.craftingRecipeDatabase.CraftingRecipes[i]);
+            recipeButtons[i].AddItem(recipeDatabase.CraftingRecipes[i]);
         }
 
     }
@@ -124,6 +133,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         recipeResultSlot.AddItem(craftableItem.Product.Item, craftableItem.Product.Amount);
         recipeAgencyText.text = craftableItem.AgencyCost.ToString();
 
+        SetQuantitySlider();
 
         for (int i = 0; i < craftableItem.Ingredients.Count; i++)
         {
@@ -131,13 +141,40 @@ public class CraftingStationDisplayUI : MonoBehaviour
         }
 
     }
+    void SetQuantitySlider()
+    {
+        
+        int max = 1000;
+        for (int i = 0; i < craftableItem.Ingredients.Count; i++)
+        {
+            int amount =  PlayerInformation.instance.playerInventory.GetStock(craftableItem.Ingredients[i].Item.Name) / craftableItem.Ingredients[i].Amount;
+            if(amount < max)
+                max = amount;
+        }
+        quantityToCraftSlider.maxValue = max;
+        quantityToCraftSlider.value = max == 0 ? 0 : 1;
+        SetQuantityText();
+        
+    }
+
+    public void SetQuantityText()
+    {
+        quantitySelectedText.text = ($"{quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}");
+    }
 
     public void CraftItem()
     {
         if (craftableItem != null)
         {
-            if(InteractCostReward())
-                craftingHandler.Craft(craftableItem, 1);
+            if (InteractCostReward())
+            {
+                for (int i = 0; i < (int)quantityToCraftSlider.value; i++)
+                {
+                    craftingHandler.Craft(craftableItem, 1, finalInventory);
+                }
+                
+            }
+                
         }
         SetCurrentRecipe(craftableItem);
         
@@ -150,7 +187,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
             return true;
 
 
-        NotificationManager.instance.SetNewNotification("You need " + craftableItem.AgencyCost + " Agency to craft this.");
+        NotificationManager.instance.SetNewNotification($"{craftableItem.AgencyCost} Agency needed", NotificationManager.NotificationType.Warning);
         return false;
     }
 

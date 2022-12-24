@@ -33,12 +33,14 @@ public class ResearchStationDisplayUI : MonoBehaviour
     public void ShowUI()
     {
         UpdateResearchDisplay();
+        PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         //researchStationUI.SetActive(true);
     }
 
     public void HideUI()
     {
+        PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         //researchStationUI.SetActive(false);
     }

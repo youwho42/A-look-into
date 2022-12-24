@@ -23,25 +23,27 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 21300000, guid: 06b260cb8de9c234584a241259cf253e, type: 3}
   MaxStack: 1
   ResearchRecipes: []
-  RevealAgencyAmount: 1
+  RecipeRevealAmount: 0
+  AgencyReward: 0
   GameDificulty: 1
   equipmentSlot: 0
   gatherItemData:
   - {fileID: 11400000, guid: 87f92308592164e4ba696ca7fd370317, type: 2}
   - {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
   - {fileID: 11400000, guid: b93de0ccb7a0c54459147aef26808e24, type: 2}
+  - {fileID: 11400000, guid: 76124a4ca19d15b4488db4dbce14507e, type: 2}
   - {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
   - {fileID: 11400000, guid: 38bcad7d53958dc44a46b06c15c66e28, type: 2}
-  - {fileID: 11400000, guid: 76124a4ca19d15b4488db4dbce14507e, type: 2}
   - {fileID: 11400000, guid: 8985f7fdd00cae944bb6723f3b13a194, type: 2}
-  - {fileID: 11400000, guid: 97a75a7747862aa4f9be9b4ce160b2b6, type: 2}
   - {fileID: 11400000, guid: 01a85339e4eee0d45a2ee3a245dda221, type: 2}
-  - {fileID: 11400000, guid: 7cbbf56ee35194d4da597fb15b6eb359, type: 2}
   - {fileID: 11400000, guid: cdce4afcca35d7a41a10489688529aa3, type: 2}
-  - {fileID: 11400000, guid: cc32c7e8f0329cb41bdbedcdda9ccbf3, type: 2}
   - {fileID: 11400000, guid: 19fcdbc487c297d49b75c2851e7ea201, type: 2}
+  - {fileID: 11400000, guid: 97a75a7747862aa4f9be9b4ce160b2b6, type: 2}
+  - {fileID: 11400000, guid: 7cbbf56ee35194d4da597fb15b6eb359, type: 2}
+  - {fileID: 11400000, guid: cc32c7e8f0329cb41bdbedcdda9ccbf3, type: 2}
   miniGameType: 2
   gathererLayer:
     serializedVersion: 2
@@ -49,4 +51,4 @@ MonoBehaviour:
   detectionRadius: 0.1
   takeSample: 0
   oneUse: 0
-  playerEnergyCost: 10
+  playerEnergyCost: 5

@@ -150,7 +150,7 @@ public class AnimalSpawner : MonoBehaviour
                     if (animal.spawnChanceCurve.Evaluate(UnityEngine.Random.Range(0.0f, 1.0f)) < 0.1f)
                     {
                         var go = Instantiate(animal.item.ItemPrefab, plant.transform.position, Quaternion.identity);
-                        PlayerInformation.instance.playerStats.AddGameEnergy(2);
+                        PlayerInformation.instance.playerStats.AddToAgency(2);
                         
                        
                         if (go.TryGetComponent(out SaveableItemEntity saveItem))

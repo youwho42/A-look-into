@@ -242,7 +242,8 @@ GameObject:
   - component: {fileID: 1811554867345994488}
   - component: {fileID: 3725231716656796218}
   - component: {fileID: 4695394095835541605}
-  - component: {fileID: 5694352649017631056}
+  - component: {fileID: 1120872119902666906}
+  - component: {fileID: 5354974526142624053}
   m_Layer: 14
   m_Name: mouse
   m_TagString: Untagged
@@ -478,7 +479,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.065}
   serializedVersion: 2
   m_Radius: 0.15625
---- !u!114 &5694352649017631056
+--- !u!114 &1120872119902666906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -487,10 +488,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5967451856495238902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 7cbbf56ee35194d4da597fb15b6eb359, type: 2}
+  dataList:
+  - {fileID: 11400000, guid: 7cbbf56ee35194d4da597fb15b6eb359, type: 2}
+  maxPerDay: 0
+  timeToReset: 300
+  hasBeenHarvested: 0
+--- !u!114 &5354974526142624053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967451856495238902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5967451856984917288
 GameObject:
   m_ObjectHideFlags: 0

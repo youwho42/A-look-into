@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,34 +6,26 @@ using UnityEngine;
 public class IsometricPathfindingXYZ : MonoBehaviour
 {
 
-    PathRequestManager requestManager;
 
     public IsometricGridXYZ isometricGrid;
 
 
-    void Awake()
-    {
-        requestManager = GetComponent<PathRequestManager>();
-    }
+    
+    
 
-    public void StartFindPath(Vector3Int startPos, Vector3Int endPos)
-    {
-        StartCoroutine(FindPath(startPos, endPos));
-    }
-
-    IEnumerator FindPath(Vector3Int startPos, Vector3Int endPos)
+    public void FindPath(PathRequest request, Action<PathResult> callback)
     {
 
-        List<Vector3> waypoints = new List<Vector3>();
+        List<IsometricNodeXYZ> waypoints = new List<IsometricNodeXYZ>();
         bool pathSuccess = false;
 
-        IsometricNodeXYZ startNode = isometricGrid.GetIsometricNode(startPos);
-        IsometricNodeXYZ targetNode = isometricGrid.GetIsometricNode(endPos);
+        IsometricNodeXYZ startNode = isometricGrid.GetIsometricNode(request.pathStart);
+        IsometricNodeXYZ targetNode = isometricGrid.GetIsometricNode(request.pathEnd);
 
        
         if (startNode.walkable && targetNode.walkable)
         {
-            Heap<IsometricNodeXYZ> openSet = new Heap<IsometricNodeXYZ>(isometricGrid.MaxSize);
+            Heap<IsometricNodeXYZ> openSet = new Heap<IsometricNodeXYZ>(isometricGrid.maxSize);
             HashSet<IsometricNodeXYZ> closedSet = new HashSet<IsometricNodeXYZ>();
 
             openSet.Add(startNode);
@@ -106,15 +99,14 @@ public class IsometricPathfindingXYZ : MonoBehaviour
         }
 
 
-        yield return null;
         if (pathSuccess)
         {
             waypoints = RetracePath(startNode, targetNode);
         }
-        requestManager.FinishedProcessingPath(waypoints, pathSuccess);
+        callback(new PathResult(waypoints, pathSuccess, request.pathCallback));
     }
 
-    List<Vector3> RetracePath(IsometricNodeXYZ startNode, IsometricNodeXYZ endNode)
+    List<IsometricNodeXYZ> RetracePath(IsometricNodeXYZ startNode, IsometricNodeXYZ endNode)
     {
         List<IsometricNodeXYZ> path = new List<IsometricNodeXYZ>();
         IsometricNodeXYZ currentNode = endNode;
@@ -124,13 +116,13 @@ public class IsometricPathfindingXYZ : MonoBehaviour
             path.Add(currentNode);
             currentNode = currentNode.parent;
         }
-        List<Vector3> waypoints = ConvertToWorldPositions(path);
-        waypoints.Reverse();
-        return waypoints;
+       
+        path.Reverse();
+        return path;
     }
 
 
-    List<Vector3> ConvertToWorldPositions(List<IsometricNodeXYZ> path)
+    public List<Vector3> ConvertToWorldPositions(List<IsometricNodeXYZ> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
 

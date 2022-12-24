@@ -146,10 +146,10 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
 
             // Give player some agency... !!!!!!!!!!!!
             if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal)){
-                PlayerInformation.instance.playerStats.AddGameEnergy(animal.RevealAgencyAmount);
+                PlayerInformation.instance.playerStats.AddToAgency(animal.AgencyReward);
                 PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
                 GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
-                NotificationManager.instance.SetNewNotification($"The {animal.name} was added to your animal compendium.");
+                NotificationManager.instance.SetNewNotification($"{animal.Name} found", NotificationManager.NotificationType.Compedium);
             }
 
             currentAttemptHits = 0;
@@ -261,7 +261,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         shrinking = false;
         ResetTargetArea(currentIndex);
         transform.parent.gameObject.SetActive(false);
-        PlayerInformation.instance.uiScreenVisible = false;
+        
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
         SetAnimalState(true);
 

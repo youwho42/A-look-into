@@ -37,8 +37,9 @@ public class PlayerUseEquipment : MonoBehaviour
                 else
                 {
                     animator.SetBool("UseEquipement", false);
-                    equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
                     animator.SetTrigger("Swing_" + equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName);
+                    equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
+                    
                 }
                 
                 

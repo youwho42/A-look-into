@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: Ore
   m_EditorClassIdentifier: 
   Name: Ore
+  AnimationName: 
   Description: This is ore, very unspecific, but useful.
   Weight: 2
   Price: 5
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 6bee7a16975ecc74bb4922e4c7b65a3d, type: 3}
   ItemPrefab: {fileID: 205002403857363210, guid: 253048cdd09ab244d8f982c4554ffcaa,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  MaxStack: 0
+  MaxStack: 100
   ResearchRecipes:
   - {fileID: 11400000, guid: 5b336eff86597914f8b6e8c412604617, type: 2}
   RecipeRevealAmount: 10
+  AgencyReward: 10
   GameDificulty: 1

@@ -76,8 +76,9 @@ GameObject:
   - component: {fileID: 6357941860985832427}
   - component: {fileID: 6357941860985832424}
   - component: {fileID: 6357941860985832425}
-  - component: {fileID: 5363637328972119969}
   - component: {fileID: 9125717192919333852}
+  - component: {fileID: 11095497653517968}
+  - component: {fileID: 4650399232009776987}
   m_Layer: 14
   m_Name: Grasshopper
   m_TagString: Untagged
@@ -172,19 +173,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5363637328972119969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6357941860985832422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 97a75a7747862aa4f9be9b4ce160b2b6, type: 2}
 --- !u!58 &9125717192919333852
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -201,6 +189,35 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.015}
   serializedVersion: 2
   m_Radius: 0.05
+--- !u!114 &11095497653517968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357941860985832422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataList:
+  - {fileID: 11400000, guid: 97a75a7747862aa4f9be9b4ce160b2b6, type: 2}
+  maxPerDay: 0
+  timeToReset: 300
+  hasBeenHarvested: 0
+--- !u!114 &4650399232009776987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357941860985832422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6357941861018812425
 GameObject:
   m_ObjectHideFlags: 0

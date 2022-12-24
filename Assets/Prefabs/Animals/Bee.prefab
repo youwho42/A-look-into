@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 4720702768505272703}
   - component: {fileID: 4720702768505272702}
   - component: {fileID: 3068471770465851757}
-  - component: {fileID: 2127316656769708729}
+  - component: {fileID: 7166982388808183340}
+  - component: {fileID: 4570870521104525868}
   m_Layer: 14
   m_Name: Bee
   m_TagString: Untagged
@@ -156,7 +157,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.03125
---- !u!114 &2127316656769708729
+--- !u!114 &7166982388808183340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,10 +166,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 4720702768505272640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
+  dataList:
+  - {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8, type: 2}
+  maxPerDay: 0
+  timeToReset: 300
+  hasBeenHarvested: 0
+--- !u!114 &4570870521104525868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768505272640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4720702768676041353
 GameObject:
   m_ObjectHideFlags: 0

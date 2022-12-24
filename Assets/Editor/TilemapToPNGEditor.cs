@@ -17,11 +17,11 @@ public class TilemapToPNGEditor : Editor
         {
             tilemapToImage.SaveBaseMap();
         }
-        //if (GUILayout.Button("Generate Full Map Image"))
-        //{
-        //    tilemapToImage.GenerateMapFromImage();
-        //}
+        if (GUILayout.Button("Generate All Map Images"))
+        {
+            tilemapToImage.SaveFinalMap();
+        }
 
-       
+
     }
 }

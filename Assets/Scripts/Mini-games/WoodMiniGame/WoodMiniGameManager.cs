@@ -62,6 +62,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
+                    PlayerInformation.instance.playerAnimator.SetTrigger("Swing_Axe");
                     StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
                 }
             }
@@ -107,6 +108,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         {
             currentAttemptHits++;
             PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
+            NotificationManager.instance.SetNewNotification(item.Name, NotificationManager.NotificationType.Inventory);
             PlaySound(0);
             StartCoroutine(GlowOn(15));
         }

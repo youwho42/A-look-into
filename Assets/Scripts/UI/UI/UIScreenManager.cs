@@ -33,18 +33,18 @@ public class UIScreenManager : MonoBehaviour
         DisplayScreen(UIScreenType.StartScreen);
     }
 
-    public void DisplayPlayerUI()
+    public void DisplayAdditionalUI(UIScreenType screenType)
     {
         foreach (var s in screens)
         {
-            if (s.GetComponent<UIScreen>().GetScreenType() == UIScreenType.PlayerUI)
+            if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
             {
                 s.SetActive(true);
                 
             }
         }
     }
-
+    
     public void DisplayScreen(UIScreenType screen)
     {
         if (!canChangeUI)

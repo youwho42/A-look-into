@@ -372,14 +372,14 @@ public class NPG_RobotAI : MonoBehaviour
 
     void SetHomeDestination()
     {
-        PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, homeBaseTilePosition, OnPathHomeFound);
+        //PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, homeBaseTilePosition, OnPathHomeFound);
     }
 
     void SetDeviatePath(int distance)
     {
         Vector3Int dest = PathRequestManager.GetRandomDistancedTile(gravityItem.surroundingTiles.currentTilePosition, distance);
 
-        PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnDeviatePathFound);
+        //PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnDeviatePathFound);
     }
     void OnPathHomeFound(List<Vector3> newPath, bool success)
     {
@@ -391,7 +391,7 @@ public class NPG_RobotAI : MonoBehaviour
     {
         Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
 
-        PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnPathFound);
+        //PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnPathFound);
     }
     public void OnPathFound(List<Vector3> newPath, bool success)
     {

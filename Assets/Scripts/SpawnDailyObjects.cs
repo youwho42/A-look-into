@@ -42,7 +42,7 @@ public class SpawnDailyObjects : MonoBehaviour
         }
         foreach (var point in spawnPoints)
         {
-            if (Random.Range(0.0f, 1.0f) > 0.3f)
+            if (Random.Range(0.0f, 1.0f) > 0.6f)
             {
                 var hit = Physics2D.OverlapCircle(point.position, .05f);
                 if (hit == null || hit.CompareTag("Grass"))

@@ -31,6 +31,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
     public void ShowContainerUI(QI_Inventory container)
     {
+        PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         containerInventory = container;
         SetContainerUI();
@@ -39,6 +40,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     }
     public void HideContainerUI()
     {
+        PlayerInformation.instance.uiScreenVisible = false;
         ClearSlots();
         containerInventory = null;
         PlayerInformation.instance.TogglePlayerInput(true);

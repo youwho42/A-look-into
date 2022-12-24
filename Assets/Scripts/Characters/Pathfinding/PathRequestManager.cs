@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+
 
 public class PathRequestManager : MonoBehaviour
 {
@@ -19,17 +21,34 @@ public class PathRequestManager : MonoBehaviour
     }
 
 
-    Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
-    PathRequest currentPathRequest;
+    Queue<PathResult> results = new Queue<PathResult>();
 
     IsometricPathfindingXYZ pathfinding;
-    bool isProcessingPath;
     static List<IsometricNodeXYZ> walkableNodes = new List<IsometricNodeXYZ>();
 
     private void Start()
     {
         Invoke("GetWalkableNodes", 2f);
     }
+
+
+    private void Update()
+    {
+        if(results.Count > 0) 
+        {
+            int itemsInQueue = results.Count;
+            lock (results)
+            {
+                for (int i = 0; i < itemsInQueue; i++)
+                {
+                    PathResult result = results.Dequeue();
+                    var path = pathfinding.ConvertToWorldPositions(result.path);
+                    result.callback(path, result.success);
+                }
+            }
+        }
+    }
+
 
     public void GetWalkableNodes()
     {
@@ -41,44 +60,26 @@ public class PathRequestManager : MonoBehaviour
         }
     }
 
-    public static void RequestPath(Vector3Int pathStart, Vector3Int pathEnd, Action<List<Vector3>, bool> callback)
+    public static void RequestPath(PathRequest request)
     {
-        PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-        instance.pathRequestQueue.Enqueue(newRequest);
-        instance.TryProcessNext();
+        ThreadStart threadStart = delegate
+        {
+            instance.pathfinding.FindPath(request, instance.FinishedProcessingPath);
+        };
+        Thread thread = new Thread(threadStart);
+        thread.Start();
     }
 
-    void TryProcessNext()
+    
+    public void FinishedProcessingPath(PathResult result)
     {
-        if(!isProcessingPath && pathRequestQueue.Count > 0)
+        lock (results)
         {
-            currentPathRequest = pathRequestQueue.Dequeue();
-            isProcessingPath = true;
-            pathfinding.StartFindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
+            results.Enqueue(result);
         }
     }
 
-    public void FinishedProcessingPath(List<Vector3> path, bool success)
-    {
-        currentPathRequest.pathCallback(path, success);
-        isProcessingPath = false;
-        TryProcessNext();
-    }
-
-    struct PathRequest
-    {
-        public Vector3Int pathStart;
-        public Vector3Int pathEnd;
-        public Action<List<Vector3>, bool> pathCallback;
-
-        public PathRequest(Vector3Int start, Vector3Int end, Action<List<Vector3>, bool> callback)
-        {
-            pathStart = start;
-            pathEnd = end;
-            pathCallback = callback;
-        }
-    }
-
+    
     public static Vector3Int GetRandomWalkableNode()
     {
         if (walkableNodes.Count == 0)
@@ -126,5 +127,35 @@ public class PathRequestManager : MonoBehaviour
         }
         return newTile;
 
+    }
+}
+
+public struct PathResult
+{
+    public List<IsometricNodeXYZ> path;
+    public bool success;
+    public Action<List<Vector3>, bool> callback;
+
+    public PathResult(List<IsometricNodeXYZ> path, bool success, Action<List<Vector3>, bool> callback)
+    {
+        this.path = path;
+        this.success = success;
+        this.callback = callback;
+    }
+}
+
+
+
+public struct PathRequest
+{
+    public Vector3Int pathStart;
+    public Vector3Int pathEnd;
+    public Action<List<Vector3>, bool> pathCallback;
+
+    public PathRequest(Vector3Int start, Vector3Int end, Action<List<Vector3>, bool> callback)
+    {
+        pathStart = start;
+        pathEnd = end;
+        pathCallback = callback;
     }
 }

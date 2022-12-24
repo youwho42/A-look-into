@@ -167,7 +167,7 @@ public class PlantLifeCycle : MonoBehaviour
         if (TryGetComponent(out InteractablePickUp pickUp))
         {
             pickUp.canInteract = currentCycle >= plantCycles.Count - 1;
-            PlayerInformation.instance.playerStats.AddGameEnergy(2);
+            PlayerInformation.instance.playerStats.AddToAgency(2);
         }
         
         

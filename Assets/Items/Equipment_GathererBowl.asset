@@ -13,13 +13,20 @@ MonoBehaviour:
   m_Name: Equipment_GathererBowl
   m_EditorClassIdentifier: 
   Name: Empty Water Bowl
+  AnimationName: Bowl
   Description: An empty water bowl
   Weight: 1
   Price: 2
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 12ff3515c61db444a97b775506a5211e, type: 3}
   ItemPrefab: {fileID: 5499458227284682821, guid: 0076c61b417f4bc48b7ca26b026be052,
     type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
   MaxStack: 10
+  ResearchRecipes: []
+  RevealAgencyAmount: 0
+  GameDificulty: 0
   equipmentSlot: 0
   gatherItemData:
   - {fileID: 11400000, guid: 4f52864ce589299498fb263530172d2b, type: 2}
@@ -30,3 +37,4 @@ MonoBehaviour:
   detectionRadius: 0.3
   takeSample: 1
   oneUse: 1
+  playerEnergyCost: 0

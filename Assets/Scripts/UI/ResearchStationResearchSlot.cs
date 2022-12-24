@@ -49,9 +49,9 @@ public class ResearchStationResearchSlot : MonoBehaviour
         {
             for (int i = 0; i < item.ResearchRecipes.Count; i++)
             {
-                PlayerInformation.instance.playerStats.AddGameEnergy(gameEnergyReward * item.RevealAgencyAmount);
+                PlayerInformation.instance.playerStats.AddToAgency(item.AgencyReward);
                 PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i]);
-                NotificationManager.instance.SetNewNotification("You learned the " + item.ResearchRecipes[i].Name + " recipe.");
+                NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].Name} recipe learned", NotificationManager.NotificationType.Compedium);
             }
             ResearchStationDisplayUI.instance.UpdateResearchDisplay();
         }
@@ -62,10 +62,10 @@ public class ResearchStationResearchSlot : MonoBehaviour
     {
         
             int t = PlayerInformation.instance.playerInventory.GetStock(item.Name);
-            if (t < item.RevealAgencyAmount)
+            if (t < item.RecipeRevealAmount)
             {
-                
-                NotificationManager.instance.SetNewNotification("You are missing " + (item.RevealAgencyAmount - t) + " " + item.Name + " to reveal its recipes.");
+            string plural = item.RecipeRevealAmount - t == 1 ? "" : "'s";
+            NotificationManager.instance.SetNewNotification($"{item.RecipeRevealAmount - t} {item.Name}{plural} missing", NotificationManager.NotificationType.Warning);
                 return false;
             }
 

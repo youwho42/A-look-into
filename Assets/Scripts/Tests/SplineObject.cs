@@ -14,6 +14,7 @@ public class SplineObject : MonoBehaviour
     public float distanceBetweenObjects;
     public Transform objectHolder;
 
+    #if (UNITY_EDITOR)
     [ContextMenu("Set Positions")]
     void SetObjectPositions()
     {
@@ -33,7 +34,7 @@ public class SplineObject : MonoBehaviour
             go.transform.position = spawnPoint;
         }
     }
-
+    #endif
 
     public Vector3 GetPositionOnSpline(float indexPos)
     {

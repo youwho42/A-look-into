@@ -32,7 +32,7 @@ public class EquipmentManager : MonoBehaviour
         currentEquipment[equipedIndex] = newItem;
         if (equipedIndex == (int)EquipmentSlot.Hands)
         {
-            handEquipmentHolder.sprite = newItem.Icon;
+            handEquipmentHolder.sprite = newItem.EquipedItemImage;
         }
         if (equipedIndex == (int)EquipmentSlot.Head)
         {

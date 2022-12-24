@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4241898056432885088}
   - component: {fileID: 4241898056432885089}
   - component: {fileID: 4241898056432885086}
-  - component: {fileID: 4241898056432885087}
   - component: {fileID: 2061663795955200273}
   - component: {fileID: -6733240155434513974}
   - component: {fileID: -3278501876233368275}
   - component: {fileID: -5325679724456818002}
+  - component: {fileID: 16967409682878202}
   m_Layer: 13
   m_Name: CraftingStation
   m_TagString: Untagged
@@ -107,35 +107,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2
   m_Radius: 0.18
---- !u!60 &4241898056432885087
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4241898056432885092}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.3265582}
-    oldSize: {x: 0.5, y: 0.5}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.003046751, y: -0.08898845}
-      - {x: 0.1858263, y: 0.0010129362}
-      - {x: -0.0054945946, y: 0.0949325}
-      - {x: -0.18663955, y: 0.006872043}
 --- !u!114 &2061663795955200273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +123,10 @@ MonoBehaviour:
   interactVerb: Craft
   playerEnergyCost: 0
   gameEnergyReward: 0
+  gameEnergyCost: 0
   canInteract: 1
+  recipeDatabase: {fileID: 11400000, guid: d0aefd46193a58d49982ad6dc18b2bd5, type: 2}
+  selfInventory: {fileID: 0}
 --- !u!114 &-6733240155434513974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +165,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: c20cdaca1d1abc746bb37a953b4d764f, type: 2}
+--- !u!114 &16967409682878202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241898056432885092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4bf14a71dff415589f7a5034e45fa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inventory: {fileID: 0}
+  Type: 0
+  OnCrafted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCrafting:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCraftedFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &7626570374999202996
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: CraftingStation
   m_EditorClassIdentifier: 
   Name: Crafting Station
+  AnimationName: 
   Description: Pray god this isn't in your inventory
   Weight: 100
   Price: 100
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 4789fa3348373514bbbdf781eed4af78, type: 3}
   ItemPrefab: {fileID: 4241898056432885088, guid: 47e8ad10ca4c1ec42b160b034a831389,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 0
   ResearchRecipes: []
-  RecipeRevealAmount: 1
+  RecipeRevealAmount: 0
+  AgencyReward: 0
   GameDificulty: 1

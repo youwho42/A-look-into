@@ -15,6 +15,8 @@ public enum UIScreenType
     CookingStationScreen,
     TeleportScreen,
     MapScreen,
-    CompendiumScreen
+    CompendiumScreen, 
+    MenuScreen,
+    PlayerSelect
    
 }

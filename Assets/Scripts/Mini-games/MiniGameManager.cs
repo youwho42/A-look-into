@@ -26,11 +26,15 @@ public class MiniGameManager : MonoBehaviour
     }
 
     public List<MiniGame> miniGames = new List<MiniGame>();
-    bool gameStarted;
+    public bool gameStarted;
 
 
- 
     public void StartMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
+    {
+        StartCoroutine(ExecuteMiniGame(miniGameType, item, gameObject));
+    }
+
+    public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
     {
         if (!gameStarted && UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
         {
@@ -38,7 +42,8 @@ public class MiniGameManager : MonoBehaviour
             {
                 if (game.miniGameType == miniGameType)
                 {
-                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(1.5f, 0, 100);
+                    yield return new WaitForSeconds(1.5f);
+                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(/*1.5f*/ 0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
                     
@@ -48,6 +53,7 @@ public class MiniGameManager : MonoBehaviour
             PlayerInformation.instance.TogglePlayerInput(false);
             gameStarted = true;
         }
+        yield return null;
     }
     public void EndMiniGame(MiniGameType miniGameType)
     {
@@ -61,6 +67,7 @@ public class MiniGameManager : MonoBehaviour
         }
         UIScreenManager.instance.canChangeUI = true;
         PlayerInformation.instance.TogglePlayerInput(true);
+        PlayerInformation.instance.uiScreenVisible = false;
         gameStarted = false;
     }
 }

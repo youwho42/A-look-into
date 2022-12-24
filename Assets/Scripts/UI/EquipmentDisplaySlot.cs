@@ -4,20 +4,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static InventoryDisplaySlot;
 
 public class EquipmentDisplaySlot : MonoBehaviour, ISlot
 {
     public QI_ItemData item;
     public Image icon;
     public TextMeshProUGUI itemSlotName;
+    public TextMeshProUGUI itemUse;
     
 
 
     public EquipmentSlot equipmentSlot;
-    
 
 
-    
+    public void ShowItemUse(bool active)
+    {
+        
+        if (item != null)
+            itemUse.text = active ? "Unequip" : "";
+
+    }
+
 
     public void TransferItem()
     {
@@ -50,7 +58,7 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
         item = null;
         icon.sprite = null;
         icon.enabled = false;
-
+        itemUse.text = "";
     }
 
     public void SetIndex(int index)

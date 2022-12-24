@@ -540,7 +540,8 @@ GameObject:
   - component: {fileID: 6325525508577029593}
   - component: {fileID: 6230241538022661077}
   - component: {fileID: 5966771426077238506}
-  - component: {fileID: 8639330285524751449}
+  - component: {fileID: 1310942487897049358}
+  - component: {fileID: 5369968248554572960}
   m_Layer: 14
   m_Name: CrowIdle0000
   m_TagString: Untagged
@@ -783,7 +784,7 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: 0.06}
   serializedVersion: 2
   m_Radius: 0.13
---- !u!114 &8639330285524751449
+--- !u!114 &1310942487897049358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -792,7 +793,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5859352282203003539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 8985f7fdd00cae944bb6723f3b13a194, type: 2}
+  dataList:
+  - {fileID: 11400000, guid: 8985f7fdd00cae944bb6723f3b13a194, type: 2}
+  maxPerDay: 0
+  timeToReset: 300
+  hasBeenHarvested: 0
+--- !u!114 &5369968248554572960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859352282203003539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

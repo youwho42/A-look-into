@@ -1,15 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TilemapToPNG : MonoBehaviour
 {
+    [Serializable]
+    public struct MapLayer
+    {
+        public Tilemap tilemap;
+        public Color color;
+        public string mapName;
+    }
     public Tilemap groundMap;
     public string textureName;
 
-    
+    public List<MapLayer> mapLayers = new List<MapLayer>();
+
     public void SaveBaseMap()
     {
         float[,] tiles = new float[groundMap.cellBounds.size.x, groundMap.cellBounds.size.y];
@@ -36,12 +46,52 @@ public class TilemapToPNG : MonoBehaviour
             indX++;
         }
         
-        var tex = CreateTexture(tiles);
+        var tex = CreateBaseTexture(tiles);
         SaveTexture(tex, "Base");
     }
-    
 
-    public Texture2D CreateTexture(float[,] tileMapArray)
+    public void SaveFinalMap()
+    {
+        if(mapLayers.Count <= 0) 
+            return;
+        List<Texture2D> allLayers = new List<Texture2D>();
+        Texture2D layer = null;
+        for (int i = 0; i < mapLayers.Count; i++)
+        {
+            float[,] tiles = new float[groundMap.cellBounds.size.x, groundMap.cellBounds.size.y];
+            int indX = 0;
+            int indY = 0;
+
+            for (int x = groundMap.cellBounds.xMin; x < groundMap.cellBounds.xMax; x++)
+            {
+                indY = 0;
+                for (int y = groundMap.cellBounds.yMin; y < groundMap.cellBounds.yMax; y++)
+                {
+                    for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
+                    {
+                        
+                        if (mapLayers[i].tilemap.GetTile(new Vector3Int(x, y, z)) != null)
+                        {
+                            tiles[indX, indY] = 1;
+                            break;
+                        }
+                       
+                    }
+                    indY++;
+                }
+                indX++;
+            }
+            layer = CreateFinalTexture(tiles, i);
+            SaveTexture(layer, mapLayers[i].mapName);
+        }
+        
+
+        
+        
+    }
+
+
+    public Texture2D CreateFinalTexture(float[,] tileMapArray, int layerIndex)
     {
         int width = tileMapArray.GetLength(0);
         int height = tileMapArray.GetLength(1);
@@ -53,13 +103,35 @@ public class TilemapToPNG : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                colorMap[y * width + x] = new Color(0.21f, tileMapArray[x, y], 0.14f, 1);
+                colorMap[y * width + x] = new Color(mapLayers[layerIndex].color.r, mapLayers[layerIndex].color.g, mapLayers[layerIndex].color.b, tileMapArray[x, y]);
             }
         }
         texture.SetPixels(colorMap);
         texture.Apply();
 
         
+        return texture;
+    }
+
+    public Texture2D CreateBaseTexture(float[,] tileMapArray)
+    {
+        int width = tileMapArray.GetLength(0);
+        int height = tileMapArray.GetLength(1);
+
+        Texture2D texture = new Texture2D(width, height);
+
+        Color[] colorMap = new Color[width * height];
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                colorMap[y * width + x] = new Color(0.21f, tileMapArray[x, y], 0.14f, 1);
+            }
+        }
+        texture.SetPixels(colorMap);
+        texture.Apply();
+
+
         return texture;
     }
 

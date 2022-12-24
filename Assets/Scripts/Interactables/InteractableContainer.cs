@@ -14,6 +14,8 @@ public class InteractableContainer : Interactable
         base.Start();
         containerUI = ContainerInventoryDisplayUI.instance;
         inventory = GetComponent<QI_Inventory>();
+        if (inventory == null)
+            inventory = GetComponentInParent<QI_Inventory>();
     }
 
     public override void Interact(GameObject interactor)
@@ -35,6 +37,7 @@ public class InteractableContainer : Interactable
     private void OpenContainer()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         containerUI.ShowContainerUI(inventory);
     }
 

@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: TeleportBuildArea
   m_EditorClassIdentifier: 
   Name: Teleport Build Area
+  AnimationName: 
   Description: Place this on the ground to build a teleporter... I don't know where
     to, but you know...
   Weight: 1
   Price: 1
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 12d549de028639241b7656bb919ffd46, type: 3}
   ItemPrefab: {fileID: 9124014349825039084, guid: 4d5371542f557fe45b34c3cc7fec7d33,
     type: 3}
+  pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  MaxStack: 0
+  MaxStack: 1
   ResearchRecipes: []
-  RecipeRevealAmount: 0
+  RevealAgencyAmount: 0
   GameDificulty: 0

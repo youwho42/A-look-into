@@ -64,7 +64,7 @@ public class InteractWithInteractable : MonoBehaviour
 
                 
             interactCanvas.transform.position = closest.transform.position + canvasOffset;
-            interactVerb.text = closest.interactVerb;
+            interactVerb.text = $"-e- {closest.interactVerb}";
             interactUI.SetActive(true);
             
             

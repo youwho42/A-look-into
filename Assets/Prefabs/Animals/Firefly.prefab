@@ -95,7 +95,9 @@ GameObject:
   - component: {fileID: 8431127206422430142}
   - component: {fileID: 2296586684663807708}
   - component: {fileID: 86832707635355978}
-  m_Layer: 0
+  - component: {fileID: 4944204364749238309}
+  - component: {fileID: 1736533482979419958}
+  m_Layer: 14
   m_Name: Firefly_Flying0000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,6 +192,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4944204364749238309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386777645675509780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataList:
+  - {fileID: 11400000, guid: 38bcad7d53958dc44a46b06c15c66e28, type: 2}
+  maxPerDay: 0
+  timeToReset: 300
+  hasBeenHarvested: 0
+--- !u!114 &1736533482979419958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386777645675509780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5659210534706215200
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,12 +460,15 @@ MonoBehaviour:
   getOnSlope: 0
   getOffSlope: 0
   onSlope: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
   checkTileDistance: 0.08
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
   isWeightless: 1
+  tileBlockInfo: []
 --- !u!114 &2164936171212253683
 MonoBehaviour:
   m_ObjectHideFlags: 0

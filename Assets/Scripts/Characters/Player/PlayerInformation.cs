@@ -24,6 +24,8 @@ public class PlayerInformation : MonoBehaviour
     public CurrentTilePosition currentTilePosition;
     public Animator playerAnimator;
 
+    public string playerName { get; private set; }
+
     private void Awake()
     {
         if (instance == null)
@@ -34,6 +36,10 @@ public class PlayerInformation : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    public void SetPlayerName(string name)
+    {
+        playerName = name;
     }
 
     private void Start()
@@ -74,7 +80,7 @@ public class PlayerInformation : MonoBehaviour
             if (!PlayerInformation.instance.playerResourceCompendiumDatabase.Items.Contains(item.Item))
             {
                 PlayerInformation.instance.playerResourceCompendiumDatabase.Items.Add(item.Item);
-                NotificationManager.instance.SetNewNotification($"{item.Item.Name} was added to your resources compendium.");
+                NotificationManager.instance.SetNewNotification($"{item.Item.Name}", NotificationManager.NotificationType.Compedium);
                 GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             }
         }

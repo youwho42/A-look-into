@@ -35,6 +35,7 @@ public class InteractableResearchStation : Interactable
     private void OpenResearch()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.ResearchStationScreen);
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         ResearchStationDisplayUI.instance.ShowUI();
     }
 

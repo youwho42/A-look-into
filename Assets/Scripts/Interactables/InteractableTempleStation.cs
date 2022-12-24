@@ -43,7 +43,7 @@ public class InteractableTempleStation : Interactable
         if (agency >= gameEnergyCost)
             return true;
 
-        NotificationManager.instance.SetNewNotification("You need " + gameEnergyCost + " Agency to do this.");
+        NotificationManager.instance.SetNewNotification($"{gameEnergyCost} Agency needed", NotificationManager.NotificationType.Warning);
         return false;
     }
 

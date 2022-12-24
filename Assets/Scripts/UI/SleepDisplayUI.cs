@@ -45,7 +45,7 @@ public class SleepDisplayUI : MonoBehaviour
     }
     public void ShowUI()
     {
-        
+        PlayerInformation.instance.uiScreenVisible = true;
         playerInformation.TogglePlayerInput(false);
         
         isShowing = true;
@@ -53,6 +53,7 @@ public class SleepDisplayUI : MonoBehaviour
 
     public void HideUI()
     {
+        PlayerInformation.instance.uiScreenVisible = false;
         playerInformation.TogglePlayerInput(true);
         
         isShowing = false;
@@ -79,11 +80,12 @@ public class SleepDisplayUI : MonoBehaviour
         while(dayNightCycle.hours != wakeTime)
         {
             //float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
-            PlayerInformation.instance.playerStats.AddPlayerEnergy(0.1f);
+            PlayerInformation.instance.playerStats.AddToBounce(0.1f);
             dayNightCycle.cycleSpeed = 100;
             yield return null;
         }
         dayNightCycle.cycleSpeed = originalCycleSpeed;
+        HideUI();
         UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         playerInformation.TogglePlayerInput(true);

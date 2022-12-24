@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class NotificationManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class NotificationManager : MonoBehaviour
     public struct Notification
     {
         public string textToDisplay;
+        public NotificationType type;
     }
 
     private void Awake()
@@ -18,56 +20,143 @@ public class NotificationManager : MonoBehaviour
         else
             Destroy(this);
     }
+    [Serializable]
+    public enum NotificationType
+    {
+        Compedium,
+        Inventory,
+        Warning,
+        None
+    }
+    [Serializable]
+    public struct NotificationTypeColor
+    {
+        public NotificationType notificationType;
+        public Color color;
+    }
 
-    public GameObject notificationDisplayPrefab;
+    public List<NotificationTypeColor> notificationTypes = new List<NotificationTypeColor>();
+
+    public Transform notificationActiveHolder;
+    public Transform notificationUnactiveHolder;
+    public NotificationDisplayObject notificationDisplayPrefab;
+    int maxNotifications = 5;
+    int currentNotificationCount = 0;
+    List<NotificationDisplayObject> notificationDisplays = new List<NotificationDisplayObject>();
 
     public TextMeshProUGUI notificationText;
     public float displayTime;
     public float fadeTime;
     Queue<Notification> notificationQueue = new Queue<Notification>();
 
-    private Coroutine notificationCoroutine;
-    bool notificationActive;
-
-    public void SetNewNotification(string message)
+    private void Start()
     {
-        notificationQueue.Enqueue(new Notification { textToDisplay = message });
+        for (int i = 0; i < maxNotifications; i++)
+        {
+            var go = Instantiate(notificationDisplayPrefab);
+            go.transform.SetParent(notificationUnactiveHolder.transform, false);
+            go.gameObject.SetActive(false);
+
+            notificationDisplays.Add(go);
+        }
+    }
+
+    public void SetNewNotification(string message, NotificationType notificationType = NotificationType.None)
+    {
+        notificationQueue.Enqueue(new Notification {textToDisplay = message, type = notificationType});
     }
 
     private void Update()
     {
-        if (notificationQueue.Count > 0 && !notificationActive)
+        if (currentNotificationCount >= maxNotifications)
+            return;
+        if (notificationQueue.Count > 0)
         {
-            if (notificationCoroutine != null)
-                StopCoroutine(notificationCoroutine);
-            notificationCoroutine = StartCoroutine(FadeOutNotificationCo(notificationQueue.Dequeue().textToDisplay));
+            StartCoroutine(DisplayNotificationCo(notificationQueue.Dequeue()));
+            currentNotificationCount++;
         }
     }
 
-    IEnumerator FadeOutNotificationCo(string message)
+    IEnumerator DisplayNotificationCo(Notification notification)
     {
-        notificationActive = true;
-        notificationText.text = message;
-        notificationText.color = new Color(
-                notificationText.color.r,
-                notificationText.color.g,
-                notificationText.color.b,
-                1f);
+        Color color = SetNotificationColor(notification);
+        int index = 0;
+        //for (int i = 0; i < notificationDisplays.Count; i++)
+        //{
+        //    if (notificationDisplays[i].isActiveAndEnabled && notificationDisplays[i].displayText.text == notification.textToDisplay)
+        //    {
+        //        Debug.Log("more than one similar notification");
+        //    }
+        //}
+        for (int i = 0; i < notificationDisplays.Count; i++)
+        {
+            if (!notificationDisplays[i].isActiveAndEnabled)
+            {
+                index = i;
+                notificationDisplays[i].SetDisplay(notification.textToDisplay, color);
+                notificationDisplays[i].gameObject.transform.SetParent(notificationActiveHolder.transform, false);
+                notificationDisplays[i].gameObject.SetActive(true);
+                break;
+            }
+        }
+        
+
         yield return new WaitForSeconds(displayTime);
-        notificationActive = false;
+        var display = notificationDisplays[index].GetComponent<CanvasGroup>();
         float t = 0;
         while (t < fadeTime)
         {
             t += Time.unscaledDeltaTime;
-            notificationText.color = new Color(
-                notificationText.color.r, 
-                notificationText.color.g, 
-                notificationText.color.b, 
-                Mathf.Lerp(1.0f, 0f, t / fadeTime));
-
+            display.alpha = Mathf.Lerp(1.0f, 0f, t / fadeTime);
+            
             yield return null;
         }
-        notificationCoroutine = null;
+
+        notificationDisplays[index].gameObject.transform.SetParent(notificationUnactiveHolder.transform, false);
+        notificationDisplays[index].gameObject.SetActive(false);
+        display.alpha = 1;
+        currentNotificationCount--;
+        
     }
+    Color SetNotificationColor(Notification notification)
+    {
+        Color color = Color.white;
+        for (int i = 0; i < notificationTypes.Count; i++)
+        {
+            if (notification.type == notificationTypes[i].notificationType)
+            {
+                color = notificationTypes[i].color;
+                return color;
+            }
+        }
+        return Color.white;
+    }
+
+
+    //IEnumerator FadeOutNotificationCo(string message)
+    //{
+    //    notificationActive = true;
+    //    notificationText.text = message;
+    //    notificationText.color = new Color(
+    //            notificationText.color.r,
+    //            notificationText.color.g,
+    //            notificationText.color.b,
+    //            1f);
+    //    yield return new WaitForSeconds(displayTime);
+    //    notificationActive = false;
+    //    float t = 0;
+    //    while (t < fadeTime)
+    //    {
+    //        t += Time.unscaledDeltaTime;
+    //        notificationText.color = new Color(
+    //            notificationText.color.r, 
+    //            notificationText.color.g, 
+    //            notificationText.color.b, 
+    //            Mathf.Lerp(1.0f, 0f, t / fadeTime));
+
+    //        yield return null;
+    //    }
+    //    notificationCoroutine = null;
+    //}
     
 }
