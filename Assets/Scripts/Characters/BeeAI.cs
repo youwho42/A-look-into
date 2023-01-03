@@ -24,6 +24,7 @@ public class BeeAI : MonoBehaviour, IAnimal
 
     [SerializeField]
     public FlyingState currentState;
+    SpriteRenderer animalSprite;
 
 
     public enum FlyingState
@@ -46,6 +47,7 @@ public class BeeAI : MonoBehaviour, IAnimal
         flight.SetRandomDestination();
         currentState = FlyingState.isFlying;
         GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
+        animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
         Invoke("SetSleepState", 1f);
     }
 
@@ -58,8 +60,14 @@ public class BeeAI : MonoBehaviour, IAnimal
         GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
     }
 
+    bool CheckVisibility()
+    {
+        return animalSprite.isVisible;
+    }
+
     private void Update()
     {
+        
         if (!activeState)
             return;
 
@@ -101,7 +109,7 @@ public class BeeAI : MonoBehaviour, IAnimal
                     }
                 }
 
-                if (!justTookOff)
+                if (!justTookOff && CheckVisibility())
                     CheckForLandingArea();
 
                 break;

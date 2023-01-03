@@ -48,12 +48,12 @@ public class CraftingSlot : MonoBehaviour
     {
         item = newItem;
         icon.sprite = item.Icon;
-        
+        Color c = inventoryQuantity < recipeQuantity? Color.red:Color.black;
         
         if (isIngredientSlot)
         {
             amount.text = inventoryQuantity.ToString() + "/" + recipeQuantity.ToString();
-            
+            amount.color = c;
         }
 
         icon.enabled = true;

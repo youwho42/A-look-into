@@ -3,6 +3,7 @@ using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -144,14 +145,35 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         if (currentAttemptHits == attemptSteps)
         {
 
-            // Give player some agency... !!!!!!!!!!!!
+            // Add animal to compendium if not already done
             if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal)){
-                PlayerInformation.instance.playerStats.AddToAgency(animal.AgencyReward);
                 PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
+                PlayerInformation.instance.playerStats.AddToAgency(20);
                 GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
                 NotificationManager.instance.SetNewNotification($"{animal.Name} found", NotificationManager.NotificationType.Compedium);
             }
+            
+            // Add animal to compendium information
+            PlayerInformation.instance.animalCompendiumInformation.AddAnimal(animal.Name);
 
+            // Add recipe revealed if already viewed enough times and you don't have the recipe already
+            if(animal.ResearchRecipes.Count > 0)
+            {
+                int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(animal.Name);
+                int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
+                for (int i = 0; i < animal.ResearchRecipes.Count; i++)
+                {
+                    if (PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(animal.ResearchRecipes[i].recipe))
+                        continue;
+                    if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
+                    {
+                        PlayerInformation.instance.playerStats.AddToAgency(animal.ResearchRecipes[i].AgencyReward);
+                        PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe);
+                        NotificationManager.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compedium);
+                    }
+                }
+            }
+            
             currentAttemptHits = 0;
         }
         ResetTargetArea(currentIndex);

@@ -23,8 +23,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
   MaxStack: 100
-  ResearchRecipes: []
-  RecipeRevealAmount: 0
-  AgencyReward: 0
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 0502cb3ab7916dd47bf8ec57e079f9a4, type: 2}
+    RecipeRevealAmount: 5
+    AgencyReward: 15
   GameDificulty: 0

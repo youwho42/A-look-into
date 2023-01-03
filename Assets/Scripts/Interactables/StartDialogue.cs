@@ -46,12 +46,12 @@ public class StartDialogue : Interactable
         else if(hadFirstConversation && !hasQuest)
         {
             canvasDialogueDisplay.handler.SetConversation(questConversation);
-            canvasDialogueDisplay.playerMadeChoice.AddListener(AcceptQuest);
+            //canvasDialogueDisplay.playerMadeChoice.AddListener(AcceptQuest);
         }
         else if(hadFirstConversation && hasQuest && !gatherQuest.IsQuestComplete())
         {
             canvasDialogueDisplay.handler.SetConversation(questUpdateConversation);
-            canvasDialogueDisplay.playerMadeChoice.AddListener(TurnInQuest);
+            //canvasDialogueDisplay.playerMadeChoice.AddListener(TurnInQuest);
         }
         else
         {
@@ -74,7 +74,7 @@ public class StartDialogue : Interactable
 
         
         gatherQuest.TurnInQuest();
-        canvasDialogueDisplay.playerMadeChoice.RemoveListener(TurnInQuest);
+        //canvasDialogueDisplay.playerMadeChoice.RemoveListener(TurnInQuest);
         if (gatherQuest.IsQuestComplete())
         {
             
@@ -92,7 +92,8 @@ public class StartDialogue : Interactable
     {
         gatherQuest.StartQuest();
         hasQuest = true;
-        canvasDialogueDisplay.playerMadeChoice.RemoveListener(AcceptQuest);
+
+        //canvasDialogueDisplay.playerMadeChoice.RemoveListener(AcceptQuest);
     }
 
     private void OnTriggerExit2D(Collider2D collision)

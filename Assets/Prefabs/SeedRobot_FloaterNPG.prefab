@@ -815,8 +815,8 @@ MonoBehaviour:
   - {fileID: 4456059186466488857}
   - {fileID: 2588795064433114577}
   m_Bounds:
-    m_Center: {x: -0.09795213, y: 0.2702123, z: 0.009614079}
-    m_Extent: {x: 0.2299828, y: 0.23528977, z: 0.006309486}
+    m_Center: {x: -0.09795308, y: 0.2702123, z: 0.009614079}
+    m_Extent: {x: 0.22998327, y: 0.23528977, z: 0.006309486}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -863,13 +863,14 @@ GameObject:
   - component: {fileID: 2621164004027186708}
   - component: {fileID: 5124456065576058630}
   - component: {fileID: 4294939815490942519}
-  - component: {fileID: 5839986725765191101}
   - component: {fileID: 2234721523090720352}
   - component: {fileID: 1686960130109517955}
   - component: {fileID: 3933878316851944485}
   - component: {fileID: 3505830140727351903}
   - component: {fileID: 6904827872980411965}
   - component: {fileID: 1527699865721090196}
+  - component: {fileID: 1704433469}
+  - component: {fileID: 215926743263835787}
   m_Layer: 13
   m_Name: SeedRobot_FloaterNPG
   m_TagString: Robot
@@ -901,7 +902,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5536631eca0b5940a91a352260c33cf, type: 3}
   m_Name: 
@@ -992,6 +993,9 @@ MonoBehaviour:
     minDistance: 0
     maxDisance: 2
   sound3dOffset: {x: 0, y: 0.25, z: 0}
+  groundSoundsLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4294939815490942519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -999,48 +1003,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 7548253376777481687}
   isHidden: 0
---- !u!114 &5839986725765191101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561e1e230feaa6e4f9b44cda924d6557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemObject: {fileID: 2007127399862756016}
-  itemShadow: {fileID: 8540917421940290322}
-  slopeObject: {fileID: 1881810329836617762}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  bounceFriction: 0
-  bounciness: 0
-  surroundingTiles: {fileID: 0}
-  currentVelocity: 0
-  currentLevel: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  getOnSlope: 0
-  getOffSlope: 0
-  onSlope: 0
-  slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.08
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  isWeightless: 1
 --- !u!114 &2234721523090720352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1063,7 +1032,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34ca403919b9e884baf5fe3d0092952d, type: 3}
   m_Name: 
@@ -1174,10 +1143,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45058daa44490594a93a06407a085579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDestination: {x: 0, y: 0, z: 0}
   speed: 0.2
+  facingRight: 0
+  currentDestination: {x: 0, y: 0, z: 0}
   hasPath: 0
   pathComplete: 0
+  currentTilePosition: {fileID: 0}
+  moveSpeed: 0
+  tileBlockInfo: []
 --- !u!114 &3505830140727351903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,15 +1158,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6402162093560618366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 818389e3e7e40224ab633484a348f7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: whaaAA???
-  playerEnergyCost: 0
-  gameEnergyReward: 0
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
   isOpen: 0
   inventory: {fileID: 6904827872980411965}
@@ -1240,6 +1214,36 @@ PolygonCollider2D:
       - {x: -0.121873915, y: 0.0022657216}
       - {x: 0.001627028, y: -0.06947315}
       - {x: 0.120009065, y: 0.0012629032}
+--- !u!114 &1704433469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402162093560618366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdba1ed9bc3b2c24497421969309de67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+--- !u!114 &215926743263835787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402162093560618366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!1 &6417495996242073321
 GameObject:
   m_ObjectHideFlags: 0
@@ -2038,8 +2042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0219e31de5041c48b8804996bea123b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowAppearTime: 20
-  glowDisappearTime: 5
   bloomMinIntensity: 0.8
   bloomMaxIntensity: 3.5
   spriteMaterial: {fileID: 2756630866722394290}

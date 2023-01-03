@@ -51,8 +51,10 @@ public class PlayerInput : MonoBehaviour
             usingEquippedItem = Input.GetMouseButtonDown(0);
         }
         
-        if (Input.GetKeyDown(KeyCode.Escape) && UIScreenManager.instance.canChangeUI)
+        if (Input.GetKeyDown(KeyCode.Escape) && UIScreenManager.instance.canChangeUI && !LevelManager.instance.isInCutscene)
         {
+            if (PlayerInformation.instance.uiScreenVisible)
+                return;
             isPaused = !isPaused;
             LevelManager.instance.Pause(isPaused);
         }

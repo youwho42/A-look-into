@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 public class MenuDisplayUI : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class MenuDisplayUI : MonoBehaviour
     bool inMenu;
     public Color selectedColor;
     public Color idleColor;
-    public Button map, inventory, compendium;
+    public Button map, inventory, compendium, undertakings;
 
     private void Update()
     {
@@ -19,6 +18,8 @@ public class MenuDisplayUI : MonoBehaviour
 
         if (!inMenu)
         {
+            if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
+                return;
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 SetInventoryUI();
@@ -49,6 +50,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(map, true);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
+        SetButtonSelectedColor(undertakings, false);
         inMenu = true;
     }
     public void SetCompendiumUI()
@@ -61,6 +63,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, true);
+        SetButtonSelectedColor(undertakings, false);
         inMenu = true;
     }
     public void SetInventoryUI()
@@ -73,6 +76,20 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, true);
         SetButtonSelectedColor(compendium, false);
+        SetButtonSelectedColor(undertakings, false);
+        inMenu = true;
+    }
+    public void SetUndertakingsUI()
+    {
+        UIScreenManager.instance.DisplayScreen(UIScreenType.Undertakings);
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
+        PlayerInformation.instance.uiScreenVisible = true;
+        PlayerInformation.instance.TogglePlayerInput(false);
+        SetButtonSelectedColor(map, false);
+        SetButtonSelectedColor(inventory, false);
+        SetButtonSelectedColor(compendium, false);
+        SetButtonSelectedColor(undertakings, true);
         inMenu = true;
     }
     void HideAllMenuUI()
@@ -83,6 +100,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
+        SetButtonSelectedColor(undertakings, false);
         inMenu = false;
     }
 

@@ -35,7 +35,7 @@ public class InteractableAgencyPickUp : Interactable
         yield return new WaitForSeconds(0.33f);
         PlayInteractSound();
 
-        PlayerInformation.instance.playerStats.AddToAgency(gameEnergyReward);
+        PlayerInformation.instance.playerStats.AddToAgency(agencyReward);
        
 
 

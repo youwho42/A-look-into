@@ -23,6 +23,7 @@ namespace Klaxon.GravitySystem
         public Vector3 displacedPosition;
         [HideInInspector]
         public bool isGrounded;
+        
 
         [Header("Gravity Bounce")]
         [Range(0, 1)]
@@ -65,7 +66,7 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public List<TileDirectionInfo> tileBlockInfo;
 
-
+        
         Collider2D hit, doubleHit;
         public virtual void Start()
         {
@@ -73,7 +74,7 @@ namespace Klaxon.GravitySystem
             allTilesManager = AllTilesInfoManager.instance;
             currentTilePosition = GetComponent<CurrentTilePosition>();
             //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
-
+            
             currentLevel = currentTilePosition.position.z;
 
         }
@@ -101,7 +102,7 @@ namespace Klaxon.GravitySystem
                 ChangeLevelOffSlope();
 
             int dif = Mathf.Abs(currentTilePosition.position.z - currentLevel);
-            if (dif != 0)
+            if (dif != 0 && !onSlope && !getOnSlope && ! getOffSlope)
                 ChangeLevel(dif);
 
 
@@ -281,13 +282,14 @@ namespace Klaxon.GravitySystem
                 positionZ = 0;
                 displacedPosition = Vector3.zero;
                 itemObject.localPosition = Vector3.zero;
-
+                JustLanded();
                 if (bounceFactor >= .001f)
                     Bounce(bounciness * bounceFactor);
 
             }
         }
 
+        public virtual void JustLanded(){}
 
 
         public void Bounce(float bounceAmount)

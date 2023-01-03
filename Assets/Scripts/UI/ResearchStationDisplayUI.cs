@@ -61,10 +61,11 @@ public class ResearchStationDisplayUI : MonoBehaviour
                 
                     foreach (var recipe in item.ResearchRecipes)
                     {
-                        if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe))
+                        if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe.recipe))
                         {
                             ResearchStationInventorySlot newSlot = Instantiate(inventoryItemDisplaySlot, inventoryItemArea.transform);
                             newSlot.AddItem(item);
+                        break;
                         }
                     }
                 

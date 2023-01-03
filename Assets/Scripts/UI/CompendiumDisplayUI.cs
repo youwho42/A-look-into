@@ -36,8 +36,16 @@ public class CompendiumDisplayUI : MonoBehaviour
     public GameObject compendiumRecipeListHolder;
     public CompendiumRecipeSlot compendiumRecipeSlotObject;
     public List<CompendiumRecipeSlot> compendiumRecipeSlots = new List<CompendiumRecipeSlot>();
+
+    public GameObject compendiumRecipeRevealListHolder;
+    public List<CompendiumRecipeSlot> compendiumRecipeRevealSlots = new List<CompendiumRecipeSlot>();
+
     public GameObject recipeDisplay;
     public TextMeshProUGUI agencyText;
+
+    public GameObject recipeRevealDisplay;
+    public GameObject timesViewedDisplay;
+    public TextMeshProUGUI timesViewedText;
 
     public Button animalButton, resourceButton, recipeButton, noteButton;
     public Color selectedColor;
@@ -145,6 +153,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         ClearCompendiumSlot();
         ClearCompendiumRecipeSlot();
         recipeDisplay.SetActive(false);
+        recipeRevealDisplay.SetActive(false);
         agencyText.text = "";
         switch (itemType)
         {
@@ -155,8 +164,9 @@ public class CompendiumDisplayUI : MonoBehaviour
 
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
                     newSlot.AddItem(playerAnimalCompendium.Items[i]);
+                    newSlot.AddRecipeReveal(playerAnimalCompendium.Items[i].ResearchRecipes);
                     compendiumSlots.Add(newSlot);
-
+                    
                 }
                 break;
             case ItemType.Resource:
@@ -165,6 +175,7 @@ public class CompendiumDisplayUI : MonoBehaviour
 
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
                     newSlot.AddItem(playerResourceCompendium.Items[i]);
+                    newSlot.AddRecipeReveal(playerResourceCompendium.Items[i].ResearchRecipes);
                     compendiumSlots.Add(newSlot);
 
                 }
@@ -176,7 +187,6 @@ public class CompendiumDisplayUI : MonoBehaviour
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
                     newSlot.AddItem(playerRecipeCompendium.CraftingRecipes[i].Product.Item, playerRecipeCompendium.CraftingRecipes[i]);
                     compendiumSlots.Add(newSlot);
-                    recipeDisplay.SetActive(true);
                     
                 }
                 break;
@@ -209,11 +219,21 @@ public class CompendiumDisplayUI : MonoBehaviour
         }
     }
 
-    public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe)
+    public void ClearCompendiumRecipeRevealSlot()
+    {
+        while (compendiumRecipeRevealListHolder.transform.childCount > 0)
+        {
+            DestroyImmediate(compendiumRecipeRevealListHolder.transform.GetChild(0).gameObject);
+        }
+    }
+
+    public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)
     {
         informationDisplayItemName.text = item.Name;
         informationDisplayItemDescription.text = item.Description;
-        if(recipe!= null)
+        recipeDisplay.SetActive(false);
+        recipeRevealDisplay.SetActive(false);
+        if (recipe!= null)
         {
             ClearCompendiumRecipeSlot();
             for (int i = 0; i < recipe.Ingredients.Count; i++)
@@ -223,7 +243,32 @@ public class CompendiumDisplayUI : MonoBehaviour
                 compendiumRecipeSlots.Add(newRecipeSlot);
                 agencyText.text = recipe.AgencyCost.ToString();
             }
+            recipeDisplay.SetActive(true);
         }
+        if (recipeReveals.Count > 0)
+        {
+            ClearCompendiumRecipeRevealSlot();
+            for (int i = 0; i < recipeReveals.Count; i++)
+            {
+                CompendiumRecipeSlot newRecipeSlot = Instantiate(compendiumRecipeSlotObject, compendiumRecipeRevealListHolder.transform);
+                newRecipeSlot.AddItem(recipeReveals[i].recipe.Product.Item, recipeReveals[i].RecipeRevealAmount);
+                compendiumRecipeSlots.Add(newRecipeSlot);
+                int times = PlayerInformation.instance.animalCompendiumInformation.TimesViewed(item.Name);
+                if(times > 0)
+                {
+                    timesViewedText.text = times.ToString();
+                    timesViewedDisplay.SetActive(true);
+                }
+                else
+                {
+                    timesViewedDisplay.SetActive(false);
+                }
+                    
+                
+            }
+            recipeRevealDisplay.SetActive(true);
+        }
+        
     }
 
     public void ClearItemInformation()
@@ -232,6 +277,8 @@ public class CompendiumDisplayUI : MonoBehaviour
         informationDisplayItemName.text = "";
         informationDisplayItemDescription.text = "";
         agencyText.text = "";
+        timesViewedText.text = "";
         ClearCompendiumRecipeSlot();
+        ClearCompendiumRecipeRevealSlot();
     }
 }

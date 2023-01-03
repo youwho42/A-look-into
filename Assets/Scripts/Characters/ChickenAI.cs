@@ -7,7 +7,7 @@ public class ChickenAI : MonoBehaviour, IAnimal
 
     float timeToStayAtDestination;
 
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
     CanReachTileWalk walk;
     public Animator animator;
     

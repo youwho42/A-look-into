@@ -9,95 +9,103 @@ public class IsometricPathfindingXYZ : MonoBehaviour
 
     public IsometricGridXYZ isometricGrid;
 
+    bool canThread;
 
-    
-    
+    private void Start()
+    {
+        canThread = true;
+    }
 
     public void FindPath(PathRequest request, Action<PathResult> callback)
     {
-
+        
+            
         List<IsometricNodeXYZ> waypoints = new List<IsometricNodeXYZ>();
         bool pathSuccess = false;
 
         IsometricNodeXYZ startNode = isometricGrid.GetIsometricNode(request.pathStart);
         IsometricNodeXYZ targetNode = isometricGrid.GetIsometricNode(request.pathEnd);
-
-       
-        if (startNode.walkable && targetNode.walkable)
-        {
-            Heap<IsometricNodeXYZ> openSet = new Heap<IsometricNodeXYZ>(isometricGrid.maxSize);
-            HashSet<IsometricNodeXYZ> closedSet = new HashSet<IsometricNodeXYZ>();
-
-            openSet.Add(startNode);
-
-            while (openSet.Count > 0)
+        if(startNode != null && targetNode != null) 
+        { 
+            if (startNode.walkable && targetNode.walkable && request.pathStart != request.pathEnd)
             {
-                IsometricNodeXYZ currentNode = openSet.RemoveFirst();
+                Heap<IsometricNodeXYZ> openSet = new Heap<IsometricNodeXYZ>(isometricGrid.maxSize);
+                HashSet<IsometricNodeXYZ> closedSet = new HashSet<IsometricNodeXYZ>();
 
-                closedSet.Add(currentNode);
+                openSet.Add(startNode);
 
-                if (currentNode == targetNode)
+                while (openSet.Count > 0 && canThread)
                 {
-                    pathSuccess = true;
-                    break;
-                }
+                    IsometricNodeXYZ currentNode = openSet.RemoveFirst();
 
-                foreach (IsometricNodeXYZ neighbour in isometricGrid.GetNeighbours(currentNode))
-                {
-                    if (neighbour == null)
-                        continue;
-                    if (!neighbour.walkable || closedSet.Contains(neighbour))
-                        continue;
+                    closedSet.Add(currentNode);
 
-                    if(currentNode.gridZ != neighbour.gridZ) 
-                    { 
-                        int diff = neighbour.gridZ - currentNode.gridZ;
+                    if (currentNode == targetNode)
+                    {
+                        pathSuccess = true;
+                        break;
+                    }
 
-                        // if the next tile is not on the same z level and not a slope
-                        if (diff == -1 && !neighbour.slope || diff == 1 && !currentNode.slope)
-                        {
+                    foreach (IsometricNodeXYZ neighbour in isometricGrid.GetNeighbours(currentNode))
+                    {
+                        if (neighbour == null)
                             continue;
-                        }
-                        // If I am approaching a slope, am i approaching the slope in a valid direction?
-                        if (neighbour.slope)
-                        {
-                            if (neighbour.tileName.Contains("X") && currentNode.gridX - neighbour.gridX == 0 || neighbour.tileName.Contains("Y") && currentNode.gridY - neighbour.gridY == 0)
-                                continue;
-                        }
-                        // I am on a slope
-                        if (currentNode.slope)
-                        {
-                            //am i walking 'off' the slope on the upper part in the right direction?
-                            if (currentNode.tileName.Contains("X") && currentNode.gridX - neighbour.gridX == 0 || currentNode.tileName.Contains("Y") && currentNode.gridY - neighbour.gridY == 0)
+                        if (!neighbour.walkable || closedSet.Contains(neighbour))
+                            continue;
+
+                        if(currentNode.gridZ != neighbour.gridZ) 
+                        { 
+                            int diff = neighbour.gridZ - currentNode.gridZ;
+
+                            // if the next tile is not on the same z level and not a slope
+                            if (diff == -1 && !neighbour.slope || diff == 1 && !currentNode.slope)
                             {
                                 continue;
                             }
+                            // If I am approaching a slope, am i approaching the slope in a valid direction?
+                            if (neighbour.slope)
+                            {
+                                if (neighbour.tileName.Contains("X") && currentNode.gridX == neighbour.gridX 
+                                    || neighbour.tileName.Contains("Y") && currentNode.gridY == neighbour.gridY)
+                                {
+                                    continue; 
+                                }
+                            }
+                            // I am on a slope
+                            if (currentNode.slope)
+                            {
+                                //am i walking 'off' the slope on the upper part in the right direction?
+                                if (currentNode.tileName.Contains("X") && currentNode.gridY != neighbour.gridY 
+                                    || currentNode.tileName.Contains("Y") && currentNode.gridX != neighbour.gridX)
+                                {
+                                    continue;
+                                }
                             
+                            }
                         }
-                    }
-                    // if neighbor z is one up and  currentNode is a slope
-                    // all good
+                        // if neighbor z is one up and  currentNode is a slope
+                        // all good
 
-                    // if neighbor z is one down and IT is a slope
-                    // all good
+                        // if neighbor z is one down and IT is a slope
+                        // all good
 
-                    // Here we have all the neighboring nodes that are walkable. 
-                    int newMovementCostToNeighbour = currentNode.gCost + GetDistanceBetweenNodes(currentNode, neighbour) + neighbour.movementPenalty;
-                    if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
-                    {
-                        neighbour.gCost = newMovementCostToNeighbour;
-                        neighbour.hCost = GetDistanceBetweenNodes(neighbour, targetNode);
-                        neighbour.parent = currentNode;
+                        // Here we have all the neighboring nodes that are walkable. 
+                        int newMovementCostToNeighbour = currentNode.gCost + GetDistanceBetweenNodes(currentNode, neighbour) + neighbour.movementPenalty;
+                        if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                        {
+                            neighbour.gCost = newMovementCostToNeighbour;
+                            neighbour.hCost = GetDistanceBetweenNodes(neighbour, targetNode);
+                            neighbour.parent = currentNode;
 
-                        if (!openSet.Contains(neighbour))
-                            openSet.Add(neighbour);
-                        else
-                            openSet.UpdateItem(neighbour);
+                            if (!openSet.Contains(neighbour))
+                                openSet.Add(neighbour);
+                            else
+                                openSet.UpdateItem(neighbour);
+                        }
                     }
                 }
             }
         }
-
 
         if (pathSuccess)
         {
@@ -147,5 +155,11 @@ public class IsometricPathfindingXYZ : MonoBehaviour
         return 14 * distX + 10 * (distY - distX);*/
         return distX + distY;
     }
+
+    private void OnDisable()
+    {
+        canThread = false;
+    }
+
 }
 

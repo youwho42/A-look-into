@@ -26,7 +26,11 @@ public class ReadInteractable : Interactable
 
     private void Read()
     {
-        canvasDialogueDisplay.DisplayDialoguePanel();
+        
+        UIScreenManager.instance.DisplayScreen(UIScreenType.DialogueDisplayScreen);
+        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+        PlayerInformation.instance.uiScreenVisible = true;
+        PlayerInformation.instance.TogglePlayerInput(false);
         canvasDialogueDisplay.handler = dialogueHandler;
         canvasDialogueDisplay.handler.SetConversation(coversation);
         canvasDialogueDisplay.SetText();
@@ -36,8 +40,9 @@ public class ReadInteractable : Interactable
     {
         if (collision.CompareTag("Player"))
         {
-            canvasDialogueDisplay.HideDialoguePanel();
+            
             canInteract = true;
+            
         }
 
     }

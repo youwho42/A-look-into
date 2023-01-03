@@ -36,4 +36,15 @@ public static class GameEventManager
     public static readonly GameEvent onRecipeCompediumUpdateEvent = new GameEvent();
     public static readonly GameEvent onNoteCompediumUpdateEvent = new GameEvent();
 
+    /// <summary>
+    ///  Player Undertakings Update
+    /// </summary>
+    public static readonly GameEvent onUndertakingsUpdateEvent = new GameEvent();
+
+
+    /// <summary>
+    /// Game Started New or Load
+    /// </summary>
+    public static readonly GameEvent onNewGameStartedEvent = new GameEvent();
+    public static readonly GameEvent onGameLoadedEvent = new GameEvent();
 }

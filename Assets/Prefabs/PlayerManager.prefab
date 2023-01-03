@@ -23,6 +23,9 @@ GameObject:
   - component: {fileID: 5769325092054554967}
   - component: {fileID: 4096953219318713192}
   - component: {fileID: 5126583361072144183}
+  - component: {fileID: 3606313332637372334}
+  - component: {fileID: 1778278584}
+  - component: {fileID: 8847118087756521459}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -73,6 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerSprite: {fileID: 0}
+  playerShadow: {fileID: 0}
   playerController: {fileID: 0}
   playerInventory: {fileID: 5769325092054554960}
   equipmentManager: {fileID: 5769325092054554963}
@@ -89,6 +94,9 @@ MonoBehaviour:
   playerStats: {fileID: 5769325092054554954}
   currentTilePosition: {fileID: 0}
   playerAnimator: {fileID: 0}
+  animalCompendiumInformation: {fileID: 3606313332637372334}
+  characterManager: {fileID: 1778278584}
+  playerQuestHandler: {fileID: 5769325092054554953}
 --- !u!114 &5769325092054554960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +253,7 @@ MonoBehaviour:
   playerNoteCompendiumDatabase: {fileID: 11400000, guid: 1ad630749315cf046addf8e0d0c2da83,
     type: 2}
   allItemsDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
+  animalCompendiumInformation: {fileID: 3606313332637372334}
 --- !u!114 &5126583361072144183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +266,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9a72b0591850748b9e9bc655138695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3606313332637372334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2915536f5209f4186a743fb76d88b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalNames: []
+  animalTimesViewed: 
+--- !u!114 &1778278584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0096a8cc6e6ebd242a46d66f9c22c887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseCharacters:
+  - BearA
+  - BearB
+  - BisonA
+  - BisonB
+  - CatA
+  - CatB
+  - Dog
+  aquiredCharacters: []
+--- !u!114 &8847118087756521459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647b60fdf896bb042a165c242736167c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUndertakings: {fileID: 5769325092054554953}

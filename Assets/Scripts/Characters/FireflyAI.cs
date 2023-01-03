@@ -25,7 +25,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
 
     [SerializeField]
     public FlyingState currentState;
-
+    SpriteRenderer animalSprite;
 
     public enum FlyingState
     {
@@ -47,6 +47,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
         flight.SetRandomDestination();
         currentState = FlyingState.isFlying;
         GameEventManager.onTimeTickEvent.AddListener(SetSleepOrWake);
+        animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
         Invoke("SetSleepState", 1f);
     }
 
@@ -59,8 +60,18 @@ public class FireflyAI : MonoBehaviour, IAnimal
         GameEventManager.onTimeTickEvent.RemoveListener(SetSleepOrWake);
     }
 
+    bool CheckVisibility()
+    {
+        return animalSprite.isVisible;
+    }
+
     private void Update()
     {
+        if (!CheckVisibility())
+        {
+            if (Time.frameCount % 20 != 0)
+                return;
+        }
         if (!activeState)
             return;
 

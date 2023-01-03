@@ -17,23 +17,26 @@ public class SavingLoading : MonoBehaviour
             instance = this;
     }
 
-    private string SavePath => $"{Application.persistentDataPath}/save.ali";
+    private string SavePath;
+    //private string LoadPath => $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
+    private string LoadPath;
+
     
-    [ContextMenu("Save")] 
     public void Save()
     {
+        SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
         DeleteFile();
-        var state = LoadFile();
+        var state = LoadFile(LoadSelectionUI.instance.currentLoadFileName);
         CaptureState(state);
         SaveFile(state);
     }
 
-    
+   
 
-    [ContextMenu("Load")]
-    public void Load()
+    
+    public void Load(string fileName)
     {
-        var state = LoadFile();
+        var state = LoadFile(fileName);
         RestoreState(state);
     }
 
@@ -46,14 +49,15 @@ public class SavingLoading : MonoBehaviour
         }
     }
 
-    private Dictionary<string, object> LoadFile()
+    private Dictionary<string, object> LoadFile(string fileName)
     {
-        if (!File.Exists(SavePath))
+        LoadPath = $"{Application.persistentDataPath}/{fileName}_save.ali";
+        if (!File.Exists(LoadPath))
         {
             return new Dictionary<string, object>();
         }
         
-        using (FileStream stream = File.Open(SavePath, FileMode.Open))
+        using (FileStream stream = File.Open(LoadPath, FileMode.Open))
         {
             var formatter = new BinaryFormatter();
             return (Dictionary<string, object>)formatter.Deserialize(stream);
@@ -98,7 +102,8 @@ public class SavingLoading : MonoBehaviour
 
     public void DeleteFile()
     {
-        File.Delete(SavePath);
+        if(File.Exists(SavePath))
+            File.Delete(SavePath);
     }
     
 }

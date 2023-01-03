@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Klaxon.GravitySystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ public class Teleport : MonoBehaviour
         teleporter.GetComponent<Teleport>().isIncoming = true;
         Material usingMaterial = material;
         GameObject activeTeleport = objectToTeleport;
-        activeTeleport.GetComponent<GravityItemMovementController>().enabled = false;
+        activeTeleport.GetComponent<GravityItemMovementControllerNew>().enabled = false;
 
         DissolveEffect.instance.StartDissolve(usingMaterial, 2f, false);
         yield return new WaitForSeconds(2f);
@@ -64,7 +65,7 @@ public class Teleport : MonoBehaviour
         material = null; ;
         objectToTeleport = null;
         isInTeleportRange = false;
-        activeTeleport.GetComponent<GravityItemMovementController>().enabled = true;
+        activeTeleport.GetComponent<GravityItemMovementControllerNew>().enabled = true;
     }
 
 

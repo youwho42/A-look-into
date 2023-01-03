@@ -15,6 +15,7 @@ public class IsometricGridXYZ : MonoBehaviour
 
     public TerrainType[] terrainTypes;
     LayerMask walkableMask;
+    public LayerMask obstacleMask;
     Dictionary<int, int> terrainDictionary = new Dictionary<int, int>();
     public int maxSize;
     BoundsInt groundBounds;
@@ -118,20 +119,26 @@ public class IsometricGridXYZ : MonoBehaviour
                             walkable = false;
                     }
 
-                    int movementPenalty = 100;
+                    int movementPenalty = 1000;
 
                     if (walkable)
                     {
                         for (int i = 0; i < terrainTypes.Length; i++)
                         {
-                            Collider2D hit = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.2f, terrainTypes[i].terrainMask);
+                            Collider2D hit = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.3f, terrainTypes[i].terrainMask);
                             if (hit != null)
                             {
                                 movementPenalty = terrainTypes[i].terrainPenalty;
                             }
                         }
-                        
+                        Collider2D obstacleCheck = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.03f, obstacleMask);
+                        if (obstacleCheck != null)
+                        {
+                            walkable = false;
+                        }
+
                     }
+                    
                     isometricNodes.Add(new IsometricNodeXYZ(walkable, new Vector3Int(x, y, z), Mathf.Abs(groundMap.cellBounds.xMin - x), Mathf.Abs(groundMap.cellBounds.yMin - y), Mathf.Abs(groundMap.cellBounds.zMin - z), movementPenalty, isSlope, slopeName));
                 }
             }

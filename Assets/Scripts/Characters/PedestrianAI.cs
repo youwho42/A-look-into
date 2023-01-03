@@ -31,7 +31,7 @@ namespace Klaxon.GravitySystem
 
         DrawZasYDisplacement currentClimbingSpot;
         float detectionTimeOutAmount;
-
+        SpriteRenderer animalSprite;
         [SerializeField]
         public PedestrianState currentState;
         public enum PedestrianState
@@ -51,11 +51,21 @@ namespace Klaxon.GravitySystem
             walk = GetComponent<CanReachTileWalk>();
             idleTimer = SetRandomRange(3, 10);
             timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
-
+            animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
         }
 
-        void Update()
+        bool CheckVisibility()
         {
+            return animalSprite.isVisible;
+        }
+
+        private void Update()
+        {
+            if (!CheckVisibility())
+            {
+                if (Time.frameCount % 20 != 0)
+                    return;
+            }
             if (!activeState)
                 return;
 
@@ -83,7 +93,7 @@ namespace Klaxon.GravitySystem
                         }
                     }
 
-                    if (walk.canClimb && !justClimbed)
+                    if (walk.canClimb && !justClimbed && CheckVisibility())
                         CheckForClimbingArea();
 
 

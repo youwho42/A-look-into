@@ -1,400 +1,310 @@
+using Klaxon.GravitySystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GravityItemMovement : MonoBehaviour
+namespace Klaxon.GravitySystem
 {
-
-    
-
-    public Transform itemObject;
-    public Transform itemShadow;
-    public Transform slopeObject;
-
-    public LayerMask obstacleLayer;
-    public LayerMask groundLayer;
-    [Range(0.0f, 0.1f)]
-    public float checkTileDistance = 0.08f;
-
-    [HideInInspector]
-    public CurrentGridLocation currentGridLocation;
-    [HideInInspector]
-    public SurroundingTiles surroundingTiles;
-    DetectVisibility visibility;
-
-    const float gravity = 20f;
-    readonly float spriteDisplacementY = 0.2790625f;
-    [HideInInspector]
-    public float positionZ;
-    [HideInInspector]
-    public Vector3 displacedPosition;
-
-    [HideInInspector]
-    public bool isGrounded;
-    bool onSlope = false;
-    //bool wasOnSlope = false;
-    Vector2 slopeDirection;
-
-    Vector3 currentPosition;
-    
-    [HideInInspector]
-    public Vector3Int nextTilePosition;
-
-    public bool canDropOffEdges;
-    [HideInInspector]
-    public bool onCliffEdge;
-
-    [Range(0, 1)]
-    public float bounceFriction;
-    [Range(0, 10)]
-    public float bounciness;
-
-    float bounceFactor = 0;
-    int dif;
-
-    int lastLevel;
-    bool displacing;
-
-    [HideInInspector]
-    public float currentVelocity;
-    Vector2 currentDirection;
-
-    float slopeDisplacement;
-    Vector2 slopeCollisionPoint;
-    Vector2 slopeCheckPosition;
-    float tileSize;
-
-    private IEnumerator Start()
+    public class GravityItemMovement : GravityItemNew
     {
-        currentGridLocation = GetComponent<CurrentGridLocation>();
-        surroundingTiles = GetComponent<SurroundingTiles>();
-        visibility = GetComponent<DetectVisibility>();
+        [Space]
+        [Header("NPC Movement")]
+        public float walkSpeed;
+        public float runSpeed;
+        public float jumpHeight;
+        public bool facingRight;
+        public bool isInInteractAction;
+        [HideInInspector]
+        public float moveSpeed;
 
-        yield return new WaitForSeconds(0.25f);
+        public Vector2 currentNPCDirection;
 
-        currentGridLocation.UpdateLocationAndPosition();
-        surroundingTiles.GetSurroundingTiles();
+        Vector3 checkPosition;
+        Vector3 doubleCheckPosition;
 
-        lastLevel = currentGridLocation.currentLevel;
-        isGrounded = true;
-        tileSize = currentGridLocation.groundGrid.cellSize.y;
-    }
+        Vector3Int currentPosition;
 
-    private void Update()
-    {
-        if (currentGridLocation == null)
-            return;
+        Vector3Int nextTilePosition;
+        [HideInInspector]
+        public bool onCliffEdge;
 
-        
-        SetIsGrounded();
-
-        if (onSlope)
-            HandleSlopes();
-
-        
-        if (currentGridLocation.currentLevel < lastLevel && !displacing)//either jumping or falling down a cliff
+        private new IEnumerator Start()
         {
-            if (canDropOffEdges)
+            base.Start();
+
+            yield return new WaitForSeconds(0.25f);
+
+            isGrounded = true;
+
+        }
+
+
+        private new void Update()
+        {
+            base.Update();
+
+            if (currentNPCDirection.x != 0 && !isInInteractAction)
             {
-                HardDisplaceDown();
+                if (currentNPCDirection.x > 0.01f && !facingRight)
+                    Flip();
+                else if (currentNPCDirection.x < 0.01f && facingRight)
+                    Flip();
             }
+
+            //if (isGrounded && playerInput.isJumping)
+            //    Bounce(jumpHeight);
+
+            //moveSpeed = currentNPCDirection.x + currentNPCDirection.y;
+
+        }
+
+
+        public new void FixedUpdate()
+        {
+            base.FixedUpdate();
+
+            if (isInInteractAction)
+                return;
+
+            if (CanReachNextTile(currentNPCDirection))
+            {
+
+                Move(currentNPCDirection, walkSpeed);
+            }
+
+
+        }
+
+
+        void TileFound(List<TileDirectionInfo> tileBlock, bool success)
+        {
+            if (success)
+                tileBlockInfo = tileBlock;
             else
-            {
-                SoftDisplaceDown();
-            }
-            
+                Debug.LogError("Tile not found in tile dictionary!");
         }
-        
-        
 
-        int levelDiff = currentGridLocation.currentLevel - lastLevel;
-        if (levelDiff == 1 && !displacing )//i'm jumping up a tile 
+        bool CanReachNextTile(Vector2 direction)
         {
-            if (!isGrounded)
-                HardDisplaceUp();
-            else
-                SoftDisplaceUp();
-        }
-        
-    }
 
 
-    private void FixedUpdate()
-    {
-        if (!isGrounded)
-            ApplyGravity();
-    }
+            checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
+            doubleCheckPosition = transform.position - Vector3.forward;
+            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
+                return false;
+
+            nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
+
+            Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
+            onCliffEdge = false;
 
 
+            int level = 0;
 
-    void SetIsGrounded()
-    {
-        //Check and set if grounded
-        float dist = Vector2.Distance(itemObject.localPosition, itemShadow.localPosition);
-        isGrounded = dist <= 0.01f;
-        if (isGrounded)
-        {
-            itemObject.localPosition = Vector3.zero;
-            positionZ = 0;
-            displacedPosition = Vector3.zero;
-        }
-    }
+            TileInfoRequestManager.RequestTileInfo(currentTilePosition.position, TileFound);
 
-
-
-    public void Move(Vector2 dir, float velocity)
-    {
-        currentDirection = dir;
-        currentVelocity = velocity;
-        currentGridLocation.UpdateLocationAndPosition();
-        surroundingTiles.GetSurroundingTiles();
-
-        if (CanReachNextTile(dir)) 
-        {
-            currentPosition = transform.position;
-            currentPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + dir, Time.deltaTime * velocity);
-            currentPosition.z = lastLevel;
-            transform.position = currentPosition;
-        }
-    }
-
-    bool CanReachNextTile(Vector2 movement)
-    {
-        
-        Vector3 checkPosition = (transform.position + (Vector3)movement * checkTileDistance) - Vector3.forward;
-
-        if (CheckForObstacles(checkPosition))
-            return false;
-
-        nextTilePosition = currentGridLocation.groundGrid.WorldToCell(checkPosition);
-        Vector3Int nextTileKey = nextTilePosition - currentGridLocation.lastTilePosition;
-        onCliffEdge = false;
-
-
-        foreach (var tile in surroundingTiles.allCurrentDirections)
-        {
-            // CURRENT TILE ----------------------------------------------------------------------------------------------------
-            // right now, where we are, what it be? is it be a slope?
-            if (tile.Key == Vector3Int.zero)
-            {
-                slopeDirection = Vector2.zero;
-                onSlope = tile.Value.tileName.Contains("Slope");
-                if (onSlope)
-                {
-                    if (tile.Value.tileName.Contains("X"))
-                        slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
-                    else
-                        slopeDirection = tile.Value.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
-                    continue;
-                }
-            }
-
-
-            // JUMPING! ----------------------------------------------------------------------------------------------------
-            // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
-            if (tile.Key == nextTileKey && !isGrounded && Mathf.Abs(displacedPosition.y) >= tile.Value.levelZ)
-            {
-                onCliffEdge = false;
+            if (tileBlockInfo == null)
                 return true;
-            }
 
 
-            // GROUNDED! ----------------------------------------------------------------------------------------------------
-            // the next tile is valid
-            if (tile.Key == nextTileKey && tile.Value.isValid)
+
+            foreach (var tile in tileBlockInfo)
             {
-                
-
-                // if the next tile is a slope, am i approaching it in the right direction?
-                if (tile.Value.tileName.Contains("Slope"))
+                // CURRENT TILE ----------------------------------------------------------------------------------------------------
+                // right now, where we are, what it be? is it be a slope?
+                if (tile.direction == Vector3Int.zero)
                 {
-                    if (tile.Value.tileName.Contains("X") && nextTileKey.x == 0 || tile.Value.tileName.Contains("Y") && nextTileKey.y == 0)
-                        return false;
-                    
+
+                    slopeDirection = Vector2.zero;
+                    onSlope = tile.tileName.Contains("Slope");
+                    if (onSlope)
+                    {
+
+                        if (tile.tileName.Contains("X"))
+                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                        else
+                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                        continue;
+                    }
+
                 }
+                if (tile.direction == nextTileKey)
+                    level = tile.levelZ;
+                else
+                    continue;
+                Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
-                // I am on a slope
-                if (onSlope)
+
+
+                // JUMPING! ----------------------------------------------------------------------------------------------------
+                // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
+                if (tile.direction == nextTileKey)
                 {
-                    //am i walking 'off' the slope on the upper part in the right direction?
-                    if (surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x == 0 || surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y == 0)
+                    if (tile.levelZ < -2)
                     {
                         onCliffEdge = true;
                         return false;
                     }
-                }
 
-            }
+                    if (/*isGrounded && playerInput.canWalkOffCliff && level <= 0 || */!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
+                    {
+                        //currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                        ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
 
-            // the next tile is NOT valid
-            if (tile.Key == nextTileKey && !tile.Value.isValid)
-            {
-                
-                // If I am on a slope, am i approaching or leaving the slope in a valid direction?
-                if (onSlope)
-                {
-                    if (surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x != 0 || surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y != 0)
-                        continue;
-                }
+                        if (tile.tileName.Contains("Slope"))
+                            onSlope = true;
 
-                // This is where we fall of a cliff
-                if (tile.Value.levelZ == 0)
-                {
-                    if (canDropOffEdges)
                         return true;
-                    else
-                        onCliffEdge = true;
+                    }
                 }
 
-                
+                // GROUNDED! ----------------------------------------------------------------------------------------------------
+                // the next tile is valid
 
-                // This is where we hit a wall of height 1 or above
-                return false;
+
+
+                if (tile.direction == nextTileKey && tile.isValid)
+                {
+
+                    // if the next tile is a slope, am i approaching it in the right direction?
+                    if (tile.tileName.Contains("Slope"))
+                    {
+                        if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                            return false;
+
+                        onSlope = true;
+
+                        // is the slope is lower?
+                        if (tile.levelZ < 0)
+                            getOnSlope = true;
+
+
+                    }
+
+                    // I am on a slope
+                    if (onSlope)
+                    {
+                        //am i walking 'off' the slope on the upper part in the right direction?
+                        if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                        {
+                            onCliffEdge = true;
+                            return false;
+                        }
+                        if (tile.levelZ > 0)
+                            getOffSlope = true;
+                    }
+
+                }
+
+                // the next tile is NOT valid
+                if (tile.direction == nextTileKey && !tile.isValid)
+                {
+                    if (doubleCheckTilePosition == nextTilePosition)
+                    {
+                        Nudge(direction);
+                    }
+
+                    // If I am approaching a slope, am i approaching or leaving the slope in a valid direction?
+                    if (onSlope)
+                    {
+                        if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x != 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y != 0)
+                            continue;
+                    }
+
+                    if (tile.levelZ == -1)
+                    {
+                        //currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                        ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
+
+                        return true;
+                    }
+                    // This is where we are on top of a cliff
+                    if (tile.levelZ <= -1)
+                    {
+                        onCliffEdge = true;
+                    }
+
+
+                    // This is where we hit a wall of height 1 or above
+                    return false;
+                }
             }
-        }
-        return true;
-    }
 
-    bool CheckForObstacles(Vector3 checkPosition)
-    {
-        // Check for gameobjects on the obstacle layer
-        var hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer);
-        if (hit != null)
+            //currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+            ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
+
+
+            return true;
+        }
+
+
+
+
+        void ChangePlayerLocation(int x, int y, int z)
         {
-            if (hit.gameObject.transform.position.z == transform.position.z)
-                return true;
+
+            var newPos = new Vector3Int(x, y, z);
+            currentTilePosition.position += newPos;
+            //if (newPos != Vector3Int.zero)
+            //    GameEventManager.onPlayerPositionUpdateEvent.Invoke();
         }
-        return false;
-    }
 
 
-    void HandleSlopes()
-    {
         
-        
-        slopeCheckPosition = (Vector2)transform.position - (slopeDirection * 0.6f);
-        RaycastHit2D hitA = Physics2D.Raycast(slopeCheckPosition, slopeDirection, 0.6f, groundLayer);
-         
-        if (hitA.collider != null)
+
+        public void Flip()
         {
-            slopeCollisionPoint = hitA.point;
-            float distA = Vector2.Distance(hitA.point, transform.position);
-            slopeDisplacement = distA / tileSize;
-            
+            // Switch the way the player is labelled as facing
+            facingRight = !facingRight;
+
+            // Multiply the player's x local scale by -1
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
         }
 
-        float displacementY = slopeDisplacement * spriteDisplacementY;
-        float displacementZ = slopeDisplacement - (visibility.isHidden ? 1 : 0);
-        slopeObject.localPosition = new Vector3(0, displacementY, displacementZ);
+
+
+
+        //public Vector3 GetTileWorldPosition(Vector3Int tile)
+        //{
+        //    var tileworldpos = currentTilePosition.groundMap.GetCellCenterWorld(tile);
+        //    return tileworldpos;
+        //}
+
+
+        //private void OnDrawGizmosSelected()
+        //{
+        //    Gizmos.color = Color.red;
+        //    Gizmos.DrawWireSphere(slopeCheckPosition, 0.05f);
+        //    Gizmos.DrawRay(slopeCheckPosition, slopeDirection * 0.6f);
+        //    Gizmos.color = Color.green;
+        //    Gizmos.DrawWireSphere(slopeCollisionPoint, 0.05f);
+
+        //    if (tileBlockInfo.Count > 0)
+        //    {
+
+
+        //        if (tileBlockInfo.Count > 0)
+        //        {
+        //            foreach (var item in tileBlockInfo)
+        //            {
+        //                Gizmos.color = item.isValid ? Color.green : Color.red;
+
+        //                var p = item.direction + currentTilePosition.position;
+
+        //                Gizmos.DrawWireSphere(GetTileWorldPosition(p), 0.1f);
+        //            }
+        //            Gizmos.color = Color.white;
+        //            Gizmos.DrawWireSphere(GetTileWorldPosition(currentTilePosition.position), 0.1f);
+        //        }
+        //    }
+
+        //}
+
+
+
 
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(slopeCheckPosition, 0.05f);
-        Gizmos.DrawRay(slopeCheckPosition, slopeDirection * 0.6f);
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(slopeCollisionPoint, 0.05f);
-    }
-
-    void HardDisplaceUp()
-    {
-        
-        displacing = true;
-
-        dif = currentGridLocation.currentLevel - lastLevel;
-        float displacement = dif * spriteDisplacementY;
-        currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, currentPosition.y + displacement, currentGridLocation.currentLevel);
-
-        
-        itemObject.localPosition = new Vector3(itemObject.localPosition.x, !onSlope ? itemObject.localPosition.y - displacement : transform.localPosition.y, !onSlope ? lastLevel - 1: 0);
-        
-
-        Invoke(nameof(ResetDisplacing), 0.3f);
-
-        lastLevel = currentGridLocation.currentLevel;
-    }
-    void SoftDisplaceUp()
-    {
-
-        displacing = true;
-
-        dif = currentGridLocation.currentLevel - lastLevel;
-        float displacement = dif * spriteDisplacementY;
-        currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, currentPosition.y + displacement, currentGridLocation.currentLevel);
-        slopeObject.localPosition = Vector3.zero;
-
-        Invoke(nameof(ResetDisplacing), 0.3f);
-
-        lastLevel = currentGridLocation.currentLevel;
-    }
-
-    void HardDisplaceDown()
-    {
-        displacing = true;
-        bounceFactor = 1;
-        dif = currentGridLocation.currentLevel - lastLevel;
-        float displacement = dif * spriteDisplacementY;
-        currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, currentPosition.y + displacement, currentGridLocation.currentLevel);
-
-
-        itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y - displacement , lastLevel - 1 );
-
-        lastLevel = currentGridLocation.currentLevel;
-
-        Invoke(nameof(ResetDisplacing), 0.3f);
-    }
-
-    void SoftDisplaceDown()
-    {
-        displacing = true;
-        
-        dif = currentGridLocation.currentLevel - lastLevel;
-        float displacement = dif * spriteDisplacementY;
-        currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, currentPosition.y + displacement, currentGridLocation.currentLevel);
-
-        lastLevel = currentGridLocation.currentLevel;
-
-        Invoke(nameof(ResetDisplacing), 0.3f);
-    }
-
-    void ResetDisplacing()
-    {
-        displacing = false;
-    }
-
-    public void Bounce(float bounceAmount)
-    {
-        positionZ += bounceAmount;
-        displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
-        itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);
-        bounceFactor *= bounceFriction;
-    }
-
-    void ApplyGravity()
-    {
-        positionZ -= gravity * Time.fixedDeltaTime;
-        
-        displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
-        itemObject.Translate(displacedPosition * Time.fixedDeltaTime);
-
-
-        if (itemObject.localPosition.y <= 0)
-        {
-            positionZ = 0;
-            displacedPosition = Vector3.zero;
-            itemObject.localPosition = Vector3.zero;
-
-            if (bounceFactor >= .0001f)
-                Bounce((bounciness + Mathf.Abs(dif)) * bounceFactor);
-
-        }
-    }
-
 }

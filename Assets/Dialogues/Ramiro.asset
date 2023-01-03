@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc788fe28a1947c5906bf24c0472406, type: 3}
+  m_Name: Ramiro
+  m_EditorClassIdentifier: 
+  Conversations:
+  - ID: 1
+    Name: QuestComplete_Talk to Manuela or Ramiro
+    FirstMessage: 2
+  - ID: 5
+    Name: Fissures
+    FirstMessage: 6
+  Speakers:
+  - ID: 0
+    Name: Ramiro
+    Icon: {fileID: 0}
+  Messages:
+  - ID: 2
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: -1
+    NextMessage: 3
+    MessageText: Why, shiver me whiskers, a new face!
+    Clip: {fileID: 0}
+  - ID: 3
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: 2
+    NextMessage: 4
+    MessageText: I sure hope you can help us out, we were caught out here unexpectedly.
+    Clip: {fileID: 0}
+  - ID: 4
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: 3
+    NextMessage: -1
+    MessageText: I'd give up cheese if that's what it takes to get out of here, but
+      I doubt that will help.
+    Clip: {fileID: 0}
+  - ID: 6
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: -1
+    NextMessage: 7
+    MessageText: You've seen the purple rain coming out of the ground, right?
+    Clip: {fileID: 0}
+  - ID: 7
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: 6
+    NextMessage: 8
+    MessageText: I'm pretty sure some ancient civilizaion made the pilars and floors.
+    Clip: {fileID: 0}
+  - ID: 8
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: 7
+    NextMessage: -1
+    MessageText: I think the pillars can redirect the purple rain, then it would
+      just be a matter of filling in the hole.
+    Clip: {fileID: 0}
+  Choices: []

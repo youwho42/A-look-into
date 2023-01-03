@@ -127,9 +127,10 @@ GameObject:
   - component: {fileID: 7897041632071972314}
   - component: {fileID: 7897041632071972313}
   - component: {fileID: 3313445778719661174}
+  - component: {fileID: 444492100331599727}
   m_Layer: 0
   m_Name: LeafPlant 0
-  m_TagString: Untagged
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -216,3 +217,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 5740713621004355351}
   shadowSprite: {fileID: 3482868706548831019}
+--- !u!58 &444492100331599727
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897041632071972312}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.03

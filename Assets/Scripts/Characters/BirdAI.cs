@@ -33,6 +33,8 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     bool activeState = true;
 
+    SpriteRenderer animalSprite;
+
     [SerializeField]
     public FlyingState currentState;
     public enum FlyingState
@@ -59,7 +61,7 @@ public class BirdAI : MonoBehaviour, IAnimal
         timeToStayAtDestination = SetRandomRange(new Vector2(2.0f, 4.0f));
         detectionTimeOutAmount = SetRandomRange(5, 60);
         flight.SetRandomDestination();
-
+        animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
         Invoke("SetSleepState", 1f);
     }
 
@@ -73,9 +75,14 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     }
 
+    bool CheckVisibility()
+    {
+        return animalSprite.isVisible;
+    }
+
     private void Update()
     {
-
+        
         if (!activeState)
             return;
 
@@ -137,7 +144,7 @@ public class BirdAI : MonoBehaviour, IAnimal
                     glideTimer = SetRandomRange(0.8f, 10);
                     animator.SetBool(gliding_hash, glide);
                 }
-                if (!justTookOff)
+                if (!justTookOff && CheckVisibility())
                     CheckForLandingArea();
 
                 break;

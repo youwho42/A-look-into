@@ -32,7 +32,7 @@ namespace Klaxon.GravitySystem
         Vector3Int nextTilePosition;
         [HideInInspector]
         public bool onCliffEdge;
-
+        WorldObjectAudioManager audioManager;
 
 
         private new IEnumerator Start()
@@ -40,13 +40,13 @@ namespace Klaxon.GravitySystem
             base.Start();
 
 
-
+            audioManager = GetComponentInChildren<WorldObjectAudioManager>();
             playerInput = GetComponent<PlayerInput>();
 
             yield return new WaitForSeconds(0.25f);
 
 
-
+            
             isGrounded = true;
 
         }
@@ -257,6 +257,11 @@ namespace Klaxon.GravitySystem
         }
 
 
+        public override void JustLanded()
+        {
+            audioManager.PlayFootstepSound();
+            
+        }
 
 
         void ChangePlayerLocation(int x, int y, int z)
@@ -269,12 +274,7 @@ namespace Klaxon.GravitySystem
         }
 
 
-        void CheckNewPosition()
-        {
-
-        }
-
-
+        
         public void Flip()
         {
             // Switch the way the player is labelled as facing

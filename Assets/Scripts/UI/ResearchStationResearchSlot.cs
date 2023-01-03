@@ -29,7 +29,8 @@ public class ResearchStationResearchSlot : MonoBehaviour
         string textToAdd = "";
         for (int i = 0; i < item.ResearchRecipes.Count; i++)
         {
-            textToAdd += item.ResearchRecipes[i].Name + "\n";
+            if(!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
+                textToAdd += item.ResearchRecipes[i].recipe.Name + "\n";
         }
         recipesText.text = textToAdd;
     }
@@ -45,27 +46,32 @@ public class ResearchStationResearchSlot : MonoBehaviour
 
     public void LearnRecipes()
     {
-        if (item != null && CheckForInventoryQuantity())
+        // loop through all  recipeReveals 
+        for (int i = 0; i < item.ResearchRecipes.Count; i++)
         {
-            for (int i = 0; i < item.ResearchRecipes.Count; i++)
+            if (PlayerCrafting.instance.craftingRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
+                continue;
+            if (CheckForInventoryQuantity(i))
             {
-                PlayerInformation.instance.playerStats.AddToAgency(item.AgencyReward);
-                PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i]);
-                NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].Name} recipe learned", NotificationManager.NotificationType.Compedium);
+                PlayerInformation.instance.playerStats.AddToAgency(item.ResearchRecipes[i].AgencyReward);
+                PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
+                NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compedium);
             }
             ResearchStationDisplayUI.instance.UpdateResearchDisplay();
+
         }
+        
         ClearSlot();
     }
 
-    public bool CheckForInventoryQuantity()
+    public bool CheckForInventoryQuantity(int index)
     {
         
             int t = PlayerInformation.instance.playerInventory.GetStock(item.Name);
-            if (t < item.RecipeRevealAmount)
+            if (t < item.ResearchRecipes[index].RecipeRevealAmount)
             {
-            string plural = item.RecipeRevealAmount - t == 1 ? "" : "'s";
-            NotificationManager.instance.SetNewNotification($"{item.RecipeRevealAmount - t} {item.Name}{plural} missing", NotificationManager.NotificationType.Warning);
+            string plural = item.ResearchRecipes[index].RecipeRevealAmount - t == 1 ? "" : "'s";
+            NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.Name}{plural} missing", NotificationManager.NotificationType.Warning);
                 return false;
             }
 

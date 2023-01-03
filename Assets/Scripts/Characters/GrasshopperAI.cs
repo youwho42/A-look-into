@@ -24,7 +24,7 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
     float detectionTimeOutAmount;
 
     bool activeState = true;
-
+    SpriteRenderer animalSprite;
     [SerializeField]
     public PedestrianState currentState;
     public enum PedestrianState
@@ -43,11 +43,21 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
         footSteps = GetComponent<NPC_PlayFootSteps>();
 
         timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 15.0f));
-
+        animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    bool CheckVisibility()
     {
+        return animalSprite.isVisible;
+    }
+
+    private void Update()
+    {
+        if (!CheckVisibility())
+        {
+            if (Time.frameCount % 20 != 0)
+                return;
+        }
         if (!activeState)
             return;
 

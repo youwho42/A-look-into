@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class TestMoveToNode : MonoBehaviour
 {
     MoveToNode moveToNode;
-    public GameObject target;
+    public CurrentTilePosition target;
     [HideInInspector]
     public Grid grid;
     [HideInInspector]
@@ -37,7 +37,7 @@ public class TestMoveToNode : MonoBehaviour
     {
         //Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
 
-        PathRequestManager.RequestPath(new PathRequest(GetTileZ(transform.position), GetTileZ(target.transform.position), OnPathFound));
+        PathRequestManager.RequestPath(new PathRequest(moveToNode.currentTilePosition.position, target.position, OnPathFound));
     }
     public void OnPathFound(List<Vector3> newPath, bool success)
     {

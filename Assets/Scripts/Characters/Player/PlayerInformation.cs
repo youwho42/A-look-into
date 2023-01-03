@@ -4,11 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Klaxon.GravitySystem;
+using QuantumTek.QuantumQuest;
+
 public class PlayerInformation : MonoBehaviour
 {
     public static PlayerInformation instance;
 
     public Transform player;
+    public SpriteRenderer playerSprite;
+    public GameObject playerShadow;
     public GravityItemMovementControllerNew playerController;
     public QI_Inventory playerInventory;
     public EquipmentManager equipmentManager;
@@ -24,6 +28,9 @@ public class PlayerInformation : MonoBehaviour
     public CurrentTilePosition currentTilePosition;
     public Animator playerAnimator;
 
+    public PlayerAnimalCompendiumInformation animalCompendiumInformation;
+    public PlayerCharacterManager characterManager;
+    public QQ_QuestHandler playerQuestHandler;
     public string playerName { get; private set; }
 
     private void Awake()

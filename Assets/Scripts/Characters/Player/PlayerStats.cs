@@ -15,10 +15,12 @@ public class PlayerStats : MonoBehaviour
         playerAttributes.AddAttribute("Bounce");
         playerAttributes.AddAttribute("Agency");
         playerAttributes.AddAttribute("Luck");
+        playerAttributes.AddAttribute("Gumption");
         playerAttributes.SetAttributeValue("Bounce", maxBounce);
         playerAttributes.SetAttributeValue("Agency", 0);
         playerAttributes.SetAttributeValue("Luck", 5);
-        
+        playerAttributes.SetAttributeValue("Gumption", 0);
+        GameEventManager.onStatUpdateEvent.Invoke();
     }
 
     public void AddToStat(string attributeName, float amountToAdd)

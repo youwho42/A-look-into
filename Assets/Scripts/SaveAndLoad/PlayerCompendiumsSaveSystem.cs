@@ -11,6 +11,7 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
     public QI_ItemDatabase playerResourceCompendiumDatabase;
     public QI_ItemDatabase playerNoteCompendiumDatabase;
     public QI_ItemDatabase allItemsDatabase;
+    public PlayerAnimalCompendiumInformation animalCompendiumInformation;
     public object CaptureState()
     {
         
@@ -38,7 +39,10 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
         {
             animalItemName = animalNames,
             resourceItemName = resourcesNames,
-            noteItemName = noteNames
+            noteItemName = noteNames,
+            animalCompendiumNames = animalCompendiumInformation.animalNames,
+            animalCompendiumAmounts = animalCompendiumInformation.animalTimesViewed
+            
         };
     }
 
@@ -60,6 +64,8 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
         {
             playerNoteCompendiumDatabase.Items.Add(allItemsDatabase.GetItem(saveData.noteItemName[i]));
         }
+        animalCompendiumInformation.animalNames = saveData.animalItemName;
+        animalCompendiumInformation.animalTimesViewed = saveData.animalCompendiumAmounts;
     }
 
     [Serializable]
@@ -68,7 +74,8 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
         public List<string> animalItemName;
         public List<string> resourceItemName;
         public List<string> noteItemName;
-
+        public List<string> animalCompendiumNames;
+        public List<int> animalCompendiumAmounts;
 
     }
 

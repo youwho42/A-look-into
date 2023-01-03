@@ -10,7 +10,7 @@ public class FishAI : MonoBehaviour, IAnimal
     Animator animator;
 
     bool activeState = true;
-
+    SpriteRenderer animalSprite;
     [SerializeField]
     public SwimmingState currentState;
 
@@ -33,12 +33,23 @@ public class FishAI : MonoBehaviour, IAnimal
         timeToStayAtDestination = SetTimeToStayAtDestination();
         swim.SetRandomDestination();
         swim.SetRandomDestinationZ();
+        animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
     }
 
-   
+
+
+    bool CheckVisibility()
+    {
+        return animalSprite.isVisible;
+    }
 
     private void Update()
     {
+        if (!CheckVisibility())
+        {
+            if (Time.frameCount % 20 != 0)
+                return;
+        }
         if (!activeState)
             return;
 

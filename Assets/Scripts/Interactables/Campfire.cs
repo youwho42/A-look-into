@@ -8,29 +8,35 @@ public class Campfire : Interactable
 {
     public GameObject fireAnimation;
     public Light2D lightFlicker;
+    public FireFlicker fireFlicker;
     bool isLit;
 
+    public override void Start()
+    {
+        base.Start();
+        SetFire("light", false);
+    }
     public override void Interact(GameObject interactor)
     {
 
         base.Interact(interactor);
 
         if (!isLit)
-        {
-            isLit = true;
-            fireAnimation.SetActive(true);
-            lightFlicker.enabled = true;
-           
-            interactVerb = "extinguish";
-        }
+            SetFire("extinguish", true);
         else
-        {
-            fireAnimation.SetActive(false);
-            lightFlicker.enabled = false;
-            interactVerb = "light";
-            isLit = false;
-        }
+            SetFire("light", false);
+            
+    }
 
+    void SetFire(string _interactVerb, bool active)
+    {
+        isLit = active;
+        fireAnimation.SetActive(active);
+        lightFlicker.enabled = active;
+        fireFlicker.canFlicker = active;
+        interactVerb = _interactVerb;
+        fireFlicker.StartLightFlicker(active);
+        
     }
 
     

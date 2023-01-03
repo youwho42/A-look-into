@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+
 
 public class RealTimeDayNightCycle : MonoBehaviour
 {
@@ -28,7 +30,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
     public bool isPaused;
 
     UnityEngine.Rendering.Universal.Light2D sun;
-
+    bool canThread;
     public int hours;
     public int minutes;
     
@@ -44,7 +46,12 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
     int gradientIndex;
     
+    Queue<int> timeTickEvents = new Queue<int>();
+    Queue<int> timeHourEvents = new Queue<int>();
 
+    bool resetGradient;
+    bool gradientSet;
+    Thread thread;
     public DayState dayState;
     public enum DayState
     {
@@ -56,15 +63,35 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
     void Start()
     {
+        canThread = true;
+        ThreadStart threadStart = delegate
+        {
+            TimeTick();
+        };
+        thread = new Thread(threadStart);
         isPaused = true;
         sun = GameObject.FindGameObjectWithTag("Sun").GetComponent< UnityEngine.Rendering.Universal.Light2D>();
         hours = Mathf.RoundToInt(currentTimeRaw / 60);
         minutes = currentTimeRaw % 60;
         gradientIndex = Random.Range(0, sunsetColors.Length);
         SetDayState();
-        
-        StartCoroutine(TimeOfDay());
+        StartTimeTick();
+        //StartCoroutine(TimeOfDay());
         Invoke("InitializeTick", 1.0f);
+    }
+    private void Update()
+    {
+        if(timeTickEvents.Count > 0)
+        {
+            GameEventManager.onTimeTickEvent.Invoke(timeTickEvents.Dequeue());
+        }
+        if (timeHourEvents.Count > 0)
+        {
+            GameEventManager.onTimeHourEvent.Invoke(timeHourEvents.Dequeue());
+        }
+        if (!gradientSet)
+            SetGradient();
+
     }
     void InitializeTick()
     {
@@ -81,7 +108,11 @@ public class RealTimeDayNightCycle : MonoBehaviour
         InitializeTick();
     }
 
-    
+    void StartTimeTick()
+    {
+        
+        thread.Start();
+    }
 
     void SetDayOrNightLight()
     {
@@ -95,9 +126,16 @@ public class RealTimeDayNightCycle : MonoBehaviour
             SetStableLight(false);
 
     }
-    void SetStableLight(bool isDay)
+
+    void SetGradient()
     {
         gradientIndex = Random.Range(0, sunsetColors.Length);
+        gradientSet = true;
+    }
+    
+    void SetStableLight(bool isDay)
+    {
+        
         sun.intensity = isDay ? 1.2f : 0.3f; 
         sun.color = isDay ? dayColor : nightColor;
     }
@@ -124,15 +162,58 @@ public class RealTimeDayNightCycle : MonoBehaviour
         
         sun.intensity = Mathf.Lerp(intensity, amount, elapsedTime / waitTime);
         sun.color = dayToNight ? sunsetColors[gradientIndex].Evaluate(elapsedTime / waitTime) : sunriseColors[gradientIndex].Evaluate(elapsedTime / waitTime);
-    }
-    
-    // current time, ticking by
-    IEnumerator TimeOfDay()
-    {
-        while (true)
+        if(intensity == amount)
         {
-            if (!isPaused) {
-                
+            gradientSet = false;
+        }
+    }
+
+    // current time, ticking by
+    //IEnumerator TimeOfDay()
+    //{
+    //    while (true)
+    //    {
+    //        if (!isPaused) {
+
+    //            currentTimeRaw += 1;
+    //            if (currentTimeRaw == 1440)
+    //            {
+    //                currentDayRaw++;
+    //                currentTimeRaw = 0;
+    //            }
+    //            hours = Mathf.RoundToInt(currentTimeRaw / 60);
+    //            minutes = currentTimeRaw % 60;
+
+    //            if (minutes == 0 && !hourTicked)
+    //            {
+    //                hourTicked = true;
+    //                GameEventManager.onTimeHourEvent.Invoke(hours);
+    //                timeHourEvents.Enqueue(hours);
+    //            }
+    //            if (minutes != 0 && hourTicked)
+    //                hourTicked = false;
+
+    //            SetDayState();
+    //            GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
+    //            timeTickEvents.Enqueue(currentTimeRaw);   
+
+    //        }
+    //        yield return new WaitForSeconds(1f / cycleSpeed);
+    //    }
+
+    //}
+
+
+
+
+
+    // current time, ticking by
+    void TimeTick()
+    {
+        while (canThread)
+        {
+            if (!isPaused)
+            {
                 currentTimeRaw += 1;
                 if (currentTimeRaw == 1440)
                 {
@@ -145,20 +226,22 @@ public class RealTimeDayNightCycle : MonoBehaviour
                 if (minutes == 0 && !hourTicked)
                 {
                     hourTicked = true;
-                    GameEventManager.onTimeHourEvent.Invoke(hours);
+                    timeHourEvents.Enqueue(hours);
                 }
                 if (minutes != 0 && hourTicked)
                     hourTicked = false;
 
                 SetDayState();
-                GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
-                    
-                
+                timeTickEvents.Enqueue(currentTimeRaw);
             }
-            yield return new WaitForSeconds(1f / cycleSpeed);
+            Thread.Sleep(1000 / cycleSpeed);
         }
-        
+
     }
 
+    private void OnDisable()
+    {
+        canThread = false;
+    }
 
 }

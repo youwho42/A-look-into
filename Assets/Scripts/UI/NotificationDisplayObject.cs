@@ -8,11 +8,12 @@ public class NotificationDisplayObject : MonoBehaviour
 {
     public TextMeshProUGUI displayText;
     public Image image;
-    public void SetDisplay(string text, Color color)
+    public Image notificationImage;
+    public void SetDisplay(string text, Color color, Sprite sprite)
     {
         displayText.text = text;
         image.color = color;
-        
+        notificationImage.sprite = sprite;
     }
 
     

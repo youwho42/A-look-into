@@ -1,3 +1,4 @@
+using Klaxon.GravitySystem;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 public class NPG_RobotAI : MonoBehaviour
 {
-    GravityItem gravityItem;
+    GravityItemNew gravityItem;
 
     MoveToNode moveToNode;
     Vector3Int lastDirection;
@@ -77,7 +78,7 @@ public class NPG_RobotAI : MonoBehaviour
     private IEnumerator Start()
     {
         interactableContainer = GetComponent<InteractableSeedRobot>();
-        gravityItem = GetComponent<GravityItem>();
+        gravityItem = GetComponent<GravityItemNew>();
         moveToNode = GetComponent<MoveToNode>();
         animator = GetComponentInChildren<Animator>();
         audioManager = GetComponent<WorldObjectAudioManager>();
@@ -85,7 +86,7 @@ public class NPG_RobotAI : MonoBehaviour
 
         yield return new WaitForSeconds(0.35f);
 
-        homeBaseTilePosition = gravityItem.surroundingTiles.currentTilePosition;
+        homeBaseTilePosition = gravityItem.currentTilePosition.position;
         timeToStayIdle = UnityEngine.Random.Range(4.0f, 8.0f);
         currentState = RobotStates.Waiting;
         Invoke("SetInventoryLights", 2f);
@@ -309,7 +310,7 @@ public class NPG_RobotAI : MonoBehaviour
                         currentState = RobotStates.Gathering;
                     }
                     SetHomeDestination();
-                    if (gravityItem.surroundingTiles.currentTilePosition == homeBaseTilePosition)
+                    if (gravityItem.currentTilePosition.position == homeBaseTilePosition)
                     {
                         isActivated = false;
                         currentState = RobotStates.Deactivated;
@@ -377,7 +378,7 @@ public class NPG_RobotAI : MonoBehaviour
 
     void SetDeviatePath(int distance)
     {
-        Vector3Int dest = PathRequestManager.GetRandomDistancedTile(gravityItem.surroundingTiles.currentTilePosition, distance);
+        Vector3Int dest = PathRequestManager.GetRandomDistancedTile(gravityItem.currentTilePosition.position, distance);
 
         //PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnDeviatePathFound);
     }

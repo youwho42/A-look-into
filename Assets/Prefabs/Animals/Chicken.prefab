@@ -125,11 +125,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7432182356746810017}
+  - component: {fileID: 5137744430179170912}
+  - component: {fileID: 7038874741033340965}
   - component: {fileID: 7432182356746810020}
   - component: {fileID: 7432182356746810024}
   - component: {fileID: 7432182356746810025}
-  - component: {fileID: 7432182356746810022}
-  - component: {fileID: 7432182356746810023}
   - component: {fileID: 9104859322909688830}
   - component: {fileID: 2773267130594518114}
   m_Layer: 13
@@ -146,7 +146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432182356746810046}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.126, y: 1.489, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -155,6 +155,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5137744430179170912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432182356746810046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548a27a8b2f575409d3b6a6f367a7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  groundMap: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
+--- !u!114 &7038874741033340965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432182356746810046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0b0913c9e7a6546bbd0aeaeb343a75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 7432182357024261707}
+  itemShadow: {fileID: 7432182356379431428}
+  slopeObject: {fileID: 7432182356981400627}
+  positionZ: 0
+  displacedPosition: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  bounceFriction: 0
+  bounciness: 0
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
+  currentVelocity: 0
+  currentLevel: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  getOnSlope: 0
+  getOffSlope: 0
+  onSlope: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
+  slopeDirection: {x: 0, y: 0}
+  checkTileDistance: 0.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  isWeightless: 0
+  tileBlockInfo: []
 --- !u!114 &7432182356746810020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,55 +265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 7432182355714037192}
   isHidden: 0
---- !u!114 &7432182356746810022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7432182356746810046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdef3c7d81ef1b14398c17678116a800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  groundMap: {fileID: 0}
-  currentTilePosition: {x: 0, y: 0, z: 0}
---- !u!114 &7432182356746810023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7432182356746810046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 561e1e230feaa6e4f9b44cda924d6557, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemObject: {fileID: 7432182357024261707}
-  itemShadow: {fileID: 7432182356379431428}
-  slopeObject: {fileID: 7432182356981400627}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  bounceFriction: 0
-  bounciness: 0
-  surroundingTiles: {fileID: 0}
-  currentVelocity: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  getOnSlope: 0
-  getOffSlope: 0
-  onSlope: 0
-  slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.08
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  isWeightless: 0
 --- !u!114 &9104859322909688830
 MonoBehaviour:
   m_ObjectHideFlags: 0

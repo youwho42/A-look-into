@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine.EventSystems;
 using Cinemachine;
 using UnityEngine.Events;
+using Unity.Mathematics;
+using UnityEngine.Playables;
 
 public class LevelManager : MonoBehaviour
 {
@@ -37,8 +39,10 @@ public class LevelManager : MonoBehaviour
 
     public bool loadTerrains;
 
-    [SerializeField]
-    private CinemachineVirtualCamera startCam;
+    //[SerializeField]
+    //private CinemachineVirtualCamera startCam;
+    //[SerializeField]
+    //private CinemachineVirtualCamera mainCam;
 
     [SerializeField]
     private GameObject loadScreen;
@@ -61,8 +65,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI text;
 
-    public UnityEvent EventLevelLoaded;
 
+    public bool isInCutscene;
+    Material playerMaterial;
+    bool inPauseMenu;
     public string GetCurrentLevel()
     {
         return SceneManager.GetActiveScene().name;
@@ -70,27 +76,52 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         PlayerInformation.instance.TogglePlayerInput(false);
+        playerMaterial = PlayerInformation.instance.playerSprite.material;
+        playerMaterial.SetFloat("_Fade", 0);
+        PlayerInformation.instance.playerShadow.SetActive(false);
+        isInCutscene = true;
     }
     public void StartNewGame(string levelName)
     {
-        
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
+    }
 
+    public void DisplayLoadFilesUI()
+    {
+        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadFileScreen);
         
+    }
+    public void LoadFileBackButton()
+    {
+        if (inPauseMenu)
+        {
+            UIScreenManager.instance.HideAllScreens();
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
+        }
+        else
+        {
+            UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
+        }
+
     }
 
     public void PlayerSpriteAndNameAccepted()
     {
-        SavingLoading.instance.Save();
+        isInCutscene = true;
         UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
-
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-
+        //StartCoroutine("StartNewGameCo");
+        GameEventManager.onNewGameStartedEvent.Invoke();
+    }
+    public void NewGamePlayerFadeIn()
+    {
+        StartCoroutine("PlayerFadeInCo");
+    }
+    public void ActivatePlayer()
+    {
+        isInCutscene = false;
         PlayerInformation.instance.TogglePlayerInput(true);
-        RealTimeDayNightCycle.instance.isPaused = false;
-        EventLevelLoaded.Invoke();
+        GameEventManager.onPlayerPositionUpdateEvent.Invoke();
     }
 
     public void SetVSync()
@@ -111,9 +142,9 @@ public class LevelManager : MonoBehaviour
         newGameWarning.SetActive(true);
     }
 
-    public void LoadCurrentGame(string levelName)
+    public void LoadCurrentGame(string levelName, string loadFileName)
     {
-        LoadLevel(levelName);
+        LoadLevel(levelName, loadFileName);
     }
 
     public void SaveGame()
@@ -127,14 +158,16 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(ChangeLevelCo(levelName));
     }
 
-    private void LoadLevel(string levelName)
+    private void LoadLevel(string levelName, string loadFileName)
     {
-        StartCoroutine(LoadLevelCo(levelName));
+        StartCoroutine(LoadLevelCo(levelName, loadFileName));
     }
 
     public void Pause(bool isPaused)
     {
+        inPauseMenu = isPaused;
         RealTimeDayNightCycle.instance.isPaused = isPaused;
+        Time.timeScale = isPaused ? 0.0f : 1.0f;
         if (isPaused)
         {
             UIScreenManager.instance.HideAllScreens();
@@ -171,6 +204,7 @@ public class LevelManager : MonoBehaviour
         AsyncOperation currentLevelLoading =  SceneManager.LoadSceneAsync(levelName);
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
+        
         while (!currentLevelLoading.isDone)
         {
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
@@ -185,8 +219,9 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    IEnumerator LoadLevelCo(string levelName)
+    IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
+        
         UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName);
 
@@ -206,35 +241,55 @@ public class LevelManager : MonoBehaviour
             
             yield return null;
         }
-
+        Time.timeScale = 1;
         text.text = "Loading data from save.";
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
-        SavingLoading.instance.Load();
+        SavingLoading.instance.Load(LoadSelectionUI.instance.currentLoadFileName);
 
         yield return new WaitForSeconds(0.5f);
 
         text.text = "Thank you for waiting.";
-        EventLevelLoaded.Invoke();
-
-        GameObject player = FindObjectOfType<PlayerInput>().gameObject;
-        var cams = FindObjectsOfType<CinemachineVirtualCamera>();
-        foreach (var cam in cams)
-        {
-            if (cam.CompareTag("StartCam"))
-            {
-                cam.Priority = 0;
-            }
-        }
+        playerMaterial = PlayerInformation.instance.playerSprite.material;
+        playerMaterial.SetFloat("_Fade", 0);
+        //GameObject player = FindObjectOfType<PlayerInput>().gameObject;
+        //startCam.Priority = 0;
+        //mainCam.Priority = 10;
+        GameEventManager.onGameLoadedEvent.Invoke();
         yield return new WaitForSeconds(3f);
-        Pause(false);
+        
         UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         
-        DissolveEffect.instance.StartDissolve(player.GetComponentInChildren<SpriteRenderer>().material, 2f, true);
-        yield return new WaitForSeconds(0.01f);
-        PlayerInformation.instance.TogglePlayerInput(true);
+        yield return new WaitForSeconds(0.1f);
+        DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
+        yield return new WaitForSeconds(1.5f);
+        PlayerInformation.instance.playerShadow.SetActive(true); 
+        yield return new WaitForSeconds(0.5f);
+        Pause(false);
+        ActivatePlayer();
     }
 
 
+    IEnumerator PlayerFadeInCo()
+    {
+        // set player to new position
+        //PlayerInformation.instance.player.position = startSpawnPoint.position;
+        // switch camera priorities
+        //startCam.Priority = 0;
+        //mainCam.Priority = 10;
+        
+        // wait a sec and the activate the player
+        //yield return new WaitForSeconds(3f);
+        
+        DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
+        yield return new WaitForSeconds(1.5f);
+        PlayerInformation.instance.playerShadow.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        //SavingLoading.instance.Save();
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        
+        //PlayerInformation.instance.TogglePlayerInput(true);
+        
+    }
 }

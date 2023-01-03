@@ -22,7 +22,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     static int landed_hash = Animator.StringToHash("IsLanded");
 
     bool activeState = true;
-
+    SpriteRenderer animalSprite;
     [SerializeField]
     public FlyingState currentState;
     
@@ -49,7 +49,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         flight.SetRandomDestination();
         currentState = FlyingState.isFlying;
         GameEventManager.onTimeHourEvent.AddListener(SetSleepOrWake);
-        
+        animalSprite = gravityItem.itemObject.GetComponent<SpriteRenderer>();
         Invoke("InitializeTime", 2f);
     }
     void InitializeTime()
@@ -62,8 +62,14 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         GameEventManager.onTimeHourEvent.RemoveListener(SetSleepOrWake);
     }
 
+    bool CheckVisibility()
+    {
+        return animalSprite.isVisible;
+    }
+
     private void Update()
     {
+        
         if (!activeState)
             return;
 
@@ -94,7 +100,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
                         justTookOff = false;
                     }
                 }
-                if (!justTookOff)
+                if (!justTookOff && CheckVisibility())
                     CheckForLandingArea();
 
                 if (flight.isOverWater)

@@ -13,6 +13,7 @@ public class FireFlicker : MonoBehaviour
     float startFalloff;
     float startIntensity;
 
+    public bool canFlicker;
     
     [Range(0, 1)]
     public float flickerAmount;
@@ -20,11 +21,18 @@ public class FireFlicker : MonoBehaviour
     bool isFlickering;
     private void Start()
     {
-        startIntensity = lightToAffect.intensity;
+        startIntensity = 1.35f;
         startFalloff = lightToAffect.falloffIntensity;
-        StartLightFlicker();
     }
-
+    private void OnEnable()
+    {
+        
+        //StartLightFlicker(true);
+    }
+    private void OnDisable()
+    {
+        //StartLightFlicker(false);
+    }
     public void SetFalloff(float falloff)
     {
         m_FalloffField.SetValue(lightToAffect, falloff);
@@ -32,9 +40,12 @@ public class FireFlicker : MonoBehaviour
     }
 
 
-    public void StartLightFlicker()
+    public void StartLightFlicker(bool on)
     {
-        StartCoroutine(FadeInAndOutRepeat());
+        if(on)
+            StartCoroutine(FadeInAndOutRepeat());
+        else 
+            StopCoroutine(FadeInAndOutRepeat());
     }
     IEnumerator FadeInAndOut()
     {
@@ -66,7 +77,7 @@ public class FireFlicker : MonoBehaviour
     {
 
 
-        while (true)
+        while (canFlicker)
         {
 
             if (!isFlickering)

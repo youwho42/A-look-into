@@ -7,7 +7,9 @@ public class WorldObjectAudioManager : MonoBehaviour
     [SerializeField]
     Sound[] sounds;
     public Vector3 sound3dOffset;
-    
+    public LayerMask groundSoundsLayer;
+
+
     private void Start()
     {
         GameObject audioHolder = new GameObject("Audio");
@@ -70,5 +72,26 @@ public class WorldObjectAudioManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void PlayFootstepSound()
+    {
+        bool right = PlayerInformation.instance.playerController.facingRight;
+        Vector3 newOff = right ? sound3dOffset : -sound3dOffset;
+        Collider2D hit = Physics2D.OverlapCircle(transform.position + newOff, .01f, groundSoundsLayer);
+        PlayFootstep(hit);
+
+    }
+
+
+    void PlayFootstep(Collider2D hit)
+    {
+        string soundName = sounds[0].name;
+        if (hit != null)
+        {
+            soundName = hit.GetComponent<WalkableSound>().walkableSoundName;
+            
+        }
+        PlaySound(soundName);
     }
 }

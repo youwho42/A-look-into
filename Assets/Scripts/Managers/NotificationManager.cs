@@ -26,6 +26,7 @@ public class NotificationManager : MonoBehaviour
         Compedium,
         Inventory,
         Warning,
+        Undertaking,
         None
     }
     [Serializable]
@@ -33,6 +34,7 @@ public class NotificationManager : MonoBehaviour
     {
         public NotificationType notificationType;
         public Color color;
+        public Sprite sprite;
     }
 
     public List<NotificationTypeColor> notificationTypes = new List<NotificationTypeColor>();
@@ -80,6 +82,7 @@ public class NotificationManager : MonoBehaviour
     IEnumerator DisplayNotificationCo(Notification notification)
     {
         Color color = SetNotificationColor(notification);
+        Sprite sprite = SetNotificationSprite(notification);
         int index = 0;
         //for (int i = 0; i < notificationDisplays.Count; i++)
         //{
@@ -93,7 +96,7 @@ public class NotificationManager : MonoBehaviour
             if (!notificationDisplays[i].isActiveAndEnabled)
             {
                 index = i;
-                notificationDisplays[i].SetDisplay(notification.textToDisplay, color);
+                notificationDisplays[i].SetDisplay(notification.textToDisplay, color, sprite);
                 notificationDisplays[i].gameObject.transform.SetParent(notificationActiveHolder.transform, false);
                 notificationDisplays[i].gameObject.SetActive(true);
                 break;
@@ -132,6 +135,22 @@ public class NotificationManager : MonoBehaviour
         return Color.white;
     }
 
+    Sprite SetNotificationSprite(Notification notification)
+    {
+        Sprite sprite = null;
+        for (int i = 0; i < notificationTypes.Count; i++)
+        {
+            if (notification.type == notificationTypes[i].notificationType)
+            {
+                
+                sprite = notificationTypes[i].sprite;
+                return sprite;
+                
+            }
+        }
+        return sprite;
+    }
+
 
     //IEnumerator FadeOutNotificationCo(string message)
     //{
@@ -158,5 +177,5 @@ public class NotificationManager : MonoBehaviour
     //    }
     //    notificationCoroutine = null;
     //}
-    
+
 }

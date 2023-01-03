@@ -53,7 +53,8 @@ public class InteractWithInteractable : MonoBehaviour
         if (currentInteractables.Count > 0)
         {
             Interactable closest = GetNearestInteractable(currentInteractables);
-            
+            if (!closest.canInteract)
+                return;
             if (closest.TryGetComponent(out SpriteRenderer renderer))
             {
                 canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);

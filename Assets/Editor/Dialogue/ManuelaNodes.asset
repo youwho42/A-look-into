@@ -1,0 +1,2152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a74e3a65cc4b487bb14b164cb3ec0e7, type: 3}
+  m_Name: ManuelaNodes
+  m_EditorClassIdentifier: 
+  DataDB: {fileID: 11400000, guid: c7f72244b3994f743bd9579893058eb4, type: 2}
+  NextID: 22
+  Nodes:
+  - ID: 0
+    Type: 2
+    Window:
+      serializedVersion: 2
+      x: 30
+      y: 516
+      width: 200
+      height: 110
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: Messages
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 03000000070000000a0000000c0000001100000013000000
+        values:
+        - Array: 00000000
+        - Array: 00000000
+        - Array: 00000000
+        - Array: 00000000
+        - Array: 00000000
+        - Array: 00000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+  - ID: 1
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 144
+      y: 92
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 03000000
+        values:
+        - Array: 01000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+  - ID: 2
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 143
+      y: 681
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 07000000
+        values:
+        - Array: 01000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+  - ID: 3
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 437
+      y: 103
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 01000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 04000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 04000000
+        values:
+        - Array: 01000000
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 4
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 701
+      y: 104
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 03000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 03000000
+        values:
+        - Array: 01000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 06000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 06000000
+        values:
+        - Array: 01000000
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 6
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 971
+      y: 102
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 04000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 04000000
+        values:
+        - Array: 01000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 7
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 425
+      y: 695
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 02000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 15000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 15000000
+        values:
+        - Array: 01000000
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 9
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 134
+      y: 810
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 0a000000
+        values:
+        - Array: 01000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+  - ID: 10
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 424
+      y: 881
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 09000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 11
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 72
+      y: 285.85944
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 0c000000
+        values:
+        - Array: 01000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+  - ID: 12
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 350
+      y: 289.85944
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 0b000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 16
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 597
+      y: 293.47607
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 11000000
+        values:
+        - Array: 01000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+  - ID: 17
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 840
+      y: 290.47607
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 10000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 18
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 1065
+      y: 300.9489
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 13000000
+        values:
+        - Array: 01000000
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+  - ID: 19
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 1325.015
+      y: 298.9489
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 12000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 21
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 699
+      y: 692.02875
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 07000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 07000000
+        values:
+        - Array: 01000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  SpeakerNodes:
+  - ID: 0
+    Type: 2
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 110
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: Messages
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    Data:
+      ID: 0
+      Name: Manuela
+      Icon: {fileID: 0}
+  MessageNodes:
+  - ID: 3
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 3
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: -1
+      NextMessage: 4
+      MessageText: Hello! It's so good to see a new face around here!
+      Clip: {fileID: 0}
+  - ID: 4
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 4
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: 3
+      NextMessage: 6
+      MessageText: I hope you can help us out, we've been stuck in this valley for
+        a while now.
+      Clip: {fileID: 0}
+  - ID: 6
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 6
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: 4
+      NextMessage: -1
+      MessageText: If we ever get out of here you should come by our house in the
+        village!
+      Clip: {fileID: 0}
+  - ID: 7
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 7
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: -1
+      NextMessage: 21
+      MessageText: Have you found a way out of the valley yet?
+      Clip: {fileID: 0}
+  - ID: 10
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 10
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: -1
+      NextMessage: -1
+      MessageText: 'Have you met Ramiro, my husband? '
+      Clip: {fileID: 0}
+  - ID: 12
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 12
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: -1
+      NextMessage: -1
+      MessageText: Would you be a deer and get me 10 peices of rope please?
+      Clip: {fileID: 0}
+  - ID: 17
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 17
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: -1
+      NextMessage: -1
+      MessageText: Were you able to get me the rope I need?
+      Clip: {fileID: 0}
+  - ID: 19
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 19
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: -1
+      NextMessage: -1
+      MessageText: Why, thank you. I'll be able to do the thing now!
+      Clip: {fileID: 0}
+  - ID: 21
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 21
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: 7
+      NextMessage: -1
+      MessageText: I can't wait to leave this valley. It's cute and all, but stuck
+        is still stuck.
+      Clip: {fileID: 0}
+  ConversationNodes:
+  - ID: 1
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    Data:
+      ID: 1
+      Name: QuestActive_Talk to Manuela or Ramiro
+      FirstMessage: 3
+  - ID: 2
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    Data:
+      ID: 2
+      Name: Found a way out
+      FirstMessage: 7
+  - ID: 9
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    Data:
+      ID: 9
+      Name: Have you met Ramiro
+      FirstMessage: 10
+  - ID: 11
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    Data:
+      ID: 11
+      Name: QuestInactive_Give Manuela Rope
+      FirstMessage: 12
+  - ID: 16
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    Data:
+      ID: 16
+      Name: QuestActive_Give Manuela Rope
+      FirstMessage: 17
+  - ID: 18
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 65
+    Inputs: []
+    Outputs:
+    - ID: 0
+      Name: First Message
+      Type: 1
+      Y: 40
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs: []
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    Data:
+      ID: 18
+      Name: QuestComplete_Give Manuela Rope
+      FirstMessage: 19
+  ChoiceNodes: []

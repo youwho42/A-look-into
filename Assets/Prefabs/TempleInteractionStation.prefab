@@ -190,9 +190,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Light
-  playerEnergyCost: 50
-  gameEnergyReward: 0
-  gameEnergyCost: 200
+  bounceCost: 75
+  agencyReward: 0
+  agencyCost: 500
   canInteract: 1
   purpleRain: {fileID: 0}
   firesToLight:
@@ -373,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 2243991136762165742}
   shadowSprite: {fileID: 2243991136010148789}
+  shadowCaster: {fileID: 0}
 --- !u!1 &2243991137558903184
 GameObject:
   m_ObjectHideFlags: 0

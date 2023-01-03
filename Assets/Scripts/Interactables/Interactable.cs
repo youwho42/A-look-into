@@ -8,9 +8,9 @@ public class Interactable : MonoBehaviour
     public string interactSound = "Default";
     public string interactVerb = "whaaAA???";
 
-    public float playerEnergyCost;
-    public float gameEnergyReward;
-    public float gameEnergyCost;
+    public float bounceCost;
+    public float agencyReward;
+    public float agencyCost;
     public bool canInteract = true;
 
     protected bool hasInteracted;

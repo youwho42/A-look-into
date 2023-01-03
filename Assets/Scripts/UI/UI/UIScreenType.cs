@@ -17,6 +17,9 @@ public enum UIScreenType
     MapScreen,
     CompendiumScreen, 
     MenuScreen,
-    PlayerSelect
+    PlayerSelect, 
+    DialogueDisplayScreen,
+    Undertakings,
+    LoadFileScreen
    
 }

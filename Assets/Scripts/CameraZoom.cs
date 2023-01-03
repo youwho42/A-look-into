@@ -39,28 +39,26 @@ public class CameraZoom : MonoBehaviour
 
 	void SetZoom()
     {
+		if (PlayerInformation.instance.uiScreenVisible)
+			return;
 		SetCamera();
 		if (Input.mouseScrollDelta.y > 0)
-		{
-			if(resetZoom != null)
-				StopCoroutine(resetZoom);
-			cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize -= zoomValue, minZoom, maxZoom);
-			zoomActive = true;
-			timer = 0;
-		}
+			Zoom(-zoomValue);
 		else if (Input.mouseScrollDelta.y < 0)
-		{
-			if (resetZoom != null)
-				StopCoroutine(resetZoom);
-			cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize += zoomValue, minZoom, maxZoom);
-			zoomActive = true;
-			timer = 0;
-		}
+			Zoom(zoomValue);
 	}
-
-	IEnumerator ResetZoomCo()
+	private void Zoom(float value)
     {
-		SetCamera();
+        if (resetZoom != null)
+            StopCoroutine(resetZoom);
+        cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize += value, minZoom, maxZoom);
+        zoomActive = true;
+        timer = 0;
+    }
+
+    IEnumerator ResetZoomCo()
+    {
+		//SetCamera();
 		cam.m_Lens.OrthographicSize = Mathf.Lerp(cam.m_Lens.OrthographicSize, 1.5f, Time.deltaTime);
 		zoomActive = false;
 		yield return null;
@@ -68,8 +66,8 @@ public class CameraZoom : MonoBehaviour
 
 	void SetCamera()
     {
-		
-		cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+		if(cam == null)
+			cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
 		/*if (cam == null || cam != tempCam)
         {
 			cam = tempCam;

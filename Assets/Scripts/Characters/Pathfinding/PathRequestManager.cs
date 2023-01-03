@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using static UnityEngine.Networking.UnityWebRequest;
 
 
 public class PathRequestManager : MonoBehaviour
@@ -20,8 +21,9 @@ public class PathRequestManager : MonoBehaviour
         pathfinding = GetComponent<IsometricPathfindingXYZ>();
     }
 
-
+    static Thread thread;
     Queue<PathResult> results = new Queue<PathResult>();
+    Queue<PathRequest> requests = new Queue<PathRequest>();
 
     IsometricPathfindingXYZ pathfinding;
     static List<IsometricNodeXYZ> walkableNodes = new List<IsometricNodeXYZ>();
@@ -44,7 +46,16 @@ public class PathRequestManager : MonoBehaviour
                     PathResult result = results.Dequeue();
                     var path = pathfinding.ConvertToWorldPositions(result.path);
                     result.callback(path, result.success);
+
                 }
+            }
+        }
+
+        if (thread != null)
+        {
+            if (requests.Count > 0 && thread.ThreadState == ThreadState.Stopped)
+            {
+                RequestPath(requests.Dequeue());
             }
         }
     }
@@ -62,17 +73,36 @@ public class PathRequestManager : MonoBehaviour
 
     public static void RequestPath(PathRequest request)
     {
-        ThreadStart threadStart = delegate
+        if (thread != null) {
+            if (thread.ThreadState == ThreadState.Running)
+            {
+                lock (instance.requests)
+                {
+                    instance.requests.Enqueue(request);
+                }
+                return;
+            }
+        }
+        
+        //ThreadStart threadStart = delegate
+        //{
+        //    instance.pathfinding.FindPath(request, instance.FinishedProcessingPath);
+        //};
+        //Thread thread = new Thread(threadStart);
+        //thread.Start();
+
+        thread = new Thread(delegate()
         {
             instance.pathfinding.FindPath(request, instance.FinishedProcessingPath);
-        };
-        Thread thread = new Thread(threadStart);
+        });
         thread.Start();
+        
     }
 
-    
+
     public void FinishedProcessingPath(PathResult result)
     {
+        
         lock (results)
         {
             results.Enqueue(result);
@@ -92,8 +122,13 @@ public class PathRequestManager : MonoBehaviour
     {
         int x = UnityEngine.Random.Range(-1, 2);
         int y = UnityEngine.Random.Range(-1, 2);
+        if (x == 0 && y == 0)
+        {
+            int r = UnityEngine.Random.Range(0, 2);
+            x = r == 0 ? 1 : 0;
+            y = r == 1 ? 1 : 0;
+        }
         Vector3Int newTile = new Vector3Int(currentPosition.x + x, currentPosition.y + y, 0);
-        
         foreach (var node in walkableNodes)
         {
             if (node.worldPosition == newTile && !node.walkable)
@@ -108,18 +143,26 @@ public class PathRequestManager : MonoBehaviour
 
     }
 
-    public static Vector3Int GetRandomDistancedTile(Vector3Int currentPosition, int distanceRadius)
+    public static Vector3Int GetRandomDistancedTile(Vector3Int currentPosition, int distanceRadius, int diffZ = 0)
     {
         
         int x = UnityEngine.Random.Range(-distanceRadius, distanceRadius);
         int y = UnityEngine.Random.Range(-distanceRadius, distanceRadius);
-        Vector3Int newTile = new Vector3Int(currentPosition.x + x, currentPosition.y + y, 0);
+        if(x == 0 && y == 0)
+        {
+            int r = UnityEngine.Random.Range(0, 2);
+            x = r == 0 ? 1 : 0;
+            y = r == 1 ? 1 : 0;
+        }
+        Vector3Int newTile = new Vector3Int(currentPosition.x + x, currentPosition.y + y, currentPosition.z + diffZ);
 
+        
         foreach (var node in walkableNodes)
         {
             if (node.worldPosition == newTile && !node.walkable)
             {
-                GetRandomNeighbourTile(currentPosition);
+                diffZ = diffZ == 0 ? -1 : diffZ == -1 ? 1 : 0;
+                GetRandomDistancedTile(currentPosition, distanceRadius, diffZ);
 
             }
 

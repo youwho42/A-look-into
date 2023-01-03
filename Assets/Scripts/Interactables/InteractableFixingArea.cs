@@ -59,11 +59,11 @@ public class InteractableFixingArea : Interactable
     bool InteractCostReward()
     {
         float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
-        if (agency >= gameEnergyCost)
+        if (agency >= agencyCost)
             return true;
         
 
-        NotificationManager.instance.SetNewNotification($"{gameEnergyCost} Agency missing", NotificationManager.NotificationType.Warning);
+        NotificationManager.instance.SetNewNotification($"{agencyCost} Agency missing", NotificationManager.NotificationType.Warning);
         return false;
     }
 
