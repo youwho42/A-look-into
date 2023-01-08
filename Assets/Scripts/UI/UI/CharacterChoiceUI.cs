@@ -45,6 +45,11 @@ public class CharacterChoiceUI : MonoBehaviour
     {
         SetPlayerSprite();
         SetPlayerName();
+        LevelManager.instance.PlayerSpriteAndNameAccepted();
+    }
+    public void CancelSelection()
+    {
+        UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
     }
     void SetPlayerSprite()
     {

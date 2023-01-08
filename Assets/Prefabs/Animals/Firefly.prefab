@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 86832707635355978}
   - component: {fileID: 4944204364749238309}
   - component: {fileID: 1736533482979419958}
+  - component: {fileID: 2602048723253403677}
   m_Layer: 14
   m_Name: Firefly_Flying0000
   m_TagString: Untagged
@@ -206,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataList:
   - {fileID: 11400000, guid: 38bcad7d53958dc44a46b06c15c66e28, type: 2}
-  maxPerDay: 0
+  maxPerDay: 1
   timeToReset: 300
   hasBeenHarvested: 0
 --- !u!114 &1736533482979419958
@@ -221,6 +222,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &2602048723253403677
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386777645675509780}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.011875}
+  serializedVersion: 2
+  m_Radius: 0.03125
 --- !u!1 &5659210534706215200
 GameObject:
   m_ObjectHideFlags: 0

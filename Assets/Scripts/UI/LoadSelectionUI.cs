@@ -22,28 +22,44 @@ public class LoadSelectionUI : MonoBehaviour
     List<LoadableSaveButton> loadableSaveButtons = new List<LoadableSaveButton>();
     public Button loadButton;
 
+    public GameObject deleteWarning;
+    string fileDeletePath;
+
+    public bool warningActive;
     public string currentLoadFileName { get; private set; }
-    
+    private void Start()
+    {
+        GameEventManager.onGameSavedEvent.AddListener(SetAvailableLoads);
+        GameEventManager.onGameLoadedEvent.AddListener(HideDeleteWarning);
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onGameSavedEvent.RemoveListener(SetAvailableLoads);
+        GameEventManager.onGameLoadedEvent.RemoveListener(HideDeleteWarning);
+    }
+
     private void OnEnable()
     {
+        HideDeleteWarning();
         SetAvailableLoads();
         RefreshLoadButtonValid();
     }
     
     public void LoadGameFile()
     {
-        LevelManager.instance.LoadCurrentGame("MainScene", currentLoadFileName);
+        if (!warningActive)
+            LevelManager.instance.LoadCurrentGame("MainScene", currentLoadFileName);
     }
 
     public void BackButton()
     {
-        LevelManager.instance.LoadFileBackButton();
+        if (!warningActive)
+            LevelManager.instance.LoadFileBackButton();
     }
-    void SetAvailableLoads()
+    public void SetAvailableLoads()
     {
         ClearLoadableSavesButtons();
          
-        //$"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
         if (Directory.Exists(Application.persistentDataPath))
         {
             string saveFolder = Application.persistentDataPath;
@@ -51,10 +67,10 @@ public class LoadSelectionUI : MonoBehaviour
             DirectoryInfo d = new DirectoryInfo(saveFolder);
             foreach (var file in d.GetFiles("*.ali"))
             {
+                
                 LoadableSaveButton newLoadableSave = Instantiate(loadableSaveButton, loadButtonHolder.transform);
                 loadableSaveButtons.Add(newLoadableSave);
                 newLoadableSave.SetLoadButton(file.Name);
-                
             }
         }
         else
@@ -76,6 +92,12 @@ public class LoadSelectionUI : MonoBehaviour
         RefreshLoadButtonValid();
     }
 
+    public void ClearCurrentLoadFileName()
+    {
+        currentLoadFileName = "";
+        RefreshLoadButtonValid();
+    }
+
     public void ClearLoadableSavesButtons()
     {
         while (loadButtonHolder.transform.childCount > 0)
@@ -83,5 +105,27 @@ public class LoadSelectionUI : MonoBehaviour
             DestroyImmediate(loadButtonHolder.transform.GetChild(0).gameObject);
         }
         loadableSaveButtons.Clear();
+        HideDeleteWarning();
+    }
+
+    public void DisplayDeleteWarning(string path = "")
+    {
+        deleteWarning.SetActive(true);
+        fileDeletePath = path;
+        warningActive = true;
+    }
+    public void HideDeleteWarning()
+    {
+        deleteWarning.SetActive(false);
+        ClearCurrentLoadFileName();
+        warningActive = false;
+    }
+
+    public void DeleteSaveFile()
+    {
+        SavingLoading.instance.DeleteFile(fileDeletePath);
+        SetAvailableLoads();
+        ClearCurrentLoadFileName();
+        HideDeleteWarning();
     }
 }

@@ -21,20 +21,22 @@ public class InteractableTempleStation : Interactable
         {
             if (InteractCostReward())
             {
-                Destroy(purpleRain);
-                LightFires(true);
+                
+                SetTempleFireAndRainStates(true);
             }
         }
         
     }
 
-    public void LightFires(bool lit)
+    public void SetTempleFireAndRainStates(bool lit)
     {
         isActivated = lit;
         foreach (var fire in firesToLight)
         {
             fire.SetActive(lit);
         }
+        if(lit)
+            Destroy(purpleRain);
     }
 
     bool InteractCostReward()

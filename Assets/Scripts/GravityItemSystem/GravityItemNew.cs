@@ -80,7 +80,7 @@ namespace Klaxon.GravitySystem
         }
         public void Update()
         {
-
+            
             if (!isWeightless)
                 SetIsGrounded();
 
@@ -115,7 +115,7 @@ namespace Klaxon.GravitySystem
             if (!isGrounded && !isWeightless)
                 ApplyGravity();
         }
-
+        
 
         void ChangeLevelOffSlope()
         {
@@ -205,7 +205,7 @@ namespace Klaxon.GravitySystem
 
 
             Vector3 currentPosition = transform.position;
-            currentPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + dir, Time.deltaTime * velocity);
+            currentPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + dir, Time.deltaTime * currentVelocity);
             currentPosition.z = currentTilePosition.position.z + 1;
             transform.position = currentPosition;
 

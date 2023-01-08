@@ -15,6 +15,8 @@ public class DetectVisibility : MonoBehaviour
 
     public bool isHidden;
 
+    List<GameObject> tileHiders = new List<GameObject>();
+
     private void Start()
     {
         allTilesInfo = AllTilesInfoManager.instance;
@@ -42,9 +44,12 @@ public class DetectVisibility : MonoBehaviour
                 if (tile.levelZ > 0 && !tile.isValid)
                 {
                     if (CheckObjectPosition())
+                    {
+                        //if (gameObject.CompareTag("Player"))
+                        //    HideTile(tile);
                         isHidden = true;
-                    
-                    
+                    }
+                        
                 }
                 if (tile.levelZ == 0 && tile.isValid && tile.tileName.Contains("Slope"))
                 {
@@ -53,14 +58,15 @@ public class DetectVisibility : MonoBehaviour
                 }
             }
         }
-        ChangeObjectZ(isHidden);
-
+        //if (!gameObject.CompareTag("Player"))
+            ChangeObjectZ(isHidden);
+        
     }
-    bool CheckObjectPosition()
+    public bool CheckObjectPosition()
     {
 
         
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+        Vector3 pos = transform.position - Vector3.forward;
 
         Vector3Int tilepos = currentPosition.grid.WorldToCell(pos);
         Vector3 tileworldpos = currentPosition.grid.CellToWorld(tilepos);
@@ -81,5 +87,20 @@ public class DetectVisibility : MonoBehaviour
         
     }
 
+    void HideTile(TileDirectionInfo tile)
+    {
+        Vector3 pos = transform.position - Vector3.forward;
+
+        
+        Vector3 tileworldpos = currentPosition.grid.GetCellCenterWorld(currentPosition.position + tile.direction);
+        tileworldpos.z = 0;
+        Vector3 finalPos = tileworldpos + new Vector3(0, -0.1445f, transform.position.z);
+        var obj = TileHidersManager.instance.GetPooledObject(tile.tileName, finalPos);
+        
+        tileHiders.Add(obj);
+        obj.gameObject.SetActive(true);
+        
+        // show that there tile
+    }
 
 }

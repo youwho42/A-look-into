@@ -17,11 +17,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
 
         public Collider2D hitDetectCollider;
     }
-    [Serializable]
-    public struct PlayerControlSection
-    {
-        public List<PlayerControlArea> controlAreas;
-    }
+    
 
     [Serializable]
     public struct TargetArea
@@ -41,15 +37,14 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     bool transitioning;
     int currentSection;
 
-    public SpriteRenderer centerRenderer;
-    Material centerMaterial;
+    
     
     
     public bool hasCompletedMiniGame;
     Material material;
     Color initialIntensity;
     public MiniGameType miniGameType;
-    public List<PlayerControlSection> playerControlSections = new List<PlayerControlSection>();
+    public List<PlayerControlArea> playerControlSections = new List<PlayerControlArea>();
     public List<TargetArea> targetAreas = new List<TargetArea>();
     MiniGameDificulty currentDificulty;
 
@@ -58,8 +53,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     {
         SetDificulty(MiniGameDificulty.Easy);
         source = GetComponent<AudioSource>();
-        initialIntensity = playerControlSections[currentSection].controlAreas[(int)currentDificulty - 1].controlAreaSprite.material.GetColor("_EmissionColor");
-        centerMaterial = centerRenderer.material;
+        initialIntensity = playerControlSections[currentSection].controlAreaSprite.material.GetColor("_EmissionColor");
         ResetMiniGame();
     }
 
@@ -71,7 +65,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreas[(int)currentDificulty - 1].controlAreaHit.isInArea));
+                StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreaHit.isInArea));
             }
         }
         if (currentSection == playerControlSections.Count && !transitioning)
@@ -121,9 +115,8 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         int rand = UnityEngine.Random.Range(0, 360);
         foreach (var section in playerControlSections)
         {
-            section.controlAreas[(int)currentDificulty - 1].controlAreaSprite.material.SetColor("_EmissionColor", initialIntensity);
-            section.controlAreas[(int)currentDificulty - 1].rotateControlArea.SetRotation(rand);
-            centerMaterial.SetColor("_EmissionColor", initialIntensity);
+            section.controlAreaSprite.material.SetColor("_EmissionColor", initialIntensity);
+            section.rotateControlArea.SetRotation(rand);
         }
         transform.parent.gameObject.SetActive(false);
     }
@@ -133,22 +126,11 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         int dir = UnityEngine.Random.Range(0, 2) * 2 - 1;
         foreach (var section in playerControlSections)
         {
-            for (int i = 0; i < section.controlAreas.Count; i++)
-            {
-                if (i + 1 == ((int)currentDificulty))
-                {
-                    section.controlAreas[i].controlAreaSprite.enabled = true;
-                    section.controlAreas[i].rotateControlArea.SetRotationDirection(dir);
-                    section.controlAreas[i].rotateControlArea.enabled = true;
-                    section.controlAreas[i].hitDetectCollider.enabled = true;
-                }
-                else
-                {
-                    section.controlAreas[i].controlAreaSprite.enabled = false;
-                    section.controlAreas[i].rotateControlArea.enabled = false;
-                    section.controlAreas[i].hitDetectCollider.enabled = false;
-                }
-            }
+            section.controlAreaSprite.enabled = true;
+            section.rotateControlArea.SetRotation(UnityEngine.Random.Range(0, 360));
+            section.rotateControlArea.SetRotationDirection(dir);
+            section.rotateControlArea.enabled = true;
+            section.hitDetectCollider.enabled = true;
         }
     }
     
@@ -157,16 +139,15 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     IEnumerator NextAreaCo(bool success)
     {
         transitioning = true;
-        material = playerControlSections[currentSection].controlAreas[(int)currentDificulty - 1].controlAreaSprite.material;
+        material = playerControlSections[currentSection].controlAreaSprite.material;
         initialIntensity = material.GetColor("_EmissionColor");
-        playerControlSections[currentSection].controlAreas[(int)currentDificulty - 1].rotateControlArea.enabled = false;
+        playerControlSections[currentSection].rotateControlArea.enabled = false;
         if (success)
         {
             currentSection++;
             PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
             PlaySound(0);
             StartCoroutine(GlowOn(material, 10));
-            StartCoroutine(GlowOn(centerMaterial, currentSection * 10));
         }
          else
          {
@@ -184,7 +165,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
    IEnumerator GlowOn(Material materialToSet, int amount)
    {
       float elapsedTime = 0;
-      float waitTime = 0.5f;
+      float waitTime = 0.2f;
 
       while (elapsedTime < waitTime)
       {

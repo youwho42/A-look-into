@@ -66,6 +66,9 @@ public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
         }
         animalCompendiumInformation.animalNames = saveData.animalItemName;
         animalCompendiumInformation.animalTimesViewed = saveData.animalCompendiumAmounts;
+        GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
+        GameEventManager.onResourceCompediumUpdateEvent.Invoke();
+        GameEventManager.onNoteCompediumUpdateEvent.Invoke();
     }
 
     [Serializable]

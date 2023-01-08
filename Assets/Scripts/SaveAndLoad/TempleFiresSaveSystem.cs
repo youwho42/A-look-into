@@ -19,7 +19,7 @@ public class TempleFiresSaveSystem : MonoBehaviour, ISaveable
     {
         var saveData = (SaveData)state;
         templeStation.isActivated = saveData.isActive;
-        templeStation.LightFires(templeStation.isActivated);
+        templeStation.SetTempleFireAndRainStates(templeStation.isActivated);
 
     }
 

@@ -25,10 +25,11 @@ public class SavingLoading : MonoBehaviour
     public void Save()
     {
         SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
-        DeleteFile();
+        DeleteFile(SavePath);
         var state = LoadFile(LoadSelectionUI.instance.currentLoadFileName);
         CaptureState(state);
         SaveFile(state);
+        GameEventManager.onGameSavedEvent.Invoke();
     }
 
    
@@ -100,10 +101,10 @@ public class SavingLoading : MonoBehaviour
         return File.Exists(SavePath);
     }
 
-    public void DeleteFile()
+    public void DeleteFile(string path)
     {
-        if(File.Exists(SavePath))
-            File.Delete(SavePath);
+        if(File.Exists(path))
+            File.Delete(path);
     }
     
 }

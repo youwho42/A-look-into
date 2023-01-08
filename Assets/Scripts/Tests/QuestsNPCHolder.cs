@@ -18,7 +18,7 @@ public class QuestsNPCHolder : MonoBehaviour
             {
                 GiveRewards(quest);
                 PlayerInformation.instance.playerQuestHandler.CompleteQuest(quest.Name);
-                GameEventManager.onUndertakingsUpdateEvent.Invoke();
+                //GameEventManager.onUndertakingsUpdateEvent.Invoke();
                 return true;
             }
         }
@@ -38,7 +38,7 @@ public class QuestsNPCHolder : MonoBehaviour
             RemoveItemsFromInventory(quest);
             GiveRewards(quest);
             PlayerInformation.instance.playerQuestHandler.CompleteQuest(quest.Name);
-            GameEventManager.onUndertakingsUpdateEvent.Invoke();
+            //GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
             
 

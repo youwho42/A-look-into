@@ -10,7 +10,8 @@ public class LoadableSaveButton : MonoBehaviour
 
     public void SetCurrentLoadFile()
     {
-        LoadSelectionUI.instance.SetCurrenLoadFileName(loadFileName);
+        if(!LoadSelectionUI.instance.warningActive)
+            LoadSelectionUI.instance.SetCurrenLoadFileName(loadFileName);
     }
 
     public void SetLoadButton(string fileName)
@@ -26,5 +27,14 @@ public class LoadableSaveButton : MonoBehaviour
         loadFileName = "";
     }
 
+    public void DeleteSave()
+    {
+        if (LoadSelectionUI.instance.warningActive)
+            return;
+        string path = $"{Application.persistentDataPath}/{loadFileName}_save.ali";
+        LoadSelectionUI.instance.DisplayDeleteWarning(path);
+    }
 
+    
+    
 }

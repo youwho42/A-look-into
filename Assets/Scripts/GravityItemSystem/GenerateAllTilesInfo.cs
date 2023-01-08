@@ -107,11 +107,13 @@ public class GenerateAllTilesInfo : MonoBehaviour
                     currentPosition.y += y;
                     currentPosition.z += z;
                     TileBase tile = groundTileMap.GetTile(currentPosition);
+                    Sprite tileSprite = groundTileMap.GetSprite(currentPosition);
                     string tileName = "Empty";
 
                     if (tile != null) // if tile exists here
                     {
-                        tileName = tile.name;
+                        
+                        tileName = tileSprite.name;
                         if (x == 0 && y == 0) //this is where we are
                         {
                             if (z != 0)

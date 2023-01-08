@@ -85,6 +85,7 @@ public class LevelManager : MonoBehaviour
     {
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
+        NewGameWarning(false);
     }
 
     public void DisplayLoadFilesUI()
@@ -137,9 +138,9 @@ public class LevelManager : MonoBehaviour
         newGameWarning.SetActive(false);
     }
 
-    public void NewGameWarning()
+    public void NewGameWarning(bool active)
     {
-        newGameWarning.SetActive(true);
+        newGameWarning.SetActive(active);
     }
 
     public void LoadCurrentGame(string levelName, string loadFileName)

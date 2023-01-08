@@ -79,8 +79,8 @@ public class InteractableNPCDialogue : Interactable
                 if (q.Status == QuantumTek.QuantumQuest.QQ_QuestStatus.Inactive)
                 {
                     PlayerInformation.instance.playerQuestHandler.ActivateQuest(q.Name);
-                    GameEventManager.onUndertakingsUpdateEvent.Invoke();
-                    NotificationManager.instance.SetNewNotification($"{q.Name} undertaking started", NotificationManager.NotificationType.Undertaking);
+                    //GameEventManager.onUndertakingsUpdateEvent.Invoke();
+                    //NotificationManager.instance.SetNewNotification($"{q.Name} undertaking started", NotificationManager.NotificationType.Undertaking);
                     canvasDialogueDisplay.handler.SetConversation($"QuestInactive_{q.Name}");
                     break;
                 }

@@ -24,7 +24,7 @@ namespace Klaxon.GravitySystem
         Vector3 doubleCheckPosition;
 
 
-
+        DetectVisibility visibilityCheck;
 
 
         Vector3Int currentPosition;
@@ -39,7 +39,7 @@ namespace Klaxon.GravitySystem
         {
             base.Start();
 
-
+            visibilityCheck = GetComponent<DetectVisibility>();
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
             playerInput = GetComponent<PlayerInput>();
 
@@ -81,13 +81,13 @@ namespace Klaxon.GravitySystem
         public new void FixedUpdate()
         {
             base.FixedUpdate();
-
+            
             if (isInInteractAction)
                 return;
 
             if (CanReachNextTile(playerInput.movement))
             {
-
+                
                 Move(playerInput.movement, (playerInput.isRunning ? runSpeed : walkSpeed));
             }
 
@@ -111,7 +111,7 @@ namespace Klaxon.GravitySystem
             doubleCheckPosition = transform.position - Vector3.forward;
             if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
                 return false;
-
+            
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
 
             Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
@@ -125,7 +125,7 @@ namespace Klaxon.GravitySystem
             if (tileBlockInfo == null)
                 return true;
 
-
+            
 
             foreach (var tile in tileBlockInfo)
             {
@@ -218,6 +218,8 @@ namespace Klaxon.GravitySystem
                 // the next tile is NOT valid
                 if (tile.direction == nextTileKey && !tile.isValid)
                 {
+                    
+
                     if (doubleCheckTilePosition == nextTilePosition)
                     {
                         Nudge(direction);
@@ -243,6 +245,7 @@ namespace Klaxon.GravitySystem
                         onCliffEdge = true;
                     }
 
+                    
 
                     // This is where we hit a wall of height 1 or above
                     return false;

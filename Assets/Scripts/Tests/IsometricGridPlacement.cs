@@ -75,7 +75,7 @@ public class IsometricGridPlacement : MonoBehaviour
         {
             GameObject item = Instantiate(go);
 
-            item.transform.position = tileOutline.transform.position;
+            item.transform.position = tileOutline.transform.position - Vector3.forward;
             item.transform.SetParent(transform);
         }
 

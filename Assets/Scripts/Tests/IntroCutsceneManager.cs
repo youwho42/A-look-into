@@ -70,7 +70,7 @@ public class IntroCutsceneManager : MonoBehaviour
     {
         
         PlayerInformation.instance.playerQuestHandler.ActivateQuest("Talk to Manuela or Ramiro");
-        NotificationManager.instance.SetNewNotification($"Talk to Manuela or Ramiro undertaking started", NotificationManager.NotificationType.Undertaking);
+        
 
         GameEventManager.onUndertakingsUpdateEvent.Invoke();
     }

@@ -36,4 +36,8 @@ public class EquipmentData : QI_ItemData
         base.UseEquippedItem();
     }
 }
-public enum EquipmentSlot { Hands, Head, Feet, Legs, Chest, Extra }
+public enum EquipmentSlot 
+{ 
+    Hands, 
+    Light
+}

@@ -11,7 +11,7 @@ public class EquipmentManager : MonoBehaviour
     public static EquipmentManager instance;
     //public UnityEvent EventUIUpdateEquipment;
     public SpriteRenderer handEquipmentHolder;
-    public SpriteRenderer hatEquipmentHolder;
+    public SpriteRenderer lightEquipmentHolder;
     private void Awake()
     {
         if (instance == null)
@@ -34,9 +34,9 @@ public class EquipmentManager : MonoBehaviour
         {
             handEquipmentHolder.sprite = newItem.EquipedItemImage;
         }
-        if (equipedIndex == (int)EquipmentSlot.Head)
+        if (equipedIndex == (int)EquipmentSlot.Light)
         {
-            var go = Instantiate(newItem.EquipedItem, hatEquipmentHolder.transform);
+            var go = Instantiate(newItem.EquipedItem, lightEquipmentHolder.transform);
             go.transform.localPosition = Vector3.zero;
         }
         GameEventManager.onEquipmentUpdateEvent.Invoke();
@@ -51,9 +51,9 @@ public class EquipmentManager : MonoBehaviour
             {
                 handEquipmentHolder.sprite = null;
             }
-            if (equipedIndex == (int)EquipmentSlot.Head)
+            if (equipedIndex == (int)EquipmentSlot.Light)
             {
-                Destroy(hatEquipmentHolder.transform.GetChild(0).gameObject);
+                Destroy(lightEquipmentHolder.transform.GetChild(0).gameObject);
             }
             GameEventManager.onEquipmentUpdateEvent.Invoke();
             return true;

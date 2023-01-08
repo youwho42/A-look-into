@@ -45,7 +45,7 @@ public class IsometricGridCreateAreaEditor : Editor
             Vector3 pos = isometricGrid.gridObject.FindPositionOnGrid(mousePosition);
 
             //Debug.Log("Placing Object" + mousePosition);
-            AddNewPrefab(pos / 2 + new Vector3(0, 0, offsetZ+1));
+            AddNewPrefab(pos / 2 + new Vector3(0, 0, offsetZ));
 
             MarkSceneAsDirty();
             
