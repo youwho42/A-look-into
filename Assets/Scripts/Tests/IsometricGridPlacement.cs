@@ -75,7 +75,7 @@ public class IsometricGridPlacement : MonoBehaviour
         {
             GameObject item = Instantiate(go);
 
-            item.transform.position = tileOutline.transform.position - Vector3.forward;
+            item.transform.position = tileOutline.transform.position;
             item.transform.SetParent(transform);
         }
 
@@ -90,7 +90,7 @@ public class IsometricGridPlacement : MonoBehaviour
             && CheckNeighbor(position, true)
             && CheckNeighbor(position, false)
             && !CollidingWithPlayer()
-            && !CollidingWithObstacle()
+            //&& !CollidingWithObstacle()
             && MaxGridDistanceFromPlayer();
 
         return can;
@@ -135,7 +135,7 @@ public class IsometricGridPlacement : MonoBehaviour
 
     bool CollidingWithObstacle()
     {
-        var hit = Physics2D.OverlapCircle(tileOutline.transform.position, gridObject.size /2, obstacleLayer);
+        var hit = Physics2D.OverlapCircle(tileOutline.transform.position, 0.06F, obstacleLayer);
         return hit != null;
     }
 

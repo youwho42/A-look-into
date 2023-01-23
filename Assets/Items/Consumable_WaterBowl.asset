@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Consumable_WaterBowl
   m_EditorClassIdentifier: 
   Name: Water Bowl
-  Description: A bowl of, well, water.
+  AnimationName: 
+  Description: A bowl of water. Kinda wet, should restore some of that bounce.
   Weight: 1
   Price: 1
   spawnWeight: 1
@@ -22,9 +23,9 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
   MaxStack: 1
   ResearchRecipes: []
-  RecipeRevealAmount: 1
   GameDificulty: 0
   attributeModifiers:
   - attributeToModify: Bounce

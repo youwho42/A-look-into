@@ -503,8 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940059da522b06540a882a8dd34d8f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn:
-  - {fileID: 11400000, guid: b581bbd250a074af0a3f75e68accf984, type: 2}
+  itemDatabase: {fileID: 11400000, guid: 4f473bf34c0d9a84a94f60e4f12f6e0f, type: 2}
   hideOnStart: 0
 --- !u!1 &5518729532945011621
 GameObject:
@@ -633,6 +632,7 @@ GameObject:
   - component: {fileID: 5518729533509488750}
   - component: {fileID: 5518729533509488751}
   - component: {fileID: 7067902391315928121}
+  - component: {fileID: 8988204205701614028}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -744,7 +744,20 @@ MonoBehaviour:
   - {x: 0.03224373, y: -0.03504181, z: 0}
   m_ShapePathHash: -1176579523
   m_Mesh: {fileID: 0}
-  m_InstanceId: 87812
+  m_InstanceId: 13759670
+--- !u!114 &8988204205701614028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729533509488752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8963ea193151b46a9721d7790aac25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
 --- !u!1001 &401461400745821943
 PrefabInstance:
   m_ObjectHideFlags: 0

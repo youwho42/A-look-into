@@ -234,7 +234,8 @@ GameObject:
   - component: {fileID: 4200815450044603459}
   - component: {fileID: 6471905536276054817}
   - component: {fileID: 6051422888879318805}
-  m_Layer: 14
+  - component: {fileID: 3901545720661191195}
+  m_Layer: 0
   m_Name: Grasshopper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,6 +484,22 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
+--- !u!70 &3901545720661191195
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357941861018812425}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 0.5}
+  m_Direction: 1
 --- !u!1 &6357941861230923551
 GameObject:
   m_ObjectHideFlags: 0

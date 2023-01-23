@@ -14,6 +14,7 @@ public class CameraZoom : MonoBehaviour
 	float timer;
 	IEnumerator resetZoom;
 	bool zoomActive;
+	public bool resetWithTimer;
 	void Start() 
 	{
 		brain = Camera.main.GetComponent<CinemachineBrain>();
@@ -21,20 +22,19 @@ public class CameraZoom : MonoBehaviour
 	}
 	private void Update()
 	{
-		
+        SetZoom();
 
-		if(zoomActive)
-			timer += Time.deltaTime;
+		if (resetWithTimer)
+		{
+            if (zoomActive)
+                timer += Time.deltaTime;
 
-		SetZoom();
-
-		if (timer >= timeAfterZoom)
-        {
-			resetZoom = ResetZoomCo();
-			StartCoroutine(resetZoom);
-		}
-			
-
+            if (timer >= timeAfterZoom)
+            {
+                resetZoom = ResetZoomCo();
+                StartCoroutine(resetZoom);
+            }
+        }
 	}
 
 	void SetZoom()
@@ -68,10 +68,5 @@ public class CameraZoom : MonoBehaviour
     {
 		if(cam == null)
 			cam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
-		/*if (cam == null || cam != tempCam)
-        {
-			cam = tempCam;
-		}*/
-		
 	}
 }

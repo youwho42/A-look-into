@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 3654530354450737017}
   - component: {fileID: 2302860591981112649}
   - component: {fileID: 73192618159429790}
+  - component: {fileID: -5541375079570609281}
   m_Layer: 14
   m_Name: Rock
   m_TagString: Untagged
@@ -186,9 +187,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009031832, y: 0.08309246}
+  m_Offset: {x: -0.082049236, y: -0.0042554736}
   serializedVersion: 2
-  m_Radius: 0.28125
+  m_Radius: 0.12907352
 --- !u!114 &3654530354450737017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,8 +227,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940059da522b06540a882a8dd34d8f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn:
-  - {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
+  itemDatabase: {fileID: 11400000, guid: 884e23646c535154ca07c89c67d94a15, type: 2}
+  hideOnStart: 0
+--- !u!114 &-5541375079570609281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218531380119633548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8963ea193151b46a9721d7790aac25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 5
 --- !u!1001 &3906944976185925474
 PrefabInstance:
   m_ObjectHideFlags: 0

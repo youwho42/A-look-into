@@ -10,6 +10,7 @@ public class AnimatePlayer : MonoBehaviour
     
     PlayerInput playerInput;
     bool lostBalance;
+    float timeIdle;
     private void Start()
     {
         
@@ -27,7 +28,18 @@ public class AnimatePlayer : MonoBehaviour
             float t = animator.GetCurrentAnimatorStateInfo(0).length;
             Invoke("ResetBalance", t);
         }
-            
+
+        if (GetIdleAnimState())
+        {
+            timeIdle += Time.deltaTime;
+        }
+        else
+        {
+            timeIdle = 0;
+        }
+        
+        animator.SetBool("IdleSit", timeIdle > 10);
+          
     }
 
     private void LateUpdate()
@@ -52,5 +64,17 @@ public class AnimatePlayer : MonoBehaviour
     {
        
         animator.SetTrigger("PickUp");
+    }
+    bool GetIdleAnimState()
+    {
+        if (PlayerInformation.instance.uiScreenVisible)
+            return false;
+        var currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        if (currentClipInfo[0].clip.name == "Idle")
+            return true;
+        if (currentClipInfo[0].clip.name == "SitOnGround")
+            return true;
+        return false;
+        
     }
 }

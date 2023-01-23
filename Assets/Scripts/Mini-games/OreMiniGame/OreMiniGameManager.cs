@@ -74,7 +74,6 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             MiniGameManager.instance.EndMiniGame(miniGameType);
         }
 
-
     }
 
 
@@ -99,16 +98,14 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             else
             {
                 target.targetHitCollider.enabled = false;
-                
                 target.dificultyAreaRotate.gameObject.SetActive(false);
                 target.dificultyAreaSprite.enabled = false;
             }
 
             ResetPlayerAreaRotations();
         }
-        
-
     }
+
     public void ResetMiniGame()
     {
         currentSection = 0;

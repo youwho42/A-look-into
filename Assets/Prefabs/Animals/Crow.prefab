@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 304862212094775487}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: CorrectionZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 304862213367814950}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SlopeZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,8 @@ GameObject:
   - component: {fileID: 3980435461219289156}
   - component: {fileID: 7510586649099672996}
   - component: {fileID: 2910552320548766059}
-  m_Layer: 14
+  - component: {fileID: 6337084432757913328}
+  m_Layer: 0
   m_Name: Crow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,6 +443,22 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
+--- !u!70 &6337084432757913328
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 1}
+  m_Direction: 1
 --- !u!1 &1186113324396075657
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186113324396075656}
   - component: {fileID: 1186113324396075655}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

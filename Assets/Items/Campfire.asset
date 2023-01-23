@@ -13,10 +13,17 @@ MonoBehaviour:
   m_Name: Campfire
   m_EditorClassIdentifier: 
   Name: Campfire
-  Description: A small campfire, to keep you warm and safe.
+  AnimationName: 
+  Description: A small campfire, providing light in a small area.
   Weight: 5
   Price: 5
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: d98c9695480b443fe8d696e3ba5a8966, type: 3}
   ItemPrefab: {fileID: 205002403857363210, guid: f47db94b2d8f34253a2a8a0f1e1a7dc9,
     type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
   MaxStack: 1
+  ResearchRecipes: []
+  GameDificulty: 0

@@ -13,7 +13,8 @@ public enum SpotType
     Squirrel,
     Chicken,
     Owl, 
-    Bat
+    Bat, 
+    Dragonfly
 
 }
 

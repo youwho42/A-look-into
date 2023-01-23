@@ -202,7 +202,8 @@ GameObject:
   - component: {fileID: 2580509081598303110}
   - component: {fileID: 4916607501585020372}
   - component: {fileID: 9004632507671748036}
-  m_Layer: 14
+  - component: {fileID: 6009098075793772407}
+  m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +329,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -450,6 +451,22 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
+--- !u!70 &6009098075793772407
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768676041353}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.3, y: 0.15}
+  m_Direction: 1
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

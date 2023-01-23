@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4828340106541321084}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.0043, z: 0}
+  m_LocalPosition: {x: -0, y: -0.0043, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -217,9 +217,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.02}
+  m_Offset: {x: 0, y: -0.0031909943}
   serializedVersion: 2
-  m_Radius: 0.07
+  m_Radius: 0.06999779
 --- !u!114 &8360802278536025709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,9 +234,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Check
-  playerEnergyCost: 0
-  gameEnergyReward: 0
-  gameEnergyCost: 0
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
   isOpen: 0
 --- !u!1 &7513994827536451838
@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 7513994828343454804}
   - component: {fileID: 6980401292336405057}
   - component: {fileID: 5768976825326424872}
+  - component: {fileID: 4315427256376569077}
   m_Layer: 13
   m_Name: Loom
   m_TagString: Untagged
@@ -545,9 +546,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Craft with Loom
-  playerEnergyCost: 0
-  gameEnergyReward: 0
-  gameEnergyCost: 0
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
   recipeDatabase: {fileID: 11400000, guid: 926a5aa2b30690d40952bb0193d151e6, type: 2}
   selfInventory: {fileID: 7983089396344206566}
@@ -648,7 +649,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7717b8c3cbf534cc59a3d53c9046a71f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.15
   m_Pitch: 0.5
   Loop: 1
   Mute: 0
@@ -656,7 +657,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 0.12008476
+  MinDistance: 0
   MaxDistance: 0.71795845
   Pan2D: 0
   rolloffMode: 1
@@ -732,6 +733,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4315427256376569077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7513994828343454800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bb72efbe47f714685efe7c9d61eec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingHandler: {fileID: 7513994828343454792}
+  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!1001 &350820188101534536
 PrefabInstance:
   m_ObjectHideFlags: 0

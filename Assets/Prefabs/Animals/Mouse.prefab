@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5967451856108394437}
   - component: {fileID: 1509863019125266258}
   - component: {fileID: 2395931891320984845}
+  - component: {fileID: 4154301541445588672}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
@@ -144,6 +145,22 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
+--- !u!70 &4154301541445588672
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967451856108394459}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 1}
+  m_Direction: 1
 --- !u!1 &5967451856273523167
 GameObject:
   m_ObjectHideFlags: 0

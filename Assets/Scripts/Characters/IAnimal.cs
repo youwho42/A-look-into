@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IAnimal
 {
-    
+    public void FleePlayer();
     public void SetActiveState(bool active);
 }

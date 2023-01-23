@@ -249,4 +249,9 @@ public class ButterflyAI : MonoBehaviour, IAnimal
     {
         activeState = active;
     }
+
+    public void FleePlayer()
+    {
+        SetToFlyingState();
+    }
 }

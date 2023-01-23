@@ -294,5 +294,25 @@ namespace Klaxon.GravitySystem
         {
             activeState = active;
         }
+
+        public void FleePlayer()
+        {
+            if (walk.isClimbing)
+            {
+                walk.ResetDestinationZ();
+                SetDirectionZ();
+                currentClimable.Affect();
+                animator.SetBool(climbIdle_hash, false);
+
+                currentState = PedestrianState.isClimbing;
+            }
+            else
+            {
+
+                walk.SetRandomDestination();
+                animator.SetBool(walking_hash, true);
+                currentState = PedestrianState.isWalking;
+            }
+        }
     }
 }

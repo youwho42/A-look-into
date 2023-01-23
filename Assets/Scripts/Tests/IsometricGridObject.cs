@@ -29,12 +29,13 @@ public class IsometricGridObject : MonoBehaviour
 
     private void SetIsometric()
     {
-        size = 0.2890626f;
+        size = 0.2890626f / 2;
         float angleRad = angle * Mathf.Deg2Rad;
         xComponent = Mathf.Cos(angleRad);
         yComponent = Mathf.Sin(angleRad);
     }
 
+     // returns the real world position on the grid
     public Vector2 FindPositionOnGrid(Vector2 position)
     {
         SetIsometric();

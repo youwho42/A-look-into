@@ -232,8 +232,8 @@ GameObject:
   - component: {fileID: 6312967023737827169}
   - component: {fileID: 1399791741172874697}
   - component: {fileID: 2848951226114245755}
-  - component: {fileID: 4538316333968295866}
-  m_Layer: 14
+  - component: {fileID: 8020383369573849513}
+  m_Layer: 0
   m_Name: ButterflyRed
   m_TagString: Butterfly
   m_Icon: {fileID: 0}
@@ -370,22 +370,22 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
---- !u!58 &4538316333968295866
-CircleCollider2D:
+--- !u!70 &8020383369573849513
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4720702768676041353}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 0.5}
+  m_Direction: 1
 --- !u!1 &4720702770224426184
 GameObject:
   m_ObjectHideFlags: 0

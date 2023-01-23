@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererAxeCopper
+  m_EditorClassIdentifier: 
+  Name: Copper Axe
+  AnimationName: Axe
+  Description: A Copper axe. This can get soft wood and medium wood.
+  Weight: 2
+  Price: 5
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: bd4af030c7bcb0f41a88fcf6f900f176, type: 3}
+  ItemPrefab: {fileID: 205002403857363210, guid: 72004b372c83c4241b4ec962c1aeebee,
+    type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 21300000, guid: b2115d562b3514a499bc8e48fb4a5217, type: 3}
+  MaxStack: 1
+  ResearchRecipes: []
+  GameDificulty: 0
+  equipmentSlot: 0
+  gatherItemData:
+  - {fileID: 11400000, guid: 2bfc6b8cad68c8e4c90de550208d9e5d, type: 2}
+  - {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+  miniGameType: 1
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.5
+  takeSample: 1
+  oneUse: 0
+  playerEnergyCost: 5

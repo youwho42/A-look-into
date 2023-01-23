@@ -36,7 +36,6 @@ namespace Klaxon.GravitySystem
         public SpriteRenderer characterRenderer;
 
         const float spriteDisplacementY = 0.2790625f;
-
         public bool isOverWater;
         public bool useBoids;
         public Boid boid;
@@ -64,7 +63,7 @@ namespace Klaxon.GravitySystem
 
         public void Fly()
         {
-
+            
             CheckOverWater();
             //if (lastPos != (Vector2)transform.position)
             //    lastPos = transform.position;

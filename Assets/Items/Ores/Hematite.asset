@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
+  m_Name: Hematite
+  m_EditorClassIdentifier: 
+  Name: Hematite
+  AnimationName: 
+  Description: If you can smelt this you'll get some iron
+  Weight: 1
+  Price: 2
+  spawnWeight: 2
+  Icon: {fileID: 21300000, guid: bc30f333b347912449925087fdd1ab44, type: 3}
+  ItemPrefab: {fileID: 3193338031072352893, guid: 465d2241c3633ac43a69424b240236b5,
+    type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
+  MaxStack: 100
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 58340f31ae41aba42aa085d34e1ba76e, type: 2}
+    RecipeRevealAmount: 20
+    AgencyReward: 20
+  GameDificulty: 1

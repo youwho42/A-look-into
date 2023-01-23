@@ -230,4 +230,9 @@ public class ChickenAI : MonoBehaviour, IAnimal
     {
         activeState = active;    
     }
+
+    public void FleePlayer()
+    {
+        throw new System.NotImplementedException();
+    }
 }

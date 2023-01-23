@@ -21,6 +21,7 @@ public class CraftingAnimationHandler : MonoBehaviour
     }
     public void SetAnimation(bool active)
     {
+        
         animator.SetBool("IsCrafting", active);
         if(active)
         {

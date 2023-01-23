@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererAxeIron
+  m_EditorClassIdentifier: 
+  Name: Iron Axe
+  AnimationName: Axe
+  Description: An Iron axe. This can get soft, medium and hard woods.
+  Weight: 2
+  Price: 5
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 4e6b45dfe94d5f2419ba55d7e7d33cef, type: 3}
+  ItemPrefab: {fileID: 205002403857363210, guid: f638a0d4ba9d1c84ca39e2d351bfbb3c,
+    type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 21300000, guid: 515cf934c46b00b4786933cf064f5a7d, type: 3}
+  MaxStack: 1
+  ResearchRecipes: []
+  GameDificulty: 0
+  equipmentSlot: 0
+  gatherItemData:
+  - {fileID: 11400000, guid: 2bfc6b8cad68c8e4c90de550208d9e5d, type: 2}
+  - {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+  - {fileID: 11400000, guid: fa67655462b22984690264cd226e12cf, type: 2}
+  miniGameType: 1
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.5
+  takeSample: 1
+  oneUse: 0
+  playerEnergyCost: 5

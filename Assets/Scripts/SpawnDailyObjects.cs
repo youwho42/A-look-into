@@ -6,11 +6,10 @@ using QuantumTek.QuantumInventory;
 public class SpawnDailyObjects : MonoBehaviour
 {
 
-    public List<QI_ItemData> objectToSpawn = new List<QI_ItemData>();
+    public QI_ItemDatabase itemDatabase;
 
     public bool hideOnStart;
     
-
     int hourToDailySpawn = 5;
 
     List<Transform> spawnPoints = new List<Transform>();
@@ -31,11 +30,14 @@ public class SpawnDailyObjects : MonoBehaviour
         GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
         SpawnObjects(hourToDailySpawn);
     }
+
+
     public void SpawnObjects(int timeOfDay)
     {
-        if (timeOfDay != hourToDailySpawn)
+        if (timeOfDay != hourToDailySpawn || itemDatabase == null)
             return;
-        if(TryGetComponent(out PlantGrowCycle plantCycle))
+       
+        if (TryGetComponent(out PlantGrowCycle plantCycle))
         {
             if (plantCycle.currentCycle < plantCycle.gatherableCycle)
                 return;
@@ -47,16 +49,12 @@ public class SpawnDailyObjects : MonoBehaviour
                 var hit = Physics2D.OverlapCircle(point.position, .05f);
                 if (hit == null || hit.CompareTag("Grass"))
                 {
-
-                    int r = Random.Range(0, objectToSpawn.Count);
-
-                    var go = Instantiate(objectToSpawn[r].ItemPrefab, point.position, Quaternion.identity);
-
+                    
+                    var item = itemDatabase.GetRandomWeightedItem();
+                    var go = Instantiate(item.ItemPrefab, point.position, Quaternion.identity);
 
                     if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
-                    {
                         itemToSpawn.GenerateId();
-                    }
                 }
             }
         }
