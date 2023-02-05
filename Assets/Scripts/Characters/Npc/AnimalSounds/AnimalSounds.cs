@@ -30,9 +30,9 @@ public class SoundSet
         source.playOnAwake = false;
     }
 
-    public void Play()
+    public void Play(AudioTrack track)
     {
-        source.volume = volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2));
+        source.volume = (volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2))) * PlayerPreferencesManager.instance.GetTrackVolume(track);
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2, randomPitch / 2));
         if (!source.isPlaying && !overlap)
             source.Play();
@@ -73,14 +73,19 @@ public class AnimalSounds : MonoBehaviour
     public AnimationCurve curve;
     public Animator animator;
     int caw_hash = Animator.StringToHash("Caw");
+    float mainVolume;
 
     private void Start()
     {
-        
+        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
         source = GetComponent<AudioSource>();
         SetTimesToCry();
         SetFirstCry();
         
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
     }
     private void Update()
     {
@@ -91,10 +96,14 @@ public class AnimalSounds : MonoBehaviour
             SetCrySounds();
             isCrying = true;
         }
-       
+        
+    }
+    void ChangeVolume()
+    {
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Animals);
     }
 
-   public void SetCrySounds()
+    public void SetCrySounds()
     {
         int r = 0;
         if (soundSets.Length > 1)
@@ -140,7 +149,9 @@ public class AnimalSounds : MonoBehaviour
         {
             int t = Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
-            soundSets[soundSet].Play();
+            mainVolume = soundSets[soundSet].volume;
+            ChangeVolume();
+            soundSets[soundSet].Play(AudioTrack.Animals);
             animator.SetTrigger(caw_hash);
             
             

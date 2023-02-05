@@ -125,12 +125,22 @@ public class LevelManager : MonoBehaviour
         GameEventManager.onPlayerPositionUpdateEvent.Invoke();
     }
 
-    public void SetVSync()
+    public void ToggleVSync()
     {
         if (QualitySettings.vSyncCount == 0)
             QualitySettings.vSyncCount = 1;
         else
             QualitySettings.vSyncCount = 0;
+        PlayerPreferencesManager.instance.SaveVSync(QualitySettings.vSyncCount);
+    }
+    public void SetVSync(int sync)
+    {
+        QualitySettings.vSyncCount = sync;
+        vSync.isOn = sync == 0 ? false : true;
+    }
+    public int GetVSync()
+    {
+        return QualitySettings.vSyncCount;
     }
 
     public void CancelNewGame()

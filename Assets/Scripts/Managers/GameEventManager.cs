@@ -48,4 +48,9 @@ public static class GameEventManager
     public static readonly GameEvent onNewGameStartedEvent = new GameEvent();
     public static readonly GameEvent onGameLoadedEvent = new GameEvent();
     public static readonly GameEvent onGameSavedEvent = new GameEvent();
+
+    /// <summary>
+    /// Game Started New or Load or Save
+    /// </summary>
+    public static readonly GameEvent onVolumeChangedEvent = new GameEvent();
 }

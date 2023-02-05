@@ -50,7 +50,7 @@ public class Sound
 
     public void Play()
     {
-        source.volume = volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2));
+        source.volume = (volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2))) * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2, randomPitch / 2));
         if(!source.isPlaying && !overlap)
             source.Play();

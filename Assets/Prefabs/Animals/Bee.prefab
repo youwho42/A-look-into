@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 3068471770465851757}
   - component: {fileID: 7166982388808183340}
   - component: {fileID: 4570870521104525868}
+  - component: {fileID: 2193312574897800619}
   m_Layer: 14
   m_Name: Bee
   m_TagString: Untagged
@@ -186,6 +187,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca1c6afca747c94a8f411ad17c7a50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2193312574897800619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720702768505272640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8963ea193151b46a9721d7790aac25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 11
+  isActive: 0
+  isInDictionary: 0
 --- !u!1 &4720702768676041353
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +271,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.015
+  m_Volume: 0.04
   m_Pitch: 1
   Loop: 1
   Mute: 0

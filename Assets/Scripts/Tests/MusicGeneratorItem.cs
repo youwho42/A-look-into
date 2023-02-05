@@ -7,14 +7,34 @@ public class MusicGeneratorItem : MonoBehaviour
 {
 
     public SoundType type;
+    [HideInInspector]
+    public bool isActive;
+    [HideInInspector]
+    public bool isInDictionary;
+
+    private void Start()
+    {
+        isActive = true;
+    }
 
     private void OnBecameVisible()
     {
-        MusicGenerator.instance.AddToDictionary(type);
+        if (isActive)
+        {
+            MusicGenerator.instance.AddToDictionary(type);
+            isInDictionary = true;
+        }
+            
     }
 
     private void OnBecameInvisible()
     {
-        MusicGenerator.instance.RemoveFromDictionary(type);
+        if (isActive)
+        {
+            MusicGenerator.instance.RemoveFromDictionary(type);
+            isInDictionary = false;
+        }
+            
     }
+    
 }

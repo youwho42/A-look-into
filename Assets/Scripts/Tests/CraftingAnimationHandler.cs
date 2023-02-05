@@ -10,14 +10,23 @@ public class CraftingAnimationHandler : MonoBehaviour
     public Animator animator;
     public QI_Inventory inventory;
     public SpriteRenderer itemSprite;
-    public AudioSource audio;
+    public AudioSource source;
+    float mainVolume;
     private void Start()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(SetInventoryItemImage);
+        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
+        mainVolume = source.volume;
     }
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(SetInventoryItemImage);
+        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
+
+    }
+    void ChangeVolume()
+    {
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
     }
     public void SetAnimation(bool active)
     {
@@ -25,11 +34,12 @@ public class CraftingAnimationHandler : MonoBehaviour
         animator.SetBool("IsCrafting", active);
         if(active)
         {
-            if(!audio.isPlaying)
-                audio.Play();
+            ChangeVolume();
+            if(!source.isPlaying)
+                source.Play();
         }
         else
-            audio.Stop();
+            source.Stop();
     }
 
     public void SetInventoryItemImage()

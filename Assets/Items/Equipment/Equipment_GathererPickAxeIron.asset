@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererPickAxeIron
+  m_EditorClassIdentifier: 
+  Name: Iron Pick Axe
+  AnimationName: Pickaxe
+  Description: An iron pick axe, it pokes rock really hard, but like, really really
+    hard, not like those other two.
+  Weight: 2
+  Price: 5
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 65e97f054f57b0d43b4fb935958b2748, type: 3}
+  ItemPrefab: {fileID: 205002403857363210, guid: e7f767de0d068014aaec18f9ce24a091,
+    type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 21300000, guid: 0c1a60a27990e7143ac22f2b2c13ff33, type: 3}
+  MaxStack: 1
+  ResearchRecipes: []
+  GameDificulty: 0
+  equipmentSlot: 0
+  gatherItemData:
+  - {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
+  - {fileID: 11400000, guid: 8fd5f772e506873458a56d495adbecbc, type: 2}
+  - {fileID: 11400000, guid: ee9f3db4dca2d084abec7e77fa144147, type: 2}
+  - {fileID: 11400000, guid: 9bf52c24acc3f5547a9f6a125aa12a36, type: 2}
+  - {fileID: 11400000, guid: b3700cf2e3da9a147bb2b33fd40ecf81, type: 2}
+  miniGameType: 3
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.5
+  takeSample: 1
+  oneUse: 0
+  playerEnergyCost: 5

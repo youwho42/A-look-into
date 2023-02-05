@@ -59,12 +59,12 @@ public class WaterSound : MonoBehaviour
 
         if (Time.frameCount % 33 == 0)
         {
-            GetWaterTiles();
+            //GetWaterTiles();
             GetClosestDistanceFromPlayer();
             
             if (closestTileDistance < minDist)
             {
-                audioSource.volume = 0.1f;
+                audioSource.volume = 0.15f * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
             }
             else if (closestTileDistance > maxDist)
             {
@@ -72,7 +72,7 @@ public class WaterSound : MonoBehaviour
             }
             else
             {
-                audioSource.volume = 0.1f - ((closestTileDistance - minDist) / (maxDist - minDist));
+                audioSource.volume = (0.4f - ((closestTileDistance - minDist) / (maxDist - minDist))) * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects); ;
             }
         }
         

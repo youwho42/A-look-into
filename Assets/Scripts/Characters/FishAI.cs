@@ -38,18 +38,11 @@ public class FishAI : MonoBehaviour, IAnimal
 
 
 
-    bool CheckVisibility()
-    {
-        return animalSprite.isVisible;
-    }
+   
 
     private void Update()
     {
-        if (!CheckVisibility())
-        {
-            if (Time.frameCount % 20 != 0)
-                return;
-        }
+        
         if (!activeState)
             return;
 

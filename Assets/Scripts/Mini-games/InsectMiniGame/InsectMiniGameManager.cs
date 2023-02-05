@@ -216,7 +216,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         {
             int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
-            soundSets[soundSet].Play();
+            soundSets[soundSet].Play(AudioTrack.Effects);
 
             return true;
         }

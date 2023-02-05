@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 5740713621004355351}
   shadowSprite: {fileID: 3482868706548831019}
+  shadowCaster: {fileID: 0}
 --- !u!114 &7905477252400666841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Tall Grass
-  playerEnergyCost: 1
-  gameEnergyReward: 0
-  gameEnergyCost: 0
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
+  pickupQuantity: 3

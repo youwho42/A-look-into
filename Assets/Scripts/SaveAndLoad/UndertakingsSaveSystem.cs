@@ -38,9 +38,9 @@ public class UndertakingsSaveSystem : MonoBehaviour, ISaveable
 
         for (int i = 0; i < saveData.undertakingName.Count; i++)
         {
-            playerUndertakings.ActivateQuest(saveData.undertakingName[i]);
+            playerUndertakings.ActivateQuest(saveData.undertakingName[i], true);
             if (saveData.isComplete[i]==true)
-                playerUndertakings.CompleteQuest(saveData.undertakingName[i]);
+                playerUndertakings.CompleteQuest(saveData.undertakingName[i], true);
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
     }

@@ -6,16 +6,20 @@ public class NPC_PlayFootSteps : MonoBehaviour
 {
     public SoundSet soundSet;
     AudioSource source;
+    float mainVolume;
     void Start()
     {
         source = GetComponent<AudioSource>();
+        mainVolume = source.volume;
     }
 
     public void PlayFootStep()
     {
         int t = Random.Range(0, soundSet.clips.Length);
+
         soundSet.SetSource(source, t);
-        soundSet.Play();
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
+        soundSet.Play(AudioTrack.Effects);
     }
 
     

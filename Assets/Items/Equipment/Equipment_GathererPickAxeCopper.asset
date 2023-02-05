@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
-  m_Name: Equipment_GathererStonePickAxe
+  m_Name: Equipment_GathererPickAxeCopper
   m_EditorClassIdentifier: 
-  Name: Stone Pick Axe
+  Name: Copper Pick Axe
   AnimationName: Pickaxe
-  Description: A stone pick axe, it pokes rock really hard.
+  Description: A copper pick axe, it pokes rock really hard, better than that stone
+    one.
   Weight: 2
   Price: 5
   spawnWeight: 1
-  Icon: {fileID: 21300000, guid: 2e4b0f59c10e69d4aa698c7169cc560a, type: 3}
-  ItemPrefab: {fileID: 205002403857363210, guid: a8faf7080ae0b1642a2f654b8a48bb52,
+  Icon: {fileID: 21300000, guid: c574cd9a8aa89d4498e4bda05fdc35d6, type: 3}
+  ItemPrefab: {fileID: 205002403857363210, guid: 3730824c823a540439b3da0d2cf81774,
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 21300000, guid: 3e32ff821ef781047a47c35766b51314, type: 3}
+  EquipedItemImage: {fileID: 21300000, guid: 4154beeef6065264cb598065f506c23d, type: 3}
   MaxStack: 1
   ResearchRecipes: []
   GameDificulty: 0
@@ -31,6 +32,8 @@ MonoBehaviour:
   gatherItemData:
   - {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
   - {fileID: 11400000, guid: 8fd5f772e506873458a56d495adbecbc, type: 2}
+  - {fileID: 11400000, guid: ee9f3db4dca2d084abec7e77fa144147, type: 2}
+  - {fileID: 11400000, guid: 9bf52c24acc3f5547a9f6a125aa12a36, type: 2}
   miniGameType: 3
   gathererLayer:
     serializedVersion: 2

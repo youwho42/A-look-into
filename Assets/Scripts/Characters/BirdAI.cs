@@ -35,6 +35,8 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     SpriteRenderer animalSprite;
 
+    MusicGeneratorItem musicItem;
+
     [SerializeField]
     public FlyingState currentState;
     public enum FlyingState
@@ -49,7 +51,7 @@ public class BirdAI : MonoBehaviour, IAnimal
     {
         realTimeDayNightCycle = RealTimeDayNightCycle.instance;
         sounds = GetComponent<AnimalSounds>();
-
+        musicItem = GetComponentInChildren<MusicGeneratorItem>();
         GameEventManager.onTimeTickEvent.AddListener(SetSleepOrWake);
 
         animator.SetBool(landed_hash, true);
@@ -315,6 +317,7 @@ public class BirdAI : MonoBehaviour, IAnimal
             else if (time >= wakeSleepTimes.x || time < wakeSleepTimes.y)
                 isSleeping = false;
         }
+        musicItem.isActive = !isSleeping;
         
     }
 

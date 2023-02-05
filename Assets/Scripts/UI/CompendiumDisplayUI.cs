@@ -59,6 +59,12 @@ public class CompendiumDisplayUI : MonoBehaviour
     QI_ItemDatabase playerNoteCompendium;
     QI_CraftingRecipeDatabase playerRecipeCompendium;
 
+
+    public GameObject recipeRevealDescription;
+    public GameObject animalRevealDescription;
+    public GameObject resourceRevealDescription;
+    public GameObject recipeDirectionsDescription;
+
     private void Start()
     {
         playerInformation = PlayerInformation.instance;
@@ -72,7 +78,10 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onRecipeCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onNoteCompediumUpdateEvent.AddListener(UpdateCompendiumList);
 
+        
+
         SetCompendiumTypeAnimal();
+        UpdateCompendiumList();
     }
     private void OnDestroy()
     {
@@ -168,6 +177,10 @@ public class CompendiumDisplayUI : MonoBehaviour
                     compendiumSlots.Add(newSlot);
                     
                 }
+                recipeRevealDescription.SetActive(true);
+                animalRevealDescription.SetActive(true);
+                resourceRevealDescription.SetActive(false);
+                recipeDirectionsDescription.SetActive(false);
                 break;
             case ItemType.Resource:
                 for (int i = 0; i < playerResourceCompendium.Items.Count; i++)
@@ -177,8 +190,12 @@ public class CompendiumDisplayUI : MonoBehaviour
                     newSlot.AddItem(playerResourceCompendium.Items[i]);
                     newSlot.AddRecipeReveal(playerResourceCompendium.Items[i].ResearchRecipes);
                     compendiumSlots.Add(newSlot);
-
+                    
                 }
+                recipeRevealDescription.SetActive(true);
+                animalRevealDescription.SetActive(false);
+                resourceRevealDescription.SetActive(true);
+                recipeDirectionsDescription.SetActive(false);
                 break;
             case ItemType.Recipe:
                 for (int i = 0; i < playerRecipeCompendium.CraftingRecipes.Count; i++)
@@ -189,6 +206,10 @@ public class CompendiumDisplayUI : MonoBehaviour
                     compendiumSlots.Add(newSlot);
                     
                 }
+                recipeRevealDescription.SetActive(true);
+                animalRevealDescription.SetActive(false);
+                resourceRevealDescription.SetActive(false);
+                recipeDirectionsDescription.SetActive(true);
                 break;
             case ItemType.Note:
                 for (int i = 0; i < playerNoteCompendium.Items.Count; i++)
@@ -197,8 +218,9 @@ public class CompendiumDisplayUI : MonoBehaviour
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
                     newSlot.AddItem(playerNoteCompendium.Items[i]);
                     compendiumSlots.Add(newSlot);
-
+                    
                 }
+                recipeRevealDescription.SetActive(false);
                 break;
         }
     }
@@ -229,6 +251,7 @@ public class CompendiumDisplayUI : MonoBehaviour
 
     public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)
     {
+        recipeRevealDescription.SetActive(false);
         informationDisplayItemName.text = item.Name;
         informationDisplayItemDescription.text = item.Description;
         recipeDisplay.SetActive(false);
@@ -267,6 +290,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 
             }
             recipeRevealDisplay.SetActive(true);
+
         }
         
     }

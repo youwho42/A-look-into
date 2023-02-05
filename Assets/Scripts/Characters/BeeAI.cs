@@ -14,7 +14,7 @@ public class BeeAI : MonoBehaviour, IAnimal
     CanReachTileFlight flight;
     public Animator animator;
     bool isSleeping;
-    AudioSource audio;
+    AudioSource source;
 
     public InteractAreasManager interactAreas;
 
@@ -39,7 +39,7 @@ public class BeeAI : MonoBehaviour, IAnimal
     {
         gravityItem = GetComponent<GravityItemNew>();
 
-        audio = GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CanReachTileFlight>();
@@ -75,8 +75,8 @@ public class BeeAI : MonoBehaviour, IAnimal
         {
             case FlyingState.isFlying:
 
-                if (audio.mute)
-                    audio.mute = false;
+                if (!source.isPlaying)
+                    source.Play();
                 if (isSleeping)
                 {
                     flight.SetDestination(flight.centerOfActiveArea, true);
@@ -140,8 +140,8 @@ public class BeeAI : MonoBehaviour, IAnimal
 
             case FlyingState.isAtDestination:
 
-                if (!audio.mute)
-                    audio.mute = true;
+                if (source.isPlaying)
+                    source.Stop();
 
                 if (!isSleeping)
                 {

@@ -9,6 +9,7 @@ public class PlayerToolSoundManager : MonoBehaviour
     //AudioManager audioManager;
     
     AudioSource source;
+    float mainVolume;
 
     [Serializable]
     public struct ToolSounds
@@ -23,8 +24,18 @@ public class PlayerToolSoundManager : MonoBehaviour
 
     void Start()
     {
-        //audioManager = AudioManager.instance;
+        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
         source = GetComponent<AudioSource>();
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
+
+    }
+
+    void ChangeVolume()
+    {
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
     }
 
     bool PlaySound(SoundSet[] soundSet)
@@ -33,7 +44,8 @@ public class PlayerToolSoundManager : MonoBehaviour
         {
             int t = UnityEngine.Random.Range(0, soundSet.Length - 1);
             soundSet[t].SetSource(source, t);
-            soundSet[t].Play();
+            mainVolume = soundSet[t].volume;
+            soundSet[t].Play(AudioTrack.Effects);
 
             return true;
         }

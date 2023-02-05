@@ -17,6 +17,8 @@ public class FireflyAI : MonoBehaviour, IAnimal
     public Animator animator;
     bool isSleeping;
 
+    MusicGeneratorItem musicItem;
+
     public Vector2Int wakeSleepTimes;
 
     RealTimeDayNightCycle realTimeDayNightCycle;
@@ -39,7 +41,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
     {
         gravityItem = GetComponent<GravityItemNew>();
         realTimeDayNightCycle = RealTimeDayNightCycle.instance;
-        
+        musicItem = GetComponentInChildren<MusicGeneratorItem>();
         float randomIdleStart = Random.Range(0, animator.GetCurrentAnimatorStateInfo(0).length);
         animator.Play(0, 0, randomIdleStart);
         flight = GetComponent<CanReachTileFlight>();
@@ -176,6 +178,8 @@ public class FireflyAI : MonoBehaviour, IAnimal
             isSleeping = false;
         else if (realTimeDayNightCycle.currentTimeRaw >= wakeSleepTimes.y || realTimeDayNightCycle.currentTimeRaw < wakeSleepTimes.x)
             isSleeping = true;
+        musicItem.isActive = !isSleeping;
+        gravityItem.itemObject.gameObject.SetActive(!isSleeping);
     }
 
     float SetRandomRange(float min, float max)

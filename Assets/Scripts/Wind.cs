@@ -6,16 +6,21 @@ public class Wind : MonoBehaviour, IPoolPrefab
 {
     Animator animator;
     AudioSource audioSource;
+    float mainVolume;
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-
+        mainVolume = audioSource.volume;
     }
     public void OnObjectSpawn()
     {
         if(audioSource != null)
+        {
+            audioSource.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
             audioSource.Play();
+        }
+            
     }
 
     void Update()

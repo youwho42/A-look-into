@@ -10,7 +10,7 @@ public class InteractablePickUp : Interactable
     QI_Inventory inventoryToAddTo;
 
     bool addedToInventory;
-
+    public int pickupQuantity = 1;
     public override void Start()
     {
         base.Start();
@@ -35,13 +35,14 @@ public class InteractablePickUp : Interactable
         PlayInteractSound();
 
         
-        if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, 1, false))
+        if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, pickupQuantity, false))
         {
             if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
             {
                 obj.ShowObjects();
             }
-            NotificationManager.instance.SetNewNotification($"{pickUpItem.Name}", NotificationManager.NotificationType.Inventory);
+            float total = PlayerInformation.instance.playerInventory.GetStock(pickUpItem.Name);
+            NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {total}", NotificationManager.NotificationType.Inventory);
             Destroy(gameObject);
 
         }

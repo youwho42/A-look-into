@@ -38,7 +38,7 @@ public class AnimatePlayer : MonoBehaviour
             timeIdle = 0;
         }
         
-        animator.SetBool("IdleSit", timeIdle > 10);
+        animator.SetBool("IdleSit", timeIdle > 20);
           
     }
 

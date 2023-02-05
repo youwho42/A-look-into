@@ -109,14 +109,15 @@ public class IsometricGridPlacement : MonoBehaviour
     }
 
     
+    
     bool MaxGridDistanceFromPlayer()
     {
         bool can = false;
         var pos = gridObject.GetGridLocation(PlayerInformation.instance.player.position);
         var mousePos = gridObject.GetGridLocation(currentPosition);
-        for (int x = -2; x < 3; x++)
+        for (int x = -8; x < 9; x++)
         {
-            for (int y = -2; y < 3; y++)
+            for (int y = -8; y < 9; y++)
             {
                 
                 var checkPos = new Vector2(pos.x + x, pos.y + y);

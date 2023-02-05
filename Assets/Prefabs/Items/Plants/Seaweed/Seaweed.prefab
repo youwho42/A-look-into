@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2058358837720249945}
   - component: {fileID: 5310928509134364705}
   - component: {fileID: 1075328302407430875}
+  - component: {fileID: 8567897086551510502}
   m_Layer: 0
   m_Name: Seaweed
   m_TagString: Untagged
@@ -132,6 +133,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 8693803140267710692}
   shadowSprite: {fileID: 4153426000354718757}
+  shadowCaster: {fileID: 0}
+--- !u!114 &8567897086551510502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165327905065305517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8963ea193151b46a9721d7790aac25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 13
 --- !u!1 &7540618112609070124
 GameObject:
   m_ObjectHideFlags: 0
