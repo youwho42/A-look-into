@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 using Cinemachine;
 using UnityEngine.Events;
 using Unity.Mathematics;
 using UnityEngine.Playables;
+using UnityEngine.EventSystems;
 
 public class LevelManager : MonoBehaviour
 {
@@ -49,13 +49,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject titleMenu;
     [SerializeField]
+    private GameObject startButton;
+    [SerializeField]
     private GameObject pauseMenu;
     [SerializeField]
     private GameObject savedAlert;
     [SerializeField]
     private GameObject newGameWarning;
-    [SerializeField]
-    private GameObject controlsPanel;
     [SerializeField]
     private Toggle vSync;
 
@@ -80,7 +80,9 @@ public class LevelManager : MonoBehaviour
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         isInCutscene = true;
+        
     }
+    
     public void StartNewGame(string levelName)
     {
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
@@ -146,6 +148,8 @@ public class LevelManager : MonoBehaviour
     public void CancelNewGame()
     {
         newGameWarning.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(startButton);
     }
 
     public void NewGameWarning(bool active)
@@ -192,17 +196,30 @@ public class LevelManager : MonoBehaviour
             PlayerInformation.instance.TogglePlayerInput(true);
         }
         savedAlert.SetActive(false);
-        HideControls();
+        
     }
 
     public void ViewControls()
     {
-        controlsPanel.SetActive(true);
+        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.ControlsScreen);
     }
 
     public void HideControls()
     {
-        controlsPanel.SetActive(false);
+        UIScreenManager.instance.HideAllScreens();
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
+    }
+    public void ViewVolumeControls()
+    {
+        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.AudioScreen);
+    }
+
+    public void HideVolumeControls()
+    {
+        UIScreenManager.instance.HideAllScreens();
+        UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
     }
 
     public void QuitGame()

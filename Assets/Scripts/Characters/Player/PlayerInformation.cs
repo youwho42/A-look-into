@@ -22,7 +22,8 @@ public class PlayerInformation : MonoBehaviour
     public QI_ItemDatabase playerNotesCompendiumDatabase;
     public bool uiScreenVisible;
     
-    public PlayerInput playerInput;
+    public PlayerInputController playerInput;
+    public PlayerActivateSpyglass playerActivateSpyglass;
 
     public PlayerStats playerStats;
     public CurrentTilePosition currentTilePosition;
@@ -84,9 +85,9 @@ public class PlayerInformation : MonoBehaviour
     {
         foreach (var item in playerInventory.Stacks)
         {
-            if (!PlayerInformation.instance.playerResourceCompendiumDatabase.Items.Contains(item.Item))
+            if (!playerResourceCompendiumDatabase.Items.Contains(item.Item))
             {
-                PlayerInformation.instance.playerResourceCompendiumDatabase.Items.Add(item.Item);
+                playerResourceCompendiumDatabase.Items.Add(item.Item);
                 NotificationManager.instance.SetNewNotification($"{item.Item.Name}", NotificationManager.NotificationType.Compedium);
                 GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             }

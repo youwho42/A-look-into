@@ -3,9 +3,7 @@ using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class InsectMiniGameManager : MonoBehaviour, IMinigame
 {
@@ -42,8 +40,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     public List<TargetArea> targetAreas = new List<TargetArea>();
     Color initialIntensity;
 
-    private Coroutine shrinkPlayerArea; //my co-routine
-    private bool startCoroutine; //is the co-routine running
+   
 
     private void Start()
     {
@@ -52,36 +49,30 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         ResetMiniGame();
     }
 
- 
-    private void Update()
+    void OnEnable()
     {
-        if(walker != null)
-        {
-            if (!transitioning)
-            {
-                
-                if (currentAttempts != maxAttempts)
-                {
-
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
-                    {
-                        StartCoroutine(NextTargetAreaCo(targetAreas[currentIndex].targetHitDetection.isInArea));
-                    }
-                }
-                if (currentAttempts == maxAttempts)
-                {
-                    
-                    MiniGameManager.instance.EndMiniGame(miniGameType);
-
-                }
-            }
-
-            
-        }
-        
+        GameEventManager.onMinigameMouseClickEvent.AddListener(OnMouseClick);
+    }
+    void OnDisable()
+    {
+        GameEventManager.onMinigameMouseClickEvent.RemoveListener(OnMouseClick);
     }
 
     
+    void OnMouseClick()
+    {
+        if (walker == null)
+            return;
+        
+        if (!transitioning)
+        {
+            if (currentAttempts != maxAttempts)
+                StartCoroutine(NextTargetAreaCo(targetAreas[currentIndex].targetHitDetection.isInArea));
+        }
+    }
+
+    
+
     IEnumerator GlowOn(int amount, Material material)
     {
 
@@ -175,6 +166,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
             }
             
             currentAttemptHits = 0;
+            MiniGameManager.instance.EndMiniGame(miniGameType);
         }
         ResetTargetArea(currentIndex);
         yield return null;

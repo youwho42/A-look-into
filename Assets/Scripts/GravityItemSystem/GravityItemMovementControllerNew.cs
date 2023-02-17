@@ -13,7 +13,7 @@ namespace Klaxon.GravitySystem
         public float walkSpeed;
         public float runSpeed;
         public float jumpHeight;
-        PlayerInput playerInput;
+        PlayerInputController playerInput;
         public bool facingRight;
         public bool isInInteractAction;
         [HideInInspector]
@@ -41,14 +41,18 @@ namespace Klaxon.GravitySystem
 
             visibilityCheck = GetComponent<DetectVisibility>();
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
-            playerInput = GetComponent<PlayerInput>();
+            playerInput = GetComponent<PlayerInputController>();
 
             yield return new WaitForSeconds(0.25f);
 
-
+            GameEventManager.onJumpEvent.AddListener(Jump);
             
             isGrounded = true;
 
+        }
+        private void OnDisable()
+        {
+            GameEventManager.onJumpEvent.RemoveListener(Jump);
         }
 
 
@@ -67,8 +71,6 @@ namespace Klaxon.GravitySystem
                     Flip();
             }
 
-            if (isGrounded && playerInput.isJumping)
-                Bounce(jumpHeight);
 
             moveSpeed = playerInput.movement.x + playerInput.movement.y;
 
@@ -94,6 +96,11 @@ namespace Klaxon.GravitySystem
 
         }
 
+        void Jump()
+        {
+            if (isGrounded && !playerInput.isInUI)
+                Bounce(jumpHeight);
+        }
 
         void TileFound(List<TileDirectionInfo> tileBlock, bool success)
         {

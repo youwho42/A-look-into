@@ -16,9 +16,16 @@ public class ContainerDisplaySlot : MonoBehaviour
     
     public bool isContainerSlot;
 
+    bool leftCtrl;
 
-    
-
+    private void Start()
+    {
+        GameEventManager.onStackTransferButtonEvent.AddListener(ToggleLeftCtrl);
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onStackTransferButtonEvent.RemoveListener(ToggleLeftCtrl);
+    }
     public void TransferItem()
     {
         if(item != null)
@@ -27,7 +34,7 @@ public class ContainerDisplaySlot : MonoBehaviour
             if (isContainerSlot)
             {
                 
-                int a = Input.GetKey(KeyCode.LeftControl) ? containerInventory.GetStock(item.Name) : 1;
+                int a = leftCtrl ? containerInventory.GetStock(item.Name) : 1;
                 
                 if(PlayerInformation.instance.playerInventory.AddItem(item, a, false))
                     containerInventory.RemoveItem(item, a);
@@ -36,7 +43,7 @@ public class ContainerDisplaySlot : MonoBehaviour
             }
             else
             {
-                int a = Input.GetKey(KeyCode.LeftControl) ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
+                int a = leftCtrl ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
                 
                 if(containerInventory.AddItem(item, a, false))
                     PlayerInformation.instance.playerInventory.RemoveItem(item, a);
@@ -65,5 +72,9 @@ public class ContainerDisplaySlot : MonoBehaviour
         icon.enabled = false;
     }
     
+    void ToggleLeftCtrl(bool active)
+    {
+        leftCtrl = active;
+    }
 
 }

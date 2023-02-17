@@ -57,25 +57,26 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         ResetMiniGame();
     }
 
-
-    private void Update()
+    void OnEnable()
     {
-        
-        if (currentSection != playerControlSections.Count && !transitioning)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreaHit.isInArea));
-            }
-        }
-        if (currentSection == playerControlSections.Count && !transitioning)
-        {
-           
-            MiniGameManager.instance.EndMiniGame(miniGameType);
-        }
-
+        GameEventManager.onMinigameMouseClickEvent.AddListener(OnMouseClick);
+    }
+    void OnDisable()
+    {
+        GameEventManager.onMinigameMouseClickEvent.RemoveListener(OnMouseClick);
     }
 
+    void OnMouseClick()
+    {
+        if (currentSection != playerControlSections.Count && !transitioning)
+            StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreaHit.isInArea));
+    }
+
+    void CheckCurrentSection()
+    {
+        if (currentSection == playerControlSections.Count)
+            MiniGameManager.instance.EndMiniGame(miniGameType);
+    }
 
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty)
     {
@@ -153,8 +154,11 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             StartCoroutine(GlowOn(material, -5));
         }
 
-         yield return new WaitForSeconds(1f);
-        
+        float wait = 0.2f;
+        if (currentSection == playerControlSections.Count)
+            wait = 1.5f;
+        yield return new WaitForSeconds(wait);
+        CheckCurrentSection();
         transitioning = false;
         yield return null;
     }
@@ -183,17 +187,12 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
    }
 
 
-    bool PlaySound(int soundSet)
+    void PlaySound(int soundSet)
     {
-        if (!source.isPlaying)
-        {
-            int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
-            soundSets[soundSet].SetSource(source, t);
-            soundSets[soundSet].Play(AudioTrack.Effects);
+        int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
+        soundSets[soundSet].SetSource(source, t);
+        soundSets[soundSet].Play(AudioTrack.Effects);
 
-            return true;
-        }
-        return false;
     }
 
 

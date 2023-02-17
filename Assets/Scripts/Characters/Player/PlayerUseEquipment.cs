@@ -5,46 +5,42 @@ using UnityEngine;
 public class PlayerUseEquipment : MonoBehaviour
 {
     EquipmentManager equipmentManager;
-    PlayerInput playerInput;
+    
     public Animator animator;
     private void Start()
     {
         equipmentManager = EquipmentManager.instance;
-        playerInput = GetComponent<PlayerInput>();
+        
+        GameEventManager.onUseEquipmentEvent.AddListener(UseEquipment);
     }
 
-
-    private void Update()
+    private void OnDisable()
     {
-        if (!PlayerInformation.instance.uiScreenVisible)
+        GameEventManager.onUseEquipmentEvent.RemoveListener(UseEquipment);
+    }
+
+    
+
+    void UseEquipment()
+    {
+        if (PlayerInformation.instance.uiScreenVisible || equipmentManager.currentEquipment[(int)EquipmentSlot.Hands] == null)
+            return;
+
+        if (equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName == "Spyglass")
         {
-            if (playerInput.usingEquippedItem && equipmentManager.currentEquipment[(int)EquipmentSlot.Hands] != null)
-            {
-                if (equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName == "Spyglass")
-                {
-                    
-                    if (!PlayerInformation.instance.uiScreenVisible)
-                    {
-                        if (UIScreenManager.instance.CurrentUIScreen() != UIScreenType.PlayerUI)
-                            return;
-                        animator.SetBool("UseEquipement", true);
-                        equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
-                       
-                    }
-                    
-                    
-                }
-                else
-                {
-                    animator.SetBool("UseEquipement", false);
-                    animator.SetTrigger("Swing_" + equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName);
-                    equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
-                    
-                }
-                
-                
-                
-            }
+            if (PlayerInformation.instance.playerActivateSpyglass.selectedAnimal == null)
+                return;
+            animator.SetBool("UseEquipement", true);
+            equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
+            
         }
+        else
+        {
+            animator.SetBool("UseEquipement", false);
+            animator.SetTrigger("Swing_" + equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName);
+            equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
+
+        }
+
     }
 }

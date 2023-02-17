@@ -21,6 +21,7 @@ public class LoadSelectionUI : MonoBehaviour
 
     List<LoadableSaveButton> loadableSaveButtons = new List<LoadableSaveButton>();
     public Button loadButton;
+    public Button deleteButton;
 
     public GameObject deleteWarning;
     string fileDeletePath;
@@ -42,7 +43,7 @@ public class LoadSelectionUI : MonoBehaviour
     {
         HideDeleteWarning();
         SetAvailableLoads();
-        RefreshLoadButtonValid();
+        RefreshButtonsValid();
     }
     
     public void LoadGameFile()
@@ -79,23 +80,29 @@ public class LoadSelectionUI : MonoBehaviour
             return;
         }
     }
-    public void RefreshLoadButtonValid()
+    public void RefreshButtonsValid()
     {
         if (currentLoadFileName == "")
+        {
             loadButton.interactable = false;
+            deleteButton.interactable = false;
+        }
         else
+        {
             loadButton.interactable = true;
+            deleteButton.interactable = true;
+        }
     }
     public void SetCurrenLoadFileName(string name)
     {
         currentLoadFileName = name;
-        RefreshLoadButtonValid();
+        RefreshButtonsValid();
     }
 
     public void ClearCurrentLoadFileName()
     {
         currentLoadFileName = "";
-        RefreshLoadButtonValid();
+        RefreshButtonsValid();
     }
 
     public void ClearLoadableSavesButtons()
@@ -106,6 +113,13 @@ public class LoadSelectionUI : MonoBehaviour
         }
         loadableSaveButtons.Clear();
         HideDeleteWarning();
+    }
+    public void DeleteSave()
+    {
+        if (warningActive)
+            return;
+        string path = $"{Application.persistentDataPath}/{currentLoadFileName}_save.ali";
+        DisplayDeleteWarning(path);
     }
 
     public void DisplayDeleteWarning(string path = "")

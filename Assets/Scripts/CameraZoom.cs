@@ -19,10 +19,16 @@ public class CameraZoom : MonoBehaviour
 	{
 		brain = Camera.main.GetComponent<CinemachineBrain>();
 		SetCamera();
+		GameEventManager.onMouseScrollEvent.AddListener(SetZoom);
 	}
-	private void Update()
+    private void OnDisable()
+    {
+        GameEventManager.onMouseScrollEvent.RemoveListener(SetZoom);
+    }
+
+    private void Update()
 	{
-        SetZoom();
+        //SetZoom();
 
 		if (resetWithTimer)
 		{
@@ -37,14 +43,14 @@ public class CameraZoom : MonoBehaviour
         }
 	}
 
-	void SetZoom()
+	void SetZoom(float dir)
     {
 		if (PlayerInformation.instance.uiScreenVisible)
 			return;
 		SetCamera();
-		if (Input.mouseScrollDelta.y > 0)
+		if (dir > 0)
 			Zoom(-zoomValue);
-		else if (Input.mouseScrollDelta.y < 0)
+		else if (dir < 0)
 			Zoom(zoomValue);
 	}
 	private void Zoom(float value)

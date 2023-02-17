@@ -20,6 +20,8 @@ public enum UIScreenType
     PlayerSelect, 
     DialogueDisplayScreen,
     Undertakings,
-    LoadFileScreen
+    LoadFileScreen,
+    ControlsScreen,
+    AudioScreen
    
 }

@@ -50,7 +50,29 @@ public static class GameEventManager
     public static readonly GameEvent onGameSavedEvent = new GameEvent();
 
     /// <summary>
-    /// Game Started New or Load or Save
+    /// Volume Changed
     /// </summary>
     public static readonly GameEvent onVolumeChangedEvent = new GameEvent();
+
+    /// <summary>
+    /// Scroll wheel scrolled
+    /// </summary>
+    public static readonly GameEvent<float> onMouseScrollEvent = new GameEvent<float>();
+
+    /// <summary>
+    /// UI interactions
+    /// </summary>
+    public static readonly GameEvent onMinigameMouseClickEvent = new GameEvent();
+    public static readonly GameEvent onMenuDisplayEvent = new GameEvent();
+    public static readonly GameEvent onMapDisplayEvent = new GameEvent();
+    public static readonly GameEvent<bool> onStackTransferButtonEvent = new GameEvent<bool>();
+
+    /// <summary>
+    /// Player Controls
+    /// </summary>
+    public static readonly GameEvent onJumpEvent = new GameEvent();
+    public static readonly GameEvent onUseEquipmentEvent = new GameEvent();
+    public static readonly GameEvent<bool> onSpyglassAimEvent = new GameEvent<bool>();
+    public static readonly GameEvent<int> onSpyglassAimChageSelectedEvent = new GameEvent<int>();
+
 }

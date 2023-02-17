@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using Klaxon.GravitySystem;
+using UnityEngine.InputSystem;
 
 public class InteractWithInteractable : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class InteractWithInteractable : MonoBehaviour
 
     Vector3 canvasOffset;
     public GravityItemMovementControllerNew playermovement;
-    
+
 
     private void Update()
     {
@@ -42,8 +43,6 @@ public class InteractWithInteractable : MonoBehaviour
         }
 
         DisplayUI();
-        GetInput();
-
     }
 
     void DisplayUI()
@@ -72,15 +71,13 @@ public class InteractWithInteractable : MonoBehaviour
         }
     }
 
-    public void GetInput()
+    public void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.E) && currentInteractables.Count > 0)
+        if (currentInteractables.Count > 0)
         {
-            if (GetNearestInteractable(currentInteractables).canInteract)
-            {
-                GetNearestInteractable(currentInteractables).Interact(gameObject);
-                
-            }
+            var interactable = GetNearestInteractable(currentInteractables);
+            if (interactable.canInteract)
+                interactable.Interact(gameObject);
         }
     }
 

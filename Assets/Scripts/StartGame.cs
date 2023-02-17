@@ -14,7 +14,7 @@ public class StartGame : MonoBehaviour
     public SpriteRenderer shadow;
     public Transform introPosition, startPosition;
     public PlayableDirector director;
-    PlayerInput input;
+    PlayerInputController input;
     Material material;
     
 
@@ -26,7 +26,7 @@ public class StartGame : MonoBehaviour
     public string conversation;
     private void Start()
     {
-        input = player.GetComponent<PlayerInput>();
+        input = player.GetComponent<PlayerInputController>();
         material = player.GetComponentInChildren<SpriteRenderer>().material;
         material.SetFloat("_Fade", 0);
         

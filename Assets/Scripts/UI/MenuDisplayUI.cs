@@ -11,33 +11,76 @@ public class MenuDisplayUI : MonoBehaviour
     public Color idleColor;
     public Button map, inventory, compendium, undertakings;
 
-    private void Update()
+    private void Start()
+    {
+        GameEventManager.onMenuDisplayEvent.AddListener(DisplayMenuUI);
+        GameEventManager.onMapDisplayEvent.AddListener(DisplayMapUI);
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onMenuDisplayEvent.RemoveListener(DisplayMenuUI);
+        GameEventManager.onMapDisplayEvent.RemoveListener(DisplayMapUI);
+    }
+    //private void Update()
+    //{
+    //    if (MiniGameManager.instance.gameStarted)
+    //        return;
+
+    //    if (!inMenu)
+    //    {
+    //        if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
+    //            return;
+    //        if (Input.GetKeyDown(KeyCode.Tab))
+    //        {
+    //            SetInventoryUI();
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.C))
+    //        {
+    //            SetCompendiumUI();
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.M))
+    //        {
+    //            SetMapUI();
+    //        }
+    //    } 
+    //    else
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.M))
+    //            HideAllMenuUI();
+    //    }
+    //}
+
+    void DisplayMenuUI()
     {
         if (MiniGameManager.instance.gameStarted)
             return;
-
         if (!inMenu)
         {
             if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
                 return;
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                SetInventoryUI();
-            }
-            else if (Input.GetKeyDown(KeyCode.C))
-            {
-                SetCompendiumUI();
-            }
-            else if (Input.GetKeyDown(KeyCode.M))
-            {
-                SetMapUI();
-            }
-        } 
+            SetInventoryUI();
+        }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.M))
                 HideAllMenuUI();
         }
+
+    }
+    void DisplayMapUI()
+    {
+        if (MiniGameManager.instance.gameStarted)
+            return;
+        if (!inMenu)
+        {
+            if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
+                return;
+            SetMapUI();
+        }
+        else
+        {
+            HideAllMenuUI();
+        }
+
     }
 
     public void SetMapUI()

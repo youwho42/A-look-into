@@ -27,13 +27,13 @@ public class LoadableSaveButton : MonoBehaviour
         loadFileName = "";
     }
 
-    public void DeleteSave()
-    {
-        if (LoadSelectionUI.instance.warningActive)
-            return;
-        string path = $"{Application.persistentDataPath}/{loadFileName}_save.ali";
-        LoadSelectionUI.instance.DisplayDeleteWarning(path);
-    }
+    //public void DeleteSave()
+    //{
+    //    if (LoadSelectionUI.instance.warningActive)
+    //        return;
+    //    string path = $"{Application.persistentDataPath}/{loadFileName}_save.ali";
+    //    LoadSelectionUI.instance.DisplayDeleteWarning(path);
+    //}
 
     
     

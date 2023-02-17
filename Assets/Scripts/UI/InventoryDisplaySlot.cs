@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.InputSystem;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {
@@ -172,12 +172,13 @@ public class InventoryDisplaySlot : MonoBehaviour
    
     Vector3 GetMousePosition()
     {
-        Vector3 movePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 movePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         movePos.z = PlayerInformation.instance.player.position.z;
         
 
         return movePos;
     }
+
 
     public void ClearSlot()
     {

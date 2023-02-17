@@ -14,7 +14,7 @@ public class IntroCutsceneManager : MonoBehaviour
     public TextMeshProUGUI message;
     public QD_DialogueHandler handler;
     bool ended;
-    bool canSkip;
+    //bool canSkip;
     private void Start()
     {
         GameEventManager.onNewGameStartedEvent.AddListener(PlayCutscene);
@@ -28,14 +28,14 @@ public class IntroCutsceneManager : MonoBehaviour
         GameEventManager.onNewGameStartedEvent.RemoveListener(PlayCutscene);
         GameEventManager.onGameLoadedEvent.RemoveListener(SetChicken);
     }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Space) && canSkip)
-        {
-            introCutsceneDirector.time = introCutsceneDirector.duration - 0.1f;
-            message.text = "";
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyUp(KeyCode.Space) && canSkip)
+    //    {
+    //        introCutsceneDirector.time = introCutsceneDirector.duration - 0.1f;
+    //        message.text = "";
+    //    }
+    //}
     public void PlayCutscene()
     {
         introCutsceneDirector.Play();
@@ -61,10 +61,10 @@ public class IntroCutsceneManager : MonoBehaviour
         chickenDirector.Play();
     }
     
-    public void SetCanSkip()
-    {
-        canSkip = true;
-    }
+    //public void SetCanSkip()
+    //{
+    //    canSkip = true;
+    //}
 
     public void SetFirstQuest()
     {

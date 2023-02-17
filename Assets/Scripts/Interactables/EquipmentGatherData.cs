@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/Equipment Item/GathererItem", fileName = "New Gatherer Item")]
 public class EquipmentGatherData : EquipmentData
@@ -27,8 +28,10 @@ public class EquipmentGatherData : EquipmentData
         if(this.AnimationName == "Spyglass")
         {
            
-            var mouse = Input.mousePosition;
-            pos = Camera.main.ScreenToWorldPoint(mouse);
+            //var mouse = Mouse.current.position.ReadValue();
+            //pos = Camera.main.ScreenToWorldPoint(mouse);
+            pos = PlayerInformation.instance.playerActivateSpyglass.GetSelectedAnimalPosition();
+            
             if (Mathf.Sign(pos.x - PlayerInformation.instance.player.position.x) < 0 && PlayerInformation.instance.playerController.facingRight || 
                 Mathf.Sign(pos.x - PlayerInformation.instance.player.position.x) > 0 && !PlayerInformation.instance.playerController.facingRight)
                 PlayerInformation.instance.playerController.Flip();
@@ -38,7 +41,7 @@ public class EquipmentGatherData : EquipmentData
         {
             pos = PlayerInformation.instance.player.position;
         }
-        Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, gathererLayer); ;
+        Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, gathererLayer);
         if (hit.Length > 0)
         {
             GetNearestItem(hit);
@@ -144,6 +147,7 @@ public class EquipmentGatherData : EquipmentData
                                 none = false;
                                 if (InteractCostReward())
                                 {
+                                    PlayerInformation.instance.playerActivateSpyglass.SlowTimeEvent(false);
                                     nearestItemList.hasBeenHarvested = true;
                                     PlayerInformation.instance.uiScreenVisible = true;
                                     MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);

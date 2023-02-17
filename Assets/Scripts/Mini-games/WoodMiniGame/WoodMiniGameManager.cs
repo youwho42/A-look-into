@@ -43,39 +43,49 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public List<DificultyArea> dificultyAreas = new List<DificultyArea>();
     MiniGameDificulty currentDificulty;
     GameObject currentGameObject;
-    bool minigameIsAcive;
+    bool minigameIsActive;
 
     private void Start() 
     {
+        
         source = GetComponent<AudioSource>();
         material = balls[0].ballSprite.material;
         initialIntensity = material.GetColor("_EmissionColor");
        
         ResetMiniGame();
     }
-
-    private void Update()
+    void OnEnable()
     {
-        if (minigameIsAcive)
-        {
-            if (currentAttempts != maxAttempts && !transitioning)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    PlayerInformation.instance.playerAnimator.SetTrigger("Swing_Axe");
-                    StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
-                }
-            }
-            if (currentAttempts == maxAttempts && !transitioning)
-            {
-                //Destroy(currentGameObject);
-                //currentGameObject = null;
-                MiniGameManager.instance.EndMiniGame(miniGameType);
-            }
-        }
-        
+        GameEventManager.onMinigameMouseClickEvent.AddListener(OnMouseClick);
+    }
+    void OnDisable()
+    {
+        GameEventManager.onMinigameMouseClickEvent.RemoveListener(OnMouseClick);
+
     }
 
+
+    void OnMouseClick()
+    {
+        if (!minigameIsActive)
+            return;
+
+
+        if (currentAttempts != maxAttempts && !transitioning)
+        {
+            PlayerInformation.instance.playerAnimator.SetTrigger("Swing_Axe");
+            StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
+        }
+    }
+    void CheckCurrentAttempts()
+    {
+        if (currentAttempts == maxAttempts)
+        {
+            //Destroy(currentGameObject);
+            //currentGameObject = null;
+            MiniGameManager.instance.EndMiniGame(miniGameType);
+        }
+    }
     IEnumerator GlowOn(int amount)
     {
         float elapsedTime = 0;
@@ -129,7 +139,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             currentAttempts++;
             SetDificulty(currentDificulty);
         }
-        if(currentAttemptHits == attemptSteps)
+        CheckCurrentAttempts();
+        if (currentAttemptHits == attemptSteps)
         {
             
             currentAttemptHits = 0;
@@ -167,7 +178,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         currentGameObject = gameObject;
         this.item = item;
         SetDificulty(gameDificulty);
-        minigameIsAcive = true;
+        minigameIsActive = true;
         ResetBalls(0);
     }
     void SetDificulty(MiniGameDificulty dificulty)
@@ -207,7 +218,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
     public void ResetMiniGame()
     {
-        minigameIsAcive = false;
+        minigameIsActive = false;
         currentAttemptHits = 0;
         currentAttempts = 0;
         currentIndex = 0;
