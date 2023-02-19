@@ -63,9 +63,13 @@ public static class GameEventManager
     /// UI interactions
     /// </summary>
     public static readonly GameEvent onMinigameMouseClickEvent = new GameEvent();
+    public static readonly GameEvent onMenuToggleEvent = new GameEvent();
     public static readonly GameEvent onMenuDisplayEvent = new GameEvent();
+    public static readonly GameEvent onMenuHideEvent = new GameEvent();
     public static readonly GameEvent onMapDisplayEvent = new GameEvent();
     public static readonly GameEvent<bool> onStackTransferButtonEvent = new GameEvent<bool>();
+    public static readonly GameEvent<int> onGamepadBumpersButtonEvent = new GameEvent<int>();
+    public static readonly GameEvent<int> onGamepadTriggersButtonEvent = new GameEvent<int>();
 
     /// <summary>
     /// Player Controls

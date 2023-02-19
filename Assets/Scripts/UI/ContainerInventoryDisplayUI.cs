@@ -1,6 +1,7 @@
 ﻿using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     public GameObject containerSlotHolder;
     public GameObject playerSlotHolder;
     public GameObject containerSlot;
+    public TextMeshProUGUI containerName;
+    public TextMeshProUGUI playerName;
     QI_Inventory containerInventory;
     //PlayerInformation playerInformation;
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
@@ -34,6 +37,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         containerInventory = container;
+        containerName.text = container.Name;
+        playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         SetContainerUI();
         //containerDisplayUI.SetActive(true);
 

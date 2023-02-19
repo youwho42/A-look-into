@@ -13,43 +13,31 @@ public class MenuDisplayUI : MonoBehaviour
 
     private void Start()
     {
+        GameEventManager.onMenuToggleEvent.AddListener(ToggleDisplayUI);
         GameEventManager.onMenuDisplayEvent.AddListener(DisplayMenuUI);
+        GameEventManager.onMenuHideEvent.AddListener(HideAllMenuUI);
         GameEventManager.onMapDisplayEvent.AddListener(DisplayMapUI);
+        GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
+        maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
     }
     private void OnDisable()
     {
+        GameEventManager.onMenuToggleEvent.RemoveListener(ToggleDisplayUI);
         GameEventManager.onMenuDisplayEvent.RemoveListener(DisplayMenuUI);
+        GameEventManager.onMenuHideEvent.RemoveListener(HideAllMenuUI);
         GameEventManager.onMapDisplayEvent.RemoveListener(DisplayMapUI);
+        GameEventManager.onGamepadBumpersButtonEvent.RemoveListener(ChangeUI);
     }
-    //private void Update()
-    //{
-    //    if (MiniGameManager.instance.gameStarted)
-    //        return;
-
-    //    if (!inMenu)
-    //    {
-    //        if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
-    //            return;
-    //        if (Input.GetKeyDown(KeyCode.Tab))
-    //        {
-    //            SetInventoryUI();
-    //        }
-    //        else if (Input.GetKeyDown(KeyCode.C))
-    //        {
-    //            SetCompendiumUI();
-    //        }
-    //        else if (Input.GetKeyDown(KeyCode.M))
-    //        {
-    //            SetMapUI();
-    //        }
-    //    } 
-    //    else
-    //    {
-    //        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.M))
-    //            HideAllMenuUI();
-    //    }
-    //}
-
+    enum MenuButtons
+    {
+        Map,
+        Compendium,
+        Inventory, 
+        Undertakings
+    }
+    MenuButtons currentButton;
+    int currentButtonIndex;
+    int maxButtons;
     void DisplayMenuUI()
     {
         if (MiniGameManager.instance.gameStarted)
@@ -58,13 +46,11 @@ public class MenuDisplayUI : MonoBehaviour
         {
             if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
                 return;
+            GameEventManager.onInventoryUpdateEvent.Invoke();
             SetInventoryUI();
+            
         }
-        else
-        {
-                HideAllMenuUI();
-        }
-
+        
     }
     void DisplayMapUI()
     {
@@ -76,11 +62,42 @@ public class MenuDisplayUI : MonoBehaviour
                 return;
             SetMapUI();
         }
+    }
+    void ToggleDisplayUI()
+    {
+        if (!inMenu)
+            DisplayMenuUI();
         else
-        {
             HideAllMenuUI();
-        }
+    }
+    void ChangeUI(int dir)
+    {
+        if (!inMenu)
+            return;
 
+        currentButtonIndex += dir;
+
+        if (currentButtonIndex > maxButtons - 1)
+            currentButtonIndex = 0;
+        else if(currentButtonIndex<0)
+            currentButtonIndex = maxButtons - 1;
+        currentButton = (MenuButtons)currentButtonIndex;
+
+        switch (currentButton)
+        {
+            case MenuButtons.Map:
+                SetMapUI();
+                break;
+            case MenuButtons.Inventory:
+                SetInventoryUI();
+                break;
+            case MenuButtons.Compendium:
+                SetCompendiumUI();
+                break;
+            case MenuButtons.Undertakings:
+                SetUndertakingsUI();
+                break;
+        }
     }
 
     public void SetMapUI()
@@ -94,6 +111,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
         SetButtonSelectedColor(undertakings, false);
+        currentButtonIndex = (int)MenuButtons.Map;
         inMenu = true;
     }
     public void SetCompendiumUI()
@@ -107,6 +125,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, true);
         SetButtonSelectedColor(undertakings, false);
+        currentButtonIndex = (int)MenuButtons.Compendium;
         inMenu = true;
     }
     public void SetInventoryUI()
@@ -120,6 +139,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(inventory, true);
         SetButtonSelectedColor(compendium, false);
         SetButtonSelectedColor(undertakings, false);
+        currentButtonIndex = (int)MenuButtons.Inventory;
         inMenu = true;
     }
     public void SetUndertakingsUI()
@@ -133,10 +153,13 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
         SetButtonSelectedColor(undertakings, true);
+        currentButtonIndex = (int)MenuButtons.Undertakings;
         inMenu = true;
     }
     void HideAllMenuUI()
     {
+        if (!inMenu)
+            return;
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         PlayerInformation.instance.TogglePlayerInput(true);
         PlayerInformation.instance.uiScreenVisible = false;
@@ -145,6 +168,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(compendium, false);
         SetButtonSelectedColor(undertakings, false);
         inMenu = false;
+        
     }
 
     void SetButtonSelectedColor(Button butt, bool selected)

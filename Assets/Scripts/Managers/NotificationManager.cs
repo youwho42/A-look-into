@@ -27,6 +27,7 @@ public class NotificationManager : MonoBehaviour
         Inventory,
         Warning,
         Undertaking,
+        Agency,
         None
     }
     [Serializable]

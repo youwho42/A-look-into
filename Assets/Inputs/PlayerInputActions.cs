@@ -91,9 +91,27 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Menu"",
+                    ""name"": ""MenuToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb31f87a-c25e-4ab8-9432-6e62cb393880"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuOpen"",
                     ""type"": ""Button"",
                     ""id"": ""e9f338b3-647f-415a-9686-8416ca410939"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuClose"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5e17c12-72c8-4fc9-9791-e1b6106ea7f1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -131,6 +149,24 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""83ef829f-28d1-4c88-9e44-0d217c8ef22e"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayerMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""33636231-aeef-44d0-ac55-d5dfca68abcf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CompendiumMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""2361f2ab-3e72-4a40-8259-ed9928bbadae"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -381,23 +417,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a0cb4b57-2417-4442-a005-9b3c108b7dda"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Menu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""4aeb974d-02b2-4d02-be17-a49965eb8df0"",
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Menu"",
+                    ""action"": ""MenuOpen"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -532,6 +557,94 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""SpyglassChangeSelected"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Bumpers"",
+                    ""id"": ""033a2a17-6edf-4160-86fa-f9f84ff96e34"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerMenu"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""eb2802ee-c6c7-43b4-85ec-80a221b34f10"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PlayerMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""485bb7b2-3fed-4bd8-9a22-6eb95a100545"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PlayerMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Triggers"",
+                    ""id"": ""0daa5941-7fbb-4242-9736-ef83395fff26"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CompendiumMenu"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""de9f928a-62c7-4ab0-b75f-1da832fc5fd0"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CompendiumMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""184766c8-3b3f-458f-addb-93f439edf865"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""CompendiumMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c9f820c-d945-48c2-a40d-186ee2621368"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MenuClose"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7af9141-57fe-47a9-b740-67e500e4d48e"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MenuToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1124,11 +1237,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_UseEquipement = m_Player.FindAction("UseEquipement", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_CameraZoom = m_Player.FindAction("CameraZoom", throwIfNotFound: true);
-        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_MenuToggle = m_Player.FindAction("MenuToggle", throwIfNotFound: true);
+        m_Player_MenuOpen = m_Player.FindAction("MenuOpen", throwIfNotFound: true);
+        m_Player_MenuClose = m_Player.FindAction("MenuClose", throwIfNotFound: true);
         m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
         m_Player_StackTransfer = m_Player.FindAction("StackTransfer", throwIfNotFound: true);
         m_Player_SpyglassAim = m_Player.FindAction("SpyglassAim", throwIfNotFound: true);
         m_Player_SpyglassChangeSelected = m_Player.FindAction("SpyglassChangeSelected", throwIfNotFound: true);
+        m_Player_PlayerMenu = m_Player.FindAction("PlayerMenu", throwIfNotFound: true);
+        m_Player_CompendiumMenu = m_Player.FindAction("CompendiumMenu", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1207,11 +1324,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseEquipement;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_CameraZoom;
-    private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_MenuToggle;
+    private readonly InputAction m_Player_MenuOpen;
+    private readonly InputAction m_Player_MenuClose;
     private readonly InputAction m_Player_Map;
     private readonly InputAction m_Player_StackTransfer;
     private readonly InputAction m_Player_SpyglassAim;
     private readonly InputAction m_Player_SpyglassChangeSelected;
+    private readonly InputAction m_Player_PlayerMenu;
+    private readonly InputAction m_Player_CompendiumMenu;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1223,11 +1344,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @UseEquipement => m_Wrapper.m_Player_UseEquipement;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @CameraZoom => m_Wrapper.m_Player_CameraZoom;
-        public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        public InputAction @MenuToggle => m_Wrapper.m_Player_MenuToggle;
+        public InputAction @MenuOpen => m_Wrapper.m_Player_MenuOpen;
+        public InputAction @MenuClose => m_Wrapper.m_Player_MenuClose;
         public InputAction @Map => m_Wrapper.m_Player_Map;
         public InputAction @StackTransfer => m_Wrapper.m_Player_StackTransfer;
         public InputAction @SpyglassAim => m_Wrapper.m_Player_SpyglassAim;
         public InputAction @SpyglassChangeSelected => m_Wrapper.m_Player_SpyglassChangeSelected;
+        public InputAction @PlayerMenu => m_Wrapper.m_Player_PlayerMenu;
+        public InputAction @CompendiumMenu => m_Wrapper.m_Player_CompendiumMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1258,9 +1383,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @CameraZoom.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraZoom;
                 @CameraZoom.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraZoom;
                 @CameraZoom.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraZoom;
-                @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
-                @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @MenuToggle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuToggle;
+                @MenuToggle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuToggle;
+                @MenuToggle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuToggle;
+                @MenuOpen.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpen;
+                @MenuOpen.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpen;
+                @MenuOpen.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpen;
+                @MenuClose.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuClose;
+                @MenuClose.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuClose;
+                @MenuClose.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuClose;
                 @Map.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMap;
                 @Map.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMap;
                 @Map.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMap;
@@ -1273,6 +1404,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SpyglassChangeSelected.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpyglassChangeSelected;
                 @SpyglassChangeSelected.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpyglassChangeSelected;
                 @SpyglassChangeSelected.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpyglassChangeSelected;
+                @PlayerMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerMenu;
+                @PlayerMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerMenu;
+                @PlayerMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlayerMenu;
+                @CompendiumMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCompendiumMenu;
+                @CompendiumMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCompendiumMenu;
+                @CompendiumMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCompendiumMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1298,9 +1435,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @CameraZoom.started += instance.OnCameraZoom;
                 @CameraZoom.performed += instance.OnCameraZoom;
                 @CameraZoom.canceled += instance.OnCameraZoom;
-                @Menu.started += instance.OnMenu;
-                @Menu.performed += instance.OnMenu;
-                @Menu.canceled += instance.OnMenu;
+                @MenuToggle.started += instance.OnMenuToggle;
+                @MenuToggle.performed += instance.OnMenuToggle;
+                @MenuToggle.canceled += instance.OnMenuToggle;
+                @MenuOpen.started += instance.OnMenuOpen;
+                @MenuOpen.performed += instance.OnMenuOpen;
+                @MenuOpen.canceled += instance.OnMenuOpen;
+                @MenuClose.started += instance.OnMenuClose;
+                @MenuClose.performed += instance.OnMenuClose;
+                @MenuClose.canceled += instance.OnMenuClose;
                 @Map.started += instance.OnMap;
                 @Map.performed += instance.OnMap;
                 @Map.canceled += instance.OnMap;
@@ -1313,6 +1456,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SpyglassChangeSelected.started += instance.OnSpyglassChangeSelected;
                 @SpyglassChangeSelected.performed += instance.OnSpyglassChangeSelected;
                 @SpyglassChangeSelected.canceled += instance.OnSpyglassChangeSelected;
+                @PlayerMenu.started += instance.OnPlayerMenu;
+                @PlayerMenu.performed += instance.OnPlayerMenu;
+                @PlayerMenu.canceled += instance.OnPlayerMenu;
+                @CompendiumMenu.started += instance.OnCompendiumMenu;
+                @CompendiumMenu.performed += instance.OnCompendiumMenu;
+                @CompendiumMenu.canceled += instance.OnCompendiumMenu;
             }
         }
     }
@@ -1476,11 +1625,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnUseEquipement(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCameraZoom(InputAction.CallbackContext context);
-        void OnMenu(InputAction.CallbackContext context);
+        void OnMenuToggle(InputAction.CallbackContext context);
+        void OnMenuOpen(InputAction.CallbackContext context);
+        void OnMenuClose(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
         void OnStackTransfer(InputAction.CallbackContext context);
         void OnSpyglassAim(InputAction.CallbackContext context);
         void OnSpyglassChangeSelected(InputAction.CallbackContext context);
+        void OnPlayerMenu(InputAction.CallbackContext context);
+        void OnCompendiumMenu(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -29,11 +29,15 @@ public class PlayerInputController : MonoBehaviour
     InputAction useEquipement;
     InputAction interact;
     InputAction cameraZoom;
-    InputAction menu;
+    InputAction menuToggle;
+    InputAction menuOpen;
+    InputAction menuClose;
     InputAction map;
     InputAction stackTransfer;
     InputAction spyglassAim;
     InputAction spyglassChangeSelected;
+    InputAction playerMenuBumper;
+    InputAction compendiumMenuTrigger;
     PlayerInputActions inputActions;
     
     private void Awake()
@@ -76,9 +80,17 @@ public class PlayerInputController : MonoBehaviour
         cameraZoom.Enable();
         cameraZoom.performed += x => scrollY = x.ReadValue<float>();
 
-        menu = inputActions.Player.Menu;
-        menu.Enable();
-        menu.performed += MenuAction;
+        menuToggle = inputActions.Player.MenuToggle;
+        menuToggle.Enable();
+        menuToggle.canceled += MenuToggleAction;
+
+        menuOpen = inputActions.Player.MenuOpen;
+        menuOpen.Enable();
+        menuOpen.performed += MenuOpenAction;
+
+        menuClose = inputActions.Player.MenuClose;
+        menuClose.Enable();
+        menuClose.performed += MenuCloseAction;
 
         map = inputActions.Player.Map;
         map.Enable();
@@ -97,6 +109,14 @@ public class PlayerInputController : MonoBehaviour
         spyglassChangeSelected = inputActions.Player.SpyglassChangeSelected;
         spyglassChangeSelected.Enable();
         spyglassChangeSelected.performed += SpyglassChangeSelected;
+
+        playerMenuBumper = inputActions.Player.PlayerMenu;
+        playerMenuBumper.Enable();
+        playerMenuBumper.performed += GamepadBumperAction;
+
+        compendiumMenuTrigger = inputActions.Player.CompendiumMenu;
+        compendiumMenuTrigger.Enable();
+        compendiumMenuTrigger.performed += GamepadTriggerAction;
     }
     private void OnDisable()
     {
@@ -107,10 +127,14 @@ public class PlayerInputController : MonoBehaviour
         useEquipement.Disable();
         interact.Disable();
         cameraZoom.Disable();
-        menu.Disable();
+        menuToggle.Disable();
+        menuOpen.Disable();
+        menuClose.Disable();
         map.Disable();
         spyglassAim.Disable();
         spyglassChangeSelected.Disable();
+        playerMenuBumper.Disable();
+        compendiumMenuTrigger.Disable();
     }
 
     void Update()
@@ -168,11 +192,16 @@ public class PlayerInputController : MonoBehaviour
         interactable.Interact();
     }
 
-    public void MenuAction(InputAction.CallbackContext context) => GameEventManager.onMenuDisplayEvent.Invoke();
+    public void MenuToggleAction(InputAction.CallbackContext context) => GameEventManager.onMenuToggleEvent.Invoke();
+    public void MenuOpenAction(InputAction.CallbackContext context) => GameEventManager.onMenuDisplayEvent.Invoke();
+    public void MenuCloseAction(InputAction.CallbackContext context) => GameEventManager.onMenuHideEvent.Invoke();
     public void MapAction(InputAction.CallbackContext context) => GameEventManager.onMapDisplayEvent.Invoke();
     public void SpyglassAimOnAction(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimEvent.Invoke(true);
     public void SpyglassAimOffAction(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimEvent.Invoke(false);
     public void SpyglassChangeSelected(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimChageSelectedEvent.Invoke((int)spyglassChangeSelected.ReadValue<float>());
     public void StackTransferOnAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferButtonEvent.Invoke(true);
     public void StackTransferOffAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferButtonEvent.Invoke(false);
+    public void GamepadBumperAction(InputAction.CallbackContext context) => GameEventManager.onGamepadBumpersButtonEvent.Invoke((int)playerMenuBumper.ReadValue<float>());
+    public void GamepadTriggerAction(InputAction.CallbackContext context) => GameEventManager.onGamepadTriggersButtonEvent.Invoke(Mathf.RoundToInt(compendiumMenuTrigger.ReadValue<float>()));
+
 }

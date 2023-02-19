@@ -69,9 +69,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Menu",
+                    "name": "MenuToggle",
+                    "type": "Button",
+                    "id": "eb31f87a-c25e-4ab8-9432-6e62cb393880",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MenuOpen",
                     "type": "Button",
                     "id": "e9f338b3-647f-415a-9686-8416ca410939",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MenuClose",
+                    "type": "Button",
+                    "id": "f5e17c12-72c8-4fc9-9791-e1b6106ea7f1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -109,6 +127,24 @@
                     "type": "PassThrough",
                     "id": "83ef829f-28d1-4c88-9e44-0d217c8ef22e",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlayerMenu",
+                    "type": "Button",
+                    "id": "33636231-aeef-44d0-ac55-d5dfca68abcf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CompendiumMenu",
+                    "type": "Button",
+                    "id": "2361f2ab-3e72-4a40-8259-ed9928bbadae",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -359,23 +395,12 @@
                 },
                 {
                     "name": "",
-                    "id": "a0cb4b57-2417-4442-a005-9b3c108b7dda",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4aeb974d-02b2-4d02-be17-a49965eb8df0",
                     "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Menu",
+                    "action": "MenuOpen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -510,6 +535,94 @@
                     "action": "SpyglassChangeSelected",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "Bumpers",
+                    "id": "033a2a17-6edf-4160-86fa-f9f84ff96e34",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerMenu",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "eb2802ee-c6c7-43b4-85ec-80a221b34f10",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PlayerMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "485bb7b2-3fed-4bd8-9a22-6eb95a100545",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PlayerMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Triggers",
+                    "id": "0daa5941-7fbb-4242-9736-ef83395fff26",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CompendiumMenu",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "de9f928a-62c7-4ab0-b75f-1da832fc5fd0",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CompendiumMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "184766c8-3b3f-458f-addb-93f439edf865",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CompendiumMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1c9f820c-d945-48c2-a40d-186ee2621368",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MenuClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7af9141-57fe-47a9-b740-67e500e4d48e",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MenuToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

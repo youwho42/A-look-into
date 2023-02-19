@@ -4,6 +4,7 @@ using QuantumTek.QuantumInventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class InventoryDisplay : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class InventoryDisplay : MonoBehaviour
     public GameObject equipmentUI;
     public GameObject inventorySlot;
     public GameObject equipmentSlot;
+    public TextMeshProUGUI playerName;
+
     public List<InventoryDisplaySlot> inventorySlots = new List<InventoryDisplaySlot>();
     public List<ISlot> equipmentSlots = new List<ISlot>();
 
@@ -46,10 +49,12 @@ public class InventoryDisplay : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateInventoryUI);
+        
         UpdateInventoryUI();
         mainUI.SetActive(false);
         mainUI.transform.position -= offset;
     }
+    
     private void OnDestroy()
     {
         GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
@@ -59,8 +64,8 @@ public class InventoryDisplay : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
-
-        
+        playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
+        //mainUI.GetComponent<SetButtonSelected>().SetSelectedButton(inventorySlots[0].GetComponentInChildren<Button>().gameObject);
         foreach (InventoryDisplaySlot slot in inventorySlots)
         {
             slot.ClearSlot();

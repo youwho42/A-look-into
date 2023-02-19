@@ -108,9 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Chest
-  playerEnergyCost: 0
-  gameEnergyReward: 0
-  gameEnergyCost: 0
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
   isOpen: 0
 --- !u!114 &169350935358001117
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76283022cb7ce44a690f2b9bc3e794c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: BasicChest
+  Name: Chest
   MaxStacks: 24
 --- !u!60 &169350935358001118
 PolygonCollider2D:
