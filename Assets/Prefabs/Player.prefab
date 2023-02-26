@@ -694,13 +694,13 @@ GameObject:
   - component: {fileID: 1705034264205414427}
   - component: {fileID: 1705034264205414428}
   - component: {fileID: 3268598307406287302}
-  - component: {fileID: 8826353301065263701}
   - component: {fileID: 6599017659682180303}
   - component: {fileID: 7067274921755691174}
   - component: {fileID: 1249115819}
   - component: {fileID: 800907901378000127}
   - component: {fileID: 256207156368797041}
   - component: {fileID: 8728050579033652921}
+  - component: {fileID: 1249115822}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -778,7 +778,9 @@ MonoBehaviour:
   isRunning: 0
   isPaused: 0
   isInUI: 0
-  isJumping: 0
+  rightStickPos: {x: 0, y: 0}
+  currentControlScheme: 
+  playerInput: {fileID: 8728050579033652921}
 --- !u!114 &1705034264205414402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,20 +867,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 24192c6e-928b-425d-a8dc-49c40cd62b38
---- !u!114 &8826353301065263701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705034264205414415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectCorrectionZ: {fileID: 3304207017380454964}
-  isHidden: 0
 --- !u!114 &6599017659682180303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,10 +994,24 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1249115822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705034264205414415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCorrectionZ: {fileID: 3304207017380454964}
+  isHidden: 0
 --- !u!1 &1705034264274678010
 GameObject:
   m_ObjectHideFlags: 0

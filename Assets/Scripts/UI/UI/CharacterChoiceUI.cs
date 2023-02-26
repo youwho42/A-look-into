@@ -17,6 +17,7 @@ public class CharacterChoiceUI : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public Button acceptButton;
     string spriteName;
+    public SetButtonSelected setButtonSelected;
     void Start()
     {
 
@@ -65,5 +66,10 @@ public class CharacterChoiceUI : MonoBehaviour
             acceptButton.interactable = false;
         else
             acceptButton.interactable = true;
+    }
+
+    public void CharacterNameEnter()
+    {
+        setButtonSelected.SetSelectedButton();
     }
 }

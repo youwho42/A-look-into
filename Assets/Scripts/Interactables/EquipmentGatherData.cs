@@ -157,14 +157,14 @@ public class EquipmentGatherData : EquipmentData
                         if (none)
                         {
                             PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-                            NotificationManager.instance.SetNewNotification($"Cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.");
+                            NotificationManager.instance.SetNewNotification($"You cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.", NotificationManager.NotificationType.Warning);
                         }
                         
                     }
                     else
                     {
                         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-                        NotificationManager.instance.SetNewNotification($"You already used the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name} on this {nearestItemList.dataList[0].Name} today.");
+                        NotificationManager.instance.SetNewNotification($"You already harvested from this object today.", NotificationManager.NotificationType.Warning);
 
                     }
                 }

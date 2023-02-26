@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class LoadSelectionUI : MonoBehaviour
     public LoadableSaveButton loadableSaveButton;
 
     List<LoadableSaveButton> loadableSaveButtons = new List<LoadableSaveButton>();
+    public GameObject backButton;
     public Button loadButton;
     public Button deleteButton;
 
@@ -31,12 +33,10 @@ public class LoadSelectionUI : MonoBehaviour
     private void Start()
     {
         GameEventManager.onGameSavedEvent.AddListener(SetAvailableLoads);
-        GameEventManager.onGameLoadedEvent.AddListener(HideDeleteWarning);
     }
     private void OnDisable()
     {
         GameEventManager.onGameSavedEvent.RemoveListener(SetAvailableLoads);
-        GameEventManager.onGameLoadedEvent.RemoveListener(HideDeleteWarning);
     }
 
     private void OnEnable()
@@ -45,7 +45,8 @@ public class LoadSelectionUI : MonoBehaviour
         SetAvailableLoads();
         RefreshButtonsValid();
     }
-    
+
+   
     public void LoadGameFile()
     {
         if (!warningActive)
@@ -55,7 +56,11 @@ public class LoadSelectionUI : MonoBehaviour
     public void BackButton()
     {
         if (!warningActive)
+        {
             LevelManager.instance.LoadFileBackButton();
+            ClearCurrentLoadFileName();
+        }
+            
     }
     public void SetAvailableLoads()
     {
@@ -66,18 +71,30 @@ public class LoadSelectionUI : MonoBehaviour
             string saveFolder = Application.persistentDataPath;
 
             DirectoryInfo d = new DirectoryInfo(saveFolder);
+            List<FileInfo> files = new List<FileInfo>();
             foreach (var file in d.GetFiles("*.ali"))
             {
-                
-                LoadableSaveButton newLoadableSave = Instantiate(loadableSaveButton, loadButtonHolder.transform);
-                loadableSaveButtons.Add(newLoadableSave);
-                newLoadableSave.SetLoadButton(file.Name);
+                files.Add(file);
             }
+            //sort using date created
+            List<FileInfo> orderedList = files.OrderBy(x => x.LastWriteTime).ToList();
+            orderedList.Reverse();
+            CreateLoadButtons(orderedList);
         }
         else
         {
             File.Create(Application.persistentDataPath);
             return;
+        }
+    }
+
+    void CreateLoadButtons(List<FileInfo> files)
+    {
+        foreach (var file in files)
+        {
+            LoadableSaveButton newLoadableSave = Instantiate(loadableSaveButton, loadButtonHolder.transform);
+            loadableSaveButtons.Add(newLoadableSave);
+            newLoadableSave.SetLoadButton(file.Name);
         }
     }
     public void RefreshButtonsValid()
@@ -112,7 +129,6 @@ public class LoadSelectionUI : MonoBehaviour
             DestroyImmediate(loadButtonHolder.transform.GetChild(0).gameObject);
         }
         loadableSaveButtons.Clear();
-        HideDeleteWarning();
     }
     public void DeleteSave()
     {
@@ -127,12 +143,14 @@ public class LoadSelectionUI : MonoBehaviour
         deleteWarning.SetActive(true);
         fileDeletePath = path;
         warningActive = true;
+        deleteWarning.GetComponent<SetButtonSelected>().SetSelectedButton();
     }
     public void HideDeleteWarning()
     {
         deleteWarning.SetActive(false);
         ClearCurrentLoadFileName();
         warningActive = false;
+        deleteWarning.transform.parent.GetComponent<SetButtonSelected>().SetSelectedButton();
     }
 
     public void DeleteSaveFile()

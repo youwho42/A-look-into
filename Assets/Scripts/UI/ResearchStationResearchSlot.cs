@@ -30,7 +30,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
         for (int i = 0; i < item.ResearchRecipes.Count; i++)
         {
             if(!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
-                textToAdd += item.ResearchRecipes[i].recipe.Name + "\n";
+                textToAdd += $"{item.ResearchRecipes[i].RecipeRevealAmount}-{item.ResearchRecipes[i].recipe.Name}\n";
         }
         recipesText.text = textToAdd;
     }
@@ -41,7 +41,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         icon.enabled = false;
-        recipesText.text = "...";
+        recipesText.text = "The recipes you will from researching items will show here alongside the amount of items needed to research the recipe.";
     }
 
     public void LearnRecipes()

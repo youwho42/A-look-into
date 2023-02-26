@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CraftingStationDisplayUI : MonoBehaviour
@@ -69,7 +70,10 @@ public class CraftingStationDisplayUI : MonoBehaviour
         SetQuantityText();
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
-        
+
+        EventSystem.current.SetSelectedGameObject(null);
+        if (recipeButtons.Count > 0)
+            EventSystem.current.SetSelectedGameObject(recipeButtons[0].GetComponentInChildren<Button>().gameObject);
         //craftingStationUI.SetActive(true);
     }
 
@@ -159,7 +163,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public void SetQuantityText()
     {
-        quantitySelectedText.text = ($"{quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}");
+        quantitySelectedText.text = ($"Quantity {quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}");
     }
 
     public void CraftItem()

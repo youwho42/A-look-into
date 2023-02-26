@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using Unity.Mathematics;
 using UnityEngine.Playables;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class LevelManager : MonoBehaviour
 {
@@ -80,7 +81,13 @@ public class LevelManager : MonoBehaviour
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         isInCutscene = true;
-        
+        SelectStartButton();
+    }
+    public void SelectStartButton()
+    {
+        UIScreenManager.instance.HideAllScreens();
+        UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
+
     }
     
     public void StartNewGame(string levelName)
@@ -92,6 +99,7 @@ public class LevelManager : MonoBehaviour
 
     public void DisplayLoadFilesUI()
     {
+        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadFileScreen);
         
     }
@@ -104,6 +112,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            UIScreenManager.instance.HideAllScreens();
             UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
         }
 
@@ -148,13 +157,14 @@ public class LevelManager : MonoBehaviour
     public void CancelNewGame()
     {
         newGameWarning.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(startButton);
+        SelectStartButton();
     }
 
     public void NewGameWarning(bool active)
     {
         newGameWarning.SetActive(active);
+        if (newGameWarning.TryGetComponent(out SetButtonSelected butt) && active)
+            butt.SetSelectedButton();
     }
 
     public void LoadCurrentGame(string levelName, string loadFileName)

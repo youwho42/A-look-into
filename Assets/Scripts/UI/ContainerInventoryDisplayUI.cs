@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ContainerInventoryDisplayUI : MonoBehaviour
@@ -40,8 +41,6 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         containerName.text = container.Name;
         playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         SetContainerUI();
-        //containerDisplayUI.SetActive(true);
-
     }
     public void HideContainerUI()
     {
@@ -49,7 +48,6 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         ClearSlots();
         containerInventory = null;
         PlayerInformation.instance.TogglePlayerInput(true);
-        //containerDisplayUI.SetActive(false);
     }
 
     void SetContainerUI()
@@ -68,7 +66,9 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
             GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
         }
-
+        EventSystem.current.SetSelectedGameObject(null);
+        if (containerSlots.Count > 0)
+            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
         UpdateContainerInventoryUI();
     }
 
@@ -93,30 +93,39 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
         for (int i = 0; i < containerInventory.Stacks.Count; i++)
         {
-
+            var butt = containerSlots[i].GetComponentInChildren<Button>();
+            
             if (containerInventory.Stacks[i].Item != null)
             {
                 containerSlots[i].containerInventory = containerInventory;
                 containerSlots[i].AddItem(containerInventory.Stacks[i].Item, containerInventory.Stacks[i].Amount);
-                containerSlots[i].GetComponentInChildren<Button>().onClick.AddListener(UpdateContainerInventoryUI);
                 containerSlots[i].icon.enabled = true;
                 containerSlots[i].isContainerSlot = true;
+                butt.interactable = true;
             }
-
+            else
+            {
+                butt.interactable = false;
+            }
         }
         
         for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
-
+            var butt = playerSlots[i].GetComponentInChildren<Button>();
+            
             if (PlayerInformation.instance.playerInventory.Stacks[i].Item != null)
             {
                 playerSlots[i].containerInventory = containerInventory;
                 playerSlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
-                playerSlots[i].GetComponentInChildren<Button>().onClick.AddListener(UpdateContainerInventoryUI);
                 playerSlots[i].icon.enabled = true;
+                butt.interactable = true;
             }
-
+            else
+            {
+                butt.interactable = false;
+            }
         }
+        
     }
 
     public void ClearSlots()

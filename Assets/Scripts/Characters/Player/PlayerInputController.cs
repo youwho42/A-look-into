@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -17,11 +16,15 @@ public class PlayerInputController : MonoBehaviour
     public bool isPaused;
     [HideInInspector]
     public bool isInUI;
-    
+    [HideInInspector]
+    public Vector2 rightStickPos;
+    [HideInInspector]
+    public string currentControlScheme = "Keyboard&Mouse";
 
     InteractWithInteractable interactable;
     float scrollY;
 
+    InputAction submit;
     InputAction move;
     InputAction run;
     InputAction jump;
@@ -33,12 +36,16 @@ public class PlayerInputController : MonoBehaviour
     InputAction menuOpen;
     InputAction menuClose;
     InputAction map;
-    InputAction stackTransfer;
+    InputAction stackTransferToggle;
+    InputAction stackTransferGamepad;
     InputAction spyglassAim;
     InputAction spyglassChangeSelected;
     InputAction playerMenuBumper;
     InputAction compendiumMenuTrigger;
+    InputAction inventoryRightClickItem;
+    InputAction inventoryDragItem;
     PlayerInputActions inputActions;
+    public PlayerInput playerInput;
     
     private void Awake()
     {
@@ -52,6 +59,11 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnEnable()
     {
+
+        submit = inputActions.UI.Submit;
+        submit.Enable();
+        submit.performed += SubmitAction;
+
         move = inputActions.Player.Movement;
         move.Enable();
 
@@ -96,10 +108,14 @@ public class PlayerInputController : MonoBehaviour
         map.Enable();
         map.performed += MapAction;
 
-        stackTransfer = inputActions.Player.StackTransfer;
-        stackTransfer.Enable();
-        stackTransfer.performed += StackTransferOnAction;
-        stackTransfer.canceled += StackTransferOffAction;
+        stackTransferToggle = inputActions.Player.StackTransferToggle;
+        stackTransferToggle.Enable();
+        stackTransferToggle.performed += StackTransferOnAction;
+        stackTransferToggle.canceled += StackTransferOffAction;
+
+        stackTransferGamepad = inputActions.Player.StackTransferGamepad;
+        stackTransferGamepad.Enable();
+        stackTransferGamepad.canceled += StackTransferAction;
 
         spyglassAim = inputActions.Player.SpyglassAim;
         spyglassAim.Enable();
@@ -117,9 +133,21 @@ public class PlayerInputController : MonoBehaviour
         compendiumMenuTrigger = inputActions.Player.CompendiumMenu;
         compendiumMenuTrigger.Enable();
         compendiumMenuTrigger.performed += GamepadTriggerAction;
+
+        inventoryRightClickItem = inputActions.Player.InventoryRightClickItem;
+        inventoryRightClickItem.Enable();
+        inventoryRightClickItem.started += InventoryRightClickStartAction;
+        inventoryRightClickItem.canceled += InventoryRightClickReleaseAction;
+
+        inventoryDragItem = inputActions.Player.InventoryDragItem;
+        inventoryDragItem.Enable();
+        inventoryDragItem.performed += InventoryDragItemAction;
+        
+        
     }
     private void OnDisable()
     {
+        submit.Disable();
         move.Disable();
         run.Disable();
         jump.Disable();
@@ -131,11 +159,17 @@ public class PlayerInputController : MonoBehaviour
         menuOpen.Disable();
         menuClose.Disable();
         map.Disable();
+        stackTransferToggle.Disable();
+        stackTransferGamepad.Disable();
         spyglassAim.Disable();
         spyglassChangeSelected.Disable();
         playerMenuBumper.Disable();
         compendiumMenuTrigger.Disable();
+        inventoryRightClickItem.Disable();
+        inventoryDragItem.Disable();
     }
+
+   
 
     void Update()
     {
@@ -154,7 +188,28 @@ public class PlayerInputController : MonoBehaviour
 
             if (scrollY != 0)
                 GameEventManager.onMouseScrollEvent.Invoke(scrollY);
+
+            rightStickPos = inventoryDragItem.ReadValue<Vector2>();
         }
+
+        var stick = PlayerInformation.instance.playerInput.rightStickPos;
+        Vector2 currentPosition = Mouse.current.position.ReadValue();
+        stick = Gamepad.current.rightStick.ReadValue();
+        for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+        {
+            currentPosition += stick * 15 * Time.unscaledDeltaTime;
+        }
+        Mouse.current.WarpCursorPosition(currentPosition);
+        
+
+
+        if (currentControlScheme != playerInput.currentControlScheme)
+        {
+            
+            currentControlScheme = playerInput.currentControlScheme;
+            GameEventManager.onControlSchemeChangedEvent.Invoke(currentControlScheme);
+        }
+            
     }
 
     private void LateUpdate()
@@ -192,16 +247,28 @@ public class PlayerInputController : MonoBehaviour
         interactable.Interact();
     }
 
+    public void SubmitAction(InputAction.CallbackContext context) => GameEventManager.onSubmitEvent.Invoke();
+
+
     public void MenuToggleAction(InputAction.CallbackContext context) => GameEventManager.onMenuToggleEvent.Invoke();
     public void MenuOpenAction(InputAction.CallbackContext context) => GameEventManager.onMenuDisplayEvent.Invoke();
     public void MenuCloseAction(InputAction.CallbackContext context) => GameEventManager.onMenuHideEvent.Invoke();
+
     public void MapAction(InputAction.CallbackContext context) => GameEventManager.onMapDisplayEvent.Invoke();
+
     public void SpyglassAimOnAction(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimEvent.Invoke(true);
     public void SpyglassAimOffAction(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimEvent.Invoke(false);
     public void SpyglassChangeSelected(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimChageSelectedEvent.Invoke((int)spyglassChangeSelected.ReadValue<float>());
-    public void StackTransferOnAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferButtonEvent.Invoke(true);
-    public void StackTransferOffAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferButtonEvent.Invoke(false);
+    
+    public void StackTransferAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferGamepadEvent.Invoke();
+    public void StackTransferOnAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferToggleEvent.Invoke(true);
+    public void StackTransferOffAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferToggleEvent.Invoke(false);
+    
     public void GamepadBumperAction(InputAction.CallbackContext context) => GameEventManager.onGamepadBumpersButtonEvent.Invoke((int)playerMenuBumper.ReadValue<float>());
     public void GamepadTriggerAction(InputAction.CallbackContext context) => GameEventManager.onGamepadTriggersButtonEvent.Invoke(Mathf.RoundToInt(compendiumMenuTrigger.ReadValue<float>()));
+
+    public void InventoryDragItemAction(InputAction.CallbackContext context) => GameEventManager.onInventoryDragEvent.Invoke();
+    public void InventoryRightClickStartAction(InputAction.CallbackContext context) => GameEventManager.onInventoryRightClickEvent.Invoke();
+    public void InventoryRightClickReleaseAction(InputAction.CallbackContext context) => GameEventManager.onInventoryRightClickReleaseEvent.Invoke();
 
 }

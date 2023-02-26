@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.0858, y: -41.8}
-  m_SizeDelta: {x: -16.17157, y: -41.85588}
+  m_AnchoredPosition: {x: -0.0000019073486, y: -33.9}
+  m_SizeDelta: {x: 0.0000038147, y: -31.5988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6743346265348716342
 CanvasRenderer:
@@ -60,15 +60,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7325116, g: 0.8005267, b: 0.8773585, a: 1}
+  m_Color: {r: 0.9490196, g: 0.972549, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7220648799473819815, guid: d8b8cd6a8b61a41d48ed560b5c090859,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1e459d37e41d1440ac7f01a0769e786, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -111,10 +110,10 @@ RectTransform:
   m_Father: {fileID: 6912711599870538859}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.0000038146973, y: 0}
+  m_SizeDelta: {x: -9.4759, y: -8.8212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6912711599719673881
 CanvasRenderer:
@@ -217,15 +216,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7325116, g: 0.8005267, b: 0.8773585, a: 1}
+  m_Color: {r: 0.9481132, g: 0.9719531, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8417420941954122440, guid: d8b8cd6a8b61a41d48ed560b5c090859,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1e459d37e41d1440ac7f01a0769e786, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -317,15 +315,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1914187211116996344}
+  m_Children: []
   m_Father: {fileID: 1397488517321078678}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.583, y: 0.000012159}
-  m_SizeDelta: {x: 35.8554, y: 18.144}
+  m_AnchoredPosition: {x: 0.11, y: 0.000012159}
+  m_SizeDelta: {x: 41.677, y: 18.144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6912711600320650737
 CanvasRenderer:
@@ -425,48 +422,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &7670566206508431289
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1914187211116996344}
-  - component: {fileID: 9089009439200485}
-  m_Layer: 5
-  m_Name: TMP SubMeshUI [KilianAvec Atlas Material + LiberationSans SDF Atlas]
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1914187211116996344
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7670566206508431289}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6912711600320650739}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &9089009439200485
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7670566206508431289}
-  m_CullTransparentMesh: 0

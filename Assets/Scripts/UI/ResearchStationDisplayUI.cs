@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ResearchStationDisplayUI : MonoBehaviour
@@ -22,7 +23,7 @@ public class ResearchStationDisplayUI : MonoBehaviour
     public ResearchStationInventorySlot inventoryItemDisplaySlot;
     public GameObject inventoryItemArea;
     public ResearchStationResearchSlot researchSlot;
-
+    List<ResearchStationInventorySlot> researchStationInventorySlots = new List<ResearchStationInventorySlot>();
     private void Start()
     {
         researchStationUI.SetActive(false);
@@ -65,12 +66,15 @@ public class ResearchStationDisplayUI : MonoBehaviour
                         {
                             ResearchStationInventorySlot newSlot = Instantiate(inventoryItemDisplaySlot, inventoryItemArea.transform);
                             newSlot.AddItem(item);
+                            researchStationInventorySlots.Add(newSlot);
                         break;
                         }
                     }
-                
 
-                
+                EventSystem.current.SetSelectedGameObject(null);
+                if (researchStationInventorySlots.Count > 0)
+                    EventSystem.current.SetSelectedGameObject(researchStationInventorySlots[0].GetComponentInChildren<Button>().gameObject);
+
             }
 
         }

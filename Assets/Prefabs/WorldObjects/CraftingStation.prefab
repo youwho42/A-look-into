@@ -121,9 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Craft
-  playerEnergyCost: 0
-  gameEnergyReward: 0
-  gameEnergyCost: 0
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
   recipeDatabase: {fileID: 11400000, guid: d0aefd46193a58d49982ad6dc18b2bd5, type: 2}
   selfInventory: {fileID: 0}
@@ -177,8 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4bf14a71dff415589f7a5034e45fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory: {fileID: 0}
-  Type: 0
+  Type: 1
   OnCrafted:
     m_PersistentCalls:
       m_Calls: []

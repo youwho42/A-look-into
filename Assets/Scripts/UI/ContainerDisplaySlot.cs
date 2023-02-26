@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ContainerDisplaySlot : MonoBehaviour
@@ -20,45 +21,60 @@ public class ContainerDisplaySlot : MonoBehaviour
 
     private void Start()
     {
-        GameEventManager.onStackTransferButtonEvent.AddListener(ToggleLeftCtrl);
+        GameEventManager.onStackTransferToggleEvent.AddListener(ToggleLeftCtrl);
+        GameEventManager.onStackTransferGamepadEvent.AddListener(TransferStack);
     }
     private void OnDisable()
     {
-        GameEventManager.onStackTransferButtonEvent.RemoveListener(ToggleLeftCtrl);
+        GameEventManager.onStackTransferToggleEvent.RemoveListener(ToggleLeftCtrl);
+        GameEventManager.onStackTransferGamepadEvent.RemoveListener(TransferStack);
+
     }
     public void TransferItem()
     {
-        if(item != null)
+        if (item == null)
+            return;
+        
+        if (isContainerSlot)
         {
-
-            if (isContainerSlot)
-            {
-                
-                int a = leftCtrl ? containerInventory.GetStock(item.Name) : 1;
-                
-                if(PlayerInformation.instance.playerInventory.AddItem(item, a, false))
-                    containerInventory.RemoveItem(item, a);
-                
-                
-            }
-            else
-            {
-                int a = leftCtrl ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
-                
-                if(containerInventory.AddItem(item, a, false))
-                    PlayerInformation.instance.playerInventory.RemoveItem(item, a);
-               
-            }
-            ClearSlot();
+            int amount = leftCtrl ? containerInventory.GetStock(item.Name) : 1;
+            Transfer(item, amount, containerInventory, PlayerInformation.instance.playerInventory);
         }
+        else
+        {
+            int amount = leftCtrl ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
+            Transfer(item, amount, PlayerInformation.instance.playerInventory, containerInventory);
+        }
+
+        
+    }
+
+    void TransferStack()
+    {
+        
+        if (item == null || EventSystem.current.currentSelectedGameObject != icon.gameObject)
+            return;
+
+        if (isContainerSlot)
+            Transfer(item, containerInventory.GetStock(item.Name), containerInventory, PlayerInformation.instance.playerInventory);
+        else
+            Transfer(item, PlayerInformation.instance.playerInventory.GetStock(item.Name), PlayerInformation.instance.playerInventory, containerInventory);
+        
+    }
+
+    void Transfer(QI_ItemData item, int amount, QI_Inventory fromInventory, QI_Inventory toInventory)
+    {
+        if (toInventory.AddItem(item, amount, false))
+            fromInventory.RemoveItem(item, amount);
+        ContainerInventoryDisplayUI.instance.UpdateContainerInventoryUI();
         
     }
 
     public void AddItem(QI_ItemData newItem, int amount)
     {
+        ClearSlot();
         item = newItem;
         icon.sprite = item.Icon;
-
         itemAmount.text = amount.ToString();
         icon.enabled = true;
     }

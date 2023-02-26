@@ -55,7 +55,8 @@ public class UIScreenManager : MonoBehaviour
             {
                 s.SetActive(true);
                 currentScreen = screen;
-                
+                if (s.TryGetComponent(out SetButtonSelected button))
+                    button.SetSelectedButton();
             }
             else
             {

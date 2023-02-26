@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 
 public class SetButtonSelected : MonoBehaviour
 {
-    public GameObject buttonSelectedAtStart;
-    private void OnEnable()
-    {
-        if(buttonSelectedAtStart != null)
-            SetSelectedButton(buttonSelectedAtStart);
-    }
+    
 
-    public void SetSelectedButton(GameObject button)
+    public Button firstButtonSelected;
+    public GameObject buttonHolder;
+
+    public void SetSelectedButton()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(buttonSelectedAtStart);
+        if (buttonHolder != null && firstButtonSelected == null)
+        {
+            firstButtonSelected = buttonHolder.GetComponentInChildren<Button>();
+        }
+        if (firstButtonSelected != null)
+            EventSystem.current.SetSelectedGameObject(firstButtonSelected.gameObject);
     }
+
+    
 }

@@ -9,6 +9,7 @@ public class InteractableContainer : Interactable
     public bool isOpen;
     ContainerInventoryDisplayUI containerUI;
     QI_Inventory inventory;
+
     public override void Start()
     {
         base.Start();
@@ -23,15 +24,9 @@ public class InteractableContainer : Interactable
         base.Interact(interactor);
 
         if (!isOpen) 
-        {
             OpenContainer();
-            isOpen = true;
-        }
         else
-        {
             CloseContainer();
-            isOpen = false;
-        }
     }
 
     private void OpenContainer()
@@ -39,6 +34,7 @@ public class InteractableContainer : Interactable
         UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         containerUI.ShowContainerUI(inventory);
+        isOpen = true;
     }
 
     private void CloseContainer()
@@ -46,6 +42,7 @@ public class InteractableContainer : Interactable
         UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         containerUI.HideContainerUI();
+        isOpen = false;
     }
 
 

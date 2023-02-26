@@ -34,6 +34,8 @@ public class PlayerInformation : MonoBehaviour
     public QQ_QuestHandler playerQuestHandler;
     public string playerName { get; private set; }
 
+    
+
     private void Awake()
     {
         if (instance == null)

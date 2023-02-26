@@ -134,7 +134,7 @@ public class MenuDisplayUI : MonoBehaviour
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
         PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(true);
+        PlayerInformation.instance.TogglePlayerInput(false);
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, true);
         SetButtonSelectedColor(compendium, false);

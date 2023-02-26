@@ -62,9 +62,9 @@ public class InteractWithInteractable : MonoBehaviour
                 canvasOffset = new Vector3(0, closest.GetComponentInChildren<SpriteRenderer>().bounds.size.y / 2, 1);
             }
 
-                
+            string action = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-A-" : "-e-";    
             interactCanvas.transform.position = closest.transform.position + canvasOffset;
-            interactVerb.text = $"-e- {closest.interactVerb}";
+            interactVerb.text = $"{action} {closest.interactVerb}";
             interactUI.SetActive(true);
             
             

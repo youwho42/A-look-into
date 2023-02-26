@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public static class GameEventManager
 {
@@ -62,14 +64,22 @@ public static class GameEventManager
     /// <summary>
     /// UI interactions
     /// </summary>
+    public static readonly GameEvent<GameObject> onEventSystemSelectedChangedEvent = new GameEvent<GameObject>();
     public static readonly GameEvent onMinigameMouseClickEvent = new GameEvent();
     public static readonly GameEvent onMenuToggleEvent = new GameEvent();
     public static readonly GameEvent onMenuDisplayEvent = new GameEvent();
     public static readonly GameEvent onMenuHideEvent = new GameEvent();
     public static readonly GameEvent onMapDisplayEvent = new GameEvent();
-    public static readonly GameEvent<bool> onStackTransferButtonEvent = new GameEvent<bool>();
+    public static readonly GameEvent<bool> onStackTransferToggleEvent = new GameEvent<bool>();
+    public static readonly GameEvent onStackTransferGamepadEvent = new GameEvent();
     public static readonly GameEvent<int> onGamepadBumpersButtonEvent = new GameEvent<int>();
     public static readonly GameEvent<int> onGamepadTriggersButtonEvent = new GameEvent<int>();
+    public static readonly GameEvent onInventoryDragEvent = new GameEvent();
+    public static readonly GameEvent onInventoryRightClickEvent = new GameEvent();
+    public static readonly GameEvent onInventoryRightClickReleaseEvent = new GameEvent();
+    public static readonly GameEvent<string> onControlSchemeChangedEvent = new GameEvent<string>();
+    public static readonly GameEvent onSubmitEvent = new GameEvent();
+
 
     /// <summary>
     /// Player Controls

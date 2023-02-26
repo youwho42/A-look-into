@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {
@@ -21,11 +22,30 @@ public class InventoryDisplaySlot : MonoBehaviour
     string itemTypeName = "";
     public List<ItemTypeNames> itemTypes = new List<ItemTypeNames>();
 
+    Button slotButton;
+    bool buttonHeld;
     [Serializable]
     public struct ItemTypeNames
     {
         public string itemDataName;
         public string itemUseName;
+    }
+    private void Start()
+    {
+        slotButton = GetComponentInChildren<Button>();
+    }
+    private void OnEnable()
+    {
+        GameEventManager.onInventoryDragEvent.AddListener(DragItem);
+        GameEventManager.onInventoryRightClickEvent.AddListener(SetItemSelected);
+        GameEventManager.onInventoryRightClickReleaseEvent.AddListener(EndDragItem);
+    }
+
+    private void OnDisable()
+    {
+        GameEventManager.onInventoryDragEvent.RemoveListener(DragItem);
+        GameEventManager.onInventoryRightClickEvent.RemoveListener(SetItemSelected);
+        GameEventManager.onInventoryRightClickReleaseEvent.RemoveListener(EndDragItem);
     }
     public void ShowInformation()
     {
@@ -105,6 +125,17 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void DragItem()
     {
+        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject)
+            return;
+        //var stick = PlayerInformation.instance.playerInput.rightStickPos;
+        //Vector2 currentPosition = Mouse.current.position.ReadValue();
+        //stick = Gamepad.current.rightStick.ReadValue();
+        //for (var passedTime = 0f; passedTime < 1; passedTime += Time.deltaTime)
+        //{
+        //    currentPosition += stick * 15 * Time.deltaTime;
+        //}
+        //Mouse.current.WarpCursorPosition(currentPosition);
+
         if (!isDragged)
         {
             var go = Instantiate(item.ItemPrefab, GetMousePosition(), Quaternion.identity);
@@ -118,16 +149,27 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void EndDragItem()
     {
+        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || itemToDrop == null)
+            return;
         //Check if in player vicinity :)
         if (CheckPlayerVicinity() && CheckForGameObjects())
-            DropItem(GetMousePosition());
+            DropItem(itemToDrop.transform.position);
         else
             Destroy(itemToDrop);
-          
+        EventSystem.current.SetSelectedGameObject(null);
         isDragged = false;
+        itemToDrop = null;
     }
     
-    
+    void SetItemSelected()
+    {
+
+        if (RectTransformUtility.RectangleContainsScreenPoint(slotButton.GetComponent<RectTransform>(), Mouse.current.position.ReadValue()))
+        {
+            EventSystem.current.SetSelectedGameObject(slotButton.gameObject);
+            //buttonHeld = true;
+        }
+    }
 
     bool CheckForGameObjects()
     {
@@ -162,7 +204,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         Vector3 playerPos = PlayerInformation.instance.player.position;
         
-        float dist = Vector2.Distance(playerPos, GetMousePosition());
+        float dist = Vector2.Distance(playerPos, itemToDrop.transform.position);
         if (dist <= 0.5f)
             return true;
 
@@ -172,8 +214,12 @@ public class InventoryDisplaySlot : MonoBehaviour
    
     Vector3 GetMousePosition()
     {
+        
+            
+
         Vector3 movePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         movePos.z = PlayerInformation.instance.player.position.z;
+        
         
 
         return movePos;

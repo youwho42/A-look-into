@@ -10,7 +10,7 @@ public class DetectVisibility : MonoBehaviour
     AllTilesInfoManager allTilesInfo;
     CurrentTilePosition currentPosition;
 
-    
+    SpriteRenderer sprite;
     public Transform objectCorrectionZ;
 
     public bool isHidden;
@@ -21,13 +21,14 @@ public class DetectVisibility : MonoBehaviour
     {
         allTilesInfo = AllTilesInfoManager.instance;
         currentPosition = GetComponent<CurrentTilePosition>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
 
     private void Update()
     {
-        
-        CheckTiles();
+        if(sprite.isVisible)
+            CheckTiles();
     }
 
     void CheckTiles()
@@ -58,7 +59,7 @@ public class DetectVisibility : MonoBehaviour
                 }
             }
         }
-        //if (!gameObject.CompareTag("Player"))
+        
             ChangeObjectZ(isHidden);
         
     }
