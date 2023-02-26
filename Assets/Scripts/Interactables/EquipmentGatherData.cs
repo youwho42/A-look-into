@@ -9,6 +9,7 @@ public class EquipmentGatherData : EquipmentData
 {
 
     
+    
     public List<QI_ItemData> gatherItemData = new List<QI_ItemData>();
     public MiniGameType miniGameType;
     public LayerMask gathererLayer;

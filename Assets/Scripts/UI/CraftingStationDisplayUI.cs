@@ -47,7 +47,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public Slider quantityToCraftSlider;
     public TextMeshProUGUI quantitySelectedText;
 
-
+    public Button craftButton;
 
 
 
@@ -112,6 +112,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     }
     public void ClearCurrentRecipe()
     {
+        craftButton.interactable = false;
         craftableItem = null;
         recipeResultSlot.ClearSlot();
         recipeAgencyText.text = "";
@@ -143,7 +144,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         {
             ingredientSlots[i].AddItem(craftableItem.Ingredients[i].Item, craftableItem.Ingredients[i].Amount, PlayerInformation.instance.playerInventory.GetStock(craftableItem.Ingredients[i].Item.Name));
         }
-
+        craftButton.interactable = true;
     }
     void SetQuantitySlider()
     {

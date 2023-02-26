@@ -23,7 +23,7 @@ public class NotificationManager : MonoBehaviour
     [Serializable]
     public enum NotificationType
     {
-        Compedium,
+        Compendium,
         Inventory,
         Warning,
         Undertaking,

@@ -31,7 +31,7 @@ public class InteractableReadNote : Interactable
         if (!PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Contains(readableItem))
         {
             PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Add(readableItem);
-            NotificationManager.instance.SetNewNotification($"{readableItem.Name} note found", NotificationManager.NotificationType.Compedium);
+            NotificationManager.instance.SetNewNotification($"{readableItem.Name} note found", NotificationManager.NotificationType.Compendium);
             GameEventManager.onNoteCompediumUpdateEvent.Invoke();
         }
         

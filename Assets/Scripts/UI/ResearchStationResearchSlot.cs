@@ -10,6 +10,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
     QI_ItemData item;
     public Image icon;
     public TextMeshProUGUI recipesText;
+    public Button researchButton;
     float gameEnergyReward = 1;
 
     private void Start()
@@ -18,6 +19,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
     }
     public void AddItem(QI_ItemData newItem)
     {
+        researchButton.interactable = true;
         item = newItem;
         icon.sprite = item.Icon;
         icon.enabled = true;
@@ -38,6 +40,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
 
     public void ClearSlot()
     {
+        researchButton.interactable = false;
         item = null;
         icon.sprite = null;
         icon.enabled = false;
@@ -55,7 +58,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
             {
                 PlayerInformation.instance.playerStats.AddToAgency(item.ResearchRecipes[i].AgencyReward);
                 PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
-                NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compedium);
+                NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
             }
             ResearchStationDisplayUI.instance.UpdateResearchDisplay();
 

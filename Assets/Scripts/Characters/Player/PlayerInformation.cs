@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Klaxon.GravitySystem;
 using QuantumTek.QuantumQuest;
+using System;
 
 public class PlayerInformation : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerInformation : MonoBehaviour
     public QI_ItemDatabase playerResourceCompendiumDatabase;
     public QI_ItemDatabase playerAnimalCompendiumDatabase;
     public QI_ItemDatabase playerNotesCompendiumDatabase;
+    public QI_ItemDatabase playerGuidesCompendiumDatabase;
     public bool uiScreenVisible;
     
     public PlayerInputController playerInput;
@@ -58,6 +60,7 @@ public class PlayerInformation : MonoBehaviour
         playerAnimalCompendiumDatabase.Items.Clear();
         playerResourceCompendiumDatabase.Items.Clear();
         playerNotesCompendiumDatabase.Items.Clear();
+        playerGuidesCompendiumDatabase.Items.Clear();
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdatePlayerResources);
     }
 
@@ -90,11 +93,25 @@ public class PlayerInformation : MonoBehaviour
             if (!playerResourceCompendiumDatabase.Items.Contains(item.Item))
             {
                 playerResourceCompendiumDatabase.Items.Add(item.Item);
-                NotificationManager.instance.SetNewNotification($"{item.Item.Name}", NotificationManager.NotificationType.Compedium);
+                
+                AddGuideToCompendium(item.Item);
+                NotificationManager.instance.SetNewNotification($"{item.Item.Name} added to items", NotificationManager.NotificationType.Compendium);
                 GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             }
         }
         
     }
 
+    void AddGuideToCompendium(QI_ItemData item)
+    {
+        if (item.compendiumGuide != null)
+        {
+            if (!playerGuidesCompendiumDatabase.Items.Contains(item.compendiumGuide))
+            {
+                playerGuidesCompendiumDatabase.Items.Add(item.compendiumGuide);
+                NotificationManager.instance.SetNewNotification($"{item.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
+            }
+        }
+            
+    }
 }

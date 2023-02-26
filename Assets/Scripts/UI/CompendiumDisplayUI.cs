@@ -24,7 +24,8 @@ public class CompendiumDisplayUI : MonoBehaviour
         Animal,
         Resource,
         Recipe,
-        Note
+        Note, 
+        Guide
     }
 
     ItemType itemType;
@@ -51,7 +52,7 @@ public class CompendiumDisplayUI : MonoBehaviour
     public GameObject timesViewedDisplay;
     public TextMeshProUGUI timesViewedText;
 
-    public Button animalButton, resourceButton, recipeButton, noteButton;
+    public Button animalButton, resourceButton, recipeButton, noteButton, guideButton;
     public Color selectedColor;
     public Color idleColor;
 
@@ -61,6 +62,7 @@ public class CompendiumDisplayUI : MonoBehaviour
     QI_ItemDatabase playerAnimalCompendium;
     QI_ItemDatabase playerResourceCompendium;
     QI_ItemDatabase playerNoteCompendium;
+    QI_ItemDatabase playerGuideCompendium;
     QI_CraftingRecipeDatabase playerRecipeCompendium;
 
 
@@ -76,11 +78,14 @@ public class CompendiumDisplayUI : MonoBehaviour
         playerResourceCompendium = playerInformation.playerResourceCompendiumDatabase;
         playerRecipeCompendium = playerInformation.playerRecipeDatabase;
         playerNoteCompendium = playerInformation.playerNotesCompendiumDatabase;
+        playerGuideCompendium = playerInformation.playerGuidesCompendiumDatabase;
+
         compendiumUI.SetActive(false);
         GameEventManager.onAnimalCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onResourceCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onRecipeCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onNoteCompediumUpdateEvent.AddListener(UpdateCompendiumList);
+        GameEventManager.onGuideCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onGamepadTriggersButtonEvent.AddListener(ChangeDisplayUI);
 
         maxItemTypes = System.Enum.GetValues(typeof(ItemType)).Length;
@@ -94,6 +99,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onResourceCompediumUpdateEvent.RemoveListener(UpdateCompendiumList);
         GameEventManager.onRecipeCompediumUpdateEvent.RemoveListener(UpdateCompendiumList);
         GameEventManager.onNoteCompediumUpdateEvent.RemoveListener(UpdateCompendiumList);
+        GameEventManager.onGuideCompediumUpdateEvent.RemoveListener(UpdateCompendiumList);
         GameEventManager.onGamepadTriggersButtonEvent.RemoveListener(ChangeDisplayUI);
 
     }
@@ -142,6 +148,9 @@ public class CompendiumDisplayUI : MonoBehaviour
             case ItemType.Note:
                 SetCompendiumTypeNote();
                 break;
+            case ItemType.Guide:
+                SetCompendiumTypeGuide();
+                break;
         }
     }
 
@@ -157,6 +166,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         SetButtonSelectedColor(resourceButton, false);
         SetButtonSelectedColor(recipeButton, false);
         SetButtonSelectedColor(noteButton, false);
+        SetButtonSelectedColor(guideButton, false);
 
         itemType = ItemType.Animal;
         UpdateCompendiumList();
@@ -167,6 +177,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         SetButtonSelectedColor(resourceButton, true);
         SetButtonSelectedColor(recipeButton, false);
         SetButtonSelectedColor(noteButton, false);
+        SetButtonSelectedColor(guideButton, false);
 
         itemType = ItemType.Resource;
         UpdateCompendiumList();
@@ -177,6 +188,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         SetButtonSelectedColor(resourceButton, false);
         SetButtonSelectedColor(recipeButton, true);
         SetButtonSelectedColor(noteButton, false);
+        SetButtonSelectedColor(guideButton, false);
 
         itemType = ItemType.Recipe;
         UpdateCompendiumList();
@@ -187,8 +199,21 @@ public class CompendiumDisplayUI : MonoBehaviour
         SetButtonSelectedColor(resourceButton, false);
         SetButtonSelectedColor(recipeButton, false);
         SetButtonSelectedColor(noteButton, true);
+        SetButtonSelectedColor(guideButton, false);
 
         itemType = ItemType.Note;
+        UpdateCompendiumList();
+    }
+
+    public void SetCompendiumTypeGuide()
+    {
+        SetButtonSelectedColor(animalButton, false);
+        SetButtonSelectedColor(resourceButton, false);
+        SetButtonSelectedColor(recipeButton, false);
+        SetButtonSelectedColor(noteButton, false);
+        SetButtonSelectedColor(guideButton, true);
+
+        itemType = ItemType.Guide;
         UpdateCompendiumList();
     }
 
@@ -259,6 +284,17 @@ public class CompendiumDisplayUI : MonoBehaviour
                     compendiumSlots.Add(newSlot);
                 }
                 
+                recipeRevealDescription.SetActive(false);
+                break;
+
+            case ItemType.Guide:
+                for (int i = 0; i < playerGuideCompendium.Items.Count; i++)
+                {
+                    CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
+                    newSlot.AddItem(playerGuideCompendium.Items[i]);
+                    compendiumSlots.Add(newSlot);
+                }
+
                 recipeRevealDescription.SetActive(false);
                 break;
         }

@@ -46,8 +46,7 @@ public class DetectVisibility : MonoBehaviour
                 {
                     if (CheckObjectPosition())
                     {
-                        //if (gameObject.CompareTag("Player"))
-                        //    HideTile(tile);
+                        
                         isHidden = true;
                     }
                         

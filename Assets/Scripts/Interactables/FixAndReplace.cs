@@ -1,3 +1,4 @@
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,18 @@ public class FixAndReplace : MonoBehaviour, IFixArea
         
         fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
         yield return new WaitForSeconds(3);
-        
+        if(fixableReplacementObject.TryGetComponent(out QI_Item data))
+        {
+            if (data.Data.compendiumGuide != null)
+            {
+                if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(data.Data.compendiumGuide))
+                {
+                    PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(data.Data.compendiumGuide);
+                    NotificationManager.instance.SetNewNotification($"{data.Data.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
+                    GameEventManager.onGuideCompediumUpdateEvent.Invoke();
+                }
+            }
+        }
         Destroy(this.gameObject);
     }
     void RemoveItemsFromInventory(List<FixableAreaIngredient> ingredients)
