@@ -175,6 +175,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DialogueNext",
+                    "type": "Button",
+                    "id": "689b494c-dcd3-4057-88b2-f6de9adc78b3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -758,6 +767,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "InventoryRightClickItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d7474f6-3596-4a60-a18f-385ea685aca4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DialogueNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fcd7e0ee-2f57-4592-ac1f-c7bdc22e732c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DialogueNext",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

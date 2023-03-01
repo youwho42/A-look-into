@@ -44,6 +44,7 @@ public class PlayerInputController : MonoBehaviour
     InputAction compendiumMenuTrigger;
     InputAction inventoryRightClickItem;
     InputAction inventoryDragItem;
+    InputAction dialogueNext;
     PlayerInputActions inputActions;
     public PlayerInput playerInput;
     
@@ -142,8 +143,10 @@ public class PlayerInputController : MonoBehaviour
         inventoryDragItem = inputActions.Player.InventoryDragItem;
         inventoryDragItem.Enable();
         inventoryDragItem.performed += InventoryDragItemAction;
-        
-        
+
+        dialogueNext = inputActions.Player.DialogueNext;
+        dialogueNext.Enable();
+        dialogueNext.started += DialogueNextAction;
     }
     private void OnDisable()
     {
@@ -167,6 +170,7 @@ public class PlayerInputController : MonoBehaviour
         compendiumMenuTrigger.Disable();
         inventoryRightClickItem.Disable();
         inventoryDragItem.Disable();
+        dialogueNext.Disable();
     }
 
    
@@ -270,5 +274,7 @@ public class PlayerInputController : MonoBehaviour
     public void InventoryDragItemAction(InputAction.CallbackContext context) => GameEventManager.onInventoryDragEvent.Invoke();
     public void InventoryRightClickStartAction(InputAction.CallbackContext context) => GameEventManager.onInventoryRightClickEvent.Invoke();
     public void InventoryRightClickReleaseAction(InputAction.CallbackContext context) => GameEventManager.onInventoryRightClickReleaseEvent.Invoke();
+
+    public void DialogueNextAction(InputAction.CallbackContext context) => GameEventManager.onDialogueNextEvent.Invoke();
 
 }

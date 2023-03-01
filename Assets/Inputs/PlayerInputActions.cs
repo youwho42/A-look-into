@@ -197,6 +197,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DialogueNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""689b494c-dcd3-4057-88b2-f6de9adc78b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -782,6 +791,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""InventoryRightClickItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d7474f6-3596-4a60-a18f-385ea685aca4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcd7e0ee-2f57-4592-ac1f-c7bdc22e732c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DialogueNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1139,6 +1170,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_CompendiumMenu = m_Player.FindAction("CompendiumMenu", throwIfNotFound: true);
         m_Player_InventoryDragItem = m_Player.FindAction("InventoryDragItem", throwIfNotFound: true);
         m_Player_InventoryRightClickItem = m_Player.FindAction("InventoryRightClickItem", throwIfNotFound: true);
+        m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1226,6 +1258,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CompendiumMenu;
     private readonly InputAction m_Player_InventoryDragItem;
     private readonly InputAction m_Player_InventoryRightClickItem;
+    private readonly InputAction m_Player_DialogueNext;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1249,6 +1282,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @CompendiumMenu => m_Wrapper.m_Player_CompendiumMenu;
         public InputAction @InventoryDragItem => m_Wrapper.m_Player_InventoryDragItem;
         public InputAction @InventoryRightClickItem => m_Wrapper.m_Player_InventoryRightClickItem;
+        public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1315,6 +1349,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @InventoryRightClickItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryRightClickItem;
                 @InventoryRightClickItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryRightClickItem;
                 @InventoryRightClickItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryRightClickItem;
+                @DialogueNext.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogueNext;
+                @DialogueNext.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogueNext;
+                @DialogueNext.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogueNext;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1376,6 +1413,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @InventoryRightClickItem.started += instance.OnInventoryRightClickItem;
                 @InventoryRightClickItem.performed += instance.OnInventoryRightClickItem;
                 @InventoryRightClickItem.canceled += instance.OnInventoryRightClickItem;
+                @DialogueNext.started += instance.OnDialogueNext;
+                @DialogueNext.performed += instance.OnDialogueNext;
+                @DialogueNext.canceled += instance.OnDialogueNext;
             }
         }
     }
@@ -1527,6 +1567,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnCompendiumMenu(InputAction.CallbackContext context);
         void OnInventoryDragItem(InputAction.CallbackContext context);
         void OnInventoryRightClickItem(InputAction.CallbackContext context);
+        void OnDialogueNext(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

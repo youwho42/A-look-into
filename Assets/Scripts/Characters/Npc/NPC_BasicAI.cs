@@ -51,9 +51,13 @@ public class NPC_BasicAI : MonoBehaviour
     {
         if (currentState == NPCStates.Talking)
             return;
-        if (time >= wanderTime && time < goToActivityTime)
+
+        bool hasActivity = goToActivityTime != 0;
+        int dayThingsTime = hasActivity ? goToActivityTime : goToHomeTime;
+
+        if (time >= wanderTime && time < dayThingsTime)
             currentState = NPCStates.Wandering;
-        else if (time >= goToActivityTime && time < goToHomeTime && !atActivity)
+        else if (time >= goToActivityTime && time < goToHomeTime && !atActivity && hasActivity)
             currentState = NPCStates.GoingToActivity;
         else if (!atHome && (time >= goToHomeTime || time < wanderTime))
             currentState = NPCStates.GoingHome;
