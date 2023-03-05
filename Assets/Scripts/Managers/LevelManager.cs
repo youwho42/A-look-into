@@ -10,6 +10,7 @@ using Unity.Mathematics;
 using UnityEngine.Playables;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using Klaxon.UndertakingSystem;
 
 public class LevelManager : MonoBehaviour
 {
@@ -268,6 +269,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         PlayerInformation.instance.TogglePlayerInput(false);
+        UndertakingDatabase.instance.ResetQuests();
         while (!currentLevelLoading.isDone)
         {
             

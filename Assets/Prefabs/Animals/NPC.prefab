@@ -77,7 +77,6 @@ GameObject:
   - component: {fileID: 6902144603053421257}
   - component: {fileID: 6902144603053421256}
   - component: {fileID: 6902144603053421259}
-  - component: {fileID: 6902144603053421262}
   - component: {fileID: 6902144603053421263}
   - component: {fileID: 6902144603053421261}
   - component: {fileID: 6902144603053421266}
@@ -210,19 +209,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.12
---- !u!114 &6902144603053421262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0068481ac47d40b48902a661d2a476a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quests: []
 --- !u!114 &6902144603053421263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1901,6 +1887,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6902144604697357951}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6894486864600444607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8311527667256585051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aeb56f6f9b01594ba265fd9afda55de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6902144603035044640}
+  animateNPC: {fileID: 6902144603053421252}
 --- !u!114 &6902144603992607345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1931,17 +1931,3 @@ MonoBehaviour:
   m_Library: []
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: dbc5159b91e384b46acb7216ae1f2242,
     type: 3}
---- !u!114 &6894486864600444607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8311527667256585051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aeb56f6f9b01594ba265fd9afda55de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6902144603035044640}
-  animateNPC: {fileID: 6902144603053421252}

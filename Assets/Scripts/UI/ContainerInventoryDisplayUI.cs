@@ -130,14 +130,15 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
     public void ClearSlots()
     {
-        while (containerSlotHolder.transform.childCount > 0)
+        foreach (Transform child in containerSlotHolder.transform)
         {
-            DestroyImmediate(containerSlotHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
-        while (playerSlotHolder.transform.childCount > 0)
+        foreach (Transform child in playerSlotHolder.transform)
         {
-            DestroyImmediate(playerSlotHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
         containerSlots.Clear();
         playerSlots.Clear();

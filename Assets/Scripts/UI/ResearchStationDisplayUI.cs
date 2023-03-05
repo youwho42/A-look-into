@@ -82,10 +82,11 @@ public class ResearchStationDisplayUI : MonoBehaviour
     }
     public void ClearInventorySlots()
     {
-        while (inventoryItemArea.transform.childCount > 0)
+        foreach (Transform child in inventoryItemArea.transform)
         {
-            DestroyImmediate(inventoryItemArea.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
     }
 
     

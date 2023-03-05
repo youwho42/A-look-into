@@ -1,4 +1,5 @@
-using QuantumTek.QuantumQuest;
+using Klaxon.UndertakingSystem;
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,8 +21,7 @@ public class UndertakingsDisplayUI : MonoBehaviour
     public GameObject undertakingsButtonHolder;
     public UndertakingsButton undertakingsButton;
     public GameObject undertakingsSpace;
-    public QQ_Quest currentUndertaking;
-    
+    public UndertakingObject currentUndertaking;
 
     public TextMeshProUGUI undertakingTitle;
     public TextMeshProUGUI undertakingDescription;
@@ -40,52 +40,51 @@ public class UndertakingsDisplayUI : MonoBehaviour
     public void SetAvailableUndertakings()
     {
         ClearUndertakingsButtons();
-        var undertakings = PlayerInformation.instance.playerQuestHandler.Quests;
-        
+        var undertakings = PlayerInformation.instance.playerUndertakings.activeUndertakings;
+
         // create undertaking buttons of NOT complete undertakings
         foreach (var undertaking in undertakings)
         {
-            if (undertaking.Value.Status == QQ_QuestStatus.Inactive || undertaking.Value.Status == QQ_QuestStatus.Completed)
-                continue;
-            CreateUndertakingButton(undertaking.Value);
+            if (undertaking.CurrentState == UndertakingState.Active)
+                CreateUndertakingButton(undertaking);
         }
-        
+
         Instantiate(undertakingsSpace, undertakingsButtonHolder.transform);
         // create undertaking buttons of complete undertakings
-        foreach (var undertaking in undertakings)
+        var reverso = undertakings;
+        reverso.Reverse();
+        foreach (var undertaking in reverso)
         {
-            if (undertaking.Value.Status == QQ_QuestStatus.Inactive || undertaking.Value.Status == QQ_QuestStatus.Active)
-                continue;
-            CreateUndertakingButton(undertaking.Value);
+            if (undertaking.CurrentState == UndertakingState.Complete)
+                CreateUndertakingButton(undertaking);
         }
 
         ClearCurrentUndertaking();
     }
 
-    void CreateUndertakingButton(QQ_Quest undertaking)
+    void CreateUndertakingButton(UndertakingObject undertaking)
     {
         UndertakingsButton newUndertaking = Instantiate(undertakingsButton, undertakingsButtonHolder.transform);
         undertakingsButtons.Add(newUndertaking);
         newUndertaking.AddUndertaking(undertaking);
     }
 
-    public void SetCurrentUndertaking(QQ_Quest undertaking)
+    public void SetCurrentUndertaking(UndertakingObject undertaking)
     {
         ClearCurrentUndertaking();
         currentUndertaking = undertaking;
         undertakingTitle.text = currentUndertaking.Name;
         string tasks = "";
-        if (!undertaking.BooleanQuest)
+         
+        if (undertaking.CurrentState != UndertakingState.Complete)
         {
-            if (!undertaking.Completed)
+            for (int i = 0; i < undertaking.Tasks.Count; i++)
             {
-                for (int i = 0; i < undertaking.Tasks.Count; i++)
-                {
-                    tasks += $"\n-{undertaking.Tasks[i].TaskItem} {PlayerInformation.instance.playerInventory.GetStock(undertaking.Tasks[i].TaskItem)}/{undertaking.Tasks[i].MaxProgress}";
-                }
+                tasks += $"\n-{undertaking.Tasks[i].Name}";
             }
         }
-        string desc = undertaking.Completed ? currentUndertaking.CompletedDescription : currentUndertaking.Description;
+        
+        string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.CompletedDescription : currentUndertaking.Description;
         undertakingDescription.text = $"{desc}<br>{tasks}";
     }
 
@@ -100,10 +99,11 @@ public class UndertakingsDisplayUI : MonoBehaviour
 
     public void ClearUndertakingsButtons()
     {
-        while (undertakingsButtonHolder.transform.childCount > 0)
+        foreach (Transform child in undertakingsButtonHolder.transform)
         {
-            DestroyImmediate(undertakingsButtonHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
         undertakingsButtons.Clear();
     }
 }

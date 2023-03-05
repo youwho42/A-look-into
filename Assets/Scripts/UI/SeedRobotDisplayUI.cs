@@ -99,13 +99,13 @@ public class SeedRobotDisplayUI : MonoBehaviour
 
     }
 
-        public void ClearSlots()
+    public void ClearSlots()
     {
-        while (containerSlotHolder.transform.childCount > 0)
+
+        foreach (Transform child in containerSlotHolder.transform)
         {
-            DestroyImmediate(containerSlotHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
-        
         
         seedRobotSlots.Clear();
         

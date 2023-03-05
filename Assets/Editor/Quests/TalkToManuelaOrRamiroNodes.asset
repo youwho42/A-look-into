@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TalkToManuelaOrRamiroNodes
   m_EditorClassIdentifier: 
   DataDB: {fileID: 11400000, guid: 662df1152475f5943b8798ebfdcc98e9, type: 2}
-  NextID: 2
+  NextID: 4
   Nodes:
   - ID: 0
     Type: 1
@@ -31,13 +31,55 @@ MonoBehaviour:
       Y: 7.5
       AllowMultipleConnections: 1
       Connections:
-        keys: 
-        values: []
+        keys: 03000000
+        values:
+        - Array: 00000000
     AllowedInputs: []
     AllowedOutputs:
     - InputType: 2
       InputID: 0
       OutputType: 1
+      OutputID: 0
+  - ID: 3
+    Type: 2
+    Window:
+      serializedVersion: 2
+      x: 478
+      y: 59
+      width: 300
+      height: 180
+    Inputs:
+    - ID: 0
+      Name: Previous Tasks
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 00000000
+        values:
+        - Array: 00000000
+    Outputs:
+    - ID: 0
+      Name: Next Tasks
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 2
+      InputID: 0
+      OutputType: 1
+      OutputID: 0
+    - InputType: 2
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 2
+      InputID: 0
+      OutputType: 2
       OutputID: 0
   QuestNodes:
   - ID: 0
@@ -75,9 +117,68 @@ MonoBehaviour:
       RequiredCompleted: 0
       BooleanQuest: 1
       GumptionReward: 10
-      ItemReward: Stick
+      ItemReward: Agency
       ItemAmount: 10
       Completed: 0
-      Tasks: []
-      FirstTasks: 
-  TaskNodes: []
+      Tasks:
+      - ID: 3
+        Name: Talk
+        Description: 
+        TaskItem: 
+        NextTasks: 
+        Progress: 0
+        MaxProgress: 1
+        Optional: 0
+        Completed: 0
+      FirstTasks: 03000000
+  TaskNodes:
+  - ID: 3
+    Type: 1
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 300
+      height: 180
+    Inputs:
+    - ID: 0
+      Name: Previous Tasks
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Next Tasks
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 2
+      InputID: 0
+      OutputType: 1
+      OutputID: 0
+    - InputType: 2
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 2
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    Data:
+      ID: 3
+      Name: Talk
+      Description: 
+      TaskItem: 
+      NextTasks: 
+      Progress: 0
+      MaxProgress: 1
+      Optional: 0
+      Completed: 0

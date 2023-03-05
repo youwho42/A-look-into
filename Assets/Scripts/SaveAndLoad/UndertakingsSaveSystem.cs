@@ -1,34 +1,42 @@
-using QuantumTek.QuantumInventory;
-using QuantumTek.QuantumQuest;
+using Klaxon.UndertakingSystem;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UndertakingsSaveSystem : MonoBehaviour, ISaveable
 {
-    public QQ_QuestHandler playerUndertakings;
-
-
+   
+    public PlayerUndertakingHandler undertakingHandler;
+    
     public object CaptureState()
     {
-        List<string> names = new List<string>();
-        List<bool> states = new List<bool>();
-        foreach (var undertaking in playerUndertakings.Quests)
+        List<string> _undertakingNames = new List<string>();
+        List<int> _undertakingStates = new List<int>();
+
+
+        List<string> _taskUndertakingNames = new List<string>();
+        List<string> _taskNames = new List<string>();
+        List<bool> _taskStates = new List<bool>();
+
+        foreach (var undertaking in undertakingHandler.activeUndertakings)
         {
-            if (undertaking.Value.Status == QQ_QuestStatus.Active || undertaking.Value.Status == QQ_QuestStatus.Completed)
+            _undertakingNames.Add(undertaking.Name);
+            _undertakingStates.Add((int)undertaking.CurrentState);
+            for (int i = 0; i < undertaking.Tasks.Count; i++)
             {
-                names.Add(undertaking.Value.Name);
-                states.Add(undertaking.Value.Completed);
+                _taskUndertakingNames.Add(undertaking.Name);
+                _taskNames.Add(undertaking.Tasks[i].Name);
+                _taskStates.Add(undertaking.Tasks[i].IsComplete);
             }
-                
-            
         }
 
         return new SaveData
         {
-            undertakingName = names,
-            isComplete = states
+            undertakingName = _undertakingNames,
+            undertakingStates = _undertakingStates,
+            taskUndertakingNames = _taskUndertakingNames,
+            taskNames = _taskNames,
+            taskStates = _taskStates
         };
     }
 
@@ -38,18 +46,27 @@ public class UndertakingsSaveSystem : MonoBehaviour, ISaveable
 
         for (int i = 0; i < saveData.undertakingName.Count; i++)
         {
-            playerUndertakings.ActivateQuest(saveData.undertakingName[i], true);
-            if (saveData.isComplete[i]==true)
-                playerUndertakings.CompleteQuest(saveData.undertakingName[i], true);
-            GameEventManager.onUndertakingsUpdateEvent.Invoke();
+            var q = UndertakingDatabase.instance.GetUndertaking(saveData.undertakingName[i]);
+            undertakingHandler.AddUndertaking(q);
+            UndertakingDatabase.instance.SetUndertakingState(q, saveData.undertakingStates[i]);
         }
+        for (int j = 0; j < saveData.taskUndertakingNames.Count; j++)
+        {
+            UndertakingDatabase.instance.SetTaskState(saveData.taskUndertakingNames[j], saveData.taskNames[j], saveData.taskStates[j]);
+        }
+        GameEventManager.onUndertakingsUpdateEvent.Invoke();
     }
 
     [Serializable]
     private struct SaveData
     {
         public List<string> undertakingName;
-        public List<bool> isComplete;
+        public List<int> undertakingStates;
 
+        public List<string> taskUndertakingNames;
+        public List<string> taskNames;
+        public List<bool> taskStates;
     }
+
+    
 }

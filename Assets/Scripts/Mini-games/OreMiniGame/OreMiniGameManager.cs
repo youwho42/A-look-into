@@ -144,6 +144,8 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         {
             currentSection++;
             PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
+            NotificationManager.instance.SetNewNotification(item.Name, NotificationManager.NotificationType.Inventory);
+
             PlaySound(0);
             StartCoroutine(GlowOn(material, 10));
         }

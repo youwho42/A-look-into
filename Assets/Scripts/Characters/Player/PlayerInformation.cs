@@ -6,6 +6,8 @@ using UnityEngine;
 using Klaxon.GravitySystem;
 using QuantumTek.QuantumQuest;
 using System;
+using Klaxon.QuestSystem;
+using Klaxon.UndertakingSystem;
 
 public class PlayerInformation : MonoBehaviour
 {
@@ -33,7 +35,9 @@ public class PlayerInformation : MonoBehaviour
 
     public PlayerAnimalCompendiumInformation animalCompendiumInformation;
     public PlayerCharacterManager characterManager;
-    public QQ_QuestHandler playerQuestHandler;
+
+    public PlayerUndertakingHandler playerUndertakings;
+
     public string playerName { get; private set; }
 
     

@@ -124,10 +124,11 @@ public class LoadSelectionUI : MonoBehaviour
 
     public void ClearLoadableSavesButtons()
     {
-        while (loadButtonHolder.transform.childCount > 0)
+        foreach (Transform child in loadButtonHolder.transform)
         {
-            DestroyImmediate(loadButtonHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
         loadableSaveButtons.Clear();
     }
     public void DeleteSave()

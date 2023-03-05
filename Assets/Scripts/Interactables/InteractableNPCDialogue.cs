@@ -1,3 +1,4 @@
+using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumDialogue;
 using QuantumTek.QuantumDialogue.Demo;
 using System.Collections;
@@ -10,18 +11,29 @@ public class InteractableNPCDialogue : Interactable
     public QD_DialogueHandler handler;
     QD_DialogueDemo canvasDialogueDisplay;
 
-    private QuestsNPCHolder quests; 
-    public QuestsNPCHolder Quests 
-    { 
-        get 
-        { 
-            if(quests == null)
-                quests= GetComponent<QuestsNPCHolder>();
-        return quests; 
+    private UndertakingHolder undertakings;
+    public UndertakingHolder Undertakings
+    {
+        get
+        {
+            if (undertakings == null)
+                undertakings = GetComponent<UndertakingHolder>();
+            return undertakings;
+        }
+    }
+    
+    private TalkToNPCTask talkQuest;
+    public TalkToNPCTask TalkQuest
+    {
+        get
+        {
+            if (talkQuest == null)
+                talkQuest = GetComponent<TalkToNPCTask>();
+            return talkQuest;
         }
     }
 
-   
+
 
 
     public override void Start()
@@ -46,7 +58,8 @@ public class InteractableNPCDialogue : Interactable
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         canvasDialogueDisplay.handler = handler;
-        if (Quests != null)
+        
+        if (Undertakings != null)
         {
             // get all the quests in questHolder
             // check if any of these quests are active 
@@ -54,40 +67,36 @@ public class InteractableNPCDialogue : Interactable
             // compare these quests to the conversation possibilities
             // set the conversation
             // check if quest can be completed
-            
-            int complete = 0;
-            
-            for (int i = 0; i < Quests.quests.Length; i++)
-            {
 
-                var q = PlayerInformation.instance.playerQuestHandler.GetQuest(Quests.quests[i].Quest.Name);
-                if (q.Completed)
+            int complete = 0;
+
+            for (int i = 0; i < Undertakings.undertakings.Count; i++)
+            {
+                var u = Undertakings.undertakings[i];
+                if (u.CurrentState == UndertakingState.Complete)
                 {
                     complete++;
                     continue;
                 }
 
-                if (q.Status == QuantumTek.QuantumQuest.QQ_QuestStatus.Active)
+                if (u.CurrentState == UndertakingState.Active)
                 {
-                    if(Quests.TurnInQuest(q))
-                        canvasDialogueDisplay.handler.SetConversation($"QuestComplete_{q.Name}");
-                    else
-                        canvasDialogueDisplay.handler.SetConversation($"QuestActive_{q.Name}");
-                    
+                    canvasDialogueDisplay.handler.SetConversation($"QuestActive_{u.Name}");
                     break;
                 }
-                if (q.Status == QuantumTek.QuantumQuest.QQ_QuestStatus.Inactive)
+                if (u.CurrentState == UndertakingState.Inactive)
                 {
-                    PlayerInformation.instance.playerQuestHandler.ActivateQuest(q.Name);
+                    
+                    u.ActivateUndertaking();
                     //GameEventManager.onUndertakingsUpdateEvent.Invoke();
-                    //NotificationManager.instance.SetNewNotification($"{q.Name} undertaking started", NotificationManager.NotificationType.Undertaking);
-                    canvasDialogueDisplay.handler.SetConversation($"QuestInactive_{q.Name}");
+                    NotificationManager.instance.SetNewNotification($"{u.Name} undertaking started", NotificationManager.NotificationType.Undertaking);
+                    canvasDialogueDisplay.handler.SetConversation($"QuestInactive_{u.Name}");
                     break;
                 }
 
 
             }
-            if (complete >= Quests.quests.Length)
+            if (complete >= Undertakings.undertakings.Count)
             {
                 List<int> nonQuestConversations = NonQuestConversations(conversations);
                 conversationIndex = nonQuestConversations[Random.Range(0, nonQuestConversations.Count)];
@@ -98,7 +107,10 @@ public class InteractableNPCDialogue : Interactable
         {
             canvasDialogueDisplay.handler.SetConversation(handler.dialogue.Conversations[conversationIndex].Name);
         }
-
+        if (TalkQuest != null)
+        {
+            TalkQuest.TalkTask();
+        }
         canvasDialogueDisplay.SetInteractableNPC(this);
         canvasDialogueDisplay.SetText();
     }

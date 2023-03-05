@@ -124,10 +124,11 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public void ClearRecipeSlots()
     {
-        while (recipeButtonHolder.transform.childCount > 0)
+        foreach (Transform child in recipeButtonHolder.transform)
         {
-            DestroyImmediate(recipeButtonHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
         recipeButtons.Clear();
     }
 

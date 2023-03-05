@@ -18,12 +18,15 @@ public class FadeTilesOnPlayer : MonoBehaviour
     {
         
         Collider2D hit = Physics2D.OverlapPoint(playerPosition.position, fadableAreaMask);
+        
         if(lastHit != hit)
         {
             lastHit = hit;
             ClearFadedTiles();
         }
-        if (lastPlayerPos != CurrentGridLocation() && hit != null)
+        if (hit == null)
+            return;
+        if (lastPlayerPos != CurrentGridLocation())
         {
             if (hit.CompareTag("House"))
             {
@@ -54,9 +57,9 @@ public class FadeTilesOnPlayer : MonoBehaviour
 
     void GetTileLocation()
     {
-        for (int x = -1; x < 2; x++)
+        for (int x = -2; x < 3; x++)
         {
-            for (int y = -1; y < 2; y++)
+            for (int y = -2; y < 3; y++)
             {
                 for (int z = 0; z < tilemap.size.z + 1; z++)
                 {
@@ -68,7 +71,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
                     if (tile != null)
                     {
                         StopCoroutine("FadeTile");
-                        StartCoroutine(FadeTile(currentPosition, (Mathf.Abs(x) * 0.3f) + 0.15f));
+                        StartCoroutine(FadeTile(currentPosition, (Mathf.Abs(x) * 0.2f) + 0.1f));
                         lastTilePositions.Add(currentPosition);
                     }
                 }

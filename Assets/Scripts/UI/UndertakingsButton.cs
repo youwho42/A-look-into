@@ -1,17 +1,12 @@
-using QuantumTek.QuantumInventory;
-using QuantumTek.QuantumQuest;
-using System.Collections;
-using System.Collections.Generic;
+using Klaxon.UndertakingSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 public class UndertakingsButton : MonoBehaviour
 {
-    QQ_Quest undertaking;
+    UndertakingObject undertaking;
     public TextMeshProUGUI undertakingName;
-    //CraftingStationDisplayUI craftingStation;
     public Button button;
     public bool isCompleted;
     public Color incompleteColor;
@@ -21,13 +16,13 @@ public class UndertakingsButton : MonoBehaviour
         UndertakingsDisplayUI.instance.SetCurrentUndertaking(undertaking);
     }
 
-    public void AddUndertaking(QQ_Quest newUndertaking)
+    public void AddUndertaking(UndertakingObject newUndertaking)
     {
         undertaking = newUndertaking;
         undertakingName.text = undertaking.Name;
-        isCompleted = undertaking.Completed;
+        isCompleted = undertaking.CurrentState == UndertakingState.Complete;
         var ac = button.colors;
-        ac.normalColor = undertaking.Completed ? completedColor : incompleteColor;
+        ac.normalColor = isCompleted ? completedColor : incompleteColor;
         button.colors = ac;
 
     }

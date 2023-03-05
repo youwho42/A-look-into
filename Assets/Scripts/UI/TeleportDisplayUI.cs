@@ -56,9 +56,10 @@ public class TeleportDisplayUI : MonoBehaviour
 
     public void ClearDestinationSlot()
     {
-        while (destinationListHolder.transform.childCount > 0)
+        foreach (Transform child in destinationListHolder.transform)
         {
-            DestroyImmediate(destinationListHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+
     }
 }

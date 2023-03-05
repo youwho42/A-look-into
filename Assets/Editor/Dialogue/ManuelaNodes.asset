@@ -31,9 +31,8 @@ MonoBehaviour:
       Y: 40
       AllowMultipleConnections: 1
       Connections:
-        keys: 03000000070000000a0000000c0000001100000013000000
+        keys: 03000000070000000a0000000c00000011000000
         values:
-        - Array: 00000000
         - Array: 00000000
         - Array: 00000000
         - Array: 00000000
@@ -834,125 +833,6 @@ MonoBehaviour:
       InputID: 5
       OutputType: 3
       OutputID: 1
-  - ID: 18
-    Type: 1
-    Window:
-      serializedVersion: 2
-      x: 1065
-      y: 300.9489
-      width: 200
-      height: 65
-    Inputs: []
-    Outputs:
-    - ID: 0
-      Name: First Message
-      Type: 1
-      Y: 40
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 13000000
-        values:
-        - Array: 01000000
-    AllowedInputs: []
-    AllowedOutputs:
-    - InputType: 3
-      InputID: 1
-      OutputType: 1
-      OutputID: 0
-  - ID: 19
-    Type: 3
-    Window:
-      serializedVersion: 2
-      x: 1325.015
-      y: 298.9489
-      width: 200
-      height: 175
-    Inputs:
-    - ID: 0
-      Name: Speaker
-      Type: 0
-      Y: 7.5
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 00000000
-        values:
-        - Array: 00000000
-    - ID: 1
-      Name: Previous
-      Type: 0
-      Y: 35
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 12000000
-        values:
-        - Array: 00000000
-    Outputs:
-    - ID: 0
-      Name: Speaker
-      Type: 1
-      Y: 7.5
-      AllowMultipleConnections: 1
-      Connections:
-        keys: 
-        values: []
-    - ID: 1
-      Name: Next
-      Type: 1
-      Y: 35
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 
-        values: []
-    AllowedInputs:
-    - InputType: 3
-      InputID: 0
-      OutputType: 2
-      OutputID: 0
-    - InputType: 3
-      InputID: 1
-      OutputType: 3
-      OutputID: 1
-    - InputType: 3
-      InputID: 1
-      OutputType: 1
-      OutputID: 0
-    - InputType: 3
-      InputID: 1
-      OutputType: 4
-      OutputID: 0
-    AllowedOutputs:
-    - InputType: 3
-      InputID: 0
-      OutputType: 3
-      OutputID: 0
-    - InputType: 3
-      InputID: 1
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 0
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 1
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 2
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 3
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 4
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 5
-      OutputType: 3
-      OutputID: 1
   - ID: 21
     Type: 3
     Window:
@@ -1677,7 +1557,8 @@ MonoBehaviour:
       SpeakerName: Manuela
       PreviousMessage: -1
       NextMessage: -1
-      MessageText: Would you be a deer and get me 10 peices of rope please?
+      MessageText: I think I saw a campsite around here somewhere. Dow i the valley
+        maybbe.
       Clip: {fileID: 0}
   - ID: 17
     Type: 3
@@ -1777,107 +1658,7 @@ MonoBehaviour:
       SpeakerName: Manuela
       PreviousMessage: -1
       NextMessage: -1
-      MessageText: Were you able to get me the rope I need?
-      Clip: {fileID: 0}
-  - ID: 19
-    Type: 3
-    Window:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 200
-      height: 175
-    Inputs:
-    - ID: 0
-      Name: Speaker
-      Type: 0
-      Y: 7.5
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 
-        values: []
-    - ID: 1
-      Name: Previous
-      Type: 0
-      Y: 35
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 
-        values: []
-    Outputs:
-    - ID: 0
-      Name: Speaker
-      Type: 1
-      Y: 7.5
-      AllowMultipleConnections: 1
-      Connections:
-        keys: 
-        values: []
-    - ID: 1
-      Name: Next
-      Type: 1
-      Y: 35
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 
-        values: []
-    AllowedInputs:
-    - InputType: 3
-      InputID: 0
-      OutputType: 2
-      OutputID: 0
-    - InputType: 3
-      InputID: 1
-      OutputType: 3
-      OutputID: 1
-    - InputType: 3
-      InputID: 1
-      OutputType: 1
-      OutputID: 0
-    - InputType: 3
-      InputID: 1
-      OutputType: 4
-      OutputID: 0
-    AllowedOutputs:
-    - InputType: 3
-      InputID: 0
-      OutputType: 3
-      OutputID: 0
-    - InputType: 3
-      InputID: 1
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 0
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 1
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 2
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 3
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 4
-      OutputType: 3
-      OutputID: 1
-    - InputType: 4
-      InputID: 5
-      OutputType: 3
-      OutputID: 1
-    Data:
-      ID: 19
-      Speaker: 0
-      SpeakerName: Manuela
-      PreviousMessage: -1
-      NextMessage: -1
-      MessageText: Why, thank you. I'll be able to do the thing now!
+      MessageText: Were you able to fid the campsite?
       Clip: {fileID: 0}
   - ID: 21
     Type: 3
@@ -2091,7 +1872,7 @@ MonoBehaviour:
       OutputID: 0
     Data:
       ID: 11
-      Name: QuestInactive_Give Manuela Rope
+      Name: QuestInactive_Find the campsite
       FirstMessage: 12
   - ID: 16
     Type: 1
@@ -2119,34 +1900,6 @@ MonoBehaviour:
       OutputID: 0
     Data:
       ID: 16
-      Name: QuestActive_Give Manuela Rope
+      Name: QuestActive_Find the campsite
       FirstMessage: 17
-  - ID: 18
-    Type: 1
-    Window:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 200
-      height: 65
-    Inputs: []
-    Outputs:
-    - ID: 0
-      Name: First Message
-      Type: 1
-      Y: 40
-      AllowMultipleConnections: 0
-      Connections:
-        keys: 
-        values: []
-    AllowedInputs: []
-    AllowedOutputs:
-    - InputType: 3
-      InputID: 1
-      OutputType: 1
-      OutputID: 0
-    Data:
-      ID: 18
-      Name: QuestComplete_Give Manuela Rope
-      FirstMessage: 19
   ChoiceNodes: []

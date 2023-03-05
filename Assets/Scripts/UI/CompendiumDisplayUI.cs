@@ -308,27 +308,30 @@ public class CompendiumDisplayUI : MonoBehaviour
     public void ClearCompendiumSlot()
     {
         compendiumSlots.Clear();
-        while (compendiumListHolder.transform.childCount > 0)
+        foreach (Transform child in compendiumListHolder.transform)
         {
-            DestroyImmediate(compendiumListHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
     }
     public void ClearCompendiumRecipeSlot()
     {
         compendiumRecipeSlots.Clear();
-        while (compendiumRecipeListHolder.transform.childCount > 0)
+        foreach (Transform child in compendiumRecipeListHolder.transform)
         {
-            DestroyImmediate(compendiumRecipeListHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
     }
 
     public void ClearCompendiumRecipeRevealSlot()
     {
         compendiumRecipeRevealSlots.Clear();
-        while (compendiumRecipeRevealListHolder.transform.childCount > 0)
+        foreach (Transform child in compendiumRecipeRevealListHolder.transform)
         {
-            DestroyImmediate(compendiumRecipeRevealListHolder.transform.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
+        
     }
 
     public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)

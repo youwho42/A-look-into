@@ -16,16 +16,23 @@ MonoBehaviour:
     ID: 0
     Name: Talk to Manuela or Ramiro
     NPCName: 
-    Description: There is a couple that lives on the hill, maybe you should try to
-      find them, they might explain what's going on. Or not.
-    CompletedDescription: You found Manuela and Ramiro! They seemed like a nice couple,
-      maybe I should help them all I can.
+    Description: Talk to either Manuela or Ramiro, the couple that lives on the hill.
+    CompletedDescription: You found the couple that lives on the hill.
     Status: 0
     RequiredCompleted: 0
     BooleanQuest: 1
     GumptionReward: 10
     ItemReward: Agency
-    ItemAmount: 5
+    ItemAmount: 10
     Completed: 0
-    Tasks: []
-    FirstTasks: 
+    Tasks:
+    - ID: 3
+      Name: Talk
+      Description: 
+      TaskItem: 
+      NextTasks: 
+      Progress: 0
+      MaxProgress: 1
+      Optional: 0
+      Completed: 0
+    FirstTasks: 03000000
