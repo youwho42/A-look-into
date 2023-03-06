@@ -176,13 +176,13 @@ public class PurpleFireSheet : MonoBehaviour
 
         public void Execute(int i, TransformAccess transform)
         {
-            // 1
+            
             Vector3 currentVelocity = objectVelocities[i];
             positionZ = currentVelocity.z;
 
             random randomGen = new random((uint)(i * time + 1 + seed));
 
-            // 3
+           
             positionZ += gravity * jobDeltaTime * speed * randomGen.NextFloat(0.1f, 0.3f);
             displacedPosition = new Vector3(0, displacementY * positionZ, positionZ);
             transform.localPosition = displacedPosition;
@@ -191,7 +191,7 @@ public class PurpleFireSheet : MonoBehaviour
             Vector3 currentPosition = transform.localPosition;
 
 
-            // 1
+            
             if (currentPosition.y >= displacementY*height)
             {
 

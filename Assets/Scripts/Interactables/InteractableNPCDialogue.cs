@@ -22,13 +22,13 @@ public class InteractableNPCDialogue : Interactable
         }
     }
     
-    private TalkToNPCTask talkQuest;
-    public TalkToNPCTask TalkQuest
+    private CompleteTaskOnInteraction talkQuest;
+    public CompleteTaskOnInteraction TalkQuest
     {
         get
         {
             if (talkQuest == null)
-                talkQuest = GetComponent<TalkToNPCTask>();
+                talkQuest = GetComponent<CompleteTaskOnInteraction>();
             return talkQuest;
         }
     }
@@ -61,9 +61,8 @@ public class InteractableNPCDialogue : Interactable
         
         if (Undertakings != null)
         {
-            // get all the quests in questHolder
-            // check if any of these quests are active 
-            // somewhere we need to know if that quest is completed or not even active
+            // get all the active quests
+            // somewhere we need to know if that quest is completed
             // compare these quests to the conversation possibilities
             // set the conversation
             // check if quest can be completed
@@ -89,7 +88,6 @@ public class InteractableNPCDialogue : Interactable
                     
                     u.ActivateUndertaking();
                     //GameEventManager.onUndertakingsUpdateEvent.Invoke();
-                    NotificationManager.instance.SetNewNotification($"{u.Name} undertaking started", NotificationManager.NotificationType.Undertaking);
                     canvasDialogueDisplay.handler.SetConversation($"QuestInactive_{u.Name}");
                     break;
                 }
@@ -109,7 +107,7 @@ public class InteractableNPCDialogue : Interactable
         }
         if (TalkQuest != null)
         {
-            TalkQuest.TalkTask();
+            TalkQuest.CompleteTask();
         }
         canvasDialogueDisplay.SetInteractableNPC(this);
         canvasDialogueDisplay.SetText();

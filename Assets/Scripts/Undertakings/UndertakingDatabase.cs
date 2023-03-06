@@ -2,22 +2,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Klaxon.UndertakingSystem
 {
-    public class UndertakingDatabase : MonoBehaviour
+    [CreateAssetMenu(menuName = "Undertakings/Undertaking Database")]
+    public class UndertakingDatabase : ScriptableObject
     {
-
-
-        public static UndertakingDatabase instance;
-        private void Awake()
-        {
-            if (instance == null)
-                instance = this;
-
-            AddAllQuestsToDatabase();
-            ResetQuests();
-        }
 
         public List<UndertakingObject> allUndertakingObjects = new List<UndertakingObject>();
 
@@ -50,21 +41,7 @@ namespace Klaxon.UndertakingSystem
             }
         }
 
-
-
-        void AddAllQuestsToDatabase()
-        {
-            DirectoryInfo dataFolder = new DirectoryInfo("Assets/Resources/Undertakings");
-            var folders = dataFolder.GetDirectories();
-            foreach (var folder in folders)
-            {
-                string path = $"Undertakings/{folder.Name}";
-                var obj = Resources.LoadAll<UndertakingObject>(path).ToList();
-                allUndertakingObjects.AddRange(obj);
-            }
-        }
-
-        public void ResetQuests()
+        public void ResetUndertakings()
         {
             for (int i = 0; i < allUndertakingObjects.Count; i++)
             {

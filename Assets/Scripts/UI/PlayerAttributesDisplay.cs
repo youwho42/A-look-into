@@ -32,6 +32,10 @@ public class PlayerAttributesDisplay : MonoBehaviour
         agencyText.text = lastAgency.ToString();
         
     }
+    private void OnDisable()
+    {
+        GameEventManager.onStatUpdateEvent.RemoveListener(UpdateStatsUI);
+    }
     private void UpdateStatsUI()
     {
         if (!gameObject.activeSelf)
@@ -73,8 +77,5 @@ public class PlayerAttributesDisplay : MonoBehaviour
 
         statObject.anchoredPosition = originalPos;
     }
-    private void OnDestroy()
-    {
-        GameEventManager.onStatUpdateEvent.RemoveListener(UpdateStatsUI);
-    }
+    
 }

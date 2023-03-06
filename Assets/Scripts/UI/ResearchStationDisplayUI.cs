@@ -71,9 +71,9 @@ public class ResearchStationDisplayUI : MonoBehaviour
                         }
                     }
 
-                //EventSystem.current.SetSelectedGameObject(null);
-                //if (researchStationInventorySlots.Count > 0)
-                //    EventSystem.current.SetSelectedGameObject(researchStationInventorySlots[0].GetComponentInChildren<Button>().gameObject);
+                EventSystem.current.SetSelectedGameObject(null);
+                if (researchStationInventorySlots.Count > 0)
+                    EventSystem.current.SetSelectedGameObject(researchStationInventorySlots[0].GetComponentInChildren<Button>().gameObject);
 
             }
 

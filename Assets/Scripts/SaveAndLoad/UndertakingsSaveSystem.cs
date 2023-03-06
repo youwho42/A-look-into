@@ -46,13 +46,13 @@ public class UndertakingsSaveSystem : MonoBehaviour, ISaveable
 
         for (int i = 0; i < saveData.undertakingName.Count; i++)
         {
-            var q = UndertakingDatabase.instance.GetUndertaking(saveData.undertakingName[i]);
-            undertakingHandler.AddUndertaking(q);
-            UndertakingDatabase.instance.SetUndertakingState(q, saveData.undertakingStates[i]);
+            var q = UndertakingDatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName[i]);
+            undertakingHandler.RestoreUndertaking(q);
+            UndertakingDatabaseHolder.instance.undertakingDatabase.SetUndertakingState(q, saveData.undertakingStates[i]);
         }
         for (int j = 0; j < saveData.taskUndertakingNames.Count; j++)
         {
-            UndertakingDatabase.instance.SetTaskState(saveData.taskUndertakingNames[j], saveData.taskNames[j], saveData.taskStates[j]);
+            UndertakingDatabaseHolder.instance.undertakingDatabase.SetTaskState(saveData.taskUndertakingNames[j], saveData.taskNames[j], saveData.taskStates[j]);
         }
         GameEventManager.onUndertakingsUpdateEvent.Invoke();
     }

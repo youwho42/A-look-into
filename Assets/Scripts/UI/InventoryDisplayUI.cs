@@ -33,6 +33,13 @@ public class InventoryDisplayUI : MonoBehaviour
         UpdateInventoryUI();
 
     }
+    private void OnDisable()
+    {
+
+        GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
+        GameEventManager.onControlSchemeChangedEvent.RemoveListener(ChangeControlText);
+    }
     void SetInventoryUI()
     {
         for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
@@ -64,13 +71,7 @@ public class InventoryDisplayUI : MonoBehaviour
 
     
     
-    private void OnDisable()
-    {
-        
-        GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
-        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
-        GameEventManager.onControlSchemeChangedEvent.RemoveListener(ChangeControlText);
-    }
+    
 
     void ChangeControlText(string text)
     {

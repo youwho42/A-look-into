@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 2243991136697181872}
   - component: {fileID: 8651556813322179324}
   - component: {fileID: 7266101157432544512}
+  - component: {fileID: 1988191400468955293}
   m_Layer: 13
   m_Name: TempleInteractionStation
   m_TagString: Untagged
@@ -192,14 +193,17 @@ MonoBehaviour:
   interactVerb: Light
   bounceCost: 75
   agencyReward: 0
-  agencyCost: 5000
+  agencyCost: 100
   canInteract: 1
   purpleRain: {fileID: 0}
+  particleEffect: {fileID: 0}
   firesToLight:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 2243991137558903184}
   isActivated: 0
+  fissureMap: {fileID: 0}
+  fissurePositions: []
 --- !u!58 &2243991136697181872
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -242,6 +246,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &1988191400468955293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2243991136697181876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ce8e8ecdfe90f489bbcc56e04fb795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  undertaking: {fileID: 11400000, guid: a01bfc35cd95ac34993eb86e701451da, type: 2}
+  task: {fileID: 11400000, guid: bfb4126895b5de847a94445bd77adf03, type: 2}
 --- !u!1 &2243991136762165743
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,8 +512,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGlow: 0
   maxGlow: 0
-  bloomMinIntensity: 5
-  bloomMaxIntensity: 10
+  bloomMinIntensity: 10
+  bloomMaxIntensity: 20
   useAlpha: 0
   useIntensity: 1
 --- !u!1001 &2243991136549294798

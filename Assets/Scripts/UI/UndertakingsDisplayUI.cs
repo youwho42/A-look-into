@@ -40,10 +40,10 @@ public class UndertakingsDisplayUI : MonoBehaviour
     public void SetAvailableUndertakings()
     {
         ClearUndertakingsButtons();
-        var undertakings = PlayerInformation.instance.playerUndertakings.activeUndertakings;
+        var activeUndertakings = PlayerInformation.instance.playerUndertakings.activeUndertakings;
 
         // create undertaking buttons of NOT complete undertakings
-        foreach (var undertaking in undertakings)
+        foreach (var undertaking in activeUndertakings)
         {
             if (undertaking.CurrentState == UndertakingState.Active)
                 CreateUndertakingButton(undertaking);
@@ -51,7 +51,8 @@ public class UndertakingsDisplayUI : MonoBehaviour
 
         Instantiate(undertakingsSpace, undertakingsButtonHolder.transform);
         // create undertaking buttons of complete undertakings
-        var reverso = undertakings;
+        
+        var reverso = activeUndertakings;
         reverso.Reverse();
         foreach (var undertaking in reverso)
         {

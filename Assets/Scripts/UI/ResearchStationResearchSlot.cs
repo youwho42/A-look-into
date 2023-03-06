@@ -60,11 +60,12 @@ public class ResearchStationResearchSlot : MonoBehaviour
                 PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
                 NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
             }
-            ResearchStationDisplayUI.instance.UpdateResearchDisplay();
+            //ResearchStationDisplayUI.instance.UpdateResearchDisplay();
 
         }
-        
+        ResearchStationDisplayUI.instance.UpdateResearchDisplay();
         ClearSlot();
+        
     }
 
     public bool CheckForInventoryQuantity(int index)

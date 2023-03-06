@@ -2008,7 +2008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.09477512}
   m_AnchorMax: {x: 0.24836157, y: 0.93622494}
-  m_AnchoredPosition: {x: -2.3859253, y: 0.01940155}
+  m_AnchoredPosition: {x: -2.3858948, y: 0.01940155}
   m_SizeDelta: {x: -24.984299, y: -0.68299866}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &839501218
@@ -11719,6 +11719,7 @@ GameObject:
   - component: {fileID: 1047808995}
   - component: {fileID: 6268047785069925505}
   - component: {fileID: 1647314712}
+  - component: {fileID: 15111346659756874}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -12231,21 +12232,7 @@ MonoBehaviour:
     type: 3}
   undertakingsSpace: {fileID: 1533818564113449579, guid: 5e18955efe70c2740ab77e52767b4208,
     type: 3}
-  currentUndertaking:
-    ID: 0
-    Name: 
-    NPCName: 
-    Description: 
-    CompletedDescription: 
-    Status: 0
-    RequiredCompleted: 0
-    BooleanQuest: 0
-    GumptionReward: 0
-    ItemReward: 
-    ItemAmount: 0
-    Completed: 0
-    Tasks: []
-    FirstTasks: 
+  currentUndertaking: {fileID: 0}
   undertakingTitle: {fileID: 8163533755280234621}
   undertakingDescription: {fileID: 2111535527370991480}
 --- !u!114 &1647314712
@@ -12268,6 +12255,22 @@ MonoBehaviour:
   deleteButton: {fileID: 7752017125321404607}
   deleteWarning: {fileID: 1514681795438608432}
   warningActive: 0
+--- !u!114 &15111346659756874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3426629392906236552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a1b9a8ccd3780409ead1aa6a52d299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSlider: {fileID: 3426629392841150315}
+  agencyText: {fileID: 2427930361448080006}
+  bounceUI: {fileID: 3426629392841150314}
+  agencyUI: {fileID: 3426629392966476602}
 --- !u!1 &3426629392931222301
 GameObject:
   m_ObjectHideFlags: 0
@@ -14011,7 +14014,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3426629393422335526}
-  - component: {fileID: 3426629393422335527}
   - component: {fileID: 5997112017993879161}
   m_Layer: 5
   m_Name: PlayerUI
@@ -14042,22 +14044,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -224.99902}
   m_SizeDelta: {x: -0.00012207031, y: 449.99817}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3426629393422335527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3426629393422335545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a1b9a8ccd3780409ead1aa6a52d299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bounceSlider: {fileID: 3426629392841150315}
-  agencyText: {fileID: 2427930361448080006}
-  bounceUI: {fileID: 3426629392841150314}
-  agencyUI: {fileID: 3426629392966476602}
 --- !u!114 &5997112017993879161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19773,10 +19759,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 0.8966396, b: 0.6273585, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.9385287, b: 0.7688679, a: 1}
-    m_PressedColor: {r: 0.9960785, g: 0.8980393, b: 0.627451, a: 1}
-    m_SelectedColor: {r: 0.9960785, g: 0.8980393, b: 0.627451, a: 1}
+    m_NormalColor: {r: 1, g: 0.81377256, b: 0.3537736, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.99215686, g: 0.8862745, b: 0.61960787, a: 1}
+    m_SelectedColor: {r: 1, g: 0.972549, b: 0.9019608, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

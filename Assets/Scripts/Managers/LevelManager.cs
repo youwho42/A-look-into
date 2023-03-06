@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
     //private CinemachineVirtualCamera startCam;
     //[SerializeField]
     //private CinemachineVirtualCamera mainCam;
-
+    
     [SerializeField]
     private GameObject loadScreen;
     [SerializeField]
@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
     private TextMeshProUGUI text;
 
 
+
     public bool isInCutscene;
     Material playerMaterial;
     bool inPauseMenu;
@@ -75,13 +76,14 @@ public class LevelManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().name;
     }
-    private void Start()
+    private IEnumerator Start()
     {
         PlayerInformation.instance.TogglePlayerInput(false);
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         isInCutscene = true;
+        yield return new WaitForSeconds(0.2f);
         SelectStartButton();
     }
     public void SelectStartButton()
@@ -269,7 +271,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         PlayerInformation.instance.TogglePlayerInput(false);
-        UndertakingDatabase.instance.ResetQuests();
+        UndertakingDatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
         while (!currentLevelLoading.isDone)
         {
             

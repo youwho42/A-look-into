@@ -8,7 +8,6 @@ namespace Klaxon.UndertakingSystem
     public class PlayerUndertakingHandler : MonoBehaviour
     {
         public List<UndertakingObject> activeUndertakings = new List<UndertakingObject>();
-        public List<UndertakingObject> completeUndertakings = new List<UndertakingObject>();
 
         public void AddUndertaking(UndertakingObject undertaking)
         {
@@ -20,15 +19,17 @@ namespace Klaxon.UndertakingSystem
 
         }
 
-        public void CompleteUndertaking(UndertakingObject undertaking)
+        public void RestoreUndertaking(UndertakingObject undertaking)
         {
             if (!activeUndertakings.Contains(undertaking))
             {
                 activeUndertakings.Add(undertaking);
-                undertaking.ActivateUndertaking();
+                
             }
+
         }
-        
+
+
     }
 }
 

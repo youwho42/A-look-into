@@ -193,17 +193,23 @@ public class PlayerInputController : MonoBehaviour
             if (scrollY != 0)
                 GameEventManager.onMouseScrollEvent.Invoke(scrollY);
 
-            rightStickPos = inventoryDragItem.ReadValue<Vector2>();
+            //rightStickPos = inventoryDragItem.ReadValue<Vector2>();
         }
 
-        var stick = PlayerInformation.instance.playerInput.rightStickPos;
-        Vector2 currentPosition = Mouse.current.position.ReadValue();
-        stick = Gamepad.current.rightStick.ReadValue();
-        for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+        //var stick = rightStickPos;
+        
+        var stick = Gamepad.current.rightStick.ReadValue();
+        rightStickPos = stick;
+        if(stick != Vector2.zero)
         {
-            currentPosition += stick * 15 * Time.unscaledDeltaTime;
+            Vector2 currentPosition = Mouse.current.position.ReadValue();
+            for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+            {
+                currentPosition += stick * 15 * Time.unscaledDeltaTime;
+            }
+            Mouse.current.WarpCursorPosition(currentPosition);
         }
-        Mouse.current.WarpCursorPosition(currentPosition);
+        
         
 
 

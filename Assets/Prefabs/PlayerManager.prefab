@@ -185,7 +185,6 @@ MonoBehaviour:
   playerAnimator: {fileID: 0}
   animalCompendiumInformation: {fileID: 3606313332637372334}
   characterManager: {fileID: 1778278584}
-  playerQuestHandler: {fileID: 0}
   playerUndertakings: {fileID: 2950931172956523469}
 --- !u!114 &5769325092054554960
 MonoBehaviour:
@@ -393,6 +392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   undertakingHandler: {fileID: 2950931172956523469}
+  undertakingDatabase: {fileID: 11400000, guid: f864c3bcc1f22c04cb1eac525b09429a,
+    type: 2}
 --- !u!114 &4120753285155617664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,4 +423,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3511f202c8524644eb7958a501f3ab86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUndertakings: []
+  activeUndertakings: []
