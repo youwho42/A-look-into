@@ -74,7 +74,7 @@ public class InteractableTempleStation : Interactable
         }
 
         // Complete task/undertaking if there is one
-        if (taskOnInteraction.undertaking != null)
+        if (taskOnInteraction.task.undertaking != null)
             taskOnInteraction.CompleteTask();
 
     }

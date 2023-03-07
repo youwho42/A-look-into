@@ -1,16 +1,23 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Klaxon.UndertakingSystem
 {
-    public class CompleteTaskOnInteraction : MonoBehaviour
+    public struct CompleteTaskObject
     {
         public UndertakingObject undertaking;
         public UndertakingTaskObject task;
+    }
+    public class CompleteTaskOnInteraction : MonoBehaviour
+    {
+
+        public CompleteTaskObject task;
+        
 
         public void CompleteTask()
         {
-            undertaking.TryCompleteTask(task);
+            task.undertaking.TryCompleteTask(task.task);
         }
     }
 }
