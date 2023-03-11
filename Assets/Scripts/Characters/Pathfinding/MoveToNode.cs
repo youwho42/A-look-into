@@ -27,9 +27,11 @@ public class MoveToNode : MonoBehaviour
     [HideInInspector]
     public List<TileDirectionInfo> tileBlockInfo;
 
-    
+    Vector2 offset;
+
     private IEnumerator Start()
     {
+        
         currentTilePosition = GetComponent<CurrentTilePosition>();
         yield return new WaitForSeconds(0.3f);
         pathComplete = true;
@@ -38,9 +40,11 @@ public class MoveToNode : MonoBehaviour
 
     public void PathFound(List<Vector3> newPath)
     {
+        offset = new Vector2(Random.Range(0.05f, 0.2f), Random.Range(0.05f, 0.2f));
         path.Clear();
         currentPathIndex = 0;
         path = newPath;
+        path[path.Count - 1] = path[path.Count - 1] += (Vector3)offset;
         hasPath = true;
         currentDestination = path[0];
         pathComplete = false;

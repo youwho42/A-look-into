@@ -6,9 +6,8 @@ namespace Klaxon.UndertakingSystem
 {
     public class ReachLocationTask : MonoBehaviour
     {
-
-        public UndertakingObject undertaking;
-        public UndertakingTaskObject task;
+        public CompleteTaskObject taskObject;
+        
         public bool canSelfActivate;
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -17,13 +16,13 @@ namespace Klaxon.UndertakingSystem
                 return;
 
             if (canSelfActivate)
-                undertaking.ActivateUndertaking();
+                taskObject.undertaking.ActivateUndertaking();
 
-            if (undertaking.CurrentState != UndertakingState.Active )
+            if (taskObject.undertaking.CurrentState != UndertakingState.Active )
                 return;
 
-            
-            undertaking.TryCompleteTask(task);
+
+            taskObject.undertaking.TryCompleteTask(taskObject.task);
         }
     }
 }

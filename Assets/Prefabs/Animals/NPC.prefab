@@ -80,7 +80,8 @@ GameObject:
   - component: {fileID: 6902144603053421263}
   - component: {fileID: 6902144603053421261}
   - component: {fileID: 6902144603053421266}
-  - component: {fileID: 2445563375332618200}
+  - component: {fileID: 1072777948532095672}
+  - component: {fileID: 904669369267082285}
   m_Layer: 13
   m_Name: NPC
   m_TagString: Untagged
@@ -256,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTilePosition: {fileID: 6902144603053421248}
---- !u!114 &2445563375332618200
+--- !u!114 &1072777948532095672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,12 +266,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 6902144603053421309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Script: {fileID: 11500000, guid: 54ce8e8ecdfe90f489bbcc56e04fb795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals: []
-    m_Events: []
+  task:
+    undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
+    task: {fileID: 11400000, guid: e0d0a34fc9e7b5243b1d8c4467f269fe, type: 2}
+--- !u!114 &904669369267082285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cdaad32f528f545b1fa8a98171a04a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  undertakings:
+  - {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
+  - {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a, type: 2}
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

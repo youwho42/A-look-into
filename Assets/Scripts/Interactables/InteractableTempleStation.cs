@@ -16,11 +16,12 @@ public class InteractableTempleStation : Interactable
     public List<Vector3Int> fissurePositions = new List<Vector3Int>();
 
     CompleteTaskOnInteraction taskOnInteraction;
-
+    StartTimelineCutscene timelineCutscene;
     public override void Start()
     {
         base.Start();
         taskOnInteraction = GetComponent<CompleteTaskOnInteraction>();
+        timelineCutscene = GetComponent<StartTimelineCutscene>();
     }
 
     public override void Interact(GameObject interactor)
@@ -74,9 +75,12 @@ public class InteractableTempleStation : Interactable
         }
 
         // Complete task/undertaking if there is one
-        if (taskOnInteraction.task.undertaking != null)
+        if (taskOnInteraction != null)
             taskOnInteraction.CompleteTask();
 
+        // Start cutscene if there is one
+        if (timelineCutscene != null)
+            timelineCutscene.StartTimeline();
     }
 
     public void SetTempleFireAndRainStates(bool lit)

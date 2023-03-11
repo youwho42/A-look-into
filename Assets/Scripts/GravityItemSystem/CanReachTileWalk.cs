@@ -279,6 +279,12 @@ namespace Klaxon.GravitySystem
             SetDirection();
         }
 
+        public void SetWorldDestination(Vector3 destination)
+        {
+            currentDestination = destination;
+            SetDirection();
+        }
+
         void SetDirection()
         {
             currentDirection = currentDestination - (Vector2)gravityItem.gameObject.transform.position;

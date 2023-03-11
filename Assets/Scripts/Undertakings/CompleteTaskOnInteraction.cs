@@ -1,9 +1,11 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Klaxon.UndertakingSystem
 {
+    [Serializable]
     public struct CompleteTaskObject
     {
         public UndertakingObject undertaking;
