@@ -58,7 +58,11 @@ public class IsometricPathfindingXYZ : MonoBehaviour
                             int diff = neighbour.gridZ - currentNode.gridZ;
 
                             // if the next tile is not on the same z level and not a slope
-                            if (diff == -1 && !neighbour.slope || diff == 1 && !currentNode.slope)
+                            //if (diff == -1 && !neighbour.slope || diff == 1 && !currentNode.slope)
+                            //{
+                            //    continue;
+                            //}
+                            if (diff < -1|| diff > 1)
                             {
                                 continue;
                             }

@@ -14,7 +14,7 @@ public class MoveToNode : MonoBehaviour
     [HideInInspector]
     public Vector3 currentDestination;
     Vector3 currentPosition;
-    
+
     [HideInInspector]
     public bool hasPath;
     [HideInInspector]
@@ -22,8 +22,8 @@ public class MoveToNode : MonoBehaviour
     [HideInInspector]
     public CurrentTilePosition currentTilePosition;
     [HideInInspector]
-    public float moveSpeed;
-    
+    public float animationMoveSpeed;
+
     [HideInInspector]
     public List<TileDirectionInfo> tileBlockInfo;
 
@@ -31,7 +31,7 @@ public class MoveToNode : MonoBehaviour
 
     private IEnumerator Start()
     {
-        
+
         currentTilePosition = GetComponent<CurrentTilePosition>();
         yield return new WaitForSeconds(0.3f);
         pathComplete = true;
@@ -53,7 +53,7 @@ public class MoveToNode : MonoBehaviour
 
     public void ClearPath()
     {
-        moveSpeed = 0;
+        animationMoveSpeed = 0;
         hasPath = false;
         pathComplete = true;
     }
@@ -62,7 +62,7 @@ public class MoveToNode : MonoBehaviour
     public void Move()
     {
         var dir = currentDestination - transform.position;
-        
+
         if (dir.x != 0)
         {
             if (dir.x > 0.01f && !facingRight)
@@ -79,18 +79,18 @@ public class MoveToNode : MonoBehaviour
 
         if (!pathComplete)
         {
-            
+
             currentPosition = transform.position;
             currentPosition = Vector2.MoveTowards(transform.position, new Vector2(currentDestination.x, currentDestination.y), Time.deltaTime * speed);
             currentPosition.z = currentTilePosition.position.z + 1;
             transform.position = currentPosition;
-            moveSpeed = 1;
+            animationMoveSpeed = 1;
 
             if (dist <= 0.02f && currentPathIndex < path.Count)
             {
                 currentPathIndex++;
                 currentDestination = path[currentPathIndex];
-                
+
             }
 
         }
@@ -130,7 +130,7 @@ public class MoveToNode : MonoBehaviour
 
     }
 
-    
+
     void ChangeNPCLocation(int x, int y, int z)
     {
         var newPos = new Vector3Int(x, y, z);

@@ -135,7 +135,7 @@ public class NPC_BasicAI : MonoBehaviour
 
             case NPCStates.Talking:
                 FacePlayer();
-                moveToNode.moveSpeed = 0;
+                moveToNode.animationMoveSpeed = 0;
                 break;
         }
 

@@ -16,7 +16,7 @@ public class AnimateNPC : MonoBehaviour
 
     private void LateUpdate()
     {
-        animator.SetFloat("VelocityX", Mathf.Abs(npcMovement.moveSpeed));
+        animator.SetFloat("VelocityX", Mathf.Abs(npcMovement.animationMoveSpeed));
         animator.SetBool("IsGrounded", true);
     }
 

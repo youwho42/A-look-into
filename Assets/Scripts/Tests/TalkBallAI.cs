@@ -56,11 +56,11 @@ public class TalkBallAI : MonoBehaviour
             case TalkBallState.Follow:
                 // follow player, if too close go to idle
                 animator.SetBool(walking_hash, true);
-                if (!gettingPath && !moveToNode.hasPath)
-                    SetDestination(PathRequestManager.GetRandomDistancedTile(moveToNode.currentTilePosition.position, wanderDistance));
+                //if (!gettingPath && !moveToNode.hasPath)
+                //    SetDestination(PathRequestManager.GetRandomDistancedTile(moveToNode.currentTilePosition.position, wanderDistance));
 
-                if (moveToNode.hasPath)
-                    moveToNode.Move();
+                //if (moveToNode.hasPath)
+                //    moveToNode.Move();
                 timeIdle = 0;
                 if (CheckPlayerDistance() <= 0.2f)
                     currentState = TalkBallState.Idle;
