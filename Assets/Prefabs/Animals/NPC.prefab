@@ -82,9 +82,6 @@ GameObject:
   - component: {fileID: 6902144603053421266}
   - component: {fileID: 1072777948532095672}
   - component: {fileID: 904669369267082285}
-  - component: {fileID: 241577960751352701}
-  - component: {fileID: 4104406137689643701}
-  - component: {fileID: 2749530642395107190}
   m_Layer: 13
   m_Name: NPC
   m_TagString: Untagged
@@ -135,13 +132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45058daa44490594a93a06407a085579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0.5
+  facingRight: 1
   path: []
-  currentDirection: {x: 0, y: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   hasPath: 0
   pathComplete: 0
+  currentTilePosition: {fileID: 0}
   animationMoveSpeed: 0
-  walk: {fileID: 0}
   tileBlockInfo: []
 --- !u!114 &6902144603053421252
 MonoBehaviour:
@@ -289,84 +287,6 @@ MonoBehaviour:
   undertakings:
   - {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
   - {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a, type: 2}
---- !u!114 &241577960751352701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectCorrectionZ: {fileID: 6902144605068868309}
-  isHidden: 0
---- !u!114 &4104406137689643701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa0b0913c9e7a6546bbd0aeaeb343a75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemObject: {fileID: 5253028926003386273}
-  itemShadow: {fileID: 6902144604980855151}
-  slopeObject: {fileID: 6902144604944210876}
-  positionZ: 0
-  displacedPosition: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  bounceFriction: 0
-  bounciness: 0
-  allTilesManager: {fileID: 0}
-  currentTilePosition: {fileID: 0}
-  currentVelocity: 0
-  currentLevel: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  getOnSlope: 0
-  getOffSlope: 0
-  onSlope: 0
-  slopeCollisionPoint: {x: 0, y: 0}
-  slopeCheckPosition: {x: 0, y: 0}
-  slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.08
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  isWeightless: 0
-  tileBlockInfo: []
---- !u!114 &2749530642395107190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cbd1ce23fa8ee0439aa173751180d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravityItem: {fileID: 0}
-  roamingDistance: 0
-  currentDestination: {x: 0, y: 0}
-  currentDirection: {x: 0, y: 0}
-  walkSpeed: 0.5
-  characterRenderer: {fileID: 0}
-  canJump: 1
-  jumpHeight: 7
-  canClimb: 0
-  isClimbing: 0
-  mainDestinationZ: {x: 0, y: 0, z: 0}
-  currentDestinationZ: {x: 0, y: 0, z: 0}
-  currentDirectionZ: {x: 0, y: 0, z: 0}
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

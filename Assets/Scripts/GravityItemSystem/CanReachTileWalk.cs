@@ -7,7 +7,8 @@ namespace Klaxon.GravitySystem
 {
     public class CanReachTileWalk : MonoBehaviour
     {
-        GravityItemNew gravityItem;
+        [HideInInspector]
+        public GravityItemNew gravityItem;
 
 
 
@@ -21,9 +22,10 @@ namespace Klaxon.GravitySystem
         public float walkSpeed;
         Vector3Int nextTilePosition;
         public SpriteRenderer characterRenderer;
+        public Transform characterTransformFlip;
         public bool canJump;
         public float jumpHeight;
-        bool jumpAhead;
+        public bool jumpAhead;
         public bool canClimb;
         public bool isClimbing;
 
@@ -243,7 +245,17 @@ namespace Klaxon.GravitySystem
         {
             // Set facing direction
             var dir = Mathf.Sign(direction.x);
-            characterRenderer.flipX = dir > 0;
+            if(characterRenderer != null)
+                characterRenderer.flipX = dir > 0;
+            else
+            {
+                if (characterTransformFlip.localScale.x != dir)
+                {
+                    Vector3 theScale = characterTransformFlip.localScale;
+                    theScale.x *= -1;
+                    characterTransformFlip.localScale = theScale;
+                }
+            }
         }
 
 

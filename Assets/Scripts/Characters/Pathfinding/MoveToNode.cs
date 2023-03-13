@@ -40,7 +40,7 @@ public class MoveToNode : MonoBehaviour
 
     public void PathFound(List<Vector3> newPath)
     {
-        offset = new Vector2(Random.Range(0.05f, 0.2f), Random.Range(0.05f, 0.2f));
+        offset = new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
         path.Clear();
         currentPathIndex = 0;
         path = newPath;
