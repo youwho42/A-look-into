@@ -399,13 +399,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd1ce23fa8ee0439aa173751180d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityItem: {fileID: 0}
   roamingDistance: 5
   currentDestination: {x: 0, y: 0}
   currentDirection: {x: 0, y: 0}
   walkSpeed: 0.15
   characterRenderer: {fileID: 12948384507156360}
+  characterTransformFlip: {fileID: 0}
   canJump: 1
   jumpHeight: 7
+  jumpAhead: 0
   canClimb: 0
   isClimbing: 0
   mainDestinationZ: {x: 0, y: 0, z: 0}
@@ -844,3 +847,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 9
+  isActive: 0
+  isInDictionary: 0

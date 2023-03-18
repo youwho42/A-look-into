@@ -22,6 +22,7 @@ public enum UIScreenType
     Undertakings,
     LoadFileScreen,
     ControlsScreen,
-    AudioScreen
+    AudioScreen,
+    Message
    
 }

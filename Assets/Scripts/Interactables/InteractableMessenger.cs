@@ -34,22 +34,38 @@ public class InteractableMessenger : Interactable
 
     IEnumerator InteractCo(GameObject interactor)
     {
-        //interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
-        yield return new WaitForSeconds(0.33f);
+        
         PlayInteractSound();
-
-        if (!PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Contains(messageItem))
+        MessageDisplayUI.instance.ShowUI(GetComponent<MessengerAI>(), messageItem) ;
+        UIScreenManager.instance.DisplayScreen(UIScreenType.Message);
+        canInteract = false;
+        QI_ItemDatabase database = GetCompendiumDatabase();
+        
+        if (!database.Items.Contains(messageItem))
         {
-            PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Add(messageItem);
-            NotificationManager.instance.SetNewNotification($"{messageItem.Name} note found", NotificationManager.NotificationType.Compendium);
+            database.Items.Add(messageItem);
             GameEventManager.onNoteCompediumUpdateEvent.Invoke();
+            GameEventManager.onGuideCompediumUpdateEvent.Invoke();
         }
 
-        //Destroy(gameObject);
-        hasInteracted = false;
-
         WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);
+        yield return new WaitForSeconds(0.33f);
+    }
 
+    QI_ItemDatabase GetCompendiumDatabase()
+    {
+        QI_ItemDatabase database = null;
+        switch (type)
+        {
+            case MessageType.Note:
+                database = PlayerInformation.instance.playerNotesCompendiumDatabase;
+                break;
+            case MessageType.Guide:
+                database = PlayerInformation.instance.playerGuidesCompendiumDatabase;
+                break;
+            
+        }
+        return database;
     }
 
     void PlayInteractSound()

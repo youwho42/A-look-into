@@ -127,6 +127,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
         //StartCoroutine("StartNewGameCo");
         GameEventManager.onNewGameStartedEvent.Invoke();
+        GameEventManager.onStatUpdateEvent.Invoke();
     }
     public void NewGamePlayerFadeIn()
     {
@@ -137,6 +138,7 @@ public class LevelManager : MonoBehaviour
         isInCutscene = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         GameEventManager.onPlayerPositionUpdateEvent.Invoke();
+        
     }
 
     public void ToggleVSync()
@@ -288,7 +290,7 @@ public class LevelManager : MonoBehaviour
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
         SavingLoading.instance.Load(LoadSelectionUI.instance.currentLoadFileName);
-
+        PlayerDistanceToggle.instance.PopulateAnimalList();
         yield return new WaitForSeconds(0.5f);
 
         text.text = "Thank you for waiting.";

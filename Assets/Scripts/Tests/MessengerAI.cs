@@ -15,7 +15,8 @@ public class MessengerAI : MonoBehaviour
         Follow,
         Idle,
         Deviate,
-        Disappear
+        Disappear,
+        Remove
     }
 
     public MessengerState currentState;
@@ -39,8 +40,16 @@ public class MessengerAI : MonoBehaviour
     bool disolved;
     Vector2 offset;
 
+    
+    static int isGrounded_hash = Animator.StringToHash("IsGrounded");
+    static int velocityY_hash = Animator.StringToHash("VelocityY");
+
+    
+    
+
     private void Start()
     {
+        
         currentTilePosition = GetComponent<CurrentTilePosition>();
         walk = GetComponent<CanReachTileWalk>();
         var sprites = GetComponentsInChildren<SpriteRenderer>();
@@ -157,8 +166,29 @@ public class MessengerAI : MonoBehaviour
                 else
                     SetPositionNearPlayer();
                 break;
-            
+
+            case MessengerState.Remove:
+                if (!disolved)
+                {
+                    timeIdle = 0;
+                    Disolve(false);
+                }
+                    
+
+                if (timeIdle < 2f)
+                    timeIdle += Time.deltaTime;
+                else
+                    Destroy(gameObject);
+                break;
+
         }
+
+    }
+
+    void LateUpdate()
+    {
+        animator.SetBool(isGrounded_hash, walk.gravityItem.isGrounded);
+        animator.SetFloat(velocityY_hash, walk.gravityItem.isGrounded ? 0 : walk.gravityItem.displacedPosition.y);
 
     }
 
