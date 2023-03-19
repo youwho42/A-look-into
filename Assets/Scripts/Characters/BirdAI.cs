@@ -67,6 +67,11 @@ public class BirdAI : MonoBehaviour, IAnimal
         Invoke("SetSleepState", 1f);
     }
 
+    void OnEnable()
+    {
+        SetToFlyingState();
+    }
+
     void SetSleepState()
     {
         SetSleepOrWake(RealTimeDayNightCycle.instance.hours);
@@ -283,6 +288,8 @@ public class BirdAI : MonoBehaviour, IAnimal
 
     void SetToFlyingState()
     {
+        if (flight == null)
+            return;
         flight.SetRandomDestination();
         animator.SetBool(landed_hash, false);
         justTookOff = true;

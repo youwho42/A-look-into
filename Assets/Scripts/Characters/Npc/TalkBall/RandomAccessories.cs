@@ -53,7 +53,7 @@ public class RandomAccessories : MonoBehaviour
         {
             
             float r = UnityEngine.Random.Range(0.0f, 1.0f);
-            if (r > 0.75f)
+            if (r > 0.5f)
             {
                 
                 int rand = UnityEngine.Random.Range(0, accessories[i].accessoryList.Count);
