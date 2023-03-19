@@ -14,7 +14,17 @@ public class RandomColor : MonoBehaviour
 
     private void Start()
     {
-        
+
+        //SetRandomColor();
+    }
+
+    float ChooseValue(float min, float max)
+    {
+        return Random.Range(min, max);
+    }
+
+    public void SetRandomColor()
+    {
         values.Add(ChooseValue(0.0f, 0.15f));
         values.Add(ChooseValue(0.15f, 1f));
         values.Add(ChooseValue(0.5f, 1f));
@@ -27,10 +37,12 @@ public class RandomColor : MonoBehaviour
         sprite.color = randomColor;
     }
 
-    float ChooseValue(float min, float max)
+    public void SetColor(float r, float g, float b)
     {
-        return Random.Range(min, max);
+        randomColor.r = r;
+        randomColor.g = g;
+        randomColor.b = b;
+        randomColor.a = 1;
+        sprite.color = randomColor;
     }
-
-
 }

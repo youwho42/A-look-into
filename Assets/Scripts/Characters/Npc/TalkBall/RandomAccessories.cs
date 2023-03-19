@@ -16,35 +16,63 @@ public class RandomAccessories : MonoBehaviour
     
     public List<Accessory> accessories = new List<Accessory>();
 
+    [HideInInspector]
+    public List<bool> accessoryActive = new List<bool>();
+    [HideInInspector]
+    public List<int> accessoryIndex = new List<int>();
+
     private void Start()
     {
-        foreach (var acc in accessories)
-        {
-            PopulateList(acc);
-        }
+        //foreach (var acc in accessories)
+        //{
+        //    PopulateList(acc);
+        //}
         
-        ChooseAccessories();
+        //ChooseAccessories();
+        //SetAccessories(accessoryActive, accessoryIndex);
     }
 
-    void PopulateList(Accessory acc)
-    {
-        acc.accessoryList = acc.accessoryHolder.GetComponentsInChildren<SpriteRenderer>().ToList();
-    }
-
-    void ChooseAccessories()
+    public void PopulateList()
     {
         foreach (var acc in accessories)
         {
+            acc.accessoryList = acc.accessoryHolder.GetComponentsInChildren<SpriteRenderer>().ToList();
+            accessoryActive.Add(false);
+            accessoryIndex.Add(0);
             foreach (var item in acc.accessoryList)
             {
                 item.gameObject.SetActive(false);
             }
+        }
+    }
+
+    public void ChooseAccessories()
+    {
+        
+        for (int i = 0; i < accessories.Count; i++)
+        {
+            
             float r = UnityEngine.Random.Range(0.0f, 1.0f);
-            if (r > 0.85f)
+            if (r > 0.75f)
             {
-                int rand = UnityEngine.Random.Range(0, acc.accessoryList.Count);
-                acc.accessoryList[rand].gameObject.SetActive(true);
+                
+                int rand = UnityEngine.Random.Range(0, accessories[i].accessoryList.Count);
+                accessoryActive[i] = true;
+                accessoryIndex[i] = rand;
             }
+        }
+        SetAccessories(accessoryActive, accessoryIndex);
+    }
+
+    public void SetAccessories(List<bool> active, List<int> index)
+    {
+        
+        accessoryActive = new List<bool>(active);
+        accessoryIndex = new List<int>(index);
+        for (int i = 0; i < accessories.Count; i++)
+        {
+            if (active[i] == true)
+                accessories[i].accessoryList[index[i]].gameObject.SetActive(true);
         }
     }
 }

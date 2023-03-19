@@ -19,13 +19,13 @@ public class MessageDisplayUI : MonoBehaviour
         if (instance == null)
             instance = this;
     }
-    public void ShowUI(MessengerAI messengerAI, QI_ItemData _message)
+    public void ShowUI(MessengerAI messengerAI, string messageName, string messageDescription)
     {
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         messenger = messengerAI;
-        messageTitle.text = _message.Name;
-        messageContent.text = _message.Description;
+        messageTitle.text = messageName;
+        messageContent.text = messageDescription;
     }
 
     public void CloseMessageUI()

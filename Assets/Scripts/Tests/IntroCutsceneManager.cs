@@ -1,6 +1,7 @@
 using Klaxon.QuestSystem;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumDialogue;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,8 +16,9 @@ public class IntroCutsceneManager : MonoBehaviour
     public TextMeshProUGUI speaker;
     public TextMeshProUGUI message;
     public QD_DialogueHandler handler;
+    //public QI_ItemData messageItem;
 
-    public UndertakingObject startUndertaking;
+    public UndertakingObject messageUndertaking;
     bool ended;
     //bool canSkip;
     private void Start()
@@ -74,9 +76,11 @@ public class IntroCutsceneManager : MonoBehaviour
     {
 
         //PlayerInformation.instance.playerQuestHandler.ActivateQuest("Talk to Manuela or Ramiro");
-        PlayerInformation.instance.playerUndertakings.AddUndertaking(startUndertaking);
+        //PlayerInformation.instance.playerUndertakings.AddUndertaking(startUndertaking);
         
         GameEventManager.onUndertakingsUpdateEvent.Invoke();
+
+        TalkBallManager.instance.SpawnMessenger(null, TalkBallMessageType.Note, messageUndertaking);
     }
 
     void SetText()

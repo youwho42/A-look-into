@@ -187,6 +187,8 @@ public class MessengerAI : MonoBehaviour
 
     void LateUpdate()
     {
+        if (walk.gravityItem == null)
+            return;
         animator.SetBool(isGrounded_hash, walk.gravityItem.isGrounded);
         animator.SetFloat(velocityY_hash, walk.gravityItem.isGrounded ? 0 : walk.gravityItem.displacedPosition.y);
 
