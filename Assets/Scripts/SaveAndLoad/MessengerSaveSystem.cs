@@ -10,7 +10,7 @@ public class MessengerSaveSystem : MonoBehaviour, ISaveable
 
     public RandomAccessories accessories;
     public RandomColor colors;
-    public InteractableMessenger messenger;
+    public InteractableBallPeopleMessenger messenger;
     public QI_ItemDatabase itemDatabase;
     public object CaptureState()
     {
@@ -23,8 +23,7 @@ public class MessengerSaveSystem : MonoBehaviour, ISaveable
             u = messenger.undertaking.Name;
         return new SaveData
         {
-            accessoryActive = new List<bool>(accessories.accessoryActive),
-            accessoryIndex = new List<int>(accessories.accessoryIndex),
+            accessoryIndex = accessories.accessoryIndex,
             r = colors.randomColor.r,
             g = colors.randomColor.g,
             b = colors.randomColor.b,
@@ -39,10 +38,10 @@ public class MessengerSaveSystem : MonoBehaviour, ISaveable
         var saveData = (SaveData)state;
         colors.SetColor(saveData.r, saveData.g, saveData.b);
         accessories.PopulateList();
-        accessories.SetAccessories(saveData.accessoryActive, saveData.accessoryIndex);
+        accessories.SetAccessories(saveData.accessoryIndex);
         if(saveData.messageItem != "")
             messenger.messageItem = itemDatabase.GetItem(saveData.messageItem);
-        messenger.type = (TalkBallMessageType)saveData.messageType;
+        messenger.type = (BallPeopleMessageType)saveData.messageType;
         if(saveData.undertakingName != "") 
         {
             var q = UndertakingDatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName);
@@ -54,8 +53,8 @@ public class MessengerSaveSystem : MonoBehaviour, ISaveable
     [Serializable]
     private struct SaveData
     {
-        public List<bool> accessoryActive;
-        public List<int> accessoryIndex;
+        
+        public int accessoryIndex;
         public float r;
         public float g;
         public float b;

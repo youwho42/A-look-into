@@ -80,7 +80,7 @@ public class IntroCutsceneManager : MonoBehaviour
         
         GameEventManager.onUndertakingsUpdateEvent.Invoke();
 
-        TalkBallManager.instance.SpawnMessenger(null, TalkBallMessageType.Note, messageUndertaking);
+        BallPeopleManager.instance.SpawnMessenger(null, BallPeopleMessageType.Note, messageUndertaking);
     }
 
     void SetText()

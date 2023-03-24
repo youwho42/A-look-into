@@ -8,7 +8,7 @@ public class MessageDisplayUI : MonoBehaviour
 {
     public static MessageDisplayUI instance;
 
-    MessengerAI messenger;
+    BallPeopleMessengerAI messenger;
     
 
     public TextMeshProUGUI messageTitle;
@@ -19,7 +19,7 @@ public class MessageDisplayUI : MonoBehaviour
         if (instance == null)
             instance = this;
     }
-    public void ShowUI(MessengerAI messengerAI, string messageName, string messageDescription)
+    public void ShowUI(BallPeopleMessengerAI messengerAI, string messageName, string messageDescription)
     {
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
@@ -38,7 +38,7 @@ public class MessageDisplayUI : MonoBehaviour
 
     void DestroyMessenger()
     {
-        messenger.currentState = MessengerAI.MessengerState.Remove;
+        messenger.currentState = BallPeopleMessengerAI.MessengerState.Remove;
     }
 
 }
