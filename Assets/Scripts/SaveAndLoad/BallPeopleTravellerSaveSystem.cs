@@ -12,7 +12,7 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
     public RandomAccessories accessories;
     public RandomColor colors;
     public InteractableBallPeopleTraveller travellerInteractable;
-    public BallPeopleTravellerAI travellerAI;
+    public BallPeopleTravelerAI travellerAI;
     public QI_ItemDatabase itemDatabase;
     public object CaptureState()
     {

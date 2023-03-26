@@ -1,12 +1,7 @@
 using Klaxon.GravitySystem;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.PeerToPeer.Collaboration;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static BallPeopleTravellerAI;
 
 public class BallPeopleMessengerAI : MonoBehaviour, IBallPerson
 {

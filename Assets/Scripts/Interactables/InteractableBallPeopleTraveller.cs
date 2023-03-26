@@ -42,7 +42,7 @@ public class InteractableBallPeopleTraveller : Interactable
         
         BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-        GetComponent<BallPeopleTravellerAI>().hasInteracted = true;
+        GetComponent<BallPeopleTravelerAI>().hasInteracted = true;
         canInteract = false;
         yield return new WaitForSeconds(0.33f);
     }

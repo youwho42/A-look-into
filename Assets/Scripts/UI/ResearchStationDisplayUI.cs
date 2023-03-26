@@ -60,16 +60,16 @@ public class ResearchStationDisplayUI : MonoBehaviour
             {
               
                 
-                    foreach (var recipe in item.ResearchRecipes)
+                foreach (var recipe in item.ResearchRecipes)
+                {
+                    if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe.recipe))
                     {
-                        if (!playerRecipes.craftingRecipeDatabase.CraftingRecipes.Contains(recipe.recipe))
-                        {
-                            ResearchStationInventorySlot newSlot = Instantiate(inventoryItemDisplaySlot, inventoryItemArea.transform);
-                            newSlot.AddItem(item);
-                            researchStationInventorySlots.Add(newSlot);
+                        ResearchStationInventorySlot newSlot = Instantiate(inventoryItemDisplaySlot, inventoryItemArea.transform);
+                        newSlot.AddItem(item);
+                        researchStationInventorySlots.Add(newSlot);
                         break;
-                        }
                     }
+                }
 
                 EventSystem.current.SetSelectedGameObject(null);
                 if (researchStationInventorySlots.Count > 0)
@@ -82,6 +82,7 @@ public class ResearchStationDisplayUI : MonoBehaviour
     }
     public void ClearInventorySlots()
     {
+        researchStationInventorySlots.Clear();
         foreach (Transform child in inventoryItemArea.transform)
         {
             Destroy(child.gameObject);

@@ -18,7 +18,8 @@ public class BallPeopleManager : MonoBehaviour
     }
 
     public GameObject messengerPrefab;
-    public GameObject travellerPrefab;
+    public GameObject travelerPrefab;
+    public GameObject seekerPrefab;
     public GameObject appearFX;
     public int lastAccessoryIndex;
 
@@ -33,16 +34,28 @@ public class BallPeopleManager : MonoBehaviour
         messItem.undertaking = undertaking;
     }
 
-    public void SpawnTraveller(UndertakingObject undertaking, GameObject travellerDestination)
+    public void SpawnTraveller(UndertakingObject undertaking, GameObject travelerDestination)
     {
         GameObject trav = null;
-        SpawnBallPeople(travellerPrefab, out trav);
+        SpawnBallPeople(travelerPrefab, out trav);
 
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
         travItem.undertaking.undertaking = undertaking;
         travItem.undertaking.task = undertaking.Tasks[0];
-        var travelBall = trav.GetComponent<BallPeopleTravellerAI>();
-        travelBall.travellerDestination = travellerDestination.transform.position;
+        var travelBall = trav.GetComponent<BallPeopleTravelerAI>();
+        travelBall.travellerDestination = travelerDestination.transform.position;
+    }
+
+    public void SpawnSeeker(QI_ItemData item, int amount)
+    {
+        GameObject trav = null;
+        SpawnBallPeople(seekerPrefab, out trav);
+
+        //var seekerItem = trav.GetComponent<InteractableBallPeopleTraveller>();
+        //travItem.undertaking.undertaking = undertaking;
+        //travItem.undertaking.task = undertaking.Tasks[0];
+        var travelBall = trav.GetComponent<BallPeopleSeekerAI>();
+        travelBall.seekItem = item;
     }
 
 
@@ -52,11 +65,17 @@ public class BallPeopleManager : MonoBehaviour
         var pos = PlayerInformation.instance.player.position + (Vector3)offset;
         var mess = Instantiate(prefab, pos, Quaternion.identity);
         Instantiate(appearFX, pos, Quaternion.identity);
+        PlayAppearSound();
         mess.GetComponent<RandomColor>().SetRandomColor();
         mess.GetComponent<RandomAccessories>().PopulateList();
         mess.GetComponent<RandomAccessories>().ChooseAccessories();
         mess.GetComponent<SaveableItemEntity>().GenerateId();
         ballPerson = mess;
+    }
+
+    void PlayAppearSound()
+    {
+        AudioManager.instance.PlaySound("BallPersonAppear");
     }
 
 }
