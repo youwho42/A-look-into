@@ -6,11 +6,10 @@ using UnityEngine;
 
 public class InteractableBallPeopleTraveller : Interactable
 {
+    public CompleteTaskObject undertaking;
+    //public UndertakingObject undertaking;
 
-    public QI_ItemData messageItem;
-    public BallPeopleMessageType type;
-    public UndertakingObject undertaking;
-
+    bool started;
     public override void Start()
     {
         base.Start();
@@ -31,46 +30,24 @@ public class InteractableBallPeopleTraveller : Interactable
 
         PlayInteractSound();
 
-        if (messageItem != null)
+        if (!started)
         {
-            MessageDisplayUI.instance.ShowUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
-            QI_ItemDatabase database = GetCompendiumDatabase();
-
-            if (!database.Items.Contains(messageItem))
-            {
-                database.Items.Add(messageItem);
-                GameEventManager.onNoteCompediumUpdateEvent.Invoke();
-                GameEventManager.onGuideCompediumUpdateEvent.Invoke();
-            }
+            undertaking.undertaking.ActivateUndertaking();
+            started = true;
         }
-        else if (undertaking != null)
+        else
         {
-            MessageDisplayUI.instance.ShowUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
-
-            PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
+            undertaking.undertaking.TryCompleteTask(undertaking.task);
         }
-        UIScreenManager.instance.DisplayScreen(UIScreenType.Message);
-        GetComponent<BallPeopleMessengerAI>().hasInteracted = true;
+        
+        BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
+        GetComponent<BallPeopleTravellerAI>().hasInteracted = true;
         canInteract = false;
-        //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);
         yield return new WaitForSeconds(0.33f);
     }
 
-    QI_ItemDatabase GetCompendiumDatabase()
-    {
-        QI_ItemDatabase database = null;
-        switch (type)
-        {
-            case BallPeopleMessageType.Note:
-                database = PlayerInformation.instance.playerNotesCompendiumDatabase;
-                break;
-            case BallPeopleMessageType.Guide:
-                database = PlayerInformation.instance.playerGuidesCompendiumDatabase;
-                break;
-
-        }
-        return database;
-    }
+    
 
     void PlayInteractSound()
     {

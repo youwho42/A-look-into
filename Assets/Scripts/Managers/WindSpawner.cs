@@ -69,12 +69,13 @@ public class WindSpawner : MonoBehaviour
         var hit = Physics2D.OverlapCircleAll(location.position, 1.5f);
         if (hit.Length > 0)
         {
+            
             for (int i = 0; i < hit.Length; i++)
             {
                 if(hit[i].TryGetComponent(out IWindEffect affected))
                 {
                     affected.Affect();
-                    yield return new WaitForSeconds(.33f);
+                    yield return new WaitForSeconds(.1f);
                 }
             }
         }

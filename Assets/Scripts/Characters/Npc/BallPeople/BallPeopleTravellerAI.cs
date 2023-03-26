@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BallPeopleTravellerAI : MonoBehaviour
+public class BallPeopleTravellerAI : MonoBehaviour, IBallPerson
 {
     public enum TravellerState
     {
@@ -12,6 +12,8 @@ public class BallPeopleTravellerAI : MonoBehaviour
         Follow,
         Idle,
         Sleep,
+        GoToDestination,
+        AtFinalDestination,
         Deviate,
         Disappear,
         Remove
@@ -25,6 +27,8 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
     
     public Animator animator;
+    public GameObject arms;
+
     CanReachTileWalk walk;
     CurrentTilePosition currentTilePosition;
 
@@ -40,7 +44,7 @@ public class BallPeopleTravellerAI : MonoBehaviour
     Vector2 offset;
 
 
-    
+    public Vector3 travellerDestination;
 
     static int walking_hash = Animator.StringToHash("IsWalking");
     static int isGrounded_hash = Animator.StringToHash("IsGrounded");
@@ -48,10 +52,14 @@ public class BallPeopleTravellerAI : MonoBehaviour
     static int sleeping_hash = Animator.StringToHash("IsSleeping");
     [HideInInspector]
     public bool hasInteracted;
+    InteractableBallPeopleTraveller interactableTraveller;
+    [HideInInspector]
+    public bool hasFoundDestination;
 
+    public float deviateThreshold;
     private void Start()
     {
-        
+        interactableTraveller = GetComponent<InteractableBallPeopleTraveller>();
         currentTilePosition = GetComponent<CurrentTilePosition>();
         walk = GetComponent<CanReachTileWalk>();
         allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
@@ -69,7 +77,7 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
     private void Update()
     {
-
+        float dist = 1000;
         switch (currentState)
         {
             case TravellerState.Appear:
@@ -79,6 +87,8 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
             case TravellerState.Follow:
                 // get path to player, follow player, if too close go to idle
+                dist = Vector2.Distance(lastPosition, transform.position);
+
                 if (lastPosition != transform.position)
                 {
                     lastPosition = transform.position;
@@ -88,7 +98,14 @@ public class BallPeopleTravellerAI : MonoBehaviour
                     if (!walk.jumpAhead)
                         currentState = TravellerState.Deviate;
                 }
+                    
 
+                
+                if(CheckDestinationDistance() <= 0.7f && hasInteracted && !hasFoundDestination)
+                {
+                    hasFoundDestination = true;
+                    currentState = TravellerState.GoToDestination;
+                }
 
                 timeIdle = 0;
                 hasDeviatePosition = false;
@@ -117,6 +134,7 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
                 if (!hasDeviatePosition)
                 {
+                    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
                     FindDeviateDestination();
 
                 }
@@ -125,9 +143,17 @@ public class BallPeopleTravellerAI : MonoBehaviour
                 walk.SetWorldDestination(currentDestination);
 
                 if (CheckDistanceToDestination() <= 0.02f)
-                    currentState = TravellerState.Follow;
-
+                {
+                    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                    if (!hasFoundDestination)
+                        currentState = TravellerState.Follow;
+                    else
+                        currentState = TravellerState.GoToDestination;
+                        
+                }
                 walk.Walk();
+                if (CheckPlayerDistance() > 1.5f)
+                    currentState = TravellerState.Disappear;
 
                 break;
 
@@ -137,13 +163,19 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
                 var dir = PlayerInformation.instance.player.position - transform.position;
                 walk.SetFacingDirection(dir);
-
-                //interactor.canInteract = !hasInteracted;
+                arms.SetActive(!hasInteracted);
+                interactableTraveller.canInteract = !hasInteracted;
                 //check distance from player, wait a sec, and start to follow if too far
-                offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                hasFoundDestination = false;
                 animator.SetBool(walking_hash, false);
-
                 timeIdle += Time.deltaTime;
+                if (timeIdle >= 10.0f)
+                {
+                    timeIdle = 0;
+                    currentState = TravellerState.Sleep;
+                }
+                
+                    
                 if (CheckPlayerDistance() > 3)
                 {
                     timeIdle = 0;
@@ -154,16 +186,14 @@ public class BallPeopleTravellerAI : MonoBehaviour
                 {
                     if (CheckPlayerDistance() >= 0.5f)
                     {
-                        //interactor.canInteract = false;
+                        offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                        timeIdle = 0;
+                        interactableTraveller.canInteract = false;
                         currentState = TravellerState.Follow;
                     }
 
                 }
-                if (timeIdle >= 10.0f)
-                {
-                    timeIdle = 0;
-                    currentState = TravellerState.Sleep;
-                }
+                
                 break;
 
             case TravellerState.Sleep:
@@ -175,19 +205,89 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
                 animator.SetBool(sleeping_hash, true);
 
-                if (timeIdle < 0.5f)
+                if (!hasFoundDestination)
                 {
-                    timeIdle += Time.deltaTime;
-                }
-                else
-                {
-                    if (CheckPlayerDistance() >= 0.3f)
+                    if (CheckPlayerDistance() >= 0.6f && !CheckUndertakingTasks())
                     {
                         animator.SetBool(sleeping_hash, false);
                         currentState = TravellerState.Follow;
                     }
-
                 }
+                else
+                {
+                    if (CheckPlayerDistance() <= 0.3f)
+                    {
+                        animator.SetBool(sleeping_hash, false);
+                        currentState = TravellerState.AtFinalDestination;
+                    }
+                }
+                    
+                break;
+
+            case TravellerState.GoToDestination:
+
+                if (lastPosition != transform.position)
+                {
+                    lastPosition = transform.position;
+                }
+                else
+                {
+                    if (!walk.jumpAhead)
+                        currentState = TravellerState.Deviate;
+                }
+
+                
+                if (timeIdle >= 10.0f)
+                {
+                    timeIdle = 0;
+                    currentState = TravellerState.Sleep;
+                }
+                currentDestination = travellerDestination + (Vector3)offset;
+                walk.SetWorldDestination(currentDestination);
+                if (CheckDistanceToDestination() <= 0.02f)
+                {
+                    if(CheckUndertakingTasks())
+                        hasInteracted = false;
+                    
+                    currentState = TravellerState.AtFinalDestination;
+                }
+                walk.Walk();
+
+                break;
+
+            case TravellerState.AtFinalDestination:
+
+                var lookDir = PlayerInformation.instance.player.position - transform.position;
+                walk.SetFacingDirection(lookDir);
+                bool taskComplete = CheckUndertakingTasks();
+
+
+                if (interactableTraveller.undertaking.undertaking.CurrentState != Klaxon.UndertakingSystem.UndertakingState.Complete && taskComplete)
+                {
+                    arms.SetActive(true);
+                    interactableTraveller.canInteract = true;
+                    
+                }
+                else
+                {
+                    arms.SetActive(false);
+                    interactableTraveller.canInteract = false;
+                }
+
+                if (CheckPlayerDistance() >= 0.6f && !taskComplete)
+                {
+                    
+                    currentState = TravellerState.Follow;
+                }
+
+                animator.SetBool(walking_hash, false);
+                timeIdle += Time.deltaTime;
+                if (timeIdle >= 10.0f)
+                {
+                    timeIdle = 0;
+                    currentState = TravellerState.Sleep;
+                }
+                
                 break;
 
             case TravellerState.Disappear:
@@ -216,6 +316,19 @@ public class BallPeopleTravellerAI : MonoBehaviour
 
         }
 
+    }
+
+    bool CheckUndertakingTasks()
+    {
+        bool tasksComplete = true;
+        for (int i = 0; i < interactableTraveller.undertaking.undertaking.Tasks.Count; i++)
+        {
+            if (interactableTraveller.undertaking.undertaking.Tasks[i] == interactableTraveller.undertaking.task)
+                continue;
+            if (!interactableTraveller.undertaking.undertaking.Tasks[i].IsComplete)
+                tasksComplete = false;
+        }
+        return tasksComplete;
     }
 
     void LateUpdate()
@@ -270,6 +383,13 @@ public class BallPeopleTravellerAI : MonoBehaviour
         return dist;
     }
 
+    float CheckDestinationDistance()
+    {
+        float dist = Vector2.Distance(transform.position, travellerDestination);
+
+        return dist;
+    }
+
     float CheckDistanceToDestination()
     {
         float dist = Vector2.Distance(transform.position, currentDestination);
@@ -277,5 +397,8 @@ public class BallPeopleTravellerAI : MonoBehaviour
         return dist;
     }
 
-
+    public void SetToRemoveState()
+    {
+        currentState = TravellerState.Remove;
+    }
 }

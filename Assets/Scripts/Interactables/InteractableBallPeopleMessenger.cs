@@ -40,7 +40,7 @@ public class InteractableBallPeopleMessenger : Interactable
 
         if (messageItem != null)
         {
-            MessageDisplayUI.instance.ShowUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
+            MessageDisplayUI.instance.ShowMessengerUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
             QI_ItemDatabase database = GetCompendiumDatabase();
 
             if (!database.Items.Contains(messageItem))
@@ -52,7 +52,7 @@ public class InteractableBallPeopleMessenger : Interactable
         }
         else if (undertaking != null)
         {
-            MessageDisplayUI.instance.ShowUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
+            MessageDisplayUI.instance.ShowMessengerUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
             
             PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
         }

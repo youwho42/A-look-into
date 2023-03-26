@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf5ad7eea9befa4d9471cc26e6e1483, type: 3}
+  m_Name: BallPerson_Undertaking_FindSpecialPlace
+  m_EditorClassIdentifier: 
+  Name: Help! Where do I belong?
+  Description: Help me find my special place in the world. I know it's somewhere,
+    but I can't find it! I'm sure it exists though.
+  CompletedDescription: You found my special place!! Thhis place seems just like
+    a perfect place for me, I shall stay here, FOREVER!!!!
+  Tasks:
+  - {fileID: 11400000, guid: 89f57e6f944ef6247beff3ed0989e4ac, type: 2}
+  - {fileID: 11400000, guid: 09b0d8cd856c65c4c95c3188a7030241, type: 2}
+  - {fileID: 11400000, guid: 90d2b2d39b32be14e9eaf9d649d9b167, type: 2}
+  CurrentState: 2
+  GumptionReward: 50
+  AgencyReward: 10
+  ItemReward: {fileID: 0}
+  ItemQuantity: 0

@@ -20,6 +20,7 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject messengerPrefab;
     public GameObject travellerPrefab;
     public GameObject appearFX;
+    public int lastAccessoryIndex;
 
     public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking)
     {
@@ -32,10 +33,16 @@ public class BallPeopleManager : MonoBehaviour
         messItem.undertaking = undertaking;
     }
 
-    public void SpawnTraveller(QI_ItemData startMessage, QI_ItemData endMessage)
+    public void SpawnTraveller(UndertakingObject undertaking, GameObject travellerDestination)
     {
         GameObject trav = null;
         SpawnBallPeople(travellerPrefab, out trav);
+
+        var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
+        travItem.undertaking.undertaking = undertaking;
+        travItem.undertaking.task = undertaking.Tasks[0];
+        var travelBall = trav.GetComponent<BallPeopleTravellerAI>();
+        travelBall.travellerDestination = travellerDestination.transform.position;
     }
 
 

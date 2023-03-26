@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MessengerSaveSystem : MonoBehaviour, ISaveable
+public class BallPeopleMessengerSaveSystem : MonoBehaviour, ISaveable
 {
 
     public RandomAccessories accessories;

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnMessengerArea : MonoBehaviour
+public class SpawnBallPersonMessengerArea : MonoBehaviour
 {
     public QI_ItemData messageItem;
     public BallPeopleMessageType messageType;

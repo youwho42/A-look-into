@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 5838656872110206609}
   - component: {fileID: 730675955853077649}
   - component: {fileID: -972553773627931476}
+  - component: {fileID: -3627213249282871714}
   - component: {fileID: 7127567229935807566}
   m_Layer: 13
   m_Name: BallPeople-Messenger
@@ -468,6 +469,7 @@ MonoBehaviour:
   animator: {fileID: 3669067541027879398}
   currentDestination: {x: 0, y: 0, z: 0}
   hasInteracted: 0
+  deviateThreshold: 0.05
 --- !u!114 &3669067540778324312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +657,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 1aab23d936e00c241929a075116ec48b, type: 2}
+--- !u!114 &-3627213249282871714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3132204f8cb56547a61d564726a60fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTilePosition: {fileID: 3669067540778324312}
+  gravityItem: {fileID: 3669067540778324315}
 --- !u!114 &7127567229935807566
 MonoBehaviour:
   m_ObjectHideFlags: 0

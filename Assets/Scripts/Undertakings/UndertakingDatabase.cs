@@ -21,6 +21,21 @@ namespace Klaxon.UndertakingSystem
             }
             return null;
         }
+        public UndertakingTaskObject GetTask(string undertakingName, string taskName)
+        {
+            foreach (var undertaking in allUndertakingObjects)
+            {
+                if (undertaking.Name == undertakingName)
+                {
+                    foreach (var task in undertaking.Tasks)
+                    {
+                        if(task.Name == taskName) 
+                            return task;
+                    }
+                }
+            }
+            return null;
+        }
 
         public void SetUndertakingState(UndertakingObject undertaking, int stateIndex)
         {

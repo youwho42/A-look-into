@@ -417,19 +417,19 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3669067540778324319}
-  - component: {fileID: 3669067540778324316}
   - component: {fileID: -5654624897853860409}
   - component: {fileID: 3669067540778324312}
   - component: {fileID: 3669067540778324315}
   - component: {fileID: 3669067540778324314}
   - component: {fileID: 3669067540778324317}
-  - component: {fileID: 6305858612380614483}
   - component: {fileID: 1493361837548264963}
   - component: {fileID: 3956533460090921529}
   - component: {fileID: 5838656872110206609}
   - component: {fileID: 730675955853077649}
   - component: {fileID: -972553773627931476}
-  - component: {fileID: 7127567229935807566}
+  - component: {fileID: -8789518418873460203}
+  - component: {fileID: 4946876615437813671}
+  - component: {fileID: 4770683078639545036}
   m_Layer: 13
   m_Name: BallPeople-Traveller
   m_TagString: Untagged
@@ -453,22 +453,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3669067540778324316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669067540778324321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8b43a7d5b49f1418d57440d4fe7770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  animator: {fileID: 3669067541027879398}
-  currentDestination: {x: 0, y: 0, z: 0}
-  hasInteracted: 0
 --- !u!114 &-5654624897853860409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +465,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51c8f9cd31d914478d580f8d67be1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  animator: {fileID: 3669067541027879398}
+  arms: {fileID: 1864241168330022154}
+  currentDestination: {x: 0, y: 0, z: 0}
+  travellerDestination: {x: 0, y: 0, z: 0}
+  hasInteracted: 0
+  hasFoundDestination: 0
+  deviateThreshold: 0.05
 --- !u!114 &3669067540778324312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,27 +568,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 3669067540651531075}
   isHidden: 0
---- !u!114 &6305858612380614483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669067540778324321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ad9ddbb975a2cb4a8fa06f00591461a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactSound: Default
-  interactVerb: Read message
-  bounceCost: 0
-  agencyReward: 0
-  agencyCost: 0
-  canInteract: 1
-  messageItem: {fileID: 0}
-  type: 0
-  undertaking: {fileID: 0}
 --- !u!58 &1493361837548264963
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -667,8 +638,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 1aab23d936e00c241929a075116ec48b, type: 2}
---- !u!114 &7127567229935807566
+  Data: {fileID: 11400000, guid: c3e889ac47784e5478a4fe630b6a4693, type: 2}
+--- !u!114 &-8789518418873460203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -677,13 +648,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abe73d59a31ed984aaf6be0f4fcf3002, type: 3}
+  m_Script: {fileID: 11500000, guid: b3132204f8cb56547a61d564726a60fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTilePosition: {fileID: 3669067540778324312}
+  gravityItem: {fileID: 3669067540778324315}
+--- !u!114 &4946876615437813671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a4ef183118cc94f852e613da6f5b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   accessories: {fileID: 5838656872110206609}
   colors: {fileID: 3956533460090921529}
-  messenger: {fileID: 6305858612380614483}
+  travellerInteractable: {fileID: 4770683078639545036}
+  travellerAI: {fileID: -5654624897853860409}
   itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
+--- !u!114 &4770683078639545036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9454257c9797d1a4bafff92e3f1f0688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: Read message
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
+  canInteract: 1
+  undertaking:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}
 --- !u!1 &3669067540875941393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1022,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 791c4a90a22a9e242a33490b94c1c289, type: 3}
-  m_Color: {r: 0.155, g: 0.511, b: 0.534, a: 1}
+  m_Color: {r: 0.27759978, g: 0.208028, b: 0.524, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -1,3 +1,4 @@
+using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,10 +10,22 @@ public class FixAndReplace : MonoBehaviour, IFixArea
     public GameObject fixableReplacementObject;
     public SpriteRenderer fixableSprite;
     bool isFixing;
+
+    public CompleteTaskObject undertakingObject;
     
     public void Fix(List<FixableAreaIngredient> ingredients)
     {
-        if(!isFixing)
+        if(undertakingObject.undertaking != null)
+        {
+            if (undertakingObject.undertaking.CurrentState != UndertakingState.Active)
+            {
+                NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
+                return;
+            }
+        }
+        
+
+        if (!isFixing)
             StartCoroutine(FixCo(ingredients));
     }
 
@@ -50,6 +63,9 @@ public class FixAndReplace : MonoBehaviour, IFixArea
                 }
             }
         }
+        if (undertakingObject.undertaking != null)
+            undertakingObject.undertaking.TryCompleteTask(undertakingObject.task);
+        
         Destroy(this.gameObject);
     }
     void RemoveItemsFromInventory(List<FixableAreaIngredient> ingredients)

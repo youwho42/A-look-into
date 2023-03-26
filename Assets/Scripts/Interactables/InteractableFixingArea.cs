@@ -44,7 +44,7 @@ public class InteractableFixingArea : Interactable
         foreach (var ingredient in ingredients)
         {
             
-            int t = playerInformation.GetTotalInventoryQuantity(ingredient.item);
+            int t = PlayerInformation.instance.GetTotalInventoryQuantity(ingredient.item);
             if (t < ingredient.amount)
             {
                 string plural = ingredient.amount - t == 1 ? "" : "'s";
@@ -58,7 +58,7 @@ public class InteractableFixingArea : Interactable
 
     bool InteractCostReward()
     {
-        float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+        float agency = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
         if (agency >= agencyCost)
             return true;
         

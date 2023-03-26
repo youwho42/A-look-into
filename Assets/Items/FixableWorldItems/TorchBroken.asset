@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
-  m_Name: Messenger
+  m_Name: TorchBroken
   m_EditorClassIdentifier: 
-  Name: Messenger
+  Name: Broken Torch
   AnimationName: 
-  Description: A cute little ball with a message for you.
-  Weight: 0.1
-  Price: 5
+  Description: Pray god this isn't in your inventory
+  Weight: 100
+  Price: 100
   spawnWeight: 1
-  Icon: {fileID: 21300000, guid: 0330c8e4b59dd45d3b7835689a94b4b0, type: 3}
-  ItemPrefab: {fileID: 3669067540778324319, guid: 0518dfd0060c0ed4ea6d9b4241f5f553,
+  Icon: {fileID: 21300000, guid: eb842f7918ebfbc4ab27a375d562f3dd, type: 3}
+  ItemPrefab: {fileID: 6446148457427665765, guid: d0317012e534777439859774cd9cc329,
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
@@ -27,4 +27,4 @@ MonoBehaviour:
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
-  GameDificulty: 0
+  GameDificulty: 1

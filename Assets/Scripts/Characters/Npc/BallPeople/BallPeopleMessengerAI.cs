@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net.PeerToPeer.Collaboration;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static BallPeopleTravellerAI;
 
-public class BallPeopleMessengerAI : MonoBehaviour
+public class BallPeopleMessengerAI : MonoBehaviour, IBallPerson
 {
     
     public enum MessengerState
@@ -133,7 +134,8 @@ public class BallPeopleMessengerAI : MonoBehaviour
                     currentState = MessengerState.Follow;
 
                 walk.Walk();
-
+                if (CheckPlayerDistance() > 1.5f)
+                    currentState = MessengerState.Disappear;
                 break;
 
 
@@ -282,4 +284,8 @@ public class BallPeopleMessengerAI : MonoBehaviour
         return dist;
     }
 
+    public void SetToRemoveState()
+    {
+        currentState = MessengerState.Remove;
+    }
 }
