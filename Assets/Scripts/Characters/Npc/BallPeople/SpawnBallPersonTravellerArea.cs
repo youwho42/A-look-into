@@ -4,12 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnBallPersonTravellerArea : MonoBehaviour
+public class SpawnBallPersonTravellerArea : SpawnableBallPersonArea
 {
     public UndertakingObject undertaking;
     public GameObject travellerDestination;
-    [HideInInspector]
-    public bool hasSpawned;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

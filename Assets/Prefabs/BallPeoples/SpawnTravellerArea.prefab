@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1773114800934082983}
   - component: {fileID: 1773114800934082982}
   - component: {fileID: 1773114800934082981}
+  - component: {fileID: -165422594489313597}
   - component: {fileID: 1773114800934082980}
-  - component: {fileID: 1804278480520022338}
   m_Layer: 0
   m_Name: SpawnTravellerArea
   m_TagString: Untagged
@@ -77,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &-165422594489313597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773114800934082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53caa1ffb7e5fa468fc5032b41489a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnArea: {fileID: 1773114800934082980}
 --- !u!114 &1773114800934082980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,19 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f5b0500413e9f41b3e6a9ce552d197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasSpawned: 0
   undertaking: {fileID: 11400000, guid: 0064e65c7c0cf5d47b573db4ac33de96, type: 2}
   travellerDestination: {fileID: 0}
-  hasSpawned: 0
---- !u!114 &1804278480520022338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773114800934082979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04251cf5e605e714cb528335062c492f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnArea: {fileID: 1773114800934082980}

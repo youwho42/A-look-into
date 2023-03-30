@@ -46,16 +46,18 @@ public class BallPeopleManager : MonoBehaviour
         travelBall.travellerDestination = travelerDestination.transform.position;
     }
 
-    public void SpawnSeeker(QI_ItemData item, int amount)
+    public void SpawnSeeker(QI_ItemData item, int amount, CompleteTaskObject talkTask, CompleteTaskObject seekTask)
     {
-        GameObject trav = null;
-        SpawnBallPeople(seekerPrefab, out trav);
+        GameObject seek = null;
+        SpawnBallPeople(seekerPrefab, out seek);
 
-        //var seekerItem = trav.GetComponent<InteractableBallPeopleTraveller>();
-        //travItem.undertaking.undertaking = undertaking;
-        //travItem.undertaking.task = undertaking.Tasks[0];
-        var travelBall = trav.GetComponent<BallPeopleSeekerAI>();
-        travelBall.seekItem = item;
+        var seekerItem = seek.GetComponent<InteractableBallPeopleSeeker>();
+        seekerItem.talkTask.undertaking = talkTask.undertaking;
+        seekerItem.talkTask.task = talkTask.task;
+        var seekerBall = seek.GetComponent<BallPeopleSeekerAI>();
+        seekerBall.seekTask = seekTask;
+        seekerBall.seekItem = item;
+        seekerBall.seekAmount = amount;
     }
 
 

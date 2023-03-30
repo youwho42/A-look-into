@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8100168833981936003}
   - component: {fileID: 8100168833981936002}
   - component: {fileID: 8100168833981936005}
+  - component: {fileID: -3977810606506427817}
   - component: {fileID: 8100168833981936004}
-  - component: {fileID: 8100168833981936000}
   m_Layer: 0
   m_Name: SpawnMessengerArea
   m_TagString: Untagged
@@ -77,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &-3977810606506427817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100168833981936007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53caa1ffb7e5fa468fc5032b41489a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnArea: {fileID: 8100168833981936004}
 --- !u!114 &8100168833981936004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,20 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855a5e4a4a7e2f7459d47504510f5f40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasSpawned: 0
   messageItem: {fileID: 11400000, guid: cef4eea1b69708a48a9083444246f4c5, type: 2}
   messageType: 1
   undertaking: {fileID: 0}
-  hasSpawned: 0
---- !u!114 &8100168833981936000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8100168833981936007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eeb54aa65722fe4db82310ea6402ecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnArea: {fileID: 8100168833981936004}

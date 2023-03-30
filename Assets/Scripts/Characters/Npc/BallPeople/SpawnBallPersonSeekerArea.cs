@@ -4,21 +4,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnBallPersonSeekerArea : MonoBehaviour
+public class SpawnBallPersonSeekerArea : SpawnableBallPersonArea
 {
     public QI_ItemData seekItem;
     public int seekAmount;
-    //public UndertakingObject undertaking;
-    [HideInInspector]
-    public bool hasSpawned;
+    public CompleteTaskObject talkTask;
+    public CompleteTaskObject seekTask;
 
+
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (hasSpawned)
             return;
         if (collision.CompareTag("Player"))
         {
-            BallPeopleManager.instance.SpawnSeeker(seekItem, seekAmount);
+            BallPeopleManager.instance.SpawnSeeker(seekItem, seekAmount, talkTask, seekTask);
             hasSpawned = true;
         }
 

@@ -428,8 +428,8 @@ GameObject:
   - component: {fileID: 730675955853077649}
   - component: {fileID: -972553773627931476}
   - component: {fileID: -8789518418873460203}
-  - component: {fileID: 4946876615437813671}
-  - component: {fileID: 4770683078639545036}
+  - component: {fileID: 8752185193089700528}
+  - component: {fileID: 4102283354100255354}
   m_Layer: 13
   m_Name: BallPeople-Seeker
   m_TagString: Untagged
@@ -468,14 +468,22 @@ MonoBehaviour:
   currentState: 0
   animator: {fileID: 3669067541027879398}
   currentDestination: {x: 0, y: 0, z: 0}
+  arms: {fileID: 1864241168330022154}
   hasInteracted: 0
   currentObjectPosition: {x: 0, y: 0, z: 0}
   seekItem: {fileID: 0}
-  objectsFound: []
+  seekAmount: 0
+  seekItemsFound: []
   seekRadius: 1
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8192
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  seekTask:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}
 --- !u!114 &3669067540778324312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: c3e889ac47784e5478a4fe630b6a4693, type: 2}
+  Data: {fileID: 11400000, guid: fe7d7c0f3ce239c4d96fed8f2859857d, type: 2}
 --- !u!114 &-8789518418873460203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTilePosition: {fileID: 3669067540778324312}
   gravityItem: {fileID: 3669067540778324315}
---- !u!114 &4946876615437813671
+--- !u!114 &8752185193089700528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -665,24 +673,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1a4ef183118cc94f852e613da6f5b59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  accessories: {fileID: 5838656872110206609}
-  colors: {fileID: 3956533460090921529}
-  travellerInteractable: {fileID: 4770683078639545036}
-  travellerAI: {fileID: 0}
-  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
---- !u!114 &4770683078639545036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669067540778324321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9454257c9797d1a4bafff92e3f1f0688, type: 3}
+  m_Script: {fileID: 11500000, guid: 14a12c1ea3824b24282d621e7a62e76f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
@@ -691,9 +682,26 @@ MonoBehaviour:
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
-  undertaking:
+  talkTask:
     undertaking: {fileID: 0}
     task: {fileID: 0}
+--- !u!114 &4102283354100255354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90668c4aa3e0d494c8c7ac43c8942556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accessories: {fileID: 5838656872110206609}
+  colors: {fileID: 3956533460090921529}
+  seekerInteractable: {fileID: 8752185193089700528}
+  seekerAI: {fileID: 5558687930221378115}
+  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!1 &3669067540875941393
 GameObject:
   m_ObjectHideFlags: 0

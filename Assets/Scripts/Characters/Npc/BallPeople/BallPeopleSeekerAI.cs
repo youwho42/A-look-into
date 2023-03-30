@@ -1,4 +1,5 @@
 using Klaxon.GravitySystem;
+using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,29 +47,37 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
     Vector2 offset;
 
 
-    InteractableBallPeopleMessenger interactor;
+    InteractableBallPeopleSeeker interactor;
+    public GameObject arms;
 
     static int isGrounded_hash = Animator.StringToHash("IsGrounded");
     static int velocityY_hash = Animator.StringToHash("VelocityY");
     static int sleeping_hash = Animator.StringToHash("IsSleeping");
+    static int lick_hash = Animator.StringToHash("Lick");
+
+    bool hasLicked;
+
     [HideInInspector]
     public bool hasInteracted;
 
     [HideInInspector]
     public Vector3 currentObjectPosition;
-    [HideInInspector]
+    //[HideInInspector]
     public QI_ItemData seekItem;
-    [HideInInspector]
+    //[HideInInspector]
     public int seekAmount;
     [HideInInspector]
-    public List<Vector3> objectsFound = new List<Vector3>();
+    public List<Vector3> seekItemsFound = new List<Vector3>();
     public float seekRadius;
     public LayerMask interactableLayer;
     GameObject currentSeekItem;
-    
+    public LayerMask obstacleLayer;
+
+    public CompleteTaskObject seekTask; 
+
     private void Start()
     {
-        interactor = GetComponent<InteractableBallPeopleMessenger>();
+        interactor = GetComponent<InteractableBallPeopleSeeker>();
         currentTilePosition = GetComponent<CurrentTilePosition>();
         walk = GetComponent<CanReachTileWalk>();
         allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
@@ -124,13 +133,15 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
                 {
                     currentState = SeekerState.Idle;
                 }
-                currentSeekItem = CheckForSeekItem();
-                if (currentSeekItem != null)
+                if (hasInteracted && !seekTask.task.IsComplete)
                 {
-                    currentDestination = currentSeekItem.transform.position;
-                    currentState = SeekerState.GoToObject;
+                    currentSeekItem = CheckForSeekItem();
+                    if (currentSeekItem != null)
+                    {
+                        currentDestination = GetSeekItemPosition();
+                        currentState = SeekerState.GoToObject;
+                    }
                 }
-
                 
 
                 break;
@@ -162,10 +173,10 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
 
 
             case SeekerState.Idle:
-
+                hasLicked = false;
                 var dir = PlayerInformation.instance.player.position - transform.position;
                 walk.SetFacingDirection(dir);
-
+                arms.SetActive(!hasInteracted);
                 interactor.canInteract = !hasInteracted;
                 //check distance from player, wait a sec, and start to follow if too far
                 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
@@ -238,12 +249,31 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
                     currentState = SeekerState.AtObject;
                 }
                 
+                // DEVIATE!!!!
+
 
                 break;
 
             case SeekerState.AtObject:
 
-                Debug.Log("boop");
+                animator.SetBool(walking_hash, false);
+                if (!hasLicked)
+                {
+                    timeIdle = 0;
+                    animator.SetTrigger(lick_hash);
+                    hasLicked = true;
+                    
+                    if(seekItemsFound.Count == seekAmount)
+                    {
+                        seekTask.undertaking.TryCompleteTask(seekTask.task);
+                        hasInteracted = false;
+                    }
+                    
+                }
+                if (timeIdle < 2f)
+                    timeIdle += Time.deltaTime;
+                else
+                    currentState = SeekerState.Idle;
 
                 break;
 
@@ -284,6 +314,25 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
 
     }
 
+    Vector3 GetSeekItemPosition()
+    {
+        Vector3 pos = currentSeekItem.transform.position;
+        Vector2 dir = transform.position - pos;
+        dir = dir.normalized;
+        dir *= 0.09f;
+        var colliders = currentSeekItem.GetComponentsInChildren<Collider2D>();
+        foreach (var coll in colliders)
+        {
+            if(gameObject.layer == obstacleLayer)
+            {
+                pos = coll.ClosestPoint(transform.position);
+                break;
+            }
+        }
+
+        return pos + (Vector3)dir;
+    }
+
     GameObject CheckForSeekItem()
     {
 
@@ -293,12 +342,14 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
         {
             for (int i = 0; i < colliders.Length; i++)
             {
-                
-                if (colliders[i].TryGetComponent(out QI_ItemData item))
+                if (colliders[i].transform.position.z != transform.position.z)
+                    continue;
+                if (colliders[i].TryGetComponent(out QI_Item item))
                 {
-                    if (item == seekItem && !objectsFound.Contains(colliders[i].transform.position))
+                    if (item.Data == seekItem && !seekItemsFound.Contains(colliders[i].transform.position))
                     {
-                        objectsFound.Add(colliders[i].transform.position);
+                        hasLicked = false;
+                        seekItemsFound.Add(colliders[i].transform.position);
                         return colliders[i].gameObject;
                     }
 

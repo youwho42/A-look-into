@@ -4,13 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnBallPersonMessengerArea : MonoBehaviour
+public class SpawnBallPersonMessengerArea : SpawnableBallPersonArea
 {
     public QI_ItemData messageItem;
     public BallPeopleMessageType messageType;
     public UndertakingObject undertaking;
-    [HideInInspector]
-    public bool hasSpawned;
+
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
