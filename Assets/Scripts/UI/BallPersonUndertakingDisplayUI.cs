@@ -21,14 +21,29 @@ public class BallPersonUndertakingDisplayUI : MonoBehaviour
     public TextMeshProUGUI messageTitle;
     public TextMeshProUGUI messageContent;
 
-    public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking)
+    bool destroyOnClose;
+
+    
+    
+    public void ShowBallPersonMessageUI(IBallPerson messengerAI, string messageName, string messageDescription)
+    {
+        PlayerInformation.instance.uiScreenVisible = true;
+        PlayerInformation.instance.TogglePlayerInput(false);
+        ballPerson = messengerAI;
+        messageTitle.text = messageName;
+        messageContent.text = messageDescription;
+        destroyOnClose = true;
+    }
+
+
+    public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking, bool _destroyOnClose)
     {
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         ballPerson = _ballPerson;
         undertaking = _undertaking;
         messageTitle.text = undertaking.Name;
-
+        destroyOnClose = _destroyOnClose;
         string t = undertaking.CurrentState == UndertakingState.Complete ? undertaking.CompletedDescription : undertaking.Description;
         messageContent.text = t;
     }
@@ -38,9 +53,14 @@ public class BallPersonUndertakingDisplayUI : MonoBehaviour
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
-        
-        
+        if(destroyOnClose)
+            Invoke("DestroyMessenger", .1f);
     }
 
-    
+    void DestroyMessenger()
+    {
+        ballPerson.SetToRemoveState();
+        ballPerson = null;
+    }
+
 }

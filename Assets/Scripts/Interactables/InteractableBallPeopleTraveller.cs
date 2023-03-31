@@ -8,8 +8,8 @@ public class InteractableBallPeopleTraveller : Interactable
 {
     public CompleteTaskObject undertaking;
     //public UndertakingObject undertaking;
-
-    bool started;
+    [HideInInspector]
+    public bool started;
     public override void Start()
     {
         base.Start();
@@ -40,7 +40,7 @@ public class InteractableBallPeopleTraveller : Interactable
             undertaking.undertaking.TryCompleteTask(undertaking.task);
         }
         
-        BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking);
+        BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, false);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         GetComponent<BallPeopleTravelerAI>().hasInteracted = true;
         canInteract = false;

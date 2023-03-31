@@ -42,8 +42,10 @@ public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
             undertakingName = q,
             talkTaskName = t,
             seekTaskName = s,
+            started = seekerInteractable.started,
             seekLocations = loc,
             seekAmount = seekerAI.seekAmount,
+            foundAmount = seekerAI.foundAmount,
             hasInteracted = seekerAI.hasInteracted, 
             seekItem = seekerAI.seekItem.Name
         };
@@ -71,8 +73,10 @@ public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
         {
             seekerAI.seekItemsFound.Add(l);
         }
-        
+
+        seekerInteractable.started = saveData.started;
         seekerAI.seekAmount = saveData.seekAmount;
+        seekerAI.foundAmount = saveData.foundAmount;
         seekerAI.hasInteracted = saveData.hasInteracted;
         seekerAI.seekItem = itemDatabase.GetItem(saveData.seekItem);
     }
@@ -91,8 +95,10 @@ public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
         public string undertakingName;
         public string talkTaskName;
         public string seekTaskName;
+        public bool started;
 
         public int seekAmount;
+        public int foundAmount;
         public List<SVector3> seekLocations;
         public bool hasInteracted;
         public string seekItem;

@@ -40,7 +40,7 @@ public class InteractableBallPeopleMessenger : Interactable
 
         if (messageItem != null)
         {
-            MessageDisplayUI.instance.ShowMessengerUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
+            BallPersonUndertakingDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
             QI_ItemDatabase database = GetCompendiumDatabase();
 
             if (!database.Items.Contains(messageItem))
@@ -52,11 +52,11 @@ public class InteractableBallPeopleMessenger : Interactable
         }
         else if (undertaking != null)
         {
-            MessageDisplayUI.instance.ShowMessengerUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
+            BallPersonUndertakingDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
             
             PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
         }
-        UIScreenManager.instance.DisplayScreen(UIScreenType.Message);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         GetComponent<BallPeopleMessengerAI>().hasInteracted = true;
         canInteract = false;
         //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);

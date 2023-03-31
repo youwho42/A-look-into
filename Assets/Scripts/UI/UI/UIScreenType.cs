@@ -23,7 +23,6 @@ public enum UIScreenType
     LoadFileScreen,
     ControlsScreen,
     AudioScreen,
-    Message,
     BallPersonUndertakingScreen
    
 }

@@ -7,8 +7,8 @@ public class InteractableBallPeopleSeeker : Interactable
 {
     public CompleteTaskObject talkTask;
     //public UndertakingObject undertaking;
-
-    bool started;
+    [HideInInspector]
+    public bool started;
     public override void Start()
     {
         base.Start();
@@ -28,7 +28,7 @@ public class InteractableBallPeopleSeeker : Interactable
     {
 
         PlayInteractSound();
-
+        bool destroyOnClose = false;
         if (!started)
         {
             talkTask.undertaking.ActivateUndertaking();
@@ -36,10 +36,11 @@ public class InteractableBallPeopleSeeker : Interactable
         }
         else
         {
+            destroyOnClose = true;
             talkTask.undertaking.TryCompleteTask(talkTask.task);
         }
 
-        BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), talkTask.undertaking);
+        BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), talkTask.undertaking, destroyOnClose);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         GetComponent<BallPeopleSeekerAI>().hasInteracted = true;
         canInteract = false;

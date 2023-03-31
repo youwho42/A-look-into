@@ -66,6 +66,8 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
     public QI_ItemData seekItem;
     //[HideInInspector]
     public int seekAmount;
+    //[HideInInspector]
+    public int foundAmount;
     [HideInInspector]
     public List<Vector3> seekItemsFound = new List<Vector3>();
     public float seekRadius;
@@ -243,8 +245,9 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
                 //currentDestination = travellerDestination + (Vector3)offset;
                 walk.SetWorldDestination(currentDestination);
                 walk.Walk();
-                if (CheckDistanceToDestination() <= 0.02f)
+                if (CheckDistanceToDestination() <= 0.01f)
                 {
+                    seekItemsFound.Add(currentSeekItem.transform.position);
                     currentSeekItem = null;
                     currentState = SeekerState.AtObject;
                 }
@@ -262,8 +265,9 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
                     timeIdle = 0;
                     animator.SetTrigger(lick_hash);
                     hasLicked = true;
+                    foundAmount++;
                     
-                    if(seekItemsFound.Count == seekAmount)
+                    if (foundAmount == seekAmount)
                     {
                         seekTask.undertaking.TryCompleteTask(seekTask.task);
                         hasInteracted = false;
@@ -349,7 +353,7 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
                     if (item.Data == seekItem && !seekItemsFound.Contains(colliders[i].transform.position))
                     {
                         hasLicked = false;
-                        seekItemsFound.Add(colliders[i].transform.position);
+                        
                         return colliders[i].gameObject;
                     }
 

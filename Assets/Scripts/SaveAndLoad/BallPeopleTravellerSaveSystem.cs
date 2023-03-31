@@ -33,7 +33,7 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
             travellerDestination = travellerAI.travellerDestination,
             undertakingName = q,
             taskName = t,
-
+            started = travellerInteractable.started,
             hasInteracted = travellerAI.hasInteracted
         };
     }
@@ -49,7 +49,7 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
         
         if (saveData.taskName != "")
             travellerInteractable.undertaking.task = UndertakingDatabaseHolder.instance.undertakingDatabase.GetTask(saveData.undertakingName, saveData.taskName);
-
+        travellerInteractable.started = saveData.started;
         travellerAI.hasInteracted = saveData.hasInteracted;
         travellerAI.travellerDestination = saveData.travellerDestination;
     }
@@ -67,6 +67,7 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
 
         public string undertakingName;
         public string taskName;
+        public bool started;
 
         public bool hasInteracted;
     }
