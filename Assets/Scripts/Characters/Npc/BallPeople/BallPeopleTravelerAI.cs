@@ -290,6 +290,7 @@ public class BallPeopleTravelerAI : MonoBehaviour, IBallPerson
                 break;
 
             case TravelerState.Disappear:
+                animator.SetBool(walking_hash, false);
                 if (!disolved)
                     Disolve(false);
 

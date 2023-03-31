@@ -282,6 +282,7 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
                 break;
 
             case SeekerState.Disappear:
+                animator.SetBool(walking_hash, false);
                 if (!disolved)
                     Disolve(false);
 

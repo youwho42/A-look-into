@@ -75,18 +75,19 @@ public class UndertakingsDisplayUI : MonoBehaviour
         ClearCurrentUndertaking();
         currentUndertaking = undertaking;
         undertakingTitle.text = currentUndertaking.Name;
-        string tasks = "";
+        //string tasks = "";
          
-        if (undertaking.CurrentState != UndertakingState.Complete)
-        {
-            for (int i = 0; i < undertaking.Tasks.Count; i++)
-            {
-                tasks += $"\n-{undertaking.Tasks[i].Name}";
-            }
-        }
+        //if (undertaking.CurrentState != UndertakingState.Complete)
+        //{
+        //    for (int i = 0; i < undertaking.Tasks.Count; i++)
+        //    {
+        //        tasks += $"\n-{undertaking.Tasks[i].Name}";
+        //    }
+        //}
         
         string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.CompletedDescription : currentUndertaking.Description;
-        undertakingDescription.text = $"{desc}<br>{tasks}";
+        //undertakingDescription.text = $"{desc}<br>{tasks}";
+        undertakingDescription.text = $"{desc}";
     }
 
     public void ClearCurrentUndertaking()

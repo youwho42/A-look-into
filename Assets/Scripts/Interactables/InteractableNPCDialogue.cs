@@ -88,6 +88,7 @@ public class InteractableNPCDialogue : Interactable
                     
                     u.ActivateUndertaking();
                     //GameEventManager.onUndertakingsUpdateEvent.Invoke();
+                    
                     canvasDialogueDisplay.handler.SetConversation($"QuestInactive_{u.Name}");
                     break;
                 }

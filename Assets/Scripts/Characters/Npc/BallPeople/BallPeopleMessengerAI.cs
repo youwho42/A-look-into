@@ -193,7 +193,8 @@ public class BallPeopleMessengerAI : MonoBehaviour, IBallPerson
                 break;
 
             case MessengerState.Disappear:
-                if(!disolved)
+                animator.SetBool(walking_hash, false);
+                if (!disolved)
                     Disolve(false);
 
                 if (timeIdle < 1.5f)
