@@ -24,6 +24,9 @@ public class InteractWithInteractable : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerInformation.instance.playerInput.isInUI)
+            return;
+
         currentInteractables.Clear();
         Vector3 pickUpPosition = playermovement.facingRight ? transform.position + pickupOffset : transform.position - pickupOffset;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pickUpPosition, interactableRadius, interactableLayer);

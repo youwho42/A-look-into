@@ -24,7 +24,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact(GameObject interactor)
     {
-        if (hasInteracted)
+        if (hasInteracted || !InteractBounceCost())
             return;
 
         
@@ -34,7 +34,19 @@ public class Interactable : MonoBehaviour
         // The rest happens in child script...
     }
 
-    
+
+    bool InteractBounceCost()
+    {
+        if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= bounceCost)
+        {
+
+            PlayerInformation.instance.playerStats.RemoveFromBounce(bounceCost);
+            return true;
+        }
+        
+        NotificationManager.instance.SetNewNotification("You are missing Bounce to do this.", NotificationManager.NotificationType.Warning);
+        return false;
+    }
 
 
 }

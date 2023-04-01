@@ -197,18 +197,21 @@ public class PlayerInputController : MonoBehaviour
         }
 
         //var stick = rightStickPos;
-        
-        var stick = Gamepad.current.rightStick.ReadValue();
-        rightStickPos = stick;
-        if(stick != Vector2.zero)
+        if(Gamepad.current != null)
         {
-            Vector2 currentPosition = Mouse.current.position.ReadValue();
-            for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+            var stick = Gamepad.current.rightStick.ReadValue();
+            rightStickPos = stick;
+            if (stick != Vector2.zero)
             {
-                currentPosition += stick * 15 * Time.unscaledDeltaTime;
+                Vector2 currentPosition = Mouse.current.position.ReadValue();
+                for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+                {
+                    currentPosition += stick * 15 * Time.unscaledDeltaTime;
+                }
+                Mouse.current.WarpCursorPosition(currentPosition);
             }
-            Mouse.current.WarpCursorPosition(currentPosition);
         }
+        
         
         
 

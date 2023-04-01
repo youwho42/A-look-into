@@ -21,8 +21,8 @@ namespace Klaxon.UndertakingSystem
             if (taskObject.undertaking.CurrentState != UndertakingState.Active )
                 return;
 
-
-            taskObject.undertaking.TryCompleteTask(taskObject.task);
+            if (collision.gameObject.transform.position.z == transform.position.z)
+                taskObject.undertaking.TryCompleteTask(taskObject.task);
         }
     }
 }

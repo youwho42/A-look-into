@@ -9,7 +9,8 @@ public class SpawnBallPersonMessengerArea : SpawnableBallPersonArea
     public QI_ItemData messageItem;
     public BallPeopleMessageType messageType;
     public UndertakingObject undertaking;
-
+    
+    
     
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,8 +19,12 @@ public class SpawnBallPersonMessengerArea : SpawnableBallPersonArea
             return;
         if (collision.CompareTag("Player"))
         {
-            BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking);
-            hasSpawned = true;
+            if (collision.gameObject.transform.position.z == transform.position.z)
+            {
+                BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking);
+                marker.enabled = false;
+                hasSpawned = true;
+            }
         }
         
         

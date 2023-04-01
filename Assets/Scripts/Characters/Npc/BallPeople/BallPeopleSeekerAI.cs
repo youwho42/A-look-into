@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using static BallPeopleMessengerAI;
 using static BallPeopleTravelerAI;
 
 public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
@@ -369,8 +370,27 @@ public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
     {
         Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
         transform.position = PlayerInformation.instance.player.position + (Vector3)offset;
-        currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
-        currentState = SeekerState.Appear;
+        if (walk.gravityItem.tileBlockInfo != null)
+        {
+            foreach (var tile in walk.gravityItem.tileBlockInfo)
+            {
+
+                if (tile.direction == Vector3Int.zero)
+                {
+                    if (tile.isValid)
+                    {
+                        currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
+                        currentState = SeekerState.Appear;
+                    }
+                    else
+                    {
+                        SetPositionNearPlayer();
+                    }
+                }
+            }
+        }
+        //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
+        //currentState = MessengerState.Appear;
     }
     void FindDeviateDestination()
     {

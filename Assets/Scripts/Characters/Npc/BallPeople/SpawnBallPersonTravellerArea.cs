@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SpawnBallPersonTravellerArea : SpawnableBallPersonArea
 {
-    public UndertakingObject undertaking;
+    public CompleteTaskObject taskObject;
     public GameObject travellerDestination;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,8 +15,12 @@ public class SpawnBallPersonTravellerArea : SpawnableBallPersonArea
             return;
         if (collision.CompareTag("Player"))
         {
-            BallPeopleManager.instance.SpawnTraveller(undertaking, travellerDestination);
-            hasSpawned = true;
+            if (collision.gameObject.transform.position.z == transform.position.z)
+            {
+                BallPeopleManager.instance.SpawnTraveller(taskObject, travellerDestination);
+                marker.enabled = false;
+                hasSpawned = true;
+            }
         }
 
 

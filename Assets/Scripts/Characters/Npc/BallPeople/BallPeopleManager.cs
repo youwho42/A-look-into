@@ -34,14 +34,14 @@ public class BallPeopleManager : MonoBehaviour
         messItem.undertaking = undertaking;
     }
 
-    public void SpawnTraveller(UndertakingObject undertaking, GameObject travelerDestination)
+    public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination)
     {
         GameObject trav = null;
         SpawnBallPeople(travelerPrefab, out trav);
 
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
-        travItem.undertaking.undertaking = undertaking;
-        travItem.undertaking.task = undertaking.Tasks[0];
+        travItem.undertaking.undertaking = taskObject.undertaking;
+        travItem.undertaking.task = taskObject.task;
         var travelBall = trav.GetComponent<BallPeopleTravelerAI>();
         travelBall.travellerDestination = travelerDestination.transform.position;
     }

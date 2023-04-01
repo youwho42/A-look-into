@@ -9,7 +9,7 @@ public class SpawnableBallPersonArea : MonoBehaviour
 
     [HideInInspector]
     public bool hasSpawned;
-
+    public SpriteRenderer marker;
 
     public bool GetHasSpawned()
     {
@@ -17,6 +17,7 @@ public class SpawnableBallPersonArea : MonoBehaviour
     }
     public void SetHasSpawned(bool _hasSpawned)
     {
-        hasSpawned= _hasSpawned;
+        hasSpawned = _hasSpawned;
+        marker.enabled = !hasSpawned;
     }
 }

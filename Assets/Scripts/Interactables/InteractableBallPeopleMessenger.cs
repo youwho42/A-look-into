@@ -28,6 +28,7 @@ public class InteractableBallPeopleMessenger : Interactable
     {
         base.Interact(interactor);
 
+       
         StartCoroutine(InteractCo(interactor));
 
 

@@ -11,7 +11,10 @@ namespace Klaxon.UndertakingSystem
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player"))
-                undertaking.ActivateUndertaking();
+            {
+                if(collision.gameObject.transform.position.z == transform.position.z)
+                    undertaking.ActivateUndertaking();
+            }
         }
     }
 }
