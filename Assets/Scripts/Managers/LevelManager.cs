@@ -29,14 +29,14 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //if (Application.isPlaying && loadTerrains)
-        //{
-        //    if (!SceneManager.GetSceneByName("TerrainDecoration-StartArea").isLoaded)
-        //    {
-        //        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TerrainDecoration-StartArea", LoadSceneMode.Additive);
-        //    }
-                
-        //}
+        if (Application.isPlaying && loadTerrains)
+        {
+            if (!SceneManager.GetSceneByName("MainScene-Decoration").isLoaded)
+            {
+                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainScene-Decoration", LoadSceneMode.Additive);
+            }
+
+        }
     }
 
     public bool loadTerrains;
@@ -278,26 +278,32 @@ public class LevelManager : MonoBehaviour
     {
         
         UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
-        AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName);
-
-        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
-
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         PlayerInformation.instance.TogglePlayerInput(false);
         UndertakingDatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
+
+        AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName +"-Terrain");
+
+        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
+
+        
         while (!currentLevelLoading.isDone)
         {
             
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading scene: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Terrain: {Mathf.RoundToInt(progress * 100)}%";
 
             
             yield return null;
         }
-        Time.timeScale = 1;
+
+        //AsyncOperation currentDecorationLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
+
+        
+
         text.text = "Loading data from save.";
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
@@ -313,7 +319,7 @@ public class LevelManager : MonoBehaviour
         //mainCam.Priority = 10;
         GameEventManager.onGameLoadedEvent.Invoke();
         yield return new WaitForSeconds(3f);
-        
+        Time.timeScale = 1;
         UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         

@@ -24,8 +24,10 @@ public class FloatingObject : MonoBehaviour
     {
         mainPoints = new Vector2[3];
         destinationIsValid = false;
+        SetWaterMap();
         StartCoroutine(SetNewDestination());
         SetNextAnimTime();
+        
     }
     private void Update()
     {
@@ -122,5 +124,21 @@ public class FloatingObject : MonoBehaviour
         mainPoints[2] = mainDestination;
         mainPoints[1] = mainPoints[0] + (mainPoints[2] - mainPoints[0]) / 2 + Vector2.up * pathAngle;
         
+    }
+
+    void SetWaterMap()
+    {
+        if (waterTiles != null)
+            return;
+
+        var grid = FindObjectOfType<Grid>();
+        Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
+        foreach (var map in maps)
+        {
+            if (map.gameObject.name == "WaterTiles")
+            {
+                waterTiles = map;
+            }
+        }
     }
 }
