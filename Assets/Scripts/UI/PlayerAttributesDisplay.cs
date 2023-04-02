@@ -24,14 +24,14 @@ public class PlayerAttributesDisplay : MonoBehaviour
         bouncePos = bounceUI.anchoredPosition;
         agencyPos = agencyUI.anchoredPosition;
     }
-    private void OnEnable()
-    {
-        lastBounce = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
-        lastAgency = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
-        bounceSlider.value = lastBounce;
-        agencyText.text = lastAgency.ToString();
+    //private void OnEnable()
+    //{
+    //    lastBounce = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
+    //    lastAgency = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
+    //    bounceSlider.value = lastBounce;
+    //    agencyText.text = lastAgency.ToString();
         
-    }
+    //}
     private void OnDisable()
     {
         GameEventManager.onStatUpdateEvent.RemoveListener(UpdateStatsUI);
@@ -47,17 +47,16 @@ public class PlayerAttributesDisplay : MonoBehaviour
         {
             float diff = Mathf.Abs(newBounce - lastBounce);
             lastBounce = newBounce;
-            bounceSlider.value = newBounce;
             StartCoroutine(ShakeStatUI(bounceUI, bouncePos, diff));
         }
         if (newAgency != lastAgency)
         {
             float diff = Mathf.Abs(newAgency - lastAgency);
             lastAgency = newAgency;
-            agencyText.text = newAgency.ToString();
             StartCoroutine(ShakeStatUI(agencyUI, agencyPos, diff));
         }
-        
+        bounceSlider.value = lastBounce;
+        agencyText.text = lastAgency.ToString();
     }
 
     IEnumerator ShakeStatUI(RectTransform statObject, Vector2 originalPos, float diff)

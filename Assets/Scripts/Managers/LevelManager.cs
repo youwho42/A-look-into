@@ -60,6 +60,8 @@ public class LevelManager : MonoBehaviour
     private GameObject newGameWarning;
     [SerializeField]
     private Toggle vSync;
+    [SerializeField]
+    private Toggle fullscreen;
 
     [SerializeField]
     private Slider loadScreenSlider;
@@ -85,6 +87,7 @@ public class LevelManager : MonoBehaviour
         isInCutscene = true;
         yield return new WaitForSeconds(0.2f);
         SelectStartButton();
+        fullscreen.isOn = Screen.fullScreen;
     }
     public void SelectStartButton()
     {
@@ -143,7 +146,7 @@ public class LevelManager : MonoBehaviour
 
     public void ToggleVSync()
     {
-        if (QualitySettings.vSyncCount == 0)
+        if (vSync.isOn)
             QualitySettings.vSyncCount = 1;
         else
             QualitySettings.vSyncCount = 0;
@@ -157,6 +160,10 @@ public class LevelManager : MonoBehaviour
     public int GetVSync()
     {
         return QualitySettings.vSyncCount;
+    }
+    public void SetFullScreen()
+    {
+        Screen.fullScreen = fullscreen.isOn;
     }
 
     public void CancelNewGame()
@@ -216,25 +223,30 @@ public class LevelManager : MonoBehaviour
 
     public void ViewControls()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
+        UIScreenManager.instance.HideAllScreens();
         UIScreenManager.instance.DisplayScreen(UIScreenType.ControlsScreen);
     }
 
-    public void HideControls()
+    public void ViewVideoSettings()
     {
         UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.VideoScreen);
+    }
+
+
+    public void HideControls()
+    {
+        LoadFileBackButton();
     }
     public void ViewVolumeControls()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
+        UIScreenManager.instance.HideAllScreens();
         UIScreenManager.instance.DisplayScreen(UIScreenType.AudioScreen);
     }
 
     public void HideVolumeControls()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
+        LoadFileBackButton();
     }
 
     public void QuitGame()

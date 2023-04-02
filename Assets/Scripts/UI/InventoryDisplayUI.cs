@@ -42,6 +42,7 @@ public class InventoryDisplayUI : MonoBehaviour
     }
     void SetInventoryUI()
     {
+        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
         for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
         {
 
@@ -65,7 +66,7 @@ public class InventoryDisplayUI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         if (inventorySlots.Count > 0)
             EventSystem.current.SetSelectedGameObject(inventorySlots[0].GetComponentInChildren<Button>().gameObject);
-        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
+        
         
     }
 

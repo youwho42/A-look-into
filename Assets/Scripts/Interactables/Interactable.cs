@@ -24,7 +24,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact(GameObject interactor)
     {
-        if (hasInteracted || !InteractBounceCost())
+        if (hasInteracted)
             return;
 
         
@@ -35,7 +35,7 @@ public class Interactable : MonoBehaviour
     }
 
 
-    bool InteractBounceCost()
+    public bool InteractBounceCost()
     {
         if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= bounceCost)
         {

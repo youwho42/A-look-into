@@ -31,9 +31,11 @@ public class InteractableFixingArea : Interactable
         base.Interact(interactor);
         bool ingr = CheckForIngredients();
         bool cost = InteractCostReward();
+       
         if (ingr && cost)
         {
-            GetComponent<IFixArea>().Fix(ingredients);
+            if(InteractBounceCost())
+                GetComponent<IFixArea>().Fix(ingredients);
         }
     }
 
