@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: SquirrelBox_Recipe
+  m_EditorClassIdentifier: 
+  Name: Squirrel box
+  Ingredients:
+  - Item: {fileID: 11400000, guid: c8e5cc38c91f0d34a86879947a8eca3c, type: 2}
+    Amount: 10
+  - Item: {fileID: 11400000, guid: fa67655462b22984690264cd226e12cf, type: 2}
+    Amount: 18
+  Product:
+    Item: {fileID: 11400000, guid: 63d97d31ad99f8a44aacd920190657c3, type: 2}
+    Amount: 1
+  CraftingTime: 0
+  AgencyCost: 150

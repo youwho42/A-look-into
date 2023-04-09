@@ -206,7 +206,7 @@ public class BallPeopleTravelerAI : MonoBehaviour, IBallPerson
 
                 // get another bool to know if i want to keep interactor off after reading... i know what i mean.
 
-                //interactor.canInteract = false;
+                interactableTraveler.canInteract = false;
                 //check distance from player, wait a sec, and start to follow if too far
 
                 animator.SetBool(sleeping_hash, true);

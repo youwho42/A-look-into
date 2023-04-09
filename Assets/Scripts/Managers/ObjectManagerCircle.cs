@@ -7,7 +7,7 @@ public class ObjectManagerCircle : MonoBehaviour
 {
     //The object we want to add
     public GameObject[] prefabGO;
-    public Tilemap groundMap;
+    //public Tilemap groundMap;
     //Whats the radius of the circle we will add objects inside of?
     public float radius = 1f;
     //How many GOs will we add each time we press a button?
@@ -25,11 +25,11 @@ public class ObjectManagerCircle : MonoBehaviour
     public int GetTileZ(Vector3 point)
     {
         
-        Vector3Int cellIndex = groundMap.WorldToCell(point);
-        for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin-1; i--)
+        Vector3Int cellIndex = GridManager.instance.groundMap.WorldToCell(point);
+        for (int i = GridManager.instance.groundMap.cellBounds.zMax; i > GridManager.instance.groundMap.cellBounds.zMin-1; i--)
         {
             cellIndex.z = i;
-            var tile = groundMap.GetTile(cellIndex);
+            var tile = GridManager.instance.groundMap.GetTile(cellIndex);
             if (tile != null)
                 return i;
 

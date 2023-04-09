@@ -66,9 +66,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
             GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
         }
-        EventSystem.current.SetSelectedGameObject(null);
-        if (containerSlots.Count > 0)
-            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
+        
         UpdateContainerInventoryUI();
     }
 
@@ -125,7 +123,9 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
                 butt.interactable = false;
             }
         }
-        
+        EventSystem.current.SetSelectedGameObject(null);
+        if (containerSlots.Count > 0)
+            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
     }
 
     public void ClearSlots()

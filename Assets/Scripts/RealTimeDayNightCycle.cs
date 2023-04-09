@@ -241,6 +241,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
     private void OnDisable()
     {
+        thread.Abort();
         canThread = false;
     }
 

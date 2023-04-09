@@ -24,9 +24,9 @@ public class AgencyStatueSaveSystem : MonoBehaviour, ISaveable
         if (agencyStatue.hasBeenActivated)
         {
             agencyStatue.canInteract = false;
-            agencyStatue.SetMaterialColor(-5);
+            
         }
-
+        agencyStatue.SetSaveColor(!agencyStatue.hasBeenActivated);
     }
 
     [Serializable]

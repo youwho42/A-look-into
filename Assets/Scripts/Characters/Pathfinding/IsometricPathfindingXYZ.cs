@@ -152,12 +152,12 @@ public class IsometricPathfindingXYZ : MonoBehaviour
     {
         int distX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
         int distY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
-
+        int distZ = Mathf.Abs(nodeA.gridZ - nodeB.gridZ);
         /*if (distX > distY)
             return 14 * distY + 10 * (distX - distY);
             
         return 14 * distX + 10 * (distY - distX);*/
-        return distX + distY;
+        return distX + distY + distZ;
     }
 
     private void OnDisable()

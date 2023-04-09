@@ -55,8 +55,10 @@ public class InteractWithInteractable : MonoBehaviour
         if (currentInteractables.Count > 0)
         {
             Interactable closest = GetNearestInteractable(currentInteractables);
-            if (!closest.canInteract)
+
+            if (closest == null)
                 return;
+
             if (closest.TryGetComponent(out SpriteRenderer renderer))
             {
                 canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
@@ -92,7 +94,8 @@ public class InteractWithInteractable : MonoBehaviour
         
         for (int i = 0; i < items.Count; i++)
         {
-            
+            if (!items[i].canInteract)
+                continue;
             float tempDistance = Vector3.Distance(transform.position, items[i].gameObject.transform.position);
             if (nearest == null || tempDistance < distance)
             {

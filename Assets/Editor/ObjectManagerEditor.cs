@@ -28,7 +28,7 @@ public class ObjectManagerEditor : Editor
     
     private void OnSceneGUI()
     {
-        if (objectManager.groundMap == null)
+        if (GridManager.instance.groundMap == null)
             return;
         //Move the circle when moving the mouse
         //A ray from the mouse position

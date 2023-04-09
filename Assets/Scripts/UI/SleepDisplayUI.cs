@@ -20,7 +20,7 @@ public class SleepDisplayUI : MonoBehaviour
     RealTimeDayNightCycle dayNightCycle;
 
     public GameObject sleepDisplay;
-    PlayerInformation playerInformation;
+    //PlayerInformation playerInformation;
     public TextMeshProUGUI currentTime;
     public TextMeshProUGUI sleepUntilTime;
     public Slider slider;
@@ -29,7 +29,7 @@ public class SleepDisplayUI : MonoBehaviour
     bool isShowing;
     public void Start()
     {
-        playerInformation = PlayerInformation.instance;
+        //playerInformation = PlayerInformation.instance;
         dayNightCycle = RealTimeDayNightCycle.instance;
         originalCycleSpeed = dayNightCycle.cycleSpeed;
     }
@@ -46,7 +46,7 @@ public class SleepDisplayUI : MonoBehaviour
     public void ShowUI()
     {
         PlayerInformation.instance.uiScreenVisible = true;
-        playerInformation.TogglePlayerInput(false);
+        PlayerInformation.instance.TogglePlayerInput(false);
         
         isShowing = true;
     }
@@ -54,7 +54,7 @@ public class SleepDisplayUI : MonoBehaviour
     public void HideUI()
     {
         PlayerInformation.instance.uiScreenVisible = false;
-        playerInformation.TogglePlayerInput(true);
+        PlayerInformation.instance.TogglePlayerInput(true);
         
         isShowing = false;
     }
@@ -69,7 +69,7 @@ public class SleepDisplayUI : MonoBehaviour
         if(sleepCoroutine != null)
             StopCoroutine(sleepCoroutine);
         dayNightCycle.cycleSpeed = originalCycleSpeed;
-        playerInformation.TogglePlayerInput(true);
+        PlayerInformation.instance.TogglePlayerInput(true);
         sleepDisplay.SetActive(false);
     }
     IEnumerator SleepCo()
@@ -88,7 +88,8 @@ public class SleepDisplayUI : MonoBehaviour
         HideUI();
         UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        playerInformation.TogglePlayerInput(true);
+        PlayerInformation.instance.uiScreenVisible = false;
+        PlayerInformation.instance.TogglePlayerInput(true);
         yield return null;
 
     }

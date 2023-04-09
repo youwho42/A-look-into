@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833522978634079026}
-  m_LocalRotation: {x: 0, y: 0, z: 0.19971, w: 0.97985506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0135, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31,7 +31,7 @@ Transform:
   - {fileID: 833522978850325034}
   m_Father: {fileID: 833522979003664637}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.04}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &833522978850325036
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   - {x: -0.014650345, y: -0.02299118, z: 0}
   m_ShapePathHash: 254042351
   m_Mesh: {fileID: 0}
-  m_InstanceId: 10477894
+  m_InstanceId: 14151536
 --- !u!1 &833522979328079238
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +330,10 @@ MonoBehaviour:
   agencyItem: {fileID: 11400000, guid: c8e5cc38c91f0d34a86879947a8eca3c, type: 2}
   agencyAmount: 5
   rend: {fileID: 833522979003664638}
+  initialColor: {r: 0.09019608, g: 0.7411765, b: 0.7490196, a: 0}
+  onIntensity: 5
+  fullIntensity: 10
+  offIntensity: -2
   hasBeenActivated: 0
 --- !u!114 &833522979328079234
 MonoBehaviour:

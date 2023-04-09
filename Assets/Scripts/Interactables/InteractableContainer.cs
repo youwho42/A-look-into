@@ -9,14 +9,24 @@ public class InteractableContainer : Interactable
     public bool isOpen;
     ContainerInventoryDisplayUI containerUI;
     QI_Inventory inventory;
+    public bool isSquirrelBox;
 
     public override void Start()
     {
         base.Start();
         containerUI = ContainerInventoryDisplayUI.instance;
-        inventory = GetComponent<QI_Inventory>();
-        if (inventory == null)
-            inventory = GetComponentInParent<QI_Inventory>();
+        if (isSquirrelBox)
+        {
+            inventory = SquirrelBoxManager.instance.inventory;
+        }
+        else
+        {
+            inventory = GetComponent<QI_Inventory>();
+
+            if (inventory == null)
+                inventory = GetComponentInParent<QI_Inventory>();
+        }
+            
     }
 
     public override void Interact(GameObject interactor)
