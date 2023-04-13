@@ -5,9 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
-using static BallPeopleMessengerAI;
-using static BallPeopleTravelerAI;
+
 
 public class BallPeopleSeekerAI : MonoBehaviour, IBallPerson
 {

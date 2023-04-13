@@ -24,6 +24,7 @@ public enum UIScreenType
     ControlsScreen,
     AudioScreen,
     BallPersonUndertakingScreen,
-    VideoScreen
+    VideoScreen,
+    FarmingScreen
    
 }

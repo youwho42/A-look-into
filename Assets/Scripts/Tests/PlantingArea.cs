@@ -1,0 +1,184 @@
+using QuantumTek.QuantumInventory;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlantingArea : MonoBehaviour
+{
+
+    PolygonCollider2D coll;
+    public SeedItemData seedItem;
+   
+    public List<Vector3> plantFreeLocations = new List<Vector3>();
+    public List<Vector3> plantUsedLocations = new List<Vector3>();
+    public List<PlantLife> harvestablePlants = new List<PlantLife>();
+    public QI_Inventory seedBox;
+    public bool canPlant;
+    public bool canHarvest;
+    public bool ballPersonPlanterActive;
+    public bool ballPersonHarvesterActive;
+    //public Image signPost;
+    private void Start()
+    {
+        coll = GetComponent<PolygonCollider2D>();
+        
+    }
+
+    private void OnEnable()
+    {
+        GameEventManager.onInventoryUpdateEvent.AddListener(CheckForPlantable);
+    }
+
+    private void OnDisable()
+    {
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(CheckForPlantable);
+    }
+
+    public void CheckForPlantable()
+    {
+        // check for free spot
+        // check for available seeds > is it the right type for the plot
+
+        canPlant = false;
+
+        if (seedBox.Stacks.Count == 0)
+            return;
+
+        foreach (var stack in seedBox.Stacks)
+        {
+            if (stack.Item.GetType() == typeof(SeedItemData))
+            {
+                if (seedItem == null)
+                {
+                    
+                    seedItem = stack.Item as SeedItemData;
+                    //signPost.sprite = seedItem.plantedObject.Icon;
+                    SetPositions();
+                    canPlant = true;
+                    break;
+                }
+                else if (seedItem == stack.Item)
+                {
+                    canPlant = true;
+                    break;
+                }
+            }
+        }
+        if (plantFreeLocations.Count == 0)
+            canPlant = false;
+
+        if (canPlant && !ballPersonPlanterActive)
+        {
+            ballPersonPlanterActive = true;
+            Invoke("SpawnPlanter", 1f);
+        }
+        CheckForHarvestable();
+    }
+
+    public void CheckForHarvestable()
+    {
+        canHarvest = false;
+
+        if (harvestablePlants.Count == 0)
+            return;
+        
+        if(harvestablePlants.Count <= plantUsedLocations.Count * 0.66f)
+            return;
+        
+            
+        canHarvest = true;
+        int freeStacks = seedBox.MaxStacks - seedBox.Stacks.Count;
+        int availableStacks = 0;
+        foreach (var item in seedItem.plantedObject.harvestedItems)
+        {
+            foreach (var stack in seedBox.Stacks)
+            {
+                if(stack.Item == item.harvestedItem)
+                {
+                    if (stack.Item.MaxStack == 0)
+                    {
+                        availableStacks++;
+                        break;
+                    }
+                        
+                    int space = stack.Item.MaxStack - stack.Amount;
+                    if (space >= item.harvestedAmount)
+                    {
+                        availableStacks++;
+                        break;
+                    }
+                        
+                }
+            }
+        }
+        if (availableStacks + freeStacks < seedItem.plantedObject.harvestedItems.Length)
+            canHarvest = false;
+        if (canHarvest && !ballPersonHarvesterActive)
+        {
+            ballPersonHarvesterActive = true;
+            Invoke("SpawnHarvester", 1f);
+        }
+        
+    }
+
+    void SpawnPlanter()
+    {
+        BallPeopleManager.instance.SpawnFarmPlanter(this);
+    }
+    void SpawnHarvester()
+    {
+        BallPeopleManager.instance.SpawnFarmHarvester(this);
+    }
+
+    void SetPositions()
+    {
+        
+        Vector2 area = new Vector2(coll.bounds.size.x, coll.bounds.size.y);
+
+        List<Vector2> positions = new List<Vector2>();
+        positions = PoissonDiscSampler.GeneratePoints(seedItem.plantingDistance, area);
+        for (int i = 0; i < positions.Count; i++)
+        {
+            Vector3 pos = positions[i] + (Vector2)coll.bounds.min;
+            pos.z = transform.position.z;
+            //Check if position is in the area
+            if (coll.OverlapPoint(pos))
+            {
+                plantFreeLocations.Add(pos);
+            }
+
+        }
+
+    }
+
+    public void SetPlantingArea(SeedItemData seedItemData)
+    {
+        seedItem = seedItemData;
+        SetPositions();
+
+    }
+
+    void ResetPlantingArea()
+    {
+        plantFreeLocations.Clear();
+        plantUsedLocations.Clear();
+        seedItem = null;
+    }
+
+    //void PlaceObjects(int amount)
+    //{
+    //    for (int i = 0; i < amount; i++)
+    //    {
+    //        if (plantFreeLocations.Count > 0)
+    //        {
+    //            var pos = plantFreeLocations.Dequeue();
+    //            Instantiate(seedItem.plantedObject, pos, Quaternion.identity);
+    //            plantUsedLocations.Add(pos);
+    //        }
+            
+    //    }
+        
+    //}
+
+
+   
+}

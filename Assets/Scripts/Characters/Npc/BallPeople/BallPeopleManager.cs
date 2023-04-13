@@ -20,6 +20,8 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject messengerPrefab;
     public GameObject travelerPrefab;
     public GameObject seekerPrefab;
+    public GameObject planterPrefab;
+    public GameObject harvesterPrefab;
     public GameObject appearFX;
     public int lastAccessoryIndex;
 
@@ -60,6 +62,29 @@ public class BallPeopleManager : MonoBehaviour
         seekerBall.seekAmount = amount;
     }
 
+    public void SpawnFarmPlanter(PlantingArea plantingArea)
+    {
+        GameObject planter = null;
+        SpawnBallPeople(planterPrefab, out planter);
+
+        
+        var planterBall = planter.GetComponent<BallPeopleFarmPlanterAI>();
+        planterBall.plantingArea = plantingArea;
+        planterBall.seedBoxInventory = plantingArea.seedBox;
+        
+    }
+    public void SpawnFarmHarvester(PlantingArea plantingArea)
+    {
+        GameObject planter = null;
+        SpawnBallPeople(harvesterPrefab, out planter);
+
+
+        var planterBall = planter.GetComponent<BallPeopleFarmHarvesterAI>();
+        planterBall.plantingArea = plantingArea;
+        planterBall.seedBoxInventory = plantingArea.seedBox;
+
+    }
+
 
     void SpawnBallPeople(GameObject prefab, out GameObject ballPerson)
     {
@@ -71,7 +96,8 @@ public class BallPeopleManager : MonoBehaviour
         mess.GetComponent<RandomColor>().SetRandomColor();
         mess.GetComponent<RandomAccessories>().PopulateList();
         mess.GetComponent<RandomAccessories>().ChooseAccessories();
-        mess.GetComponent<SaveableItemEntity>().GenerateId();
+        if(mess.TryGetComponent(out SaveableItemEntity saveItem))
+            saveItem.GenerateId();
         ballPerson = mess;
     }
 

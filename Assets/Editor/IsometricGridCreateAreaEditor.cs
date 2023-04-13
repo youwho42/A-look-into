@@ -41,7 +41,7 @@ public class IsometricGridCreateAreaEditor : Editor
 
         if (Event.current.type == EventType.MouseUp && Event.current.button == 0)
         {
-            int offsetZ = isometricGrid.gridObject.GetTileZ(mousePosition).z;
+            int offsetZ = isometricGrid.gridObject.GetTileZ(mousePosition).z+1;
             Vector3 pos = isometricGrid.gridObject.FindPositionOnGrid(mousePosition);
 
             //Debug.Log("Placing Object" + mousePosition);
