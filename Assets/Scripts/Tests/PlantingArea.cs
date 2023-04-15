@@ -14,6 +14,7 @@ public class PlantingArea : MonoBehaviour
     public QI_Inventory seedBox;
     public bool canPlant;
     public bool canHarvest;
+    
     public bool ballPersonPlanterActive;
     public bool ballPersonHarvesterActive;
     //public Image signPost;
@@ -42,14 +43,14 @@ public class PlantingArea : MonoBehaviour
 
         if (seedBox.Stacks.Count == 0)
             return;
-
+        bool shouldReset = true;
         foreach (var stack in seedBox.Stacks)
         {
             if (stack.Item.GetType() == typeof(SeedItemData))
             {
                 if (seedItem == null)
                 {
-                    
+                    shouldReset = false;
                     seedItem = stack.Item as SeedItemData;
                     //signPost.sprite = seedItem.plantedObject.Icon;
                     SetPositions();
@@ -58,11 +59,19 @@ public class PlantingArea : MonoBehaviour
                 }
                 else if (seedItem == stack.Item)
                 {
+                    shouldReset = false;
                     canPlant = true;
                     break;
                 }
             }
         }
+
+        if (shouldReset)
+        {
+            ResetPlantingArea();
+            return;
+        }
+
         if (plantFreeLocations.Count == 0)
             canPlant = false;
 
@@ -81,9 +90,8 @@ public class PlantingArea : MonoBehaviour
         if (harvestablePlants.Count == 0)
             return;
         
-        if(harvestablePlants.Count <= plantUsedLocations.Count * 0.66f)
+        if(harvestablePlants.Count <= plantUsedLocations.Count * 0.75f && !ballPersonHarvesterActive)
             return;
-        
             
         canHarvest = true;
         int freeStacks = seedBox.MaxStacks - seedBox.Stacks.Count;
@@ -99,9 +107,9 @@ public class PlantingArea : MonoBehaviour
                         availableStacks++;
                         break;
                     }
-                        
+                    var currentAmount = seedItem.plantedObject.GetAmount(item.amountVariance, item.minMaxAmount);
                     int space = stack.Item.MaxStack - stack.Amount;
-                    if (space >= item.harvestedAmount)
+                    if (space >= currentAmount)
                     {
                         availableStacks++;
                         break;
@@ -122,11 +130,11 @@ public class PlantingArea : MonoBehaviour
 
     void SpawnPlanter()
     {
-        BallPeopleManager.instance.SpawnFarmPlanter(this);
+        BallPeopleManager.instance.SpawnFarmPlanter(this, seedBox.transform.position);
     }
     void SpawnHarvester()
     {
-        BallPeopleManager.instance.SpawnFarmHarvester(this);
+        BallPeopleManager.instance.SpawnFarmHarvester(this, seedBox.transform.position);
     }
 
     void SetPositions()
@@ -161,7 +169,9 @@ public class PlantingArea : MonoBehaviour
     {
         plantFreeLocations.Clear();
         plantUsedLocations.Clear();
+        harvestablePlants.Clear();
         seedItem = null;
+        CheckForPlantable();
     }
 
     //void PlaceObjects(int amount)

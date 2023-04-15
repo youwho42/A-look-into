@@ -28,7 +28,7 @@ public class BallPeopleManager : MonoBehaviour
     public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking)
     {
         GameObject mess = null;
-        SpawnBallPeople(messengerPrefab, out mess);
+        SpawnBallPeople(messengerPrefab, out mess, PlayerInformation.instance.player.position);
         
         var messItem = mess.GetComponent<InteractableBallPeopleMessenger>();
         messItem.messageItem = message;
@@ -39,7 +39,7 @@ public class BallPeopleManager : MonoBehaviour
     public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination)
     {
         GameObject trav = null;
-        SpawnBallPeople(travelerPrefab, out trav);
+        SpawnBallPeople(travelerPrefab, out trav, PlayerInformation.instance.player.position);
 
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
         travItem.undertaking.undertaking = taskObject.undertaking;
@@ -51,7 +51,7 @@ public class BallPeopleManager : MonoBehaviour
     public void SpawnSeeker(QI_ItemData item, int amount, CompleteTaskObject talkTask, CompleteTaskObject seekTask)
     {
         GameObject seek = null;
-        SpawnBallPeople(seekerPrefab, out seek);
+        SpawnBallPeople(seekerPrefab, out seek, PlayerInformation.instance.player.position);
 
         var seekerItem = seek.GetComponent<InteractableBallPeopleSeeker>();
         seekerItem.talkTask.undertaking = talkTask.undertaking;
@@ -62,10 +62,10 @@ public class BallPeopleManager : MonoBehaviour
         seekerBall.seekAmount = amount;
     }
 
-    public void SpawnFarmPlanter(PlantingArea plantingArea)
+    public void SpawnFarmPlanter(PlantingArea plantingArea, Vector3 pos)
     {
         GameObject planter = null;
-        SpawnBallPeople(planterPrefab, out planter);
+        SpawnBallPeople(planterPrefab, out planter, pos);
 
         
         var planterBall = planter.GetComponent<BallPeopleFarmPlanterAI>();
@@ -73,26 +73,26 @@ public class BallPeopleManager : MonoBehaviour
         planterBall.seedBoxInventory = plantingArea.seedBox;
         
     }
-    public void SpawnFarmHarvester(PlantingArea plantingArea)
+    public void SpawnFarmHarvester(PlantingArea plantingArea, Vector3 pos)
     {
         GameObject planter = null;
-        SpawnBallPeople(harvesterPrefab, out planter);
+        SpawnBallPeople(harvesterPrefab, out planter, pos);
 
 
-        var planterBall = planter.GetComponent<BallPeopleFarmHarvesterAI>();
-        planterBall.plantingArea = plantingArea;
-        planterBall.seedBoxInventory = plantingArea.seedBox;
+        var harvesterBall = planter.GetComponent<BallPeopleFarmHarvesterAI>();
+        harvesterBall.plantingArea = plantingArea;
+        harvesterBall.seedBoxInventory = plantingArea.seedBox;
 
     }
 
 
-    void SpawnBallPeople(GameObject prefab, out GameObject ballPerson)
+    void SpawnBallPeople(GameObject prefab, out GameObject ballPerson, Vector3 position)
     {
         Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f));
-        var pos = PlayerInformation.instance.player.position + (Vector3)offset;
+        var pos = position + (Vector3)offset;
         var mess = Instantiate(prefab, pos, Quaternion.identity);
         Instantiate(appearFX, pos, Quaternion.identity);
-        PlayAppearSound();
+        
         mess.GetComponent<RandomColor>().SetRandomColor();
         mess.GetComponent<RandomAccessories>().PopulateList();
         mess.GetComponent<RandomAccessories>().ChooseAccessories();
@@ -101,9 +101,5 @@ public class BallPeopleManager : MonoBehaviour
         ballPerson = mess;
     }
 
-    void PlayAppearSound()
-    {
-        AudioManager.instance.PlaySound("BallPersonAppear");
-    }
-
+    
 }

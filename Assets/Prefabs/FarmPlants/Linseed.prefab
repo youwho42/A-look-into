@@ -99,6 +99,9 @@ GameObject:
   - component: {fileID: 6221170792514946528}
   - component: {fileID: 6599778492792083575}
   - component: {fileID: 6991177185566791734}
+  - component: {fileID: -633232119355792533}
+  - component: {fileID: 7577138377960264525}
+  - component: {fileID: -129802695078406770}
   m_Layer: 13
   m_Name: Linseed
   m_TagString: Untagged
@@ -114,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3483506780370557462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.214, y: -9.1431, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -197,13 +200,29 @@ MonoBehaviour:
     - {fileID: 162547605, guid: a1639a9acd69158468be2c3372eaa0b8, type: 3}
     - {fileID: 458984414, guid: a1639a9acd69158468be2c3372eaa0b8, type: 3}
   - plantSprites:
+    - {fileID: 558834570, guid: 4b19075a6d6f1fc4187ced838cf80eba, type: 3}
+    - {fileID: 552998888, guid: 4b19075a6d6f1fc4187ced838cf80eba, type: 3}
+    - {fileID: 1540741481, guid: 4b19075a6d6f1fc4187ced838cf80eba, type: 3}
+    - {fileID: 931004824, guid: 4b19075a6d6f1fc4187ced838cf80eba, type: 3}
+  - plantSprites:
+    - {fileID: -1079741645, guid: c534bd25e8594d042b1dbfdf8ca725c5, type: 3}
+    - {fileID: -1146919128, guid: c534bd25e8594d042b1dbfdf8ca725c5, type: 3}
+    - {fileID: 785772170, guid: c534bd25e8594d042b1dbfdf8ca725c5, type: 3}
+  - plantSprites:
+    - {fileID: 26362976, guid: 8e7bd4a614ae922469c3dc893e1ebdab, type: 3}
+    - {fileID: 1749621812, guid: 8e7bd4a614ae922469c3dc893e1ebdab, type: 3}
+    - {fileID: -1750668014, guid: 8e7bd4a614ae922469c3dc893e1ebdab, type: 3}
+  - plantSprites:
     - {fileID: 1185071526, guid: c30728895b27e64458bbaabd647f0502, type: 3}
     - {fileID: -1377922883, guid: c30728895b27e64458bbaabd647f0502, type: 3}
     - {fileID: -629021257, guid: c30728895b27e64458bbaabd647f0502, type: 3}
-  ticksPerCycle: 30
+  ticksPerCycle: 5
   currentCycle: 0
   nextCycleDay: 0
   nextCycleTick: 0
+  farmLayer:
+    serializedVersion: 2
+    m_Bits: 4194304
 --- !u!114 &6272287558320530603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +269,7 @@ MonoBehaviour:
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  plantingArea: {fileID: 0}
 --- !u!114 &6991177185566791734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +283,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: f6c3efec5f432f149be14d613159a016, type: 2}
+--- !u!114 &-633232119355792533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483506780370557462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &7577138377960264525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483506780370557462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ccbe04caf642243b250b88ba5260fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantLife: {fileID: 3483506780370557461}
+--- !u!114 &-129802695078406770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3483506780370557462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3483506780751848449
 GameObject:
   m_ObjectHideFlags: 0

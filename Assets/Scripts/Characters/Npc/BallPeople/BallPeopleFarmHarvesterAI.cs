@@ -61,6 +61,7 @@ public class BallPeopleFarmHarvesterAI : MonoBehaviour, IBallPerson
     public GameObject arms;
 
     public PlantLife currentHarvestable;
+
     private void Start()
     {
         currentTilePosition = GetComponent<CurrentTilePosition>();
@@ -163,6 +164,7 @@ public class BallPeopleFarmHarvesterAI : MonoBehaviour, IBallPerson
                     }
                     plantingArea.plantFreeLocations.Add(currentDestination);
                     plantingArea.plantUsedLocations.Remove(currentDestination);
+                    plantingArea.harvestablePlants.Remove(currentHarvestable);
                     Destroy(currentHarvestable.gameObject);
                     
                 }
@@ -219,7 +221,8 @@ public class BallPeopleFarmHarvesterAI : MonoBehaviour, IBallPerson
 
                     foreach (var item in plantingArea.seedItem.plantedObject.harvestedItems)
                     {
-                        seedBoxInventory.AddItem(item.harvestedItem, item.harvestedAmount, false);
+                        var amount = item.minMaxAmount.x == 0 ? 1 : item.minMaxAmount.x;
+                        seedBoxInventory.AddItem(item.harvestedItem, amount, false);
                     }
                     plantingArea.CheckForHarvestable();
                     

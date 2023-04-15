@@ -41,8 +41,8 @@ public class InteractablePickUp : Interactable
             {
                 obj.ShowObjects();
             }
-            float total = PlayerInformation.instance.playerInventory.GetStock(pickUpItem.Name);
-            NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {total}", NotificationManager.NotificationType.Inventory);
+            
+            NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
             Destroy(gameObject);
 
         }

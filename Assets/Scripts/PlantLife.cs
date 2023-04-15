@@ -25,7 +25,7 @@ public class PlantLife : MonoBehaviour
 
     InteractableFarmPlant interactablePlant;
     Collider2D coll;
-
+    public LayerMask farmLayer;
     private void OnEnable()
     {
         GameEventManager.onTimeTickEvent.AddListener(CheckPlantCycle);
@@ -46,8 +46,7 @@ public class PlantLife : MonoBehaviour
         float r = UnityEngine.Random.Range(-.5f, .5f);
         m.SetFloat("_WindDensity", 2.5f + r);
         sm.SetFloat("_WindDensity", 2.5f + r);
-        SetSprites();
-        SetNextCycleTime();
+        
     }
 
     void CheckPlantCycle(int tick)
@@ -62,6 +61,7 @@ public class PlantLife : MonoBehaviour
             
             currentCycle++;
             SetSprites();
+            SetNextCycleTime();
         }
     }
 
@@ -77,11 +77,13 @@ public class PlantLife : MonoBehaviour
 
     }
 
-    void SetSprites()
+    public void SetSprites()
     {
         int rand = UnityEngine.Random.Range(0, plantCycles[currentCycle].plantSprites.Count);
-        
+        bool flip = UnityEngine.Random.Range(0.0f, 1.0f) > .5f ? true : false;
         mainSprite.sprite = plantCycles[currentCycle].plantSprites[rand];
+        mainSprite.flipX = flip;
+        shadowSprite.flipX = flip;
         if(currentCycle > 0)
             shadowSprite.sprite = plantCycles[currentCycle].plantSprites[rand];
         if(currentCycle == plantCycles.Count - 1)
@@ -91,12 +93,25 @@ public class PlantLife : MonoBehaviour
             interactablePlant.plantingArea.CheckForHarvestable();
         }
             
-        if(currentCycle>0)
+        if(currentCycle > 0)
             coll.enabled = true;
     }
 
-    private void OnDestroy()
+    public void SetPlantArea()
     {
-        interactablePlant.plantingArea.harvestablePlants.Remove(this);
+        coll = GetComponent<Collider2D>();
+        coll.enabled = false;
+        interactablePlant = GetComponent<InteractableFarmPlant>();
+        interactablePlant.canInteract = false;
+        var hit = Physics2D.OverlapPoint(transform.position, farmLayer);
+        
+        if (hit != null)
+        {
+            interactablePlant.plantingArea = hit.GetComponent<PlantingArea>();
+            interactablePlant.plantingArea.CheckForHarvestable();
+        }
+
     }
+
+    
 }

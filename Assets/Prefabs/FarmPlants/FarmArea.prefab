@@ -335,13 +335,14 @@ GameObject:
   - component: {fileID: 4733545864449224223}
   - component: {fileID: 4733545864449224208}
   - component: {fileID: 4733545864449224222}
-  - component: {fileID: 4773331134203192586}
   - component: {fileID: 2806004460077754738}
   - component: {fileID: 4120224619159457388}
   - component: {fileID: 5318726987835132660}
-  m_Layer: 0
+  - component: {fileID: 4136002447857452800}
+  - component: {fileID: 7243864101600525040}
+  m_Layer: 22
   m_Name: FarmArea
-  m_TagString: Untagged
+  m_TagString: FarmArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,7 +355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4733545864449224209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.574, y: -8.541, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -405,24 +406,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seedItem: {fileID: 0}
+  plantFreeLocations: []
   plantUsedLocations: []
+  harvestablePlants: []
   seedBox: {fileID: 3622217664050995562}
   canPlant: 0
-  ballPersonActive: 0
-  signPost: {fileID: 0}
---- !u!114 &4773331134203192586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4733545864449224209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: a08a2e64-7102-4b44-a24c-3d7b80ae4971
+  canHarvest: 0
+  ballPersonPlanterActive: 0
+  ballPersonHarvesterActive: 0
 --- !u!114 &2806004460077754738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +453,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4136002447857452800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733545864449224209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241fbb254931e6347be445c1f2c110b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantingArea: {fileID: 4733545864449224222}
+  allItemsDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
+--- !u!114 &7243864101600525040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733545864449224209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
 --- !u!1 &7724895334533988994
 GameObject:
   m_ObjectHideFlags: 0

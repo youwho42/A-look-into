@@ -35,14 +35,15 @@ public class InteractableFarmPlant : Interactable
 
         foreach (var item in pickUpItem.harvestedItems)
         {
-            if (PlayerInformation.instance.playerInventory.AddItem(item.harvestedItem, item.harvestedAmount, false))
+            int amount = pickUpItem.GetAmount(item.amountVariance, item.minMaxAmount);
+            if (PlayerInformation.instance.playerInventory.AddItem(item.harvestedItem, amount, false))
             {
-                float total = PlayerInformation.instance.playerInventory.GetStock(item.harvestedItem.Name);
-                NotificationManager.instance.SetNewNotification($"{item.harvestedItem.Name} {total}", NotificationManager.NotificationType.Inventory);
+                
+                NotificationManager.instance.SetNewNotification($"{item.harvestedItem.Name} {amount}", NotificationManager.NotificationType.Inventory);
             }
             else
             {
-                for (int i = 0; i < item.harvestedAmount; i++)
+                for (int i = 0; i < amount; i++)
                 {
                     Instantiate(item.harvestedItem, transform.position, Quaternion.identity);
                 }
@@ -52,11 +53,11 @@ public class InteractableFarmPlant : Interactable
         }
         plantingArea.plantFreeLocations.Add(transform.position);
         plantingArea.plantUsedLocations.Remove(transform.position);
+        plantingArea.harvestablePlants.Remove(GetComponent<PlantLife>());
         plantingArea.CheckForHarvestable();
-        Destroy(gameObject);
         hasInteracted = false;
         WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
-
+        Destroy(gameObject);
     }
 
 

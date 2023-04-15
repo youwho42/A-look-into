@@ -206,9 +206,7 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
                     animator.SetTrigger(lick_hash);
                     hasLicked = true;
 
-                    plantingArea.plantUsedLocations.Add(currentDestination);
-                    var go  = Instantiate(plantingArea.seedItem.plantedObject.ItemPrefab, currentDestination, Quaternion.identity);
-                    go.GetComponent<InteractableFarmPlant>().plantingArea = plantingArea;
+                    PlantSeed();
                     // Add plant at location
                 }
                 if (timeIdle < 0.7f)
@@ -295,7 +293,16 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
         return pos + (Vector3)dir;
     }
 
-
+    void PlantSeed()
+    {
+        plantingArea.plantUsedLocations.Add(currentDestination);
+        var go = Instantiate(plantingArea.seedItem.plantedObject.ItemPrefab, currentDestination, Quaternion.identity);
+        go.GetComponent<InteractableFarmPlant>().plantingArea = plantingArea;
+        go.GetComponent<SaveableItemEntity>().GenerateId();
+        PlantLife plant = go.GetComponent<PlantLife>();
+        plant.SetSprites();
+        plant.SetNextCycleTime();
+    }
 
     void FindDeviateDestination()
     {
