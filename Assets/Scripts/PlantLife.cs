@@ -26,6 +26,7 @@ public class PlantLife : MonoBehaviour
     InteractableFarmPlant interactablePlant;
     Collider2D coll;
     public LayerMask farmLayer;
+    public float plantSwayAmount;
     private void OnEnable()
     {
         GameEventManager.onTimeTickEvent.AddListener(CheckPlantCycle);
@@ -44,8 +45,8 @@ public class PlantLife : MonoBehaviour
         Material m = mainSprite.material;
         Material sm = shadowSprite.material;
         float r = UnityEngine.Random.Range(-.5f, .5f);
-        m.SetFloat("_WindDensity", 2.5f + r);
-        sm.SetFloat("_WindDensity", 2.5f + r);
+        m.SetFloat("_WindDensity", plantSwayAmount + r);
+        sm.SetFloat("_WindDensity", plantSwayAmount + r);
         
     }
 

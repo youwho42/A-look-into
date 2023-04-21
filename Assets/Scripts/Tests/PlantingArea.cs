@@ -27,11 +27,29 @@ public class PlantingArea : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(CheckForPlantable);
+        GameEventManager.onTimeHourEvent.AddListener(SetWorkTime);
     }
 
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(CheckForPlantable);
+        GameEventManager.onTimeHourEvent.RemoveListener(SetWorkTime);
+    }
+    void SetWorkTime(int time)
+    {
+        if ((RealTimeDayNightCycle.instance.dayStart / 60) + 1 == time)
+        { 
+            CheckForPlantable();
+            CheckForHarvestable();
+        }
+    }
+    bool CheckTime()
+    {
+        if(RealTimeDayNightCycle.instance.currentTimeRaw >= RealTimeDayNightCycle.instance.dayStart + 60 && RealTimeDayNightCycle.instance.currentTimeRaw <= RealTimeDayNightCycle.instance.nightStart)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void CheckForPlantable()
@@ -40,37 +58,42 @@ public class PlantingArea : MonoBehaviour
         // check for available seeds > is it the right type for the plot
 
         canPlant = false;
-
+        if (!CheckTime())
+            return;
         if (seedBox.Stacks.Count == 0)
             return;
-        bool shouldReset = true;
         foreach (var stack in seedBox.Stacks)
         {
             if (stack.Item.GetType() == typeof(SeedItemData))
             {
                 if (seedItem == null)
                 {
-                    shouldReset = false;
                     seedItem = stack.Item as SeedItemData;
-                    //signPost.sprite = seedItem.plantedObject.Icon;
                     SetPositions();
                     canPlant = true;
                     break;
                 }
                 else if (seedItem == stack.Item)
                 {
-                    shouldReset = false;
                     canPlant = true;
                     break;
+                }
+                else if(seedItem != null && seedItem != stack.Item)
+                {
+                    if(plantUsedLocations.Count == 0)
+                    {
+                        ResetPlantingArea();
+                        seedItem = stack.Item as SeedItemData;
+                        SetPositions();
+                        canPlant = true;
+                        break;
+                    }
+                    
                 }
             }
         }
 
-        if (shouldReset)
-        {
-            ResetPlantingArea();
-            return;
-        }
+        
 
         if (plantFreeLocations.Count == 0)
             canPlant = false;
@@ -86,7 +109,8 @@ public class PlantingArea : MonoBehaviour
     public void CheckForHarvestable()
     {
         canHarvest = false;
-
+        if (!CheckTime())
+            return;
         if (harvestablePlants.Count == 0)
             return;
         
@@ -171,7 +195,7 @@ public class PlantingArea : MonoBehaviour
         plantUsedLocations.Clear();
         harvestablePlants.Clear();
         seedItem = null;
-        CheckForPlantable();
+        
     }
 
     //void PlaceObjects(int amount)

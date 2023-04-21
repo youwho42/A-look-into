@@ -57,5 +57,16 @@ public class RandomAccessories : MonoBehaviour
         accessoryIndex = index;
         if(accessoryIndex != -1)
             accessoryList[index].gameObject.SetActive(true);
+        
+    }
+
+    public int GetAccessory(SpriteRenderer sprite)
+    {
+        for (int i = 0; i < accessoryList.Count; i++)
+        {
+            if (accessoryList[i] == sprite)
+                return i;
+        }
+        return -1;
     }
 }

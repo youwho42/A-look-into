@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Wind : MonoBehaviour, IPoolPrefab
 {
-    Animator animator;
+    
     AudioSource audioSource;
     float mainVolume;
+    SpriteRenderer rend;
     void Start()
     {
-        animator = GetComponent<Animator>();
+        
         audioSource = GetComponent<AudioSource>();
         mainVolume = audioSource.volume;
     }
+    void OnEnable()
+    {
+        rend = GetComponent<SpriteRenderer>();
+    }
     public void OnObjectSpawn()
     {
+        rend.flipX = Random.Range(0.0f, 1.0f) > 0.5f ? true : false;
+
         if(audioSource != null)
         {
             audioSource.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
@@ -23,13 +30,7 @@ public class Wind : MonoBehaviour, IPoolPrefab
             
     }
 
-    void Update()
-    {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-        {
-            DeactivateObject();
-        }
-    }
+   
     public void DeactivateObject()
     {
         this.gameObject.SetActive(false);

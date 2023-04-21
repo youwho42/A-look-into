@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7577138377960264525}
   - component: {fileID: -129802695078406770}
   m_Layer: 13
-  m_Name: Linseed
+  m_Name: FlaxPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,13 +216,14 @@ MonoBehaviour:
     - {fileID: 1185071526, guid: c30728895b27e64458bbaabd647f0502, type: 3}
     - {fileID: -1377922883, guid: c30728895b27e64458bbaabd647f0502, type: 3}
     - {fileID: -629021257, guid: c30728895b27e64458bbaabd647f0502, type: 3}
-  ticksPerCycle: 5
+  ticksPerCycle: 1440
   currentCycle: 0
   nextCycleDay: 0
   nextCycleTick: 0
   farmLayer:
     serializedVersion: 2
     m_Bits: 4194304
+  plantSwayAmount: 2.5
 --- !u!114 &6272287558320530603
 MonoBehaviour:
   m_ObjectHideFlags: 0

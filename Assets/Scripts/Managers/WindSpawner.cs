@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 
 public class WindSpawner : MonoBehaviour
 {
@@ -15,29 +15,45 @@ public class WindSpawner : MonoBehaviour
             Destroy(this);
     }
 
-    public Vector2 minMaxTimeToSpawn;
-    float timeToSpawn;
-    float nextTimeToSpawn;
+    public Vector2Int minMaxTimeToSpawn;
+    public AnimationCurve windTimeCurve;
+    
     public Transform objectToFollow;
     ObjectPooler pool;
-   
+    int nextWindTick;
 
     private void Start()
     {
         pool = GetComponent<ObjectPooler>();
-        
-        nextTimeToSpawn = Random.Range(minMaxTimeToSpawn.x, minMaxTimeToSpawn.y);
+        nextWindTick = GetNextWindTick(RealTimeDayNightCycle.instance.currentTimeRaw);
     }
-    private void Update()
+
+    private void OnEnable()
     {
-        timeToSpawn += Time.deltaTime;
-        if(timeToSpawn >= nextTimeToSpawn)
+        GameEventManager.onTimeTickEvent.AddListener(StartWindOnTick);
+    }
+
+    private void OnDisable()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(StartWindOnTick);
+    }
+
+    void StartWindOnTick(int tick)
+    {
+        if(tick == nextWindTick)
         {
             SpawnObject();
-            timeToSpawn = 0;
-            nextTimeToSpawn = Random.Range(minMaxTimeToSpawn.x, minMaxTimeToSpawn.y);
-            
+            nextWindTick = GetNextWindTick(tick);
         }
+    }
+
+    
+    public int GetNextWindTick(int tick)
+    {
+        
+        var t = (windTimeCurve.Evaluate(Random.Range(0.0f, 1.0f))) * (minMaxTimeToSpawn.y - minMaxTimeToSpawn.x) + minMaxTimeToSpawn.x;
+        
+        return ((int)t + tick) % 1440;
     }
 
     private void SpawnObject()

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5839164033936473552
 Transform:
   m_ObjectHideFlags: 0
@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 1736533482979419958}
   - component: {fileID: 2602048723253403677}
   - component: {fileID: 2434223936520811455}
+  - component: {fileID: 2793043590170402905}
   m_Layer: 14
   m_Name: Firefly_Flying0000
   m_TagString: Untagged
@@ -252,6 +253,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 12
+  isActive: 0
+  isInDictionary: 0
+--- !u!114 &2793043590170402905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3386777645675509780}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGlow: 15
+  maxGlow: 60
+  bloomMinIntensity: 15
+  bloomMaxIntensity: 60
+  useAlpha: 1
+  useIntensity: 1
 --- !u!1 &5659210534706215200
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,10 +479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36276ca5818534409d46be8d588c52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireflyLight: {fileID: 1106581084448674377}
   firefly: {fileID: 2296586684663807708}
-  bright: {r: 1.830748, g: 2.270603, b: 2.270603, a: 0}
-  dark: {r: 0.1509804, g: 0.1872549, b: 0.1872549, a: 0}
+  minBrightness: -1
+  maxBrightness: 150
 --- !u!114 &7285973716002477560
 MonoBehaviour:
   m_ObjectHideFlags: 0
