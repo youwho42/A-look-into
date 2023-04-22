@@ -180,7 +180,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         {
             foreach (var hit in results)
             {
-                if (hit.gameObject == itemToDrop || hit.transform.parent.gameObject == itemToDrop)
+                if (hit.gameObject == itemToDrop /*|| hit.transform.parent.gameObject == itemToDrop*/)
                     continue;
                 if(hit.CompareTag("Water") && itemToDrop.CompareTag("RiverItem"))
                     return true;

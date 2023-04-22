@@ -5,22 +5,15 @@ using UnityEngine;
 public class FireflyFlicker : MonoBehaviour
 {
     FireflyAI fireflyAI;
-    //public SpriteRenderer fireflyLight;
     public SpriteRenderer firefly;
     Material fireflyMaterial;
-    public float minBrightness = 1;
-    public float maxBrightness = 60;
+    public float minBrightness;
+    public float maxBrightness;
     bool flickering;
     Color initialColor;
-    //float timeOut;
-    //float timer;
-
+    
     bool isOn;
 
-    //[ColorUsageAttribute(true, true)]
-    //public Color bright;
-    //[ColorUsageAttribute(true, true)]
-    //public Color dark;
 
     private void Start()
     {
@@ -28,7 +21,6 @@ public class FireflyFlicker : MonoBehaviour
         fireflyMaterial = firefly.material;
         initialColor = fireflyMaterial.GetColor("_EmissionColor");
         fireflyMaterial.SetColor("_EmissionColor", initialColor * minBrightness);
-        //timeOut = Random.Range(0.5f, 5.0f);
         isOn = false;
     }
 
@@ -37,10 +29,8 @@ public class FireflyFlicker : MonoBehaviour
         if (fireflyAI.currentState == FireflyAI.FlyingState.isFlying)
         {
             isOn = true;
-            //timer += Time.deltaTime;
             if (!flickering)
             {
-                //StopCoroutine("FlickerLight");
                 StartCoroutine("Flicker");
             }
 
@@ -49,9 +39,9 @@ public class FireflyFlicker : MonoBehaviour
         {
             if (isOn)
             {
-                //fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, 0);
                 fireflyMaterial.SetColor("_EmissionColor", initialColor*minBrightness);
                 isOn = false;
+                flickering = false;
             }
         }
     }
@@ -102,31 +92,5 @@ public class FireflyFlicker : MonoBehaviour
         flickering = false;
     }
 
-    //IEnumerator FlickerLight(float timeToFlick)
-    //{
-    //    float elapsedTime = 0;
-    //    float waitTime = timeToFlick;
-    //    float startLight = fireflyLight.color.a;
-    //    float endLight = startLight > 0 ? 0 : 0.4f;
-       
-    //    Color startIntensity = startLight > 0 ? bright : dark;
-    //    Color endIntensity = startLight > 0 ? dark : bright;
-    //    while (elapsedTime < waitTime)
-    //    {
-    //        float a = Mathf.Lerp(startLight, endLight, elapsedTime / waitTime);
-    //        Color b = Color.Lerp(startIntensity, endIntensity, elapsedTime / waitTime);
-            
-    //        fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, a);
-            
-    //        fireflyMaterial.SetColor("_EmissionColor", b); 
-            
-    //        elapsedTime += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //    fireflyLight.color = new Color(fireflyLight.color.r, fireflyLight.color.g, fireflyLight.color.b, endLight);
-    //    fireflyMaterial.SetColor("_EmissionColor", endIntensity);
-    //    yield return null;
-
-    //}
-
+    
 }

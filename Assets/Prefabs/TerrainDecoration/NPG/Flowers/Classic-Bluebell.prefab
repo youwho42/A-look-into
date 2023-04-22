@@ -129,7 +129,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5bb3dbc7fb82040179ddb9f2dede596b, type: 2}
+      objectReference: {fileID: 2100000, guid: 3c9009886faf0ba4bb33a8603b6400b2, type: 2}
     - target: {fileID: 6695410892499397205, guid: 46414fabc34c3ea48b4b466f2fb66e29,
         type: 3}
       propertyPath: m_Icon
@@ -147,3 +147,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46414fabc34c3ea48b4b466f2fb66e29, type: 3}
+--- !u!1 &6668225119869481155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5518729533509488752, guid: 46414fabc34c3ea48b4b466f2fb66e29,
+    type: 3}
+  m_PrefabInstance: {fileID: 1160868979743547571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3096424860139003986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668225119869481155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGlow: 0
+  maxGlow: 0
+  bloomMinIntensity: 1
+  bloomMaxIntensity: 10
+  useAlpha: 0
+  useIntensity: 1
