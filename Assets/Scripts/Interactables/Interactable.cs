@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
     protected AudioManager audioManager;
     public string interactSound = "Default";
     public string interactVerb = "whaaAA???";
+    public string longInteractVerb = "whaaAA???";
 
     public float bounceCost;
     public float agencyReward;
@@ -15,6 +16,8 @@ public class Interactable : MonoBehaviour
 
     protected bool hasInteracted;
     protected PlayerInformation playerInformation;
+
+    public bool hasLongInteract;
 
     public virtual void Start()
     {
@@ -28,6 +31,17 @@ public class Interactable : MonoBehaviour
             return;
 
         
+
+        hasInteracted = true;
+
+        // The rest happens in child script...
+    }
+    public virtual void LongInteract(GameObject interactor)
+    {
+        if (hasInteracted || !hasLongInteract)
+            return;
+
+
 
         hasInteracted = true;
 

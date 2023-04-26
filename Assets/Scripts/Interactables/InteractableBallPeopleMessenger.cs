@@ -17,6 +17,7 @@ public class InteractableBallPeopleMessenger : Interactable
     public QI_ItemData messageItem;
     public BallPeopleMessageType type;
     public UndertakingObject undertaking;
+    public QI_CraftingRecipe craftingRecipe;
 
     public override void Start()
     {
@@ -41,7 +42,7 @@ public class InteractableBallPeopleMessenger : Interactable
 
         if (messageItem != null)
         {
-            BallPersonUndertakingDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
             QI_ItemDatabase database = GetCompendiumDatabase();
 
             if (!database.Items.Contains(messageItem))
@@ -53,10 +54,24 @@ public class InteractableBallPeopleMessenger : Interactable
         }
         else if (undertaking != null)
         {
-            BallPersonUndertakingDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
             
             PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
         }
+        else if (craftingRecipe != null)
+        {
+            string desc = "";
+            for (int i = 0; i < craftingRecipe.Ingredients.Count; i++)
+            {
+                desc += $"{craftingRecipe.Ingredients[i].Amount} - {craftingRecipe.Ingredients[i].Item.Name}\n";
+
+            }
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), craftingRecipe.Name, desc);
+            PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Add(craftingRecipe);
+        }
+
+        // display recipe name and ingredients...
+        // add recipe to player recipes
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         GetComponent<BallPeopleMessengerAI>().hasInteracted = true;
         canInteract = false;

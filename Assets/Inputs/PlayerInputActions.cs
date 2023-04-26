@@ -51,7 +51,16 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""id"": ""33250991-5ca5-4230-9950-b5107c5cd4e3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LongInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""1cb26767-487a-4514-9ec4-316bc8ee1ba4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -813,6 +822,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""DialogueNext"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79fb1586-9879-4369-9444-74f3dd485bf5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LongInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ed9c77a-471b-4891-8898-d8fe17704497"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LongInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1154,6 +1185,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_LongInteract = m_Player.FindAction("LongInteract", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_UseEquipement = m_Player.FindAction("UseEquipement", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
@@ -1242,6 +1274,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_LongInteract;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_UseEquipement;
     private readonly InputAction m_Player_Pause;
@@ -1266,6 +1299,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @LongInteract => m_Wrapper.m_Player_LongInteract;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @UseEquipement => m_Wrapper.m_Player_UseEquipement;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
@@ -1301,6 +1335,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @LongInteract.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLongInteract;
+                @LongInteract.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLongInteract;
+                @LongInteract.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLongInteract;
                 @Run.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRun;
@@ -1365,6 +1402,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @LongInteract.started += instance.OnLongInteract;
+                @LongInteract.performed += instance.OnLongInteract;
+                @LongInteract.canceled += instance.OnLongInteract;
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
@@ -1551,6 +1591,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnLongInteract(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnUseEquipement(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);

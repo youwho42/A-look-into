@@ -234,10 +234,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Check
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
   isOpen: 0
   isSquirrelBox: 0
 --- !u!1 &7513994827536451838
@@ -547,10 +549,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Craft with Loom
+  longInteractVerb: Pick Up
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 1
   recipeDatabase: {fileID: 11400000, guid: 87a9e775471272a449487ebbda77ba2f, type: 2}
   selfInventory: {fileID: 7983089396344206566}
 --- !u!58 &8242949758434460228

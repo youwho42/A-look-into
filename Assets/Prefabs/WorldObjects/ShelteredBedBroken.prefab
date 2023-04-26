@@ -111,10 +111,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Fix Sleep Area
+  longInteractVerb: Required Items
   bounceCost: 0
   agencyReward: 0
   agencyCost: 10
   canInteract: 1
+  hasLongInteract: 1
   ingredients:
   - item: {fileID: 11400000, guid: b581bbd250a074af0a3f75e68accf984, type: 2}
     amount: 10
@@ -136,6 +138,9 @@ MonoBehaviour:
   fixableReplacementObject: {fileID: 4296435715911598125, guid: 50abbadea167dff41bc0a7a446a0fdcd,
     type: 3}
   fixableSprite: {fileID: 6750399011244368912}
+  undertakingObject:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}
 --- !u!60 &6750399011244368914
 PolygonCollider2D:
   m_ObjectHideFlags: 0

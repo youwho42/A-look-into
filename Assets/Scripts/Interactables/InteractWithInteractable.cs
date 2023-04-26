@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.Events;
 using Klaxon.GravitySystem;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InteractWithInteractable : MonoBehaviour
 {
@@ -14,12 +15,58 @@ public class InteractWithInteractable : MonoBehaviour
     public Vector3 pickupOffset;
     public LayerMask interactableLayer;
 
-    public GameObject interactCanvas;
-    public GameObject interactUI;
-    public TextMeshProUGUI interactVerb;
 
     Vector3 canvasOffset;
     public GravityItemMovementControllerNew playermovement;
+
+
+    public GameObject interactCanvas;
+    public GameObject interactUI;
+    public TextMeshProUGUI interactVerb;
+    public Slider interactSlider;
+    [SerializeField] private InputActionReference holdButton;
+    
+    
+
+    private float currentHoldTime = 0f;
+    public bool isHolding = false;
+
+    private void OnEnable()
+    {
+        holdButton.action.started += OnHoldButtonPerformed;
+        holdButton.action.canceled += OnHoldButtonCanceled;
+        
+    }
+
+    private void OnDisable()
+    {
+        holdButton.action.started -= OnHoldButtonPerformed;
+        holdButton.action.canceled -= OnHoldButtonCanceled;
+    }
+
+
+
+
+    private void Start()
+    {
+        interactSlider.maxValue = InputSystem.settings.defaultHoldTime;
+    }
+
+   
+
+    private void OnHoldButtonPerformed(InputAction.CallbackContext context)
+    {
+
+        isHolding = true;
+    }
+
+    private void OnHoldButtonCanceled(InputAction.CallbackContext context)
+    {
+        isHolding = false;
+        currentHoldTime = 0f;
+        interactSlider.value = currentHoldTime;
+    }
+
 
 
     private void Update()
@@ -45,11 +92,19 @@ public class InteractWithInteractable : MonoBehaviour
             
         }
 
+        if (isHolding)
+        {
+            currentHoldTime += Time.deltaTime;
+            interactSlider.value = currentHoldTime;
+        }
+
+
         DisplayUI();
     }
 
     void DisplayUI()
     {
+        interactSlider.gameObject.SetActive(false);
         interactUI.SetActive(false);
         
         if (currentInteractables.Count > 0)
@@ -62,14 +117,26 @@ public class InteractWithInteractable : MonoBehaviour
             if (closest.TryGetComponent(out SpriteRenderer renderer))
             {
                 canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
-            } else
+            } 
+            else
             {
-                canvasOffset = new Vector3(0, closest.GetComponentInChildren<SpriteRenderer>().bounds.size.y / 2, 1);
+                var rend = closest.GetComponentInChildren<SpriteRenderer>();
+                if (rend != null)
+                    canvasOffset = new Vector3(0, rend.bounds.size.y / 2, 1);
+                else
+                    canvasOffset = Vector3.forward;
             }
 
-            string action = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";    
+            string butt = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
+            string action = $"{butt} {closest.interactVerb}";    
             interactCanvas.transform.position = closest.transform.position + canvasOffset;
-            interactVerb.text = $"{action} {closest.interactVerb}";
+            if (closest.hasLongInteract)
+            {
+                action += $"\n Hold {butt} {closest.longInteractVerb}";
+                interactSlider.gameObject.SetActive(true);
+            }
+            interactVerb.text = action;
+
             interactUI.SetActive(true);
             
             
@@ -83,6 +150,17 @@ public class InteractWithInteractable : MonoBehaviour
             var interactable = GetNearestInteractable(currentInteractables);
             if (interactable.canInteract)
                 interactable.Interact(gameObject);
+        }
+    }
+
+    public void LongInteract()
+    {
+        if (currentInteractables.Count > 0)
+        {
+            var interactable = GetNearestInteractable(currentInteractables);
+            if (interactable.canInteract && interactable.hasLongInteract)
+                interactable.LongInteract(gameObject);
+            
         }
     }
 

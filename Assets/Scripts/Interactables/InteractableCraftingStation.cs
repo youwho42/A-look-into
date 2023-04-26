@@ -36,6 +36,35 @@ public class InteractableCraftingStation : Interactable
         }
     }
 
+    public override void LongInteract(GameObject interactor)
+    {
+        base.Interact(interactor);
+
+        if (selfInventory.Stacks.Count > 0)
+        {
+            NotificationManager.instance.SetNewNotification("Container must be empty to pick up.", NotificationManager.NotificationType.Warning);
+            return;
+        }
+        else if (craftingHandler.Queues.Count > 0)
+        {
+            NotificationManager.instance.SetNewNotification("Must not be crafting to pick up.", NotificationManager.NotificationType.Warning);
+            return;
+        }
+        else
+            PickUpCraftingStation();
+
+    }
+
+    void PickUpCraftingStation()
+    {
+        var item = GetComponent<QI_Item>().Data;
+        if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
     private void OpenCrafting()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.CraftingStationScreen);

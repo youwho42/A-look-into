@@ -108,6 +108,9 @@ MonoBehaviour:
   fixableReplacementObject: {fileID: 4241898056432885092, guid: 47e8ad10ca4c1ec42b160b034a831389,
     type: 3}
   fixableSprite: {fileID: 332219147347811252}
+  undertakingObject:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}
 --- !u!114 &2433350104178614536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,10 +125,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Fix
   interactVerb: Fix Crafting Station
+  longInteractVerb: Required Items
   bounceCost: 0
   agencyReward: 0
   agencyCost: 40
   canInteract: 1
+  hasLongInteract: 1
   ingredients:
   - item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
     amount: 5

@@ -28,7 +28,8 @@ public class PlantingAreaSaveSystem : MonoBehaviour, ISaveable
         {
             freeLocations = free,
             usedLocations = used,
-            seedItem = n
+            seedItem = n,
+            areaActive = plantingArea.farmAreaActive
 
         };
     }
@@ -46,7 +47,9 @@ public class PlantingAreaSaveSystem : MonoBehaviour, ISaveable
         {
             plantingArea.plantUsedLocations.Add(saveData.usedLocations[i]);
         }
+        
         plantingArea.CheckForPlantable();
+        plantingArea.SetFarmAreaActive(saveData.areaActive);
 
     }
 
@@ -56,5 +59,6 @@ public class PlantingAreaSaveSystem : MonoBehaviour, ISaveable
         public List<SVector3> freeLocations;
         public List<SVector3> usedLocations;
         public string seedItem;
+        public bool areaActive;
     }
 }

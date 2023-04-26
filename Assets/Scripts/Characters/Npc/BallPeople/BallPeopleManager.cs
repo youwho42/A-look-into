@@ -25,7 +25,7 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject appearFX;
     public int lastAccessoryIndex;
 
-    public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking)
+    public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking, QI_CraftingRecipe craftingRecipe)
     {
         GameObject mess = null;
         SpawnBallPeople(messengerPrefab, out mess, PlayerInformation.instance.player.position);
@@ -34,6 +34,7 @@ public class BallPeopleManager : MonoBehaviour
         messItem.messageItem = message;
         messItem.type = messageType;
         messItem.undertaking = undertaking;
+        messItem.craftingRecipe = craftingRecipe;
     }
 
     public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination)

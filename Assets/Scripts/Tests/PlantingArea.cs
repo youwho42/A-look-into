@@ -1,6 +1,8 @@
 using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Tilemaps;
 
 public class PlantingArea : MonoBehaviour
 {
@@ -17,11 +19,19 @@ public class PlantingArea : MonoBehaviour
     
     public bool ballPersonPlanterActive;
     public bool ballPersonHarvesterActive;
+
+    public bool farmAreaActive;
+    public Tilemap farmAreaTilemap;
+    public TileBase unactiveFarmTile;
+    public TileBase activeFarmTile;
+    public List<Vector3Int> farmTilePositions = new List<Vector3Int>();
+    InteractableFixingArea interactable;
     //public Image signPost;
     private void Start()
     {
+        interactable = GetComponent<InteractableFixingArea>();
         coll = GetComponent<PolygonCollider2D>();
-        
+        SetFarmAreaActive(farmAreaActive);
     }
 
     private void OnEnable()
@@ -198,21 +208,26 @@ public class PlantingArea : MonoBehaviour
         
     }
 
-    //void PlaceObjects(int amount)
-    //{
-    //    for (int i = 0; i < amount; i++)
-    //    {
-    //        if (plantFreeLocations.Count > 0)
-    //        {
-    //            var pos = plantFreeLocations.Dequeue();
-    //            Instantiate(seedItem.plantedObject, pos, Quaternion.identity);
-    //            plantUsedLocations.Add(pos);
-    //        }
-            
-    //    }
-        
-    //}
+    public void SetFarmAreaActive(bool isActive)
+    {
+        interactable.canInteract = !isActive;
+        farmAreaActive = isActive;
+        seedBox.gameObject.SetActive(isActive);
+        for (int i = 0; i < farmTilePositions.Count; i++)
+        {
+            farmAreaTilemap.SetTile(farmTilePositions[i], isActive ? activeFarmTile : unactiveFarmTile);
+        }
+    }
 
 
-   
+    private void OnDrawGizmosSelected()
+    {
+        if (farmTilePositions.Count == 0 || farmAreaTilemap == null)
+            return;
+        for (int i = 0; i < farmTilePositions.Count; i++)
+        {
+            var x = farmAreaTilemap.GetCellCenterWorld(farmTilePositions[i]);
+            Gizmos.DrawWireSphere(x, 0.1f);
+        }
+    }
 }

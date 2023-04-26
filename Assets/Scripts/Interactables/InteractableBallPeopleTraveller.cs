@@ -40,7 +40,7 @@ public class InteractableBallPeopleTraveller : Interactable
             undertaking.undertaking.TryCompleteTask(undertaking.task);
         }
         
-        BallPersonUndertakingDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, false);
+        BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, false);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         GetComponent<BallPeopleTravelerAI>().hasInteracted = true;
         canInteract = false;

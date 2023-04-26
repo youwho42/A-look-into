@@ -31,6 +31,7 @@ public class PlayerInputController : MonoBehaviour
     InputAction pause;
     InputAction useEquipement;
     InputAction interact;
+    InputAction longInteract;
     InputAction cameraZoom;
     InputAction menuToggle;
     InputAction menuOpen;
@@ -88,6 +89,11 @@ public class PlayerInputController : MonoBehaviour
         interact = inputActions.Player.Interact;
         interact.Enable();
         interact.performed += InteractAction;
+
+        longInteract = inputActions.Player.LongInteract;
+        longInteract.Enable();
+        longInteract.performed += LongInteractAction;
+        
 
         cameraZoom = inputActions.Player.CameraZoom;
         cameraZoom.Enable();
@@ -157,6 +163,7 @@ public class PlayerInputController : MonoBehaviour
         pause.Disable();
         useEquipement.Disable();
         interact.Disable();
+        longInteract.Disable();
         cameraZoom.Disable();
         menuToggle.Disable();
         menuOpen.Disable();
@@ -222,6 +229,9 @@ public class PlayerInputController : MonoBehaviour
             currentControlScheme = playerInput.currentControlScheme;
             GameEventManager.onControlSchemeChangedEvent.Invoke(currentControlScheme);
         }
+
+
+
             
     }
 
@@ -258,6 +268,11 @@ public class PlayerInputController : MonoBehaviour
     public void InteractAction(InputAction.CallbackContext context)
     {
         interactable.Interact();
+    }
+    public void LongInteractAction(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Performed)
+            interactable.LongInteract();
     }
 
     public void SubmitAction(InputAction.CallbackContext context) => GameEventManager.onSubmitEvent.Invoke();

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using QuantumTek.QuantumInventory;
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -26,6 +27,21 @@ public class Campfire : Interactable
         else
             SetFire("light", false);
             
+    }
+
+    public override void LongInteract(GameObject interactor)
+    {
+
+        base.LongInteract(interactor);
+        if (isLit)
+        {
+            NotificationManager.instance.SetNewNotification("You might want to put that fire out, no?", NotificationManager.NotificationType.Warning);
+            return;
+        }
+
+        if (PlayerInformation.instance.playerInventory.AddItem(GetComponent<QI_Item>().Data, 1, false))
+            Destroy(gameObject);
+
     }
 
     void SetFire(string _interactVerb, bool active)

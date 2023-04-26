@@ -39,6 +39,30 @@ public class InteractableContainer : Interactable
             CloseContainer();
     }
 
+    public override void LongInteract(GameObject interactor)
+    {
+        base.Interact(interactor);
+
+        if (inventory.Stacks.Count > 0)
+        {
+            NotificationManager.instance.SetNewNotification("Container must be empty to pick up.", NotificationManager.NotificationType.Warning);
+            return;
+        }
+        else
+            PickUpContainer();
+        
+    }
+
+    void PickUpContainer()
+    {
+        var item = GetComponent<QI_Item>().Data;
+        if(PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
+        {
+            Destroy(gameObject);
+        }
+        
+    }
+
     private void OpenContainer()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);

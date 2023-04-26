@@ -5186,10 +5186,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Light
-  playerEnergyCost: 1
-  gameEnergyReward: 0
-  gameEnergyCost: 0
+  longInteractVerb: Pick Up
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
+  hasLongInteract: 1
   fireAnimation: {fileID: 728350270}
   lightFlicker: {fileID: 1300091588}
   fireFlicker: {fileID: 4012312534734668365}
@@ -5246,6 +5248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightToAffect: {fileID: 1300091588}
+  canFlicker: 0
   flickerAmount: 0.15
   waitTimeAmount: 0.2
 --- !u!1001 &7370642073947046025

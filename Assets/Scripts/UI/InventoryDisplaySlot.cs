@@ -180,8 +180,17 @@ public class InventoryDisplaySlot : MonoBehaviour
         {
             foreach (var hit in results)
             {
-                if (hit.gameObject == itemToDrop /*|| hit.transform.parent.gameObject == itemToDrop*/)
+                
+                if (hit.gameObject == itemToDrop)
                     continue;
+                var h = hit.transform.parent.gameObject;
+                if (h != null)
+                {
+                    if(h == itemToDrop)
+                        continue;
+                }
+                if (hit.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+                    return false;
                 if(hit.CompareTag("Water") && itemToDrop.CompareTag("RiverItem"))
                     return true;
                 if (!itemToDrop.CompareTag("RiverItem"))
@@ -189,7 +198,7 @@ public class InventoryDisplaySlot : MonoBehaviour
                     if (hit.CompareTag("Grass") || hit.CompareTag("Path") || hit.CompareTag("House"))
                         return true;
                 }
-                NotificationManager.instance.SetNewNotification("Invalid placement", NotificationManager.NotificationType.Warning);
+                NotificationManager.instance.SetNewNotification($"Invalid placement", NotificationManager.NotificationType.Warning);
                 return false;
             }
             

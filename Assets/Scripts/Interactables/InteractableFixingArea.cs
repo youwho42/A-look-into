@@ -14,9 +14,6 @@ public class FixableAreaIngredient
 public class InteractableFixingArea : Interactable
 {
 
-
-
-    
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
     
 
@@ -34,12 +31,28 @@ public class InteractableFixingArea : Interactable
        
         if (ingr && cost)
         {
-            if(InteractBounceCost())
+            if (InteractBounceCost())
+            {
                 GetComponent<IFixArea>().Fix(ingredients);
+                canInteract = false;
+            }
+                
         }
     }
+    public override void LongInteract(GameObject interactor)
+    {
+        base.LongInteract(interactor);
+        string ingredients = "";
+        for (int i = 0; i < this.ingredients.Count; i++)
+        {
+            ingredients += $"{this.ingredients[i].amount} - {this.ingredients[i].item.Name}\n";
+        }
+        BallPersonMessageDisplayUI.instance.ShowFixingAreaIngredients(this, interactVerb, ingredients);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
+        canInteract = false;
+    }
 
-    
+
     public bool CheckForIngredients()
     {
         bool hasAll = true;

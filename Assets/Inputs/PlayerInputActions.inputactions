@@ -29,7 +29,16 @@
                     "id": "33250991-5ca5-4230-9950-b5107c5cd4e3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LongInteract",
+                    "type": "Button",
+                    "id": "1cb26767-487a-4514-9ec4-316bc8ee1ba4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -789,6 +798,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "DialogueNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79fb1586-9879-4369-9444-74f3dd485bf5",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LongInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ed9c77a-471b-4891-8898-d8fe17704497",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LongInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: SeedBox_Recipe
+  m_EditorClassIdentifier: 
+  Name: Seed box
+  Ingredients:
+  - Item: {fileID: 11400000, guid: c8e5cc38c91f0d34a86879947a8eca3c, type: 2}
+    Amount: 10
+  - Item: {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+    Amount: 20
+  Product:
+    Item: {fileID: 11400000, guid: 7eea41ad4ab96624ba102fd2a4ef9f25, type: 2}
+    Amount: 1
+  CraftingTime: 0
+  AgencyCost: 150
