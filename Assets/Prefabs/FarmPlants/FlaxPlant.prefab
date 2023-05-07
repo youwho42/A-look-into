@@ -216,7 +216,7 @@ MonoBehaviour:
     - {fileID: 1185071526, guid: c30728895b27e64458bbaabd647f0502, type: 3}
     - {fileID: -1377922883, guid: c30728895b27e64458bbaabd647f0502, type: 3}
     - {fileID: -629021257, guid: c30728895b27e64458bbaabd647f0502, type: 3}
-  ticksPerCycle: 1440
+  ticksPerCycle: 10
   currentCycle: 0
   nextCycleDay: 0
   nextCycleTick: 0
@@ -266,10 +266,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: whaaAA???
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
   plantingArea: {fileID: 0}
 --- !u!114 &6991177185566791734
 MonoBehaviour:

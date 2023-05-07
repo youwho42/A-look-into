@@ -21,7 +21,7 @@ public class SpawnBallPersonSeekerArea : SpawnableBallPersonArea
         {
             if (collision.gameObject.transform.position.z == transform.position.z)
             {
-                BallPeopleManager.instance.SpawnSeeker(seekItem, seekAmount, talkTask, seekTask);
+                BallPeopleManager.instance.SpawnSeeker(seekItem, seekAmount, talkTask, seekTask, marker.transform.position);
                 marker.enabled = false;
                 hasSpawned = true;
             }

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static BallPeopleSeekerAI;
 
 public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
 {
@@ -33,17 +34,9 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
     static int sleeping_hash = Animator.StringToHash("IsSleeping");
 
     public Animator animator;
-    CanReachTileWalk walk;
-    CurrentTilePosition currentTilePosition;
-
-    bool hasDeviatePosition;
-
-
+    GravityItemWalker walker;
     [HideInInspector]
-    public Vector3 currentDestination;
-    [HideInInspector]
-    public Vector3 deviateDestination;
-    Vector3 lastPosition;
+    public Vector3 currentPlantDestination;
 
     
     bool disolved;
@@ -61,12 +54,10 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
     public GameObject arms;
     private void Start()
     {
-        currentTilePosition = GetComponent<CurrentTilePosition>();
-        walk = GetComponent<CanReachTileWalk>();
+        walker = GetComponent<GravityItemWalker>();
         allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (var sprite in allSprites)
         {
-            //materials.Add(sprite.material);
             sprite.material.SetFloat("_Fade", 0);
         }
     }
@@ -84,13 +75,16 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
         {
             case PlanterState.Appear:
 
+                walker.currentDir = Vector2.zero;
                 Disolve(true);
+                walker.ResetLastPosition();
                 break;
 
             case PlanterState.Idle:
+                walker.currentDir = Vector2.zero;
                 hasLicked = false;
                 var dir = PlayerInformation.instance.player.position - transform.position;
-                walk.SetFacingDirection(dir);
+                walker.SetFacingDirection(dir);
                 
                 //check distance from player, wait a sec, and start to follow if too far
                 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
@@ -102,7 +96,7 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
                 {
                     if (plantingArea.canPlant)
                     {
-                        currentDestination = GetSeedBoxPosition();
+                        walker.currentDestination = GetSeedBoxPosition();
                         currentState = PlanterState.GoToBox;
                     }
                         
@@ -112,39 +106,32 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
                     timeIdle = 0;
                     currentState = PlanterState.Remove;
                 }
+                walker.ResetLastPosition();
                 break;
 
             
             case PlanterState.GoToBox:
                 lastState = PlanterState.GoToBox;
-                if (lastPosition != transform.position)
+                if (walker.isStuck)
                 {
-                    lastPosition = transform.position;
-                }
-                else
-                {
-                    if (!walk.jumpAhead)
-                    {
+                    if (!walker.jumpAhead)
                         currentState = PlanterState.Deviate;
-                        break;
-                    }
-                        
-                }
-                animator.SetBool(walking_hash, true);
-                //currentDestination = travellerDestination + (Vector3)offset;
-                walk.SetWorldDestination(currentDestination);
-                walk.Walk();
-                if (CheckDistanceToDestination(currentDestination) <= 0.01f)
-                {
-                    
-                    currentState = PlanterState.AtBox;
                 }
 
+                animator.SetBool(walking_hash, true);
+                walker.currentDestination = GetSeedBoxPosition();
+                walker.SetWorldDestination(walker.currentDestination);
+                walker.SetDirection();
+                if (walker.CheckDistanceToDestination() <= 0.05f)
+                {
+                    currentState = PlanterState.AtBox;
+                }
+                walker.SetLastPosition();
 
                 break;
 
             case PlanterState.AtBox:
-
+                walker.currentDir = Vector2.zero;
                 animator.SetBool(walking_hash, false);
                 if (!hasLicked)
                 {
@@ -155,7 +142,8 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
                     seedBoxInventory.RemoveItem(plantingArea.seedItem, 1);
                     if (plantingArea.plantFreeLocations.Count > 0)
                     {
-                        currentDestination = plantingArea.plantFreeLocations[0];
+                        currentPlantDestination = plantingArea.plantFreeLocations[0];
+                        walker.currentDestination = currentPlantDestination;
                         plantingArea.plantFreeLocations.RemoveAt(0);
                         plantingArea.CheckForPlantable();
                     }
@@ -166,39 +154,31 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
                     timeIdle += Time.deltaTime;
                 else
                     currentState = PlanterState.GoToPlantLocation;
-
+                walker.ResetLastPosition();
                 break;
 
             case PlanterState.GoToPlantLocation:
                 hasLicked = false;
                 lastState = PlanterState.GoToPlantLocation;
-                if (lastPosition != transform.position)
+                if (walker.isStuck)
                 {
-                    lastPosition = transform.position;
-                }
-                else
-                {
-                    if (!walk.jumpAhead)
-                    {
+                    if (!walker.jumpAhead)
                         currentState = PlanterState.Deviate;
-                        break;
-                    }
                 }
                 animator.SetBool(walking_hash, true);
-                walk.SetWorldDestination(currentDestination);
-                walk.Walk();
-                if (CheckDistanceToDestination(currentDestination) <= 0.06f)
+                walker.SetWorldDestination(currentPlantDestination);
+                walker.SetDirection();
+                if (walker.CheckDistanceToDestination() <= 0.06f)
                 {
-
                     currentState = PlanterState.AtPlantLocation;
                 }
 
-                
+                walker.SetLastPosition();
 
                 break;
 
             case PlanterState.AtPlantLocation:
-
+                walker.currentDir = Vector2.zero;
                 animator.SetBool(walking_hash, false);
                 if (!hasLicked)
                 {
@@ -213,30 +193,32 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
                     timeIdle += Time.deltaTime;
                 else
                     currentState = PlanterState.Idle;
-
+                walker.ResetLastPosition();
                 break;
 
 
             case PlanterState.Deviate:
-                // deviate mf
-                if (lastPosition != transform.position)
-                    lastPosition = transform.position;
-                else
-                    hasDeviatePosition = false;
-
-                if (!hasDeviatePosition)
+                if (walker.isStuck && walker.hasDeviatePosition)
                 {
-                    FindDeviateDestination();
+                    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                    walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+                    walker.SetDirection();
+                    walker.hasDeviatePosition = false;
+                }
 
+                if (!walker.hasDeviatePosition)
+                {
+                    walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
                 }
                 animator.SetBool(walking_hash, true);
 
-                walk.SetWorldDestination(deviateDestination);
+                walker.SetWorldDestination(walker.currentDestination);
+                walker.SetDirection();
 
-                if (CheckDistanceToDestination(deviateDestination) <= 0.02f)
+                if (walker.CheckDistanceToDestination() <= 0.02f)
                     currentState = lastState;
 
-                walk.Walk();
+                walker.SetLastPosition();
 
                 break;
 
@@ -266,10 +248,10 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
 
     void LateUpdate()
     {
-        if (walk.gravityItem == null)
+        if (walker == null)
             return;
-        animator.SetBool(isGrounded_hash, walk.gravityItem.isGrounded);
-        animator.SetFloat(velocityY_hash, walk.gravityItem.isGrounded ? 0 : walk.gravityItem.displacedPosition.y);
+        animator.SetBool(isGrounded_hash, walker.isGrounded);
+        animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
 
     }
 
@@ -279,7 +261,7 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
         Vector3 pos = seedBoxInventory.transform.position;
         Vector2 dir = transform.position - pos;
         dir = dir.normalized;
-        dir *= 0.09f;
+        dir *= 0.1f;
         var colliders = seedBoxInventory.GetComponentsInChildren<Collider2D>();
         foreach (var coll in colliders)
         {
@@ -295,8 +277,8 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
 
     void PlantSeed()
     {
-        plantingArea.plantUsedLocations.Add(currentDestination);
-        var go = Instantiate(plantingArea.seedItem.plantedObject.ItemPrefab, currentDestination, Quaternion.identity);
+        plantingArea.plantUsedLocations.Add(currentPlantDestination);
+        var go = Instantiate(plantingArea.seedItem.plantedObject.ItemPrefab, currentPlantDestination, Quaternion.identity);
         go.GetComponent<InteractableFarmPlant>().plantingArea = plantingArea;
         go.GetComponent<SaveableItemEntity>().GenerateId();
         PlantLife plant = go.GetComponent<PlantLife>();
@@ -304,22 +286,7 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
         plant.SetNextCycleTime();
     }
 
-    void FindDeviateDestination()
-    {
-        Vector2 offset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        offset = offset.normalized;
-        Vector3 checkPosition = (transform.position + (Vector3)offset * walk.gravityItem.checkTileDistance) - Vector3.forward;
-        Vector3 doubleCheckPosition = transform.position - Vector3.forward;
-        if (walk.gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, offset))
-        {
-            FindDeviateDestination();
-        }
-        else
-        {
-            deviateDestination = transform.position + (Vector3)offset * .2f;
-            hasDeviatePosition = true;
-        }
-    }
+    
 
     void Disolve(bool disolveIn)
     {
@@ -332,12 +299,7 @@ public class BallPeopleFarmPlanterAI : MonoBehaviour, IBallPerson
             currentState = PlanterState.Idle;
         disolved = !disolveIn;
     }
-    float CheckDistanceToDestination(Vector3 destination)
-    {
-        float dist = Vector2.Distance(transform.position, destination);
-
-        return dist;
-    }
+    
 
     public void SetToRemoveState()
     {

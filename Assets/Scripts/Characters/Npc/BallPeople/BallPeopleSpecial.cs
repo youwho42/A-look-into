@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static NPC_AI;
 
 public class BallPeopleSpecial : MonoBehaviour, IBallPerson
 {
@@ -22,35 +23,29 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
     public SpriteRenderer accessory;
     RandomAccessories randomAccessory;
     float timeIdle = 0;
-    static int walking_hash = Animator.StringToHash("IsWalking");
+    
     public Animator animator;
-    CanReachTileWalk walk;
-    CurrentTilePosition currentTilePosition;
-
-    bool hasDeviatePosition;
+    GravityItemWalker walker;
 
 
-    [HideInInspector]
-    public Vector3 currentDestination;
-    Vector3 lastPosition;
 
+    
     bool talkComplete;
     bool disolved;
     Vector2 offset;
 
+    static int walking_hash = Animator.StringToHash("IsWalking");
     static int isGrounded_hash = Animator.StringToHash("IsGrounded");
     static int velocityY_hash = Animator.StringToHash("VelocityY");
     static int sleeping_hash = Animator.StringToHash("IsSleeping");
-
+    
     private void Start()
     {
-        currentTilePosition = GetComponent<CurrentTilePosition>();
-        walk = GetComponent<CanReachTileWalk>();
+        walker = GetComponent<GravityItemWalker>();
         randomAccessory = GetComponent<RandomAccessories>();
         allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (var sprite in allSprites)
         {
-            //materials.Add(sprite.material);
             sprite.material.SetFloat("_Fade", 0);
         }
         randomAccessory.PopulateList();
@@ -67,71 +62,71 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
         switch (currentState)
         {
             case SpecialState.Appear:
-
+                walker.currentDir = Vector2.zero;
                 Disolve(true);
+                walker.ResetLastPosition();
                 break;
 
             case SpecialState.Follow:
                 // get path to player, follow player, if too close go to idle
-                if (lastPosition != transform.position)
+
+                if (walker.isStuck)
                 {
-                    lastPosition = transform.position;
-                }
-                else
-                {
-                    if (!walk.jumpAhead)
+                    if (!walker.jumpAhead)
                         currentState = SpecialState.Deviate;
                 }
-
+                
 
                 timeIdle = 0;
-                hasDeviatePosition = false;
+                walker.hasDeviatePosition = false;
                 if (CheckPlayerDistance() > 3)
                     currentState = SpecialState.Disappear;
 
                 animator.SetBool(walking_hash, true);
-                currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
-                walk.SetWorldDestination(currentDestination);
-                if (CheckDistanceToDestination() <= 0.02f)
+                walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+                walker.SetWorldDestination(walker.currentDestination);
+                walker.SetDirection();
+                if (walker.CheckDistanceToDestination() <= 0.02f)
                 {
                     currentState = SpecialState.Idle;
                 }
 
-
-                walk.Walk();
-
+                walker.SetLastPosition();
                 break;
 
             case SpecialState.Deviate:
-                // deviate mf
-                if (lastPosition != transform.position)
-                    lastPosition = transform.position;
-                else
-                    hasDeviatePosition = false;
-
-                if (!hasDeviatePosition)
+                if (walker.isStuck && walker.hasDeviatePosition)
                 {
-                    FindDeviateDestination();
+                    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                    walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+                    walker.SetDirection();
+                    walker.hasDeviatePosition = false;
+                }
 
+                if (!walker.hasDeviatePosition)
+                {
+                    
+                    walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
                 }
                 animator.SetBool(walking_hash, true);
+                walker.SetDirection();
 
-                walk.SetWorldDestination(currentDestination);
-
-                if (CheckDistanceToDestination() <= 0.02f)
+                
+                if (walker.CheckDistanceToDestination() <= 0.02f)
                     currentState = SpecialState.Follow;
 
-                walk.Walk();
+                
                 if (CheckPlayerDistance() > 1.5f)
                     currentState = SpecialState.Disappear;
+                walker.SetLastPosition();
                 break;
 
 
 
             case SpecialState.Idle:
-
+                walker.currentDir = Vector2.zero;
                 var dir = PlayerInformation.instance.player.position - transform.position;
-                walk.SetFacingDirection(dir);
+                walker.SetFacingDirection(dir);
 
                 //check distance from player, wait a sec, and start to follow if too far
                 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
@@ -157,6 +152,8 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                     timeIdle = 0;
                     currentState = SpecialState.Sleep;
                 }
+
+                walker.ResetLastPosition();
                 break;
 
             case SpecialState.Sleep:
@@ -164,7 +161,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 // get another bool to know if i want to keep interactor off after reading... i know what i mean.
 
                 //check distance from player, wait a sec, and start to follow if too far
-
+                walker.currentDir = Vector2.zero;
                 animator.SetBool(sleeping_hash, true);
 
                 if (timeIdle < 0.5f)
@@ -180,9 +177,12 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                     }
 
                 }
+
+                walker.ResetLastPosition();
                 break;
 
             case SpecialState.Disappear:
+                walker.currentDir = Vector2.zero;
                 animator.SetBool(walking_hash, false);
                 if (!disolved)
                     Disolve(false);
@@ -191,9 +191,13 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                     timeIdle += Time.deltaTime;
                 else
                     SetPositionNearPlayer();
+
+                walker.ResetLastPosition();
+
                 break;
 
             case SpecialState.Remove:
+                walker.currentDir = Vector2.zero;
                 if (!disolved)
                 {
                     timeIdle = 0;
@@ -213,27 +217,29 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
 
     void LateUpdate()
     {
-        if (walk.gravityItem == null)
+        if (walker == null)
             return;
-        animator.SetBool(isGrounded_hash, walk.gravityItem.isGrounded);
-        animator.SetFloat(velocityY_hash, walk.gravityItem.isGrounded ? 0 : walk.gravityItem.displacedPosition.y);
-
+        animator.SetBool(isGrounded_hash, walker.isGrounded);
+        animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
+       
     }
+
+    
 
     void SetPositionNearPlayer()
     {
         Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
         transform.position = PlayerInformation.instance.player.position + (Vector3)offset;
-        if (walk.gravityItem.tileBlockInfo != null)
+        if (walker.tileBlockInfo != null)
         {
-            foreach (var tile in walk.gravityItem.tileBlockInfo)
+            foreach (var tile in walker.tileBlockInfo)
             {
 
                 if (tile.direction == Vector3Int.zero)
                 {
                     if (tile.isValid)
                     {
-                        currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
+                        walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(transform.position);
                         currentState = SpecialState.Appear;
                     }
                     else
@@ -246,22 +252,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
         //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
         //currentState = MessengerState.Appear;
     }
-    void FindDeviateDestination()
-    {
-        Vector2 offset = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        offset = offset.normalized;
-        Vector3 checkPosition = (transform.position + (Vector3)offset * walk.gravityItem.checkTileDistance) - Vector3.forward;
-        Vector3 doubleCheckPosition = transform.position - Vector3.forward;
-        if (walk.gravityItem.CheckForObstacles(checkPosition, doubleCheckPosition, offset))
-        {
-            FindDeviateDestination();
-        }
-        else
-        {
-            currentDestination = transform.position + (Vector3)offset * .2f;
-            hasDeviatePosition = true;
-        }
-    }
+    
 
     void Disolve(bool disolveIn)
     {
@@ -278,13 +269,6 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
     float CheckPlayerDistance()
     {
         float dist = Vector2.Distance(transform.position, PlayerInformation.instance.player.position);
-
-        return dist;
-    }
-
-    float CheckDistanceToDestination()
-    {
-        float dist = Vector2.Distance(transform.position, currentDestination);
 
         return dist;
     }

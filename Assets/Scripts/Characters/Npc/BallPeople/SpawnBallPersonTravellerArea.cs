@@ -17,7 +17,7 @@ public class SpawnBallPersonTravellerArea : SpawnableBallPersonArea
         {
             if (collision.gameObject.transform.position.z == transform.position.z)
             {
-                BallPeopleManager.instance.SpawnTraveller(taskObject, travellerDestination);
+                BallPeopleManager.instance.SpawnTraveller(taskObject, travellerDestination, marker.transform.position);
                 marker.enabled = false;
                 hasSpawned = true;
             }

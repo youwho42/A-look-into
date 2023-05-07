@@ -17,7 +17,7 @@ namespace Klaxon.GravitySystem
         public Vector2 currentDestination;
         [HideInInspector]
         public Vector2 currentDirection;
-        bool onSlope;
+        //bool onSlope;
 
         public float walkSpeed;
         Vector3Int nextTilePosition;
@@ -43,10 +43,15 @@ namespace Klaxon.GravitySystem
             gravityItem = GetComponent<GravityItemNew>();
 
         }
-
+        private void FixedUpdate()
+        {
+            CanReachNextTile(currentDirection);
+        }
 
         public void Walk()
         {
+            
+
 
 
             if (CanReachNextTile(currentDirection) && !isClimbing)
@@ -58,7 +63,7 @@ namespace Klaxon.GravitySystem
             }
             else
             {
-
+                
                 if (!jumpAhead)
                     SetRandomDestination();
                 if (canJump && jumpAhead && gravityItem.isGrounded)
@@ -122,9 +127,10 @@ namespace Klaxon.GravitySystem
                 {
 
                     gravityItem.slopeDirection = Vector2.zero;
-                    onSlope = tile.tileName.Contains("Slope");
-                    if (onSlope)
+                    gravityItem.onSlope = tile.tileName.Contains("Slope");
+                    if (gravityItem.onSlope)
                     {
+                        
                         if (tile.tileName.Contains("X"))
                             gravityItem.slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
                         else
@@ -154,7 +160,7 @@ namespace Klaxon.GravitySystem
                         gravityItem.currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
 
                         if (tile.tileName.Contains("Slope"))
-                            onSlope = true;
+                            gravityItem.onSlope = true;
 
                         return true;
                     }
@@ -174,9 +180,9 @@ namespace Klaxon.GravitySystem
                         if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
                             return false;
 
-                        onSlope = true;
+                        gravityItem.onSlope = true;
 
-                        // is the slope is lower?
+                        // is the slope lower?
                         if (tile.levelZ < 0)
                             gravityItem.getOnSlope = true;
 
@@ -184,7 +190,7 @@ namespace Klaxon.GravitySystem
                     }
 
                     // I am on a slope
-                    if (onSlope)
+                    if (gravityItem.onSlope)
                     {
                         //am i walking 'off' the slope on the upper part in the right direction?
                         if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
@@ -207,14 +213,18 @@ namespace Klaxon.GravitySystem
                     }
 
                     // If I am on a slope, am i approaching or leaving the slope in a valid direction?
-                    if (onSlope)
+                    if (gravityItem.onSlope)
                     {
                         if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x != 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y != 0)
                             continue;
                     }
 
-                    if (Mathf.Abs(tile.levelZ) == 1)
+                    if (tile.levelZ == 1 && !gravityItem.onSlope)
+                    {
                         jumpAhead = true;
+                        return false;
+                    }
+                        
 
                     if (tile.levelZ == -1)
                     {
@@ -222,10 +232,10 @@ namespace Klaxon.GravitySystem
                         return true;
                     }
                     // This is where we are on top of a cliff
-                    if (tile.levelZ <= -1)
-                    {
-                        return false;
-                    }
+                    //if (tile.levelZ <= -1)
+                    //{
+                    //    return false;
+                    //}
 
 
                     // This is where we hit a wall of height 1 or above

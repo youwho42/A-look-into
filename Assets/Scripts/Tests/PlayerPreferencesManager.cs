@@ -30,12 +30,20 @@ public class PlayerPreferencesManager : MonoBehaviour
         InitializeVolumeSettings();
         if (!PlayerPrefs.HasKey("Vsync"))
             PlayerPrefs.SetInt("Vsync", 0);
+        if (!PlayerPrefs.HasKey("AutoZoomReset"))
+            PlayerPrefs.SetInt("AutoZoomReset", 1);
         LevelManager.instance.SetVSync(PlayerPrefs.GetInt("Vsync"));
+        LevelManager.instance.SetAutoZoomReset(PlayerPrefs.GetInt("AutoZoomReset"));
     }
 
     public void SaveVSync(int sync)
     {
         PlayerPrefs.SetInt("Vsync", sync);
+    }
+
+    public void SaveAutoZoomReset(int autoReset)
+    {
+        PlayerPrefs.SetInt("AutoZoomReset", autoReset);
     }
 
     void InitializeVolumeSettings()

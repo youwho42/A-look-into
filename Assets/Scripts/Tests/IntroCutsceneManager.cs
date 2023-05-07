@@ -79,8 +79,8 @@ public class IntroCutsceneManager : MonoBehaviour
         //PlayerInformation.instance.playerUndertakings.AddUndertaking(startUndertaking);
         
         GameEventManager.onUndertakingsUpdateEvent.Invoke();
-
-        BallPeopleManager.instance.SpawnMessenger(null, BallPeopleMessageType.Note, messageUndertaking, null);
+        var pos = PlayerInformation.instance.player.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f),0);
+        BallPeopleManager.instance.SpawnMessenger(null, BallPeopleMessageType.Note, messageUndertaking, null, pos);
     }
 
     void SetText()

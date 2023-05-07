@@ -13,10 +13,12 @@ public class StopPlayerMovementInAction : MonoBehaviour
 
     public void StopPlayerInput()
     {
-        playerMovement.isInInteractAction = true;
+        if(playerMovement != null)
+            playerMovement.isInInteractAction = true;
     }
     public void StartPlayerInput()
     {
-        playerMovement.isInInteractAction = false;
+        if (playerMovement != null)
+            playerMovement.isInInteractAction = false;
     }
 }

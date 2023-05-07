@@ -7,6 +7,7 @@ using Klaxon.GravitySystem;
 using System;
 using Klaxon.QuestSystem;
 using Klaxon.UndertakingSystem;
+using UnityEngine.U2D.Animation;
 
 public class PlayerInformation : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class PlayerInformation : MonoBehaviour
 
     public string playerName { get; private set; }
 
-    
+    public SpriteResolver playerSpriteResolver;
 
     private void Awake()
     {

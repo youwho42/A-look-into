@@ -30,7 +30,7 @@ public class CameraZoom : MonoBehaviour
 	{
         //SetZoom();
 
-		if (resetWithTimer)
+		if (LevelManager.instance.autoZoomBinary == 1)
 		{
             if (zoomActive)
                 timer += Time.deltaTime;

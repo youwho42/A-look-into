@@ -68,6 +68,8 @@ public class NPC_BasicAI : MonoBehaviour
 
     private void Update()
     {
+        if (RealTimeDayNightCycle.instance.isPaused)
+            return;
         switch (currentState)
         {
             case NPCStates.Idle:

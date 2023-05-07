@@ -49,12 +49,19 @@ namespace Klaxon.GravitySystem
         public LayerMask obstacleLayer;
 
         // slopes
+        [HideInInspector]
         public bool getOnSlope;
+        [HideInInspector]
         public bool getOffSlope;
+        [HideInInspector]
         public bool onSlope;
-        float slopeDisplacement;
+        [HideInInspector]
+        public float slopeDisplacement;
+        [HideInInspector]
         public Vector2 slopeCollisionPoint;
+        [HideInInspector]
         public Vector2 slopeCheckPosition;
+        [HideInInspector]
         public Vector2 slopeDirection;
 
         [Header("Slope Detection")]
@@ -117,7 +124,7 @@ namespace Klaxon.GravitySystem
         }
         
 
-        void ChangeLevelOffSlope()
+        public void ChangeLevelOffSlope()
         {
 
             int dif = currentTilePosition.position.z - currentLevel;
@@ -133,7 +140,7 @@ namespace Klaxon.GravitySystem
 
         }
 
-        void ChangeLevelOnSlope()
+        public void ChangeLevelOnSlope()
         {
 
             int dif = currentTilePosition.position.z - currentLevel;
@@ -148,7 +155,7 @@ namespace Klaxon.GravitySystem
             getOnSlope = false;
         }
 
-        void ChangeLevel(int dif)
+        public void ChangeLevel(int dif)
         {
 
             bounceFactor = 1;
@@ -177,7 +184,7 @@ namespace Klaxon.GravitySystem
 
         }
 
-        void HandleSlopes()
+        public void HandleSlopes()
         {
 
             slopeCheckPosition = (Vector2)transform.position - (slopeDirection * 0.6f);

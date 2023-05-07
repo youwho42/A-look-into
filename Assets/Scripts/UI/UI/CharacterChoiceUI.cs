@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CharacterChoiceUI : MonoBehaviour
 {
     public SpriteResolver chooseSpriteResolver;
-    public SpriteResolver playerSpriteResolver;
+    //public SpriteResolver playerSpriteResolver;
     public PlayerCharacterManager playerCharacters;
     
     int index = 0;
@@ -54,7 +54,7 @@ public class CharacterChoiceUI : MonoBehaviour
     }
     void SetPlayerSprite()
     {
-        playerSpriteResolver.SetCategoryAndLabel("Player", spriteName);
+        PlayerInformation.instance.playerSpriteResolver.SetCategoryAndLabel("Player", spriteName);
     }
     void SetPlayerName()
     {

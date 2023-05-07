@@ -36,5 +36,14 @@ public class MusicGeneratorItem : MonoBehaviour
         }
             
     }
-    
+
+    private void OnDisable()
+    {
+        if (isActive)
+        {
+            MusicGenerator.instance.RemoveFromDictionary(type);
+            isInDictionary = false;
+        }
+    }
+
 }

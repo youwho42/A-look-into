@@ -172,9 +172,8 @@ namespace Klaxon.GravitySystem
                         return false;
                     }
 
-                    if (/*isGrounded && playerInput.canWalkOffCliff && level <= 0 || */!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
+                    if (!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                     {
-                        //currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
                         ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
 
                         if (tile.tileName.Contains("Slope"))

@@ -80,6 +80,18 @@ PrefabInstance:
     - {fileID: -3627213249282871714, guid: 0518dfd0060c0ed4ea6d9b4241f5f553, type: 3}
     - {fileID: 730675955853077649, guid: 0518dfd0060c0ed4ea6d9b4241f5f553, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0518dfd0060c0ed4ea6d9b4241f5f553, type: 3}
+--- !u!1 &439568221711172961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1864241168330022154, guid: 0518dfd0060c0ed4ea6d9b4241f5f553,
+    type: 3}
+  m_PrefabInstance: {fileID: 2289717025554913387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3255417526116196749 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3669067541027879398, guid: 0518dfd0060c0ed4ea6d9b4241f5f553,
+    type: 3}
+  m_PrefabInstance: {fileID: 2289717025554913387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3255417526143633674 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3669067540778324321, guid: 0518dfd0060c0ed4ea6d9b4241f5f553,
@@ -100,13 +112,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   lastState: 0
-  animator: {fileID: 0}
-  currentDestination: {x: 0, y: 0, z: 0}
-  deviateDestination: {x: 0, y: 0, z: 0}
+  animator: {fileID: 3255417526116196749}
+  currentPlantDestination: {x: 0, y: 0, z: 0}
   seedBoxInventory: {fileID: 0}
   plantingArea: {fileID: 0}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
-  arms: {fileID: 0}
+    m_Bits: 524288
+  arms: {fileID: 439568221711172961}
   currentHarvestable: {fileID: 0}

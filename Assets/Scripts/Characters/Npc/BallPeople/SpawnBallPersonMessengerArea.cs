@@ -21,7 +21,7 @@ public class SpawnBallPersonMessengerArea : SpawnableBallPersonArea
         {
             if (collision.gameObject.transform.position.z == transform.position.z)
             {
-                BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking, craftingRecipe);
+                BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking, craftingRecipe, marker.transform.position);
                 marker.enabled = false;
                 hasSpawned = true;
             }

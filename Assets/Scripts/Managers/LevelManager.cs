@@ -1,15 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using Cinemachine;
-using UnityEngine.Events;
-using Unity.Mathematics;
-using UnityEngine.Playables;
-using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
+
 using Klaxon.UndertakingSystem;
 
 public class LevelManager : MonoBehaviour
@@ -29,15 +23,10 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Application.isPlaying && loadTerrains)
-        {
-            if (!SceneManager.GetSceneByName("MainScene-Decoration").isLoaded)
-            {
-                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainScene-Decoration", LoadSceneMode.Additive);
-            }
-
-        }
+        
     }
+
+    
 
     public bool loadTerrains;
 
@@ -62,6 +51,10 @@ public class LevelManager : MonoBehaviour
     private Toggle vSync;
     [SerializeField]
     private Toggle fullscreen;
+    [SerializeField]
+    private Toggle autoZoomReset;
+    [HideInInspector]
+    public int autoZoomBinary;
 
     [SerializeField]
     private Slider loadScreenSlider;
@@ -80,6 +73,16 @@ public class LevelManager : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        if (Application.isPlaying && loadTerrains)
+        {
+
+            if (!SceneManager.GetSceneByName("MainScene-Decoration").isLoaded)
+            {
+                SceneManager.LoadSceneAsync("MainScene-Decoration", LoadSceneMode.Additive);
+            }
+
+        }
+
         PlayerInformation.instance.TogglePlayerInput(false);
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
@@ -157,6 +160,20 @@ public class LevelManager : MonoBehaviour
         QualitySettings.vSyncCount = sync;
         vSync.isOn = sync == 0 ? false : true;
     }
+    public void ToggleAutoZoomReset()
+    {
+
+        if (autoZoomReset.isOn)
+            autoZoomBinary = 1;
+        else
+            autoZoomBinary = 0;
+        PlayerPreferencesManager.instance.SaveAutoZoomReset(autoZoomBinary);
+    }
+    public void SetAutoZoomReset(int zoomBinary)
+    {
+        autoZoomBinary = zoomBinary;
+        autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
+    }
     public int GetVSync()
     {
         return QualitySettings.vSyncCount;
@@ -198,6 +215,10 @@ public class LevelManager : MonoBehaviour
     private void LoadLevel(string levelName, string loadFileName)
     {
         StartCoroutine(LoadLevelCo(levelName, loadFileName));
+    }
+    public void LoadTitleScreen()
+    {
+        StartCoroutine(LoadTitleScreenCo("MainScene"));
     }
 
     public void Pause(bool isPaused)
@@ -254,6 +275,7 @@ public class LevelManager : MonoBehaviour
         Application.Quit();
     }
 
+    
     IEnumerator ChangeLevelCo (string levelName)
     {
         AsyncOperation currentLevelLoading =  SceneManager.LoadSceneAsync(levelName);
@@ -299,59 +321,118 @@ public class LevelManager : MonoBehaviour
             
             yield return null;
         }
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
 
-        //AsyncOperation currentDecorationLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
 
-        
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Decorations: {Mathf.RoundToInt(progress * 100)}%";
+
+
+            yield return null;
+        }
+
+
 
         text.text = "Loading data from save.";
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
         SavingLoading.instance.Load(LoadSelectionUI.instance.currentLoadFileName);
         PlayerDistanceToggle.instance.PopulateAnimalList();
-        yield return new WaitForSeconds(0.5f);
+        Debug.Log("this far");
+        yield return new WaitForSecondsRealtime(0.5f);
 
         text.text = "Thank you for waiting.";
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
-        //GameObject player = FindObjectOfType<PlayerInput>().gameObject;
-        //startCam.Priority = 0;
-        //mainCam.Priority = 10;
+        
         GameEventManager.onGameLoadedEvent.Invoke();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSecondsRealtime(3f);
+       
+
         Time.timeScale = 1;
         UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
         PlayerInformation.instance.playerShadow.SetActive(true); 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         Pause(false);
         ActivatePlayer();
+    }
+
+    IEnumerator LoadTitleScreenCo(string levelName)
+    {
+
+        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
+        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
+        PlayerInformation.instance.TogglePlayerInput(false);
+        UndertakingDatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
+
+        AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Terrain");
+
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Terrain: {Mathf.RoundToInt(progress * 100)}%";
+
+
+            yield return null;
+        }
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
+
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Decorations: {Mathf.RoundToInt(progress * 100)}%";
+
+
+            yield return null;
+        }
+
+
+
+        
+        
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        text.text = "Thank you for waiting.";
+        playerMaterial = PlayerInformation.instance.playerSprite.material;
+        playerMaterial.SetFloat("_Fade", 0);
+        PlayerInformation.instance.playerShadow.SetActive(false);
+        RealTimeDayNightCycle.instance.SetDayTime(420, 1);
+        PlayerDistanceToggle.instance.PopulateAnimalList();
+        yield return new WaitForSecondsRealtime(3f);
+
+
+        Time.timeScale = 1;
+        UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
+        UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
+
+       
     }
 
 
     IEnumerator PlayerFadeInCo()
     {
-        // set player to new position
-        //PlayerInformation.instance.player.position = startSpawnPoint.position;
-        // switch camera priorities
-        //startCam.Priority = 0;
-        //mainCam.Priority = 10;
-        
-        // wait a sec and the activate the player
-        //yield return new WaitForSeconds(3f);
         
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
         PlayerInformation.instance.playerShadow.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        //SavingLoading.instance.Save();
+        yield return new WaitForSecondsRealtime(0.5f);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        
-        //PlayerInformation.instance.TogglePlayerInput(true);
         
     }
 }

@@ -148,6 +148,8 @@ public class InteractWithInteractable : MonoBehaviour
         if (currentInteractables.Count > 0)
         {
             var interactable = GetNearestInteractable(currentInteractables);
+            if (interactable == null)
+                return;
             if (interactable.canInteract)
                 interactable.Interact(gameObject);
         }

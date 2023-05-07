@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Timeline;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class SplineObjectFixedAngles : MonoBehaviour
 {

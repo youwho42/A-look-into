@@ -25,10 +25,10 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject appearFX;
     public int lastAccessoryIndex;
 
-    public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking, QI_CraftingRecipe craftingRecipe)
+    public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking, QI_CraftingRecipe craftingRecipe, Vector3 position)
     {
         GameObject mess = null;
-        SpawnBallPeople(messengerPrefab, out mess, PlayerInformation.instance.player.position);
+        SpawnBallPeople(messengerPrefab, out mess, position);
         
         var messItem = mess.GetComponent<InteractableBallPeopleMessenger>();
         messItem.messageItem = message;
@@ -37,10 +37,10 @@ public class BallPeopleManager : MonoBehaviour
         messItem.craftingRecipe = craftingRecipe;
     }
 
-    public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination)
+    public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination, Vector3 position)
     {
         GameObject trav = null;
-        SpawnBallPeople(travelerPrefab, out trav, PlayerInformation.instance.player.position);
+        SpawnBallPeople(travelerPrefab, out trav, position);
 
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
         travItem.undertaking.undertaking = taskObject.undertaking;
@@ -49,10 +49,10 @@ public class BallPeopleManager : MonoBehaviour
         travelBall.travellerDestination = travelerDestination.transform.position;
     }
 
-    public void SpawnSeeker(QI_ItemData item, int amount, CompleteTaskObject talkTask, CompleteTaskObject seekTask)
+    public void SpawnSeeker(QI_ItemData item, int amount, CompleteTaskObject talkTask, CompleteTaskObject seekTask, Vector3 position)
     {
         GameObject seek = null;
-        SpawnBallPeople(seekerPrefab, out seek, PlayerInformation.instance.player.position);
+        SpawnBallPeople(seekerPrefab, out seek, position);
 
         var seekerItem = seek.GetComponent<InteractableBallPeopleSeeker>();
         seekerItem.talkTask.undertaking = talkTask.undertaking;
@@ -63,10 +63,10 @@ public class BallPeopleManager : MonoBehaviour
         seekerBall.seekAmount = amount;
     }
 
-    public void SpawnFarmPlanter(PlantingArea plantingArea, Vector3 pos)
+    public void SpawnFarmPlanter(PlantingArea plantingArea, Vector3 position)
     {
         GameObject planter = null;
-        SpawnBallPeople(planterPrefab, out planter, pos);
+        SpawnBallPeople(planterPrefab, out planter, position);
 
         
         var planterBall = planter.GetComponent<BallPeopleFarmPlanterAI>();
@@ -74,10 +74,10 @@ public class BallPeopleManager : MonoBehaviour
         planterBall.seedBoxInventory = plantingArea.seedBox;
         
     }
-    public void SpawnFarmHarvester(PlantingArea plantingArea, Vector3 pos)
+    public void SpawnFarmHarvester(PlantingArea plantingArea, Vector3 position)
     {
         GameObject planter = null;
-        SpawnBallPeople(harvesterPrefab, out planter, pos);
+        SpawnBallPeople(harvesterPrefab, out planter, position);
 
 
         var harvesterBall = planter.GetComponent<BallPeopleFarmHarvesterAI>();
@@ -89,10 +89,10 @@ public class BallPeopleManager : MonoBehaviour
 
     void SpawnBallPeople(GameObject prefab, out GameObject ballPerson, Vector3 position)
     {
-        Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f));
-        var pos = position + (Vector3)offset;
-        var mess = Instantiate(prefab, pos, Quaternion.identity);
-        Instantiate(appearFX, pos, Quaternion.identity);
+        //Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f));
+        //var pos = position + (Vector3)offset;
+        var mess = Instantiate(prefab, position, Quaternion.identity);
+        Instantiate(appearFX, position, Quaternion.identity);
         
         mess.GetComponent<RandomColor>().SetRandomColor();
         mess.GetComponent<RandomAccessories>().PopulateList();
