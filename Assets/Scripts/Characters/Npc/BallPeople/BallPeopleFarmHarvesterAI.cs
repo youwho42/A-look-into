@@ -169,6 +169,7 @@ public class BallPeopleFarmHarvesterAI : MonoBehaviour, IBallPerson
                 break;
 
             case HarvesterState.GoToBox:
+                hasLicked = false;
                 lastState = HarvesterState.GoToBox;
                 if (walker.isStuck)
                 {

@@ -80,7 +80,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
         switch (currentState)
         {
             case FlyingState.isFlying:
-
+                animator.SetBool(landed_hash, false);
                 flight.Fly();
                 flight.isLanding = false;
 
@@ -133,6 +133,7 @@ public class ButterflyAI : MonoBehaviour, IAnimal
 
             case FlyingState.isAtDestination:
 
+                animator.SetBool(landed_hash, true);
                 if (!isSleeping)
                 {
                     timeToStayAtDestination -= Time.deltaTime;

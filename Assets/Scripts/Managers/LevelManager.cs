@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 using Klaxon.UndertakingSystem;
+using Klaxon.GOAP;
 
 public class LevelManager : MonoBehaviour
 {
@@ -225,6 +226,7 @@ public class LevelManager : MonoBehaviour
     {
         inPauseMenu = isPaused;
         RealTimeDayNightCycle.instance.isPaused = isPaused;
+        
         Time.timeScale = isPaused ? 0.0f : 1.0f;
         if (isPaused)
         {

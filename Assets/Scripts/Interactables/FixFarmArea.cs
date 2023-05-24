@@ -1,3 +1,4 @@
+using Klaxon.GOAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
@@ -9,12 +10,23 @@ public class FixFarmArea : MonoBehaviour, IFixArea
     public PlantingArea plantingArea;
     bool isFixing;
     public ParticleSystem fixingEffect;
+    public CompleteTaskObject undertakingObject;
+    public WorldState worldStateEffect;
+    public GOAP_World worldStateRunner;
 
-
-    public void Fix(List<FixableAreaIngredient> ingredients)
+    public bool Fix(List<FixableAreaIngredient> ingredients)
     {
+        if (undertakingObject.undertaking != null)
+        {
+            if (undertakingObject.undertaking.CurrentState != UndertakingState.Active)
+            {
+                NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
+                return false;
+            }
+        }
         if (!isFixing)
             StartCoroutine(FixCo(ingredients));
+        return true;
     }
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)
@@ -28,11 +40,14 @@ public class FixFarmArea : MonoBehaviour, IFixArea
         // fade out the mud for 3 secs
         //fade in the farm area for 3 secs
         // chill for a sec
-
+        yield return new WaitForSeconds(6);
 
         plantingArea.farmAreaActive = true;
         plantingArea.SetFarmAreaActive(true);
-        
+        if (undertakingObject.undertaking != null)
+            undertakingObject.undertaking.TryCompleteTask(undertakingObject.task);
+        if(worldStateEffect.key != "")
+            worldStateRunner.GetWorld().SetState(worldStateEffect.key, worldStateEffect.value);
 
         yield return null;
     }

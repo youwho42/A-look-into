@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925467eed57fc8140a9197b45f29743c, type: 3}
   m_Name: Consumable_AgencyBlob
   m_EditorClassIdentifier: 
-  Name: Agency
+  Name: Agency blob
   AnimationName: 
-  Description: Blue glowy Agency! You can consume this to gain agency, but not so
-    fast! You can also craft with it, what ever shall you do?
+  Description: Blue glowy Agency, in blob form! You can consume this to gain agency,
+    but not so fast! You can also craft with it, what ever shall you do?
   Weight: 1
   Price: 1
   spawnWeight: 1
@@ -26,10 +26,8 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   EquipedItemImage: {fileID: 0}
   MaxStack: 100
-  ResearchRecipes:
-  - recipe: {fileID: 11400000, guid: ddd3167853ec2324c8620783e1320d4b, type: 2}
-    RecipeRevealAmount: 5
-    AgencyReward: 50
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes: []
   GameDificulty: 0
   attributeModifiers:
   - attributeToModify: Agency

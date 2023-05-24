@@ -14,6 +14,7 @@ public class PlantingArea : MonoBehaviour
     public List<Vector3> plantUsedLocations = new List<Vector3>();
     public List<PlantLife> harvestablePlants = new List<PlantLife>();
     public QI_Inventory seedBox;
+    public Vector2 seedBoxPosition;
     public bool canPlant;
     public bool canHarvest;
     
@@ -210,8 +211,10 @@ public class PlantingArea : MonoBehaviour
 
     public void SetFarmAreaActive(bool isActive)
     {
-        interactable.canInteract = !isActive;
+        if(interactable != null)
+            interactable.canInteract = !isActive;
         farmAreaActive = isActive;
+        seedBox.gameObject.transform.localPosition = seedBoxPosition;
         seedBox.gameObject.SetActive(isActive);
         for (int i = 0; i < farmTilePositions.Count; i++)
         {

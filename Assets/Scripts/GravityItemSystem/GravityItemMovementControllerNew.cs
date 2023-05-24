@@ -34,6 +34,8 @@ namespace Klaxon.GravitySystem
         public bool onCliffEdge;
         WorldObjectAudioManager audioManager;
 
+        Vector3 lastValidPosition;
+
 
         private new IEnumerator Start()
         {
@@ -140,6 +142,13 @@ namespace Klaxon.GravitySystem
                 // right now, where we are, what it be? is it be a slope?
                 if (tile.direction == Vector3Int.zero)
                 {
+                    if (tile.isValid)
+                        lastValidPosition = transform.position;
+                    else
+                    {
+                        transform.position = lastValidPosition;
+                        return false;
+                    }
 
                     slopeDirection = Vector2.zero;
                     onSlope = tile.tileName.Contains("Slope");

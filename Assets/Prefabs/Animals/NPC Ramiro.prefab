@@ -10,8 +10,20 @@ PrefabInstance:
     - target: {fileID: 904669369267082285, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: undertakings.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 904669369267082285, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: undertakings.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: cc5e177e553df0244bdd7e5776f61de1,
+        type: 2}
+    - target: {fileID: 5521756122499102462, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: initialState
+      value: 
+      objectReference: {fileID: 11400000, guid: 57e6c2a1be8df6249b1a53c6a894a27c,
+        type: 2}
     - target: {fileID: 5803703054500945474, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: activityNode
@@ -71,6 +83,11 @@ PrefabInstance:
         type: 3}
       propertyPath: goToActivityTime.y
       value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902144603053421248, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: position.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
@@ -145,3 +162,186 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4fe40362a880974daaed81cc5c34893, type: 3}
+--- !u!95 &2536849546914809731 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6902144603035044640, guid: a4fe40362a880974daaed81cc5c34893,
+    type: 3}
+  m_PrefabInstance: {fileID: 9006606387525930147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2536849546930011742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6902144603053421309, guid: a4fe40362a880974daaed81cc5c34893,
+    type: 3}
+  m_PrefabInstance: {fileID: 9006606387525930147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129946580023328582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a38f549b61c25246aa03f40e289832e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Sleep
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  preConditions:
+  - key: IsHome
+    value: 0
+  afterEffects:
+  - key: IsSleep
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+--- !u!114 &1530566286197706654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ce9a913325b4c4093292d63e561115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Action
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  preConditions:
+  - key: IsDay
+    value: 0
+  - key: ManuelaFarmActive
+    value: 0
+  afterEffects:
+  - key: HasSeed
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+  seedDatabase: {fileID: 0}
+--- !u!114 &3095527603752073088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a38f549b61c25246aa03f40e289832e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Action
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  preConditions:
+  - key: TalkToPlayer
+    value: 0
+  afterEffects:
+  - key: IsTalking
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+--- !u!114 &5160620475746435480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d17c43a43aa6de42a84f6ce7a0478f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Action
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  preConditions:
+  - key: HasSeed
+    value: 0
+  afterEffects:
+  - key: StashSeeds
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+--- !u!114 &5587367898044040943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f1a65a80fc0af43acf833fdf8c912c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: []
+  world: {fileID: 0}
+  currentAction: {fileID: 0}
+  pausedAction: {fileID: 0}
+  wanderDistance: 2
+  agentInventory: {fileID: 0}
+  currentNavigationNodeType: 0
+  animator: {fileID: 2536849546914809731}
+  destinationReached: 0
+  goToHomeTime: {x: 1140, y: 480}
+--- !u!114 &7995329101174747679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09be9682bc49d2d4abb19ed03644435c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Action
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  preConditions:
+  - key: IsEvening
+    value: 0
+  - key: NotHome
+    value: 0
+  afterEffects:
+  - key: GoHome
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+--- !u!114 &5179436250572491353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a404f39f1db3f124ab3481f1fc46bd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Wander
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0.5, y: 5}
+  preConditions:
+  - key: IsDay
+    value: 0
+  afterEffects:
+  - key: IsWandering
+    value: 0
+  walker: {fileID: 0}
+  running: 0

@@ -5061,6 +5061,7 @@ MonoBehaviour:
   plantUsedLocations: []
   harvestablePlants: []
   seedBox: {fileID: 3622217664050995562}
+  seedBoxPosition: {x: 0, y: 0}
   canPlant: 0
   canHarvest: 0
   ballPersonPlanterActive: 0
@@ -5153,7 +5154,7 @@ MonoBehaviour:
   longInteractVerb: Required Items
   bounceCost: 0
   agencyReward: 0
-  agencyCost: 0
+  agencyCost: 200
   canInteract: 1
   hasLongInteract: 1
   ingredients:
@@ -5177,6 +5178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantingArea: {fileID: 4733545864449224222}
   fixingEffect: {fileID: 7873177947390756598}
+  undertakingObject:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}
 --- !u!1001 &3277021171780142232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -112,7 +112,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3255417526143633674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 428fcae573d55f64e861d25cd38cf5e6, type: 3}
   m_Name: 
@@ -120,3 +120,18 @@ MonoBehaviour:
   currentState: 0
   accessory: {fileID: 0}
   animator: {fileID: 3255417526116196749}
+--- !u!114 &2578628866436449093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3255417526143633674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c816778eac6407246a8800b09ea3d92a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialState: {fileID: 11400000, guid: da8e820e7a702f94fbb5f09290515fa1, type: 2}
+  currentState: {fileID: 0}
+  timer: 0

@@ -122,7 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   animator: {fileID: 3255417526116196749}
-  currentDestination: {x: 0, y: 0, z: 0}
   arms: {fileID: 439568221711172961}
   hasInteracted: 0
   currentObjectPosition: {x: 0, y: 0, z: 0}
@@ -153,11 +152,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
-  interactVerb: whaaAA???
+  interactVerb: Talk
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
   talkTask:
     undertaking: {fileID: 0}
     task: {fileID: 0}

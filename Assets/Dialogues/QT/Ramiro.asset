@@ -19,6 +19,12 @@ MonoBehaviour:
   - ID: 5
     Name: Fissures
     FirstMessage: 6
+  - ID: 17
+    Name: QuestInactive_Fix Manuela and Ramiro's farm
+    FirstMessage: 20
+  - ID: 18
+    Name: QuestActive_Fix Manuela and Ramiro's farm
+    FirstMessage: 22
   Speakers:
   - ID: 0
     Name: Ramiro
@@ -58,7 +64,7 @@ MonoBehaviour:
     SpeakerName: Ramiro
     PreviousMessage: 6
     NextMessage: 8
-    MessageText: I'm pretty sure some ancient civilizaion made the pilars and floors.
+    MessageText: I'm pretty sure some ancient civilization made the pilars and floors.
     Clip: {fileID: 0}
   - ID: 8
     Speaker: 0
@@ -67,5 +73,36 @@ MonoBehaviour:
     NextMessage: -1
     MessageText: I think the pillars can redirect the purple rain, then it would
       just be a matter of filling in the hole.
+    Clip: {fileID: 0}
+  - ID: 20
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: -1
+    NextMessage: 21
+    MessageText: We have this perfect spot for a little farm area beside the house.
+    Clip: {fileID: 0}
+  - ID: 21
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: 20
+    NextMessage: 23
+    MessageText: 'I''d love to fix it up for Manuela, she''s been collecting seeds
+      to plant there for a while. '
+    Clip: {fileID: 0}
+  - ID: 22
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: -1
+    NextMessage: -1
+    MessageText: Did you grab the seed box from inside yet? Manuela sure would like
+      to see it working.
+    Clip: {fileID: 0}
+  - ID: 23
+    Speaker: 0
+    SpeakerName: Ramiro
+    PreviousMessage: 21
+    NextMessage: -1
+    MessageText: I managed to craft a seed box thats in the house, you can use that
+      one to get the farm area set up.
     Clip: {fileID: 0}
   Choices: []

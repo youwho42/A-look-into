@@ -14,7 +14,7 @@ public class NavigationNode : MonoBehaviour
     public List<NavigationNode> children = new List<NavigationNode>();
     
     public NavigationNodeType nodeType;
-    public void AddNewChild()
+    public GameObject AddNewChild()
     {
         GameObject go = new GameObject("NavNode");
         var node = go.AddComponent<NavigationNode>();
@@ -22,6 +22,7 @@ public class NavigationNode : MonoBehaviour
         go.transform.position = transform.position;
         children.Add(node);
         node.children.Add(this);
+        return go;
     }
 
     public List<NavigationNode> FindPath(NavigationNode targetNode)

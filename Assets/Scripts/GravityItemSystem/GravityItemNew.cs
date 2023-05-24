@@ -257,7 +257,6 @@ namespace Klaxon.GravitySystem
         public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction)
         {
             // Check for a positive gameobject on the obstacle layer
-            //hit = Physics2D.OverlapPoint(checkPosition, obstacleLayer, transform.position.z, transform.position.z);
             hit = Physics2D.OverlapCircle(checkPosition, 0.01f, obstacleLayer, transform.position.z, transform.position.z);
             if (hit != null)
             {

@@ -161,6 +161,7 @@ public class BirdAI : MonoBehaviour, IAnimal
 
             case FlyingState.isAtDestination:
                 SetBoidsState(false);
+                animator.SetBool(landed_hash, true);
                 if (!isSleeping)
                 {
                     animator.SetBool(sleeping_hash, false);
@@ -240,6 +241,7 @@ public class BirdAI : MonoBehaviour, IAnimal
                 break;
 
             case FlyingState.isWalking:
+                animator.SetBool(walking_hash, true);
                 SetBoidsState(false);
                 gravityItem.isWeightless = false;
                 walk.Walk();

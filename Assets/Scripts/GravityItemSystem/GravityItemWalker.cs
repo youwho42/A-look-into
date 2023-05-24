@@ -44,9 +44,12 @@ namespace Klaxon.GravitySystem
         public bool hasDeviatePosition;
         
         Vector3 lastPosition;
+        Vector3 lastValidPosition;
+
         int framesStuck;
         public bool isStuck;
         public bool tilemapObstacle;
+        
 
         private new IEnumerator Start()
         {
@@ -54,20 +57,15 @@ namespace Klaxon.GravitySystem
 
             visibilityCheck = GetComponent<DetectVisibility>();
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
-            //playerInput = GetComponent<PlayerInputController>();
 
             yield return new WaitForSeconds(0.25f);
 
-            //GameEventManager.onJumpEvent.AddListener(Jump);
 
             isGrounded = true;
 
             
         }
-        private void OnDisable()
-        {
-            //GameEventManager.onJumpEvent.RemoveListener(Jump);
-        }
+        
 
 
 
@@ -92,6 +90,8 @@ namespace Klaxon.GravitySystem
             if (jumpAhead)
                 Jump();
 
+            if(currentDir == Vector2.zero)
+                isStuck = false;
         }
 
 
@@ -128,6 +128,7 @@ namespace Klaxon.GravitySystem
 
         bool CanReachNextTile(Vector2 direction)
         {
+            
             tilemapObstacle = false;
             jumpAhead = false;
             checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
@@ -156,7 +157,16 @@ namespace Klaxon.GravitySystem
                 // right now, where we are, what it be? is it be a slope?
                 if (tile.direction == Vector3Int.zero)
                 {
+                    if (tile.isValid)
+                        lastValidPosition = transform.position;
+                    else
+                    {
+                        transform.position = lastValidPosition;
+                        return false;
+                    }
+                        
 
+                    
                     slopeDirection = Vector2.zero;
                     onSlope = tile.tileName.Contains("Slope");
                     if (onSlope)
@@ -293,23 +303,30 @@ namespace Klaxon.GravitySystem
 
         public void FindDeviateDestination(int rays)
         {
+
             List<Vector2> directions = new List<Vector2>();
             float angleIncrement = 360f / rays;
-
             for (int i = 0; i < rays; i++)
             {
-                Vector2 direction = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDir;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 0.5f, obstacleLayer);
+                Vector2 dir = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDir;
+                
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 0.5f, obstacleLayer);
                 if (hit.collider == null)
                 {
-                    if (direction != currentDir)
+                    if (dir != currentDir)
                     {
-                        direction = direction.normalized;
-                        directions.Add(direction);
+                        dir = dir.normalized;
+                        directions.Add(dir);
                     }
                 }
             }
 
+            if(framesStuck >= 12)
+            {
+                Debug.Log("too many stuck frames");
+                currentDestination = (Vector2)transform.position + directions[directions.Count/2] * .3f;
+                return;
+            }
             float best = -1;
             int bestIndex = 0;
             int secondBestIndex = 0;
@@ -324,7 +341,7 @@ namespace Klaxon.GravitySystem
                 }
             }
             currentDestination = (Vector2)transform.position + directions[secondBestIndex] * .3f;
-            Debug.DrawLine(transform.position, currentDestination, Color.green);
+            SetDirection();
             hasDeviatePosition = true;
         }
 
@@ -332,14 +349,13 @@ namespace Klaxon.GravitySystem
         {
             if (lastPosition != transform.position)
             {
-                framesStuck = 0;
-                isStuck = false;
+                ResetLastPosition();
                 lastPosition = transform.position;
             }
             else
             {
                 framesStuck++;
-                if (framesStuck == 4)
+                if (framesStuck >= 4)
                     isStuck = true;
             }
         }

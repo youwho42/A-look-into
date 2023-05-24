@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static NPC_AI;
 
 public class BallPeopleSpecial : MonoBehaviour, IBallPerson
 {

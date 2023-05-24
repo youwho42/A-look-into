@@ -26,15 +26,15 @@ public class InteractableFixingArea : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-        bool ingr = CheckForIngredients();
+        bool hasIngredients = CheckForIngredients();
         bool cost = InteractCostReward();
        
-        if (ingr && cost)
+        if (hasIngredients && cost)
         {
             if (InteractBounceCost())
             {
-                GetComponent<IFixArea>().Fix(ingredients);
-                canInteract = false;
+                if(GetComponent<IFixArea>().Fix(ingredients))
+                    canInteract = false;
             }
                 
         }
@@ -43,10 +43,13 @@ public class InteractableFixingArea : Interactable
     {
         base.LongInteract(interactor);
         string ingredients = "";
+        if (agencyCost > 0)
+            ingredients += $"{agencyCost} - Agency\n";
         for (int i = 0; i < this.ingredients.Count; i++)
         {
             ingredients += $"{this.ingredients[i].amount} - {this.ingredients[i].item.Name}\n";
         }
+        
         BallPersonMessageDisplayUI.instance.ShowFixingAreaIngredients(this, interactVerb, ingredients);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         canInteract = false;

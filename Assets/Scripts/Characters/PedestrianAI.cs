@@ -72,6 +72,7 @@ namespace Klaxon.GravitySystem
             switch (currentState)
             {
                 case PedestrianState.isWalking:
+                    animator.SetBool(walking_hash, true);
                     walk.Walk();
 
 
@@ -110,7 +111,7 @@ namespace Klaxon.GravitySystem
 
 
                 case PedestrianState.isAtDestination:
-
+                    animator.SetBool(walking_hash, false);
                     idleTimer -= Time.deltaTime;
                     if (idleTimer <= 0)
                     {
@@ -149,6 +150,7 @@ namespace Klaxon.GravitySystem
                     break;
 
                 case PedestrianState.isGoingToClimbSpot:
+                    animator.SetBool(walking_hash, true);
                     walk.Walk();
                     if (Vector2.Distance(transform.position, walk.currentDestination) <= 0.01f)
                     {
@@ -183,7 +185,8 @@ namespace Klaxon.GravitySystem
 
                 case PedestrianState.isClimbing:
 
-
+                    animator.SetBool(climbing_hash, true);
+                    animator.SetBool(walking_hash, false);
                     walk.Walk();
                     if (Vector2.Distance(gravityItem.itemObject.localPosition, walk.currentDestinationZ) <= 0.01f)
                     {

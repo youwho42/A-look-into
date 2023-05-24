@@ -13,20 +13,21 @@ public class FixAndReplace : MonoBehaviour, IFixArea
 
     public CompleteTaskObject undertakingObject;
     
-    public void Fix(List<FixableAreaIngredient> ingredients)
+    public bool Fix(List<FixableAreaIngredient> ingredients)
     {
         if(undertakingObject.undertaking != null)
         {
             if (undertakingObject.undertaking.CurrentState != UndertakingState.Active)
             {
                 NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
-                return;
+                return false;
             }
         }
         
 
         if (!isFixing)
             StartCoroutine(FixCo(ingredients));
+        return true;
     }
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)

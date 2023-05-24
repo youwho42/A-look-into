@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IFixArea
 {
-    void Fix(List<FixableAreaIngredient> ingredients);
+    bool Fix(List<FixableAreaIngredient> ingredients);
 }

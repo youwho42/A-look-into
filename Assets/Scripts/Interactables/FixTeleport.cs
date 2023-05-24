@@ -8,11 +8,11 @@ public class FixTeleport : MonoBehaviour, IFixArea
     
     
 
-    public void Fix(List<FixableAreaIngredient> ingredients)
+    public bool Fix(List<FixableAreaIngredient> ingredients)
     {
         RemoveItemsFromInventory(ingredients);
         NameTeleport();
-        
+        return true;
     }
     void NameTeleport()
     {

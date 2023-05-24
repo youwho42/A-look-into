@@ -9,10 +9,11 @@ public class FixAndDestroy : MonoBehaviour, IFixArea
     public ParticleSystem fixingEffect;
     public SpriteRenderer fixableSprite;
     bool isFixing;
-    public void Fix(List<FixableAreaIngredient> ingredients)
+    public bool Fix(List<FixableAreaIngredient> ingredients)
     {
         if(!isFixing)
             StartCoroutine(FixCo(ingredients));
+        return true;
     }
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)

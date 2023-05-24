@@ -3,7 +3,6 @@ using Klaxon.GravitySystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static NPC_BasicAI;
 
 public class NPC_AI : MonoBehaviour
 {
