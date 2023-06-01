@@ -10,6 +10,7 @@ public class MenuDisplayUI : MonoBehaviour
     public Color selectedColor;
     public Color idleColor;
     public Button map, inventory, compendium, undertakings;
+    public TipPanelUI tipPanel;
 
     private void Start()
     {
@@ -82,7 +83,7 @@ public class MenuDisplayUI : MonoBehaviour
         else if(currentButtonIndex<0)
             currentButtonIndex = maxButtons - 1;
         currentButton = (MenuButtons)currentButtonIndex;
-
+        
         switch (currentButton)
         {
             case MenuButtons.Map:
@@ -102,6 +103,8 @@ public class MenuDisplayUI : MonoBehaviour
 
     public void SetMapUI()
     {
+        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
+        tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.MapScreen);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
@@ -116,6 +119,8 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetCompendiumUI()
     {
+        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
+        tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.CompendiumScreen);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
@@ -130,6 +135,8 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetInventoryUI()
     {
+        ChangeControlTextInventory(PlayerInformation.instance.playerInput.currentControlScheme);
+        tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.InventoryScreen);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
@@ -144,6 +151,8 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetUndertakingsUI()
     {
+        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
+        tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.Undertakings);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
@@ -158,6 +167,7 @@ public class MenuDisplayUI : MonoBehaviour
     }
     void HideAllMenuUI()
     {
+        
         if (!inMenu)
             return;
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
@@ -168,7 +178,7 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(compendium, false);
         SetButtonSelectedColor(undertakings, false);
         inMenu = false;
-        
+        tipPanel.gameObject.SetActive(false);
     }
 
     void SetButtonSelectedColor(Button butt, bool selected)
@@ -176,5 +186,49 @@ public class MenuDisplayUI : MonoBehaviour
         var ac = butt.colors;
         ac.normalColor = ac.selectedColor = ac.highlightedColor = selected ? selectedColor : idleColor;
         butt.colors = ac;
+    }
+
+    void ChangeControlTextInventory(string text)
+    {
+        string displayText = "";
+        string t1 = "";
+        string t2 = "";
+        string t3 = "";
+        if (text == "Gamepad")
+        {
+            t1 = "A";
+            t2 = "R2 + RS";
+            t3 = "B";
+        }
+        else
+        {
+            t1 = "LMB";
+            t2 = "RMB drag";
+            t3 = "Tab";
+        }
+
+        displayText = $"{t1} > equip / unequip / consume - {t2} > place item in world - {t3} > close";
+        tipPanel.SetTipPanel(displayText);
+
+    }
+    void ChangeControlText(string text)
+    {
+        string displayText = "";
+        string t1 = "";
+        
+        if (text == "Gamepad")
+        {
+            t1 = "B";
+            
+        }
+        else
+        {
+            t1 = "Tab";
+            
+        }
+
+        displayText = $"{t1} > close";
+        tipPanel.SetTipPanel(displayText);
+
     }
 }

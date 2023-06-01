@@ -29,6 +29,7 @@ namespace Klaxon.UndertakingSystem
         public int AgencyReward;
         public QI_ItemData ItemReward;
         public int ItemQuantity;
+        public QI_CraftingRecipe RecipeReward;
 
         public void ActivateUndertaking()
         {
@@ -86,6 +87,8 @@ namespace Klaxon.UndertakingSystem
                 player.playerStats.AddToStat("Agency", GumptionReward);
             if (ItemReward != null)
                 player.playerInventory.AddItem(ItemReward, ItemQuantity, false);
+            if(RecipeReward != null)
+                player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
 
             CurrentState = UndertakingState.Complete;
             NotificationManager.instance.SetNewNotification($"{Name} undertaking completed", NotificationManager.NotificationType.Undertaking);

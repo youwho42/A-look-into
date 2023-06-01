@@ -14,11 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Basic Movement
   AnimationName: 
-  Description: 'wasd/LS to move
+  Description: 'Do you need instructions as to how to move around and see your inventory?
 
-    space/A to jump
 
-    shift/LSB to run'
+    WASD/LS
+    to move
+
+    Space/A to jump
+
+    Shift/LSB to run
+
+    Tab/d-pad up to view
+    inventory
+
+    E/X to interact
+
+
+    This note is added to your compendium for
+    futur reference.'
   Weight: 0
   Price: 0
   spawnWeight: 1
@@ -29,5 +42,6 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   EquipedItemImage: {fileID: 0}
   MaxStack: 0
+  compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1

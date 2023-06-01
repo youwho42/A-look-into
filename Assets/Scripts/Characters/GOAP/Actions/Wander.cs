@@ -18,6 +18,8 @@ namespace Klaxon.GOAP
         {
             if (target == null)
                 target = NavigationNodesManager.instance.GetRandomNode(NavigationNodeType.Outside, transform.position, 5f);
+            
+                
 
 
             // Set the destination (currentAction.target) and direction here using currentAction.walker

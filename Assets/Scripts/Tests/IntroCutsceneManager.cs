@@ -18,7 +18,7 @@ public class IntroCutsceneManager : MonoBehaviour
     public QD_DialogueHandler handler;
     //public QI_ItemData messageItem;
 
-    public UndertakingObject messageUndertaking;
+    public QI_ItemData messageControls;
     bool ended;
     //bool canSkip;
     private void Start()
@@ -80,7 +80,7 @@ public class IntroCutsceneManager : MonoBehaviour
         
         GameEventManager.onUndertakingsUpdateEvent.Invoke();
         var pos = PlayerInformation.instance.player.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f),0);
-        BallPeopleManager.instance.SpawnMessenger(null, BallPeopleMessageType.Note, messageUndertaking, null, pos);
+        BallPeopleManager.instance.SpawnMessenger(messageControls, BallPeopleMessageType.Guide, null, null, pos);
     }
 
     void SetText()

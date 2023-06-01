@@ -58,7 +58,10 @@ public class InteractableNPCDialogue : Interactable
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         canvasDialogueDisplay.handler = handler;
-        
+        if (TalkQuest != null)
+            TalkQuest.task.undertaking.ActivateUndertaking();
+
+
         if (Undertakings != null)
         {
             // get all the active quests
@@ -107,9 +110,8 @@ public class InteractableNPCDialogue : Interactable
             canvasDialogueDisplay.handler.SetConversation(handler.dialogue.Conversations[conversationIndex].Name);
         }
         if (TalkQuest != null)
-        {
             TalkQuest.CompleteTask();
-        }
+
         canvasDialogueDisplay.SetInteractableNPC(this);
         canvasDialogueDisplay.SetText();
     }

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925467eed57fc8140a9197b45f29743c, type: 3}
+  m_Name: Consumable_Popcorn
+  m_EditorClassIdentifier: 
+  Name: Popcorn
+  AnimationName: 
+  Description: Popped corn. It's light and slightly salted, and it has great rhythm!
+    Adds bounce to your step.
+  Weight: 3
+  Price: 5
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 8f90d31d87fa61444bd5d69dc1416e11, type: 3}
+  ItemPrefab: {fileID: 1470096350422221036, guid: a8fbe14d957db5b478b6b90a0054d9e7,
+    type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
+  MaxStack: 0
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes: []
+  GameDificulty: 0
+  attributeModifiers:
+  - attributeToModify: Bounce
+    amount: 20
+  itemToBecome: {fileID: 11400000, guid: b886aba0eb71d4c4c88c8713361a1c6e, type: 2}

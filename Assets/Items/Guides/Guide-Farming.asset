@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: How to farm
   AnimationName: 
-  Description: To farm, you need to have a functional farming area that y
+  Description: To farm you need to have a functional farming area. If you put seeds
+    in the seed box those seeds will be planted by a <sprite anim="0,1,12">. When
+    the plants are fully grown another <sprite anim="0,1,12"> will harvest them and
+    put them in the seed box (but you can also harvest it and get a bit more per
+    plant). Only one type of crop can be planted in the same area at a time.
   Weight: 0
   Price: 0
   spawnWeight: 1

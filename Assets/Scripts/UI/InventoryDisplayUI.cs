@@ -20,13 +20,12 @@ public class InventoryDisplayUI : MonoBehaviour
     public List<InventoryDisplaySlot> inventorySlots = new List<InventoryDisplaySlot>();
     public List<ISlot> equipmentSlots = new List<ISlot>();
 
-    public TipPanelUI tipPanel;
+    
     private void Start()
     {
 
         GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateInventoryUI);
-        GameEventManager.onControlSchemeChangedEvent.AddListener(ChangeControlText);
         
 
         SetInventoryUI();
@@ -35,14 +34,12 @@ public class InventoryDisplayUI : MonoBehaviour
     }
     private void OnDisable()
     {
-
+        
         GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
-        GameEventManager.onControlSchemeChangedEvent.RemoveListener(ChangeControlText);
     }
     void SetInventoryUI()
     {
-        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
         for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
         {
 
@@ -74,26 +71,7 @@ public class InventoryDisplayUI : MonoBehaviour
     
     
 
-    void ChangeControlText(string text)
-    {
-        string displayText = "";
-        string t1 = "";
-        string t2 = "";
-        if(text == "Gamepad")
-        {
-            t1 = "A";
-            t2 = "R2 + RS";
-        }
-        else
-        {
-            t1 = "LMB";
-            t2 = "RMB drag";
-        }
-        
-        displayText = $"{t1} > equip / unequip / consume - {t2} > place item in world";
-        tipPanel.SetTipPanel(displayText);
-        
-    }
+    
     public void UpdateInventoryUI()
     {
         playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";

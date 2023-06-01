@@ -4986,7 +4986,6 @@ GameObject:
   - component: {fileID: 4733545864449224222}
   - component: {fileID: 2806004460077754738}
   - component: {fileID: 4120224619159457388}
-  - component: {fileID: 5318726987835132660}
   - component: {fileID: 4136002447857452800}
   - component: {fileID: 7243864101600525040}
   - component: {fileID: 8506963886088785840}
@@ -5098,18 +5097,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 5b1e4abab9816bf47a978d9d58f16f40, type: 2}
---- !u!114 &5318726987835132660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4733545864449224209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4136002447857452800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5181,6 +5168,10 @@ MonoBehaviour:
   undertakingObject:
     undertaking: {fileID: 0}
     task: {fileID: 0}
+  worldStateEffect:
+    key: 
+    value: 0
+  worldStateRunner: {fileID: 0}
 --- !u!1001 &3277021171780142232
 PrefabInstance:
   m_ObjectHideFlags: 0

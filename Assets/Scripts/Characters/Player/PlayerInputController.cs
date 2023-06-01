@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -56,6 +57,8 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Start()
     {
+        if(!EditorApplication.isPlaying)
+            Cursor.lockState = CursorLockMode.Confined;
         interactable = GetComponent<InteractWithInteractable>();
     }
 
@@ -206,17 +209,25 @@ public class PlayerInputController : MonoBehaviour
         //var stick = rightStickPos;
         if(Gamepad.current != null)
         {
-            var stick = Gamepad.current.rightStick.ReadValue();
-            rightStickPos = stick;
-            if (stick != Vector2.zero)
+            if(playerInput.currentControlScheme == "Gamepad")
             {
-                Vector2 currentPosition = Mouse.current.position.ReadValue();
-                for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
-                {
-                    currentPosition += stick * 15 * Time.unscaledDeltaTime;
-                }
-                Mouse.current.WarpCursorPosition(currentPosition);
+                Cursor.visible = false;
             }
+            else
+            {
+                Cursor.visible = true;
+            }
+            //var stick = Gamepad.current.rightStick.ReadValue();
+            //rightStickPos = stick;
+            //if (stick != Vector2.zero)
+            //{
+            //    Vector2 currentPosition = Mouse.current.position.ReadValue();
+            //    for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+            //    {
+            //        currentPosition += stick * 15 * Time.unscaledDeltaTime;
+            //    }
+            //    Mouse.current.WarpCursorPosition(currentPosition);
+            //}
         }
         
         

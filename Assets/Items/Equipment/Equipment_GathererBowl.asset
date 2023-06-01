@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
   m_Name: Equipment_GathererBowl
   m_EditorClassIdentifier: 
-  Name: Empty Water Bowl
+  Name: Clay Bowl
   AnimationName: Bowl
-  Description: An empty water bowl
+  Description: An empty bowl
   Weight: 1
   Price: 2
   spawnWeight: 1
@@ -23,9 +23,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
   MaxStack: 10
+  compendiumGuide: {fileID: 0}
   ResearchRecipes: []
-  RevealAgencyAmount: 0
   GameDificulty: 0
   equipmentSlot: 0
   gatherItemData:

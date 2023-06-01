@@ -10,7 +10,7 @@ public class CharacterChoiceUI : MonoBehaviour
 {
     public SpriteResolver chooseSpriteResolver;
     //public SpriteResolver playerSpriteResolver;
-    public PlayerCharacterManager playerCharacters;
+    
     
     int index = 0;
 
@@ -21,8 +21,8 @@ public class CharacterChoiceUI : MonoBehaviour
     void Start()
     {
 
-        spriteName = playerCharacters.baseCharacters[0];
-        chooseSpriteResolver.SetCategoryAndLabel("Player", playerCharacters.baseCharacters[0]);
+        spriteName = PlayerInformation.instance.characterManager.baseCharacters[0];
+        chooseSpriteResolver.SetCategoryAndLabel("Player", PlayerInformation.instance.characterManager.baseCharacters[0]);
         //Changes the character limit in the main input field.
         playerNameInputField.characterLimit = 12;
         CheckPlayerNameValid();
@@ -34,11 +34,11 @@ public class CharacterChoiceUI : MonoBehaviour
         
         index += dir;
         if (index < 0)
-            index = playerCharacters.aquiredCharacters.Count - 1;
-        else if(index >=playerCharacters.aquiredCharacters.Count)
+            index = PlayerInformation.instance.characterManager.aquiredCharacters.Count - 1;
+        else if(index >= PlayerInformation.instance.characterManager.aquiredCharacters.Count)
             index = 0;
         //index = Mathf.Clamp(index, 0, playerCharacters.aquiredCharacters.Count - 1);
-        spriteName = playerCharacters.aquiredCharacters[index];
+        spriteName = PlayerInformation.instance.characterManager.aquiredCharacters[index];
         chooseSpriteResolver.SetCategoryAndLabel("Player", spriteName);
     }
 

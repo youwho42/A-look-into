@@ -323,7 +323,7 @@ namespace Klaxon.GravitySystem
 
             if(framesStuck >= 12)
             {
-                Debug.Log("too many stuck frames");
+                Debug.Log("too many stuck frames", this);
                 currentDestination = (Vector2)transform.position + directions[directions.Count/2] * .3f;
                 return;
             }

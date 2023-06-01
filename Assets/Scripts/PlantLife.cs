@@ -43,10 +43,13 @@ public class PlantLife : MonoBehaviour
         interactablePlant = GetComponent<InteractableFarmPlant>();
         interactablePlant.canInteract = false;
         Material m = mainSprite.material;
-        Material sm = shadowSprite.material;
+        Material sm = null;
+        if (shadowSprite != null)
+            sm = shadowSprite.material;
         float r = UnityEngine.Random.Range(-.5f, .5f);
         m.SetFloat("_WindDensity", plantSwayAmount + r);
-        sm.SetFloat("_WindDensity", plantSwayAmount + r);
+        if(sm!=null)
+            sm.SetFloat("_WindDensity", plantSwayAmount + r);
         
     }
 
@@ -84,9 +87,13 @@ public class PlantLife : MonoBehaviour
         bool flip = UnityEngine.Random.Range(0.0f, 1.0f) > .5f ? true : false;
         mainSprite.sprite = plantCycles[currentCycle].plantSprites[rand];
         mainSprite.flipX = flip;
-        shadowSprite.flipX = flip;
-        if(currentCycle > 0)
-            shadowSprite.sprite = plantCycles[currentCycle].plantSprites[rand];
+        if(shadowSprite != null)
+        {
+            shadowSprite.flipX = flip;
+            if (currentCycle > 0)
+                shadowSprite.sprite = plantCycles[currentCycle].plantSprites[rand];
+        }
+        
         if(currentCycle == plantCycles.Count - 1)
         {
             interactablePlant.canInteract = true;

@@ -53,7 +53,7 @@ namespace Klaxon.GravitySystem
         public bool getOnSlope;
         [HideInInspector]
         public bool getOffSlope;
-        [HideInInspector]
+        //[HideInInspector]
         public bool onSlope;
         [HideInInspector]
         public float slopeDisplacement;
@@ -186,10 +186,10 @@ namespace Klaxon.GravitySystem
 
         public void HandleSlopes()
         {
-
+            
             slopeCheckPosition = (Vector2)transform.position - (slopeDirection * 0.6f);
-            RaycastHit2D hitA = Physics2D.Raycast(slopeCheckPosition, slopeDirection, 0.6f, groundLayer);
-
+            var hitA = Physics2D.Raycast(slopeCheckPosition, slopeDirection, 0.6f, groundLayer);
+            
             if (hitA.collider != null)
             {
                 slopeCollisionPoint = hitA.point;
