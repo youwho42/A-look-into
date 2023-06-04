@@ -8,18 +8,18 @@ using UnityEngine;
 public class Manuela_Agent : GOAP_Agent
 {
     public Vector2Int goToHomeTime;
-
+    
     protected override void Start()
     {
         base.Start();
-        Goal g1 = new Goal("StashSeeds", 1, false);
+        GOAP_Goal g1 = new GOAP_Goal("StashSeeds", 1, false);
         goals.Add(g1, 3);
-        Goal g2 = new Goal("IsSleep", 1, false);
+        GOAP_Goal g2 = new GOAP_Goal("IsSleep", 1, false);
         goals.Add(g2, 3);
-        Goal g3 = new Goal("IsWandering", 1, false);
+        GOAP_Goal g3 = new GOAP_Goal("IsWandering", 1, false);
         goals.Add(g3, 1);
 
-        Goal g4 = new Goal("IsTalking", 1, false);
+        GOAP_Goal g4 = new GOAP_Goal("IsTalking", 1, false);
         goals.Add(g4, 10);
         GameEventManager.onTimeTickEvent.AddListener(SetStateOnTime);
         beliefs.SetState("NotHome", 0);

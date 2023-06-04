@@ -40,7 +40,8 @@ public class WindSpawner : MonoBehaviour
 
     void StartWindOnTick(int tick)
     {
-        if(tick == nextWindTick)
+        
+        if (tick == nextWindTick)
         {
             SpawnObject();
             nextWindTick = GetNextWindTick(tick);
@@ -58,6 +59,7 @@ public class WindSpawner : MonoBehaviour
 
     private void SpawnObject()
     {
+
         GameObject go = pool.GetPooledObject();
 
         if(go != null)

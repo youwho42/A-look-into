@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using QuantumTek.QuantumInventory;
+using System;
 
 namespace Klaxon.GOAP
 {
-	public class Goal
+	
+	public class GOAP_Goal
 	{
 		public Dictionary<string, int> goals;
 		public bool remove;
 
-		public Goal(string s, int i, bool r)
+        
+        public GOAP_Goal(string s, int i, bool r)
 		{
 			goals = new Dictionary<string, int>();
 			goals.Add(s, i);
@@ -22,7 +25,7 @@ namespace Klaxon.GOAP
 	{
 
 		public List<GOAP_Action> actions = new List<GOAP_Action>();
-		public Dictionary<Goal, int> goals = new Dictionary<Goal, int>();
+		public Dictionary<GOAP_Goal, int> goals = new Dictionary<GOAP_Goal, int>();
 		public GOAP_WorldStates beliefs = new GOAP_WorldStates();
 		public GOAP_World world;
 
@@ -32,7 +35,7 @@ namespace Klaxon.GOAP
 		Queue<GOAP_Action> pausedActionQueue;
 		public GOAP_Action currentAction;
 		public GOAP_Action pausedAction;
-		Goal currentGoal;
+		GOAP_Goal currentGoal;
 		bool invoked = false;
 		public float wanderDistance;
 

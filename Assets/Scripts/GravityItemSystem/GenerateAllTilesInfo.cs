@@ -112,6 +112,7 @@ public class GenerateAllTilesInfo : MonoBehaviour
 
                     if (tile != null) // if tile exists here
                     {
+                        // 
                         
                         tileName = tileSprite.name;
                         if (x == 0 && y == 0) //this is where we are
@@ -146,19 +147,19 @@ public class GenerateAllTilesInfo : MonoBehaviour
 
                     Vector3Int dir = new Vector3Int(x, y, 0);
 
-                    var thing = allDirectionsValues.Find(item => item.direction == dir);
-                    if (thing != null)
+                    var thisNeighbor = allDirectionsValues.Find(item => item.direction == dir);
+                    if (thisNeighbor != null)
                     {
-                        if (!thing.isValid)
+                        if (!thisNeighbor.isValid)
                         {
 
-                            if (z < 0)
+                            if (z < 0 || z > 2)
                             {
-                                if (valid || thing.tileName == "Empty")
+                                if (valid || thisNeighbor.tileName == "Empty")
                                 {
-                                    allDirectionsValues.Find(item => item.direction == dir).isValid = valid;
-                                    allDirectionsValues.Find(item => item.direction == dir).levelZ = z;
-                                    allDirectionsValues.Find(item => item.direction == dir).tileName = tileName;
+                                    thisNeighbor.isValid = valid;
+                                    thisNeighbor.levelZ = z;
+                                    thisNeighbor.tileName = tileName;
                                 }
                                     
                             }
@@ -172,9 +173,9 @@ public class GenerateAllTilesInfo : MonoBehaviour
                         {
                             if (z < 0)
                                 continue;
-                            allDirectionsValues.Find(item => item.direction == dir).isValid = valid;
-                            allDirectionsValues.Find(item => item.direction == dir).levelZ = z;
-                            allDirectionsValues.Find(item => item.direction == dir).tileName = tileName;
+                            thisNeighbor.isValid = valid;
+                            thisNeighbor.levelZ = z;
+                            thisNeighbor.tileName = tileName;
                         }
 
                     }

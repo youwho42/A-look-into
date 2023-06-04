@@ -333,7 +333,7 @@ namespace Klaxon.GravitySystem
                         Gizmos.color = item.isValid ? Color.green : Color.red;
 
                         var p = item.direction + currentTilePosition.position;
-
+                        p.z += item.levelZ;
                         Gizmos.DrawWireSphere(GetTileWorldPosition(p), 0.1f);
                     }
                     Gizmos.color = Color.white;

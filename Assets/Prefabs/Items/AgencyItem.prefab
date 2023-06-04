@@ -120,8 +120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGlow: 0
   maxGlow: 0
-  bloomMinIntensity: 0.5
-  bloomMaxIntensity: 6
+  bloomMinIntensity: 2
+  bloomMaxIntensity: 10
   useAlpha: 0
   useIntensity: 1
 --- !u!1 &4512748395779608293
@@ -229,8 +229,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Pick up
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
   pickupQuantity: 1

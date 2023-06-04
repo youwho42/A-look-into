@@ -16,8 +16,12 @@ public class InteractableAgencyStatue : Interactable
     public float fullIntensity;
     public float offIntensity;
     public bool hasBeenActivated;
-
-    
+    ParticlesToPlayer particles;
+    AudioSource source;
+    public SoundSet activateSound;
+    public SoundSet aquireSound;
+    float mainVolume;
+    DrawZasYDisplacement agencySpawnDisplacement;
     public override void Start()
     {
         base.Start();
@@ -28,7 +32,9 @@ public class InteractableAgencyStatue : Interactable
             material.SetColor("_EmissionColor", initialColor * factor);
             
         }
-        
+        source = GetComponent<AudioSource>();
+        particles = GetComponent<ParticlesToPlayer>();
+        agencySpawnDisplacement = GetComponent<DrawZasYDisplacement>();
         GameEventManager.onTimeHourEvent.AddListener(ResetStatue);
     }
     public void OnDisable()
@@ -67,7 +73,7 @@ public class InteractableAgencyStatue : Interactable
         canInteract = false;
         hasBeenActivated = true;
 
-        
+        PlaySound(activateSound);
         float elapsedTime = 0;
         float waitTime = 1.5f;
         while (elapsedTime < waitTime)
@@ -78,7 +84,8 @@ public class InteractableAgencyStatue : Interactable
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        
+        PlaySound(aquireSound);
+        particles.SpawnParticles(agencyAmount, agencySpawnDisplacement);
         yield return new WaitForSeconds(0.5f);
 
         
@@ -95,6 +102,7 @@ public class InteractableAgencyStatue : Interactable
         yield return null;
         elapsedTime = 0;
         waitTime = 0.5f;
+        
         while (elapsedTime < waitTime)
         {
             float c = Mathf.Lerp(0, Mathf.Abs(offIntensity), (elapsedTime / waitTime));
@@ -129,5 +137,18 @@ public class InteractableAgencyStatue : Interactable
         material.SetColor("_EmissionColor", initialColor * factor);
     }
 
+    void PlaySound(SoundSet set)
+    {
 
+        int t = Random.Range(0, set.clips.Length);
+        set.SetSource(source, t);
+        mainVolume = set.volume;
+        ChangeVolume();
+        set.Play(AudioTrack.Effects);
+
+    }
+    void ChangeVolume()
+    {
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
+    }
 }

@@ -15,12 +15,12 @@ public class InteractableFixingArea : Interactable
 {
 
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
-    
+    FixingSounds fixSound;
 
     public override void Start()
     {
         base.Start();
-
+        fixSound = GetComponentInChildren<FixingSounds>();
     }
 
     public override void Interact(GameObject interactor)
@@ -33,8 +33,12 @@ public class InteractableFixingArea : Interactable
         {
             if (InteractBounceCost())
             {
-                if(GetComponent<IFixArea>().Fix(ingredients))
+                if (GetComponent<IFixArea>().Fix(ingredients))
+                {
+                    fixSound.StartSounds();
                     canInteract = false;
+                }
+                    
             }
                 
         }

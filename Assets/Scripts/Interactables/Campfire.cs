@@ -11,11 +11,24 @@ public class Campfire : Interactable
     public Light2D lightFlicker;
     public FireFlicker fireFlicker;
     bool isLit;
-
+    public SoundSet sound;
+    AudioSource source;
+    float mainVolume;
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
+    }
     public override void Start()
     {
         base.Start();
         SetFire("light", false);
+        
+        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
+
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
     }
     public override void Interact(GameObject interactor)
     {
@@ -52,8 +65,28 @@ public class Campfire : Interactable
         fireFlicker.canFlicker = active;
         interactVerb = _interactVerb;
         fireFlicker.StartLightFlicker(active);
-        
+        if (active)
+            PlaySound();
+        else
+            StopSound();
+    }
+    void PlaySound()
+    {
+        sound.SetSource(source, 0);
+        mainVolume = sound.volume;
+        ChangeVolume();
+        sound.Play(AudioTrack.Effects);
+    }
+    void StopSound()
+    {
+        sound.SetSource(source, 0);
+        sound.Stop();
     }
 
-    
+    void ChangeVolume()
+    {
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
+    }
+
+
 }
