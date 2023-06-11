@@ -85,19 +85,19 @@ namespace Klaxon.GravitySystem {
             Vector3 checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
             Vector3 doubleCheckPosition = transform.position - Vector3.forward;
 
-            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
-            {
-                mainDirection *= -1;
-                AddMovement(mainDirection,  velocity * itemBounceFriction);
-                return false;
-            }
             
 
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
             Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
-        
 
-        
+            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey))
+            {
+                mainDirection *= -1;
+                AddMovement(mainDirection, velocity * itemBounceFriction);
+                return false;
+            }
+
+
 
             int level = 0;
             List<TileDirectionInfo> tileBlock;

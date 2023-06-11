@@ -118,29 +118,29 @@ namespace Klaxon.GravitySystem
             jumpAhead = false;
         }
 
-        void TileFound(List<TileDirectionInfo> tileBlock, bool success)
-        {
-            if (success)
-                tileBlockInfo = tileBlock;
-            else
-                Debug.LogError("Tile not found in tile dictionary!");
-        }
+        //void TileFound(List<TileDirectionInfo> tileBlock, bool success)
+        //{
+        //    if (success)
+        //        tileBlockInfo = tileBlock;
+        //    else
+        //        Debug.LogError("Tile not found in tile dictionary!");
+        //}
 
         bool CanReachNextTile(Vector2 direction)
         {
             
             tilemapObstacle = false;
             jumpAhead = false;
-            checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
-            doubleCheckPosition = transform.position - Vector3.forward;
-            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
-                return false;
+            checkPosition = (_transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
+            doubleCheckPosition = _transform.position - Vector3.forward;
+            
 
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
 
             Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
             //onCliffEdge = false;
-
+            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey))
+                return false;
 
             int level = 0;
 
@@ -158,10 +158,10 @@ namespace Klaxon.GravitySystem
                 if (tile.direction == Vector3Int.zero)
                 {
                     if (tile.isValid)
-                        lastValidPosition = transform.position;
+                        lastValidPosition = _transform.position;
                     else
                     {
-                        transform.position = lastValidPosition;
+                        _transform.position = lastValidPosition;
                         return false;
                     }
                         
@@ -295,7 +295,7 @@ namespace Klaxon.GravitySystem
 
         public void SetDirection()
         {
-            var dir = currentDestination - (Vector2)transform.position;
+            var dir = currentDestination - (Vector2)_transform.position;
             dir = dir.normalized;
             currentDir = dir;
         }
@@ -310,7 +310,7 @@ namespace Klaxon.GravitySystem
             {
                 Vector2 dir = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDir;
                 
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 0.5f, obstacleLayer);
+                RaycastHit2D hit = Physics2D.Raycast(_transform.position, dir, 0.5f, obstacleLayer);
                 if (hit.collider == null)
                 {
                     if (dir != currentDir)
@@ -320,11 +320,18 @@ namespace Klaxon.GravitySystem
                     }
                 }
             }
+            if (directions.Count == 0)
+            {
+                currentDestination = (Vector2)_transform.position - currentDir;
+                return;
+            }
 
-            if(framesStuck >= 12)
+            if (framesStuck >= 12)
             {
                 Debug.Log("too many stuck frames", this);
-                currentDestination = (Vector2)transform.position + directions[directions.Count/2] * .3f;
+                jumpAhead = true;
+                currentDestination = (Vector2)_transform.position + currentDir;
+                hasDeviatePosition = true;
                 return;
             }
             float best = -1;
@@ -340,17 +347,18 @@ namespace Klaxon.GravitySystem
                     bestIndex = i;
                 }
             }
-            currentDestination = (Vector2)transform.position + directions[secondBestIndex] * .3f;
+            
+            currentDestination = (Vector2)_transform.position + directions[secondBestIndex] * .3f;
             SetDirection();
             hasDeviatePosition = true;
         }
 
         public void SetLastPosition()
         {
-            if (lastPosition != transform.position)
+            if (lastPosition != _transform.position)
             {
                 ResetLastPosition();
-                lastPosition = transform.position;
+                lastPosition = _transform.position;
             }
             else
             {
@@ -368,7 +376,7 @@ namespace Klaxon.GravitySystem
 
         public float CheckDistanceToDestination()
         {
-            float dist = Vector2.Distance(transform.position, currentDestination);
+            float dist = Vector2.Distance(_transform.position, currentDestination);
 
             return dist;
         }
@@ -394,7 +402,7 @@ namespace Klaxon.GravitySystem
         {
             var dir = Mathf.Sign(direction.x);
             
-            if (transform.localScale.x != dir)
+            if (_transform.localScale.x != dir)
             {
                 Flip();
             }
@@ -407,9 +415,9 @@ namespace Klaxon.GravitySystem
             facingRight = !facingRight;
 
             // Multiply the player's x local scale by -1
-            Vector3 theScale = transform.localScale;
+            Vector3 theScale = _transform.localScale;
             theScale.x *= -1;
-            transform.localScale = theScale;
+            _transform.localScale = theScale;
         }
 
 
@@ -426,14 +434,14 @@ namespace Klaxon.GravitySystem
         {
 
             Vector2 rand = (UnityEngine.Random.insideUnitCircle * roamingDistance);
-            var d = currentTilePosition.groundMap.WorldToCell(new Vector2(transform.position.x + rand.x, transform.position.y + rand.y));
+            var d = currentTilePosition.groundMap.WorldToCell(new Vector2(_transform.position.x + rand.x, _transform.position.y + rand.y));
             for (int z = currentTilePosition.groundMap.cellBounds.zMax; z > currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
             {
                 d.z = z;
                 if (currentTilePosition.groundMap.GetTile(d) != null)
                 {
 
-                    currentDestination = currentTilePosition.groundMap.GetCellCenterWorld(d);
+                    currentDestination = GetTileWorldPosition(d);
                     currentDestination += new Vector2(UnityEngine.Random.Range(0f, .3f), UnityEngine.Random.Range(0f, .3f));
                     break;
                 }

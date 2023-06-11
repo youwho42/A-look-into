@@ -104,28 +104,29 @@ namespace Klaxon.GravitySystem
                 Bounce(jumpHeight);
         }
 
-        void TileFound(List<TileDirectionInfo> tileBlock, bool success)
-        {
-            if (success)
-                tileBlockInfo = tileBlock;
-            else
-                Debug.LogError("Tile not found in tile dictionary!");
-        }
+        //void TileFound(List<TileDirectionInfo> tileBlock, bool success)
+        //{
+        //    if (success)
+        //        tileBlockInfo = tileBlock;
+        //    else
+        //        Debug.LogError("Tile not found in tile dictionary!");
+        //}
 
         bool CanReachNextTile(Vector2 direction)
         {
-
-
-            checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
-            doubleCheckPosition = transform.position - Vector3.forward;
-            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
-                return false;
             
+
+            checkPosition = (_transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
+            doubleCheckPosition = _transform.position - Vector3.forward;
+            
+
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
 
             Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
             onCliffEdge = false;
 
+            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey))
+                return false;
 
             int level = 0;
 
@@ -143,10 +144,10 @@ namespace Klaxon.GravitySystem
                 if (tile.direction == Vector3Int.zero)
                 {
                     if (tile.isValid)
-                        lastValidPosition = transform.position;
+                        lastValidPosition = _transform.position;
                     else
                     {
-                        transform.position = lastValidPosition;
+                        _transform.position = lastValidPosition;
                         return false;
                     }
 
@@ -267,6 +268,8 @@ namespace Klaxon.GravitySystem
                 }
             }
 
+            
+
             //currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
             ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
 
@@ -301,7 +304,7 @@ namespace Klaxon.GravitySystem
             // Multiply the player's x local scale by -1
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
-            transform.localScale = theScale;
+            _transform.localScale = theScale;
         }
 
 

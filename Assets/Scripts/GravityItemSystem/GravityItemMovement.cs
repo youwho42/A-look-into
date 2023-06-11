@@ -91,14 +91,14 @@ namespace Klaxon.GravitySystem
 
             checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
             doubleCheckPosition = transform.position - Vector3.forward;
-            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction))
-                return false;
+            
 
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
 
             Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
             onCliffEdge = false;
-
+            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey))
+                return false;
 
             int level = 0;
 

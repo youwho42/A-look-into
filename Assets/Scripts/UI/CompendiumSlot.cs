@@ -11,13 +11,14 @@ public class CompendiumSlot : MonoBehaviour
     public Image icon;
     public QI_CraftingRecipe itemRecipe;
     public List<QI_ItemData.RecipeRevealObject> recipeReveals = new List<QI_ItemData.RecipeRevealObject>();
-
+    public TextMeshProUGUI itemName;
     public void AddItem(QI_ItemData newItem, QI_CraftingRecipe newRecipe = null)
     {
         item = newItem;
         icon.sprite = item.Icon;
         icon.enabled = true;
         itemRecipe = newRecipe;
+        itemName.text = newItem.Name;
     }
     public void AddRecipeReveal(List<QI_ItemData.RecipeRevealObject> revealObject)
     {

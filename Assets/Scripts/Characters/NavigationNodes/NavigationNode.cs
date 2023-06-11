@@ -8,12 +8,18 @@ public enum NavigationNodeType
     Outside,
     Inside
 }
+public enum NavigationPathType
+{
+    BluValley,
+    Town
+}
 public class NavigationNode : MonoBehaviour
 {
     
     public List<NavigationNode> children = new List<NavigationNode>();
     
     public NavigationNodeType nodeType;
+    public NavigationPathType pathType;
     public GameObject AddNewChild()
     {
         GameObject go = new GameObject("NavNode");
@@ -22,6 +28,7 @@ public class NavigationNode : MonoBehaviour
         go.transform.position = transform.position;
         children.Add(node);
         node.children.Add(this);
+        node.pathType = pathType;
         return go;
     }
 

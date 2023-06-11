@@ -1,8 +1,6 @@
-using System.Collections;
+using Klaxon.GOAP;
 using System.Collections.Generic;
-using System.EnterpriseServices.Internal;
 using System.Linq;
-using System.Web.UI.WebControls;
 using UnityEngine;
 
 public class PlayerDistanceToggle : MonoBehaviour
@@ -19,6 +17,7 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     float maxDistance = 5;
     public List<GameObject> animals;
+    public List<GOAP_Agent> agents;
 
     private void Start()
     {
@@ -34,6 +33,12 @@ public class PlayerDistanceToggle : MonoBehaviour
         {
             animals.Add((animalComponent as MonoBehaviour).gameObject);
         }
+        agents.Clear();
+        var b = FindObjectsOfType<GOAP_Agent>().ToList();
+        foreach (var agent in b)
+        {
+            agents.Add(agent);
+        }
     }
 
     private void CheckPlayerDistance()
@@ -44,6 +49,16 @@ public class PlayerDistanceToggle : MonoBehaviour
             foreach (var animal in animals)
             {
                 animal.SetActive(GetPlayerDistance(animal, playerPosition) <= maxDistance);
+            }
+        }
+        if (agents.Count > 0)
+        {
+            var playerPosition = PlayerInformation.instance.player.position;
+            foreach (var agent in agents)
+            {
+                bool state = GetPlayerDistance(agent.gameObject, playerPosition) <= 3.5f;
+                agent.animator.enabled = state;
+                agent.offScreen = !state;
             }
         }
     }

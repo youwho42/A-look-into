@@ -57,7 +57,11 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Start()
     {
-        if(!EditorApplication.isPlaying)
+        bool lockCursor = true;
+#if UNITY_EDITOR
+        lockCursor = false;
+#endif
+        if (lockCursor)
             Cursor.lockState = CursorLockMode.Confined;
         interactable = GetComponent<InteractWithInteractable>();
     }
@@ -209,29 +213,24 @@ public class PlayerInputController : MonoBehaviour
         //var stick = rightStickPos;
         if(Gamepad.current != null)
         {
-            if(playerInput.currentControlScheme == "Gamepad")
+            
+            Cursor.visible = playerInput.currentControlScheme == "Gamepad" ? false : true;
+           
+            var stick = Gamepad.current.rightStick.ReadValue();
+            rightStickPos = stick;
+            if (stick != Vector2.zero)
             {
-                Cursor.visible = false;
+                Vector2 currentPosition = Mouse.current.position.ReadValue();
+                for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
+                {
+                    currentPosition += stick * 15 * Time.unscaledDeltaTime;
+                }
+                Mouse.current.WarpCursorPosition(currentPosition);
             }
-            else
-            {
-                Cursor.visible = true;
-            }
-            //var stick = Gamepad.current.rightStick.ReadValue();
-            //rightStickPos = stick;
-            //if (stick != Vector2.zero)
-            //{
-            //    Vector2 currentPosition = Mouse.current.position.ReadValue();
-            //    for (var passedTime = 0f; passedTime < 1; passedTime += Time.unscaledDeltaTime)
-            //    {
-            //        currentPosition += stick * 15 * Time.unscaledDeltaTime;
-            //    }
-            //    Mouse.current.WarpCursorPosition(currentPosition);
-            //}
         }
-        
-        
-        
+
+
+
 
 
         if (currentControlScheme != playerInput.currentControlScheme)

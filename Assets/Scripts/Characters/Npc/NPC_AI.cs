@@ -202,7 +202,7 @@ public class NPC_AI : MonoBehaviour
                 {
                     path.Clear();
                     currentPathIndex = 0;
-                    currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, currentNavigationNodeType);
+                    currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, currentNavigationNodeType, NavigationPathType.BluValley);
                     path = currentNode.FindPath(finalNavigationNode);
                 }
                 animator.SetFloat(velocityX_hash, 1);

@@ -9,7 +9,7 @@ namespace Klaxon.GOAP
         List<NavigationNode> path = new List<NavigationNode>();
         int currentPathIndex;
         NavigationNode currentNode;
-
+        NavigationNode lastValidNode;
 
         bool isDeviating;
         bool findSeedPosition;
@@ -17,7 +17,7 @@ namespace Klaxon.GOAP
         public override bool PrePerform(GOAP_Agent agent)
         {
             if (target == null)
-                target = NavigationNodesManager.instance.GetRandomNode(NavigationNodeType.Outside, transform.position, 5f);
+                target = NavigationNodesManager.instance.GetRandomNode(NavigationNodeType.Outside, agent.pathType,transform.position, 5f);
             
                 
 
@@ -27,7 +27,11 @@ namespace Klaxon.GOAP
             {
                 path.Clear();
                 currentPathIndex = 0;
-                currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, agent.currentNavigationNodeType);
+                if(lastValidNode != null)
+                    currentNode = lastValidNode;
+                else
+                    currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, agent.currentNavigationNodeType, agent.pathType);
+
                 path = currentNode.FindPath(target);
                 walker.currentDestination = path[currentPathIndex].transform.position;
             }
@@ -65,6 +69,11 @@ namespace Klaxon.GOAP
             {
                 walker.currentDestination = path[currentPathIndex].transform.position;
             }
+            if (agent.offScreen)
+            {
+                HandleOffScreen(agent);
+                return;
+            }
             //if (!walker.onSlope)
             walker.SetDirection();
             if (walker.CheckDistanceToDestination() <= 0.02f)
@@ -78,6 +87,7 @@ namespace Klaxon.GOAP
                     }
                     else if (currentPathIndex == path.Count - 1)
                     {
+                        lastValidNode = path[currentPathIndex];
                         path.Clear();
                         currentPathIndex = 0;
                         currentNode = null;
@@ -95,6 +105,8 @@ namespace Klaxon.GOAP
             walker.SetLastPosition();
         }
 
+        
+
         public override void PrePostPerform(GOAP_Agent agent)
         {
 
@@ -106,6 +118,35 @@ namespace Klaxon.GOAP
             target = null;
             return true;
         }
+
+        private void HandleOffScreen(GOAP_Agent agent)
+        {
+            walker.currentDir = Vector2.zero;
+            int frameSkip = 60;
+            if (currentPathIndex < path.Count - 1)
+            {
+                var dist = (int)Vector2.Distance(path[currentPathIndex].transform.position, path[currentPathIndex + 1].transform.position) + 1;
+                frameSkip *= dist;
+            }
+            if (Time.frameCount % frameSkip == 0)
+            {
+                walker.transform.position = path[currentPathIndex].transform.position;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                if (currentPathIndex < path.Count - 1)
+                    currentPathIndex++;
+                if (currentPathIndex == path.Count - 1)
+                {
+                    lastValidNode = path[currentPathIndex];
+                    path.Clear();
+                    currentPathIndex = 0;
+                    currentNode = null;
+                    ReachFinalDestinaion(agent);
+                }
+
+            }
+        }
+
+
         void ReachFinalDestinaion(GOAP_Agent agent)
         {
 

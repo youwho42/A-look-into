@@ -41,15 +41,16 @@ namespace Klaxon.GOAP
 
 		[HideInInspector]
 		public QI_Inventory agentInventory;
-
+		[HideInInspector]
         public NavigationNodeType currentNavigationNodeType;
+		public NavigationPathType pathType;
 
         public Animator animator;
         public bool destinationReached = false;
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
         public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
-
+		public bool offScreen;
         protected virtual void Start()
         {
 			agentInventory = GetComponent<QI_Inventory>();
@@ -62,7 +63,7 @@ namespace Klaxon.GOAP
 
 		void LateUpdate()
 		{
-
+			
 			if (destinationReached)
 			{
 				return;

@@ -22,7 +22,12 @@ public class ItemFuzzGlow : MonoBehaviour
         fuzzGlowImage = GetComponent<SpriteRenderer>();
         material = fuzzGlowImage.material;
         initialColor = material.GetColor("_EmissionColor");
+        
+    }
+    private void OnEnable()
+    {
         GameEventManager.onTimeTickEvent.AddListener(SetGlow);
+
     }
 
     public void SetGlow(int time)
@@ -77,7 +82,7 @@ public class ItemFuzzGlow : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(SetGlow);
     }

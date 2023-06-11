@@ -84,6 +84,11 @@ PrefabInstance:
       propertyPath: goToActivityTime.y
       value: 1080
       objectReference: {fileID: 0}
+    - target: {fileID: 6902144603035044640, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421248, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: position.z
@@ -273,6 +278,30 @@ MonoBehaviour:
     value: 0
   walker: {fileID: 0}
   running: 0
+--- !u!114 &5179436250572491353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a404f39f1db3f124ab3481f1fc46bd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Wander
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0.5, y: 5}
+  preConditions:
+  - key: IsDay
+    value: 0
+  afterEffects:
+  - key: IsWandering
+    value: 0
+  walker: {fileID: 0}
+  running: 0
 --- !u!114 &5587367898044040943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,30 +347,6 @@ MonoBehaviour:
     value: 0
   afterEffects:
   - key: GoHome
-    value: 0
-  walker: {fileID: 0}
-  running: 0
---- !u!114 &5179436250572491353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2536849546930011742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a404f39f1db3f124ab3481f1fc46bd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Wander
-  cost: 1
-  target: {fileID: 0}
-  minMaxDuration: {x: 0.5, y: 5}
-  preConditions:
-  - key: IsDay
-    value: 0
-  afterEffects:
-  - key: IsWandering
     value: 0
   walker: {fileID: 0}
   running: 0

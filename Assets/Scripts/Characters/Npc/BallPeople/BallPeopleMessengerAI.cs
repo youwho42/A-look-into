@@ -2,7 +2,6 @@ using Klaxon.GravitySystem;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static BallPeopleSpecial;
 
 public class BallPeopleMessengerAI : MonoBehaviour, IBallPerson
 {

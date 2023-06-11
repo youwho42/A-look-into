@@ -23,7 +23,7 @@ namespace Klaxon.GravitySystem
         public Vector3 displacedPosition;
         [HideInInspector]
         public bool isGrounded;
-        
+        protected Transform _transform;
 
         [Header("Gravity Bounce")]
         [Range(0, 1)]
@@ -73,15 +73,18 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public List<TileDirectionInfo> tileBlockInfo;
 
-        
-        Collider2D hit, doubleHit;
+        //[HideInInspector]
+        public bool onObstacle;
+
+        Collider2D[] hit;
+        Collider2D doubleHit;
         public virtual void Start()
         {
 
             allTilesManager = AllTilesInfoManager.instance;
             currentTilePosition = GetComponent<CurrentTilePosition>();
             //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
-            
+            _transform = GetComponent<Transform>();
             currentLevel = currentTilePosition.position.z;
 
         }
@@ -93,7 +96,6 @@ namespace Klaxon.GravitySystem
 
             if (onSlope)
             {
-
                 HandleSlopes();
             }
             else
@@ -102,6 +104,8 @@ namespace Klaxon.GravitySystem
                 slopeObject.localPosition = Vector3.zero;
             }
 
+            //if (onObstacle)
+            //    HandleObstacles();
 
             if (getOnSlope)
                 ChangeLevelOnSlope();
@@ -112,9 +116,6 @@ namespace Klaxon.GravitySystem
             if (dif != 0 && !onSlope && !getOnSlope && ! getOffSlope)
                 ChangeLevel(dif);
 
-
-
-
         }
 
         public void FixedUpdate()
@@ -122,7 +123,15 @@ namespace Klaxon.GravitySystem
             if (!isGrounded && !isWeightless)
                 ApplyGravity();
         }
-        
+
+        public void TileFound(List<TileDirectionInfo> tileBlock, bool success)
+        {
+            if (success)
+                tileBlockInfo = tileBlock;
+            else
+                Debug.LogError("Tile not found in tile dictionary!");
+        }
+
 
         public void ChangeLevelOffSlope()
         {
@@ -130,10 +139,10 @@ namespace Klaxon.GravitySystem
             int dif = currentTilePosition.position.z - currentLevel;
 
             float displacement = dif * spriteDisplacementY;
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = _transform.position;
             slopeObject.localPosition = Vector3.zero;
             currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, currentTilePosition.position.z + 1);
-            transform.position = currentPosition;
+            _transform.position = currentPosition;
 
             currentLevel = currentTilePosition.position.z;
             getOffSlope = false;
@@ -146,10 +155,10 @@ namespace Klaxon.GravitySystem
             int dif = currentTilePosition.position.z - currentLevel;
 
             float displacement = dif * spriteDisplacementY;
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = _transform.position;
             slopeObject.localPosition = new Vector3(0, spriteDisplacementY, 1);
             currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, currentTilePosition.position.z + 1);
-            transform.position = currentPosition;
+            _transform.position = currentPosition;
 
             currentLevel = currentTilePosition.position.z;
             getOnSlope = false;
@@ -160,12 +169,12 @@ namespace Klaxon.GravitySystem
 
             bounceFactor = 1;
             float displacement = dif * spriteDisplacementY;
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = _transform.position;
 
             if (currentTilePosition.position.z > currentLevel)
             {
                 currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, currentTilePosition.position.z + 1);
-                transform.position = currentPosition;
+                _transform.position = currentPosition;
                 positionZ += dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y - displacement, displacedPosition.z - dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y - displacement, itemObject.localPosition.z - dif);
@@ -174,7 +183,7 @@ namespace Klaxon.GravitySystem
             else if (currentTilePosition.position.z < currentLevel)
             {
                 currentPosition = new Vector3(currentPosition.x, currentPosition.y - displacement, currentTilePosition.position.z + 1);
-                transform.position = currentPosition;
+                _transform.position = currentPosition;
                 positionZ -= dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y + displacement, displacedPosition.z + dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y + displacement, itemObject.localPosition.z + dif);
@@ -187,13 +196,13 @@ namespace Klaxon.GravitySystem
         public void HandleSlopes()
         {
             
-            slopeCheckPosition = (Vector2)transform.position - (slopeDirection * 0.6f);
+            slopeCheckPosition = (Vector2)_transform.position - (slopeDirection * 0.6f);
             var hitA = Physics2D.Raycast(slopeCheckPosition, slopeDirection, 0.6f, groundLayer);
             
             if (hitA.collider != null)
             {
                 slopeCollisionPoint = hitA.point;
-                float distA = Vector2.Distance(hitA.point, transform.position);
+                float distA = Vector2.Distance(hitA.point, _transform.position);
                 slopeDisplacement = distA / tileSize;
 
             }
@@ -203,6 +212,21 @@ namespace Klaxon.GravitySystem
             slopeObject.localPosition = new Vector3(0, displacementY, slopeDisplacement);
         }
 
+        //void HandleObstacles()
+        //{
+            
+        //    var obstacleHit = Physics2D.OverlapPoint(transform.position, obstacleLayer, transform.position.z, transform.position.z);
+        //    if (obstacleHit != null)
+        //    {
+        //        if (obstacleHit.TryGetComponent(out DrawZasYDisplacement displacement))
+        //        {
+        //            float displacementY = displacement.positionZ * spriteDisplacementY;
+        //            slopeObject.localPosition = new Vector3(0, displacementY, displacement.positionZ);
+        //        }
+        //    }
+
+                
+        //}
 
 
         public void Move(Vector2 dir, float velocity)
@@ -211,10 +235,10 @@ namespace Klaxon.GravitySystem
             currentVelocity = velocity;
 
 
-            Vector3 currentPosition = transform.position;
-            currentPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + dir, Time.deltaTime * currentVelocity);
+            Vector3 currentPosition = _transform.position;
+            currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime * currentVelocity);
             currentPosition.z = currentTilePosition.position.z + 1;
-            transform.position = currentPosition;
+            _transform.position = currentPosition;
 
         }
 
@@ -226,7 +250,7 @@ namespace Klaxon.GravitySystem
 
             itemObject.localPosition = currentPosition;
 
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position).normalized;
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(_transform.position).normalized;
             var totalZ = (itemObject.localPosition.z - screenPos.y) / 10;
             itemObject.localScale = new Vector3(1 + totalZ, 1 + totalZ, 1);
 
@@ -236,10 +260,10 @@ namespace Klaxon.GravitySystem
 
         public void Nudge(Vector2 dir)
         {
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = _transform.position;
             currentPosition += (Vector3)dir * checkTileDistance;
 
-            transform.position = currentPosition;
+            _transform.position = currentPosition;
         }
         protected void SetIsGrounded()
         {
@@ -254,23 +278,35 @@ namespace Klaxon.GravitySystem
             }
         }
 
-        public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction)
+        public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey)
         {
+            onObstacle = false;
             // Check for a positive gameobject on the obstacle layer
-            hit = Physics2D.OverlapCircle(checkPosition, 0.01f, obstacleLayer, transform.position.z, transform.position.z);
+            hit = Physics2D.OverlapCircleAll(checkPosition, 0.01f, obstacleLayer, _transform.position.z, _transform.position.z);
             if (hit != null)
             {
+                bool isColliding = false;
                 // do it got a thing
-                if (hit.TryGetComponent(out DrawZasYDisplacement displacement))
+                for (int i = 0; i < hit.Length; i++)
                 {
-                    // is our local z higher than the thing
-                    if (Mathf.Abs(itemObject.localPosition.z) >= displacement.positionZ)
-                        return false;
+                    if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
+                    {
+                        // is our local z higher than the thing
+                        if (Mathf.Abs(itemObject.localPosition.z) <= displacement.positionZ)
+                            isColliding = true;
+                    }
                 }
-                doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
-                if (doubleHit != null)
-                    Nudge(direction);
-                return true;
+
+
+
+                //doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
+                //if (doubleHit != null && itemObject.localPosition.z == 0)
+                //{
+                //    onObstacle = true;
+                //}
+
+
+                return isColliding;
             }
             return false;
         }
@@ -280,6 +316,7 @@ namespace Klaxon.GravitySystem
             positionZ -= gravity * Time.fixedDeltaTime;
 
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
+            
             itemObject.Translate(displacedPosition * Time.fixedDeltaTime);
             SetIsGrounded();
 
@@ -301,7 +338,9 @@ namespace Klaxon.GravitySystem
         public void Bounce(float bounceAmount)
         {
             positionZ = bounceAmount;
+
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
+            
             //itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);
             bounceFactor *= bounceFriction;
             ApplyGravity();

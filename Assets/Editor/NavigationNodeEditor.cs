@@ -9,7 +9,8 @@ public class NavigationNodeEditor : Editor
 {
 
     private NavigationNode navNode;
-    bool useNewSelection;
+    bool addNewSelection;
+    bool removeNewSelection;
     bool buttonPressed;
     private void OnEnable()
     {
@@ -33,24 +34,45 @@ public class NavigationNodeEditor : Editor
         {
             Selection.activeGameObject = navNode.AddNewChild();
         }
-        string addSelectedText = buttonPressed ? "Add selection as child - SELECTED" : "Add selection as child";
+        string addSelectedText = buttonPressed && !removeNewSelection ? "Add selection as child - SELECTED" : "Add selection as child";
         if (GUILayout.Button(addSelectedText))
         {
-            if (buttonPressed)
+
+            if (!removeNewSelection)
             {
-                buttonPressed = false;
-                useNewSelection = false;
+                if (buttonPressed)
+                {
+                    buttonPressed = false;
+                    addNewSelection = false;
+                }
+                else
+                {
+                    buttonPressed = true;
+                    addNewSelection = true;
+                } 
             }
-            else
+        }
+        string removeSelectedText = buttonPressed && !addNewSelection ? "Remove selection as child - SELECTED" : "Remove selection as child";
+        if (GUILayout.Button(removeSelectedText))
+        {
+            if (!addNewSelection)
             {
-                buttonPressed = true;
-                useNewSelection = true;
+                if (buttonPressed)
+                {
+                    buttonPressed = false;
+                    removeNewSelection = false;
+                }
+                else
+                {
+                    buttonPressed = true;
+                    removeNewSelection = true;
+                } 
             }
         }
     }
     private void DuringSceneGUI(SceneView sceneView)
     {
-        if (useNewSelection && Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        if (addNewSelection && Event.current.type == EventType.MouseDown && Event.current.button == 0)
         {
             GameObject selectedObject = HandleUtility.PickGameObject(Event.current.mousePosition, false);
             if (selectedObject != null)
@@ -60,7 +82,22 @@ public class NavigationNodeEditor : Editor
                 {
                     navNode.children.Add(otherNode);
                     otherNode.children.Add(navNode);
-                    useNewSelection = false;
+                    addNewSelection = false;
+                    Event.current.Use();
+                }
+            }
+        }
+        if (removeNewSelection && Event.current.type == EventType.MouseDown && Event.current.button == 0)
+        {
+            GameObject selectedObject = HandleUtility.PickGameObject(Event.current.mousePosition, false);
+            if (selectedObject != null)
+            {
+                NavigationNode otherNode = selectedObject.GetComponent<NavigationNode>();
+                if (otherNode != null && otherNode != navNode)
+                {
+                    navNode.children.Remove(otherNode);
+                    otherNode.children.Remove(navNode);
+                    removeNewSelection = false;
                     Event.current.Use();
                 }
             }

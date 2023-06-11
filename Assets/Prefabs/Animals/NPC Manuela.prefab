@@ -238,6 +238,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.011071901
       objectReference: {fileID: 0}
+    - target: {fileID: 6902144603035044640, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421248, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: position.z
@@ -551,30 +556,6 @@ MonoBehaviour:
   animator: {fileID: 2536849546914809731}
   destinationReached: 0
   goToHomeTime: {x: 1140, y: 480}
---- !u!114 &7606181522298020202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2536849546930011742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a38f549b61c25246aa03f40e289832e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Sleep
-  cost: 1
-  target: {fileID: 0}
-  minMaxDuration: {x: 0, y: 0}
-  preConditions:
-  - key: IsHome
-    value: 0
-  afterEffects:
-  - key: IsSleep
-    value: 0
-  walker: {fileID: 0}
-  running: 0
 --- !u!114 &7084094976801907319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +577,30 @@ MonoBehaviour:
     value: 0
   afterEffects:
   - key: IsWandering
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+--- !u!114 &7606181522298020202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a38f549b61c25246aa03f40e289832e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Sleep
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  preConditions:
+  - key: IsHome
+    value: 0
+  afterEffects:
+  - key: IsSleep
     value: 0
   walker: {fileID: 0}
   running: 0
