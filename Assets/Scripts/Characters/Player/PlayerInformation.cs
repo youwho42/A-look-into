@@ -24,6 +24,7 @@ public class PlayerInformation : MonoBehaviour
     public QI_ItemDatabase playerAnimalCompendiumDatabase;
     public QI_ItemDatabase playerNotesCompendiumDatabase;
     public QI_ItemDatabase playerGuidesCompendiumDatabase;
+    public PlayerPurse purse;
     public bool uiScreenVisible;
     
     public PlayerInputController playerInput;

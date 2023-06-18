@@ -21,7 +21,7 @@ namespace Klaxon.GravitySystem
         public float positionZ;
         [HideInInspector]
         public Vector3 displacedPosition;
-        [HideInInspector]
+        //[HideInInspector]
         public bool isGrounded;
         protected Transform _transform;
 
@@ -75,6 +75,7 @@ namespace Klaxon.GravitySystem
 
         //[HideInInspector]
         public bool onObstacle;
+        public Vector3 obstacleDisplacement;
 
         Collider2D[] hit;
         Collider2D doubleHit;
@@ -104,8 +105,9 @@ namespace Klaxon.GravitySystem
                 slopeObject.localPosition = Vector3.zero;
             }
 
-            //if (onObstacle)
-            //    HandleObstacles();
+            //if (!onObstacle)
+            //    obstacleDisplacement = Vector3.zero;
+            itemShadow.localPosition = obstacleDisplacement;
 
             if (getOnSlope)
                 ChangeLevelOnSlope();
@@ -214,18 +216,18 @@ namespace Klaxon.GravitySystem
 
         //void HandleObstacles()
         //{
-            
-        //    var obstacleHit = Physics2D.OverlapPoint(transform.position, obstacleLayer, transform.position.z, transform.position.z);
-        //    if (obstacleHit != null)
-        //    {
-        //        if (obstacleHit.TryGetComponent(out DrawZasYDisplacement displacement))
-        //        {
-        //            float displacementY = displacement.positionZ * spriteDisplacementY;
-        //            slopeObject.localPosition = new Vector3(0, displacementY, displacement.positionZ);
-        //        }
-        //    }
+        //    slopeObject.localPosition = obstacleDisplacement;
+        //    //var obstacleHit = Physics2D.OverlapPoint(transform.position, obstacleLayer, transform.position.z, transform.position.z);
+        //    //if (obstacleHit != null)
+        //    //{
+        //    //    if (obstacleHit.TryGetComponent(out DrawZasYDisplacement displacement))
+        //    //    {
+        //    //        float displacementY = displacement.positionZ * spriteDisplacementY;
+        //    //        slopeObject.localPosition = new Vector3(0, displacementY, displacement.positionZ);
+        //    //    }
+        //    //}
 
-                
+
         //}
 
 
@@ -265,22 +267,12 @@ namespace Klaxon.GravitySystem
 
             _transform.position = currentPosition;
         }
-        protected void SetIsGrounded()
-        {
-            //Check and set if grounded
-            float dist = Vector2.Distance(itemObject.localPosition, itemShadow.localPosition);
-            isGrounded = dist <= 0.01f;
-            if (isGrounded)
-            {
-                itemObject.localPosition = Vector3.zero;
-                positionZ = 0;
-                displacedPosition = Vector3.zero;
-            }
-        }
+        
 
         public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey)
         {
-            onObstacle = false;
+            //onObstacle = false;
+            
             // Check for a positive gameobject on the obstacle layer
             hit = Physics2D.OverlapCircleAll(checkPosition, 0.01f, obstacleLayer, _transform.position.z, _transform.position.z);
             if (hit != null)
@@ -292,21 +284,29 @@ namespace Klaxon.GravitySystem
                     if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
                     {
                         // is our local z higher than the thing
-                        if (Mathf.Abs(itemObject.localPosition.z) <= displacement.positionZ)
+                        
+                        if (Mathf.Abs(itemObject.localPosition.z) < displacement.positionZ)
                             isColliding = true;
+                        else
+                        {
+                            onObstacle = true;
+                            float displacementY = displacement.positionZ * spriteDisplacementY;
+                            obstacleDisplacement = new Vector3(0, displacementY, displacement.positionZ);
+                        }
                     }
                 }
 
 
 
-                //doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
-                //if (doubleHit != null && itemObject.localPosition.z == 0)
-                //{
-                //    onObstacle = true;
-                //}
+                doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
+                if (doubleHit == null)
+                {
+                    //onObstacle = false;
+                    obstacleDisplacement = Vector3.zero;
+                }
 
 
-                return isColliding;
+                return isColliding/* && !onObstacle*/;
             }
             return false;
         }
@@ -320,15 +320,30 @@ namespace Klaxon.GravitySystem
             itemObject.Translate(displacedPosition * Time.fixedDeltaTime);
             SetIsGrounded();
 
-            if (itemObject.localPosition.y <= 0)
+            if (itemObject.localPosition.y <= obstacleDisplacement.y)
             {
-                positionZ = 0;
-                displacedPosition = Vector3.zero;
-                itemObject.localPosition = Vector3.zero;
+                positionZ = obstacleDisplacement.z;
+                displacedPosition = obstacleDisplacement;
+                itemObject.localPosition = obstacleDisplacement;
                 JustLanded();
                 if (bounceFactor >= .001f)
                     Bounce(bounciness * bounceFactor);
 
+            }
+        }
+
+        protected void SetIsGrounded()
+        {
+            //Check and set if grounded
+            // could check here for a maxFallHeight and have a stagger animation...
+            float dist = Vector2.Distance(itemObject.localPosition, obstacleDisplacement);
+            
+            isGrounded = dist <= 0.01f;
+            if (isGrounded)
+            {
+                itemObject.localPosition = obstacleDisplacement;
+                positionZ = obstacleDisplacement.z;
+                displacedPosition = obstacleDisplacement;
             }
         }
 

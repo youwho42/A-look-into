@@ -811,10 +811,13 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8192
+  playermovement: {fileID: 7067274921755691174}
   interactCanvas: {fileID: 0}
   interactUI: {fileID: 0}
   interactVerb: {fileID: 0}
-  playermovement: {fileID: 7067274921755691174}
+  interactSlider: {fileID: 0}
+  holdButton: {fileID: 0}
+  isHolding: 0
 --- !u!114 &1705034264205414425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,6 +915,7 @@ MonoBehaviour:
   getOnSlope: 0
   getOffSlope: 0
   onSlope: 0
+  slopeDisplacement: 0
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
@@ -921,6 +925,7 @@ MonoBehaviour:
     m_Bits: 512
   isWeightless: 0
   tileBlockInfo: []
+  onObstacle: 0
   walkSpeed: 0.6
   runSpeed: 1.2
   jumpHeight: 8
@@ -1829,6 +1834,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.168
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571716352521503603, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.5371094
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571716352521503603, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.44335938
       objectReference: {fileID: 0}
     - target: {fileID: 8571716352521503603, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}

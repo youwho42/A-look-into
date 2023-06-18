@@ -21,7 +21,7 @@ namespace Klaxon.GOAP
             if (target == null)
                 target = NavigationNodesManager.instance.GetRandomNode(NavigationNodeType.Outside, agent.pathType);
 
-
+            agent.animator.SetBool(agent.isSitting_hash, false);
             // Set the destination (currentAction.target) and direction here using currentAction.walker
             if (currentNode == null && path.Count <= 0)
             {

@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 8847118087756521459}
   - component: {fileID: 4120753285155617664}
   - component: {fileID: 2950931172956523469}
+  - component: {fileID: 3126231394876523705}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -186,6 +187,7 @@ MonoBehaviour:
   animalCompendiumInformation: {fileID: 3606313332637372334}
   characterManager: {fileID: 1778278584}
   playerUndertakings: {fileID: 2950931172956523469}
+  playerSpriteResolver: {fileID: 0}
 --- !u!114 &5769325092054554960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,8 +394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   undertakingHandler: {fileID: 2950931172956523469}
-  undertakingDatabase: {fileID: 11400000, guid: f864c3bcc1f22c04cb1eac525b09429a,
-    type: 2}
 --- !u!114 &4120753285155617664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,3 +424,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeUndertakings: []
+--- !u!114 &3126231394876523705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067350d1de2ee4f4eb4103d99405b397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

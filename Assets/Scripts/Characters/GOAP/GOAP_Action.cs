@@ -11,7 +11,8 @@ namespace Klaxon.GOAP
 		public float cost = 1.0f;
 		
 		public NavigationNode target;
-		public Vector2 minMaxDuration;
+		public Vector2Int minMaxDuration;
+		public int fixedTime;
 		
 		public WorldState[] preConditions;
 		public WorldState[] afterEffects;
@@ -66,12 +67,25 @@ namespace Klaxon.GOAP
 			}
 			return true;
 		}
-		public float GetFinalDuration()
+		public int GetFinalDuration()
 		{
-			if(minMaxDuration.y == 0)
-                return minMaxDuration.x;
+			int t = RealTimeDayNightCycle.instance.currentTimeRaw;
+			if (fixedTime != 0)
+			{
+				if (fixedTime > t)
+					return fixedTime - t;
+				else
+					return 1440 - (t - fixedTime);
+			}
+				 
+			int finalX = 1;
+            if (minMaxDuration.x != 0)
+                finalX = minMaxDuration.x;
+            if (minMaxDuration.y == 0)
+				return finalX;
+                
 				
-			return Random.Range(minMaxDuration.x, minMaxDuration.y);
+			return Random.Range(finalX, minMaxDuration.y);
 		}
 		public abstract bool PrePerform(GOAP_Agent agent);
 		public abstract void Perform(GOAP_Agent agent);

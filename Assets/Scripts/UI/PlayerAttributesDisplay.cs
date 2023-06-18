@@ -8,11 +8,13 @@ public class PlayerAttributesDisplay : MonoBehaviour
 {
     public Slider bounceSlider;
     public TextMeshProUGUI agencyText;
-    public RectTransform bounceUI, agencyUI;
-    Vector2 bouncePos, agencyPos;
+    public TextMeshProUGUI sparksText;
+    public RectTransform bounceUI, agencyUI, sparkUI;
+    Vector2 bouncePos, agencyPos, sparksPos;
     //PlayerInformation playerInformation;
     int lastBounce;
     int lastAgency;
+    int lastSparks;
     float shakeAmount = 0.7f;
     float shakeTime = 0.1f;
     float decreaseFactor = 1.0f;
@@ -23,6 +25,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
         GameEventManager.onStatUpdateEvent.AddListener(UpdateStatsUI);
         bouncePos = bounceUI.anchoredPosition;
         agencyPos = agencyUI.anchoredPosition;
+        sparksPos = sparkUI.anchoredPosition;
     }
     //private void OnEnable()
     //{
@@ -42,6 +45,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
             return;
         int newBounce = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
         int newAgency = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
+        int newSparks = (int)PlayerInformation.instance.purse.GetPurseAmount();
 
         if(newBounce != lastBounce)
         {
@@ -55,8 +59,15 @@ public class PlayerAttributesDisplay : MonoBehaviour
             lastAgency = newAgency;
             StartCoroutine(ShakeStatUI(agencyUI, agencyPos, diff));
         }
+        if (newSparks != lastSparks)
+        {
+            float diff = Mathf.Abs(newSparks - lastSparks);
+            lastSparks = newSparks;
+            StartCoroutine(ShakeStatUI(sparkUI, sparksPos, diff));
+        }
         bounceSlider.value = lastBounce;
         agencyText.text = lastAgency.ToString();
+        sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
     }
 
     IEnumerator ShakeStatUI(RectTransform statObject, Vector2 originalPos, float diff)

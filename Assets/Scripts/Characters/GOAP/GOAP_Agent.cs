@@ -48,9 +48,12 @@ namespace Klaxon.GOAP
         public Animator animator;
         public bool destinationReached = false;
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
+        public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
         public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
 		public bool offScreen;
+		int invokeTimer;
+		bool wasInvoked;
         protected virtual void Start()
         {
 			agentInventory = GetComponent<QI_Inventory>();
@@ -59,7 +62,20 @@ namespace Klaxon.GOAP
 			{
 				actions.Add(a);
 			}
+			GameEventManager.onTimeTickEvent.AddListener(CompleteActionAtTime);
         }
+        private void OnDisable()
+        {
+            GameEventManager.onTimeTickEvent.RemoveListener(CompleteActionAtTime);
+        }
+
+        void CompleteActionAtTime(int tick)
+		{
+			if (invoked && invokeTimer == tick)
+			{
+				CompleteAction();
+			}
+		}
 
 		void LateUpdate()
 		{
@@ -82,8 +98,9 @@ namespace Klaxon.GOAP
 					if (!invoked)
 					{
 						currentAction.PrePostPerform(this);
-						Invoke("CompleteAction", currentAction.GetFinalDuration());
-						invoked = true;
+						invokeTimer = RealTimeDayNightCycle.instance.currentTimeRaw + currentAction.GetFinalDuration() % 1440;
+                        //Invoke("CompleteAction", currentAction.GetFinalDuration());
+                        invoked = true;
 					}
 				}
 
@@ -142,10 +159,11 @@ namespace Klaxon.GOAP
 		void CompleteAction()
 		{
 			destinationReached = false;
-            
-            currentAction.running = false;
-            currentAction.PostPerform(this);
-            
+			var action = currentAction == null ? pausedAction : currentAction;
+			if (action != null) { 
+				action.running = false;
+				action.PostPerform(this);
+            }
             invoked = false;
 		}
 
@@ -188,6 +206,7 @@ namespace Klaxon.GOAP
                     return;
                 planner = pausedPlanner;
 				currentAction = pausedAction;
+				pausedAction = null;
 				if (currentAction != null)
 					currentAction.running = true;
 				if (pausedActionQueue != null)

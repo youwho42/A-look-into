@@ -9,6 +9,7 @@ namespace Klaxon.GOAP
     {
         public override bool PrePerform(GOAP_Agent agent)
         {
+            
             agent.animator.SetBool(agent.isGrounded_hash, walker.isGrounded);
             agent.animator.SetFloat(agent.velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
 

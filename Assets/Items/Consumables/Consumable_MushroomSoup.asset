@@ -13,16 +13,20 @@ MonoBehaviour:
   m_Name: Consumable_MushroomSoup
   m_EditorClassIdentifier: 
   Name: Mushroom Soup
+  AnimationName: 
   Description: A tasty mushroom soup.
   Weight: 3
   Price: 5
+  spawnWeight: 1
   Icon: {fileID: 21300000, guid: 8a637071cf7641d40bd5cbfd9e5f0e48, type: 3}
   ItemPrefab: {fileID: 1470096350422221036, guid: 694ceebb7c0823541873767b0bf7dc7b,
     type: 3}
-  MaxStack: 1
-  attributeModifiers:
-  - attributeToModify: Energy
-    amount: 20
-  - attributeToModify: Hydration
-    amount: 10
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
+  MaxStack: 0
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes: []
+  GameDificulty: 0
+  attributeModifiers: []
   itemToBecome: {fileID: 11400000, guid: b886aba0eb71d4c4c88c8713361a1c6e, type: 2}
