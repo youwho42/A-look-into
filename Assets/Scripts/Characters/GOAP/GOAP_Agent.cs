@@ -41,7 +41,7 @@ namespace Klaxon.GOAP
 
 		[HideInInspector]
 		public QI_Inventory agentInventory;
-		[HideInInspector]
+		
         public NavigationNodeType currentNavigationNodeType;
 		public NavigationPathType pathType;
 

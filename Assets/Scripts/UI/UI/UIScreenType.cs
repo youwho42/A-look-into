@@ -25,6 +25,6 @@ public enum UIScreenType
     AudioScreen,
     BallPersonUndertakingScreen,
     VideoScreen,
-    FarmingScreen
+    MerchantTableScreen
    
 }

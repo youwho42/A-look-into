@@ -10,6 +10,7 @@ namespace Klaxon.GOAP
         public QI_ItemDatabase itemsToCraft;
         public int amountToCraft;
         public int individualItemsAmount;
+        public NPC_CraftingStation craftingStation;
         public override bool PrePerform(GOAP_Agent agent)
         {
             agent.animator.SetBool(agent.isGrounded_hash, walker.isGrounded);
@@ -17,6 +18,7 @@ namespace Klaxon.GOAP
 
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             walker.currentDir = Vector2.zero;
+            craftingStation.SetCraftingOn();
             return true;
         }
         public override void Perform(GOAP_Agent agent)
@@ -31,7 +33,7 @@ namespace Klaxon.GOAP
         public override bool PostPerform(GOAP_Agent agent)
         {
             CraftItems(agent);
-           
+            craftingStation.SetCraftingOff();
             return true;
         }
 
@@ -49,7 +51,6 @@ namespace Klaxon.GOAP
             for (int i = 0; i < items.Count; i++)
             {
                 agent.agentInventory.AddItem(items[i], amountToCraft, false);
-                Debug.Log($"{amountToCraft} {items[i].Name} added to inventory");
             }
             
         }

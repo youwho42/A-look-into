@@ -25,6 +25,7 @@ namespace Klaxon.UndertakingSystem
         public List<UndertakingTaskObject> Tasks;
         public UndertakingState CurrentState;
 
+        public int SparksReward;
         public int GumptionReward;
         public int AgencyReward;
         public QI_ItemData ItemReward;
@@ -85,6 +86,8 @@ namespace Klaxon.UndertakingSystem
                 player.playerStats.AddToStat("Gumption", GumptionReward);
             if (AgencyReward > 0)
                 player.playerStats.AddToStat("Agency", GumptionReward);
+            if (SparksReward > 0)
+                player.purse.AddToPurse(SparksReward);
             if (ItemReward != null)
                 player.playerInventory.AddItem(ItemReward, ItemQuantity, false);
             if(RecipeReward != null)

@@ -9,7 +9,7 @@ public class PlayerPurse : MonoBehaviour
 
     private void Start()
     {
-        SetPurseAmount(10);
+        SetPurseAmount(100);
     }
 
     public int GetPurseAmount()
