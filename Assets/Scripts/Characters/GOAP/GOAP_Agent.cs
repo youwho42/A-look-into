@@ -49,6 +49,7 @@ namespace Klaxon.GOAP
         public bool destinationReached = false;
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
         public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
+        public readonly int isSleeping_hash = Animator.StringToHash("IsSleeping");
         public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
 		public bool offScreen;

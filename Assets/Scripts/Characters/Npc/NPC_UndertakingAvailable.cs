@@ -7,6 +7,7 @@ public class NPC_UndertakingAvailable : MonoBehaviour
 {
     UndertakingHolder undertakingHolder;
     public SpriteRenderer undertakingAvailableIcon;
+    public bool isInactive;
 
     private void Start()
     {
@@ -23,10 +24,12 @@ public class NPC_UndertakingAvailable : MonoBehaviour
     }
 
 
-    void SetUndertakingIcon()
+    public void SetUndertakingIcon()
     {
         undertakingAvailableIcon.gameObject.SetActive(false);
-        if (undertakingHolder.undertakings.Count == 0)
+        if (undertakingHolder == null)
+            return;
+        if (undertakingHolder.undertakings.Count == 0 || isInactive)
             return;
         foreach (var item in undertakingHolder.undertakings)
         {
@@ -37,4 +40,6 @@ public class NPC_UndertakingAvailable : MonoBehaviour
             }
         }
     }
+
+    
 }

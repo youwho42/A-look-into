@@ -57,12 +57,13 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Start()
     {
-        bool lockCursor = true;
-#if UNITY_EDITOR
-        lockCursor = false;
-#endif
-        if (lockCursor)
-            Cursor.lockState = CursorLockMode.Confined;
+        //        bool lockCursor = true;
+        //#if UNITY_EDITOR
+        //        lockCursor = false;
+        //#endif
+        //        if (lockCursor)
+        //            Cursor.lockState = CursorLockMode.Confined;
+        //PlayerSettings.resizableWindow = true;
         interactable = GetComponent<InteractWithInteractable>();
     }
 

@@ -26,8 +26,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void ShowFixingAreaIngredients(InteractableFixingArea fixingArea, string messageName, string messageDescription)
     {
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        SetPlayer();
         this.fixingArea = fixingArea;
         messageTitle.text = messageName;
         messageContent.text = messageDescription;
@@ -36,8 +35,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     
     public void ShowBallPersonMessageUI(IBallPerson messengerAI, string messageName, string messageDescription)
     {
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        SetPlayer();
         ballPerson = messengerAI;
         messageTitle.text = messageName;
         messageContent.text = messageDescription;
@@ -47,8 +45,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking, bool _destroyOnClose)
     {
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        SetPlayer();
         ballPerson = _ballPerson;
         undertaking = _undertaking;
         messageTitle.text = undertaking.Name;
@@ -60,6 +57,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     public void CloseMessageUI()
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        PlayerInformation.instance.playerInput.isInUI = false;
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         if(destroyOnClose)
@@ -69,6 +67,13 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
             fixingArea.canInteract = true;
             fixingArea = null;
         }
+    }
+
+    void SetPlayer()
+    {
+        PlayerInformation.instance.playerInput.isInUI = true;
+        PlayerInformation.instance.uiScreenVisible = true;
+        PlayerInformation.instance.TogglePlayerInput(false);
     }
 
     void DestroyMessenger()

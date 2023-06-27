@@ -328,7 +328,7 @@ namespace Klaxon.GravitySystem
 
             if (framesStuck >= 12)
             {
-                Debug.Log("too many stuck frames", this);
+                
                 jumpAhead = true;
                 currentDestination = (Vector2)_transform.position + currentDir;
                 hasDeviatePosition = true;

@@ -18,7 +18,8 @@ public class InteractableBallPeopleSeeker : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-
+        if (PlayerInformation.instance.uiScreenVisible)
+            return;
         StartCoroutine(InteractCo(interactor));
 
 

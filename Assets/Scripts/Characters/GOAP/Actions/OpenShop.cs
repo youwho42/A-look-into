@@ -17,6 +17,7 @@ public class OpenShop : GOAP_Action
         agent.animator.SetFloat(agent.velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
         agent.animator.SetFloat(agent.velocityX_hash, 0);
         walker.currentDir = Vector2.zero;
+        agent.beliefs.RemoveState("IsClosed");
         if (!isSitting)
         {
 

@@ -73,7 +73,7 @@ public class NavigationNode : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position, 0.1f);
+        Gizmos.DrawSphere(transform.position, 0.02f);
         if(children.Count > 0)
         {
             Gizmos.color = new Color(1, 1, 1, .2f);

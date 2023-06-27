@@ -23,7 +23,7 @@ public class DrawZasYDisplacement : MonoBehaviour
     public SpotType spotType;
 
     public float positionZ;
-    readonly float spriteDisplacementY = 0.2790625f;
+    readonly float spriteDisplacementY = 0.2990625f;
     public Vector3 displacedPosition;
 
     public bool isInUse;

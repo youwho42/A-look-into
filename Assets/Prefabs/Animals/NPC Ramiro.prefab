@@ -18,6 +18,52 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cc5e177e553df0244bdd7e5776f61de1,
         type: 2}
+    - target: {fileID: 2971686813194710284, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2888939147492863613, guid: 2902f03773eaac247accea3572921b16,
+        type: 3}
+    - target: {fileID: 3968540688165807639, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: Name
+      value: Ramiro's Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 3968540688165807639, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: MaxStacks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010122259914888403, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Bounds.m_Center.x
+      value: -0.023873687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010122259914888403, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Bounds.m_Center.y
+      value: 0.18975085
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010122259914888403, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Bounds.m_Center.z
+      value: 0.010431697
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010122259914888403, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Bounds.m_Extent.x
+      value: 0.07204004
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010122259914888403, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Bounds.m_Extent.y
+      value: 0.24571027
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010122259914888403, guid: a4fe40362a880974daaed81cc5c34893,
+        type: 3}
+      propertyPath: m_Bounds.m_Extent.z
+      value: 0.023130257
+      objectReference: {fileID: 0}
     - target: {fileID: 5521756122499102462, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: initialState
@@ -102,17 +148,17 @@ PrefabInstance:
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -29.226
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -29.244
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
@@ -122,17 +168,17 @@ PrefabInstance:
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603053421255, guid: a4fe40362a880974daaed81cc5c34893,
         type: 3}
@@ -179,30 +225,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9006606387525930147}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1129946580023328582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2536849546930011742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a38f549b61c25246aa03f40e289832e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Sleep
-  cost: 1
-  target: {fileID: 0}
-  minMaxDuration: {x: 0, y: 0}
-  preConditions:
-  - key: IsHome
-    value: 0
-  afterEffects:
-  - key: IsSleep
-    value: 0
-  walker: {fileID: 0}
-  running: 0
 --- !u!114 &1530566286197706654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,10 +237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ce9a913325b4c4093292d63e561115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: Action
-  cost: 1
+  actionName: Find seed
+  cost: 10
   target: {fileID: 0}
-  minMaxDuration: {x: 0, y: 0}
+  minMaxDuration: {x: 3, y: 0}
+  fixedTime: 0
   preConditions:
   - key: IsDay
     value: 0
@@ -229,7 +252,7 @@ MonoBehaviour:
     value: 0
   walker: {fileID: 0}
   running: 0
-  seedDatabase: {fileID: 0}
+  seedDatabase: {fileID: 11400000, guid: cdb51a948aed7e54384caeb7492a2923, type: 2}
 --- !u!114 &3095527603752073088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,10 +265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38f549b61c25246aa03f40e289832e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: Action
+  actionName: talk to player
   cost: 1
   target: {fileID: 0}
   minMaxDuration: {x: 0, y: 0}
+  fixedTime: 0
   preConditions:
   - key: TalkToPlayer
     value: 0
@@ -266,10 +290,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d17c43a43aa6de42a84f6ce7a0478f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: Action
+  actionName: stash seed
   cost: 1
   target: {fileID: 0}
-  minMaxDuration: {x: 0, y: 0}
+  minMaxDuration: {x: 3, y: 0}
+  fixedTime: 0
   preConditions:
   - key: HasSeed
     value: 0
@@ -293,7 +318,8 @@ MonoBehaviour:
   actionName: Wander
   cost: 1
   target: {fileID: 0}
-  minMaxDuration: {x: 0.5, y: 5}
+  minMaxDuration: {x: 0, y: 5}
+  fixedTime: 0
   preConditions:
   - key: IsDay
     value: 0
@@ -320,10 +346,12 @@ MonoBehaviour:
   pausedAction: {fileID: 0}
   wanderDistance: 2
   agentInventory: {fileID: 0}
-  currentNavigationNodeType: 0
+  currentNavigationNodeType: 1
+  pathType: 0
   animator: {fileID: 2536849546914809731}
   destinationReached: 0
-  goToHomeTime: {x: 1140, y: 480}
+  offScreen: 0
+  goToHomeTime: {x: 1145, y: 480}
 --- !u!114 &7995329101174747679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,13 +368,44 @@ MonoBehaviour:
   cost: 1
   target: {fileID: 0}
   minMaxDuration: {x: 0, y: 0}
+  fixedTime: 0
   preConditions:
   - key: IsEvening
     value: 0
   - key: NotHome
     value: 0
   afterEffects:
-  - key: GoHome
+  - key: IsHome
+    value: 0
+  walker: {fileID: 0}
+  running: 0
+  isHomeNode: 0
+--- !u!114 &933312334305159037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536849546930011742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2019d7ce25d704741bdabd1cf2885d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Action
+  cost: 1
+  target: {fileID: 0}
+  minMaxDuration: {x: 0, y: 0}
+  fixedTime: 485
+  preConditions:
+  - key: IsHome
+    value: 0
+  - key: IsEvening
+    value: 0
+  - key: AtBed
+    value: 0
+  afterEffects:
+  - key: IsSleep
     value: 0
   walker: {fileID: 0}
   running: 0

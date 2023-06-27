@@ -19,6 +19,7 @@ namespace Klaxon.GOAP
         {
 
             agent.animator.SetBool(agent.isSitting_hash, false);
+            agent.animator.SetBool(agent.isSleeping_hash, false);
             if (target != null)
             {
 

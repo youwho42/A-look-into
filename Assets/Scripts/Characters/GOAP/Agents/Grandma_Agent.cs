@@ -14,7 +14,7 @@ public class Grandma_Agent : GOAP_Agent
         base.Start();
         
         GOAP_Goal g1 = new GOAP_Goal("IsSleep", 1, false);
-        goals.Add(g1, 3);
+        goals.Add(g1, 9);
         
         GOAP_Goal g2 = new GOAP_Goal("IsTalking", 1, false);
         goals.Add(g2, 10);
@@ -26,6 +26,7 @@ public class Grandma_Agent : GOAP_Agent
         goals.Add(g5, 3);
         GameEventManager.onTimeTickEvent.AddListener(SetStateOnTime);
         beliefs.SetState("NotHome", 0);
+        beliefs.SetState("IsClosed", 0);
     }
     private void OnDisable()
     {

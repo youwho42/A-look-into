@@ -90,7 +90,7 @@ PlayerSettings:
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
   gpuSkinning: 1
@@ -137,7 +137,9 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.03.02
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 77d3abe7a6f978a4eaa7f5ec0d6a04bb, type: 2}
+  - {fileID: 11400000, guid: af8ec6c85bc07874689803148ca169bc, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
