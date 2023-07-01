@@ -1,4 +1,5 @@
 using Klaxon.GOAP;
+using Klaxon.SAP;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     float maxDistance = 5;
     public List<GameObject> animals;
-    public List<GOAP_Agent> agents;
+    public List<SAP_Scheduler> agents;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class PlayerDistanceToggle : MonoBehaviour
             animals.Add((animalComponent as MonoBehaviour).gameObject);
         }
         agents.Clear();
-        var b = FindObjectsOfType<GOAP_Agent>().ToList();
+        var b = FindObjectsOfType<SAP_Scheduler>().ToList();
         foreach (var agent in b)
         {
             agents.Add(agent);

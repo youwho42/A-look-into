@@ -9,6 +9,7 @@ public class InteractableChair : Interactable
     bool isSitting;
     PlayerInformation player;
     public bool facingRight;
+    public NavigationNode navigationNode;
     
     public override void Start()
     {

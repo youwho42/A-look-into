@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!58 &6038879867545824798
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   canInteract: 1
   hasLongInteract: 0
   facingRight: 1
+  navigationNode: {fileID: 0}
 --- !u!1001 &2655786539826454975
 PrefabInstance:
   m_ObjectHideFlags: 0

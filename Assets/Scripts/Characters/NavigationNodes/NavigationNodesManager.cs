@@ -90,10 +90,11 @@ public class NavigationNodesManager : MonoBehaviour
         {
             if (path.pathType != pathType)
                 continue;
-            foreach (NavigationNode node in path.allNavigationNodes)
+
+            var searchNodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
+            foreach (NavigationNode node in searchNodes)
             {
-                if (node.nodeType != nodeType)
-                    continue;
+                
                 Vector3 directionToNode = node.transform.position - position;
                 float dSqrToNode = directionToNode.sqrMagnitude;
                 if (dSqrToNode < closestDistanceSqr)
@@ -103,8 +104,8 @@ public class NavigationNodesManager : MonoBehaviour
                 }
             }
         }
-        
 
+        
         return bestNode;
     }
 }
