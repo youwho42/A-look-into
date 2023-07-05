@@ -84,7 +84,7 @@ namespace Klaxon.GravitySystem
 
             allTilesManager = AllTilesInfoManager.instance;
             currentTilePosition = GetComponent<CurrentTilePosition>();
-            //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
+            currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
             _transform = GetComponent<Transform>();
             currentLevel = currentTilePosition.position.z;
 

@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ public class InteractableBallPeopleSeeker : Interactable
 
         BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), talkTask.undertaking, destroyOnClose);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-        GetComponent<BallPeopleSeekerAI>().hasInteracted = true;
+        GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
         canInteract = false;
         yield return new WaitForSeconds(0.33f);
     }

@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using SerializableTypes;
@@ -12,7 +13,7 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
     public RandomAccessories accessories;
     public RandomColor colors;
     public InteractableBallPeopleTraveller travellerInteractable;
-    public BallPeopleTravelerAI travellerAI;
+    public SAP_Scheduler_BP travellerAI;
     public QI_ItemDatabase itemDatabase;
     public object CaptureState()
     {
@@ -23,6 +24,14 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
         string t = "";
         if (travellerInteractable.undertaking.task != null)
             t = travellerInteractable.undertaking.task.Name;
+
+        List<string> names = new List<string>();
+        List<bool> states = new List<bool>();
+        foreach (var b in travellerAI.beliefs)
+        {
+            names.Add(b.Key);
+            states.Add(b.Value);
+        }
         return new SaveData
         {
             accessoryIndex = accessories.accessoryIndex,
@@ -34,7 +43,10 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
             undertakingName = q,
             taskName = t,
             started = travellerInteractable.started,
-            hasInteracted = travellerAI.hasInteracted
+            hasInteracted = travellerAI.hasInteracted,
+            beliefNames = names,
+            beliefStates = states
+            
         };
     }
 
@@ -52,6 +64,11 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
         travellerInteractable.started = saveData.started;
         travellerAI.hasInteracted = saveData.hasInteracted;
         travellerAI.travellerDestination = saveData.travellerDestination;
+
+        for (int i = 0; i < saveData.beliefNames.Count; i++)
+        {
+            travellerAI.SetBeliefState(saveData.beliefNames[i], saveData.beliefStates[i]);
+        }
     }
 
     [Serializable]
@@ -70,6 +87,9 @@ public class BallPeopleTravellerSaveSystem : MonoBehaviour, ISaveable
         public bool started;
 
         public bool hasInteracted;
+
+        public List<string> beliefNames;
+        public List<bool> beliefStates;
     }
 }
 

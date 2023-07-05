@@ -53,7 +53,7 @@ namespace Klaxon.SAP
         }
 
 
-        void SetWorldState(string condition, bool state)
+        public void SetWorldState(string condition, bool state)
         {
             if (!worldStates.ContainsKey(condition))
             {

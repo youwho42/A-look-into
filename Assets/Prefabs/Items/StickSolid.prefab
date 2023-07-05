@@ -104,7 +104,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.06}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.06
 --- !u!114 &522756923
@@ -134,10 +134,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Stick
   interactVerb: Grab
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
+  pickupQuantity: 1
 --- !u!114 &7316366533430306331
 MonoBehaviour:
   m_ObjectHideFlags: 0

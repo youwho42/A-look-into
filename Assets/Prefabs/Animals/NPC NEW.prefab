@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 6902144603053421257}
   - component: {fileID: 6902144603053421256}
   - component: {fileID: 6902144603053421259}
+  - component: {fileID: 4679355543035452280}
   - component: {fileID: 6902144603053421261}
   - component: {fileID: 6902144603053421266}
   - component: {fileID: 1072777948532095672}
@@ -190,9 +191,11 @@ GameObject:
   - component: {fileID: 1461937676}
   - component: {fileID: 8844795105120438703}
   - component: {fileID: 2658520282386853915}
+  - component: {fileID: 1928991682}
+  - component: {fileID: 2024037668861961693}
   m_Layer: 13
   m_Name: NPC NEW
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e215bbb36679a431e93c51bb0514659e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: {fileID: 0}
+  dialogue: {fileID: 11400000, guid: c7f72244b3994f743bd9579893058eb4, type: 2}
   currentConversationIndex: -1
   currentConversation:
     ID: 0
@@ -287,6 +290,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.12
+--- !u!50 &4679355543035452280
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!114 &6902144603053421261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +472,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6902144603053421309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7395ad4d7d911db49b34bdfee3a24b03, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b599c1df5991d34f84033ad41d56054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6902144603035044640}
@@ -469,18 +493,27 @@ MonoBehaviour:
     Conditions:
     - Condition: Day
       State: 1
-    - Condition: Tired
-      State: 0
     Action: {fileID: 8844795105120438703}
     IsRunning: 0
-    TimeLimit: 5
+    TimeLimit: 15
     TimeLimitCondition:
       Condition: Tired
       State: 1
   - GoalName: Sit
-    Priority: 5
+    Priority: 6
     Conditions:
     - Condition: Tired
+      State: 1
+    Action: {fileID: 2658520282386853915}
+    IsRunning: 0
+    TimeLimit: 0
+    TimeLimitCondition:
+      Condition: 
+      State: 0
+  - GoalName: GatherSeeds
+    Priority: 6
+    Conditions:
+    - Condition: FarmActive
       State: 1
     Action: {fileID: 2658520282386853915}
     IsRunning: 0
@@ -493,6 +526,9 @@ MonoBehaviour:
   currentGoalComplete: 0
   currentGoalName: 
   offScreen: 0
+  lastValidNode: {fileID: 0}
+  walker: {fileID: 0}
+  agentInventory: {fileID: 0}
 --- !u!114 &1461937676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,8 +541,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6ed625b73e6d74097deba6f4140b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walker: {fileID: 0}
   target: {fileID: 0}
+  interactableDialogue: {fileID: 0}
+  undertakingAvailable: {fileID: 0}
 --- !u!114 &8844795105120438703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9303b6899f8ea884f9f17f6da4f997c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walker: {fileID: 0}
   target: {fileID: 0}
   wanderDistance: 0.5
 --- !u!114 &2658520282386853915
@@ -534,9 +570,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc97fbc47a3e80439a1fb7fdf7eb3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walker: {fileID: 0}
   target: {fileID: 0}
-  sittingTime: 0
+  minMaxSittingTime: {x: 15, y: 45}
+--- !u!114 &1928991682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76c7bad6fa441642a879ee8e71c3aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  wanderDistance: 0.5
+  gatherAnimTime: 3
+  findablesDatabase: {fileID: 11400000, guid: cdb51a948aed7e54384caeb7492a2923, type: 2}
+--- !u!114 &2024037668861961693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad2e4cb36eb1ff4bb5a1422a82452f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  gatherAnimTime: 3
+  stashInventory: {fileID: 0}
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2111,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7ad1301b5d9131947bb7b3dc0096eb76, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

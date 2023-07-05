@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
@@ -41,9 +42,9 @@ public class InteractableBallPeopleTraveller : Interactable
             undertaking.undertaking.TryCompleteTask(undertaking.task);
         }
         
-        BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, false);
+        BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, undertaking.undertaking.CurrentState == UndertakingState.Complete);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-        GetComponent<BallPeopleTravelerAI>().hasInteracted = true;
+        GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
         canInteract = false;
         yield return new WaitForSeconds(0.33f);
     }

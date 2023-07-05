@@ -1,8 +1,6 @@
 using QuantumTek.QuantumInventory;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/PlantedItem", fileName = "New Planted Item")]

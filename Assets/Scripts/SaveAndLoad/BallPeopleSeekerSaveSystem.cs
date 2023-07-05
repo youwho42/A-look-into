@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using SerializableTypes;
@@ -10,7 +11,7 @@ public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
     public RandomAccessories accessories;
     public RandomColor colors;
     public InteractableBallPeopleSeeker seekerInteractable;
-    public BallPeopleSeekerAI seekerAI;
+    public SAP_Scheduler_BP seekerAI;
     public QI_ItemDatabase itemDatabase;
 
     public object CaptureState()
@@ -23,8 +24,8 @@ public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
         if (seekerInteractable.talkTask.task != null)
             t = seekerInteractable.talkTask.task.Name;
         string s = "";
-        if (seekerAI.seekTask.task != null)
-            s = seekerAI.seekTask.task.Name;
+        if (seekerAI.task.task != null)
+            s = seekerAI.task.task.Name;
 
         List<SVector3> loc = new List<SVector3>();
         foreach (var l in seekerAI.seekItemsFound)
@@ -60,14 +61,14 @@ public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
         if (saveData.undertakingName != "")
         {
             seekerInteractable.talkTask.undertaking = UndertakingDatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName);
-            seekerAI.seekTask.undertaking = UndertakingDatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName);
+            seekerAI.task.undertaking = UndertakingDatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName);
         }
 
         if (saveData.talkTaskName != "")
             seekerInteractable.talkTask.task = UndertakingDatabaseHolder.instance.undertakingDatabase.GetTask(saveData.undertakingName, saveData.talkTaskName);
 
         if (saveData.seekTaskName != "")
-            seekerAI.seekTask.task = UndertakingDatabaseHolder.instance.undertakingDatabase.GetTask(saveData.undertakingName, saveData.seekTaskName);
+            seekerAI.task.task = UndertakingDatabaseHolder.instance.undertakingDatabase.GetTask(saveData.undertakingName, saveData.seekTaskName);
 
         foreach (var l in saveData.seekLocations)
         {

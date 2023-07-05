@@ -62,8 +62,8 @@ namespace Klaxon.GravitySystem
 
 
             isGrounded = true;
+            //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
 
-            
         }
         
 
@@ -322,7 +322,8 @@ namespace Klaxon.GravitySystem
             }
             if (directions.Count == 0)
             {
-                currentDestination = (Vector2)_transform.position - currentDir;
+                currentDestination = (Vector2)_transform.position - new Vector2(currentDir.y, currentDir.x) * 0.15f;
+                SetDirection();
                 return;
             }
 
@@ -330,8 +331,10 @@ namespace Klaxon.GravitySystem
             {
                 
                 jumpAhead = true;
-                currentDestination = (Vector2)_transform.position + currentDir;
+                currentDestination = (Vector2)_transform.position - new Vector2(currentDir.y, currentDir.x) * 0.2f;
                 hasDeviatePosition = true;
+                SetDirection();
+                framesStuck = 0;
                 return;
             }
             float best = -1;

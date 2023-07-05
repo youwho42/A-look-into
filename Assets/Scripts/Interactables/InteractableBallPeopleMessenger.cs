@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System;
@@ -40,10 +41,11 @@ public class InteractableBallPeopleMessenger : Interactable
     {
         
         PlayInteractSound();
+        var messenger = GetComponent<SAP_Scheduler_BP>();
 
         if (messageItem != null)
         {
-            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), messageItem.Name, messageItem.Description);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, messageItem.Name, messageItem.Description);
             QI_ItemDatabase database = GetCompendiumDatabase();
 
             if (!database.Items.Contains(messageItem))
@@ -55,7 +57,7 @@ public class InteractableBallPeopleMessenger : Interactable
         }
         else if (undertaking != null)
         {
-            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), undertaking.Name, undertaking.Description);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, undertaking.Name, undertaking.Description);
             
             PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
         }
@@ -67,14 +69,14 @@ public class InteractableBallPeopleMessenger : Interactable
                 desc += $"{craftingRecipe.Ingredients[i].Amount} - {craftingRecipe.Ingredients[i].Item.Name}\n";
 
             }
-            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(GetComponent<BallPeopleMessengerAI>(), craftingRecipe.Name, desc);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, craftingRecipe.Name, desc);
             PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Add(craftingRecipe);
         }
 
         // display recipe name and ingredients...
         // add recipe to player recipes
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-        GetComponent<BallPeopleMessengerAI>().hasInteracted = true;
+        GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
         canInteract = false;
         //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);
         yield return new WaitForSeconds(0.33f);

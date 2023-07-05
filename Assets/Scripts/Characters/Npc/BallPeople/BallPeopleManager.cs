@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
@@ -45,7 +46,7 @@ public class BallPeopleManager : MonoBehaviour
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
         travItem.undertaking.undertaking = taskObject.undertaking;
         travItem.undertaking.task = taskObject.task;
-        var travelBall = trav.GetComponent<BallPeopleTravelerAI>();
+        var travelBall = trav.GetComponent<SAP_Scheduler_BP>();
         travelBall.travellerDestination = travelerDestination.transform.position;
     }
 
@@ -57,30 +58,35 @@ public class BallPeopleManager : MonoBehaviour
         var seekerItem = seek.GetComponent<InteractableBallPeopleSeeker>();
         seekerItem.talkTask.undertaking = talkTask.undertaking;
         seekerItem.talkTask.task = talkTask.task;
-        var seekerBall = seek.GetComponent<BallPeopleSeekerAI>();
-        seekerBall.seekTask = seekTask;
+        var seekerBall = seek.GetComponent<SAP_Scheduler_BP>();
+        seekerBall.task = seekTask;
         seekerBall.seekItem = item;
         seekerBall.seekAmount = amount;
     }
 
     public void SpawnFarmPlanter(PlantingArea plantingArea, Vector3 position)
     {
+        
+        Vector3 offset = new Vector2(0.0f, -0.13f);
+        
         GameObject planter = null;
-        SpawnBallPeople(planterPrefab, out planter, position);
+        SpawnBallPeople(planterPrefab, out planter, position + offset);
 
         
-        var planterBall = planter.GetComponent<BallPeopleFarmPlanterAI>();
+        var planterBall = planter.GetComponent<SAP_Scheduler_BP>();
         planterBall.plantingArea = plantingArea;
         planterBall.seedBoxInventory = plantingArea.seedBox;
         
     }
     public void SpawnFarmHarvester(PlantingArea plantingArea, Vector3 position)
     {
+        Vector3 offset = new Vector2(0.0f, -0.13f);
+
         GameObject planter = null;
-        SpawnBallPeople(harvesterPrefab, out planter, position);
+        SpawnBallPeople(harvesterPrefab, out planter, position + offset);
 
 
-        var harvesterBall = planter.GetComponent<BallPeopleFarmHarvesterAI>();
+        var harvesterBall = planter.GetComponent<SAP_Scheduler_BP>();
         harvesterBall.plantingArea = plantingArea;
         harvesterBall.seedBoxInventory = plantingArea.seedBox;
 
