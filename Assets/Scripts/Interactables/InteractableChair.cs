@@ -24,11 +24,11 @@ public class InteractableChair : Interactable
         player = PlayerInformation.instance;
         if(!isSitting)
         {
-
             StartCoroutine(PlacePlayer(transform.position));
             if (player.playerController.facingRight && !facingRight || !player.playerController.facingRight && facingRight)
                 player.playerController.Flip();
             player.playerAnimator.SetBool("IsSitting", true);
+            player.isSitting = true;
             isSitting = true;
             canInteract = false;
         }
@@ -58,9 +58,10 @@ public class InteractableChair : Interactable
         
         if(player.playerInput.movement != Vector2.zero)
         {
-            Vector3 exitPos = player.player.position + ((Vector3)player.playerInput.movement * .07f);
-            StartCoroutine(PlacePlayer(exitPos));
+            //Vector3 exitPos = player.player.position + ((Vector3)player.playerInput.movement * .09f);
+            StartCoroutine(PlacePlayer(navigationNode.transform.position));
             player.playerAnimator.SetBool("IsSitting", false);
+            playerInformation.isSitting = false;
             isSitting = false;
             canInteract = true;
         }

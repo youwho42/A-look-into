@@ -29,7 +29,7 @@ namespace Klaxon.SAP
         public string currentGoalName;
         [HideInInspector]
         public bool offScreen;
-        float currentGoalTimer;
+        int currentGoalTimer = -1;
         
         [HideInInspector]
         public GravityItemWalker walker;
@@ -55,7 +55,8 @@ namespace Klaxon.SAP
             Messenger,
             Seeker,
             Traveller,
-            Farmer
+            Farmer,
+            TravellerHome
         }
         public BP_Type type;
 
@@ -101,6 +102,14 @@ namespace Klaxon.SAP
         [HideInInspector]
         public PlantLife currentHarvestable;
 
+        void OnEnable()
+        {
+            GameEventManager.onTimeTickEvent.AddListener(TimeTick);
+        }
+        void OnDisable()
+        {
+            GameEventManager.onTimeTickEvent.RemoveListener(TimeTick);
+        }
         public void Start()
         {
             walker = GetComponent<GravityItemWalker>();
@@ -115,8 +124,16 @@ namespace Klaxon.SAP
             
             interactor = GetComponent<Interactable>();
             SetBeliefState("PlayerClose", true);
+            SetBeliefState("FiresLit", false);
 
 
+        }
+        public void TimeTick(int tick)
+        {
+            if (currentGoal == -1)
+                return;
+            if (goals[currentGoal].TimeLimit > 0)
+                currentGoalTimer++;
         }
 
         public void Update()
@@ -136,12 +153,12 @@ namespace Klaxon.SAP
 
                 if (goals[currentGoal].TimeLimit > 0)
                 {
-                    currentGoalTimer += Time.deltaTime;
+                    
                     if (currentGoalTimer >= goals[currentGoal].TimeLimit)
                     {
                         SetBeliefState(goals[currentGoal].TimeLimitCondition.Condition, goals[currentGoal].TimeLimitCondition.State);
                         ResetCurrentGoal();
-                        currentGoalTimer = 0;
+                        currentGoalTimer = -1;
                     }
                 }
             }
@@ -215,14 +232,14 @@ namespace Klaxon.SAP
                 goals[currentGoal].IsRunning = true;
 
                 if (currentGoalName != goals[currentGoal].GoalName)
-                    currentGoalTimer = 0;
+                    currentGoalTimer = -1;
 
                 currentGoalName = goals[currentGoal].GoalName;
             }
             else
             {
                 currentGoalName = "";
-                currentGoalTimer = 0;
+                currentGoalTimer = -1;
             }
 
         }

@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: ManuelaNodes
   m_EditorClassIdentifier: 
   DataDB: {fileID: 11400000, guid: c7f72244b3994f743bd9579893058eb4, type: 2}
-  NextID: 29
+  NextID: 30
   Nodes:
   - ID: 0
     Type: 2
     Window:
       serializedVersion: 2
       x: 30
-      y: 516
+      y: 484
       width: 200
       height: 110
     Inputs: []
@@ -654,16 +654,18 @@ MonoBehaviour:
       Y: 7.5
       AllowMultipleConnections: 1
       Connections:
-        keys: 
-        values: []
+        keys: 1d000000
+        values:
+        - Array: 00000000
     - ID: 1
       Name: Next
       Type: 1
       Y: 35
       AllowMultipleConnections: 0
       Connections:
-        keys: 
-        values: []
+        keys: 1d000000
+        values:
+        - Array: 01000000
     AllowedInputs:
     - InputType: 3
       InputID: 0
@@ -718,8 +720,8 @@ MonoBehaviour:
     Type: 1
     Window:
       serializedVersion: 2
-      x: 597
-      y: 293.47607
+      x: 843
+      y: 292.47607
       width: 200
       height: 65
     Inputs: []
@@ -743,8 +745,8 @@ MonoBehaviour:
     Type: 3
     Window:
       serializedVersion: 2
-      x: 840
-      y: 290.47607
+      x: 1100
+      y: 296.47607
       width: 200
       height: 175
     Inputs:
@@ -858,6 +860,100 @@ MonoBehaviour:
       AllowMultipleConnections: 0
       Connections:
         keys: 07000000
+        values:
+        - Array: 01000000
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+  - ID: 29
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 610.69543
+      y: 290
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 0c000000
+        values:
+        - Array: 00000000
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 0c000000
         values:
         - Array: 01000000
     Outputs:
@@ -1556,7 +1652,7 @@ MonoBehaviour:
       Speaker: 0
       SpeakerName: Manuela
       PreviousMessage: -1
-      NextMessage: -1
+      NextMessage: 29
       MessageText: I think I saw a campsite around here somewhere. Down in the valley
         maybe.
       Clip: {fileID: 0}
@@ -1760,6 +1856,107 @@ MonoBehaviour:
       NextMessage: -1
       MessageText: I can't wait to leave this valley. It's cute and all, but stuck
         is still stuck.
+      Clip: {fileID: 0}
+  - ID: 29
+    Type: 3
+    Window:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 200
+      height: 175
+    Inputs:
+    - ID: 0
+      Name: Speaker
+      Type: 0
+      Y: 7.5
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Previous
+      Type: 0
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    Outputs:
+    - ID: 0
+      Name: Speaker
+      Type: 1
+      Y: 7.5
+      AllowMultipleConnections: 1
+      Connections:
+        keys: 
+        values: []
+    - ID: 1
+      Name: Next
+      Type: 1
+      Y: 35
+      AllowMultipleConnections: 0
+      Connections:
+        keys: 
+        values: []
+    AllowedInputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 2
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 3
+      InputID: 1
+      OutputType: 1
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 4
+      OutputID: 0
+    AllowedOutputs:
+    - InputType: 3
+      InputID: 0
+      OutputType: 3
+      OutputID: 0
+    - InputType: 3
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 0
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 1
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 2
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 3
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 4
+      OutputType: 3
+      OutputID: 1
+    - InputType: 4
+      InputID: 5
+      OutputType: 3
+      OutputID: 1
+    Data:
+      ID: 29
+      Speaker: 0
+      SpeakerName: Manuela
+      PreviousMessage: 12
+      NextMessage: -1
+      MessageText: It's pretty broken down, but I think it could be a very useful
+        thing to get fixed up.
       Clip: {fileID: 0}
   ConversationNodes:
   - ID: 1

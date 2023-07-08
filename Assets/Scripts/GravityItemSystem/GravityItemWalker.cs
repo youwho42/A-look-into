@@ -322,7 +322,9 @@ namespace Klaxon.GravitySystem
             }
             if (directions.Count == 0)
             {
-                currentDestination = (Vector2)_transform.position - new Vector2(currentDir.y, currentDir.x) * 0.15f;
+                int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+                int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDir.y, rb * currentDir.x) * 0.15f;
                 SetDirection();
                 return;
             }
@@ -331,7 +333,10 @@ namespace Klaxon.GravitySystem
             {
                 
                 jumpAhead = true;
-                currentDestination = (Vector2)_transform.position - new Vector2(currentDir.y, currentDir.x) * 0.2f;
+                int ra = Random.value < .5 ? 1 : -1;
+                int rb = Random.value < .5 ? 1 : -1;
+                float d = Random.Range(0.05f, 0.25f);
+                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDir.y, rb * currentDir.x) * d;
                 hasDeviatePosition = true;
                 SetDirection();
                 framesStuck = 0;
@@ -451,6 +456,8 @@ namespace Klaxon.GravitySystem
             }
         }
 
+
+       
         public void SetWorldDestination(Vector3 destination)
         {
             currentDestination = destination;

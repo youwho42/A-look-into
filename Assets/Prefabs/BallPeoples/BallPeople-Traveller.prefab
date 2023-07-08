@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -972553773627931476, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: Data
+      value: 
+      objectReference: {fileID: 11400000, guid: c3e889ac47784e5478a4fe630b6a4693,
+        type: 2}
     - target: {fileID: 3669067540778324319, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: m_RootOrder
@@ -65,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: m_Name
-      value: BallPeople-Traveller NEW
+      value: BallPeople-Traveller
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -91,7 +97,17 @@ PrefabInstance:
         type: 3}
       propertyPath: goals.Array.data[4].Action
       value: 
-      objectReference: {fileID: 762421240609361755}
+      objectReference: {fileID: 8506160686242586601}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].Action
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].Action
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[3].GoalName
@@ -114,8 +130,78 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: goals.Array.data[5].GoalName
+      value: Traveller Go Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].Priority
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].GoalName
+      value: Traveller Go Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].Priority
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[4].TimeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].TimeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].TimeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: goals.Array.data[4].Conditions.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].Conditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].Conditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[4].TimeLimitCondition.State
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].TimeLimitCondition.State
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[4].TimeLimitCondition.Condition
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].TimeLimitCondition.Condition
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].TimeLimitCondition.Condition
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -126,6 +212,16 @@ PrefabInstance:
         type: 3}
       propertyPath: goals.Array.data[4].Conditions.Array.data[1].State
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].Conditions.Array.data[0].State
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].Conditions.Array.data[0].State
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -140,7 +236,27 @@ PrefabInstance:
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[4].Conditions.Array.data[1].Condition
-      value: TravellerDestinationFound
+      value: TravellerHome
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].Conditions.Array.data[0].Condition
+      value: CanWander
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[5].Conditions.Array.data[1].Condition
+      value: IsHome
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].Conditions.Array.data[0].Condition
+      value: CanWander
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: goals.Array.data[6].Conditions.Array.data[1].Condition
+      value: IsHome
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3199593422043033621, guid: 52de873582b53f0439b2e676e110821d, type: 3}
@@ -194,19 +310,6 @@ MonoBehaviour:
   travellerInteractable: {fileID: 5864773831259950576}
   travellerAI: {fileID: 5393999564062687304}
   itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
---- !u!114 &762421240609361755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4997007799972478863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d074ad3722729c747b0432450cc2655c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &5864773831259950576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +348,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   interactableTraveller: {fileID: 5864773831259950576}
+--- !u!114 &8506160686242586601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997007799972478863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0482dd72038607478a4bdc3fbbdf969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &5393999564062687304 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,

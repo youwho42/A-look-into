@@ -18,13 +18,18 @@ public class BallPeopleManager : MonoBehaviour
             instance = this;
     }
 
+    
+
     public GameObject messengerPrefab;
-    public GameObject travelerPrefab;
+    public GameObject travellerPrefab;
+    public GameObject travellerHomePrefab;
     public GameObject seekerPrefab;
     public GameObject planterPrefab;
     public GameObject harvesterPrefab;
     public GameObject appearFX;
     public int lastAccessoryIndex;
+    public List<int> lastAccessories = new List<int>();
+    public Queue<int> accessoryIndexQueue = new Queue<int>();
 
     public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking, QI_CraftingRecipe craftingRecipe, Vector3 position)
     {
@@ -41,13 +46,28 @@ public class BallPeopleManager : MonoBehaviour
     public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination, Vector3 position)
     {
         GameObject trav = null;
-        SpawnBallPeople(travelerPrefab, out trav, position);
+        SpawnBallPeople(travellerPrefab, out trav, position);
 
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
         travItem.undertaking.undertaking = taskObject.undertaking;
         travItem.undertaking.task = taskObject.task;
         var travelBall = trav.GetComponent<SAP_Scheduler_BP>();
         travelBall.travellerDestination = travelerDestination.transform.position;
+    }
+
+    public void SpawnTravellerHome(Vector3 travelerDestination, Vector3 position, int accessoryIndex, Color color)
+    {
+        GameObject trav = null;
+        SpawnBallPeople(travellerHomePrefab, out trav, position);
+
+        var travelBall = trav.GetComponent<SAP_Scheduler_BP>();
+        travelBall.travellerDestination = travelerDestination;
+
+        var travelAccessory = trav.GetComponent<RandomAccessories>();
+        travelAccessory.SetAccessories(accessoryIndex);
+
+        var travelColor = trav.GetComponent<RandomColor>();
+        travelColor.SetColor(color.r, color.g, color.b);
     }
 
     public void SpawnSeeker(QI_ItemData item, int amount, CompleteTaskObject talkTask, CompleteTaskObject seekTask, Vector3 position)
@@ -108,5 +128,21 @@ public class BallPeopleManager : MonoBehaviour
         ballPerson = mess;
     }
 
+    public void GenerateRandomList(int amount)
+    {
+        List<int> temp = new List<int>();
+        for (int i = 0; i < amount; i++)
+        {
+            temp.Add(i);
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            int index = Random.Range(0, temp.Count - 1);
+            accessoryIndexQueue.Enqueue(temp[index]);
+            temp.RemoveAt(index);
+        }
+    }
+
     
+
 }

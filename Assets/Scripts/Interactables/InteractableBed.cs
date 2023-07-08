@@ -5,6 +5,8 @@ using UnityEngine;
 public class InteractableBed : Interactable
 {
     bool isOpen;
+    public bool facingRight;
+    public NavigationNode navigationNode;
     SleepDisplayUI sleepDisplay;
 
     public override void Start()

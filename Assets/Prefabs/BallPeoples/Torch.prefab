@@ -402,13 +402,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: whaaAA???
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
   fireAnimation: {fileID: 8795898393242917953}
   lightFlicker: {fileID: 8795898392129181825}
   fireFlicker: {fileID: 8795898393083815943}
+  sound:
+    clips: []
+    volume: 0.7
+    pitch: 1
+    randomVolume: 0.1
+    randomPitch: 0.1
+    overlap: 0
 --- !u!58 &8795898393083815940
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -583,8 +592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGlow: 0
   maxGlow: 0
-  bloomMinIntensity: 2
-  bloomMaxIntensity: 5
+  bloomMinIntensity: 4
+  bloomMaxIntensity: 10
   useAlpha: 0
   useIntensity: 1
 --- !u!1 &8795898393345373516
@@ -802,7 +811,7 @@ PrefabInstance:
     - target: {fileID: 8567683575678473893, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}
       propertyPath: positionZ
-      value: 0.57
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}

@@ -100,7 +100,7 @@ namespace Klaxon.GravitySystem
 
         void Jump()
         {
-            if (isGrounded && !playerInput.isInUI)
+            if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)
                 Bounce(jumpHeight);
         }
 

@@ -9,11 +9,9 @@ namespace Klaxon.SAP
 
         float timeIdle;
         bool sleeping;
-        
 
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
-            agent.interactor.canInteract = false;
             agent.arms.SetActive(false);
             agent.walker.currentDir = Vector2.zero;
             agent.animator.SetBool(agent.walking_hash, false);
@@ -40,6 +38,7 @@ namespace Klaxon.SAP
         public override void EndPerformAction(SAP_Scheduler_BP agent)
         {
             timeIdle = 0;
+            sleeping = false;
         }
 
         

@@ -10,7 +10,7 @@ public class Campfire : Interactable
     public GameObject fireAnimation;
     public Light2D lightFlicker;
     public FireFlicker fireFlicker;
-    bool isLit;
+    public bool isLit;
     public SoundSet sound;
     AudioSource source;
     float mainVolume;
@@ -65,10 +65,13 @@ public class Campfire : Interactable
         fireFlicker.canFlicker = active;
         interactVerb = _interactVerb;
         fireFlicker.StartLightFlicker(active);
-        if (active)
-            PlaySound();
-        else
-            StopSound();
+        if(sound.clips.Length > 0) 
+        { 
+            if (active)
+                PlaySound();
+            else
+                StopSound();
+        }
     }
     void PlaySound()
     {

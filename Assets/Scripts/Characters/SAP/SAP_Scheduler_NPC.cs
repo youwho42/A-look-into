@@ -32,7 +32,7 @@ namespace Klaxon.SAP
         public string currentGoalName;
         [HideInInspector]
         public bool offScreen;
-        float currentGoalTimer;
+        int currentGoalTimer = -1;
         [HideInInspector]
         public NavigationNode lastValidNode;
         bool isTalking;
@@ -65,16 +65,14 @@ namespace Klaxon.SAP
             { 
                 goals[currentGoal].Action.PerformAction(this);
 
-                if(goals[currentGoal].TimeLimit > 0)
+                if (goals[currentGoal].TimeLimit > 0)
                 {
-                    currentGoalTimer += Time.deltaTime;
-                    if(currentGoalTimer >= goals[currentGoal].TimeLimit) 
+                    if (currentGoalTimer == -1)
+                        currentGoalTimer = (RealTimeDayNightCycle.instance.currentTimeRaw + goals[currentGoal].TimeLimit) % 1440;
+                    if (RealTimeDayNightCycle.instance.currentTimeRaw == currentGoalTimer)
                     {
                         SetBeliefState(goals[currentGoal].TimeLimitCondition.Condition, goals[currentGoal].TimeLimitCondition.State);
-                        goals[currentGoal].Action.EndPerformAction(this);
-                        currentGoal = -1;
-                        currentGoalComplete = false;
-                        currentGoalTimer = 0;
+                        currentGoalTimer = -1;
                     }
                 }
             }
@@ -92,9 +90,6 @@ namespace Klaxon.SAP
         void SetNewGoal()
         {
             
-
-            
-
             int bestOption = -1;
             int bestIndex = -1;
             for (int i = 0; i < goals.Count; i++)
@@ -112,8 +107,6 @@ namespace Klaxon.SAP
                 }
             }
             
-                
-
             if(bestIndex > -1)
             {
 
@@ -129,14 +122,14 @@ namespace Klaxon.SAP
                 goals[currentGoal].IsRunning = true;
 
                 if (currentGoalName != goals[currentGoal].GoalName)
-                    currentGoalTimer = 0;
+                    currentGoalTimer = -1;
                 
                 currentGoalName = goals[currentGoal].GoalName;
             }
             else
             {
                 currentGoalName = "";
-                currentGoalTimer = 0;
+                currentGoalTimer = -1;
             }
             
         }

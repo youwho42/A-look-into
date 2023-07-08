@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -972553773627931476, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: Data
+      value: 
+      objectReference: {fileID: 11400000, guid: 65842b590e031b948add24b455ff7095,
+        type: 2}
     - target: {fileID: 3199593422043033621, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: messenger
@@ -70,7 +76,7 @@ PrefabInstance:
     - target: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: m_Name
-      value: BallPeople-Harvester NEW
+      value: BallPeople-Planter
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -86,17 +92,17 @@ PrefabInstance:
         type: 3}
       propertyPath: goals.Array.data[0].Action
       value: 
-      objectReference: {fileID: 4826093195731257732}
+      objectReference: {fileID: 1918864658833837248}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[1].Action
       value: 
-      objectReference: {fileID: 9030533191398649851}
+      objectReference: {fileID: -5653360052500049743}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[2].Action
       value: 
-      objectReference: {fileID: 3315971050286611913}
+      objectReference: {fileID: 7893616261723576788}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[0].GoalName
@@ -110,7 +116,7 @@ PrefabInstance:
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[1].GoalName
-      value: Get Plant
+      value: Get Seed
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -120,7 +126,7 @@ PrefabInstance:
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[2].GoalName
-      value: Stash Plant
+      value: Plant Seed
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -145,12 +151,12 @@ PrefabInstance:
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[1].Conditions.Array.data[0].Condition
-      value: PlantAvailable
+      value: SeedAvailable
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: goals.Array.data[2].Conditions.Array.data[0].Condition
-      value: HasPlant
+      value: HasSeed
       objectReference: {fileID: 0}
     - target: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -172,7 +178,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8809384642489709283}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3315971050286611913
+--- !u!114 &-5653360052500049743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,11 +187,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5236030320127730562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e212104e3182a0b40ae0e73efa3b08d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 66e6c59c4e132194eb8c252cc9f96dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!114 &4826093195731257732
+--- !u!114 &1918864658833837248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,11 +200,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5236030320127730562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bece393330488c45b2b0979ce4a59c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 285844a09a08cd046a5d250ad243dac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!114 &9030533191398649851
+--- !u!114 &7893616261723576788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,7 +213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5236030320127730562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc6d6b510b18c14c8a6ac969ea1588d, type: 3}
+  m_Script: {fileID: 11500000, guid: d73cf1f0e6709994f9775772875719a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}

@@ -39,6 +39,7 @@ public class PlayerInformation : MonoBehaviour
 
     public PlayerUndertakingHandler playerUndertakings;
 
+    public bool isSitting;
     public string playerName { get; private set; }
 
     public SpriteResolver playerSpriteResolver;
@@ -100,7 +101,8 @@ public class PlayerInformation : MonoBehaviour
                 playerResourceCompendiumDatabase.Items.Add(item.Item);
                 
                 AddGuideToCompendium(item.Item);
-                NotificationManager.instance.SetNewNotification($"{item.Item.Name} added to items", NotificationManager.NotificationType.Compendium);
+                //NotificationManager.instance.SetNewNotification($"{item.Item.Name} added to items", NotificationManager.NotificationType.Compendium);
+                NotificationCenter.instance.SetCompendiumText(item.Item);
                 GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             }
         }
@@ -114,7 +116,8 @@ public class PlayerInformation : MonoBehaviour
             if (!playerGuidesCompendiumDatabase.Items.Contains(item.compendiumGuide))
             {
                 playerGuidesCompendiumDatabase.Items.Add(item.compendiumGuide);
-                NotificationManager.instance.SetNewNotification($"{item.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
+                //NotificationManager.instance.SetNewNotification($"{item.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
+                NotificationCenter.instance.SetCompendiumText(item.compendiumGuide);
             }
         }
             

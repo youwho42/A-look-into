@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
 using UnityEngine;
 
 public class RandomAccessories : MonoBehaviour
@@ -28,32 +27,26 @@ public class RandomAccessories : MonoBehaviour
 
     public void ChooseAccessories()
     {
+        if (BallPeopleManager.instance.accessoryIndexQueue.Count <= 0)
+            BallPeopleManager.instance.GenerateRandomList(accessoryList.Count);
+
+        accessoryIndex = 0;
         System.Random random = new System.Random();
         float r = random.Next(0, 100);
-        //r = r / 100;
         float max = 100 / accessoryList.Count;
-        //float r = UnityEngine.Random.Range(0.0f, 1.0f);
+        
         if (r > max)
-        {
-            System.Random rand = new System.Random();
-            int ra = rand.Next(0, accessoryList.Count);
-            
-            if(ra == BallPeopleManager.instance.lastAccessoryIndex)
-            {
-                ChooseAccessories();
-                return;
-            }
-                
-            //int rand = UnityEngine.Random.Range(0, accessoryList.Count);
-            accessoryIndex = ra;
-            BallPeopleManager.instance.lastAccessoryIndex = ra;
-        }
+            accessoryIndex = BallPeopleManager.instance.accessoryIndexQueue.Dequeue();
         
         SetAccessories(accessoryIndex);
     }
 
     public void SetAccessories(int index)
     {
+        foreach (var item in accessoryList)
+        {
+            item.gameObject.SetActive(false);
+        }
         accessoryIndex = index;
         if(accessoryIndex != -1)
             accessoryList[index].gameObject.SetActive(true);

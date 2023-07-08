@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class InteractableNPCDialogue : Interactable
 {
-
+    public string NPC_name;
     public QD_DialogueHandler handler;
     QD_DialogueDemo canvasDialogueDisplay;
 
@@ -40,6 +40,7 @@ public class InteractableNPCDialogue : Interactable
     {
         base.Start();
         canvasDialogueDisplay = FindObjectOfType<QD_DialogueDemo>();
+        interactVerb = $"Talk to {NPC_name}";
     }
     public override void Interact(GameObject interactor)
     {

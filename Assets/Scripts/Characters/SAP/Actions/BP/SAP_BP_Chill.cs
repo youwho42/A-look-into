@@ -20,6 +20,7 @@ namespace Klaxon.SAP
         {
             if (!sleeping)
             {
+                
                 var dir = PlayerInformation.instance.player.position - transform.position;
                 agent.walker.SetFacingDirection(dir);
                 agent.arms.SetActive(!agent.hasInteracted);

@@ -34,6 +34,7 @@ namespace Klaxon.SAP
                     agent.arms.SetActive(false);
                     agent.justIndicated = true;
                     agent.SetBeliefState("TravellerDestinationFound", false);
+                    agent.SetBeliefState("IsHome", true);
                     agent.currentGoalComplete = true;
                 }
 

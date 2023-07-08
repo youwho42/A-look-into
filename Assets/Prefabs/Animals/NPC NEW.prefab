@@ -289,7 +289,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.12
+  m_Radius: 0.2
 --- !u!50 &4679355543035452280
 Rigidbody2D:
   serializedVersion: 4
@@ -529,6 +529,7 @@ MonoBehaviour:
   lastValidNode: {fileID: 0}
   walker: {fileID: 0}
   agentInventory: {fileID: 0}
+  stashInventory: {fileID: 0}
 --- !u!114 &1461937676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +603,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   gatherAnimTime: 3
-  stashInventory: {fileID: 0}
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

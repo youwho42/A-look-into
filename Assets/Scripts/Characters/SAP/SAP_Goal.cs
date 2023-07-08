@@ -13,7 +13,7 @@ namespace Klaxon.SAP
         public List<SAP_Condition> Conditions = new List<SAP_Condition>();
         public SAP_Action Action;
         public bool IsRunning;
-        public float TimeLimit;
+        public int TimeLimit;
         public SAP_Condition TimeLimitCondition;
     }
 }
