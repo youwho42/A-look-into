@@ -8,6 +8,13 @@ namespace Klaxon.SAP
 {
     public class SAP_Action : MonoBehaviour
     {
+        public List<NavigationNode> path = new List<NavigationNode>();
+        public int currentPathIndex;
+        public NavigationNode currentNode;
+
+
+        public bool finalDestination;
+
         /// <summary>
         /// NPC Actions
         /// </summary>
@@ -23,6 +30,10 @@ namespace Klaxon.SAP
         }
         public virtual void EndPerformAction(SAP_Scheduler_NPC agent)
         {
+        }
+        public virtual void ReachFinalDestination(SAP_Scheduler_NPC agent)
+        {
+
         }
 
         /// <summary>

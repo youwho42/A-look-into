@@ -8,14 +8,11 @@ namespace Klaxon.SAP
     {
         SAP_WorldBeliefStates worldStates;
 
-        List<NavigationNode> path = new List<NavigationNode>();
-        int currentPathIndex;
-        NavigationNode currentNode;
+        
 
-        public InteractableNPCDialogue interactableDialogue;
+        public InteractableDialogue interactableDialogue;
         public NPC_UndertakingAvailable undertakingAvailable;
 
-        bool isDeviating;
         bool destinationReached;
         bool sleeping;
 
@@ -74,28 +71,26 @@ namespace Klaxon.SAP
 
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
+            if (agent.offScreen || agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this);
+                return;
+            }
 
-
-            if (agent.walker.isStuck || isDeviating)
+            if (agent.walker.isStuck || agent.isDeviating)
             {
                 if (!agent.walker.jumpAhead)
                 {
-                    Deviate(agent);
+                    agent.Deviate();
                     return;
                 }
             }
-
-
 
             if (path.Count > 0)
             {
                 agent.walker.currentDestination = path[currentPathIndex].transform.position;
             }
-            if (agent.offScreen)
-            {
-                HandleOffScreen(agent);
-                return;
-            }
+            
             if (!agent.walker.onSlope)
                 agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)
@@ -109,8 +104,8 @@ namespace Klaxon.SAP
                 else if (currentPathIndex >= path.Count - 1)
                 {
                     agent.lastValidNode = currentNode;
-                    
-                    destinationReached = true;
+
+                    ReachFinalDestination(agent);
                     agent.animator.SetFloat(agent.velocityX_hash, 0);
                     agent.walker.currentDir = Vector2.zero;
                 }
@@ -123,6 +118,7 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
+            agent.offScreenPosMoved = true;
             agent.lastValidNode = currentNode;
             currentNode = null;
             path.Clear();
@@ -133,65 +129,14 @@ namespace Klaxon.SAP
             undertakingAvailable.SetUndertakingIcon();
         }
 
-        private void HandleOffScreen(SAP_Scheduler_NPC agent)
+        
+        
+        public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
         {
-            agent.walker.currentDir = Vector2.zero;
-            int frameSkip = 60;
-            if (currentPathIndex < path.Count - 1)
-            {
-                var dist = (int)Vector2.Distance(path[currentPathIndex].transform.position, path[currentPathIndex + 1].transform.position) + 1;
-                frameSkip *= dist;
-            }
-            if (Time.frameCount % frameSkip == 0)
-            {
-                agent.walker.transform.position = path[currentPathIndex].transform.position;
-                agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(agent.walker.transform.position);
-                agent.walker.currentLevel = agent.walker.currentTilePosition.position.z;
-                if (currentPathIndex < path.Count - 1)
-                {
-                    currentPathIndex++;
-                    currentNode = path[currentPathIndex];
-                }
-                if (currentPathIndex >= path.Count - 1)
-                {
-                    agent.lastValidNode = currentNode;
-                    agent.animator.SetBool(agent.isSleeping_hash, true);
-                    agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
-                    agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
-                    agent.animator.SetFloat(agent.velocityX_hash, 0);
-
-                    ReachFinalDestination(agent);
-                }
-
-            }
-        }
-
-
-
-        void Deviate(SAP_Scheduler_NPC agent)
-        {
-            isDeviating = true;
-            if (agent.walker.isStuck)
-                agent.walker.hasDeviatePosition = false;
-
-            if (!agent.walker.hasDeviatePosition)
-                agent.walker.FindDeviateDestination(agent.walker.tilemapObstacle ? 20 : 50);
-
-            agent.animator.SetFloat(agent.velocityX_hash, 1);
-            agent.walker.SetDirection();
-
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
-                isDeviating = false;
-
-            agent.walker.SetLastPosition();
-        }
-
-        void ReachFinalDestination(SAP_Scheduler_NPC agent)
-        {
-
-            isDeviating = false;
-            destinationReached = false;
-            agent.currentGoalComplete = true;
+            agent.offScreenPosMoved = true;
+            agent.isDeviating = false;
+            destinationReached = true;
+            
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.walker.currentDir = Vector2.zero;
         }

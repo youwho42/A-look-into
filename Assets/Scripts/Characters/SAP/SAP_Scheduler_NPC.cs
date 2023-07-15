@@ -3,6 +3,7 @@ using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 namespace Klaxon.SAP
@@ -25,7 +26,7 @@ namespace Klaxon.SAP
 
         [HideInInspector]
         public NavigationNodeType currentNavigationNodeType;
-        [HideInInspector]
+        
         public NavigationPathType pathType;
         [HideInInspector]
         public bool currentGoalComplete;
@@ -43,12 +44,17 @@ namespace Klaxon.SAP
         [HideInInspector]
         public QI_Inventory agentInventory;
         public QI_Inventory stashInventory;
+        [HideInInspector]
+        public SleepDisplayUI sleep;
+        public bool offScreenPosMoved = true;
+        public int timeTo;
 
-
+        public bool isDeviating;
         public void Start()
         {
             walker = GetComponent<GravityItemWalker>();
             agentInventory = GetComponent<QI_Inventory>();
+            sleep = SleepDisplayUI.instance;
         }
 
         public void Update()
@@ -215,6 +221,73 @@ namespace Klaxon.SAP
                 beliefs[condition] = state;
         }
 
+        public bool HasBelief(string condition, bool state)
+        {
+            if (beliefs.ContainsKey(condition))
+            {
+                if (beliefs[condition] == state)
+                    return true;
+            }
+            return false;
+        }
+
+
+        public void HandleOffScreen(SAP_Action action)
+        {
+            walker.currentDir = Vector2.zero;
+            if (offScreenPosMoved && action.currentPathIndex < action.path.Count)
+            {
+                timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, action.path[action.currentPathIndex].transform.position) / walker.walkSpeed);
+                timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+
+                offScreenPosMoved = false;
+            }
+
+            
+            if (timeTo == RealTimeDayNightCycle.instance.currentTimeRaw && !offScreenPosMoved)
+            {
+
+                offScreenPosMoved = true;
+                walker.transform.position = action.path[action.currentPathIndex].transform.position;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                walker.currentLevel = walker.currentTilePosition.position.z;
+                if (action.currentPathIndex < action.path.Count)
+                {
+                    lastValidNode = action.currentNode;
+                    action.currentPathIndex++;
+                    
+                }
+                if (action.currentPathIndex >= action.path.Count)
+                {
+                    
+                    lastValidNode = action.currentNode;
+                    action.ReachFinalDestination(this);
+                }
+                else
+                {
+                    action.currentNode = action.path[action.currentPathIndex];
+                }
+
+            }
+        }
+
+        public void Deviate()
+        {
+            isDeviating = true;
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+            animator.SetFloat(velocityX_hash, 1);
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+                isDeviating = false;
+
+            walker.SetLastPosition();
+        }
 
     }
 }

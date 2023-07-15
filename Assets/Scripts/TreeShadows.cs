@@ -13,7 +13,6 @@ public class TreeShadows : MonoBehaviour
     private void Start()
     {
         
-        GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         SetShadows(0);
         if (shadowCaster != null)
         {
@@ -22,13 +21,14 @@ public class TreeShadows : MonoBehaviour
     }
     private void OnBecameVisible()
     {
-        
+        GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         isVisible = true;
         SetShadows(0);
     }
 
     private void OnBecameInvisible()
     {
+        GameEventManager.onTimeTickEvent.RemoveListener(SetShadows);
         isVisible = false;
         if (shadowCaster != null)
         {

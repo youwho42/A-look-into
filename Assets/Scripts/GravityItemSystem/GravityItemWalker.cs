@@ -49,7 +49,6 @@ namespace Klaxon.GravitySystem
         int framesStuck;
         public bool isStuck;
         public bool tilemapObstacle;
-        
 
         private new IEnumerator Start()
         {
@@ -73,6 +72,15 @@ namespace Klaxon.GravitySystem
         {
             base.Update();
 
+            if (isInInteractAction || currentDir == Vector2.zero)
+                return;
+
+            if (CanReachNextTile(currentDir))
+            {
+
+                Move(currentDir, walkSpeed);
+                //MoveNPC();
+            }
 
 
             if (currentDir.x != 0 && !isInInteractAction)
@@ -99,17 +107,35 @@ namespace Klaxon.GravitySystem
         {
             base.FixedUpdate();
 
-            if (isInInteractAction || currentDir == Vector2.zero)
-                return;
+            //if (isInInteractAction || currentDir == Vector2.zero)
+            //    return;
 
-            if (CanReachNextTile(currentDir))
-            {
+            //if (CanReachNextTile(currentDir))
+            //{
 
-                Move(currentDir,  walkSpeed);
-            }
+            //    Move(currentDir,  walkSpeed);
+            //    //MoveNPC();
+            //}
 
 
         }
+
+        //public void MoveNPC()
+        //{
+        //    var timeTo = Vector2.Distance(_transform.position, currentDestination) / walkSpeed;
+        //    timeTo *= RealTimeDayNightCycle.instance.deltaTick;
+        //    timeTo += RealTimeDayNightCycle.instance.currentTimeRaw;
+
+
+
+        //    Vector3 currentPosition = _transform.position;
+        //    currentPosition = Vector2.Lerp(_transform.position, currentDestination, RealTimeDayNightCycle.instance.currentTimeRaw / timeTo);
+        //    //currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime * currentVelocity);
+
+        //    currentPosition.z = currentTilePosition.position.z + 1;
+        //    _transform.position = currentPosition;
+
+        //}
 
         void Jump()
         {

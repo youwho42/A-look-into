@@ -7,13 +7,7 @@ namespace Klaxon.SAP
 {
     public class SAP_Action_FindObject : SAP_Action
     {
-        List<NavigationNode> path = new List<NavigationNode>();
-        int currentPathIndex;
-        NavigationNode currentNode;
-
-
-        bool isDeviating;
-        bool finalDestination;
+        
 
         public float wanderDistance = 1f;
         bool canGather;
@@ -75,13 +69,13 @@ namespace Klaxon.SAP
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
 
-            if (agent.offScreen)
+            if (agent.offScreen || agent.sleep.isSleeping)
             {
-                HandleOffScreen(agent);
+                agent.HandleOffScreen(this);
                 return;
             }
 
-            if (agent.walker.isStuck || isDeviating)
+            if (agent.walker.isStuck || agent.isDeviating)
             {
                 if (!agent.walker.jumpAhead)
                 {
@@ -91,7 +85,7 @@ namespace Klaxon.SAP
                         return;
                     }
 
-                    Deviate(agent);
+                    agent.Deviate();
                     return;
                 }
             }
@@ -134,6 +128,8 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
+
+            agent.offScreenPosMoved = true;
             agent.SetBeliefState("HasSeed", true);
             timer = 0;
             canGather = false;
@@ -145,59 +141,12 @@ namespace Klaxon.SAP
             finalDestination = false;
         }
 
-        private void HandleOffScreen(SAP_Scheduler_NPC agent)
+        
+
+        public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
         {
-            agent.walker.currentDir = Vector2.zero;
-            int frameSkip = 60;
-            if (currentPathIndex < path.Count - 1)
-            {
-                var dist = (int)Vector2.Distance(path[currentPathIndex].transform.position, path[currentPathIndex + 1].transform.position) + 1;
-                frameSkip *= dist;
-            }
-            if (Time.frameCount % frameSkip == 0)
-            {
-                agent.walker.transform.position = path[currentPathIndex].transform.position;
-                agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(agent.walker.transform.position);
-                agent.walker.currentLevel = agent.walker.currentTilePosition.position.z;
-                if (currentPathIndex < path.Count - 1)
-                {
-                    currentPathIndex++;
-                    currentNode = path[currentPathIndex];
-                }
-                if (currentPathIndex >= path.Count - 1)
-                {
-                    agent.lastValidNode = currentNode;
-
-                    ReachFinalDestination(agent);
-                }
-
-            }
-        }
-
-
-
-        void Deviate(SAP_Scheduler_NPC agent)
-        {
-            isDeviating = true;
-            if (agent.walker.isStuck)
-                agent.walker.hasDeviatePosition = false;
-
-            if (!agent.walker.hasDeviatePosition)
-                agent.walker.FindDeviateDestination(agent.walker.tilemapObstacle ? 20 : 50);
-
-            agent.animator.SetFloat(agent.velocityX_hash, 1);
-            agent.walker.SetDirection();
-
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
-                isDeviating = false;
-
-            agent.walker.SetLastPosition();
-        }
-
-        void ReachFinalDestination(SAP_Scheduler_NPC agent)
-        {
-
-            isDeviating = false;
+            agent.offScreenPosMoved = true;
+            agent.isDeviating = false;
             canGather = true;
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.walker.currentDir = Vector2.zero;

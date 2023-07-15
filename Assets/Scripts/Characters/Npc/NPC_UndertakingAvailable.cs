@@ -33,7 +33,11 @@ public class NPC_UndertakingAvailable : MonoBehaviour
             return;
         foreach (var item in undertakingHolder.undertakings)
         {
-            if(item.CurrentState == UndertakingState.Inactive)
+            if (item.CurrentState == UndertakingState.Active)
+            {
+                break;
+            }
+            if (item.CurrentState == UndertakingState.Inactive)
             {
                 undertakingAvailableIcon.gameObject.SetActive(true);
                 break;

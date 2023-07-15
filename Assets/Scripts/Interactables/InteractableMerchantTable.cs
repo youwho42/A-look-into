@@ -9,7 +9,8 @@ public class InteractableMerchantTable : Interactable
     bool isOpen;
     public SpriteRenderer itemIcon;
     QI_ItemData item;
-    int amount;
+    [HideInInspector]
+    public int amount;
 
     MerchantTableUI merchantTable;
 
@@ -68,6 +69,7 @@ public class InteractableMerchantTable : Interactable
         item = itemData;
         amount = _amount;
         itemIcon.sprite = item.Icon;
+        canInteract = true;
     }
 
     public void ClearTable()

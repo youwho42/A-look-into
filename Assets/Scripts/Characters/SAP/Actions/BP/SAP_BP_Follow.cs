@@ -8,7 +8,7 @@ namespace Klaxon.SAP
     {
 
         Vector2 offset;
-
+        Vector2 lastDestination;
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
             agent.interactor.canInteract = false;
@@ -21,6 +21,12 @@ namespace Klaxon.SAP
         {
             if (agent.walker.isStuck || agent.isDeviating)
             {
+                if(lastDestination == agent.walker.currentDestination)
+                {
+                    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                }
+                lastDestination = agent.walker.currentDestination;
+
                 if (!agent.walker.jumpAhead)
                 {
                     agent.Deviate();
@@ -40,15 +46,13 @@ namespace Klaxon.SAP
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
             agent.walker.SetDirection();
+            
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)
             {
-                
                 agent.SetBeliefState("PlayerClose", true);
                 agent.currentGoalComplete = true;
-                //return;
             }
 
-            
             agent.walker.SetLastPosition();
         }
 
@@ -59,9 +63,6 @@ namespace Klaxon.SAP
 
             agent.animator.SetBool(agent.walking_hash, false);
         }
-
-        
-        
 
     }
 }

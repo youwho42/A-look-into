@@ -27,8 +27,9 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject planterPrefab;
     public GameObject harvesterPrefab;
     public GameObject appearFX;
-    public int lastAccessoryIndex;
-    public List<int> lastAccessories = new List<int>();
+    public float lastColorA;
+    public System.Random random = new System.Random();
+    
     public Queue<int> accessoryIndexQueue = new Queue<int>();
 
     public void SpawnMessenger(QI_ItemData message, BallPeopleMessageType messageType, UndertakingObject undertaking, QI_CraftingRecipe craftingRecipe, Vector3 position)
@@ -137,7 +138,7 @@ public class BallPeopleManager : MonoBehaviour
         }
         for (int i = 0; i < amount; i++)
         {
-            int index = Random.Range(0, temp.Count - 1);
+            int index = Random.Range(0, temp.Count);
             accessoryIndexQueue.Enqueue(temp[index]);
             temp.RemoveAt(index);
         }

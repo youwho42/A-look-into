@@ -18,20 +18,20 @@ public class InteractableBed : Interactable
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-        if (!isOpen)
-        {
+        //if (!isOpen)
+        //{
             if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
             {
                 OpenSleeping();
                 isOpen = true;
             }
             
-        }
-        else
-        {
-            CloseSleeping();
-            isOpen = false;
-        }
+        //}
+        //else
+        //{
+        //    CloseSleeping();
+        //    isOpen = false;
+        //}
     }
 
     private void OpenSleeping()
@@ -41,10 +41,10 @@ public class InteractableBed : Interactable
         sleepDisplay.ShowUI();
     }
 
-    private void CloseSleeping()
-    {
-        UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        sleepDisplay.HideUI();
-    }
+    //private void CloseSleeping()
+    //{
+    //    UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
+    //    UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+    //    sleepDisplay.HideUI();
+    //}
 }

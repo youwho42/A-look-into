@@ -27,7 +27,7 @@ public class WaterSound : MonoBehaviour
             player = PlayerInformation.instance;
 
         GetWaterTiles();
-        
+        audioSource.volume = 0;
     }
 
     void GetWaterTiles()
@@ -64,7 +64,7 @@ public class WaterSound : MonoBehaviour
             
             if (closestTileDistance < minDist)
             {
-                audioSource.volume = 0.15f * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
+                audioSource.volume = 0.4f * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
             }
             else if (closestTileDistance > maxDist)
             {
@@ -72,7 +72,7 @@ public class WaterSound : MonoBehaviour
             }
             else
             {
-                audioSource.volume = (0.4f - ((closestTileDistance - minDist) / (maxDist - minDist))) * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects); ;
+                audioSource.volume = (0.4f - ((closestTileDistance - minDist) / (maxDist - minDist))) * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
             }
         }
         

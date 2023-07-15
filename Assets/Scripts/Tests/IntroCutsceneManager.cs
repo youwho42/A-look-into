@@ -1,6 +1,4 @@
-using Klaxon.QuestSystem;
-using Klaxon.UndertakingSystem;
-using QuantumTek.QuantumDialogue;
+
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +13,6 @@ public class IntroCutsceneManager : MonoBehaviour
     public PlayableDirector chickenDirector;
     public TextMeshProUGUI speaker;
     public TextMeshProUGUI message;
-    public QD_DialogueHandler handler;
     //public QI_ItemData messageItem;
 
     public QI_ItemData messageControls;
@@ -26,8 +23,7 @@ public class IntroCutsceneManager : MonoBehaviour
         GameEventManager.onNewGameStartedEvent.AddListener(PlayCutscene);
         GameEventManager.onGameLoadedEvent.AddListener(SetChicken);
         introCutsceneDirector = GetComponent<PlayableDirector>();
-        handler.SetConversation("ChickenIntroduction");
-        SetText();
+        
     }
     private void OnDisable()
     {
@@ -83,34 +79,7 @@ public class IntroCutsceneManager : MonoBehaviour
         BallPeopleManager.instance.SpawnMessenger(messageControls, BallPeopleMessageType.Guide, null, null, pos);
     }
 
-    void SetText()
-    {
-        // Clear everything
-        speaker.text = "";
-        message.text = "";
+    
 
-        
-        // Generate choices if a choice, otherwise display the message
-        if (handler.currentMessageInfo.Type == QD_NodeType.Message)
-        {
-            QD_Message messageToDisplay = handler.GetMessage();
-            speaker.text = messageToDisplay.SpeakerName;
-            message.text = messageToDisplay.MessageText;
-        }
-        
-    }
-
-    public void Next()
-    {
-        if (ended)
-            return;
-
-        // Go to the next message
-        handler.NextMessage(-1);
-        // Set the new text
-        SetText();
-        // End if there is no next message
-        if (handler.currentMessageInfo.ID < 0)
-            ended = true;
-    }
+    
 }

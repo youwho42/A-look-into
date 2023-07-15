@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 
 using Klaxon.UndertakingSystem;
-using Klaxon.GOAP;
 
 public class LevelManager : MonoBehaviour
 {
@@ -305,7 +304,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         PlayerInformation.instance.TogglePlayerInput(false);
-        UndertakingDatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
+        Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
 
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName +"-Terrain");
 
@@ -375,7 +374,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         PlayerInformation.instance.TogglePlayerInput(false);
-        UndertakingDatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
+        Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
 
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Terrain");
 

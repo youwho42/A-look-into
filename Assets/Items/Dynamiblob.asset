@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
+  m_Name: Dynamiblob
+  m_EditorClassIdentifier: 
+  Name: Dynamiblob
+  AnimationName: 
+  Description: A dynamiblob...? Used to generate eternal energy in certain crafting
+    recipes.
+  Weight: 0.3
+  Price: 0
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 8cd6ef8ebfc44fc41b7dd5fb22e21a70, type: 3}
+  ItemPrefab: {fileID: 4512748395779608294, guid: 7001335e11ef5764099c542032b947c5,
+    type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  EquipedItemImage: {fileID: 0}
+  MaxStack: 100
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: d5d7ca4857132cc439492c07df3a52b0, type: 2}
+    RecipeRevealAmount: 20
+    AgencyReward: 20
+  GameDificulty: 0

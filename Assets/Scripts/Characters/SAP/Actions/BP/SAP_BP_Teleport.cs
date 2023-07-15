@@ -48,8 +48,14 @@ namespace Klaxon.SAP
 
                     if (tile.direction == Vector3Int.zero)
                     {
-                        if (tile.isValid)
+                        var hit = Physics2D.OverlapPoint(transform.position, agent.obstacleLayer);
+                        if (tile.isValid && hit == null)
+                        {
                             agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(transform.position);
+                            var p = transform.position;
+                            p.z = agent.walker.currentTilePosition.position.z + 1;
+                            transform.position = p;
+                        }
                         else
                             SetPositionNearPlayer(agent);
                     }

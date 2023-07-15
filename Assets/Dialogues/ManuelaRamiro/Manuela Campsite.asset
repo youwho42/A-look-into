@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc096afc96689a4aa2ff1d38daf3ed1, type: 3}
+  m_Name: Manuela Campsite
+  m_EditorClassIdentifier: 
+  DialogueName: Campsite
+  type: 1
+  ActivateUndertakingObject: {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a,
+    type: 2}
+  UndertakingObject: {fileID: 0}
+  UndertakingTask: {fileID: 0}
+  DialogueBranches:
+  - DialogueType: 1
+    sentences:
+    - I think I saw a campsite around here somewhere. Down in Blu Valley maybe?
+    - It's pretty broken down, but I think it could be a very useful thing to squeek
+      back in to shape.
+  - DialogueType: 2
+    sentences:
+    - Have you found that campsite yet?
+    - I'm pretty sure it was in Blu Valley.
+  - DialogueType: 3
+    sentences:
+    - I'm so glad you found the campsite!
+  Completed: 0

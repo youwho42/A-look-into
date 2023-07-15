@@ -8,18 +8,14 @@ namespace Klaxon.SAP
     {
 
 
-        List<NavigationNode> path = new List<NavigationNode>();
-        int currentPathIndex;
-        NavigationNode currentNode;
-
+        
         InteractableChair chair;
 
-        bool isDeviating;
         bool destinationReached;
         bool sitting;
-        public Vector2 minMaxSittingTime;
-        float maxTime;
-        float timer;
+        public Vector2Int minMaxSittingTime;
+        int maxTime;
+        int timer;
 
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
         {
@@ -59,9 +55,10 @@ namespace Klaxon.SAP
 
             if (sitting)
             {
-                timer += Time.deltaTime;
-                if (timer >= maxTime)
+                
+                if (timer == RealTimeDayNightCycle.instance.currentTimeRaw)
                 {
+                    
                     StartCoroutine(PlaceNPC(agent, chair.navigationNode.transform.position));
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("Tired", false);
@@ -72,7 +69,7 @@ namespace Klaxon.SAP
                 
             if (destinationReached && !sitting)
             {
-                
+                agent.offScreenPosMoved = false;
                 sitting = true;
                 agent.animator.SetBool(agent.isSitting_hash, true);
                 agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
@@ -81,7 +78,7 @@ namespace Klaxon.SAP
                 agent.walker.currentDir = Vector2.zero;
                 Vector3 displacement = new Vector3(agent.walker.transform.position.x, agent.walker.transform.position.y, agent.walker.transform.position.z + 0.33f);
                 agent.walker.transform.position = displacement;
-
+                timer = (RealTimeDayNightCycle.instance.currentTimeRaw + maxTime) % 1440;
                 StartCoroutine(PlaceNPC(agent, chair.transform.position));
                 if (agent.walker.facingRight && !chair.facingRight || !agent.walker.facingRight && chair.facingRight)
                     agent.walker.Flip();
@@ -97,13 +94,18 @@ namespace Klaxon.SAP
 
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
+            if (agent.offScreen || agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this);
+                return;
+            }
 
 
-            if (agent.walker.isStuck || isDeviating)
+            if (agent.walker.isStuck || agent.isDeviating)
             {
                 if (!agent.walker.jumpAhead)
                 {
-                    Deviate(agent);
+                    agent.Deviate();
                     return;
                 }
             }
@@ -114,11 +116,7 @@ namespace Klaxon.SAP
             {
                 agent.walker.currentDestination = path[currentPathIndex].transform.position;
             }
-            if (agent.offScreen)
-            {
-                HandleOffScreen(agent);
-                return;
-            }
+            
             if (!agent.walker.onSlope)
                 agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)
@@ -132,8 +130,8 @@ namespace Klaxon.SAP
                 else if (currentPathIndex >= path.Count - 1)
                 {
                     agent.lastValidNode = currentNode;
-                    
-                    destinationReached = true;
+
+                    ReachFinalDestination(agent);
                     agent.animator.SetFloat(agent.velocityX_hash, 0);
                     agent.walker.currentDir = Vector2.zero;
                 }
@@ -146,6 +144,7 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
+            agent.offScreenPosMoved = true;
             agent.lastValidNode = currentNode;
             
             timer = 0;
@@ -158,56 +157,19 @@ namespace Klaxon.SAP
             target = null;
         }
 
-        private void HandleOffScreen(SAP_Scheduler_NPC agent)
+
+        public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
         {
+            agent.offScreenPosMoved = true;
+            agent.isDeviating = false;
+            destinationReached = true;
+
+            agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.walker.currentDir = Vector2.zero;
-            int frameSkip = 60;
-            if (currentPathIndex < path.Count - 1)
-            {
-                var dist = (int)Vector2.Distance(path[currentPathIndex].transform.position, path[currentPathIndex + 1].transform.position) + 1;
-                frameSkip *= dist;
-            }
-            if (Time.frameCount % frameSkip == 0)
-            {
-                agent.walker.transform.position = path[currentPathIndex].transform.position;
-                agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(agent.walker.transform.position);
-                agent.walker.currentLevel = agent.walker.currentTilePosition.position.z;
-                if (currentPathIndex < path.Count - 1)
-                {
-                    currentPathIndex++;
-                    currentNode = path[currentPathIndex];
-                }
-                if (currentPathIndex >= path.Count - 1)
-                {
-                    agent.lastValidNode = currentNode;
-                    
-                    destinationReached = true;
-                }
-
-            }
         }
 
 
 
-        void Deviate(SAP_Scheduler_NPC agent)
-        {
-            isDeviating = true;
-            if (agent.walker.isStuck)
-                agent.walker.hasDeviatePosition = false;
-
-            if (!agent.walker.hasDeviatePosition)
-                agent.walker.FindDeviateDestination(agent.walker.tilemapObstacle ? 20 : 50);
-
-            agent.animator.SetFloat(agent.velocityX_hash, 1);
-            agent.walker.SetDirection();
-
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
-                isDeviating = false;
-
-            agent.walker.SetLastPosition();
-        }
-
-        
         IEnumerator PlaceNPC(SAP_Scheduler_NPC agent, Vector3 position)
         {
             float timer = 0;

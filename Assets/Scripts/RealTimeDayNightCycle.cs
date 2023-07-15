@@ -18,7 +18,10 @@ public class RealTimeDayNightCycle : MonoBehaviour
   
     }
 
-    private readonly WaitForFixedUpdate waitForFixedUpdate = new();
+    private readonly WaitForEndOfFrame waitForFixedUpdate = new();
+
+    public float deltaTick;
+    float lastTick;
 
     public int hourOffset;
     public int minuteOffset;
@@ -46,9 +49,9 @@ public class RealTimeDayNightCycle : MonoBehaviour
     public Gradient[] sunriseColors;
 
     int gradientIndex;
-    
-    
 
+    float timer;
+    
     bool resetGradient;
     bool gradientSet;
     public DayState dayState;
@@ -72,7 +75,10 @@ public class RealTimeDayNightCycle : MonoBehaviour
         Invoke("InitializeTick", 1.0f);
         SetGradient();
     }
+
     
+
+
     void InitializeTick()
     {
         GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
@@ -148,13 +154,19 @@ public class RealTimeDayNightCycle : MonoBehaviour
     {
         while (true)
         {
+            float currentTickTime = Time.time;
+            deltaTick = currentTickTime - lastTick;
+            //deltaTick *= 0.02f;
+            //deltaTick = MapNumber.Remap(deltaTick, 0.0f, 1.0f, 0.1f, 0.02f);
+            
+            lastTick = currentTickTime;
             if (!isPaused)
             {
 
-                currentTimeRaw += 1;
+                currentTimeRaw++;
                 if (currentTimeRaw == 1440)
                 {
-                    
+
                     currentDayRaw++;
                     currentTimeRaw = 0;
                 }
@@ -171,13 +183,15 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
                 SetDayState();
                 GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
+
+                // Setting new sunset/sunrise colors
                 if (hours % 12 == 0)
                     SetGradient();
             }
             if (cycleSpeed == 1)
                 yield return new WaitForSeconds(1f);
             else
-                yield return waitForFixedUpdate;
+                yield return new WaitForEndOfFrame();
 
         }
 

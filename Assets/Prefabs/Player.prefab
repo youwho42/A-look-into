@@ -926,6 +926,7 @@ MonoBehaviour:
   isWeightless: 0
   tileBlockInfo: []
   onObstacle: 0
+  obstacleDisplacement: {x: 0, y: 0, z: 0}
   walkSpeed: 0.6
   runSpeed: 1.2
   jumpHeight: 8
@@ -1111,7 +1112,6 @@ Transform:
   m_Children:
   - {fileID: 3571481026990879276}
   - {fileID: 1705034264274678013}
-  - {fileID: 7599696175170846863}
   m_Father: {fileID: 3304207017380454964}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1139,13 +1139,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6355515056578013897}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0104728, y: -0.03456715, z: -0.68306494, w: 0.7294641}
+  m_LocalPosition: {x: -0.016, y: -0.042, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1680125245580215105}
-  m_RootOrder: 2
+  m_Father: {fileID: 6241121369754526855}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5449306686378050775
 SpriteRenderer:
@@ -1193,7 +1193,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.125, y: 0.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

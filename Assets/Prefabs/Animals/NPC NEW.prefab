@@ -175,14 +175,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6902144603053421255}
   - component: {fileID: 6902144603053421248}
-  - component: {fileID: 6902144603053421257}
-  - component: {fileID: 6902144603053421256}
   - component: {fileID: 6902144603053421259}
   - component: {fileID: 4679355543035452280}
   - component: {fileID: 6902144603053421261}
   - component: {fileID: 6902144603053421266}
-  - component: {fileID: 1072777948532095672}
-  - component: {fileID: 904669369267082285}
   - component: {fileID: 3430741014648153331}
   - component: {fileID: 1781550424958762}
   - component: {fileID: 3968540688165807639}
@@ -193,6 +189,9 @@ GameObject:
   - component: {fileID: 2658520282386853915}
   - component: {fileID: 1928991682}
   - component: {fileID: 2024037668861961693}
+  - component: {fileID: 9099265967096594157}
+  - component: {fileID: 7803679775236702586}
+  - component: {fileID: 7335956055071325998}
   m_Layer: 13
   m_Name: NPC NEW
   m_TagString: NPC
@@ -231,49 +230,6 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 5}
---- !u!114 &6902144603053421257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e215bbb36679a431e93c51bb0514659e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue: {fileID: 11400000, guid: c7f72244b3994f743bd9579893058eb4, type: 2}
-  currentConversationIndex: -1
-  currentConversation:
-    ID: 0
-    Name: 
-    FirstMessage: 0
-  currentMessageInfo:
-    ID: 0
-    NextID: 0
-    Type: 0
---- !u!114 &6902144603053421256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10d6fdfe4f1049499e9dbfcd7e4501e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactSound: Default
-  interactVerb: Talk to
-  longInteractVerb: whaaAA???
-  bounceCost: 0
-  agencyReward: 0
-  agencyCost: 0
-  canInteract: 1
-  hasLongInteract: 0
-  handler: {fileID: 6902144603053421257}
 --- !u!58 &6902144603053421259
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -337,36 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTilePosition: {fileID: 6902144603053421248}
---- !u!114 &1072777948532095672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ce8e8ecdfe90f489bbcc56e04fb795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  task:
-    undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
-    task: {fileID: 11400000, guid: e0d0a34fc9e7b5243b1d8c4467f269fe, type: 2}
---- !u!114 &904669369267082285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16cdaad32f528f545b1fa8a98171a04a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  undertakings:
-  - {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
-  - {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a, type: 2}
 --- !u!114 &3430741014648153331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,6 +529,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   gatherAnimTime: 3
+--- !u!114 &9099265967096594157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318ac260c4d67be48a9a50a801fe091f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: whaaAA???
+  longInteractVerb: whaaAA???
+  bounceCost: 0
+  agencyReward: 0
+  agencyCost: 0
+  canInteract: 1
+  hasLongInteract: 0
+--- !u!114 &7803679775236702586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60eaa5b139d82dd42a876cb99a8a268b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPC_Name: 
+  conversations: []
+--- !u!114 &7335956055071325998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cdaad32f528f545b1fa8a98171a04a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  undertakings: []
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

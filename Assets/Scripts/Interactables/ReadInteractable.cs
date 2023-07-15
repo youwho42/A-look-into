@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using QuantumTek.QuantumDialogue;
-using QuantumTek.QuantumDialogue.Demo;
+
 using UnityEngine;
 
 public class ReadInteractable : Interactable
 {
-    public QD_DialogueHandler dialogueHandler;
+    
 
     public string coversation;
 
-    public QD_DialogueDemo canvasDialogueDisplay;
+    
 
     public override void Start()
     {
@@ -31,9 +30,7 @@ public class ReadInteractable : Interactable
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
-        canvasDialogueDisplay.handler = dialogueHandler;
-        canvasDialogueDisplay.handler.SetConversation(coversation);
-        canvasDialogueDisplay.SetText();
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)

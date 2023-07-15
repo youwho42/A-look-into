@@ -230,6 +230,8 @@ namespace Klaxon.GravitySystem
 
         //}
 
+        
+
 
         public void Move(Vector2 dir, float velocity)
         {
@@ -238,11 +240,12 @@ namespace Klaxon.GravitySystem
 
 
             Vector3 currentPosition = _transform.position;
-            currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime * currentVelocity);
+            currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime* currentVelocity);
             currentPosition.z = currentTilePosition.position.z + 1;
             _transform.position = currentPosition;
 
         }
+        
 
         public void MoveZ(Vector3 dir, float speed)
         {
