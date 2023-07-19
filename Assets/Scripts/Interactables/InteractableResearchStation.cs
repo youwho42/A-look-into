@@ -18,7 +18,7 @@ public class InteractableResearchStation : Interactable
         base.Interact(interactor);
         if (!isOpen)
         {
-            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.None)
             {
                 OpenResearch();
                 isOpen = true;
@@ -41,8 +41,8 @@ public class InteractableResearchStation : Interactable
 
     private void CloseResearch()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.ResearchStationScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         ResearchStationDisplayUI.instance.HideUI();
     }
    

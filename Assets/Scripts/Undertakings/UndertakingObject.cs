@@ -85,17 +85,17 @@ namespace Klaxon.UndertakingSystem
             if (GumptionReward > 0)
                 player.playerStats.AddToStat("Gumption", GumptionReward);
             if (AgencyReward > 0)
-                player.playerStats.AddToStat("Agency", GumptionReward);
+                player.playerStats.AddToStat("Agency", AgencyReward);
             if (SparksReward > 0)
                 player.purse.AddToPurse(SparksReward);
             if (ItemReward != null)
                 player.playerInventory.AddItem(ItemReward, ItemQuantity, false);
             if(RecipeReward != null)
                 player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
-
+            
             CurrentState = UndertakingState.Complete;
-            //NotificationManager.instance.SetNewNotification($"{Name} undertaking completed", NotificationManager.NotificationType.Undertaking);
-            NotificationCenter.instance.SetUndertakingText(this);
+            NotificationManager.instance.SetNewNotification($"{Name} undertaking completed", NotificationManager.NotificationType.Undertaking);
+            //NotificationCenter.instance.SetUndertakingText(this);
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InteractableMerchantTable : Interactable
 {
-    bool isOpen;
+    public bool isOpen;
     public SpriteRenderer itemIcon;
     QI_ItemData item;
     [HideInInspector]
@@ -19,6 +19,7 @@ public class InteractableMerchantTable : Interactable
         base.Start();
         canInteract = false;
         merchantTable = MerchantTableUI.instance;
+        
     }
 
     public override void Interact(GameObject interactor)
@@ -26,7 +27,7 @@ public class InteractableMerchantTable : Interactable
         base.Interact(interactor);
         if (!isOpen)
         {
-            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.None)
             {
                 OpenMerchantTable();
                 isOpen = true;
@@ -50,8 +51,8 @@ public class InteractableMerchantTable : Interactable
 
     private void CloseMerchantTable()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.MerchantTableScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
     }
 
     public void RemoveItems(int quantity)
@@ -70,6 +71,7 @@ public class InteractableMerchantTable : Interactable
         amount = _amount;
         itemIcon.sprite = item.Icon;
         canInteract = true;
+        interactVerb = $"Buy {item.Name}";
     }
 
     public void ClearTable()

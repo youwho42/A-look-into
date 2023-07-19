@@ -32,6 +32,10 @@ public class PlayerPreferencesManager : MonoBehaviour
             PlayerPrefs.SetInt("Vsync", 0);
         if (!PlayerPrefs.HasKey("AutoZoomReset"))
             PlayerPrefs.SetInt("AutoZoomReset", 1);
+
+        if (!PlayerPrefs.HasKey("DisplayHUD"))
+            PlayerPrefs.SetInt("DisplayHUD", 0);
+
         LevelManager.instance.SetVSync(PlayerPrefs.GetInt("Vsync"));
         LevelManager.instance.SetAutoZoomReset(PlayerPrefs.GetInt("AutoZoomReset"));
     }
@@ -44,6 +48,11 @@ public class PlayerPreferencesManager : MonoBehaviour
     public void SaveAutoZoomReset(int autoReset)
     {
         PlayerPrefs.SetInt("AutoZoomReset", autoReset);
+    }
+
+    public void SaveDisplayHUD(int hud)
+    {
+        PlayerPrefs.SetInt("AutoZoomReset", hud);
     }
 
     void InitializeVolumeSettings()

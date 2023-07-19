@@ -75,8 +75,8 @@ public class InteractableCraftingStation : Interactable
 
     private void CloseCrafting()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.CraftingStationScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         craftingDisplay.HideUI();
     }
 }

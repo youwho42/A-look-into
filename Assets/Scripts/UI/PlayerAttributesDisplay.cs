@@ -45,7 +45,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
             return;
         int newBounce = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
         int newAgency = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
-        int newSparks = (int)PlayerInformation.instance.purse.GetPurseAmount();
+        int newSparks = PlayerInformation.instance.purse.GetPurseAmount();
 
         if(newBounce != lastBounce)
         {
@@ -66,7 +66,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
             StartCoroutine(ShakeStatUI(sparkUI, sparksPos, diff));
         }
         bounceSlider.value = lastBounce;
-        agencyText.text = lastAgency.ToString();
+        agencyText.text = $"<sprite name=\"Agency\"> {lastAgency}";
         sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
     }
 

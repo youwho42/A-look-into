@@ -55,6 +55,10 @@ public class LevelManager : MonoBehaviour
     private Toggle autoZoomReset;
     [HideInInspector]
     public int autoZoomBinary;
+    [SerializeField]
+    private Toggle HUDDisplay;
+    [HideInInspector]
+    public int HUDBinary;
 
     [SerializeField]
     private Slider loadScreenSlider;
@@ -174,6 +178,12 @@ public class LevelManager : MonoBehaviour
         autoZoomBinary = zoomBinary;
         autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
     }
+
+    public void SetDisplayHUD(int displayHUD)
+    {
+        HUDBinary = displayHUD;
+        HUDDisplay.isOn = HUDBinary == 0 ? false : true;
+    }
     public int GetVSync()
     {
         return QualitySettings.vSyncCount;
@@ -231,12 +241,14 @@ public class LevelManager : MonoBehaviour
         {
             UIScreenManager.instance.HideAllScreens();
             UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
+            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
             PlayerInformation.instance.TogglePlayerInput(false);
         }
         else
         {
             UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            if(HUDBinary == 1)
+                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
             PlayerInformation.instance.TogglePlayerInput(true);
         }
         savedAlert.SetActive(false);
@@ -356,7 +368,8 @@ public class LevelManager : MonoBehaviour
 
         Time.timeScale = 1;
         UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        if(HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         
         yield return new WaitForSecondsRealtime(0.1f);
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
@@ -433,7 +446,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f);
         PlayerInformation.instance.playerShadow.SetActive(true);
         yield return new WaitForSecondsRealtime(0.5f);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         
     }
 }

@@ -73,8 +73,8 @@ public class InteractableContainer : Interactable
 
     private void CloseContainer()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         containerUI.HideContainerUI();
         isOpen = false;
     }

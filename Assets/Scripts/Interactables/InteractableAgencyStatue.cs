@@ -62,10 +62,10 @@ public class InteractableAgencyStatue : Interactable
     {
         base.Interact(interactor);
 
-        if(!hasBeenActivated)
+        if (!hasBeenActivated && PlayerInformation.instance.playerInventory.CheckInventoryHasSpace(agencyItem))
             StartCoroutine(InteractCo(interactor));
-
-
+        else
+            NotificationManager.instance.SetNewNotification("Inventory full", NotificationManager.NotificationType.Warning);
     }
 
     IEnumerator InteractCo(GameObject interactor)

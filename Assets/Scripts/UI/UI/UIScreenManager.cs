@@ -84,6 +84,8 @@ public class UIScreenManager : MonoBehaviour
             currentScreen = UIScreenType.None;
             s.SetActive(false);
         }
+        PlayerInformation.instance.uiScreenVisible = false;
+        PlayerInformation.instance.TogglePlayerInput(true);
     }
 
     public UIScreenType CurrentUIScreen()

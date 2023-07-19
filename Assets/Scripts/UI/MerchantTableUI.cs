@@ -71,7 +71,8 @@ public class MerchantTableUI : MonoBehaviour
 
     public void HideUI()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.MerchantTableScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.HideAllScreens();
+        merchantTable.isOpen = false;
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
     }
 }

@@ -54,9 +54,8 @@ public class SleepDisplayUI : MonoBehaviour
 
     public void HideUI()
     {
-        PlayerInformation.instance.uiScreenVisible = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
         
+        UIScreenManager.instance.HideAllScreens();
         isShowing = false;
     }
 
@@ -89,8 +88,8 @@ public class SleepDisplayUI : MonoBehaviour
         }
         dayNightCycle.cycleSpeed = 1;
         isSleeping = false;
-        UIScreenManager.instance.HideScreens(UIScreenType.SleepScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        //UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         HideUI();
         yield return null;
 

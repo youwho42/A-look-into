@@ -168,50 +168,7 @@ namespace Klaxon.SAP
 
 
 
-        public void OnTriggerEnter2D(Collider2D collision)
-        {
-            
-                
-            if (collision.CompareTag("House"))
-            {
-                if (collision.OverlapPoint(transform.position))
-                    currentNavigationNodeType = NavigationNodeType.Inside;
-            }
-
-
-
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                isTalking = true;
-                animator.SetFloat(velocityX_hash, 0);
-                walker.currentDir = Vector2.zero;
-                if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
-                {
-                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
-                    collision.transform.position.x > transform.position.x && !walker.facingRight)
-                        walker.Flip();
-                }
-
-
-            }
-        }
-
-
-
-        public void OnTriggerExit2D(Collider2D collision)
-        {
-
-           
-
-            if (collision.CompareTag("House"))
-                currentNavigationNodeType = NavigationNodeType.Outside;
-
-
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                isTalking = false;
-            }
-        }
+        
 
         public void SetBeliefState(string condition, bool state)
         {
@@ -288,6 +245,55 @@ namespace Klaxon.SAP
 
             walker.SetLastPosition();
         }
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+
+            if (collision.transform.position.z != transform.position.z)
+                return;
+
+            if (collision.CompareTag("House"))
+            {
+                if (collision.OverlapPoint(transform.position))
+                    currentNavigationNodeType = NavigationNodeType.Inside;
+            }
+
+
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                isTalking = true;
+                animator.SetFloat(velocityX_hash, 0);
+                walker.currentDir = Vector2.zero;
+                if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
+                {
+                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
+                    collision.transform.position.x > transform.position.x && !walker.facingRight)
+                        walker.Flip();
+                }
+
+
+            }
+        }
+
+
+
+        public void OnTriggerExit2D(Collider2D collision)
+        {
+
+
+
+            if (collision.CompareTag("House"))
+                currentNavigationNodeType = NavigationNodeType.Outside;
+
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                isTalking = false;
+            }
+        }
+
+
 
     }
 }

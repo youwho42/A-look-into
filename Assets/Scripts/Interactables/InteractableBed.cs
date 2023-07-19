@@ -20,7 +20,7 @@ public class InteractableBed : Interactable
         base.Interact(interactor);
         //if (!isOpen)
         //{
-            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.None)
             {
                 OpenSleeping();
                 isOpen = true;
