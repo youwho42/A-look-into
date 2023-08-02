@@ -20,8 +20,9 @@ public class PlantLife : MonoBehaviour
 
     public int currentCycle = 0;
 
-    public int nextCycleDay;
-    public int nextCycleTick;
+    public CycleTicks cycle;
+    //public int nextCycleDay;
+    //public int nextCycleTick;
 
     InteractableFarmPlant interactablePlant;
     Collider2D coll;
@@ -57,12 +58,9 @@ public class PlantLife : MonoBehaviour
     {
         if (currentCycle == plantCycles.Count - 1)
             return;
-        if(tick == nextCycleTick)
+        RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
+        if (tick >= cycle.tick && dayNightCycle.currentDayRaw == cycle.day)
         {
-            RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
-            if (dayNightCycle.currentDayRaw != nextCycleDay)
-                return;
-            
             currentCycle++;
             SetSprites();
             SetNextCycleTime();
@@ -71,14 +69,7 @@ public class PlantLife : MonoBehaviour
 
     public void SetNextCycleTime()
     {
-        RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
-
-        int time = dayNightCycle.currentTimeRaw;
-        int d = ticksPerCycle / 1440;
-        nextCycleDay = dayNightCycle.currentDayRaw + d;
-        int t = ticksPerCycle % 1440;
-        nextCycleTick = time + t;
-
+        cycle = RealTimeDayNightCycle.instance.GetCycleTime(ticksPerCycle);
     }
 
     public void SetSprites()

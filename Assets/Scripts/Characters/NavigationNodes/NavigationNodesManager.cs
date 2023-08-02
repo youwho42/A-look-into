@@ -59,7 +59,15 @@ public class NavigationNodesManager : MonoBehaviour
             nodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
             
         }
-        int r = UnityEngine.Random.Range(0, nodes.Count);
+
+        int r = -1;
+        while(r == -1)
+        {
+            int n = UnityEngine.Random.Range(0, nodes.Count);
+            if (nodes[n].active)
+                r = n;
+        }
+        
         return nodes[r];
     }
     public NavigationNode GetRandomNode(NavigationNodeType nodeType, NavigationPathType pathType, Vector3 position, float maxDistance)
@@ -78,8 +86,14 @@ public class NavigationNodesManager : MonoBehaviour
                     nodesInArea.Add(node);
             }
         }
-            
-        int r = UnityEngine.Random.Range(1, nodesInArea.Count);
+
+        int r = -1;
+        while (r == -1)
+        {
+            int n = UnityEngine.Random.Range(0, nodesInArea.Count);
+            if (nodesInArea[n].active)
+                r = n;
+        }
         return nodesInArea[r];
     }
     public NavigationNode GetClosestNavigationNode(Vector3 position, NavigationNodeType nodeType, NavigationPathType pathType)
@@ -94,7 +108,8 @@ public class NavigationNodesManager : MonoBehaviour
             var searchNodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
             foreach (NavigationNode node in searchNodes)
             {
-                
+                if(!node.active)
+                    continue;
                 Vector3 directionToNode = node.transform.position - position;
                 float dSqrToNode = directionToNode.sqrMagnitude;
                 if (dSqrToNode < closestDistanceSqr)

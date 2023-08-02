@@ -148,6 +148,7 @@ public class EquipmentGatherData : EquipmentData
                                 none = false;
                                 if (InteractCostReward())
                                 {
+                                    
                                     PlayerInformation.instance.playerActivateSpyglass.SlowTimeEvent(false);
                                     nearestItemList.hasBeenHarvested = true;
                                     PlayerInformation.instance.uiScreenVisible = true;

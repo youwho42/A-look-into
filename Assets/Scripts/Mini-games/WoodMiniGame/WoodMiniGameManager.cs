@@ -175,6 +175,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     }
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) 
     {
+        
         currentGameObject = gameObject;
         this.item = item;
         SetDificulty(gameDificulty);

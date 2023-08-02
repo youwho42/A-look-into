@@ -1,8 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 
+public class CycleTicks
+{
+    public int tick;
+    public int day;
+}
 
 public class RealTimeDayNightCycle : MonoBehaviour
 {
@@ -76,7 +79,16 @@ public class RealTimeDayNightCycle : MonoBehaviour
         SetGradient();
     }
 
-    
+    public CycleTicks GetCycleTime(int ticks)
+    {
+        var cycle = new CycleTicks();
+        int time = currentTimeRaw;
+        int d = ticks / 1440;
+        cycle.day = currentDayRaw + d;
+        int t = ticks % 1440;
+        cycle.tick = time + t;
+        return cycle;
+    }
 
 
     void InitializeTick()

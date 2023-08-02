@@ -171,6 +171,8 @@ public class MenuDisplayUI : MonoBehaviour
         if (!inMenu)
             return;
         UIScreenManager.instance.HideAllScreens();
+        if (LevelManager.instance.HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         PlayerInformation.instance.TogglePlayerInput(true);
         PlayerInformation.instance.uiScreenVisible = false;
         SetButtonSelectedColor(map, false);

@@ -56,6 +56,8 @@ public class SleepDisplayUI : MonoBehaviour
     {
         
         UIScreenManager.instance.HideAllScreens();
+        if (LevelManager.instance.HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         isShowing = false;
     }
 

@@ -14,8 +14,9 @@ namespace Klaxon.SAP
         bool destinationReached;
         bool sitting;
         public Vector2Int minMaxSittingTime;
+        public CycleTicks sitCycle;
         int maxTime;
-        int timer;
+        //int timer;
 
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
         {
@@ -56,9 +57,8 @@ namespace Klaxon.SAP
             if (sitting)
             {
                 
-                if (timer == RealTimeDayNightCycle.instance.currentTimeRaw)
+                if (RealTimeDayNightCycle.instance.currentTimeRaw >= sitCycle.tick && RealTimeDayNightCycle.instance.currentDayRaw == sitCycle.day /*timer == RealTimeDayNightCycle.instance.currentTimeRaw*/)
                 {
-                    
                     StartCoroutine(PlaceNPC(agent, chair.navigationNode.transform.position));
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("Tired", false);
@@ -78,7 +78,8 @@ namespace Klaxon.SAP
                 agent.walker.currentDir = Vector2.zero;
                 Vector3 displacement = new Vector3(agent.walker.transform.position.x, agent.walker.transform.position.y, agent.walker.transform.position.z + 0.33f);
                 agent.walker.transform.position = displacement;
-                timer = (RealTimeDayNightCycle.instance.currentTimeRaw + maxTime) % 1440;
+                sitCycle = RealTimeDayNightCycle.instance.GetCycleTime(maxTime);
+                
                 StartCoroutine(PlaceNPC(agent, chair.transform.position));
                 if (agent.walker.facingRight && !chair.facingRight || !agent.walker.facingRight && chair.facingRight)
                     agent.walker.Flip();
@@ -146,8 +147,8 @@ namespace Klaxon.SAP
         {
             agent.offScreenPosMoved = true;
             agent.lastValidNode = currentNode;
-            
-            timer = 0;
+
+            sitCycle = null;
             sitting = false;
             destinationReached = false;
             

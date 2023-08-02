@@ -72,7 +72,7 @@ namespace Klaxon.SAP
             foreach (var seat in allSeats)
             {
                 var d = Vector2.Distance(seat.transform.position, position);
-                if(d < closest && seat.canInteract)
+                if(d < closest && seat.canInteract && seat.navigationNode.active)
                 {
                     closest = d;
                     best = seat;

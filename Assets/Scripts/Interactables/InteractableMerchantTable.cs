@@ -27,7 +27,8 @@ public class InteractableMerchantTable : Interactable
         base.Interact(interactor);
         if (!isOpen)
         {
-            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.None)
+            var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
+            if (UIScreenManager.instance.CurrentUIScreen() == screen)
             {
                 OpenMerchantTable();
                 isOpen = true;
@@ -52,7 +53,8 @@ public class InteractableMerchantTable : Interactable
     private void CloseMerchantTable()
     {
         UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        if (LevelManager.instance.HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
     }
 
     public void RemoveItems(int quantity)

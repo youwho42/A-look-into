@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 7
+  isActive: 0
+  isInDictionary: 0
 --- !u!1 &4720702768676041353
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +362,7 @@ MonoBehaviour:
   getOnSlope: 0
   getOffSlope: 0
   onSlope: 0
+  slopeDisplacement: 0
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
@@ -369,6 +372,8 @@ MonoBehaviour:
     m_Bits: 512
   isWeightless: 1
   tileBlockInfo: []
+  onObstacle: 0
+  obstacleDisplacement: {x: 0, y: 0, z: 0}
 --- !u!114 &2848951226114245755
 MonoBehaviour:
   m_ObjectHideFlags: 0

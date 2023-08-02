@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +26,7 @@ public class PlayerPreferencesManager : MonoBehaviour
     public Slider fxSlider;
     public Slider animalsSlider;
 
-    private void Start()
+    private IEnumerator Start()
     {
         InitializeVolumeSettings();
         if (!PlayerPrefs.HasKey("Vsync"))
@@ -34,10 +35,13 @@ public class PlayerPreferencesManager : MonoBehaviour
             PlayerPrefs.SetInt("AutoZoomReset", 1);
 
         if (!PlayerPrefs.HasKey("DisplayHUD"))
-            PlayerPrefs.SetInt("DisplayHUD", 0);
-
+            PlayerPrefs.SetInt("DisplayHUD", 1);
+        yield return new WaitForSeconds(2);
         LevelManager.instance.SetVSync(PlayerPrefs.GetInt("Vsync"));
         LevelManager.instance.SetAutoZoomReset(PlayerPrefs.GetInt("AutoZoomReset"));
+        LevelManager.instance.SetDisplayHUD(PlayerPrefs.GetInt("DisplayHUD"));
+        //PlayerSettings.SetAspectRatio(AspectRatio.Aspect16by9, true);
+        //PlayerSettings.fullScreenMode = 
     }
 
     public void SaveVSync(int sync)
@@ -52,7 +56,7 @@ public class PlayerPreferencesManager : MonoBehaviour
 
     public void SaveDisplayHUD(int hud)
     {
-        PlayerPrefs.SetInt("AutoZoomReset", hud);
+        PlayerPrefs.SetInt("DisplayHUD", hud);
     }
 
     void InitializeVolumeSettings()

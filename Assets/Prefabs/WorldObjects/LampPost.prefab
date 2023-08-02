@@ -115,7 +115,7 @@ MonoBehaviour:
   - {x: -0.018899918, y: -0.014259338, z: 0}
   m_ShapePathHash: -1251191451
   m_Mesh: {fileID: 0}
-  m_InstanceId: 1889124
+  m_InstanceId: 7147284
 --- !u!1 &709915063496298016
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 5778338600559751543}
   shadowSprite: {fileID: 82406926715294931}
+  shadowCaster: {fileID: 709915062849883896}
 --- !u!114 &8716258212048149468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da48536b3d4ece848ad81b7f76873c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  light: {fileID: 709915063496298022}
+  lightObject: {fileID: 709915063496298022}
   lightsOn: 0
 --- !u!1 &709915064128426233
 GameObject:

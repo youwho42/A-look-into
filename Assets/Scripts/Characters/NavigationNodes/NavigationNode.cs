@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public enum NavigationNodeType
@@ -13,6 +14,8 @@ public enum NavigationPathType
     BluValley,
     Town
 }
+
+
 public class NavigationNode : MonoBehaviour
 {
     
@@ -20,6 +23,8 @@ public class NavigationNode : MonoBehaviour
     
     public NavigationNodeType nodeType;
     public NavigationPathType pathType;
+
+    public bool active = true;
     public GameObject AddNewChild()
     {
         GameObject go = new GameObject("NavNode");
@@ -59,7 +64,7 @@ public class NavigationNode : MonoBehaviour
 
             foreach (NavigationNode childNode in currentNode.children)
             {
-                if (!visitedFrom.ContainsKey(childNode))
+                if (!visitedFrom.ContainsKey(childNode) && childNode.active)
                 {
                     queue.Enqueue(childNode);
                     visitedFrom[childNode] = currentNode;

@@ -4861,7 +4861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3670824336449478493}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.812, y: 0.069, z: 0}
+  m_LocalPosition: {x: 0.578, y: 0.308, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5061,7 +5061,7 @@ MonoBehaviour:
   plantUsedLocations: []
   harvestablePlants: []
   seedBox: {fileID: 3622217664050995562}
-  seedBoxPosition: {x: 0, y: 0}
+  seedBoxPosition: {x: 0.578, y: 0.308}
   canPlant: 0
   canHarvest: 0
   ballPersonPlanterActive: 0
@@ -5070,7 +5070,11 @@ MonoBehaviour:
   farmAreaTilemap: {fileID: 0}
   unactiveFarmTile: {fileID: 11400000, guid: 98ebdbb4bbbb2ca48929335124c35a9a, type: 2}
   activeFarmTile: {fileID: 11400000, guid: ed732d09dae9404479f6cf3a3aa3a242, type: 2}
-  farmTilePositions: []
+  farmTilePositions:
+  - {x: -86, y: -24, z: 5}
+  - {x: -85, y: -24, z: 5}
+  - {x: -85, y: -23, z: 5}
+  - {x: -86, y: -23, z: 5}
 --- !u!114 &2806004460077754738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5124,7 +5128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: 708d1d39-3637-453d-b945-e31a85e322f2
 --- !u!114 &8506963886088785840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5146,7 +5150,7 @@ MonoBehaviour:
   canInteract: 1
   hasLongInteract: 1
   ingredients:
-  - item: {fileID: 11400000, guid: c8e5cc38c91f0d34a86879947a8eca3c, type: 2}
+  - item: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}
     amount: 20
   - item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
     amount: 20
@@ -5167,12 +5171,11 @@ MonoBehaviour:
   plantingArea: {fileID: 4733545864449224222}
   fixingEffect: {fileID: 7873177947390756598}
   undertakingObject:
-    undertaking: {fileID: 0}
-    task: {fileID: 0}
+    undertaking: {fileID: 11400000, guid: cc5e177e553df0244bdd7e5776f61de1, type: 2}
+    task: {fileID: 11400000, guid: 96acb1af87c33274fbae7683fff8510f, type: 2}
   worldStateEffect:
-    key: 
-    value: 0
-  worldStateRunner: {fileID: 0}
+    Condition: FarmActive
+    State: 1
 --- !u!1001 &3277021171780142232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,11 +8,13 @@ namespace Klaxon.SAP
 {
     public class SAP_Action : MonoBehaviour
     {
+        [HideInInspector]
         public List<NavigationNode> path = new List<NavigationNode>();
+        [HideInInspector]
         public int currentPathIndex;
+        [HideInInspector]
         public NavigationNode currentNode;
-
-
+        [HideInInspector]
         public bool finalDestination;
 
         /// <summary>

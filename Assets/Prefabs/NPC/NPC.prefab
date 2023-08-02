@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 7803679775236702586}
   - component: {fileID: 7335956055071325998}
   m_Layer: 13
-  m_Name: NPC NEW
+  m_Name: NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902144603053421309}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.177, y: -29.422, z: 6}
+  m_LocalPosition: {x: -29.177, y: -29.422, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   groundMap: {fileID: 0}
-  position: {x: 0, y: 0, z: 5}
+  position: {x: 0, y: 0, z: 0}
 --- !u!58 &6902144603053421259
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -456,6 +456,10 @@ MonoBehaviour:
   walker: {fileID: 0}
   agentInventory: {fileID: 0}
   stashInventory: {fileID: 0}
+  sleep: {fileID: 0}
+  offScreenPosMoved: 1
+  timeTo: 0
+  isDeviating: 0
 --- !u!114 &1461937676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +472,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6ed625b73e6d74097deba6f4140b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
   interactableDialogue: {fileID: 0}
   undertakingAvailable: {fileID: 0}
@@ -483,6 +491,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9303b6899f8ea884f9f17f6da4f997c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
   wanderDistance: 0.5
 --- !u!114 &2658520282386853915
@@ -497,6 +509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc97fbc47a3e80439a1fb7fdf7eb3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
   minMaxSittingTime: {x: 15, y: 45}
 --- !u!114 &1928991682
@@ -511,6 +527,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76c7bad6fa441642a879ee8e71c3aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
   wanderDistance: 0.5
   gatherAnimTime: 3
@@ -527,6 +547,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad2e4cb36eb1ff4bb5a1422a82452f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
   gatherAnimTime: 3
 --- !u!114 &9099265967096594157

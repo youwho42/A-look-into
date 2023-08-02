@@ -66,7 +66,9 @@ namespace Klaxon.ConversationSystem
                 isSpeaking = false;
                 currentInteractable.canInteract = true;
                 UIScreenManager.instance.HideAllScreens();
-                UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+
+                if (LevelManager.instance.HUDBinary == 1)
+                    UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
                 PlayerInformation.instance.uiScreenVisible = false;
                 PlayerInformation.instance.TogglePlayerInput(true);
 

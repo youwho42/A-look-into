@@ -73,6 +73,7 @@ public class MerchantTableUI : MonoBehaviour
     {
         UIScreenManager.instance.HideAllScreens();
         merchantTable.isOpen = false;
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        if (LevelManager.instance.HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
     }
 }

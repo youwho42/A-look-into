@@ -23,7 +23,8 @@ public class InteractableCraftingStation : Interactable
         base.Interact(interactor);
         if (!isOpen)
         {
-            if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+            var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
+            if (UIScreenManager.instance.CurrentUIScreen() == screen)
             {
                 OpenCrafting();
                 isOpen = true;
@@ -76,7 +77,8 @@ public class InteractableCraftingStation : Interactable
     private void CloseCrafting()
     {
         UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        if (LevelManager.instance.HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         craftingDisplay.HideUI();
     }
 }

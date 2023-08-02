@@ -148,7 +148,8 @@ public class LevelManager : MonoBehaviour
         isInCutscene = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         GameEventManager.onPlayerPositionUpdateEvent.Invoke();
-        
+        if (HUDBinary == 1)
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
     }
 
     public void ToggleVSync()
@@ -166,23 +167,25 @@ public class LevelManager : MonoBehaviour
     }
     public void ToggleAutoZoomReset()
     {
-
-        if (autoZoomReset.isOn)
-            autoZoomBinary = 1;
-        else
-            autoZoomBinary = 0;
+        autoZoomBinary = autoZoomReset.isOn? 1 : 0;
         PlayerPreferencesManager.instance.SaveAutoZoomReset(autoZoomBinary);
     }
+    
     public void SetAutoZoomReset(int zoomBinary)
     {
         autoZoomBinary = zoomBinary;
         autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
     }
-
+    public void ToggleDisplayHUD()
+    {
+        HUDBinary = HUDDisplay.isOn ? 1 : 0;
+        PlayerPreferencesManager.instance.SaveDisplayHUD(HUDBinary);
+    }
     public void SetDisplayHUD(int displayHUD)
     {
         HUDBinary = displayHUD;
         HUDDisplay.isOn = HUDBinary == 0 ? false : true;
+        
     }
     public int GetVSync()
     {

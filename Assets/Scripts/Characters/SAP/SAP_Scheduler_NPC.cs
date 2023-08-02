@@ -46,9 +46,11 @@ namespace Klaxon.SAP
         public QI_Inventory stashInventory;
         [HideInInspector]
         public SleepDisplayUI sleep;
+        [HideInInspector]
         public bool offScreenPosMoved = true;
+        [HideInInspector]
         public int timeTo;
-
+        [HideInInspector]
         public bool isDeviating;
         public void Start()
         {

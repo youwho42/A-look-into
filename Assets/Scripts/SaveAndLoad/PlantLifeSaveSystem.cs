@@ -17,8 +17,8 @@ public class PlantLifeSaveSystem : MonoBehaviour, ISaveable
         return new SaveData
         {
             currentCycle = plantLife.currentCycle,
-            nextCycleDay = plantLife.nextCycleDay,
-            nextCycleTick = plantLife.nextCycleTick
+            nextCycleDay = plantLife.cycle.day,
+            nextCycleTick = plantLife.cycle.tick
         };
     }
 
@@ -26,8 +26,9 @@ public class PlantLifeSaveSystem : MonoBehaviour, ISaveable
     {
         var saveData = (SaveData)state;
         plantLife.currentCycle = saveData.currentCycle;
-        plantLife.nextCycleDay = saveData.nextCycleDay;
-        plantLife.nextCycleTick = saveData.nextCycleTick;
+        plantLife.cycle = new CycleTicks();
+        plantLife.cycle.day = saveData.nextCycleDay;
+        plantLife.cycle.tick = saveData.nextCycleTick;
         Invoke("SetPlantLife", 0.5f);
 
     }

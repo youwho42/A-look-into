@@ -36,7 +36,8 @@ public class MiniGameManager : MonoBehaviour
 
     public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
     {
-        if (!gameStarted && UIScreenManager.instance.CurrentUIScreen() == UIScreenType.PlayerUI)
+        var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
+        if (!gameStarted && UIScreenManager.instance.CurrentUIScreen() == screen)
         {
             foreach (var game in miniGames)
             {

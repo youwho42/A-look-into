@@ -5,6 +5,7 @@ using UnityEditor;
 
 
 [CustomEditor(typeof(NavigationNode))]
+[CanEditMultipleObjects]
 public class NavigationNodeEditor : Editor
 {
 
