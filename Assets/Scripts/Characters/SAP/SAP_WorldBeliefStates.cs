@@ -19,6 +19,7 @@ namespace Klaxon.SAP
         public Dictionary<string, bool> worldStates = new Dictionary<string, bool>();
 
         public Vector2Int dayTimes;
+        public Vector2Int workTimes;
 
         public List<InteractableChair> allSeats = new List<InteractableChair>();
 
@@ -45,11 +46,13 @@ namespace Klaxon.SAP
         {
             bool isDay = false;
             if (tick >= dayTimes.x && tick < dayTimes.y)
-            {
                 isDay = true;
-            }
-
             SetWorldState("Day", isDay);
+
+            bool canWork = false;
+            if (tick >= workTimes.x && tick < workTimes.y)
+                canWork = true;
+            SetWorldState("Work", canWork);
         }
 
 
@@ -63,6 +66,16 @@ namespace Klaxon.SAP
             {
                 worldStates[condition] = state;
             }
+        }
+
+        public bool HasWorldState(string condition, bool state)
+        {
+            if (worldStates.ContainsKey(condition))
+            {
+                if (worldStates[condition] == state)
+                    return true;
+            }
+            return false;
         }
 
         public InteractableChair FindNearestSeat(Vector3 position)

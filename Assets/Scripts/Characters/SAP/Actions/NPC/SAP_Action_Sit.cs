@@ -111,7 +111,7 @@ namespace Klaxon.SAP
                 }
             }
 
-
+            
 
             if (path.Count > 0)
             {

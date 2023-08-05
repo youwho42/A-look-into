@@ -358,7 +358,7 @@ public class LevelManager : MonoBehaviour
         // but the data still loads after this... figure it out?
         SavingLoading.instance.Load(LoadSelectionUI.instance.currentLoadFileName);
         PlayerDistanceToggle.instance.PopulateAnimalList();
-        Debug.Log("this far");
+
         yield return new WaitForSecondsRealtime(0.5f);
 
         text.text = "Thank you for waiting.";

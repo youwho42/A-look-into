@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using Klaxon.SAP;
 
 public class VillageDeskDisplayUI : MonoBehaviour
 {
@@ -66,23 +66,32 @@ public class VillageDeskDisplayUI : MonoBehaviour
                 availableAreas.Add(area);
         }
 
-        for (int i = 0; i < availableAreas.Count; i++)
+        if(availableAreas.Count > 0)
         {
-
-            if (!availableAreas[i].isFixing && !availableAreas[i].isActive && !chosen)
+            for (int i = 0; i < availableAreas.Count; i++)
             {
-                chosen = true;
-                initialDisplay = i;
+
+                if (!availableAreas[i].isFixing && !availableAreas[i].isActive && !chosen)
+                {
+                    chosen = true;
+                    initialDisplay = i;
+                }
+                CreateVillageAreaButton(availableAreas[i]);
             }
-            CreateVillageAreaButton(availableAreas[i]);
+
+            SetCurrentVillageArea(availableAreas[initialDisplay]);
+
+            EventSystem.current.SetSelectedGameObject(null);
+            if (villageAreasButtons.Count > 0)
+                EventSystem.current.SetSelectedGameObject(villageAreasButtons[initialDisplay].GetComponentInChildren<Button>().gameObject);
+            ScrollToSelectedObject(villageAreasButtons[initialDisplay].GetComponent<RectTransform>());
         }
-
-        SetCurrentVillageArea(availableAreas[initialDisplay]);
-
-        EventSystem.current.SetSelectedGameObject(null);
-        if (villageAreasButtons.Count > 0)
-            EventSystem.current.SetSelectedGameObject(villageAreasButtons[initialDisplay].GetComponentInChildren<Button>().gameObject);
-        ScrollToSelectedObject(villageAreasButtons[initialDisplay].GetComponent<RectTransform>());
+        else
+        {
+            buttonText.text =  "Nothing To Build";
+            purchaseButton.interactable = false;
+        }
+        
     }
 
     public void SetCurrentVillageArea(FixVillageArea area)
@@ -153,16 +162,45 @@ public class VillageDeskDisplayUI : MonoBehaviour
         contentRect.anchoredPosition = -targetPos;
     }
 
+    bool CanFixArea()
+    {
+        if (PlayerInformation.instance.purse.GetPurseAmount() < currentArea.sparksRequired)
+            return false;
+        foreach (var ingredient in currentArea.ingredients)
+        {
+            if (PlayerInformation.instance.playerInventory.GetStock(ingredient.item.Name) < ingredient.amount)
+                return false;
+        }
+        return true;
+    }
+
+    void RemovePlayerRequirements()
+    {
+        PlayerInformation.instance.purse.RemoveFromPurse(currentArea.sparksRequired);
+        foreach (var ingredient in currentArea.ingredients)
+        {
+            PlayerInformation.instance.playerInventory.RemoveItem(ingredient.item, ingredient.amount);
+        }
+    }
+
     void SetPurchaseButton(FixVillageArea area)
     {
+        bool noOthersFixing = true;
+        foreach (var a in villageDesk.fixableAreas)
+        {
+            if(a.isFixing) noOthersFixing = false; 
+            break;
+        }
         buttonText.text = area.isFixing ? "In Progress" : "Build Area";
+        purchaseButton.interactable = CanFixArea() && !area.isFixing && noOthersFixing;
 
-        purchaseButton.interactable = !area.isFixing;
     }
 
     public void PurchaseArea()
     {
         currentArea.isFixing = true;
         SetPurchaseButton(currentArea);
+        RemovePlayerRequirements();
+        SAP_WorldBeliefStates.instance.SetWorldState("FixingAreaAvailable", true);
     }
 }

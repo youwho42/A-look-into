@@ -12,22 +12,36 @@ public class FixVillageArea
     [TextArea(5, 20)]
     public string areaDescription;
     public Sprite areaIcon;
-    public GameObject fixedArea;
-    public int fixTime;
-    [HideInInspector]
-    public CycleTicks fixTicks;
+    public GameObject inactiveArea;
+    public GameObject activeArea;
+    public int ticksToFix;
+    //[HideInInspector]
+    public int fixTimer;
     public int sparksRequired;
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
     public List<NavigationNode> navigationNodes = new List<NavigationNode>();
-    public SAP_Condition SAP_Condition;
+    public NavigationNode fixingNode;
+    public SAP_Condition SAP_CompletedCondition;
     public bool isFixing;
     public bool isActive;
 }
 public class FixVillageDesk : MonoBehaviour
 {
     public List<FixVillageArea> fixableAreas = new List<FixVillageArea>();
-    
-    
 
-    
+
+    private void Start()
+    {
+        SetAllAreas();
+    }
+
+    public void SetAllAreas()
+    {
+        foreach (var area in fixableAreas)
+        {
+            area.activeArea.SetActive(area.isActive);
+            area.inactiveArea.SetActive(!area.isActive);
+        }
+    }
+
 }

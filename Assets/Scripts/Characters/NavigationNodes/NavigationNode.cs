@@ -41,6 +41,7 @@ public class NavigationNode : MonoBehaviour
     {
         Queue<NavigationNode> queue = new Queue<NavigationNode>();
         Dictionary<NavigationNode, NavigationNode> visitedFrom = new Dictionary<NavigationNode, NavigationNode>();
+        List<NavigationNode> path = new List<NavigationNode>();
 
         queue.Enqueue(this);
         visitedFrom[this] = null;
@@ -52,7 +53,7 @@ public class NavigationNode : MonoBehaviour
             if (currentNode == targetNode)
             {
                 // We found the target node, so construct and return the path
-                List<NavigationNode> path = new List<NavigationNode>();
+                
                 while (currentNode != null)
                 {
                     path.Add(currentNode);
@@ -73,7 +74,8 @@ public class NavigationNode : MonoBehaviour
         }
 
         // If we reach here, there is no path to the target node
-        return null;
+        Debug.Log("No path found");
+        return path;
     }
 
     private void OnDrawGizmos()
