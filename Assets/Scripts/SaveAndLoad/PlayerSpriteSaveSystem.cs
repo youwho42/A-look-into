@@ -5,28 +5,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
-public class PlayerSpriteSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public SpriteResolver spriteResolver;
-    public object CaptureState()
+    public class PlayerSpriteSaveSystem : MonoBehaviour, ISaveable
     {
-        return new SaveData
+        public SpriteResolver spriteResolver;
+        public object CaptureState()
         {
-            spriteName = spriteResolver.GetLabel()
-        };
+            return new SaveData
+            {
+                spriteName = spriteResolver.GetLabel()
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            spriteResolver.SetCategoryAndLabel("Player", saveData.spriteName);
+
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public string spriteName;
+
+        }
     }
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        spriteResolver.SetCategoryAndLabel("Player", saveData.spriteName);
-
-    }
-
-    [Serializable]
-    private struct SaveData
-    {
-        public string spriteName;
-
-    }
 }

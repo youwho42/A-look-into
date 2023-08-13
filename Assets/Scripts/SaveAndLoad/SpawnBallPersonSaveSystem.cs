@@ -3,27 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnBallPersonSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public SpawnableBallPersonArea spawnArea;
-
-    public object CaptureState()
+    public class SpawnBallPersonSaveSystem : MonoBehaviour, ISaveable
     {
-        return new SaveData
+        public SpawnableBallPersonArea spawnArea;
+
+        public object CaptureState()
         {
-            hasSpawned = spawnArea.GetHasSpawned()
-        };
-    }
+            return new SaveData
+            {
+                hasSpawned = spawnArea.GetHasSpawned()
+            };
+        }
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        spawnArea.SetHasSpawned(saveData.hasSpawned);
-    }
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            spawnArea.SetHasSpawned(saveData.hasSpawned);
+        }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public bool hasSpawned;
-    }
+        [Serializable]
+        private struct SaveData
+        {
+            public bool hasSpawned;
+        }
+    } 
 }

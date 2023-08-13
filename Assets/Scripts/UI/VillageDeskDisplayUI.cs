@@ -62,7 +62,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
         List<FixVillageArea> availableAreas = new List<FixVillageArea>();
         foreach (var area in villageDesk.fixableAreas)
         {
-            if (!area.isActive)
+            if (!area.isActive && area.undertakingObject.CurrentState == Klaxon.UndertakingSystem.UndertakingState.Active)
                 availableAreas.Add(area);
         }
 
@@ -192,7 +192,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
             break;
         }
         buttonText.text = area.isFixing ? "In Progress" : "Build Area";
-        purchaseButton.interactable = CanFixArea() && !area.isFixing && noOthersFixing;
+        purchaseButton.interactable = villageDesk.isActive && CanFixArea() && !area.isFixing && noOthersFixing;
 
     }
 
@@ -202,5 +202,6 @@ public class VillageDeskDisplayUI : MonoBehaviour
         SetPurchaseButton(currentArea);
         RemovePlayerRequirements();
         SAP_WorldBeliefStates.instance.SetWorldState("FixingAreaAvailable", true);
+        SetCurrentVillageArea(currentArea);
     }
 }

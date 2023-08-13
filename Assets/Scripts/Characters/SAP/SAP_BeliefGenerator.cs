@@ -45,7 +45,7 @@ namespace Klaxon.SAP
             {
                 if (item.setOnTimeTick != 0)
                 {
-                    if(item.setOnTimeTick == tick)
+                    if(tick == item.setOnTimeTick)
                     {
                         if (schedulerNPC != null)
                             schedulerNPC.SetBeliefState(item.condition.Condition, item.condition.State);

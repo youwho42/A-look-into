@@ -3,38 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReproductionSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    EntityReproduction reproduction;
-    void Start()
+    public class ReproductionSaveSystem : MonoBehaviour, ISaveable
     {
-        reproduction = GetComponent<EntityReproduction>();
-    }
-    public object CaptureState()
-    {
-        return new SaveData
+        EntityReproduction reproduction;
+        void Start()
         {
-            reproductionTick = reproduction.GetTick()
-        };
-    }
+            reproduction = GetComponent<EntityReproduction>();
+        }
+        public object CaptureState()
+        {
+            return new SaveData
+            {
+                reproductionTick = reproduction.GetTick()
+            };
+        }
 
-    public void RestoreState(object state)
-    {
-        StartCoroutine(RestoreStateCo(state));
+        public void RestoreState(object state)
+        {
+            StartCoroutine(RestoreStateCo(state));
 
-    }
-    
-    public IEnumerator RestoreStateCo(object state)
-    {
-        var saveData = (SaveData)state;
-        yield return new WaitForSeconds(0.3f);
-        reproduction.SetTick(saveData.reproductionTick);
+        }
 
-    }
+        public IEnumerator RestoreStateCo(object state)
+        {
+            var saveData = (SaveData)state;
+            yield return new WaitForSeconds(0.3f);
+            reproduction.SetTick(saveData.reproductionTick);
 
-    [Serializable]
-    private struct SaveData
-    {
-        public int reproductionTick;
-    }
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public int reproductionTick;
+        }
+    } 
 }

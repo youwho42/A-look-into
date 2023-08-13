@@ -4,35 +4,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AgencyStatueSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public InteractableAgencyStatue agencyStatue;
-
-
-    public object CaptureState()
+    public class AgencyStatueSaveSystem : MonoBehaviour, ISaveable
     {
-        return new SaveData
-        {
-            hasInteracted = agencyStatue.hasBeenActivated
-        };
-    }
+        public InteractableAgencyStatue agencyStatue;
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        agencyStatue.hasBeenActivated = saveData.hasInteracted;
-        if (agencyStatue.hasBeenActivated)
+
+        public object CaptureState()
         {
-            agencyStatue.canInteract = false;
-            
+            return new SaveData
+            {
+                hasInteracted = agencyStatue.hasBeenActivated
+            };
         }
-        agencyStatue.SetSaveColor(!agencyStatue.hasBeenActivated);
-    }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public bool hasInteracted;
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            agencyStatue.hasBeenActivated = saveData.hasInteracted;
+            if (agencyStatue.hasBeenActivated)
+            {
+                agencyStatue.canInteract = false;
 
-    }
+            }
+            agencyStatue.SetSaveColor(!agencyStatue.hasBeenActivated);
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public bool hasInteracted;
+
+        }
+    } 
 }

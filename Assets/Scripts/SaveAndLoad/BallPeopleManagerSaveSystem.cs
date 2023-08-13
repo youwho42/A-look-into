@@ -3,36 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallPeopleManagerSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public BallPeopleManager ballPeopleManager;
-    public object CaptureState()
+    public class BallPeopleManagerSaveSystem : MonoBehaviour, ISaveable
     {
-        List<int> accessoryQueue = new List<int>();
-        foreach (var item in ballPeopleManager.accessoryIndexQueue)
+        public BallPeopleManager ballPeopleManager;
+        public object CaptureState()
         {
-            accessoryQueue.Add(item);
+            List<int> accessoryQueue = new List<int>();
+            foreach (var item in ballPeopleManager.accessoryIndexQueue)
+            {
+                accessoryQueue.Add(item);
+            }
+            return new SaveData
+            {
+                accessoryIndexQueue = accessoryQueue
+            };
         }
-        return new SaveData
-        {
-            accessoryIndexQueue = accessoryQueue
-        };
-    }
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        foreach (var item in saveData.accessoryIndexQueue)
+        public void RestoreState(object state)
         {
-            ballPeopleManager.accessoryIndexQueue.Enqueue(item);
+            var saveData = (SaveData)state;
+            foreach (var item in saveData.accessoryIndexQueue)
+            {
+                ballPeopleManager.accessoryIndexQueue.Enqueue(item);
+            }
+
+
         }
-        
 
-    }
-
-    [Serializable]
-    private struct SaveData
-    {
-        public List<int> accessoryIndexQueue;
-    }
+        [Serializable]
+        private struct SaveData
+        {
+            public List<int> accessoryIndexQueue;
+        }
+    } 
 }

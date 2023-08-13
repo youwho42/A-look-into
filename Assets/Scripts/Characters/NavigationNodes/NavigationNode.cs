@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 
 public enum NavigationNodeType
@@ -39,44 +39,60 @@ public class NavigationNode : MonoBehaviour
 
     public List<NavigationNode> FindPath(NavigationNode targetNode)
     {
+        if (this == targetNode)
+        {
+            // The target node is the same as the starting node,
+            // return an empty path.
+            List<NavigationNode> path = new List<NavigationNode>();
+            path.Add(targetNode);
+            return path;
+        }
+
         Queue<NavigationNode> queue = new Queue<NavigationNode>();
         Dictionary<NavigationNode, NavigationNode> visitedFrom = new Dictionary<NavigationNode, NavigationNode>();
-        List<NavigationNode> path = new List<NavigationNode>();
+        HashSet<NavigationNode> visitedNodes = new HashSet<NavigationNode>();
 
         queue.Enqueue(this);
         visitedFrom[this] = null;
+        visitedNodes.Add(this);
 
         while (queue.Count > 0)
         {
             NavigationNode currentNode = queue.Dequeue();
-
-            if (currentNode == targetNode)
+            List<NavigationNode> nearestNodes = currentNode.children;
+            nearestNodes = nearestNodes.OrderBy(
+               x => Vector2.Distance(targetNode.transform.position, x.transform.position)
+               ).ToList();
+            for (int i = 0; i < nearestNodes.Count; i++)
             {
-                // We found the target node, so construct and return the path
-                
-                while (currentNode != null)
-                {
-                    path.Add(currentNode);
-                    currentNode = visitedFrom[currentNode];
-                }
-                path.Reverse();
-                return path;
-            }
+                NavigationNode childNode = nearestNodes[i];
 
-            foreach (NavigationNode childNode in currentNode.children)
-            {
-                if (!visitedFrom.ContainsKey(childNode) && childNode.active)
+                if (!visitedNodes.Contains(childNode))
                 {
                     queue.Enqueue(childNode);
                     visitedFrom[childNode] = currentNode;
+                    visitedNodes.Add(childNode);
+
+                    if (childNode == targetNode)
+                    {
+                        // We found the target node, so construct and return the path
+                        List<NavigationNode> path = new List<NavigationNode>();
+                        while (childNode != null)
+                        {
+                            path.Add(childNode);
+                            childNode = visitedFrom[childNode];
+                        }
+                        path.Reverse();
+                        return path;
+                    }
                 }
             }
         }
 
         // If we reach here, there is no path to the target node
-        Debug.Log("No path found");
-        return path;
+        return null;
     }
+
 
     private void OnDrawGizmos()
     {

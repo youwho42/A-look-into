@@ -4,44 +4,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeedSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    GrowingItem growingItem;
-
-    private void Start()
+    public class SeedSaveSystem : MonoBehaviour, ISaveable
     {
-        growingItem = GetComponent<GrowingItem>();
-    }
+        GrowingItem growingItem;
 
-    public object CaptureState()
-    {
-        return new SaveData
+        private void Start()
         {
-            location = transform.position,
-            currentDay = growingItem.currentDay,
-            currentTimeTick = growingItem.currentTimeTick
-        };
-    }
+            growingItem = GetComponent<GrowingItem>();
+        }
 
-    public void RestoreState(object state)
-    {
-        StartCoroutine(RestoreStateCo(state));
+        public object CaptureState()
+        {
+            return new SaveData
+            {
+                location = transform.position,
+                currentDay = growingItem.currentDay,
+                currentTimeTick = growingItem.currentTimeTick
+            };
+        }
 
-    }
-    public IEnumerator RestoreStateCo(object state)
-    {
-        var saveData = (SaveData)state;
-        yield return new WaitForSeconds(.6f);
-        transform.position = saveData.location;
-        growingItem.SetCurrentDayTime(saveData.currentDay, saveData.currentTimeTick);
+        public void RestoreState(object state)
+        {
+            StartCoroutine(RestoreStateCo(state));
 
-    }
+        }
+        public IEnumerator RestoreStateCo(object state)
+        {
+            var saveData = (SaveData)state;
+            yield return new WaitForSeconds(.6f);
+            transform.position = saveData.location;
+            growingItem.SetCurrentDayTime(saveData.currentDay, saveData.currentTimeTick);
 
-    [Serializable]
-    private struct SaveData
-    {
-        public SVector3 location;
-        public int currentDay;
-        public int currentTimeTick;
-    }
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public SVector3 location;
+            public int currentDay;
+            public int currentTimeTick;
+        }
+    } 
 }

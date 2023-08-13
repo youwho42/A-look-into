@@ -29,12 +29,16 @@ namespace Klaxon.SAP
                     currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, agent.currentNavigationNodeType, agent.pathType);
 
                 path = currentNode.FindPath(target);
+                
+
                 agent.walker.currentDestination = path[currentPathIndex].transform.position;
             }
         }
 
         public override void PerformAction(SAP_Scheduler_NPC agent)
         {
+
+            
             agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
             agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
             agent.animator.SetFloat(agent.velocityX_hash, 1);
@@ -104,6 +108,7 @@ namespace Klaxon.SAP
             agent.lastValidNode = currentNode;
             ReachFinalDestination(agent);
             currentNode = null;
+
             path.Clear();
             target = null;
         }

@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -8,11 +9,13 @@ public class InteractableMerchantTable : Interactable
 {
     public bool isOpen;
     public SpriteRenderer itemIcon;
-    QI_ItemData item;
+    [HideInInspector]
+    public QI_ItemData item;
     [HideInInspector]
     public int amount;
 
     MerchantTableUI merchantTable;
+    SAP_Scheduler_NPC scheduler_NPC;
 
     public override void Start()
     {
@@ -59,16 +62,18 @@ public class InteractableMerchantTable : Interactable
 
     public void RemoveItems(int quantity)
     {
+        scheduler_NPC.agentInventory.RemoveItem(item, quantity);
         amount -= quantity;
-        if(amount <=0)
+        if(amount <= 0)
         {
             ClearTable();
         }
     }
 
 
-    public void SetUpTable(QI_ItemData itemData, int _amount)
+    public void SetUpTable(QI_ItemData itemData, int _amount, SAP_Scheduler_NPC npc)
     {
+        scheduler_NPC = npc;
         item = itemData;
         amount = _amount;
         itemIcon.sprite = item.Icon;

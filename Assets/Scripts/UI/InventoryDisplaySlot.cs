@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using Klaxon.SaveSystem;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {

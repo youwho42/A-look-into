@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using QuantumTek.QuantumInventory;
+using Klaxon.SaveSystem;
 
 public class SpawnDailyObjects : MonoBehaviour
 {

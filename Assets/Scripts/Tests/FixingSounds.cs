@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Threading;
 using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class FixingSounds : MonoBehaviour
@@ -8,9 +8,11 @@ public class FixingSounds : MonoBehaviour
     AudioSource source;
     [SerializeField]
     public SoundSet soundSet;
+    public float soundDuration = 6f;
     float mainVolume;
     int lastSoundIndex = -1;
     bool timing;
+    bool playSounds;
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -21,9 +23,18 @@ public class FixingSounds : MonoBehaviour
     {
         GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
     }
-    public void StartSounds()
+    public void StartSoundsWithTimer()
     {
-        StartCoroutine(StartSoundsCo());
+        StartCoroutine(StartSoundsOnTimerCo());
+    }
+    public void StartSoundsNoTimer()
+    {
+        playSounds = true;
+        StartCoroutine(StartSoundsNoTimerCo());
+    }
+    public void StopSoundsNoTimer()
+    {
+        playSounds = false;
     }
 
     IEnumerator SetTimer(float maxTime)
@@ -38,9 +49,9 @@ public class FixingSounds : MonoBehaviour
         timing = false;
         yield return null;
     }
-    IEnumerator StartSoundsCo()
+    IEnumerator StartSoundsOnTimerCo()
     {
-        StartCoroutine(SetTimer(6f));
+        StartCoroutine(SetTimer(soundDuration));
         PlaySound();
         while(timing)
         {
@@ -49,6 +60,19 @@ public class FixingSounds : MonoBehaviour
             yield return null;
         }
         
+    }
+
+    IEnumerator StartSoundsNoTimerCo()
+    {
+        
+        PlaySound();
+        while (playSounds)
+        {
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            PlaySound();
+            yield return null;
+        }
+
     }
 
     void PlaySound()

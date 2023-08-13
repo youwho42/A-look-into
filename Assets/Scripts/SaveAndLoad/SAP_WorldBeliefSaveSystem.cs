@@ -5,40 +5,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SAP_WorldBeliefSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public SAP_WorldBeliefStates world;
-    public object CaptureState()
+    public class SAP_WorldBeliefSaveSystem : MonoBehaviour, ISaveable
     {
-        List<string> _states = new List<string>();
-        List<bool> _values = new List<bool>();
-        foreach (var state in world.worldStates)
+        public SAP_WorldBeliefStates world;
+        public object CaptureState()
         {
-            _states.Add(state.Key);
-            _values.Add(state.Value);
-        }
-        return new SaveData
-        {
-            states = _states,
-            values = _values
-        };
-    }
-
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        for (int i = 0; i < saveData.states.Count; i++)
-        {
-            world.SetWorldState(saveData.states[i], saveData.values[i]);
+            List<string> _states = new List<string>();
+            List<bool> _values = new List<bool>();
+            foreach (var state in world.worldStates)
+            {
+                _states.Add(state.Key);
+                _values.Add(state.Value);
+            }
+            return new SaveData
+            {
+                states = _states,
+                values = _values
+            };
         }
 
-    }
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            for (int i = 0; i < saveData.states.Count; i++)
+            {
+                world.SetWorldState(saveData.states[i], saveData.values[i]);
+            }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public List<string> states;
-        public List<bool> values;
+        }
 
-    }
+        [Serializable]
+        private struct SaveData
+        {
+            public List<string> states;
+            public List<bool> values;
+
+        }
+    } 
 }

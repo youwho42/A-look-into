@@ -64,7 +64,7 @@ public class ObjectManagerEditor : Editor
 
         Handles.color = Color.white;
 
-        Handles.DrawWireDisc(center + new Vector3(0, offsetZ * 0.2790625f, offsetZ), Vector3.forward, objectManager.radius);
+        Handles.DrawWireDisc(center + new Vector3(0, offsetZ * 0.2990625f, offsetZ), Vector3.forward, objectManager.radius);
 
 
         //Add or remove objects with left mouse click
@@ -78,7 +78,7 @@ public class ObjectManagerEditor : Editor
             //Should we add or remove objects?
             if (objectManager.action == ObjectManagerCircle.Actions.AddObjects)
             {
-                AddNewPrefabs(center + new Vector3(0, offsetZ * 0.2790625f, offsetZ));
+                AddNewPrefabs(center + new Vector3(0, offsetZ * 0.2990625f, offsetZ));
 
                 MarkSceneAsDirty();
             }

@@ -5,29 +5,33 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class SpawnMessengerAreaSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public SpawnBallPersonMessengerArea spawnArea;
-
-
-
-    public object CaptureState()
+    public class SpawnMessengerAreaSaveSystem : MonoBehaviour, ISaveable
     {
-        return new SaveData
+        public SpawnBallPersonMessengerArea spawnArea;
+
+
+
+        public object CaptureState()
         {
-            hasSpawned = spawnArea.hasSpawned
-        };
+            return new SaveData
+            {
+                hasSpawned = spawnArea.hasSpawned
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            spawnArea.hasSpawned = saveData.hasSpawned;
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public bool hasSpawned;
+        }
     }
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        spawnArea.hasSpawned = saveData.hasSpawned;
-    }
-
-    [Serializable]
-    private struct SaveData
-    {
-        public bool hasSpawned;
-    }
 }

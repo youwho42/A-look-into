@@ -4,49 +4,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CraftingStationSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public QI_CraftingHandler craftingHandler;
-    public QI_ItemDatabase itemDatabase;
-
-
-    public object CaptureState()
+    public class CraftingStationSaveSystem : MonoBehaviour, ISaveable
     {
-        List<string> names = new List<string>();
-        List<int> amounts = new List<int>();
-        List<float> times = new List<float>();
-        for (int i = 0; i < craftingHandler.Queues.Count; i++)
+        public QI_CraftingHandler craftingHandler;
+        public QI_ItemDatabase itemDatabase;
+
+
+        public object CaptureState()
         {
-            names.Add(craftingHandler.Queues[i].Item.Name);
-            amounts.Add(craftingHandler.Queues[i].Amount);
-            times.Add(craftingHandler.Queues[i].Timer);
+            List<string> names = new List<string>();
+            List<int> amounts = new List<int>();
+            List<float> times = new List<float>();
+            for (int i = 0; i < craftingHandler.Queues.Count; i++)
+            {
+                names.Add(craftingHandler.Queues[i].Item.Name);
+                amounts.Add(craftingHandler.Queues[i].Amount);
+                times.Add(craftingHandler.Queues[i].Timer);
+            }
+
+            return new SaveData
+            {
+                itemName = names,
+                itemAmount = amounts,
+                itemTimer = times
+            };
         }
 
-        return new SaveData
+        public void RestoreState(object state)
         {
-            itemName = names,
-            itemAmount = amounts,
-            itemTimer = times
-        };
-    }
-
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        craftingHandler.Queues.Clear();
-        for (int i = 0; i < saveData.itemName.Count; i++)
-        {
-            var item = itemDatabase.GetItem(saveData.itemName[i]);
-            craftingHandler.Queues.Add(new QI_CraftingQueue { Item = item, Amount = saveData.itemAmount[i], Timer = saveData.itemTimer[i] });
+            var saveData = (SaveData)state;
+            craftingHandler.Queues.Clear();
+            for (int i = 0; i < saveData.itemName.Count; i++)
+            {
+                var item = itemDatabase.GetItem(saveData.itemName[i]);
+                craftingHandler.Queues.Add(new QI_CraftingQueue { Item = item, Amount = saveData.itemAmount[i], Timer = saveData.itemTimer[i] });
+            }
         }
-    }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public List<string> itemName;
-        public List<int> itemAmount;
-        public List<float> itemTimer;
-        
-    }
+        [Serializable]
+        private struct SaveData
+        {
+            public List<string> itemName;
+            public List<int> itemAmount;
+            public List<float> itemTimer;
+
+        }
+    } 
 }

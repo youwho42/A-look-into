@@ -6,59 +6,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlantingAreaSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-
-    public PlantingArea plantingArea;
-    public QI_ItemDatabase allItemsDatabase;
-    public object CaptureState()
+    public class PlantingAreaSaveSystem : MonoBehaviour, ISaveable
     {
-        List<SVector3> free = new List<SVector3>();
-        List<SVector3> used = new List<SVector3>();
-        for (int i = 0; i < plantingArea.plantFreeLocations.Count; i++)
-        {
-            free.Add(plantingArea.plantFreeLocations[i]);
-        }
-        for (int i = 0; i < plantingArea.plantUsedLocations.Count; i++)
-        {
-            free.Add(plantingArea.plantUsedLocations[i]);
-        }
-        string n = plantingArea.seedItem != null ? plantingArea.seedItem.Name : "";
-        return new SaveData
-        {
-            freeLocations = free,
-            usedLocations = used,
-            seedItem = n,
-            areaActive = plantingArea.farmAreaActive
 
-        };
-    }
-
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        if(saveData.seedItem != "")
-            plantingArea.seedItem = allItemsDatabase.GetItem(saveData.seedItem) as SeedItemData;
-        for (int i = 0; i < saveData.freeLocations.Count; i++)
+        public PlantingArea plantingArea;
+        public QI_ItemDatabase allItemsDatabase;
+        public object CaptureState()
         {
-            plantingArea.plantFreeLocations.Add(saveData.freeLocations[i]);
+            List<SVector3> free = new List<SVector3>();
+            List<SVector3> used = new List<SVector3>();
+            for (int i = 0; i < plantingArea.plantFreeLocations.Count; i++)
+            {
+                free.Add(plantingArea.plantFreeLocations[i]);
+            }
+            for (int i = 0; i < plantingArea.plantUsedLocations.Count; i++)
+            {
+                free.Add(plantingArea.plantUsedLocations[i]);
+            }
+            string n = plantingArea.seedItem != null ? plantingArea.seedItem.Name : "";
+            return new SaveData
+            {
+                freeLocations = free,
+                usedLocations = used,
+                seedItem = n,
+                areaActive = plantingArea.farmAreaActive
+
+            };
         }
-        for (int i = 0; i < saveData.usedLocations.Count; i++)
+
+        public void RestoreState(object state)
         {
-            plantingArea.plantUsedLocations.Add(saveData.usedLocations[i]);
+            var saveData = (SaveData)state;
+            if (saveData.seedItem != "")
+                plantingArea.seedItem = allItemsDatabase.GetItem(saveData.seedItem) as SeedItemData;
+            for (int i = 0; i < saveData.freeLocations.Count; i++)
+            {
+                plantingArea.plantFreeLocations.Add(saveData.freeLocations[i]);
+            }
+            for (int i = 0; i < saveData.usedLocations.Count; i++)
+            {
+                plantingArea.plantUsedLocations.Add(saveData.usedLocations[i]);
+            }
+
+            plantingArea.CheckForPlantable();
+            plantingArea.SetFarmAreaActive(saveData.areaActive);
+
         }
-        
-        plantingArea.CheckForPlantable();
-        plantingArea.SetFarmAreaActive(saveData.areaActive);
 
-    }
-
-    [Serializable]
-    private struct SaveData
-    {
-        public List<SVector3> freeLocations;
-        public List<SVector3> usedLocations;
-        public string seedItem;
-        public bool areaActive;
-    }
+        [Serializable]
+        private struct SaveData
+        {
+            public List<SVector3> freeLocations;
+            public List<SVector3> usedLocations;
+            public string seedItem;
+            public bool areaActive;
+        }
+    } 
 }

@@ -40,12 +40,18 @@ namespace Klaxon.SAP
 
         public override void PerformAction(SAP_Scheduler_NPC agent)
         {
+            
+
             if (canSell)
             {
                 agent.animator.SetBool(agent.isSitting_hash, true);
                 CheckTableInventory(agent);
                 if(agent.HasBelief("CanSell", false))
+                {
+                    CloseShop(agent);
                     agent.currentGoalComplete = true;
+                }
+                    
                 return;
             }
 
@@ -107,16 +113,17 @@ namespace Klaxon.SAP
             path.Clear();
             canSell = false;
             agent.offScreenPosMoved = true;
-            CloseShop();
-            agent.SetBeliefState("ItemCrafted", false);
+            
+            
             StartCoroutine(PlaceNPC(agent, target.transform.position));
             
-            agent.animator.SetBool(agent.isSitting_hash, true);
+            agent.animator.SetBool(agent.isSitting_hash, false);
             chair.canInteract = true;
         }
 
         public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
         {
+            agent.lastValidNode = currentNode;
             agent.offScreenPosMoved = true;
             agent.isDeviating = false;
             canSell = true;
@@ -142,20 +149,22 @@ namespace Klaxon.SAP
                     itemAmount.Add(agent.agentInventory.Stacks[i].Amount);
                 }
             }
-
-            for (int i = 0; i < merchantTables.Count; i++)
+            
+            for (int i = 0; i < allItems.Count; i++)
             {
-                merchantTables[i].SetUpTable(allItems[i], itemAmount[i]);
+                
+                merchantTables[i].SetUpTable(allItems[i], itemAmount[i], agent);
             }
-            agent.agentInventory.RemoveAllItems();
+            
         }
 
-        void CloseShop()
+        void CloseShop(SAP_Scheduler_NPC agent)
         {
             for (int i = 0; i < merchantTables.Count; i++)
             {
                 merchantTables[i].ClearTable();
             }
+            agent.SetBeliefState("ItemCrafted", false);
         }
 
         void CheckTableInventory(SAP_Scheduler_NPC agent)

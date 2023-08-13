@@ -3,42 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeleportSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    Teleport teleporter;
+    public class TeleportSaveSystem : MonoBehaviour, ISaveable
+    {
+        Teleport teleporter;
 
-    void Start()
-    {
-        teleporter = GetComponent<Teleport>();
-    }
-    public object CaptureState()
-    {
-        return new SaveData
+        void Start()
         {
-            currentLevel = teleporter.currentLevel,
-            name = teleporter.teleportName
-        };
-    }
+            teleporter = GetComponent<Teleport>();
+        }
+        public object CaptureState()
+        {
+            return new SaveData
+            {
+                currentLevel = teleporter.currentLevel,
+                name = teleporter.teleportName
+            };
+        }
 
-    public void RestoreState(object state)
-    {
-        StartCoroutine(RestoreStateCo(state));
-        
-    }
-    public IEnumerator RestoreStateCo(object state)
-    {
-        var saveData = (SaveData)state;
-        yield return new WaitForSeconds(0.5f);
-        teleporter.currentLevel = saveData.currentLevel;
-        teleporter.teleportName = saveData.name;
-        teleporter.SetCurrentLevel();
-        
-    }
+        public void RestoreState(object state)
+        {
+            StartCoroutine(RestoreStateCo(state));
 
-    [Serializable]
-    private struct SaveData
-    {
-        public int currentLevel;
-        public string name;
-    }
+        }
+        public IEnumerator RestoreStateCo(object state)
+        {
+            var saveData = (SaveData)state;
+            yield return new WaitForSeconds(0.5f);
+            teleporter.currentLevel = saveData.currentLevel;
+            teleporter.teleportName = saveData.name;
+            teleporter.SetCurrentLevel();
+
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public int currentLevel;
+            public string name;
+        }
+    } 
 }

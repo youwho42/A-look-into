@@ -144,9 +144,16 @@ namespace Klaxon.SAP
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
             GameEventManager.onTimeTickEvent.RemoveListener(AddTick);
+            currentArea.fixingSounds.StopSoundsNoTimer();
+            currentArea.fixingEffect.Stop();
             target = null;
             canFix = false;
             currentArea = null;
+
+            agent.offScreenPosMoved = true;
+            agent.lastValidNode = currentNode;
+            currentNode = null;
+            path.Clear();
         }
 
         public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
@@ -154,6 +161,8 @@ namespace Klaxon.SAP
             agent.offScreenPosMoved = true;
             agent.isDeviating = false;
             canFix = true;
+            currentArea.fixingSounds.StartSoundsNoTimer();
+            currentArea.fixingEffect.Play();
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.walker.currentDir = Vector2.zero;
         }

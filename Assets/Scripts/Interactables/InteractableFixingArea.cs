@@ -35,7 +35,7 @@ public class InteractableFixingArea : Interactable
             {
                 if (GetComponent<IFixArea>().Fix(ingredients))
                 {
-                    fixSound.StartSounds();
+                    fixSound.StartSoundsWithTimer();
                     canInteract = false;
                 }
                     

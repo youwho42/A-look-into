@@ -1,9 +1,6 @@
 using Klaxon.GravitySystem;
 using QuantumTek.QuantumInventory;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 namespace Klaxon.SAP
@@ -20,7 +17,7 @@ namespace Klaxon.SAP
         
         public List<SAP_Goal> goals = new List<SAP_Goal>();
 
-        Dictionary<string, bool> beliefs = new Dictionary<string, bool>();
+        public Dictionary<string, bool> beliefs = new Dictionary<string, bool>();
 
         int currentGoal = -1;
 
@@ -203,7 +200,7 @@ namespace Klaxon.SAP
             }
 
             
-            if (timeTo == RealTimeDayNightCycle.instance.currentTimeRaw && !offScreenPosMoved)
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
             {
 
                 offScreenPosMoved = true;
@@ -264,6 +261,8 @@ namespace Klaxon.SAP
 
             if (collision.gameObject.CompareTag("Player"))
             {
+                if (collision.transform.position.z != transform.position.z)
+                    return;
                 isTalking = true;
                 animator.SetFloat(velocityX_hash, 0);
                 walker.currentDir = Vector2.zero;
@@ -291,6 +290,7 @@ namespace Klaxon.SAP
 
             if (collision.gameObject.CompareTag("Player"))
             {
+                
                 isTalking = false;
             }
         }

@@ -3,46 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveableItemEntity : MonoBehaviour
+namespace Klaxon.SaveSystem
 {
-    [SerializeField]
-    private string id = string.Empty;
-
-    public string ID => id;
-
-    [ContextMenu("Generate ID")]
-    public void GenerateId() => id = Guid.NewGuid().ToString();
-
-
-    public void SetId(string newID)
+    public class SaveableItemEntity : MonoBehaviour
     {
-        id = newID;
-    }
+        [SerializeField]
+        private string id = string.Empty;
 
-    public object CaptureState()
-    {
-        var state = new Dictionary<string, object>();
+        public string ID => id;
 
-        foreach (var saveable in GetComponents<ISaveable>())
+        [ContextMenu("Generate ID")]
+        public void GenerateId() => id = Guid.NewGuid().ToString();
+
+
+        public void SetId(string newID)
         {
-            state[saveable.GetType().ToString()] = saveable.CaptureState();
+            id = newID;
         }
 
-        return state;
-    }
-
-    public void RestoreState(object state)
-    {
-        var stateDictionary = (Dictionary<string, object>)state;
-
-        foreach (var saveable in GetComponents<ISaveable>())
+        public object CaptureState()
         {
-            string typeName = saveable.GetType().ToString();
+            var state = new Dictionary<string, object>();
 
-            if(stateDictionary.TryGetValue(typeName, out object value))
+            foreach (var saveable in GetComponents<ISaveable>())
             {
-                saveable.RestoreState(value);
+                state[saveable.GetType().ToString()] = saveable.CaptureState();
+            }
+
+            return state;
+        }
+
+        public void RestoreState(object state)
+        {
+            var stateDictionary = (Dictionary<string, object>)state;
+
+            foreach (var saveable in GetComponents<ISaveable>())
+            {
+                string typeName = saveable.GetType().ToString();
+
+                if (stateDictionary.TryGetValue(typeName, out object value))
+                {
+                    saveable.RestoreState(value);
+                }
             }
         }
-    }
+    } 
 }

@@ -28,7 +28,7 @@ public class LightFlicker : MonoBehaviour
         int flickerAmount = Random.Range(1, 5);
         int timesFlicked = 0;
         float timeBetweenFlickers = Random.Range(0.1f, 0.5f);
-
+        lightsOn = true;
 
         while (timesFlicked <= flickerAmount)
         {
@@ -47,7 +47,7 @@ public class LightFlicker : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenFlickers);
 
         lightObject.enabled = true;
-        lightsOn = true;
+        
         yield return null;
 
     }

@@ -3,28 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveTimeAndDate : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-    public object CaptureState()
+    public class SaveTimeAndDate : MonoBehaviour, ISaveable
     {
-        return new SaveData
+        public object CaptureState()
         {
-            currentTimeRaw = RealTimeDayNightCycle.instance.currentTimeRaw,
-            currentDayRaw = RealTimeDayNightCycle.instance.currentDayRaw
-        };
+            return new SaveData
+            {
+                currentTimeRaw = RealTimeDayNightCycle.instance.currentTimeRaw,
+                currentDayRaw = RealTimeDayNightCycle.instance.currentDayRaw
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            RealTimeDayNightCycle.instance.SetDayTime(saveData.currentTimeRaw, saveData.currentDayRaw);
+
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public int currentTimeRaw;
+            public int currentDayRaw;
+        }
     }
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        RealTimeDayNightCycle.instance.SetDayTime(saveData.currentTimeRaw, saveData.currentDayRaw);
-        
-    }
-
-    [Serializable]
-    private struct SaveData
-    {
-        public int currentTimeRaw;
-        public int currentDayRaw;
-    }
 }

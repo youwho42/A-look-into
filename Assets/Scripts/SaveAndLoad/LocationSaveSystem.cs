@@ -4,28 +4,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocationSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-
-    public object CaptureState()
+    public class LocationSaveSystem : MonoBehaviour, ISaveable
     {
-        return new SaveData
+
+        public object CaptureState()
         {
-            location = transform.position
-        };
+            return new SaveData
+            {
+                location = transform.position
+            };
+        }
+
+        public void RestoreState(object state)
+        {
+            var saveData = (SaveData)state;
+            transform.position = saveData.location;
+
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public SVector3 location;
+
+        }
     }
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        transform.position = saveData.location;
-        
-    }
-
-    [Serializable]
-    private struct SaveData
-    {
-        public SVector3 location;
-        
-    }
 }

@@ -3,70 +3,73 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UndertakingsSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-   
-    public PlayerUndertakingHandler undertakingHandler;
-    
-    public object CaptureState()
+    public class UndertakingsSaveSystem : MonoBehaviour, ISaveable
     {
-        List<string> _undertakingNames = new List<string>();
-        List<int> _undertakingStates = new List<int>();
 
+        public PlayerUndertakingHandler undertakingHandler;
 
-        List<string> _taskUndertakingNames = new List<string>();
-        List<string> _taskNames = new List<string>();
-        List<bool> _taskStates = new List<bool>();
-
-        foreach (var undertaking in undertakingHandler.activeUndertakings)
+        public object CaptureState()
         {
-            _undertakingNames.Add(undertaking.Name);
-            _undertakingStates.Add((int)undertaking.CurrentState);
-            for (int i = 0; i < undertaking.Tasks.Count; i++)
+            List<string> _undertakingNames = new List<string>();
+            List<int> _undertakingStates = new List<int>();
+
+
+            List<string> _taskUndertakingNames = new List<string>();
+            List<string> _taskNames = new List<string>();
+            List<bool> _taskStates = new List<bool>();
+
+            foreach (var undertaking in undertakingHandler.activeUndertakings)
             {
-                _taskUndertakingNames.Add(undertaking.Name);
-                _taskNames.Add(undertaking.Tasks[i].Name);
-                _taskStates.Add(undertaking.Tasks[i].IsComplete);
+                _undertakingNames.Add(undertaking.Name);
+                _undertakingStates.Add((int)undertaking.CurrentState);
+                for (int i = 0; i < undertaking.Tasks.Count; i++)
+                {
+                    _taskUndertakingNames.Add(undertaking.Name);
+                    _taskNames.Add(undertaking.Tasks[i].Name);
+                    _taskStates.Add(undertaking.Tasks[i].IsComplete);
+                }
             }
+
+            return new SaveData
+            {
+                undertakingName = _undertakingNames,
+                undertakingStates = _undertakingStates,
+                taskUndertakingNames = _taskUndertakingNames,
+                taskNames = _taskNames,
+                taskStates = _taskStates
+            };
         }
 
-        return new SaveData
+        public void RestoreState(object state)
         {
-            undertakingName = _undertakingNames,
-            undertakingStates = _undertakingStates,
-            taskUndertakingNames = _taskUndertakingNames,
-            taskNames = _taskNames,
-            taskStates = _taskStates
-        };
-    }
+            var saveData = (SaveData)state;
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-
-        for (int i = 0; i < saveData.undertakingName.Count; i++)
-        {
-            var q = Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName[i]);
-            undertakingHandler.RestoreUndertaking(q);
-            Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.SetUndertakingState(q, saveData.undertakingStates[i]);
+            for (int i = 0; i < saveData.undertakingName.Count; i++)
+            {
+                var q = Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName[i]);
+                undertakingHandler.RestoreUndertaking(q);
+                Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.SetUndertakingState(q, saveData.undertakingStates[i]);
+            }
+            for (int j = 0; j < saveData.taskUndertakingNames.Count; j++)
+            {
+                Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.SetTaskState(saveData.taskUndertakingNames[j], saveData.taskNames[j], saveData.taskStates[j]);
+            }
+            GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
-        for (int j = 0; j < saveData.taskUndertakingNames.Count; j++)
+
+        [Serializable]
+        private struct SaveData
         {
-            Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.SetTaskState(saveData.taskUndertakingNames[j], saveData.taskNames[j], saveData.taskStates[j]);
+            public List<string> undertakingName;
+            public List<int> undertakingStates;
+
+            public List<string> taskUndertakingNames;
+            public List<string> taskNames;
+            public List<bool> taskStates;
         }
-        GameEventManager.onUndertakingsUpdateEvent.Invoke();
-    }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public List<string> undertakingName;
-        public List<int> undertakingStates;
 
-        public List<string> taskUndertakingNames;
-        public List<string> taskNames;
-        public List<bool> taskStates;
-    }
-
-    
+    } 
 }

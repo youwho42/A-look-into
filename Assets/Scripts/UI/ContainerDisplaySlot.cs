@@ -66,7 +66,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     {
         if (toInventory.AddItem(item, amount, false))
             fromInventory.RemoveItem(item, amount);
-        ContainerInventoryDisplayUI.instance.UpdateContainerInventoryUI();
+       // ContainerInventoryDisplayUI.instance.UpdateContainerInventoryUI();
         
     }
 

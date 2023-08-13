@@ -4,50 +4,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipmentSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-
-    public QI_ItemDatabase itemDatabase;
-
-    public object CaptureState()
+    public class EquipmentSaveSystem : MonoBehaviour, ISaveable
     {
-        var equipment = EquipmentManager.instance;
-        List<string> names = new List<string>();
-        List<int> index = new List<int>();
-        for (int i = 0; i < equipment.currentEquipment.Length; i++)
+
+        public QI_ItemDatabase itemDatabase;
+
+        public object CaptureState()
         {
-            if(equipment.currentEquipment[i] != null)
+            var equipment = EquipmentManager.instance;
+            List<string> names = new List<string>();
+            List<int> index = new List<int>();
+            for (int i = 0; i < equipment.currentEquipment.Length; i++)
             {
-                names.Add(equipment.currentEquipment[i].Name);
-                index.Add(i);
+                if (equipment.currentEquipment[i] != null)
+                {
+                    names.Add(equipment.currentEquipment[i].Name);
+                    index.Add(i);
+                }
+
             }
-            
+
+            return new SaveData
+            {
+                itemName = names,
+                itemIndex = index
+            };
         }
 
-        return new SaveData
+        public void RestoreState(object state)
         {
-            itemName = names,
-            itemIndex = index
-        };
-    }
+            var saveData = (SaveData)state;
+            EquipmentManager.instance.UnEquipAndDestroyAll();
+            for (int i = 0; i < saveData.itemName.Count; i++)
+            {
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        EquipmentManager.instance.UnEquipAndDestroyAll();
-        for (int i = 0; i < saveData.itemName.Count; i++)
+                EquipmentManager.instance.Equip(itemDatabase.GetItem(saveData.itemName[i]), saveData.itemIndex[i]);
+
+            }
+        }
+
+        [Serializable]
+        private struct SaveData
         {
-
-            EquipmentManager.instance.Equip(itemDatabase.GetItem(saveData.itemName[i]), saveData.itemIndex[i]);
+            public List<string> itemName;
+            public List<int> itemIndex;
 
         }
     }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public List<string> itemName;
-        public List<int> itemIndex;
-
-    }
 }

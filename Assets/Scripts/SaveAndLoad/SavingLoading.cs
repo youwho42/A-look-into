@@ -4,107 +4,111 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SavingLoading : MonoBehaviour
+namespace Klaxon.SaveSystem
 {
-
-    public static SavingLoading instance;
-    
-    private void Awake()
+    public class SavingLoading : MonoBehaviour
     {
-        if (instance != null)
-            Destroy(this);
-        else
-            instance = this;
-    }
 
-    private string SavePath;
-    //private string LoadPath => $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
-    private string LoadPath;
+        public static SavingLoading instance;
 
-    
-    public void Save()
-    {
-        SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
-        DeleteFile(SavePath);
-        var state = LoadFile(LoadSelectionUI.instance.currentLoadFileName);
-        CaptureState(state);
-        SaveFile(state);
-        GameEventManager.onGameSavedEvent.Invoke();
-    }
-
-   
-
-    
-    public void Load(string fileName)
-    {
-        var state = LoadFile(fileName);
-        RestoreState(state);
-    }
-
-    private void SaveFile(object state)
-    {
-        using (var stream = File.Open(SavePath, FileMode.Create))
+        private void Awake()
         {
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(stream, state);
+            if (instance != null)
+                Destroy(this);
+            else
+                instance = this;
         }
-    }
 
-    private Dictionary<string, object> LoadFile(string fileName)
-    {
-        LoadPath = $"{Application.persistentDataPath}/{fileName}_save.ali";
-        if (!File.Exists(LoadPath))
-        {
-            return new Dictionary<string, object>();
-        }
-        
-        using (FileStream stream = File.Open(LoadPath, FileMode.Open))
-        {
-            var formatter = new BinaryFormatter();
-            return (Dictionary<string, object>)formatter.Deserialize(stream);
-        }
-    }
+        private string SavePath;
+        //private string LoadPath => $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
+        private string LoadPath;
 
-    private void CaptureState(Dictionary<string, object> state)
-    {
-        foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
-        {
-            state[saveableWorldEntity.ID] = saveableWorldEntity.CaptureState();
-        }
-        foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
-        {
-            state[saveableItemEntity.ID] = saveableItemEntity.CaptureState();
-        }
-        
-    }
 
-    private void RestoreState(Dictionary<string, object> state)
-    {
-        foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
+        public void Save()
         {
-            if(state.TryGetValue(saveableWorldEntity.ID, out object value))
+            SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
+            DeleteFile(SavePath);
+            var state = LoadFile(LoadSelectionUI.instance.currentLoadFileName);
+            CaptureState(state);
+            SaveFile(state);
+            GameEventManager.onGameSavedEvent.Invoke();
+        }
+
+
+
+
+        public void Load(string fileName)
+        {
+            var state = LoadFile(fileName);
+            RestoreState(state);
+        }
+
+        private void SaveFile(object state)
+        {
+            using (var stream = File.Open(SavePath, FileMode.Create))
             {
-                saveableWorldEntity.RestoreState(value);
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, state);
             }
         }
-        foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+
+        private Dictionary<string, object> LoadFile(string fileName)
         {
-            if (state.TryGetValue(saveableItemEntity.ID, out object value))
+            LoadPath = $"{Application.persistentDataPath}/{fileName}_save.ali";
+            if (!File.Exists(LoadPath))
             {
-                saveableItemEntity.RestoreState(value);
+                return new Dictionary<string, object>();
+            }
+
+            using (FileStream stream = File.Open(LoadPath, FileMode.Open))
+            {
+                var formatter = new BinaryFormatter();
+                return (Dictionary<string, object>)formatter.Deserialize(stream);
             }
         }
+
+        private void CaptureState(Dictionary<string, object> state)
+        {
+            foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
+            {
+                state[saveableWorldEntity.ID] = saveableWorldEntity.CaptureState();
+            }
+            foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+            {
+                state[saveableItemEntity.ID] = saveableItemEntity.CaptureState();
+            }
+
+        }
+
+        private void RestoreState(Dictionary<string, object> state)
+        {
+            foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
+            {
+                if (state.TryGetValue(saveableWorldEntity.ID, out object value))
+                {
+                    saveableWorldEntity.RestoreState(value);
+                }
+            }
+            foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+            {
+                if (state.TryGetValue(saveableItemEntity.ID, out object value))
+                {
+                    saveableItemEntity.RestoreState(value);
+                }
+            }
+        }
+
+        public bool SaveExists()
+        {
+            return File.Exists(SavePath);
+        }
+
+        public void DeleteFile(string path)
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
     }
 
-    public bool SaveExists()
-    {
-        return File.Exists(SavePath);
-    }
-
-    public void DeleteFile(string path)
-    {
-        if(File.Exists(path))
-            File.Delete(path);
-    }
-    
 }

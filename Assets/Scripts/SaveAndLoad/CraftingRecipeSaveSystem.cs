@@ -4,45 +4,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CraftingRecipeSaveSystem : MonoBehaviour, ISaveable
+namespace Klaxon.SaveSystem
 {
-
-    public QI_CraftingRecipeDatabase craftingRecipeDatabase;
-    public QI_CraftingRecipeDatabase allRecipesDatabase;
-    public object CaptureState()
+    public class CraftingRecipeSaveSystem : MonoBehaviour, ISaveable
     {
-        var recipes = PlayerCrafting.instance;
-        List<string> names = new List<string>();
-        
-        for (int i = 0; i < recipes.craftingRecipeDatabase.CraftingRecipes.Count; i++)
+
+        public QI_CraftingRecipeDatabase craftingRecipeDatabase;
+        public QI_CraftingRecipeDatabase allRecipesDatabase;
+        public object CaptureState()
         {
-            names.Add(recipes.craftingRecipeDatabase.CraftingRecipes[i].Name);
-            
+            var recipes = PlayerCrafting.instance;
+            List<string> names = new List<string>();
+
+            for (int i = 0; i < recipes.craftingRecipeDatabase.CraftingRecipes.Count; i++)
+            {
+                names.Add(recipes.craftingRecipeDatabase.CraftingRecipes[i].Name);
+
+            }
+
+            return new SaveData
+            {
+                itemName = names
+            };
         }
 
-        return new SaveData
+        public void RestoreState(object state)
         {
-            itemName = names
-        };
-    }
+            var saveData = (SaveData)state;
+            PlayerCrafting.instance.DestroyAllRecipes();
+            for (int i = 0; i < saveData.itemName.Count; i++)
+            {
+                PlayerCrafting.instance.AddCraftingRecipe(allRecipesDatabase.GetCraftingRecipe(saveData.itemName[i]));
 
-    public void RestoreState(object state)
-    {
-        var saveData = (SaveData)state;
-        PlayerCrafting.instance.DestroyAllRecipes();
-        for (int i = 0; i < saveData.itemName.Count; i++)
-        {
-            PlayerCrafting.instance.AddCraftingRecipe(allRecipesDatabase.GetCraftingRecipe(saveData.itemName[i]));
-            
+            }
         }
-    }
 
-    [Serializable]
-    private struct SaveData
-    {
-        public List<string> itemName;
-        
+        [Serializable]
+        private struct SaveData
+        {
+            public List<string> itemName;
 
-    }
-    
+
+        }
+
+    } 
 }

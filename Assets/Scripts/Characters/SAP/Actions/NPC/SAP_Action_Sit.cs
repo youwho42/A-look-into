@@ -40,6 +40,7 @@ namespace Klaxon.SAP
                         currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, agent.currentNavigationNodeType, agent.pathType);
 
                     path = currentNode.FindPath(target);
+                    
                     agent.walker.currentDestination = path[currentPathIndex].transform.position;
 
                 }
@@ -48,6 +49,8 @@ namespace Klaxon.SAP
 
         public override void PerformAction(SAP_Scheduler_NPC agent)
         {
+            
+
             if (!chair.canInteract && !sitting)
             {
                 agent.currentGoalComplete = true;
@@ -79,7 +82,7 @@ namespace Klaxon.SAP
                 Vector3 displacement = new Vector3(agent.walker.transform.position.x, agent.walker.transform.position.y, agent.walker.transform.position.z + 0.33f);
                 agent.walker.transform.position = displacement;
                 sitCycle = RealTimeDayNightCycle.instance.GetCycleTime(maxTime);
-                
+                agent.lastValidNode = currentNode;
                 StartCoroutine(PlaceNPC(agent, chair.transform.position));
                 if (agent.walker.facingRight && !chair.facingRight || !agent.walker.facingRight && chair.facingRight)
                     agent.walker.Flip();
