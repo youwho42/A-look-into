@@ -26,6 +26,7 @@ public class FixVillageArea
     public NavigationNode fixingNode;
     public SAP_Condition SAP_CompletedCondition;
     public UndertakingObject undertakingObject;
+    public UndertakingTaskObject taskObject;
     [HideInInspector]
     public bool isFixing;
     [HideInInspector]

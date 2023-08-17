@@ -79,6 +79,7 @@ namespace Klaxon.SAP
                     currentArea.inactiveArea.SetActive(false);
                     currentArea.isActive = true;
                     currentArea.isFixing = false;
+                    currentArea.undertakingObject.TryCompleteTask(currentArea.taskObject);
                     SAP_WorldBeliefStates.instance.SetWorldState(currentArea.SAP_CompletedCondition.Condition, currentArea.SAP_CompletedCondition.State);
                     foreach (var node in currentArea.navigationNodes)
                     {

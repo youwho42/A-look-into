@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dab7ed2081ecec9478b2ab53eff2a778, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02a73a19d28871243ba418ea52dce5a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 2012a38a69cd54842a487620859c8c91, type: 2}
+  Data: {fileID: 11400000, guid: 05f78f5c3f85ddc42a58545b0991248a, type: 2}
 --- !u!58 &3340633912972864975
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -133,10 +133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Take
+  longInteractVerb: whaaAA???
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
   pickupQuantity: 1
 --- !u!114 &-3408826983127947495
 MonoBehaviour:
