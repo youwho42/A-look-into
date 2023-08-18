@@ -32,7 +32,7 @@ namespace Klaxon.SAP
                 }
 
 
-                if (timer < 1f)
+                if (timer < 0.6f)
                     timer += Time.deltaTime;
                 else
                 {

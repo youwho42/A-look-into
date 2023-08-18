@@ -39,11 +39,13 @@ public class NavigationNode : MonoBehaviour
 
     public List<NavigationNode> FindPath(NavigationNode targetNode)
     {
+        List<NavigationNode> path = new List<NavigationNode>();
+
         if (this == targetNode)
         {
             // The target node is the same as the starting node,
             // return an empty path.
-            List<NavigationNode> path = new List<NavigationNode>();
+            
             path.Add(targetNode);
             return path;
         }
@@ -76,7 +78,7 @@ public class NavigationNode : MonoBehaviour
                     if (childNode == targetNode)
                     {
                         // We found the target node, so construct and return the path
-                        List<NavigationNode> path = new List<NavigationNode>();
+                        
                         while (childNode != null)
                         {
                             path.Add(childNode);
@@ -90,7 +92,10 @@ public class NavigationNode : MonoBehaviour
         }
 
         // If we reach here, there is no path to the target node
-        return null;
+        
+        path.Add(this);
+        return path;
+        
     }
 
 

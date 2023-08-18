@@ -8,7 +8,8 @@ public class DiplayTimeUI : MonoBehaviour
 {
 
     RealTimeDayNightCycle dayNightCycle;
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI dayText;
     public Image hourHand;
     public Image minuteHand;
 
@@ -17,17 +18,23 @@ public class DiplayTimeUI : MonoBehaviour
 
         dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetTime);
+        GameEventManager.onTimeHourEvent.AddListener(SetDay);
     }
 
     void SetTime(int tick)
     {
-        text.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
+        timeText.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
         SetHandRotations();
+    }
+    void SetDay(int hour)
+    {
+        dayText.text = $"Day {dayNightCycle.currentDayRaw}";
     }
 
     private void OnDestroy()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(SetTime);
+        GameEventManager.onTimeHourEvent.RemoveListener(SetDay);
     }
 
     void SetHandRotations()

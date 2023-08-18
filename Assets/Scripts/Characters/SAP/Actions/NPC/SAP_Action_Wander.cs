@@ -29,8 +29,13 @@ namespace Klaxon.SAP
                     currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, agent.currentNavigationNodeType, agent.pathType);
 
                 path = currentNode.FindPath(target);
-                
 
+                //if (path == null)
+                //{
+                //    agent.currentGoalComplete = true;
+                //    return;
+                //}
+                    
                 agent.walker.currentDestination = path[currentPathIndex].transform.position;
             }
         }

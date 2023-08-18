@@ -1,7 +1,6 @@
 using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 public class PlantingArea : MonoBehaviour
@@ -79,6 +78,7 @@ public class PlantingArea : MonoBehaviour
             {
                 if (seedItem == null)
                 {
+                    
                     seedItem = stack.Item as SeedItemData;
                     SetPositions();
                     canPlant = true;

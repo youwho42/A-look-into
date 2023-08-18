@@ -28,6 +28,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
     List<VillageDeskAreaButton> villageAreasButtons = new List<VillageDeskAreaButton>();
     public List<CraftingSlot> ingredientSlots = new List<CraftingSlot>();
     public TextMeshProUGUI villageAreaCost;
+    public TextMeshProUGUI approxDays;
     int initialDisplay = 0;
     public RectTransform contentRect;
     public RectTransform viewportRect;
@@ -90,6 +91,9 @@ public class VillageDeskDisplayUI : MonoBehaviour
         {
             buttonText.text =  "Nothing To Build";
             purchaseButton.interactable = false;
+            villageAreaDescription.text = "Mayor Roger needs to be behind the desk.";
+            villageAreaCost.text = $"<sprite anim=\"3,5,12\">";
+            approxDays.text = "";
         }
         
     }
@@ -100,7 +104,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
         villageAreaTitle.text = area.areaName;
         villageAreaDescription.text = area.areaDescription;
         villageAreaCost.text = $"<sprite anim=\"3,5,12\"> {area.sparksRequired}";
-        
+        approxDays.text = $"Approximately {GetTimeToFix(area)} days";
         for (int i = 0; i < area.ingredients.Count; i++)
         {
             ingredientSlots[i].AddItem(area.ingredients[i].item, area.ingredients[i].amount, PlayerInformation.instance.playerInventory.GetStock(area.ingredients[i].item.Name));
@@ -141,7 +145,10 @@ public class VillageDeskDisplayUI : MonoBehaviour
 
     }
 
-
+    int GetTimeToFix(FixVillageArea area)
+    {
+        return Mathf.CeilToInt((float)area.ticksToFix / 510.0f);
+    }
 
 
     public void ScrollToSelectedObject(RectTransform targetObject)

@@ -10,6 +10,7 @@ namespace Klaxon.SAP
         Vector3 boxPosition;
         bool hasLicked;
         float timer;
+        bool resetBoxPosition;
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
             agent.arms.SetActive(false);
@@ -49,10 +50,17 @@ namespace Klaxon.SAP
                 if (!agent.walker.jumpAhead)
                 {
                     agent.Deviate();
+                    resetBoxPosition = true;
                     return;
                 }
             }
 
+            if (resetBoxPosition)
+            {
+                boxPosition = GetSeedBoxPosition(agent);
+                resetBoxPosition = false;
+            }
+                
             agent.walker.hasDeviatePosition = false;
 
 

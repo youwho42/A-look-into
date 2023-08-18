@@ -8,19 +8,24 @@ public class TreeShadows : MonoBehaviour
     public Transform shadowTransform;
     public SpriteRenderer shadowSprite;
 
+    GlobalShadows globalShadows;
     bool isVisible = true;
     public ShadowCaster2D shadowCaster;
-    private void Start()
+    private IEnumerator Start()
     {
+        globalShadows = GlobalShadows.instance;
         
-        SetShadows(0);
         if (shadowCaster != null)
         {
             shadowCaster.enabled = false;
         }
+
+        yield return new WaitForSeconds(1.0f);
+        SetShadows(0);
     }
     private void OnBecameVisible()
     {
+        globalShadows = GlobalShadows.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         isVisible = true;
         SetShadows(0);
@@ -50,10 +55,10 @@ public class TreeShadows : MonoBehaviour
 
     void SetShadowState()
     {
-        shadowSprite.enabled = GlobalShadows.instance.GetShadowVisible();
-        shadowSprite.color = GlobalShadows.instance.GetShadowColor();
-        shadowTransform.eulerAngles = GlobalShadows.instance.shadowRotation;
-        shadowSprite.transform.localScale = GlobalShadows.instance.shadowScale;
+        shadowSprite.enabled = globalShadows.GetShadowVisible();
+        shadowSprite.color = globalShadows.GetShadowColor();
+        shadowTransform.eulerAngles = globalShadows.shadowRotation;
+        shadowSprite.transform.localScale = globalShadows.shadowScale;
         if (shadowCaster != null)
         {
             shadowCaster.enabled = shadowSprite.color.a <= 0.2f;
