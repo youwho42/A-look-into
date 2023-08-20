@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/EquipmentItem", fileName = "New Equipment Item")]
 public class EquipmentData : QI_ItemData
 {
+
     public EquipmentSlot equipmentSlot;
      
 
@@ -20,7 +21,7 @@ public class EquipmentData : QI_ItemData
         if(EquipmentManager.instance.currentEquipment[(int)equipmentSlot] != null)
         {
             PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
-            PlayerInformation.instance.playerInventory.AddItem(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], 1, false);
+            EquipmentManager.instance.UnEquipToInventory(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], (int)equipmentSlot);
             EquipmentManager.instance.Equip(this, (int)equipmentSlot);
         } 
         else
@@ -28,8 +29,7 @@ public class EquipmentData : QI_ItemData
             PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
             EquipmentManager.instance.Equip(this, (int)equipmentSlot);
         }
-        
-        
+
     }
     public override void UseEquippedItem()
     {

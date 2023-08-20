@@ -6,8 +6,12 @@ using UnityEngine;
 public class LocalGoodsInteractable : Interactable
 {
     public bool isOpen;
-    QI_Inventory inventory;
 
+    QI_Inventory inventory;
+    public string shopName;
+    public ItemType validType;
+    [Range(1.0f, 1.5f)]
+    public float priceMultiplier;
     public override void Start()
     {
         base.Start();
@@ -37,7 +41,7 @@ public class LocalGoodsInteractable : Interactable
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.LocalGoods);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-        LocalGoodDisplayUI.instance.ShowGoodsUI(inventory);
+        LocalGoodDisplayUI.instance.ShowGoodsUI(inventory, validType, priceMultiplier, shopName);
     }
 
     private void CloseLocalGoods()

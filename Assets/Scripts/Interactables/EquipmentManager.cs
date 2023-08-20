@@ -9,47 +9,50 @@ public class EquipmentManager : MonoBehaviour
     public QI_ItemData[] currentEquipment;
     int totalSlots;
     public static EquipmentManager instance;
-    //public UnityEvent EventUIUpdateEquipment;
     public SpriteRenderer handEquipmentHolder;
     public SpriteRenderer lightEquipmentHolder;
+
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
-        {
             Destroy(this);
-        }
             
         totalSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new QI_ItemData[totalSlots];
     }
+
+    
 
     public void Equip(QI_ItemData newItem, int equipedIndex)
     {
         currentEquipment[equipedIndex] = newItem;
         if (equipedIndex == (int)EquipmentSlot.Hands)
         {
-            handEquipmentHolder.sprite = newItem.EquipedItemImage;
+            //handEquipmentHolder.sprite = newItem.EquipedItemImage;
+            var go = Instantiate(newItem.EquipedItem, handEquipmentHolder.transform);
+            go.transform.localPosition = Vector3.zero;
         }
         if (equipedIndex == (int)EquipmentSlot.Light)
         {
             var go = Instantiate(newItem.EquipedItem, lightEquipmentHolder.transform);
             go.transform.localPosition = Vector3.zero;
         }
+        
         GameEventManager.onEquipmentUpdateEvent.Invoke();
     }
   
     public bool UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
     {
+        
         if(PlayerInformation.instance.playerInventory.AddItem(itemData, 1, false))
         {
             currentEquipment[equipedIndex] = null;
+            
             if (equipedIndex == (int)EquipmentSlot.Hands)
             {
-                handEquipmentHolder.sprite = null;
+                Destroy(handEquipmentHolder.transform.GetChild(0).gameObject);
             }
             if (equipedIndex == (int)EquipmentSlot.Light)
             {
@@ -63,15 +66,17 @@ public class EquipmentManager : MonoBehaviour
 
     public void UnEquipAndDestroy(int equipedIndex)
     {
+        
         if (equipedIndex == (int)EquipmentSlot.Hands)
         {
-            handEquipmentHolder.sprite = null;
+            Destroy(handEquipmentHolder.transform.GetChild(0).gameObject);
         }
         currentEquipment[equipedIndex] = null;
         GameEventManager.onEquipmentUpdateEvent.Invoke();
     }
     public void UnEquipAndDestroyAll()
     {
+        
         for (int i = 0; i < currentEquipment.Length; i++)
         {
             currentEquipment[i] = null;

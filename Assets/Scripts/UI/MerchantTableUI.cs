@@ -22,6 +22,7 @@ public class MerchantTableUI : MonoBehaviour
     public Image icon;
 
     public TextMeshProUGUI sparks;
+    public TextMeshProUGUI totalSparks;
     public TextMeshProUGUI stock;
     public TextMeshProUGUI purchaseQuantity;
     public TextMeshProUGUI itemName;
@@ -29,11 +30,12 @@ public class MerchantTableUI : MonoBehaviour
 
     public Slider purchaseSlider;
     InteractableMerchantTable merchantTable;
+    int price;
 
     public void Purchase()
     {
         PlayerInformation.instance.playerInventory.AddItem(item, (int)purchaseSlider.value, false);
-        PlayerInformation.instance.purse.RemoveFromPurse((int)purchaseSlider.value * item.Price);
+        PlayerInformation.instance.purse.RemoveFromPurse((int)purchaseSlider.value * price);
         merchantTable.RemoveItems((int)purchaseSlider.value);
         SetQuantityText();
         HideUI();
@@ -45,7 +47,8 @@ public class MerchantTableUI : MonoBehaviour
         this.item = item;
         itemQuantity = amount;
         icon.sprite = item.Icon;
-        sparks.text = $"Sparks<sprite anim=\"3,5,12\"> {item.Price}";
+        price = item.Price * 2;
+        sparks.text = $"Sparks<sprite anim=\"3,5,12\"> {price}";
         stock.text = $"Stock {amount}";
         itemName.text = item.Name;
         itemDescription.text = item.Description;
@@ -67,6 +70,7 @@ public class MerchantTableUI : MonoBehaviour
     public void SetQuantityText()
     {
         purchaseQuantity.text = $"Quantity {purchaseSlider.value} / {purchaseSlider.maxValue}";
+        totalSparks.text = $"Sparks<sprite anim=\"3,5,12\"> {price * purchaseSlider.value}";
     }
 
     public void HideUI()

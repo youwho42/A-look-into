@@ -21,7 +21,7 @@ namespace Klaxon.GravitySystem
         public float positionZ;
         [HideInInspector]
         public Vector3 displacedPosition;
-        //[HideInInspector]
+        [HideInInspector]
         public bool isGrounded;
         protected Transform _transform;
 
@@ -42,6 +42,7 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public float currentVelocity;
         Vector2 currentDirection;
+        [HideInInspector]
         public int currentLevel;
 
         // surroundings
@@ -53,7 +54,7 @@ namespace Klaxon.GravitySystem
         public bool getOnSlope;
         [HideInInspector]
         public bool getOffSlope;
-        //[HideInInspector]
+        [HideInInspector]
         public bool onSlope;
         [HideInInspector]
         public float slopeDisplacement;
@@ -73,8 +74,9 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public List<TileDirectionInfo> tileBlockInfo;
 
-        //[HideInInspector]
+        [HideInInspector]
         public bool onObstacle;
+        [HideInInspector]
         public Vector3 obstacleDisplacement;
 
         Collider2D[] hit;

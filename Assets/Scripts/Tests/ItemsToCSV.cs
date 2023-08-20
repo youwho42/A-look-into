@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using QuantumTek.QuantumInventory;
-using System.Linq;
+
 public class ItemsToCSV : MonoBehaviour
 {
     public QI_ItemDatabase allItemsDatabase;
@@ -23,7 +23,7 @@ public class ItemsToCSV : MonoBehaviour
         if (allItemsDatabase.Items.Count > 0)
         {
             TextWriter tw = new StreamWriter(fileName, false);
-            tw.WriteLine("Item, Max-Stack, ResearchRecipes");
+            tw.WriteLine("Type, Item, Max-Stack, ResearchRecipes");
             tw.Close();
 
             tw = new StreamWriter(fileName, true);
@@ -47,7 +47,7 @@ public class ItemsToCSV : MonoBehaviour
                 }
                 
 
-                tw.WriteLine($"{item.Name}, {item.MaxStack}, {recipes}");
+                tw.WriteLine($"{item.Type}, {item.Name}, {item.MaxStack}, {recipes}");
             }
             tw.Close();
         }

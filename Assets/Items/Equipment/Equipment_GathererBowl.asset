@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Equipment_GathererBowl
   m_EditorClassIdentifier: 
   Name: Clay Bowl
+  Type: 0
   AnimationName: Bowl
-  Description: An empty bowl
+  Description: An empty bowl you can fill with water from any source.
   Weight: 1
   Price: 2
   spawnWeight: 1
@@ -22,8 +23,8 @@ MonoBehaviour:
   ItemPrefab: {fileID: 5499458227284682821, guid: 0076c61b417f4bc48b7ca26b026be052,
     type: 3}
   pickUpItem: {fileID: 0}
-  EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
+  EquipedItem: {fileID: 249755112104138812, guid: 06166ecbad7b07f40b9d9be24fc25a1a,
+    type: 3}
   MaxStack: 10
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []

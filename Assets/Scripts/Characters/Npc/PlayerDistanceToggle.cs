@@ -63,9 +63,11 @@ public class PlayerDistanceToggle : MonoBehaviour
         }
     }
 
-    float GetPlayerDistance(GameObject obj, Vector2 playerPos)
+    float GetPlayerDistance(GameObject obj, Vector3 playerPos)
     {
-        return Vector2.Distance(obj.transform.position, playerPos);
+        
+        
+        return Vector3.Distance(obj.transform.position, playerPos);
     }
 
 }

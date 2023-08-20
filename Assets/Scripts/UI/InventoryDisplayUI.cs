@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using QuantumTek.QuantumInventory;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Linq;
 
 public class InventoryDisplayUI : MonoBehaviour
 {
@@ -23,14 +21,20 @@ public class InventoryDisplayUI : MonoBehaviour
     
     private void Start()
     {
-
         GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateInventoryUI);
-        
 
         SetInventoryUI();
         UpdateInventoryUI();
 
+    }
+    void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        if (inventorySlots.Count > 0)
+            EventSystem.current.SetSelectedGameObject(inventorySlots[0].GetComponentInChildren<Button>().gameObject);
+
+        
     }
     private void OnDisable()
     {
@@ -58,15 +62,7 @@ public class InventoryDisplayUI : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-        if (inventorySlots.Count > 0)
-            EventSystem.current.SetSelectedGameObject(inventorySlots[0].GetComponentInChildren<Button>().gameObject);
-        
-        
-    }
-
+    
     
     
     
@@ -101,8 +97,12 @@ public class InventoryDisplayUI : MonoBehaviour
                 equipmentSlots[i].AddItem(EquipmentManager.instance.currentEquipment[i], 1);
             }
         }
-        
+
     }
-
-
+    
+    public void SortInventory()
+    {
+        PlayerInformation.instance.playerInventory.SortInventory();
+        UpdateInventoryUI();
+    }
 }

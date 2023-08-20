@@ -47,7 +47,9 @@ namespace Klaxon.GravitySystem
         Vector3 lastValidPosition;
 
         int framesStuck;
+        [HideInInspector]
         public bool isStuck;
+        [HideInInspector]
         public bool tilemapObstacle;
 
         private new IEnumerator Start()

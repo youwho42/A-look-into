@@ -8,9 +8,18 @@ using UnityEngine.UI;
 
 public class CharacterChoiceUI : MonoBehaviour
 {
+    public static CharacterChoiceUI instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+            instance = this;
+    }
+
     public SpriteResolver chooseSpriteResolver;
     //public SpriteResolver playerSpriteResolver;
-    
+
+    public GameObject characterChoiceCameraObject;
     
     int index = 0;
 
@@ -18,6 +27,7 @@ public class CharacterChoiceUI : MonoBehaviour
     public Button acceptButton;
     string spriteName;
     public SetButtonSelected setButtonSelected;
+
     void Start()
     {
 
@@ -26,8 +36,17 @@ public class CharacterChoiceUI : MonoBehaviour
         //Changes the character limit in the main input field.
         playerNameInputField.characterLimit = 12;
         CheckPlayerNameValid();
+        HideUI();
     }
 
+    public void ShowUI()
+    {
+        characterChoiceCameraObject.SetActive(true);
+    }
+    public void HideUI()
+    {
+        characterChoiceCameraObject.SetActive(false);
+    }
 
     public void ChangeSprite(int dir)
     {

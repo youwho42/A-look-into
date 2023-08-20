@@ -25,22 +25,27 @@ public class LocalGoodDisplayUI : MonoBehaviour
 
     public TextMeshProUGUI sparksDisplay;
     public TextMeshProUGUI playerName;
+    public TextMeshProUGUI shopName;
     QI_Inventory containerInventory;
-
 
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
     public List<ContainerDisplaySlot> playerSlots = new List<ContainerDisplaySlot>();
 
     int totalSparks = 0;
+    ItemType validType;
+    float priceMultiplier = 1;
 
-    public void ShowGoodsUI(QI_Inventory container)
+    public void ShowGoodsUI(QI_Inventory container, ItemType type, float multiplier, string name)
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateGoodsUI);
 
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         containerInventory = container;
+        validType = type;
+        priceMultiplier = multiplier;
         playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
+        shopName.text = name;
         UpdateGoodsUI();
     }
     public void HideGoodsUI()
@@ -91,37 +96,33 @@ public class LocalGoodDisplayUI : MonoBehaviour
         for (int i = 0; i < containerInventory.Stacks.Count; i++)
         {
             var butt = containerSlots[i].GetComponentInChildren<Button>();
-
+            butt.interactable = true;
             if (containerInventory.Stacks[i].Item != null)
             {
-                totalSparks += containerInventory.Stacks[i].Amount * containerInventory.Stacks[i].Item.Price;
+                totalSparks += Mathf.CeilToInt((containerInventory.Stacks[i].Amount * containerInventory.Stacks[i].Item.Price) * priceMultiplier);
                 containerSlots[i].containerInventory = containerInventory;
                 containerSlots[i].AddItem(containerInventory.Stacks[i].Item, containerInventory.Stacks[i].Amount);
                 containerSlots[i].icon.enabled = true;
                 containerSlots[i].isContainerSlot = true;
-                butt.interactable = true;
             }
-            else
-            {
-                butt.interactable = false;
-            }
+            
         }
 
         for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
             var butt = playerSlots[i].GetComponentInChildren<Button>();
-
+            butt.interactable = false;
             if (PlayerInformation.instance.playerInventory.Stacks[i].Item != null)
             {
                 playerSlots[i].containerInventory = containerInventory;
                 playerSlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
                 playerSlots[i].icon.enabled = true;
                 butt.interactable = true;
+                if (validType != ItemType.None && PlayerInformation.instance.playerInventory.Stacks[i].Item.Type != validType)
+                    butt.interactable = false;
+                
             }
-            else
-            {
-                butt.interactable = false;
-            }
+            
         }
 
         sparksDisplay.text = $"<sprite anim=\"3,5,12\"> {totalSparks}";

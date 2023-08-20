@@ -27,7 +27,6 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    
 
     public bool loadTerrains;
 
@@ -85,8 +84,9 @@ public class LevelManager : MonoBehaviour
             {
                 SceneManager.LoadSceneAsync("MainScene-Decoration", LoadSceneMode.Additive);
             }
-
+            
         }
+
 
         PlayerInformation.instance.TogglePlayerInput(false);
         playerMaterial = PlayerInformation.instance.playerSprite.material;
@@ -96,6 +96,11 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         SelectStartButton();
         fullscreen.isOn = Screen.fullScreen;
+
+#if UNITY_STANDALONE && !UNITY_EDITOR
+        LoadTitleScreen();
+#endif
+
     }
     public void SelectStartButton()
     {
@@ -108,6 +113,7 @@ public class LevelManager : MonoBehaviour
     {
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
+        CharacterChoiceUI.instance.ShowUI();
         NewGameWarning(false);
     }
 
@@ -136,7 +142,7 @@ public class LevelManager : MonoBehaviour
     {
         isInCutscene = true;
         UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
-        //StartCoroutine("StartNewGameCo");
+        CharacterChoiceUI.instance.HideUI();
         GameEventManager.onNewGameStartedEvent.Invoke();
         GameEventManager.onStatUpdateEvent.Invoke();
     }
@@ -386,7 +392,6 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadTitleScreenCo(string levelName)
     {
-
         UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
