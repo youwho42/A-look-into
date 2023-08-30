@@ -119,7 +119,8 @@ AudioSource:
   m_GameObject: {fileID: 1186113323787273416}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6149981308244972507, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.6
@@ -566,6 +567,8 @@ MonoBehaviour:
   minMaxFlap: {x: 0.5, y: 10}
   minMaxGlide: {x: 0.5, y: 5}
   glide: 0
+  currentLandingSpot: {fileID: 0}
+  musicGeneratorItem: {fileID: 6300385493937077386}
   interactAreas: {fileID: 0}
   dayNightCycle: {fileID: 0}
 --- !u!114 &2302526306177949363
@@ -586,6 +589,7 @@ MonoBehaviour:
   finalDestination: 0
   target: {fileID: 0}
   useBoids: 1
+  hoverTime: {x: 0, y: 0}
 --- !u!114 &8372402349997794142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,6 +607,7 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   finalDestination: 0
   target: {fileID: 0}
+  minDistance: 1
   closestSpots: []
 --- !u!114 &5109975621678393886
 MonoBehaviour:
@@ -642,6 +647,10 @@ MonoBehaviour:
   finalDestination: 0
   target: {fileID: 0}
   home: {fileID: 0}
+  isNocturnal: 0
+  chooseRandomHome: 0
+  minHomeDistance: 1
+  removeFromMusicAtHome: 1
 --- !u!1 &1186113324396075657
 GameObject:
   m_ObjectHideFlags: 0

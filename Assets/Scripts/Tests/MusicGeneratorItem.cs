@@ -16,25 +16,29 @@ public class MusicGeneratorItem : MonoBehaviour
 
     private void OnBecameVisible()
     {
+        AddToDictionary();
+    }
+
+    private void OnBecameInvisible()
+    {
+        RemoveFromDictionary();
+    }
+
+    private void OnDisable()
+    {
+        RemoveFromDictionary();
+    }
+
+    public void AddToDictionary()
+    {
         if (isActive)
         {
             MusicGenerator.instance.AddToDictionary(type);
             isInDictionary = true;
         }
-            
     }
 
-    private void OnBecameInvisible()
-    {
-        if (isActive)
-        {
-            MusicGenerator.instance.RemoveFromDictionary(type);
-            isInDictionary = false;
-        }
-            
-    }
-
-    private void OnDisable()
+    public void RemoveFromDictionary()
     {
         if (isActive)
         {
@@ -42,5 +46,4 @@ public class MusicGeneratorItem : MonoBehaviour
             isInDictionary = false;
         }
     }
-
 }

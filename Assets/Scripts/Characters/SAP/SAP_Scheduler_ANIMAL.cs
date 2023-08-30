@@ -50,6 +50,7 @@ namespace Klaxon.SAP
         [HideInInspector]
         public DrawZasYDisplacement currentLandingSpot;
 
+        public MusicGeneratorItem musicGeneratorItem;
 
         public InteractAreasManager interactAreas;
 

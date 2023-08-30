@@ -19,7 +19,7 @@ namespace Klaxon.SAP
         [ConditionalHide("chooseRandomHome", true)]
         public float minHomeDistance = 1f;
         List<DrawZasYDisplacement> closestSpots = new List<DrawZasYDisplacement>();
-
+        public bool removeFromMusicAtHome;
 
         public override void StartPerformAction(SAP_Scheduler_ANIMAL agent)
         {
@@ -51,8 +51,11 @@ namespace Klaxon.SAP
             agent.animator.SetBool(agent.walking_hash, false);
             agent.animator.SetBool(agent.landed_hash, false);
 
-            if (agent.sounds.mute)
-                agent.sounds.mute = false;
+            if (agent.sounds != null)
+            {
+                if (agent.sounds.mute)
+                    agent.sounds.mute = false; 
+            }
 
             SetBoidsState(agent, false);
         }
@@ -67,8 +70,11 @@ namespace Klaxon.SAP
             if (isHome)
             {
                 agent.flier.enabled = false;
-                if (!agent.sounds.mute)
-                    agent.sounds.mute = true;
+                if (agent.sounds != null)
+                {
+                    if (!agent.sounds.mute)
+                        agent.sounds.mute = true;
+                }
                 agent.flier.currentDirection = Vector2.zero;
                 agent.animator.SetBool(agent.landed_hash, true);
                 agent.animator.SetBool(agent.sleeping_hash, true);
@@ -95,6 +101,12 @@ namespace Klaxon.SAP
             {
                 home.isInUse = true;
                 isHome = true;
+                if (removeFromMusicAtHome)
+                {
+                    agent.musicGeneratorItem.RemoveFromDictionary();
+                    agent.musicGeneratorItem.isActive = false;
+                }
+                    
             }
             agent.flier.SetLastPosition();
 
@@ -107,7 +119,11 @@ namespace Klaxon.SAP
             agent.SetBeliefState("Land", false);
             agent.animator.SetBool(agent.sleeping_hash, false);
             home.isInUse = false;
-            
+            if (removeFromMusicAtHome)
+            {
+                agent.musicGeneratorItem.isActive = true;
+                agent.musicGeneratorItem.AddToDictionary();
+            }
             isHome = false;
         }
 

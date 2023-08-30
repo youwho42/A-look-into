@@ -14,16 +14,21 @@ public class PlayerDistanceToggle : MonoBehaviour
             instance = this;
     }
 
+    
+
 
     float maxDistance = 6;
     public List<GameObject> animals;
     public List<SAP_Scheduler_NPC> agents;
+
 
     private void Start()
     {
         PopulateAnimalList();
         InvokeRepeating("CheckPlayerDistance", 0.0f, 0.5f);
     }
+
+    
 
     public void PopulateAnimalList()
     {
@@ -39,6 +44,19 @@ public class PlayerDistanceToggle : MonoBehaviour
         {
             agents.Add(agent);
         }
+    }
+
+    private void CheckPlayerDistance(List<GameObject> objects)
+    {
+        
+        
+        foreach (var obj in objects)
+        {
+            obj.SetActive(true);
+        }
+
+            
+        
     }
 
     private void CheckPlayerDistance()
@@ -79,33 +97,5 @@ public class PlayerDistanceToggle : MonoBehaviour
 
 
 
-    //private void CheckPlayerDistance()
-    //{
-    //    if (animals.Count > 0)
-    //    {
-    //        var playerPosition = PlayerInformation.instance.player.position;
-    //        foreach (var animal in animals)
-    //        {
-    //            animal.SetActive(GetPlayerDistance(animal, playerPosition) <= maxDistance);
-    //        }
-    //    }
-    //    if (agents.Count > 0)
-    //    {
-    //        var playerPosition = PlayerInformation.instance.player.position;
-    //        foreach (var agent in agents)
-    //        {
-    //            bool state = GetPlayerDistance(agent.gameObject, playerPosition) <= maxDistance;
-    //            agent.animator.enabled = state;
-    //            agent.offScreen = !state;
-    //        }
-    //    }
-    //}
-
-    //float GetPlayerDistance(GameObject obj, Vector3 playerPos)
-    //{
-
-
-    //    return Vector3.Distance(obj.transform.position, playerPos);
-    //}
-
+    
 }

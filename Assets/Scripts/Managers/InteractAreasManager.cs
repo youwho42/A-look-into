@@ -42,6 +42,8 @@ public class QuadTree
            
     }
 
+    
+
     public void Subdivide()
     {
         Bounds nw = new Bounds(new Vector3(bounds.center.x - bounds.extents.x / 2, bounds.center.y + bounds.extents.y / 2), bounds.extents);
@@ -82,6 +84,8 @@ public class QuadTree
 
         return spots;
     }
+
+    
 
 }
 

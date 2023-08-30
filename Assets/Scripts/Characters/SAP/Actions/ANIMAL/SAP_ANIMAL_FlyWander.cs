@@ -80,7 +80,7 @@ namespace Klaxon.SAP
             }
             SetBoidsState(agent, useBoids);
 
-            if (Vector2.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && agent.flier.CheckDistanceToDestination() <= 0.02f)
+            if (Vector2.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f || agent.flier.CheckDistanceToDestination() <= 0.02f)
             {
                 if (hoverTimer > 0)
                     hover = true;
@@ -106,6 +106,8 @@ namespace Klaxon.SAP
             }
 
         }
+
+        
 
     }
 

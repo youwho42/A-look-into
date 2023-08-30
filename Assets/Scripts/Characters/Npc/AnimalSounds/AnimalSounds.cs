@@ -90,6 +90,7 @@ public class AnimalSounds : MonoBehaviour
             source.loop = false;
 
     }
+    
     private void OnDisable()
     {
         GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
@@ -98,7 +99,11 @@ public class AnimalSounds : MonoBehaviour
     {
         ChangeVolume();
         if (continuous)
+        {
+            SetContinuous();
             return;
+        }
+           
         cawTimer -= Time.deltaTime;
         if(cawTimer <= 0 && !isCrying && !mute)
         {
