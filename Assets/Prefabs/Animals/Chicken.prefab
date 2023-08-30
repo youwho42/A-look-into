@@ -23,6 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432182355714037193}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -30,7 +31,6 @@ Transform:
   m_Children:
   - {fileID: 7432182356981400627}
   m_Father: {fileID: 7432182356746810017}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7432182356379431429
 GameObject:
@@ -56,13 +56,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432182356379431429}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.73, y: 0.8704603, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7432182356981400627}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7432182356379431431
 SpriteRenderer:
@@ -146,6 +146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432182356746810046}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.126, y: 1.489, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -153,7 +154,6 @@ Transform:
   m_Children:
   - {fileID: 7432182355714037192}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5137744430179170912
 MonoBehaviour:
@@ -191,8 +191,9 @@ MonoBehaviour:
   bounceFriction: 0
   bounciness: 0
   allTilesManager: {fileID: 0}
-  currentTilePosition: {fileID: 0}
+  currentTilePosition: {fileID: 5137744430179170912}
   currentVelocity: 0
+  currentDirection: {x: 0, y: 0}
   currentLevel: 0
   obstacleLayer:
     serializedVersion: 2
@@ -200,6 +201,7 @@ MonoBehaviour:
   getOnSlope: 0
   getOffSlope: 0
   onSlope: 0
+  slopeDisplacement: 0
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
@@ -209,6 +211,8 @@ MonoBehaviour:
     m_Bits: 512
   isWeightless: 0
   tileBlockInfo: []
+  onObstacle: 0
+  obstacleDisplacement: {x: 0, y: 0, z: 0}
 --- !u!114 &7432182356746810020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,13 +243,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbd1ce23fa8ee0439aa173751180d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityItem: {fileID: 0}
   roamingDistance: 1.5
   currentDestination: {x: 0, y: 0}
   currentDirection: {x: 0, y: 0}
   walkSpeed: 0.15
   characterRenderer: {fileID: 7432182357024261709}
+  characterTransformFlip: {fileID: 0}
   canJump: 1
   jumpHeight: 7
+  jumpAhead: 0
   canClimb: 0
   isClimbing: 0
   mainDestinationZ: {x: 0, y: 0, z: 0}
@@ -457,6 +464,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432182356981400624}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -465,7 +473,6 @@ Transform:
   - {fileID: 7432182357024261707}
   - {fileID: 7432182356379431428}
   m_Father: {fileID: 7432182355714037192}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7432182357024261704
 GameObject:
@@ -494,13 +501,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432182357024261704}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7432182356981400627}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7432182357024261709
 SpriteRenderer:
@@ -556,7 +563,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 1
 --- !u!95 &7432182357024261706
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -573,7 +580,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!82 &7432182357024261708
 AudioSource:
   m_ObjectHideFlags: 0

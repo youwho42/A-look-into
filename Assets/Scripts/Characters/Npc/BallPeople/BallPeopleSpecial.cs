@@ -24,7 +24,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
     float timeIdle = 0;
     
     public Animator animator;
-    GravityItemWalker walker;
+    GravityItemWalk walker;
 
 
 
@@ -40,7 +40,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
     
     private void Start()
     {
-        walker = GetComponent<GravityItemWalker>();
+        walker = GetComponent<GravityItemWalk>();
         randomAccessory = GetComponent<RandomAccessories>();
         allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (var sprite in allSprites)

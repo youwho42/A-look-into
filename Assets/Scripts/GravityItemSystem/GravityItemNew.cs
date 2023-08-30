@@ -41,7 +41,8 @@ namespace Klaxon.GravitySystem
 
         [HideInInspector]
         public float currentVelocity;
-        Vector2 currentDirection;
+        //[HideInInspector]
+        public Vector2 currentDirection;
         [HideInInspector]
         public int currentLevel;
 
@@ -81,17 +82,23 @@ namespace Klaxon.GravitySystem
 
         Collider2D[] hit;
         Collider2D doubleHit;
+
+        private void Awake()
+        {
+            currentTilePosition = GetComponent<CurrentTilePosition>();
+            _transform = GetComponent<Transform>();
+        }
         public virtual void Start()
         {
 
             allTilesManager = AllTilesInfoManager.instance;
-            currentTilePosition = GetComponent<CurrentTilePosition>();
+            
             currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
-            _transform = GetComponent<Transform>();
+            
             currentLevel = currentTilePosition.position.z;
-
+            
         }
-        public void Update()
+        public virtual void Update()
         {
             
             if (!isWeightless)
@@ -122,7 +129,7 @@ namespace Klaxon.GravitySystem
 
         }
 
-        public void FixedUpdate()
+        public virtual void FixedUpdate()
         {
             if (!isGrounded && !isWeightless)
                 ApplyGravity();

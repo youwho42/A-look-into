@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Klaxon.GravitySystem
 {
-    public class GravityItemWalker : GravityItemNew
+    public class GravityItemWalk : GravityItemNew
     {
 
         [Space]
@@ -28,7 +28,7 @@ namespace Klaxon.GravitySystem
         Vector3 doubleCheckPosition;
 
 
-        DetectVisibility visibilityCheck;
+        
         [HideInInspector]
         public bool jumpAhead;
 
@@ -52,25 +52,30 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public bool tilemapObstacle;
 
-        private new IEnumerator Start()
+        public bool canClimb;
+        [HideInInspector]
+        public bool isClimbing;
+
+        [HideInInspector]
+        public Vector3 mainDestinationZ;
+        [HideInInspector]
+        public Vector3 currentDestinationZ;
+        [HideInInspector]
+        public Vector3 currentDirectionZ;
+
+        public override void Start()
         {
             base.Start();
 
-            visibilityCheck = GetComponent<DetectVisibility>();
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
 
-            yield return new WaitForSeconds(0.25f);
-
-
             isGrounded = true;
-            //currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
-
         }
         
 
 
 
-        private new void Update()
+        public override void Update()
         {
             base.Update();
 
@@ -78,21 +83,23 @@ namespace Klaxon.GravitySystem
                 return;
 
             if (CanReachNextTile(currentDir))
-            {
-
                 Move(currentDir, walkSpeed);
-                //MoveNPC();
-            }
 
 
             if (currentDir.x != 0 && !isInInteractAction)
             {
                 if (currentDir.x > 0.01f && !facingRight)
                     Flip();
-                else if (currentDir.x < 0.01f && facingRight)
+                else if (currentDir.x < -0.01f && facingRight)
                     Flip();
             }
 
+            if (canClimb && isClimbing)
+            {
+                SetDirectionZ();
+
+                MoveZ(currentDirectionZ, walkSpeed * 2);
+            }
 
             moveSpeed = currentDir.x + currentDir.y;
 
@@ -105,39 +112,13 @@ namespace Klaxon.GravitySystem
         }
 
 
-        public new void FixedUpdate()
+        public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            //if (isInInteractAction || currentDir == Vector2.zero)
-            //    return;
-
-            //if (CanReachNextTile(currentDir))
-            //{
-
-            //    Move(currentDir,  walkSpeed);
-            //    //MoveNPC();
-            //}
-
-
         }
 
-        //public void MoveNPC()
-        //{
-        //    var timeTo = Vector2.Distance(_transform.position, currentDestination) / walkSpeed;
-        //    timeTo *= RealTimeDayNightCycle.instance.deltaTick;
-        //    timeTo += RealTimeDayNightCycle.instance.currentTimeRaw;
-
-
-
-        //    Vector3 currentPosition = _transform.position;
-        //    currentPosition = Vector2.Lerp(_transform.position, currentDestination, RealTimeDayNightCycle.instance.currentTimeRaw / timeTo);
-        //    //currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime * currentVelocity);
-
-        //    currentPosition.z = currentTilePosition.position.z + 1;
-        //    _transform.position = currentPosition;
-
-        //}
+        
 
         void Jump()
         {
@@ -146,13 +127,7 @@ namespace Klaxon.GravitySystem
             jumpAhead = false;
         }
 
-        //void TileFound(List<TileDirectionInfo> tileBlock, bool success)
-        //{
-        //    if (success)
-        //        tileBlockInfo = tileBlock;
-        //    else
-        //        Debug.LogError("Tile not found in tile dictionary!");
-        //}
+        
 
         bool CanReachNextTile(Vector2 direction)
         {
@@ -391,16 +366,20 @@ namespace Klaxon.GravitySystem
 
         public void SetLastPosition()
         {
-            if (lastPosition != _transform.position)
+
+            if (!LevelManager.instance.inPauseMenu)
             {
-                ResetLastPosition();
-                lastPosition = _transform.position;
-            }
-            else
-            {
-                framesStuck++;
-                if (framesStuck >= 4)
-                    isStuck = true;
+                if (lastPosition != _transform.position)
+                {
+                    ResetLastPosition();
+                    lastPosition = _transform.position;
+                }
+                else
+                {
+                    framesStuck++;
+                    if (framesStuck >= 4)
+                        isStuck = true;
+                } 
             }
         }
 
@@ -469,7 +448,7 @@ namespace Klaxon.GravitySystem
         public void SetRandomDestination(float roamingDistance)
         {
 
-            Vector2 rand = (UnityEngine.Random.insideUnitCircle * roamingDistance);
+            Vector2 rand = (Random.insideUnitCircle * roamingDistance);
             var d = currentTilePosition.groundMap.WorldToCell(new Vector2(_transform.position.x + rand.x, _transform.position.y + rand.y));
             for (int z = currentTilePosition.groundMap.cellBounds.zMax; z > currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
             {
@@ -478,7 +457,7 @@ namespace Klaxon.GravitySystem
                 {
 
                     currentDestination = GetTileWorldPosition(d);
-                    currentDestination += new Vector2(UnityEngine.Random.Range(0f, .3f), UnityEngine.Random.Range(0f, .3f));
+                    currentDestination += new Vector2(Random.Range(0f, .3f), Random.Range(0f, .3f));
                     break;
                 }
             }
@@ -490,6 +469,27 @@ namespace Klaxon.GravitySystem
         {
             currentDestination = destination;
             
+        }
+
+        public void SetDestinationZ(DrawZasYDisplacement displacement)
+        {
+
+            mainDestinationZ = displacement.displacedPosition;
+            currentDestinationZ = mainDestinationZ;
+            SetDirectionZ();
+        }
+        public void ResetDestinationZ()
+        {
+
+            mainDestinationZ = Vector3Int.zero;
+            currentDestinationZ = mainDestinationZ;
+            SetDirectionZ();
+        }
+        public void SetDirectionZ()
+        {
+
+            currentDirectionZ = currentDestinationZ - itemObject.localPosition;
+
         }
 
     }

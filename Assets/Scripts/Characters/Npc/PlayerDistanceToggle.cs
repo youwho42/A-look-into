@@ -15,14 +15,14 @@ public class PlayerDistanceToggle : MonoBehaviour
     }
 
 
-    float maxDistance = 5;
+    float maxDistance = 6;
     public List<GameObject> animals;
     public List<SAP_Scheduler_NPC> agents;
 
     private void Start()
     {
         PopulateAnimalList();
-        InvokeRepeating("CheckPlayerDistance",0.0f, 0.5f);
+        InvokeRepeating("CheckPlayerDistance", 0.0f, 0.5f);
     }
 
     public void PopulateAnimalList()
@@ -43,31 +43,69 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     private void CheckPlayerDistance()
     {
-        if (animals.Count > 0)
+        if (animals.Count > 0 || agents.Count > 0)
         {
             var playerPosition = PlayerInformation.instance.player.position;
+
             foreach (var animal in animals)
             {
-                animal.SetActive(GetPlayerDistance(animal, playerPosition) <= maxDistance);
+                SetObjectActiveBasedOnDistance(animal, playerPosition, maxDistance);
             }
-        }
-        if (agents.Count > 0)
-        {
-            var playerPosition = PlayerInformation.instance.player.position;
+
             foreach (var agent in agents)
             {
-                bool state = GetPlayerDistance(agent.gameObject, playerPosition) <= maxDistance;
-                agent.animator.enabled = state;
-                agent.offScreen = !state;
+                SetAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
             }
         }
     }
 
-    float GetPlayerDistance(GameObject obj, Vector3 playerPos)
+    void SetObjectActiveBasedOnDistance(GameObject obj, Vector3 playerPos, float maxDist)
     {
-        
-        
-        return Vector3.Distance(obj.transform.position, playerPos);
+        bool state = GetPlayerDistance(obj.transform, playerPos) <= maxDist;
+        obj.SetActive(state);
     }
+
+    void SetAgentPropertiesBasedOnDistance(SAP_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
+    {
+        bool state = GetPlayerDistance(agent.transform, playerPos) <= maxDist;
+        agent.animator.enabled = state;
+        agent.offScreen = !state;
+    }
+
+    float GetPlayerDistance(Transform objTransform, Vector3 playerPos)
+    {
+        return Vector3.Distance(objTransform.position, playerPos);
+    }
+
+
+
+    //private void CheckPlayerDistance()
+    //{
+    //    if (animals.Count > 0)
+    //    {
+    //        var playerPosition = PlayerInformation.instance.player.position;
+    //        foreach (var animal in animals)
+    //        {
+    //            animal.SetActive(GetPlayerDistance(animal, playerPosition) <= maxDistance);
+    //        }
+    //    }
+    //    if (agents.Count > 0)
+    //    {
+    //        var playerPosition = PlayerInformation.instance.player.position;
+    //        foreach (var agent in agents)
+    //        {
+    //            bool state = GetPlayerDistance(agent.gameObject, playerPosition) <= maxDistance;
+    //            agent.animator.enabled = state;
+    //            agent.offScreen = !state;
+    //        }
+    //    }
+    //}
+
+    //float GetPlayerDistance(GameObject obj, Vector3 playerPos)
+    //{
+
+
+    //    return Vector3.Distance(obj.transform.position, playerPos);
+    //}
 
 }

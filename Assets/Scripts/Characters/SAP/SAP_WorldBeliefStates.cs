@@ -19,6 +19,7 @@ namespace Klaxon.SAP
         public Dictionary<string, bool> worldStates = new Dictionary<string, bool>();
 
         public Vector2Int dayTimes;
+        public Vector2Int animalDayTimes;
         public Vector2Int workTimes;
 
         public List<InteractableChair> allSeats = new List<InteractableChair>();
@@ -48,6 +49,11 @@ namespace Klaxon.SAP
             if (tick >= dayTimes.x && tick < dayTimes.y)
                 isDay = true;
             SetWorldState("Day", isDay);
+
+            bool aniDay = false;
+            if (tick >= animalDayTimes.x && tick < animalDayTimes.y)
+                aniDay = true;
+            SetWorldState("AnimalDay", aniDay);
 
             bool canWork = false;
             if (tick >= workTimes.x && tick < workTimes.y)

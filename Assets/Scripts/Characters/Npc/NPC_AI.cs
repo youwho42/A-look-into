@@ -20,7 +20,7 @@ public class NPC_AI : MonoBehaviour
     public NPCState lastState;
     public NPCState nextState;
 
-    GravityItemWalker walker;
+    GravityItemWalk walker;
     
     float timeIdle = 0;
     float maxIdleTime;
@@ -66,7 +66,7 @@ public class NPC_AI : MonoBehaviour
     private void Start()
     {
         currentTilePosition = GetComponent<CurrentTilePosition>();
-        walker = GetComponent<GravityItemWalker>();
+        walker = GetComponent<GravityItemWalk>();
         maxIdleTime = Random.Range(1f, 5f);
         currentState = NPCState.Sleeping;
         GameEventManager.onTimeTickEvent.AddListener(SetStateOnTime);

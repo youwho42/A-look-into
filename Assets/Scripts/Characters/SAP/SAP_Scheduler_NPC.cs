@@ -36,7 +36,7 @@ namespace Klaxon.SAP
         bool isTalking;
 
         [HideInInspector]
-        public GravityItemWalker walker;
+        public GravityItemWalk walker;
 
         [HideInInspector]
         public QI_Inventory agentInventory;
@@ -51,7 +51,7 @@ namespace Klaxon.SAP
         public bool isDeviating;
         public void Start()
         {
-            walker = GetComponent<GravityItemWalker>();
+            walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
             sleep = SleepDisplayUI.instance;
         }

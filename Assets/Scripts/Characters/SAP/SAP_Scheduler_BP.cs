@@ -32,7 +32,7 @@ namespace Klaxon.SAP
         int currentGoalTimer = -1;
         
         [HideInInspector]
-        public GravityItemWalker walker;
+        public GravityItemWalk walker;
         [HideInInspector]
         public bool isDeviating;
 
@@ -112,7 +112,7 @@ namespace Klaxon.SAP
         }
         public void Start()
         {
-            walker = GetComponent<GravityItemWalker>();
+            walker = GetComponent<GravityItemWalk>();
             walker.currentDir = Vector2.zero;
             allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
             foreach (var sprite in allSprites)

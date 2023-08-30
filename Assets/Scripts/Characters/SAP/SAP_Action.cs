@@ -53,5 +53,21 @@ namespace Klaxon.SAP
         public virtual void EndPerformAction(SAP_Scheduler_BP agent)
         {
         }
+
+        /// <summary>
+        /// ANIMAL Actions
+        /// </summary>
+        public virtual void InitialCheckPerformAction(SAP_Scheduler_ANIMAL agent)
+        {
+        }
+        public virtual void StartPerformAction(SAP_Scheduler_ANIMAL agent)
+        {
+        }
+        public virtual void PerformAction(SAP_Scheduler_ANIMAL agent)
+        {
+        }
+        public virtual void EndPerformAction(SAP_Scheduler_ANIMAL agent)
+        {
+        }
     }
 }

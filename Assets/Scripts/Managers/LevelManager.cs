@@ -70,7 +70,8 @@ public class LevelManager : MonoBehaviour
 
     public bool isInCutscene;
     Material playerMaterial;
-    bool inPauseMenu;
+    [HideInInspector]
+    public bool inPauseMenu;
     public string GetCurrentLevel()
     {
         return SceneManager.GetActiveScene().name;

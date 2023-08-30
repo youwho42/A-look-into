@@ -81,7 +81,14 @@ public class AnimalSounds : MonoBehaviour
         source = GetComponent<AudioSource>();
         SetTimesToCry();
         SetFirstCry();
-        
+        if (continuous)
+        {
+            source.loop = true;
+            SetContinuous();
+        }
+        else
+            source.loop = false;
+
     }
     private void OnDisable()
     {
@@ -89,8 +96,11 @@ public class AnimalSounds : MonoBehaviour
     }
     private void Update()
     {
+        ChangeVolume();
+        if (continuous)
+            return;
         cawTimer -= Time.deltaTime;
-        if(cawTimer <= 0 && !isCrying && !continuous && !mute)
+        if(cawTimer <= 0 && !isCrying && !mute)
         {
             SetTimesToCry();
             SetCrySounds();
@@ -100,7 +110,20 @@ public class AnimalSounds : MonoBehaviour
     }
     void ChangeVolume()
     {
-        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Animals);
+        int m = 1;
+        if (mute)
+            m = 0;
+        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Animals) * m;
+    }
+    void SetContinuous()
+    {
+        int r = 0;
+        if (soundSets.Length > 1)
+            r = Random.Range(0, soundSets.Length);
+
+        int t = Random.Range(0, soundSets[r].clips.Length);
+
+        PlayContinuousSound(r,t);
     }
 
     public void SetCrySounds()
@@ -150,7 +173,6 @@ public class AnimalSounds : MonoBehaviour
             int t = Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
             mainVolume = soundSets[soundSet].volume;
-            ChangeVolume();
             soundSets[soundSet].Play(AudioTrack.Animals);
             animator.SetTrigger(caw_hash);
             
@@ -158,6 +180,19 @@ public class AnimalSounds : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void PlayContinuousSound(int soundSet, int index)
+    {
+        if (!source.isPlaying)
+        {
+            
+            soundSets[soundSet].SetSource(source, index);
+            mainVolume = soundSets[soundSet].volume;
+            soundSets[soundSet].Play(AudioTrack.Animals);
+            
+        }
+        
     }
 }
 

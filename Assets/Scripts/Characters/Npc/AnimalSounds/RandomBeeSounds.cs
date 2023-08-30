@@ -5,9 +5,8 @@ using UnityEngine;
 public class RandomBeeSounds : MonoBehaviour
 {
     public AudioClip[] clips;
-    ButterflyAI stateMachine;
     public bool isMakingSound;
-
+   
     AudioSource source;
     float mainVolume;
     private void Start()
@@ -31,16 +30,16 @@ public class RandomBeeSounds : MonoBehaviour
         source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Animals);
     }
 
-    //public void PlaySound()
-    //{
-    //    source.Play();
-    //    isMakingSound = true;
-    //}
+    public void PlaySound()
+    {
+        source.Play();
+        isMakingSound = true;
+    }
 
-    //public void StopSound()
-    //{
-    //    source.Stop();
-    //    isMakingSound = false;
-    //}
+    public void StopSound()
+    {
+        source.Stop();
+        isMakingSound = false;
+    }
 
 }

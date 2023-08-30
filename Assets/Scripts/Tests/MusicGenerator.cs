@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static MusicGenerator;
 
 
 [Serializable]
@@ -22,7 +20,8 @@ public enum SoundType
     Squirrel,
     Bee,
     Firefly,
-    Seaweed
+    Seaweed,
+    Crow
 
 }
 public class MusicGenerator : MonoBehaviour

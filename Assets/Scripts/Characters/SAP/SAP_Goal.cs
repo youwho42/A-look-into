@@ -14,6 +14,7 @@ namespace Klaxon.SAP
         public SAP_Action Action;
         public bool IsRunning;
         public int TimeLimit;
+        public Vector2Int TimeLimitRange;
         public SAP_Condition TimeLimitCondition;
     }
 }
