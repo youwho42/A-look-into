@@ -17,8 +17,8 @@ public class TreeRustling : MonoBehaviour, IWindEffect
     {
         int t = Random.Range(0, soundSet.clips.Length);
         soundSet.SetSource(source, t);
-        source.volume = soundSet.volume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
-        soundSet.Play(AudioTrack.Effects);
+        source.volume = soundSet.volume;
+        soundSet.Play();
     }
 
     

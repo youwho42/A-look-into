@@ -24,19 +24,11 @@ public class PlayerToolSoundManager : MonoBehaviour
 
     void Start()
     {
-        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
         source = GetComponent<AudioSource>();
     }
-    private void OnDisable()
-    {
-        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
+    
 
-    }
-
-    void ChangeVolume()
-    {
-        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
-    }
+    
 
     bool PlaySound(SoundSet[] soundSet)
     {
@@ -45,7 +37,7 @@ public class PlayerToolSoundManager : MonoBehaviour
             int t = UnityEngine.Random.Range(0, soundSet.Length - 1);
             soundSet[t].SetSource(source, t);
             mainVolume = soundSet[t].volume;
-            soundSet[t].Play(AudioTrack.Effects);
+            soundSet[t].Play();
 
             return true;
         }

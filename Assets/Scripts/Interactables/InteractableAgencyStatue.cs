@@ -143,12 +143,8 @@ public class InteractableAgencyStatue : Interactable
         int t = Random.Range(0, set.clips.Length);
         set.SetSource(source, t);
         mainVolume = set.volume;
-        ChangeVolume();
-        set.Play(AudioTrack.Effects);
+        set.Play();
 
     }
-    void ChangeVolume()
-    {
-        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
-    }
+    
 }

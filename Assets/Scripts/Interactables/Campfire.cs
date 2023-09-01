@@ -23,13 +23,9 @@ public class Campfire : Interactable
         base.Start();
         SetFire("light", false);
         
-        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
 
     }
-    private void OnDisable()
-    {
-        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
-    }
+    
     public override void Interact(GameObject interactor)
     {
 
@@ -77,8 +73,7 @@ public class Campfire : Interactable
     {
         sound.SetSource(source, 0);
         mainVolume = sound.volume;
-        ChangeVolume();
-        sound.Play(AudioTrack.Effects);
+        sound.Play();
     }
     void StopSound()
     {
@@ -86,10 +81,7 @@ public class Campfire : Interactable
         sound.Stop();
     }
 
-    void ChangeVolume()
-    {
-        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
-    }
+    
 
 
 }

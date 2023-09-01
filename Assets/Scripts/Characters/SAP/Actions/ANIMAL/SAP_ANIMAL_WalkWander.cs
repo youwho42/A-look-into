@@ -11,7 +11,7 @@ namespace Klaxon.SAP
         public Vector2 headTimeRange;
         float headTimer;
         public float wanderDistance;
-        bool atDestination;
+        bool atDestination = true;
 
         public override void StartPerformAction(SAP_Scheduler_ANIMAL agent)
         {
@@ -30,61 +30,73 @@ namespace Klaxon.SAP
                 }
             }
 
-            
 
             timer = agent.SetRandomRange(idleTimeRange);
             headTimer = agent.SetRandomRange(headTimeRange);
+
             agent.walker.SetRandomDestination(wanderDistance);
+
         }
         public override void PerformAction(SAP_Scheduler_ANIMAL agent)
         {
 
-            if (agent.walker.itemObject.localPosition.y == 0)
-            {
-
-                if (agent.walker.isStuck || agent.isDeviating)
-                {
-                    if (!agent.walker.jumpAhead)
-                    {
-                        agent.DeviateWalk();
-                        return;
-                    }
-                }
-
-                if (atDestination)
-                {
-                    timer -= Time.deltaTime;
-                    if (timer <= 0)
-                    {
-                        timer = agent.SetRandomRange(idleTimeRange);
-                        agent.walker.SetRandomDestination(wanderDistance);
-                        atDestination = false;
-                    }
-
-                    headTimer -= Time.deltaTime;
-                    if (headTimer <= 0)
-                        TurnHead(agent);
-
-                    return;
-                }
-                else
-                {
-                    agent.animator.SetBool(agent.walking_hash, true);
-                }
-
-                agent.walker.SetDirection();
-                if (Vector2.Distance(transform.position, agent.walker.currentDestination) <= 0.02f)
-                    atDestination = true;
-
-                agent.walker.SetLastPosition();
-
-            }
-            else
+            if (agent.walker.itemObject.localPosition.y > 0)
             {
                 headTimer -= Time.deltaTime;
                 if (headTimer <= 0)
                     TurnHead(agent);
             }
+            else
+            {
+
+                if (atDestination)
+                {
+                    
+                    headTimer -= Time.deltaTime;
+                    if (headTimer <= 0)
+                        TurnHead(agent);
+
+                   
+
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        agent.walker.SetRandomDestination(wanderDistance);
+                        atDestination = false;
+                        return;
+                    }
+
+                    return;
+                }
+                
+                agent.animator.SetBool(agent.walking_hash, true);
+                
+
+                if (agent.walker.isStuck || agent.isDeviating)
+                {
+                    
+                    if (!agent.walker.jumpAhead)
+                    {
+                        agent.walker.SetRandomDestination(wanderDistance);
+                        
+                    }
+                }
+
+
+                agent.walker.SetDirection();
+
+                agent.walker.SetLastPosition();
+
+                if (Vector2.Distance(transform.position, agent.walker.currentDestination) <= 0.02f)
+                {
+                    ReachDestination(agent);
+                }
+
+                
+
+            }
+            
+            
         }
         public override void EndPerformAction(SAP_Scheduler_ANIMAL agent)
         {
@@ -93,11 +105,21 @@ namespace Klaxon.SAP
             headTimer = 0;
             agent.walker.currentDir = Vector2.zero;
 
-            if (agent.currentLandingSpot != null)
+            if (agent.currentLandingSpot != null) 
+            { 
                 agent.currentLandingSpot.isInUse = false;
-            agent.currentLandingSpot = null;
+                agent.currentLandingSpot = null;
+            }
 
+        }
 
+        void ReachDestination(SAP_Scheduler_ANIMAL agent)
+        {
+            timer = agent.SetRandomRange(idleTimeRange);
+            headTimer = agent.SetRandomRange(headTimeRange);
+            agent.animator.SetBool(agent.walking_hash, false);
+            agent.walker.currentDir = Vector2.zero;
+            atDestination = true;
         }
 
         void TurnHead(SAP_Scheduler_ANIMAL agent)

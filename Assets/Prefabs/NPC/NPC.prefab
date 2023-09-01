@@ -2128,7 +2128,8 @@ AudioSource:
   m_GameObject: {fileID: 6354183444075106242}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2296,6 +2297,7 @@ MonoBehaviour:
     pitch: 1.1
     randomVolume: 0.2
     randomPitch: 0.2
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
     is3D: 1
     minDistance: 0
@@ -2308,6 +2310,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.2
     randomPitch: 0.2
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
     is3D: 1
     minDistance: 0
@@ -2316,6 +2319,8 @@ MonoBehaviour:
   groundSoundsLayer:
     serializedVersion: 2
     m_Bits: 2048
+  mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
 --- !u!4 &6384390429406860087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 527130853406309704, guid: 09687c9e6eb97bf40aead4c3b09960fc,

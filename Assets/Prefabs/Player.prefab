@@ -2009,7 +2009,8 @@ AudioSource:
   m_GameObject: {fileID: 2402787802444851791}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2177,6 +2178,7 @@ MonoBehaviour:
     pitch: 1.1
     randomVolume: 0.2
     randomPitch: 0.2
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
     is3D: 0
     minDistance: 0
@@ -2189,6 +2191,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.2
     randomPitch: 0.2
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
     is3D: 0
     minDistance: 0
@@ -2197,6 +2200,8 @@ MonoBehaviour:
   groundSoundsLayer:
     serializedVersion: 2
     m_Bits: 2048
+  mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
 --- !u!114 &2103212714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2221,6 +2226,7 @@ MonoBehaviour:
       pitch: 1
       randomVolume: 0
       randomPitch: 0
+      source: {fileID: 0}
       overlap: 0
     item:
     - {fileID: 11400000, guid: 4454f2274da22bf4a962361de09d132a, type: 2}
@@ -2234,6 +2240,7 @@ MonoBehaviour:
       pitch: 1
       randomVolume: 0.1
       randomPitch: 0.1
+      source: {fileID: 0}
       overlap: 0
     item:
     - {fileID: 11400000, guid: f166cc966da17d345885727c4255cb44, type: 2}

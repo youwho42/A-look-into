@@ -230,6 +230,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+    source: {fileID: 0}
     overlap: 0
   - clips:
     - {fileID: 8300000, guid: 9882d65b93d2fde47a541fadf753f5d3, type: 3}
@@ -241,7 +242,10 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+    source: {fileID: 0}
     overlap: 0
+  mixerGroup: {fileID: -6149981308244972507, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
   minMaxTimesToCry: {x: 1, y: 6}
   isCrying: 0
   minMaxBetweenCries: {x: 10, y: 60}
@@ -856,7 +860,8 @@ AudioSource:
   m_GameObject: {fileID: 5859352282203003539}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -971,6 +976,7 @@ MonoBehaviour:
     pitch: 1.5
     randomVolume: 0
     randomPitch: 0.2
+    source: {fileID: 0}
     overlap: 1
   - clips:
     - {fileID: 8300000, guid: 221d46d2b4de5654e8de350bd02bb76e, type: 3}
@@ -978,6 +984,7 @@ MonoBehaviour:
     pitch: 0.8
     randomVolume: 0
     randomPitch: 0.05
+    source: {fileID: 0}
     overlap: 1
 --- !u!58 &5966771426077238506
 CircleCollider2D:

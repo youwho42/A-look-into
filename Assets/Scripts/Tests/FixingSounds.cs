@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Audio;
+
 [RequireComponent(typeof(AudioSource))]
 public class FixingSounds : MonoBehaviour
 {
@@ -9,20 +11,16 @@ public class FixingSounds : MonoBehaviour
     [SerializeField]
     public SoundSet soundSet;
     public float soundDuration = 6f;
-    float mainVolume;
+    public AudioMixerGroup mixerGroup;
     int lastSoundIndex = -1;
     bool timing;
     bool playSounds;
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
         
     }
-    private void OnDisable()
-    {
-        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
-    }
+    
     public void StartSoundsWithTimer()
     {
         StartCoroutine(StartSoundsOnTimerCo());
@@ -86,15 +84,10 @@ public class FixingSounds : MonoBehaviour
         }
         lastSoundIndex = t;
         soundSet.SetSource(source, t);
-        mainVolume = soundSet.volume;
-        ChangeVolume();
-        soundSet.Play(AudioTrack.Effects);
+        soundSet.source.outputAudioMixerGroup = mixerGroup;
+        soundSet.Play();
             
     }
 
-    void ChangeVolume()
-    {
-        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
-    }
-
+       
 }

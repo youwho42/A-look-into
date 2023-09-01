@@ -53,11 +53,6 @@ public static class GameEventManager
     public static readonly GameEvent onGameSavedEvent = new GameEvent();
 
     /// <summary>
-    /// Volume Changed
-    /// </summary>
-    public static readonly GameEvent onVolumeChangedEvent = new GameEvent();
-
-    /// <summary>
     /// Scroll wheel scrolled
     /// </summary>
     public static readonly GameEvent<float> onMouseScrollEvent = new GameEvent<float>();

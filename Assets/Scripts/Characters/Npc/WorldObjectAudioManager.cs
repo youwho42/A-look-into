@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class WorldObjectAudioManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class WorldObjectAudioManager : MonoBehaviour
     Sound[] sounds;
     public Vector3 sound3dOffset;
     public LayerMask groundSoundsLayer;
-
+    public AudioMixerGroup mixerGroup;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class WorldObjectAudioManager : MonoBehaviour
             _go.transform.parent = audioHolder.transform;
             _go.transform.localPosition = Vector3.zero;
             sounds[i].SetSource(_go.AddComponent<AudioSource>());
+            sounds[i].source.outputAudioMixerGroup = mixerGroup;
         }
     }
     public bool IsPlaying(string _name)

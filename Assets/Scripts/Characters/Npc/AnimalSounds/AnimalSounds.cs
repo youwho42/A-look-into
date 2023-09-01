@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class SoundSet
@@ -20,7 +21,7 @@ public class SoundSet
     [Range(0.0f, 0.5f)]
     public float randomPitch = 0.1f;
 
-    AudioSource source;
+    public AudioSource source;
     public bool overlap;
 
     public void SetSource(AudioSource _source, int randomClip)
@@ -30,9 +31,9 @@ public class SoundSet
         source.playOnAwake = false;
     }
 
-    public void Play(AudioTrack track)
+    public void Play()
     {
-        source.volume = (volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2))) * PlayerPreferencesManager.instance.GetTrackVolume(track);
+        source.volume = volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2));
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2, randomPitch / 2));
         if (!source.isPlaying && !overlap)
             source.Play();
@@ -59,7 +60,7 @@ public class AnimalSounds : MonoBehaviour
     AudioSource source;
     [SerializeField]
     public SoundSet[] soundSets;
-
+    public AudioMixerGroup mixerGroup;
     float cawTimer;
     public Vector2 minMaxTimesToCry;
     int timesToCaw;
@@ -77,7 +78,6 @@ public class AnimalSounds : MonoBehaviour
 
     private void Start()
     {
-        GameEventManager.onVolumeChangedEvent.AddListener(ChangeVolume);
         source = GetComponent<AudioSource>();
         SetTimesToCry();
         SetFirstCry();
@@ -91,10 +91,7 @@ public class AnimalSounds : MonoBehaviour
 
     }
     
-    private void OnDisable()
-    {
-        GameEventManager.onVolumeChangedEvent.RemoveListener(ChangeVolume);
-    }
+   
     private void Update()
     {
         ChangeVolume();
@@ -118,7 +115,7 @@ public class AnimalSounds : MonoBehaviour
         int m = 1;
         if (mute)
             m = 0;
-        source.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Animals) * m;
+        source.volume = mainVolume * m;
     }
     void SetContinuous()
     {
@@ -177,8 +174,9 @@ public class AnimalSounds : MonoBehaviour
         {
             int t = Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
+            soundSets[soundSet].source.outputAudioMixerGroup = mixerGroup;
             mainVolume = soundSets[soundSet].volume;
-            soundSets[soundSet].Play(AudioTrack.Animals);
+            soundSets[soundSet].Play();
             animator.SetTrigger(caw_hash);
             
             
@@ -194,7 +192,7 @@ public class AnimalSounds : MonoBehaviour
             
             soundSets[soundSet].SetSource(source, index);
             mainVolume = soundSets[soundSet].volume;
-            soundSets[soundSet].Play(AudioTrack.Animals);
+            soundSets[soundSet].Play();
             
         }
         

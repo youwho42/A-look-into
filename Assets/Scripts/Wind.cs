@@ -24,7 +24,7 @@ public class Wind : MonoBehaviour, IPoolPrefab
 
         if(audioSource != null)
         {
-            audioSource.volume = mainVolume * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
+            audioSource.volume = mainVolume;
             audioSource.Play();
         }
             

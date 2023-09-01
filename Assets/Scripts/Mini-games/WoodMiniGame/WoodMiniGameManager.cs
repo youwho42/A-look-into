@@ -210,7 +210,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         {
             int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
             soundSets[soundSet].SetSource(source, t);
-            soundSets[soundSet].Play(AudioTrack.Effects);
+            soundSets[soundSet].Play();
             
             return true;
         }

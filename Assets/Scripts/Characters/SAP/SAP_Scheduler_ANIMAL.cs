@@ -12,6 +12,8 @@ namespace Klaxon.SAP
         public readonly int walking_hash = Animator.StringToHash("IsWalking");
         public readonly int gliding_hash = Animator.StringToHash("IsGliding");
         public readonly int sleeping_hash = Animator.StringToHash("IsSleeping");
+        public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
+        public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
         public readonly int idle_hash = Animator.StringToHash("Idle");
         public Animator animator;
 
@@ -146,7 +148,15 @@ namespace Klaxon.SAP
             }
 
         }
-        
+
+        void LateUpdate()
+        {
+            if (walker == null)
+                return;
+            animator.SetBool(isGrounded_hash, walker.isGrounded);
+            animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
+
+        }
 
         void SetNewGoal()
         {

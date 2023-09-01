@@ -38,7 +38,7 @@ public class PlayerAnimationSoundManager : MonoBehaviour
         {
             int t = UnityEngine.Random.Range(0, soundSet.Length-1);
             soundSet[t].SetSource(source, t);
-            soundSet[t].Play(AudioTrack.Effects);
+            soundSet[t].Play();
 
             return true;
         }

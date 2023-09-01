@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class Sound 
@@ -24,6 +25,7 @@ public class Sound
     [Range(0.0f, 0.5f)]
     public float randomPitch = 0.1f;
 
+    public AudioMixerGroup mixerGroup;
     public AudioSource source;
     [Space]
     [Header("3D Properties")]
@@ -50,7 +52,7 @@ public class Sound
 
     public void Play()
     {
-        source.volume = (volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2))) * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Effects);
+        source.volume = volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2));
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2, randomPitch / 2));
         if(!source.isPlaying && !overlap)
             source.Play();
@@ -95,7 +97,7 @@ public class AudioManager : MonoBehaviour
             GameObject _go = new GameObject("Sound_" + i + "-" + sounds[i].name);
             _go.transform.parent = go.transform;
             sounds[i].SetSource(_go.AddComponent<AudioSource>());
-
+            sounds[i].source.outputAudioMixerGroup = sounds[i].mixerGroup;
         }
     }
     public bool IsPlaying(string _name)

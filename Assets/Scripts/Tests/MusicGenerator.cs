@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 
 [Serializable]
 public enum SoundType
@@ -54,7 +54,7 @@ public class MusicGenerator : MonoBehaviour
         public float currentVolume;
     }
 
-    
+    public AudioMixerGroup mixerGroup;
     public List<SoundAssociations> soundAssociations = new List<SoundAssociations>();
     Dictionary<SoundType, int> possibleSounds = new Dictionary<SoundType, int>();
     Queue<AudioSource> audioSourcesQueue = new Queue<AudioSource>();
@@ -82,6 +82,7 @@ public class MusicGenerator : MonoBehaviour
                 GameObject _go = new GameObject("Sound_" + i + "-" + sound.clip.name);
                 _go.transform.parent = go.transform;
                 sound.SetSource(_go.AddComponent<AudioSource>());
+                sound.source.outputAudioMixerGroup = mixerGroup;
             }
         }
         StartCoroutine(FadeInOnStart());
@@ -145,7 +146,7 @@ public class MusicGenerator : MonoBehaviour
 
         float max = GetNewVolume(itemValue, soundAssociation);
         if (soundAssociation.currentSource != null) { 
-            soundAssociation.currentSource.volume = max * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Music);
+            soundAssociation.currentSource.volume = max;
         }
             
 
@@ -166,7 +167,7 @@ public class MusicGenerator : MonoBehaviour
 
     void PlaySound(SoundAssociations soundAssociation, int index, float vol)
     {
-        soundAssociation.sounds[index].source.volume = vol * PlayerPreferencesManager.instance.GetTrackVolume(AudioTrack.Music);
+        soundAssociation.sounds[index].source.volume = vol;
         soundAssociation.currentSource = soundAssociation.sounds[index].source;
         if (!soundAssociation.syncsToTick)
             soundAssociation.sounds[index].source.Play();
