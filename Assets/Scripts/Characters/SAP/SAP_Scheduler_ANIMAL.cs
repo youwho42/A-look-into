@@ -15,6 +15,10 @@ namespace Klaxon.SAP
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
         public readonly int idle_hash = Animator.StringToHash("Idle");
+        public readonly int climbing_hash = Animator.StringToHash("IsClimbing");
+        public readonly int climbIdle_hash = Animator.StringToHash("ClimbIdle");
+
+
         public Animator animator;
 
         public List<SAP_Goal> goals = new List<SAP_Goal>();
@@ -49,8 +53,8 @@ namespace Klaxon.SAP
         [HideInInspector]
         public bool glide;
 
-        [HideInInspector]
-        public DrawZasYDisplacement currentLandingSpot;
+        
+        public DrawZasYDisplacement currentDisplacementSpot;
 
         public MusicGeneratorItem musicGeneratorItem;
 
@@ -58,6 +62,16 @@ namespace Klaxon.SAP
 
         [HideInInspector]
         public RealTimeDayNightCycle dayNightCycle;
+
+        [HideInInspector]
+        public Bounds bounds;
+        public bool isNocturnal;
+        
+        public float minHomeDistance = 1f;
+
+        [HideInInspector]
+        public List<DrawZasYDisplacement> closestSpots = new List<DrawZasYDisplacement>();
+        public bool removeFromMusicAtHome;
 
         void OnEnable()
         {
@@ -86,8 +100,8 @@ namespace Klaxon.SAP
             musicItem = GetComponentInChildren<MusicGeneratorItem>();
 
             dayNightCycle = RealTimeDayNightCycle.instance;
-            
-            
+
+            bounds = new Bounds(transform.position, new Vector3(4, 4, 4));
 
         }
 
@@ -299,6 +313,39 @@ namespace Klaxon.SAP
                 return false;
             else
                 return beliefs[condition];
+        }
+
+        public DrawZasYDisplacement CheckForDisplacementSpot()
+        {
+            if (closestSpots.Count <= 0)
+                return null;
+
+            DrawZasYDisplacement bestTarget = null;
+            float closestDistance = Mathf.Infinity;
+            Vector2 currentPosition = transform.position;
+            foreach (var item in closestSpots)
+            {
+                if (item == null || item.isInUse)
+                    continue;
+                var dist = Vector2.Distance(currentPosition, item.transform.position);
+
+                if (dist < closestDistance)
+                {
+                    if (dist < minHomeDistance)
+                        continue;
+                    closestDistance = dist;
+                    bestTarget = item;
+                }
+            }
+
+            if (bestTarget == null)
+                return null;
+
+            currentDisplacementSpot = bestTarget;
+            currentDisplacementSpot.isInUse = true;
+
+            return bestTarget;
+
         }
 
 

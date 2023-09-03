@@ -498,6 +498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: isNocturnal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: minMaxFlap.x
       value: 30
       objectReference: {fileID: 0}
@@ -519,7 +524,7 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -530,7 +535,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goals.Array.data[2].Action
       value: 
-      objectReference: {fileID: 3025095719655843579}
+      objectReference: {fileID: 6612971183585564715}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[3].Action
@@ -549,7 +554,7 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].GoalName
-      value: LandIdle
+      value: Sleep
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -579,12 +584,12 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].TimeLimitRange.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].TimeLimitRange.y
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -619,7 +624,7 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].TimeLimitCondition.Condition
-      value: Landed
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -649,7 +654,7 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].Conditions.Array.data[0].Condition
-      value: Landed
+      value: AtHome
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -666,6 +671,7 @@ PrefabInstance:
     - {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 3980435461219289164, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 536565924102336754, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -735,6 +741,18 @@ MonoBehaviour:
   finalDestination: 0
   target: {fileID: 0}
   headTimeRange: {x: 0, y: 0}
+--- !u!114 &6612971183585564715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2070390912640740298, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5151695563370460129}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5c0f82545ae4840b51b9d2f1ce7059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8174554858813379015 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3895514192025035302, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,

@@ -48,10 +48,12 @@ namespace Klaxon.SAP
             }
             else
             {
-
                 if (atDestination)
                 {
-                    
+
+                    agent.animator.SetBool(agent.walking_hash, false);
+                    agent.walker.currentDir = Vector2.zero;
+
                     headTimer -= Time.deltaTime;
                     if (headTimer <= 0)
                         TurnHead(agent);
@@ -89,7 +91,7 @@ namespace Klaxon.SAP
 
                 if (Vector2.Distance(transform.position, agent.walker.currentDestination) <= 0.02f)
                 {
-                    ReachDestination(agent);
+                    agent.currentGoalComplete = true;
                 }
 
                 
@@ -105,23 +107,15 @@ namespace Klaxon.SAP
             headTimer = 0;
             agent.walker.currentDir = Vector2.zero;
 
-            if (agent.currentLandingSpot != null) 
+            if (agent.currentDisplacementSpot != null) 
             { 
-                agent.currentLandingSpot.isInUse = false;
-                agent.currentLandingSpot = null;
+                agent.currentDisplacementSpot.isInUse = false;
+                agent.currentDisplacementSpot = null;
             }
 
         }
 
-        void ReachDestination(SAP_Scheduler_ANIMAL agent)
-        {
-            timer = agent.SetRandomRange(idleTimeRange);
-            headTimer = agent.SetRandomRange(headTimeRange);
-            agent.animator.SetBool(agent.walking_hash, false);
-            agent.walker.currentDir = Vector2.zero;
-            atDestination = true;
-        }
-
+        
         void TurnHead(SAP_Scheduler_ANIMAL agent)
         {
 

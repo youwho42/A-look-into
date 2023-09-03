@@ -8,28 +8,26 @@ namespace Klaxon.SAP
         SAP_WorldBeliefStates worldStates;
 
         
-        public DrawZasYDisplacement home;
+        
 
         float timer;
-        bool isHome;
-        Bounds bounds;
-        public bool isNocturnal;
+        
 
-        public bool chooseRandomHome;
-        [ConditionalHide("chooseRandomHome", true)]
-        public float minHomeDistance = 1f;
-        List<DrawZasYDisplacement> closestSpots = new List<DrawZasYDisplacement>();
-        public bool removeFromMusicAtHome;
+
+        public bool hasFixedHome;
+        [ConditionalHide("hasFixedHome", true)]
+        public DrawZasYDisplacement home;
+
 
         public override void StartPerformAction(SAP_Scheduler_ANIMAL agent)
         {
             worldStates = SAP_WorldBeliefStates.instance;
 
-            if (chooseRandomHome)
+            if (!hasFixedHome)
             {
-                bounds = new Bounds(transform.position, new Vector3(4, 4, 4));
-                closestSpots = agent.interactAreas.quadTree.QueryTree(bounds);
-                home = CheckForLandingArea(agent);
+                
+                agent.closestSpots = agent.interactAreas.quadTree.QueryTree(agent.bounds);
+                home = agent.CheckForDisplacementSpot();
             }
 
             agent.flier.enabled = true;
@@ -61,26 +59,7 @@ namespace Klaxon.SAP
         }
         public override void PerformAction(SAP_Scheduler_ANIMAL agent)
         {
-            if (worldStates.worldStates.TryGetValue("AnimalDay", out bool isDay))
-            {
-                bool d = !isNocturnal && isDay || isNocturnal && !isDay;
-                agent.currentGoalComplete = d;
-            }
-
-            if (isHome)
-            {
-                agent.flier.enabled = false;
-                if (agent.sounds != null)
-                {
-                    if (!agent.sounds.mute)
-                        agent.sounds.mute = true;
-                }
-                agent.flier.currentDirection = Vector2.zero;
-                agent.animator.SetBool(agent.landed_hash, true);
-                agent.animator.SetBool(agent.sleeping_hash, true);
-                return;
-            }
-
+            
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
@@ -100,67 +79,37 @@ namespace Klaxon.SAP
             if (Vector3.Distance(agent.flier.itemObject.localPosition, home.displacedPosition) <= 0.02f && Vector2.Distance(agent.transform.position, home.transform.position) <= 0.02f)
             {
                 home.isInUse = true;
-                isHome = true;
-                if (removeFromMusicAtHome)
+                
+                
+                if (agent.sounds != null)
                 {
-                    agent.musicGeneratorItem.RemoveFromDictionary();
-                    agent.musicGeneratorItem.isActive = false;
+                    if (!agent.sounds.mute)
+                        agent.sounds.mute = true;
                 }
-                    
+                agent.flier.currentDirection = Vector2.zero;
+                
+                
+                agent.currentGoalComplete = true;
+
             }
             agent.flier.SetLastPosition();
 
         }
         public override void EndPerformAction(SAP_Scheduler_ANIMAL agent)
         {
+
             agent.flier.enabled = true;
             agent.flier.isLanding = false;
             agent.glide = false;
             agent.SetBeliefState("Land", false);
-            agent.animator.SetBool(agent.sleeping_hash, false);
+            agent.SetBeliefState("AtHome", true);
+            
             home.isInUse = false;
-            if (removeFromMusicAtHome)
-            {
-                agent.musicGeneratorItem.isActive = true;
-                agent.musicGeneratorItem.AddToDictionary();
-            }
-            isHome = false;
-        }
-
-        DrawZasYDisplacement CheckForLandingArea(SAP_Scheduler_ANIMAL agent)
-        {
-            if (closestSpots.Count <= 0)
-                return null;
-
-            DrawZasYDisplacement bestTarget = null;
-            float closestDistance = Mathf.Infinity;
-            Vector2 currentPosition = transform.position;
-            foreach (var item in closestSpots)
-            {
-                if (item == null || item.isInUse || item.transform.position.z != transform.position.z)
-                    continue;
-                var dist = Vector2.Distance(currentPosition, item.transform.position);
-
-                if (dist < closestDistance)
-                {
-                    if (dist < minHomeDistance)
-                        continue;
-                    closestDistance = dist;
-                    bestTarget = item;
-                }
-            }
-
-            if (bestTarget == null)
-                return null;
-
-            agent.currentLandingSpot = bestTarget;
-            agent.currentLandingSpot.isInUse = true;
-
-            return bestTarget;
+            
+            
+            agent.closestSpots.Clear();
 
         }
-
-
 
         void SetBoidsState(SAP_Scheduler_ANIMAL agent, bool isInBoids)
         {

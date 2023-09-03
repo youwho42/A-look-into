@@ -33,6 +33,7 @@ namespace Klaxon.SAP
             agent.animator.SetBool(agent.walking_hash, false);
             agent.animator.SetBool(agent.landed_hash, false);
             agent.animator.SetBool(agent.gliding_hash, false);
+            agent.animator.SetBool(agent.sleeping_hash, false);
             if (agent.sounds != null)
             {
                 if (agent.sounds.mute)

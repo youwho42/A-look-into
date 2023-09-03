@@ -35,9 +35,9 @@ namespace Klaxon.SAP
         {
             headTimer = 0;
 
-            if (agent.currentLandingSpot != null)
-                agent.currentLandingSpot.isInUse = false;
-            agent.currentLandingSpot = null;
+            if (agent.currentDisplacementSpot != null)
+                agent.currentDisplacementSpot.isInUse = false;
+            agent.currentDisplacementSpot = null;
 
             if (agent.sounds != null)
             {

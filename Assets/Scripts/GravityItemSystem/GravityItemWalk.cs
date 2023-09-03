@@ -62,6 +62,7 @@ namespace Klaxon.GravitySystem
         public Vector3 currentDestinationZ;
         [HideInInspector]
         public Vector3 currentDirectionZ;
+        public SpriteRenderer characterRenderer;
 
         public override void Start()
         {
@@ -79,7 +80,7 @@ namespace Klaxon.GravitySystem
         {
             base.Update();
 
-            if (isInInteractAction || currentDir == Vector2.zero)
+            if (isInInteractAction || currentDir == Vector2.zero && !isClimbing)
                 return;
 
             if (CanReachNextTile(currentDir))
@@ -96,6 +97,7 @@ namespace Klaxon.GravitySystem
 
             if (canClimb && isClimbing)
             {
+
                 SetDirectionZ();
 
                 MoveZ(currentDirectionZ, walkSpeed * 2);

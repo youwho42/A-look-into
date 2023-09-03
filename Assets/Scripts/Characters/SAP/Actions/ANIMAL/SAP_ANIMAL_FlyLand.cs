@@ -8,27 +8,25 @@ namespace Klaxon.SAP
 	{
 
         float timer;
-        Bounds bounds;
-        public float minDistance = 1f;
-        public List<DrawZasYDisplacement> closestSpots = new List<DrawZasYDisplacement>();
+        
       
         public override void StartPerformAction(SAP_Scheduler_ANIMAL agent)
         {
             if (agent.walker != null)
                 agent.walker.enabled = false;
 
-            bounds = new Bounds(transform.position, new Vector3(4, 4, 4));
-            closestSpots = agent.interactAreas.quadTree.QueryTree(bounds);
-            agent.currentLandingSpot = CheckForLandingArea(agent);
+            
+            agent.closestSpots = agent.interactAreas.quadTree.QueryTree(agent.bounds);
+            agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
 
-            if (agent.currentLandingSpot == null)
+            if (agent.currentDisplacementSpot == null)
             {
                 agent.currentGoalComplete = true;
                 return;
             }
 
 
-            agent.flier.SetDestination(agent.currentLandingSpot);
+            agent.flier.SetDestination(agent.currentDisplacementSpot);
             agent.flier.isLanding = true;
             
             timer = agent.SetRandomRange(agent.minMaxFlap);
@@ -65,7 +63,7 @@ namespace Klaxon.SAP
                 agent.animator.SetBool(agent.gliding_hash, agent.glide);
             }
 
-            agent.flier.SetDestination(agent.currentLandingSpot);
+            agent.flier.SetDestination(agent.currentDisplacementSpot);
             if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
             {
                 agent.currentGoalComplete = true;
@@ -79,7 +77,7 @@ namespace Klaxon.SAP
             agent.flier.isLanding = false;
             agent.glide = false;
             agent.SetBeliefState("Land", false);
-            closestSpots.Clear();
+            agent.closestSpots.Clear();
             
         }
 
@@ -93,38 +91,7 @@ namespace Klaxon.SAP
 
         }
 
-        DrawZasYDisplacement CheckForLandingArea(SAP_Scheduler_ANIMAL agent)
-        {
-            if (closestSpots.Count <= 0)
-                return null;
-
-            DrawZasYDisplacement bestTarget = null;
-            float closestDistance = Mathf.Infinity;
-            Vector2 currentPosition = transform.position;
-            foreach (var item in closestSpots)
-            {
-                if (item == null || item.isInUse || item.transform.position.z != transform.position.z)
-                    continue;
-                var dist = Vector2.Distance(currentPosition, item.transform.position);
-
-                if (dist < closestDistance)
-                {
-                    if (dist < minDistance)
-                        continue;
-                    closestDistance = dist;
-                    bestTarget = item;
-                }
-            }
-
-            if (bestTarget == null)
-                return null;
-
-            agent.currentLandingSpot = bestTarget;
-            agent.currentLandingSpot.isInUse = true;
-
-            return bestTarget;
-
-        }
+        
 
     }
 

@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 8372402349997794142}
   - component: {fileID: 5109975621678393886}
   - component: {fileID: 3895514192025035302}
+  - component: {fileID: 2070390912640740298}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Untagged
@@ -559,6 +560,20 @@ MonoBehaviour:
     TimeLimitCondition:
       Condition: 
       State: 0
+  - GoalName: Sleep
+    Priority: 10
+    Conditions:
+    - Condition: AnimalDay
+      State: 0
+    - Condition: AtHome
+      State: 1
+    Action: {fileID: 2070390912640740298}
+    IsRunning: 0
+    TimeLimit: 0
+    TimeLimitRange: {x: 0, y: 0}
+    TimeLimitCondition:
+      Condition: 
+      State: 0
   currentGoal: -1
   sounds: {fileID: 0}
   musicItem: {fileID: 0}
@@ -571,10 +586,17 @@ MonoBehaviour:
   minMaxFlap: {x: 0.5, y: 10}
   minMaxGlide: {x: 0.5, y: 5}
   glide: 0
-  currentLandingSpot: {fileID: 0}
+  currentDisplacementSpot: {fileID: 0}
   musicGeneratorItem: {fileID: 6300385493937077386}
   interactAreas: {fileID: 0}
   dayNightCycle: {fileID: 0}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  isNocturnal: 0
+  minHomeDistance: 1
+  closestSpots: []
+  removeFromMusicAtHome: 1
 --- !u!114 &2302526306177949363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,8 +633,6 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   finalDestination: 0
   target: {fileID: 0}
-  minDistance: 1
-  closestSpots: []
 --- !u!114 &5109975621678393886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,11 +670,25 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   finalDestination: 0
   target: {fileID: 0}
+  hasFixedHome: 1
   home: {fileID: 0}
-  isNocturnal: 0
-  chooseRandomHome: 0
-  minHomeDistance: 1
-  removeFromMusicAtHome: 1
+--- !u!114 &2070390912640740298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5c0f82545ae4840b51b9d2f1ce7059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
+  target: {fileID: 0}
 --- !u!1 &1186113324396075657
 GameObject:
   m_ObjectHideFlags: 0

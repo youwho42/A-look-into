@@ -22,7 +22,17 @@ public class FireflyFlicker : MonoBehaviour
         fireflyMaterial.SetColor("_EmissionColor", initialColor * minBrightness);
         isOn = false;
 
+        
+    }
+    private void OnEnable()
+    {
         InvokeRepeating("Flick", 1f, 1f);
+        
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke("Flick");
     }
 
     void Flick()
