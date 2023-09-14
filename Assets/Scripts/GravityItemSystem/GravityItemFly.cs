@@ -88,7 +88,15 @@ namespace Klaxon.GravitySystem
             {
                 canReachNextTile = false;
             }
-            
+
+            if (onObstacle)
+            {
+                currentDestinationZ.y = Mathf.Clamp(currentDestinationZ.y, obstacleDisplacement.y, 20);
+                currentDestinationZ.z = Mathf.Clamp(currentDestinationZ.z, obstacleDisplacement.z, 20);
+            }
+            else
+                currentDestinationZ = mainDestinationZ;
+
         }
 
 

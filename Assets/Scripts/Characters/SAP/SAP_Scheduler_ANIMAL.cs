@@ -317,6 +317,7 @@ namespace Klaxon.SAP
 
         public DrawZasYDisplacement CheckForDisplacementSpot()
         {
+            closestSpots = interactAreas.QueryQuadTree(bounds);
             if (closestSpots.Count <= 0)
                 return null;
 

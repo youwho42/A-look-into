@@ -96,12 +96,20 @@ public class InteractAreasManager : MonoBehaviour
     public List<DrawZasYDisplacement> allAreas = new List<DrawZasYDisplacement>();
 
     public Bounds baseBounds = new Bounds(new Vector3(13, -10, 0), new Vector3(128, 128, 20));
-    public QuadTree quadTree;
-    
+    QuadTree quadTree;
+
+    float lastRefreshTime;
+    float maxRefreshRate = 120;
 
     void Start()
     {
+        RefreshQuadTree();
+        lastRefreshTime = Time.time;
+    }
 
+    void RefreshQuadTree()
+    {
+        allAreas.Clear();
         var all = FindObjectsOfType<DrawZasYDisplacement>();
         foreach (var item in all)
         {
@@ -119,5 +127,16 @@ public class InteractAreasManager : MonoBehaviour
         }
     }
 
-    
+    public List<DrawZasYDisplacement> QueryQuadTree(Bounds boundry)
+    {
+        if(Time.time - lastRefreshTime >= maxRefreshRate)
+        {
+            lastRefreshTime = Time.time;
+            RefreshQuadTree();
+        }
+
+        return quadTree.QueryTree(boundry);
+    }
+
+
 }

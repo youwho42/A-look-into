@@ -16,7 +16,7 @@ namespace Klaxon.SAP
                 agent.walker.enabled = false;
 
             
-            agent.closestSpots = agent.interactAreas.quadTree.QueryTree(agent.bounds);
+            //agent.closestSpots = agent.interactAreas.quadTree.QueryTree(agent.bounds);
             agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
 
             if (agent.currentDisplacementSpot == null)

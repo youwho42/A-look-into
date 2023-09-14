@@ -14,7 +14,8 @@ public enum SpotType
     Chicken,
     Owl, 
     Bat, 
-    Dragonfly
+    Dragonfly,
+    Pigeon
 
 }
 

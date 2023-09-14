@@ -22,10 +22,7 @@ namespace Klaxon.SAP
             worldStates = SAP_WorldBeliefStates.instance;
 
             if (!hasFixedHome)
-            {
-                agent.closestSpots = agent.interactAreas.quadTree.QueryTree(agent.bounds);
                 home = agent.CheckForDisplacementSpot();
-            }
 
             agent.walker.enabled = true;
 
