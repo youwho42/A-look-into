@@ -295,8 +295,20 @@ namespace Klaxon.GravitySystem
                 {
                     if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
                     {
+                        InteractableDoor door = hit[i].GetComponentInParent<InteractableDoor>();
+                        if (door != null && itemObject.localPosition.z == 0)
+                        {
+                            if (!door.isOpen)
+                            {
+                                door.Interact(this.gameObject);
+                                return false;
+                            }
+                                
+                            
+                        }
+
                         // is our local z higher than the thing
-                        
+
                         if (Mathf.Abs(itemObject.localPosition.z) < displacement.positionZ)
                             isColliding = true;
                         else

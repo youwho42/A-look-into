@@ -193,23 +193,26 @@ public class MenuDisplayUI : MonoBehaviour
     void ChangeControlTextInventory(string text)
     {
         string displayText = "";
+        string t0 = "";
         string t1 = "";
         string t2 = "";
         string t3 = "";
         if (text == "Gamepad")
         {
+            t0 = "d-pad";
             t1 = "A";
             t2 = "R2 + RS";
             t3 = "B";
         }
         else
         {
+            t0 = "A/D";
             t1 = "LMB";
-            t2 = "RMB drag";
+            t2 = "LMB drag";
             t3 = "Tab";
         }
 
-        displayText = $"{t1} > equip / unequip / consume - {t2} > place item in world - {t3} > close";
+        displayText = $"{t0} select - {t1} > equip / unequip / consume - {t2} > place item in world - {t3} > close";
         tipPanel.SetTipPanel(displayText);
 
     }

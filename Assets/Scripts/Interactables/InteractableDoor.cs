@@ -5,43 +5,55 @@ using UnityEngine;
 public class InteractableDoor : Interactable
 {
 
-    Animator animator;
+    
     public bool isOpen;
-    public PolygonCollider2D doorClosed;
-    public PolygonCollider2D doorOpen;
+    public float maxOpenTime = 1;
+    public GameObject doorOpen_Upper;
+    public GameObject doorClosed;
+    public GameObject doorOpen_Lower;
+    
 
     public override void Start()
     {
         base.Start();
-        animator = GetComponentInChildren<Animator>();
-        doorOpen.enabled = false;
+        
+        doorOpen_Lower.SetActive(false);
+        doorOpen_Upper.SetActive(false);
     }
 
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
-        
-        StartCoroutine("InteractWithDoor");
+
+        InteractWithDoor(interactor);
     }
 
-    void InteractWithDoor()
+    void InteractWithDoor(GameObject interactor)
     {
-        animator.SetBool("IsOpen", !isOpen);
+        GameObject openState = interactor.transform.position.y > transform.position.y ? doorOpen_Lower : doorOpen_Upper;
+        GameObject otherState = interactor.transform.position.y < transform.position.y ? doorOpen_Lower : doorOpen_Upper;
         PlayInteractionSound();
         isOpen = !isOpen;
         if (isOpen)
         {
             interactVerb = "Close";
-            doorOpen.enabled = true;
-            doorClosed.enabled = false;
-            
+            openState.SetActive(true);
+            otherState.SetActive(false);
+            doorClosed.SetActive(false);
+            Invoke("CloseDoor", maxOpenTime);
         }
         else
         {
-            interactVerb = "Open";
-            doorOpen.enabled = false;
-            doorClosed.enabled = true;
+            CloseDoor();
         }
+    }
+    void CloseDoor()
+    {
+        isOpen = false;
+        interactVerb = "Open";
+        doorOpen_Lower.SetActive(false);
+        doorOpen_Upper.SetActive(false);
+        doorClosed.SetActive(true);
     }
     public virtual void PlayInteractionSound()
     {

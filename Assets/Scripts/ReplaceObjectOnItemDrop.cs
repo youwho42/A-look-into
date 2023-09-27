@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ReplaceObjectOnItemDrop : MonoBehaviour
 {
-    public float checkRadius;
-    public Vector2 checkOffset;
+   
     public List<GameObject> grassObjects = new List<GameObject>();
     private void Start()
     {
@@ -13,46 +12,51 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
     }
     public void CheckForObjects()
     {
-        var hit = Physics2D.OverlapCircleAll((Vector2)transform.position + checkOffset, checkRadius);
-        if(hit != null)
+        Collider2D coll = GetComponentInChildren<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D().NoFilter();
+        
+        List<Collider2D> results = new List<Collider2D>();
+        coll.OverlapCollider(filter, results);
+
+        
+        if (results.Count > 0)
         {
-            foreach (var item in hit)
+            foreach (var item in results)
             {
                 if (!item.CompareTag("Grass"))
                     continue;
 
                 grassObjects.Add(item.gameObject);
             }
-            HideObjects();
+            ShowObjects(false);
         }
+
     }
 
-    void HideObjects()
+    //void HideObjects()
+    //{
+    //    if(grassObjects.Count > 0)
+    //    {
+    //        foreach (var item in grassObjects)
+    //        {
+    //            item.SetActive(false);
+    //        }
+    //    }
+    //}
+    public void ShowObjects(bool showState)
     {
-        if(grassObjects.Count > 0)
-        {
-            foreach (var item in grassObjects)
-            {
-                item.SetActive(false);
-            }
-        }
-    }
-    public void ShowObjects()
-    {
+        
         if (grassObjects.Count > 0)
         {
             foreach (var item in grassObjects)
             {
-                item.SetActive(true);
+                item.SetActive(showState);
             }
         }
-        grassObjects.Clear();
+        if(showState)
+            grassObjects.Clear();
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere((Vector2)transform.position + checkOffset, checkRadius);
-    }
+    
 
 }

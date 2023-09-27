@@ -49,8 +49,12 @@ public class Campfire : Interactable
         }
 
         if (PlayerInformation.instance.playerInventory.AddItem(GetComponent<QI_Item>().Data, 1, false))
-            Destroy(gameObject);
+        {
+            if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
+                obj.ShowObjects(true);
 
+            Destroy(gameObject);
+        }
     }
 
     void SetFire(string _interactVerb, bool active)

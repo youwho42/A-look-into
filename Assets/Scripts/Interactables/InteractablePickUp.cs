@@ -37,10 +37,9 @@ public class InteractablePickUp : Interactable
         
         if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, pickupQuantity, false))
         {
+            
             if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
-            {
-                obj.ShowObjects();
-            }
+                obj.ShowObjects(true);
             
             NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
             Destroy(gameObject);

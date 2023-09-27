@@ -93,6 +93,8 @@ namespace Klaxon.GravitySystem
             {
                 currentDestinationZ.y = Mathf.Clamp(currentDestinationZ.y, obstacleDisplacement.y, 20);
                 currentDestinationZ.z = Mathf.Clamp(currentDestinationZ.z, obstacleDisplacement.z, 20);
+                if(obstacleDisplacement.z > itemObject.localPosition.z)
+                    currentDestinationZ = obstacleDisplacement;
             }
             else
                 currentDestinationZ = mainDestinationZ;

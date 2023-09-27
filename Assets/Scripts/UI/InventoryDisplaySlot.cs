@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using Klaxon.SaveSystem;
+using Unity.Collections.LowLevel.Unsafe;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     Button slotButton;
     bool buttonHeld;
+
+    //Vector3Int currentTilePos;
+    //List<TileDirectionInfo> tileBlockInfo = new List<TileDirectionInfo>();
+
     [Serializable]
     public struct ItemTypeNames
     {
@@ -128,14 +133,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject)
             return;
-        //var stick = PlayerInformation.instance.playerInput.rightStickPos;
-        //Vector2 currentPosition = Mouse.current.position.ReadValue();
-        //stick = Gamepad.current.rightStick.ReadValue();
-        //for (var passedTime = 0f; passedTime < 1; passedTime += Time.deltaTime)
-        //{
-        //    currentPosition += stick * 15 * Time.deltaTime;
-        //}
-        //Mouse.current.WarpCursorPosition(currentPosition);
+        
 
         if (!isDragged)
         {
@@ -143,21 +141,55 @@ public class InventoryDisplaySlot : MonoBehaviour
             itemToDrop = go.gameObject;
             isDragged = true;
         }
+
         
+        if (!CheckPlayerVicinity() || CheckForObstacles() || !CheckTileValid())
+            TurnObjectColor(Color.red);
+        else
+            TurnObjectColor(Color.white);
         
         itemToDrop.transform.position = GetMousePosition();
     }
 
+    void TurnObjectColor(Color color)
+    {
+        var sprites = itemToDrop.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sprite in sprites)
+        {
+            sprite.color = color;
+        }
+    }
     public void EndDragItem()
     {
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || itemToDrop == null)
             return;
         //Check if in player vicinity :)
-        if (CheckPlayerVicinity() && CheckForGameObjects())
-            DropItem(itemToDrop.transform.position);
-        else
+
+        if (!CheckPlayerVicinity())
+        {
+            NotificationManager.instance.SetNewNotification($"Too far from {PlayerInformation.instance.playerName}", NotificationManager.NotificationType.Warning);
+            
             Destroy(itemToDrop);
+            ResetDragging();
+            return;
+        }
+        
+        if (CheckForObstacles() || !CheckTileValid())
+        {
+            NotificationManager.instance.SetNewNotification($"Invalid spot for {item.Name}", NotificationManager.NotificationType.Warning);
+            Destroy(itemToDrop);
+            ResetDragging();
+            return;
+        }
+        DropItem(itemToDrop.transform.position);
+        
         EventSystem.current.SetSelectedGameObject(null);
+        ResetDragging();
+
+    }
+
+    void ResetDragging()
+    {
         isDragged = false;
         itemToDrop = null;
     }
@@ -172,66 +204,67 @@ public class InventoryDisplaySlot : MonoBehaviour
         }
     }
 
-    bool CheckForGameObjects()
+    bool CheckForObstacles()
     {
-        Collider2D coll = itemToDrop.GetComponent<Collider2D>();
-        ContactFilter2D filter = new ContactFilter2D().NoFilter();
+        Collider2D coll = itemToDrop.GetComponentInChildren<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.layerMask = LayerMask.NameToLayer("Obstacle");
         List<Collider2D> results = new List<Collider2D>();
-        if (Physics2D.OverlapCollider(coll, filter, results) > 0)
+        coll.OverlapCollider(filter, results);
+        
+        if (results.Count > 0)
         {
             foreach (var hit in results)
             {
-                
-                if (hit.gameObject == itemToDrop)
+                if (hit.transform.IsChildOf(itemToDrop.transform))
                     continue;
-                var h = hit.transform.parent.gameObject;
-                if (h != null)
-                {
-                    if(h == itemToDrop)
-                        continue;
-                }
-                if (hit.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-                    return false;
-                if(hit.CompareTag("Water") && itemToDrop.CompareTag("RiverItem"))
-                    return true;
-                if (!itemToDrop.CompareTag("RiverItem"))
-                {
-                    if (hit.CompareTag("Grass") || hit.CompareTag("Path") || hit.CompareTag("House"))
-                        return true;
-                }
-                NotificationManager.instance.SetNewNotification($"Invalid placement", NotificationManager.NotificationType.Warning);
-                return false;
+
+                
+                return true;
             }
-            
         }
+            
+        return false;
+    }
 
-        return true;
 
+
+
+
+    bool CheckTileValid()
+    {
+        var gManager = GridManager.instance;
+        var pos = itemToDrop.transform.position;
+        pos.z -= 1;
+        Vector3Int posDown = gManager.grid.WorldToCell(pos);
+        
+        Vector3Int posUp = new Vector3Int(posDown.x, posDown.y, posDown.z + 1);
+        
+        if (gManager.groundMap.HasTile(posDown) && !gManager.groundMap.HasTile(posUp)) 
+            return true;
+
+        return false;
         
     }
 
     bool CheckPlayerVicinity()
     {
+        
         Vector3 playerPos = PlayerInformation.instance.player.position;
         
         float dist = Vector2.Distance(playerPos, itemToDrop.transform.position);
         if (dist <= 0.5f)
             return true;
 
-        NotificationManager.instance.SetNewNotification("Too far", NotificationManager.NotificationType.Warning);
         return false;
     }
    
     Vector3 GetMousePosition()
     {
         
-            
-
         Vector3 movePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         movePos.z = PlayerInformation.instance.player.position.z;
         
-        
-
         return movePos;
     }
 
