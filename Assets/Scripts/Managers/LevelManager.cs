@@ -294,6 +294,17 @@ public class LevelManager : MonoBehaviour
         LoadFileBackButton();
     }
 
+    public void ViewSettings()
+    {
+        UIScreenManager.instance.HideAllScreens();
+        UIScreenManager.instance.DisplayScreen(UIScreenType.SettingsScreen);
+    }
+
+    public void HideSettings()
+    {
+        LoadFileBackButton();
+    }
+
     public void QuitGame()
     {
         Application.Quit();

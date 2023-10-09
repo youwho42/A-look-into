@@ -13,82 +13,95 @@ MonoBehaviour:
   m_Name: Localization Settings
   m_EditorClassIdentifier: 
   m_StartupSelectors:
-  - rid: 5413654485132640256
-  - rid: 5413654485132640257
-  - rid: 5413654485132640258
+  - rid: 1262911342213070848
+  - rid: 1262911342213070849
+  - rid: 1262911342213070850
   m_AvailableLocales:
-    rid: 5413654485132640259
+    rid: 1262911342213070851
   m_AssetDatabase:
-    rid: 5413654485132640260
+    rid: 1262911342213070852
   m_StringDatabase:
-    rid: 5413654485132640261
+    rid: 1262911342213070853
   m_Metadata:
     m_Items: []
   m_ProjectLocaleIdentifier:
     m_Code: en
-  m_InitializeSynchronously: 0
+  m_PreloadBehavior: 3
+  m_InitializeSynchronously: 1
   references:
     version: 2
     RefIds:
-    - rid: 5413654485132640256
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1262911342213070848
       type: {class: CommandLineLocaleSelector, ns: UnityEngine.Localization.Settings,
         asm: Unity.Localization}
       data:
-        m_CommandLineArgument: -language =
-    - rid: 5413654485132640257
+        m_CommandLineArgument: -language=
+    - rid: 1262911342213070849
       type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-    - rid: 5413654485132640258
+      data: 
+    - rid: 1262911342213070850
       type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings,
         asm: Unity.Localization}
       data:
         m_LocaleId:
           m_Code: en
-    - rid: 5413654485132640259
+    - rid: 1262911342213070851
       type: {class: LocalesProvider, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-    - rid: 5413654485132640260
+      data: 
+    - rid: 1262911342213070852
       type: {class: LocalizedAssetDatabase, ns: UnityEngine.Localization.Settings,
         asm: Unity.Localization}
       data:
         m_DefaultTableReference:
           m_TableCollectionName: 
+        m_CustomTableProvider:
+          rid: -2
+        m_CustomTablePostprocessor:
+          rid: -2
         m_UseFallback: 0
-    - rid: 5413654485132640261
+    - rid: 1262911342213070853
       type: {class: LocalizedStringDatabase, ns: UnityEngine.Localization.Settings,
         asm: Unity.Localization}
       data:
         m_DefaultTableReference:
           m_TableCollectionName: 
+        m_CustomTableProvider:
+          rid: -2
+        m_CustomTablePostprocessor:
+          rid: -2
         m_UseFallback: 0
         m_MissingTranslationState: 1
         m_NoTranslationFoundMessage: No translation found for '{key}' in {table.TableCollectionName}
         m_SmartFormat:
-          rid: 5413654485132640262
-    - rid: 5413654485132640262
+          rid: 1262911342213070854
+    - rid: 1262911342213070854
       type: {class: SmartFormatter, ns: UnityEngine.Localization.SmartFormat, asm: Unity.Localization}
       data:
         m_Settings:
-          rid: 5413654485132640263
+          rid: 1262911342213070855
         m_Parser:
-          rid: 5413654485132640264
+          rid: 1262911342213070856
         m_Sources:
-        - rid: 5413654485132640265
-        - rid: 5413654485132640266
-        - rid: 5413654485132640267
-        - rid: 5413654485132640268
-        - rid: 5413654485132640269
-        - rid: 5413654485132640270
-        - rid: 5413654485132640271
+        - rid: 1262911342213070857
+        - rid: 1262911342213070858
+        - rid: 1262911342213070859
+        - rid: 1262911342213070860
+        - rid: 1262911342213070861
+        - rid: 1262911342213070862
+        - rid: 1262911342213070863
         m_Formatters:
-        - rid: 5413654485132640265
-        - rid: 5413654485132640272
-        - rid: 5413654485132640273
-        - rid: 5413654485132640274
-        - rid: 5413654485132640275
-        - rid: 5413654485132640276
-        - rid: 5413654485132640277
-        - rid: 5413654485132640278
-        - rid: 5413654485132640279
-    - rid: 5413654485132640263
+        - rid: 1262911342213070857
+        - rid: 1262911342213070864
+        - rid: 1262911342213070865
+        - rid: 1262911342213070866
+        - rid: 1262911342213070867
+        - rid: 1262911342213070868
+        - rid: 1262911342213070869
+        - rid: 1262911342213070870
+        - rid: 1262911342213070871
+    - rid: 1262911342213070855
       type: {class: SmartSettings, ns: UnityEngine.Localization.SmartFormat.Core.Settings,
         asm: Unity.Localization}
       data:
@@ -96,20 +109,20 @@ MonoBehaviour:
         m_ParseErrorAction: 0
         m_CaseSensitivity: 0
         m_ConvertCharacterStringLiterals: 1
-    - rid: 5413654485132640264
+    - rid: 1262911342213070856
       type: {class: Parser, ns: UnityEngine.Localization.SmartFormat.Core.Parsing,
         asm: Unity.Localization}
       data:
         m_OpeningBrace: 123
         m_ClosingBrace: 125
         m_Settings:
-          rid: 5413654485132640263
+          rid: 1262911342213070855
         m_AlphanumericSelectors: 1
         m_AllowedSelectorChars: _-
         m_Operators: '[]().,'
         m_AlternativeEscaping: 0
         m_AlternativeEscapeChar: 92
-    - rid: 5413654485132640265
+    - rid: 1262911342213070857
       type: {class: ListFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -118,28 +131,33 @@ MonoBehaviour:
         - l
         - 
         m_SmartSettings:
-          rid: 5413654485132640263
-    - rid: 5413654485132640266
+          rid: 1262911342213070855
+    - rid: 1262911342213070858
       type: {class: PersistentVariablesSource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
         m_Groups: []
-    - rid: 5413654485132640267
+    - rid: 1262911342213070859
       type: {class: DictionarySource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
-    - rid: 5413654485132640268
+      data: 
+    - rid: 1262911342213070860
       type: {class: ValueTupleSource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
-    - rid: 5413654485132640269
+      data: 
+    - rid: 1262911342213070861
       type: {class: XmlSource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
-    - rid: 5413654485132640270
+      data: 
+    - rid: 1262911342213070862
       type: {class: ReflectionSource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
-    - rid: 5413654485132640271
+      data: 
+    - rid: 1262911342213070863
       type: {class: DefaultSource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
-    - rid: 5413654485132640272
+      data: 
+    - rid: 1262911342213070864
       type: {class: PluralLocalizationFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -148,7 +166,7 @@ MonoBehaviour:
         - p
         - 
         m_DefaultTwoLetterISOLanguageName: en
-    - rid: 5413654485132640273
+    - rid: 1262911342213070865
       type: {class: ConditionalFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -156,7 +174,7 @@ MonoBehaviour:
         - conditional
         - cond
         - 
-    - rid: 5413654485132640274
+    - rid: 1262911342213070866
       type: {class: TimeFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -166,7 +184,7 @@ MonoBehaviour:
         - t
         - 
         m_DefaultFormatOptions: 4646
-    - rid: 5413654485132640275
+    - rid: 1262911342213070867
       type: {class: XElementFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -175,7 +193,7 @@ MonoBehaviour:
         - xml
         - x
         - 
-    - rid: 5413654485132640276
+    - rid: 1262911342213070868
       type: {class: ChooseFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -183,7 +201,7 @@ MonoBehaviour:
         - choose
         - c
         m_SplitChar: 124
-    - rid: 5413654485132640277
+    - rid: 1262911342213070869
       type: {class: SubStringFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
@@ -192,13 +210,13 @@ MonoBehaviour:
         m_ParameterDelimiter: 44
         m_NullDisplayString: (null)
         m_OutOfRangeBehavior: 0
-    - rid: 5413654485132640278
+    - rid: 1262911342213070870
       type: {class: IsMatchFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
         m_Names:
         - ismatch
-    - rid: 5413654485132640279
+    - rid: 1262911342213070871
       type: {class: DefaultFormatter, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
