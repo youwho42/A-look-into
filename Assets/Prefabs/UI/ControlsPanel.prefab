@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 857981138683524629}
   - component: {fileID: 6819500929792728621}
   - component: {fileID: 3785802476983532839}
+  - component: {fileID: 2730383607330297360}
   m_Layer: 5
   m_Name: controlsTitle
   m_TagString: Untagged
@@ -31,11 +32,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6337869207367494828}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8113581}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00022888184, y: 0.21499634}
+  m_AnchoredPosition: {x: -0.00024414062, y: 0.21502686}
   m_SizeDelta: {x: -0.0005188, y: 1.719101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6819500929792728621
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 12.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -136,6 +136,59 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2730383607330297360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982473584082410354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 1262911364646306064
+  references:
+    version: 2
+    RefIds:
+    - rid: 1262911364646306064
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
+        asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 3785802476983532839}
+        m_TrackedProperties:
+          items:
+          - rid: 1262911364646306065
+          - rid: 1262911364646306066
+        m_UpdateType: 0
+    - rid: 1262911364646306065
+      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_Localized:
+          m_TableReference:
+            m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+          m_TableEntryReference:
+            m_KeyId: 359225487843328
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        m_PropertyPath: m_text
+    - rid: 1262911364646306066
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 12.4
+        - localeIdentifier:
+            m_Code: de
+          value: 36.15
 --- !u!1 &3222839711501664368
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,11 +222,10 @@ RectTransform:
   m_Children:
   - {fileID: 8012604111401984826}
   m_Father: {fileID: 6337869207367494828}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6928876, y: 0}
   m_AnchorMax: {x: 1, y: 0.15670775}
-  m_AnchoredPosition: {x: -1.800003, y: 0}
+  m_AnchoredPosition: {x: -1.8000488, y: 0}
   m_SizeDelta: {x: -13, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2458479982944757825
@@ -302,7 +354,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6216996825053031527}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -365,7 +416,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 22.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -426,7 +477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6337869207367494828
 RectTransform:
   m_ObjectHideFlags: 0
@@ -443,7 +494,6 @@ RectTransform:
   - {fileID: 1155872018752122844}
   - {fileID: 6216996825053031527}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -547,12 +597,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6337869207367494828}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.108589105}
+  m_AnchorMin: {x: 0, y: 0.15670775}
   m_AnchorMax: {x: 1, y: 0.8113581}
-  m_AnchoredPosition: {x: -0.000076293945, y: -0.36999512}
-  m_SizeDelta: {x: -0.00076294, y: -2.5500002}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.9431}
+  m_SizeDelta: {x: -0.0008, y: -1.4036999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7179959983197707710
 CanvasRenderer:
@@ -582,7 +631,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'w-a-s-d .......... movement
+  m_text: 'w-a-s-d ....... movement
 
     space .............. jump
 
@@ -627,7 +676,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.25
+  m_fontSize: 18.4
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
