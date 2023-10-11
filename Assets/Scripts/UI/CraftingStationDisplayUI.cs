@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class CraftingStationDisplayUI : MonoBehaviour
@@ -165,7 +166,8 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public void SetQuantityText()
     {
-        quantitySelectedText.text = ($"Quantity {quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}");
+        
+        quantitySelectedText.text = ($"{quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}");
     }
 
     public void CraftItem()

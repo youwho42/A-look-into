@@ -12,7 +12,9 @@ public class SettingsUI : MonoBehaviour
     public TMP_Dropdown localeDropdown;
     void Start()
     {
-        
+        // Wait for the localization system to initialize
+        //yield return LocalizationSettings.InitializationOperation;
+        //Debug.Log("BOOP!");
         localeDropdown.ClearOptions();
        
         var options = new List<TMP_Dropdown.OptionData>();

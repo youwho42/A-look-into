@@ -24,7 +24,7 @@ public class DiplayTimeUI : MonoBehaviour
     {
         timeText.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
         SetHandRotations();
-        dayText.text = $"Day {dayNightCycle.currentDayRaw}";
+        dayText.text = dayNightCycle.currentDayRaw.ToString();
     }
     
 

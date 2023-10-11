@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using QuantumTek.QuantumInventory;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class CraftingRecipeButton : MonoBehaviour
@@ -29,7 +30,9 @@ public class CraftingRecipeButton : MonoBehaviour
     public void AddItem(QI_CraftingRecipe newItem)
     {
         item = newItem;
-        recipeName.text = item.Name;
+        QI_ItemData i = item.Product.Item;
+        var n = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{i.Type.ToString()}", i.Name);
+        recipeName.text = n;
         
     }
 

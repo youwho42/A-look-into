@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class ResearchStationResearchSlot : MonoBehaviour
 {
@@ -31,8 +32,12 @@ public class ResearchStationResearchSlot : MonoBehaviour
         string textToAdd = "";
         for (int i = 0; i < item.ResearchRecipes.Count; i++)
         {
-            if(!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
-                textToAdd += $"{item.ResearchRecipes[i].RecipeRevealAmount}-{item.ResearchRecipes[i].recipe.Name}\n";
+            if (!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
+            {
+                var n = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{item.ResearchRecipes[i].recipe.Product.Item.Type.ToString()}", item.ResearchRecipes[i].recipe.Product.Item.Name);
+                textToAdd += $"{item.ResearchRecipes[i].RecipeRevealAmount}-{n}\n";
+            }
+                
         }
         recipesText.text = textToAdd;
     }
