@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: SeedBox
   m_EditorClassIdentifier: 
   Name: Seed Box
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 5142113476608
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 5145972236288
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
   Description: 'A box that can be connected to a farning area. If it''s part of a
@@ -25,8 +43,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 11400000, guid: 31ec3a3524160114bb3d072eb71b6473, type: 2}
   ResearchRecipes: []
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class ContainerInventoryDisplayUI : MonoBehaviour
@@ -64,8 +65,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
         containerInventory = container;
-        containerName.text = container.Name;
-        playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
+        containerName.text = LocalizationSettings.StringDatabase.GetLocalizedString("Items-Utility", container.Name);
+        //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         SetContainerUI();
     }
     public void HideContainerUI()

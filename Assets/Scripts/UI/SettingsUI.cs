@@ -16,7 +16,6 @@ public class SettingsUI : MonoBehaviour
         localeDropdown.ClearOptions();
        
         var options = new List<TMP_Dropdown.OptionData>();
-        Debug.Log(options.Count);
         int selected = 0;
         for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; ++i)
         {

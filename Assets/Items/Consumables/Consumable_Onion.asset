@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Consumable_Onion
   m_EditorClassIdentifier: 
   Name: Onion
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 4089825517568
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 4091171889152
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 3
   AnimationName: 
   Description: This might make you cry, or add flavor to your life... either way,
@@ -25,7 +43,6 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
@@ -34,3 +51,6 @@ MonoBehaviour:
   - attributeToModify: Bounce
     amount: 20
   itemToBecome: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

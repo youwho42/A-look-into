@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: WheatSeed
   m_EditorClassIdentifier: 
   Name: Wheat seed
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6fe3c9a9b03d6c54089e920c31576e94
+    m_TableEntryReference:
+      m_KeyId: 6542599970816
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:6fe3c9a9b03d6c54089e920c31576e94
+    m_TableEntryReference:
+      m_KeyId: 6544961363968
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 4
   AnimationName: 
   Description: An evolved form of grass that has been cultivated for millenia now.
@@ -25,10 +43,12 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   plantingDistance: 0.06
   plantedObject: {fileID: 11400000, guid: da55ba768c96af849bdb319690786f0e, type: 2}
+  references:
+    version: 2
+    RefIds: []

@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Consumable_BrownMushroom
   m_EditorClassIdentifier: 
   Name: Brown Mushroom
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 101323431936
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 105484181504
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 3
   AnimationName: 
   Description: A raw brownish mushroom.
@@ -24,7 +42,6 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 10
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
@@ -33,3 +50,6 @@ MonoBehaviour:
   - attributeToModify: Energy
     amount: 5
   itemToBecome: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

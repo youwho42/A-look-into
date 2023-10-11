@@ -416,9 +416,28 @@ MonoBehaviour:
     m_Bits: 0
   itemTypes:
   - itemDataName: Equipment
-    itemUseName: Equip
+    itemUseName:
+      m_TableReference:
+        m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
+      m_TableEntryReference:
+        m_KeyId: 276716511092736
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   - itemDataName: Consumable
-    itemUseName: Consume
+    itemUseName:
+      m_TableReference:
+        m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
+      m_TableEntryReference:
+        m_KeyId: 276756554113024
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &6912711600320650738
 GameObject:
   m_ObjectHideFlags: 0

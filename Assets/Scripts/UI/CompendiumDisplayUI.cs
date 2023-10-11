@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
 
 public class CompendiumDisplayUI : MonoBehaviour
 {
@@ -58,6 +59,9 @@ public class CompendiumDisplayUI : MonoBehaviour
 
     public TextMeshProUGUI informationDisplayItemName;
     public TextMeshProUGUI informationDisplayItemDescription;
+    LocalizedString localizedDisplayName;
+    LocalizedString localizedDisplayDescription;
+
 
     QI_ItemDatabase playerAnimalCompendium;
     QI_ItemDatabase playerResourceCompendium;
@@ -334,11 +338,24 @@ public class CompendiumDisplayUI : MonoBehaviour
         
     }
 
+    void UpdateName(string value)
+    {
+        informationDisplayItemName.text = value;
+    }
+    void UpdateDescription(string value)
+    {
+        informationDisplayItemDescription.text = value;
+    }
+
     public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)
     {
         recipeRevealDescription.SetActive(false);
-        informationDisplayItemName.text = item.Name;
-        informationDisplayItemDescription.text = item.Description;
+        localizedDisplayName = item.localizedName;
+        localizedDisplayName.StringChanged += UpdateName;
+        localizedDisplayDescription = item.localizedDescription;
+        localizedDisplayDescription.StringChanged += UpdateDescription;
+        informationDisplayItemName.text = item.localizedName.GetLocalizedString(item.Name);
+        informationDisplayItemDescription.text = item.localizedDescription.GetLocalizedString(item.Name + " Description");
         recipeDisplay.SetActive(false);
         recipeRevealDisplay.SetActive(false);
         if (recipe!= null)

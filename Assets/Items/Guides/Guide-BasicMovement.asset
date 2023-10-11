@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Guide-BasicMovement
   m_EditorClassIdentifier: 
   Name: Movement Guide
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 4446475575296
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 4450019762176
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 5
   AnimationName: 
   Description: 'Do you need instructions as to how to move around and see your inventory?
@@ -40,8 +58,10 @@ MonoBehaviour:
   ItemPrefab: {fileID: 0}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

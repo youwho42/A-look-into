@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: CornSeed
   m_EditorClassIdentifier: 
   Name: Corn seed
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6fe3c9a9b03d6c54089e920c31576e94
+    m_TableEntryReference:
+      m_KeyId: 2231706902528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:6fe3c9a9b03d6c54089e920c31576e94
+    m_TableEntryReference:
+      m_KeyId: 2233212657664
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 4
   AnimationName: 
   Description: A single kernel of corn, all by its lonesome.
@@ -24,10 +42,12 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   plantingDistance: 0.09
   plantedObject: {fileID: 11400000, guid: dec24178b587ca342b6f408650d28725, type: 2}
+  references:
+    version: 2
+    RefIds: []

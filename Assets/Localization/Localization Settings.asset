@@ -27,7 +27,7 @@ MonoBehaviour:
   m_ProjectLocaleIdentifier:
     m_Code: en
   m_PreloadBehavior: 3
-  m_InitializeSynchronously: 1
+  m_InitializeSynchronously: 0
   references:
     version: 2
     RefIds:
@@ -71,7 +71,7 @@ MonoBehaviour:
           rid: -2
         m_CustomTablePostprocessor:
           rid: -2
-        m_UseFallback: 0
+        m_UseFallback: 1
         m_MissingTranslationState: 1
         m_NoTranslationFoundMessage: No translation found for '{key}' in {table.TableCollectionName}
         m_SmartFormat:
@@ -136,7 +136,9 @@ MonoBehaviour:
       type: {class: PersistentVariablesSource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}
       data:
-        m_Groups: []
+        m_Groups:
+        - name: global
+          group: {fileID: 11400000, guid: 76deb45aa4f092541b71d448db0558e4, type: 2}
     - rid: 1262911342213070859
       type: {class: DictionarySource, ns: UnityEngine.Localization.SmartFormat.Extensions,
         asm: Unity.Localization}

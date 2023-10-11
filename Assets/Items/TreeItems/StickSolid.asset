@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
   m_Name: StickSolid
   m_EditorClassIdentifier: 
-  Name: Solid Stick
+  Name: Stick Solid
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
+    m_TableEntryReference:
+      m_KeyId: 52696918319104
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
+    m_TableEntryReference:
+      m_KeyId: 52700491866112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 2
   AnimationName: 
   Description: Well, it's a stick... of wood. But this seems pretty solid.
@@ -24,7 +42,6 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes:
@@ -32,3 +49,6 @@ MonoBehaviour:
     RecipeRevealAmount: 5
     AgencyReward: 10
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

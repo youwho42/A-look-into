@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: PumpkinSeed
   m_EditorClassIdentifier: 
   Name: Pumpkin seed
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:6fe3c9a9b03d6c54089e920c31576e94
+    m_TableEntryReference:
+      m_KeyId: 4767952199680
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:6fe3c9a9b03d6c54089e920c31576e94
+    m_TableEntryReference:
+      m_KeyId: 4771655770112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 4
   AnimationName: 
   Description: Something so small becomes something so large... who'd-a-thunk?
@@ -24,10 +42,12 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   plantingDistance: 0.15
   plantedObject: {fileID: 11400000, guid: 084978509ddce0842855357a94c17daf, type: 2}
+  references:
+    version: 2
+    RefIds: []

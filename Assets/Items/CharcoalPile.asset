@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
   m_Name: CharcoalPile
   m_EditorClassIdentifier: 
-  Name: Charcoal Pile
+  Name: Charcoal Kiln
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 1554234531840
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 1558017794048
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
   Description: 'This pile of sticks and clay has the ability to produce charcoal. '
@@ -24,8 +42,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

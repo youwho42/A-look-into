@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Guide-ResearchStation
   m_EditorClassIdentifier: 
   Name: Research Station Guide
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 7902720483328
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 7904549199872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 5
   AnimationName: 
   Description: Research resources to get recipies and Agency. You need the indicated
@@ -25,8 +43,10 @@ MonoBehaviour:
   ItemPrefab: {fileID: 0}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

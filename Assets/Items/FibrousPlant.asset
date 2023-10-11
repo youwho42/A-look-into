@@ -13,9 +13,27 @@ MonoBehaviour:
   m_Name: FibrousPlant
   m_EditorClassIdentifier: 
   Name: Fibrous Plant
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: Wild grass. Maybe fibers, maybe grain?
+  Description: Never in your inventory, NEVER!!!
   Weight: 0.5
   Price: 0
   spawnWeight: 20
@@ -24,8 +42,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  references:
+    version: 2
+    RefIds: []

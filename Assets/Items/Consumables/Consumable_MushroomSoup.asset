@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Consumable_MushroomSoup
   m_EditorClassIdentifier: 
   Name: Mushroom Soup
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 2383595233280
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 2385503641600
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 3
   AnimationName: 
   Description: A tasty mushroom soup.
@@ -24,10 +42,12 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   attributeModifiers: []
   itemToBecome: {fileID: 11400000, guid: b886aba0eb71d4c4c88c8713361a1c6e, type: 2}
+  references:
+    version: 2
+    RefIds: []

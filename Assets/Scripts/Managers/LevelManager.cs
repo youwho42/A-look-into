@@ -17,14 +17,14 @@ public class LevelManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this);
+            
         }
         else
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(this.gameObject);
 
-        
     }
 
 

@@ -1,6 +1,7 @@
 trackSelection = true
+refreshSearchWindowsInPlayMode = false
 fetchPreview = true
-wantsMore = false
+defaultFlags = 0
 keepOpen = false
 queryFolder = "Assets"
 onBoardingDoNotAskAgain = true
@@ -13,6 +14,11 @@ scopes = {
 	"last_search.7BEC51F9" = ""
 	"OpenInspectorPreview.7BEC51F9" = "0"
 	"currentGroup.7BEC51F9" = "asset"
+	"picker_window_position_offset.45F317DD" = "-86;142;575;550"
+	"picker_search_text.45F317DD" = "player"
+	"last_search.45F317DD" = "player"
+	"OpenInspectorPreview.45F317DD" = "0"
+	"currentGroup.45F317DD" = "all"
 }
 providers = {
 	adb = {
@@ -55,16 +61,41 @@ providers = {
 		priority = 50
 		defaultAction = null
 	}
+	st = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	at = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	profilermarkers = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
+}
+objectSelectors = {
 }
 recentSearches = [
+	"so"
+	"r"
+	"cr"
+	"b"
+	"i"
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
+hideTabs = false
 expandedQueries = [
 ]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""
+minIndexVariations = 2
+findProviderIndexHelper = true

@@ -7,6 +7,10 @@ using Klaxon.GravitySystem;
 using System;
 using Klaxon.UndertakingSystem;
 using UnityEngine.U2D.Animation;
+using UnityEngine.Localization.SmartFormat.GlobalVariables;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.SmartFormat.Extensions;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 public class PlayerInformation : MonoBehaviour
 {
@@ -40,7 +44,7 @@ public class PlayerInformation : MonoBehaviour
 
     public bool isSitting;
     public string playerName { get; private set; }
-
+    public StringVariable pName;
     public SpriteResolver playerSpriteResolver;
 
     private void Awake()
@@ -57,6 +61,7 @@ public class PlayerInformation : MonoBehaviour
     public void SetPlayerName(string name)
     {
         playerName = name;
+        pName.Value = playerName;
     }
 
     private void Start()
@@ -67,6 +72,10 @@ public class PlayerInformation : MonoBehaviour
         playerNotesCompendiumDatabase.Items.Clear();
         playerGuidesCompendiumDatabase.Items.Clear();
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdatePlayerResources);
+
+        var source = LocalizationSettings.StringDatabase.SmartFormatter.GetSourceExtension<PersistentVariablesSource>();
+        pName = source["global"]["playerName"] as StringVariable;
+        
     }
 
     private void OnDestroy()

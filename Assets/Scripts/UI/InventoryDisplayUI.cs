@@ -70,7 +70,7 @@ public class InventoryDisplayUI : MonoBehaviour
     
     public void UpdateInventoryUI()
     {
-        playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
+        //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         foreach (InventoryDisplaySlot slot in inventorySlots)
         {
             slot.ClearSlot();

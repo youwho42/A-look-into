@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Consumable_Carrot
   m_EditorClassIdentifier: 
   Name: Carrot
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 479343468544
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 482707300352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 3
   AnimationName: 
   Description: A crunchy snack, with lots of snap to it!
@@ -24,7 +42,6 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
@@ -33,3 +50,6 @@ MonoBehaviour:
   - attributeToModify: Bounce
     amount: 20
   itemToBecome: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

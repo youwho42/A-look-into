@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: Note-TownHall
   m_EditorClassIdentifier: 
   Name: Town Hall
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 11169324130304
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 11171379339264
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 5
   AnimationName: 
   Description: "This is where the village desk and local goods are found. \nAt the
@@ -28,8 +46,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

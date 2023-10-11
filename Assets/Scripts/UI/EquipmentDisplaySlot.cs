@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class EquipmentDisplaySlot : MonoBehaviour, ISlot
@@ -11,17 +13,21 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
     public Image icon;
     public TextMeshProUGUI itemSlotName;
     public TextMeshProUGUI itemUse;
-    
 
+    
 
     public EquipmentSlot equipmentSlot;
 
+    void OnEnable()
+    {
+        SetSlotName();
+    }
 
     public void ShowItemUse(bool active)
     {
-        
+        string word = LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", "Unequip");
         if (item != null)
-            itemUse.text = active ? "Unequip" : "";
+            itemUse.text = active ? word : "";
 
     }
 
@@ -63,7 +69,13 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
     public void SetIndex(int index)
     {
         equipmentSlot = (EquipmentSlot)index;
-        itemSlotName.text = equipmentSlot.ToString();
+        SetSlotName();
+        
     }
 
+    void SetSlotName()
+    {
+        string word = LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", equipmentSlot.ToString());
+        itemSlotName.text = word;
+    }
 }

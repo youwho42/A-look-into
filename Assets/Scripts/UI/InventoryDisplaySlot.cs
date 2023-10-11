@@ -7,7 +7,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using Klaxon.SaveSystem;
-using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     public struct ItemTypeNames
     {
         public string itemDataName;
-        public string itemUseName;
+        public LocalizedString itemUseName;
     }
     private void Start()
     {
@@ -80,7 +81,11 @@ public class InventoryDisplaySlot : MonoBehaviour
         for (int i = 0; i < itemTypes.Count; i++)
         {
             if (n.Contains(itemTypes[i].itemDataName))
-                return itemTypes[i].itemUseName;
+            {
+                var word = LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", itemTypes[i].itemDataName);
+            
+                return word;
+            }
         }
 
         return "";
