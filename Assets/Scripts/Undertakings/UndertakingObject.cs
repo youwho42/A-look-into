@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Klaxon.UndertakingSystem
 {
@@ -17,10 +18,10 @@ namespace Klaxon.UndertakingSystem
     public class UndertakingObject : ScriptableObject
     {
         public string Name;
-        [TextArea]
-        public string Description;
-        [TextArea]
-        public string CompletedDescription;
+        public LocalizedString localizedName;
+        public LocalizedString localizedDescription;
+        public LocalizedString localizedCompleteDescription;
+        
         public List<UndertakingTaskObject> Tasks;
         public UndertakingState CurrentState;
 

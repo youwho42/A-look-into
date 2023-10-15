@@ -17,6 +17,7 @@ public class InteractableCraftingStation : Interactable
         craftingDisplay = CraftingStationDisplayUI.instance;
         craftingHandler = GetComponent<QI_CraftingHandler>();
     }
+    
 
     public override void Interact(GameObject interactor)
     {

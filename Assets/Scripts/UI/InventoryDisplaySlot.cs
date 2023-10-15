@@ -136,7 +136,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void DragItem()
     {
-        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject)
+        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
             return;
         
 

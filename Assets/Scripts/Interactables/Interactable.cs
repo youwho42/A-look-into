@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class Interactable : MonoBehaviour
 {
     protected AudioManager audioManager;
     public string interactSound = "Default";
     public string interactVerb = "whaaAA???";
-    public string longInteractVerb = "whaaAA???";
+    public LocalizedString localizedInteractVerb;
+    public LocalizedString longInteractVerb;
 
     public float bounceCost;
     public float agencyReward;
@@ -23,6 +25,11 @@ public class Interactable : MonoBehaviour
     {
         audioManager = AudioManager.instance;
         playerInformation = PlayerInformation.instance;
+    }
+
+    public virtual void SetInteractVerb()
+    {
+        interactVerb = localizedInteractVerb.GetLocalizedString();
     }
 
     public virtual void Interact(GameObject interactor)

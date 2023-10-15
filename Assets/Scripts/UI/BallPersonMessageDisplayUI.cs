@@ -48,9 +48,9 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         SetPlayer();
         ballPerson = _ballPerson;
         undertaking = _undertaking;
-        messageTitle.text = undertaking.Name;
+        messageTitle.text = undertaking.localizedName.GetLocalizedString();
         destroyOnClose = _destroyOnClose;
-        string t = undertaking.CurrentState == UndertakingState.Complete ? undertaking.CompletedDescription : undertaking.Description;
+        string t = undertaking.CurrentState == UndertakingState.Complete ? undertaking.localizedCompleteDescription.GetLocalizedString() : undertaking.localizedDescription.GetLocalizedString();
         messageContent.text = t;
     }
 

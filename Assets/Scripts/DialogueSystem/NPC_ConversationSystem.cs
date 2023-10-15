@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Klaxon.ConversationSystem
 {
@@ -13,7 +14,7 @@ namespace Klaxon.ConversationSystem
     public class NPC_ConversationSystem : MonoBehaviour
     {
 
-        public string NPC_Name;
+        public LocalizedString NPC_Name;
         
         public List<ConversationObject> conversations = new List<ConversationObject>();
         List<ConversationObject> B_Conversations = new List<ConversationObject>();

@@ -1068,6 +1068,7 @@ MonoBehaviour:
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 0}
   currentVelocity: 0
+  currentDirection: {x: 0, y: 0}
   currentLevel: 0
   obstacleLayer:
     serializedVersion: 2
@@ -1104,6 +1105,7 @@ MonoBehaviour:
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
+  characterRenderer: {fileID: 0}
 --- !u!114 &7060560830674837553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,7 +1120,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Read message
-  longInteractVerb: whaaAA???
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+    m_TableEntryReference:
+      m_KeyId: 1801839751782400
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
@@ -1128,6 +1147,9 @@ MonoBehaviour:
   type: 1
   undertaking: {fileID: 0}
   craftingRecipe: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &4424931104086339238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,6 +1172,7 @@ MonoBehaviour:
     Action: {fileID: 8547347894382832573}
     IsRunning: 0
     TimeLimit: 0
+    TimeLimitRange: {x: 0, y: 0}
     TimeLimitCondition:
       Condition: 
       State: 0
@@ -1161,6 +1184,7 @@ MonoBehaviour:
     Action: {fileID: 3173488235266787408}
     IsRunning: 0
     TimeLimit: 0
+    TimeLimitRange: {x: 0, y: 0}
     TimeLimitCondition:
       Condition: 
       State: 0
@@ -1172,6 +1196,7 @@ MonoBehaviour:
     Action: {fileID: 1543468683215604249}
     IsRunning: 0
     TimeLimit: 0
+    TimeLimitRange: {x: 0, y: 0}
     TimeLimitCondition:
       Condition: 
       State: 0
@@ -1183,6 +1208,7 @@ MonoBehaviour:
     Action: {fileID: 74892919846292982}
     IsRunning: 0
     TimeLimit: 0
+    TimeLimitRange: {x: 0, y: 0}
     TimeLimitCondition:
       Condition: 
       State: 0

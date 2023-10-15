@@ -354,6 +354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6902144603992607345, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
+      propertyPath: m_labelHash
+      value: 1.6547616e-12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902144603992607345, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
       propertyPath: m_SpriteHash
       value: 429375892
       objectReference: {fileID: 0}
@@ -437,6 +442,17 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.16482756
       objectReference: {fileID: 0}
+    - target: {fileID: 7335956055071325998, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: undertakings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7335956055071325998, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: undertakings.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d3309c4fac22cce43aa9235b94a3c655,
+        type: 2}
     - target: {fileID: 7503511565052202373, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -465,26 +481,52 @@ PrefabInstance:
     - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: conversations.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: conversations.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 3ec9995b7dab04543993c63ea8a7ef09,
+      objectReference: {fileID: 11400000, guid: 35961a22f549f074888604e240441d0b,
         type: 2}
     - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: conversations.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 89eebeb952b64264d911824f66fb428c,
+      objectReference: {fileID: 11400000, guid: 3ec9995b7dab04543993c63ea8a7ef09,
         type: 2}
     - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: conversations.Array.data[2]
       value: 
+      objectReference: {fileID: 11400000, guid: 89eebeb952b64264d911824f66fb428c,
+        type: 2}
+    - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: conversations.Array.data[3]
+      value: 
       objectReference: {fileID: 11400000, guid: 56a6607240e412140aedb65fd3eb5e23,
         type: 2}
+    - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: NPC_Name.m_TableEntryReference.m_KeyId
+      value: 78590304256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7803679775236702586, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: NPC_Name.m_TableReference.m_TableCollectionName
+      value: GUID:09b0306f53cf2634e8280873462c7992
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099265967096594157, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: localizedInteractVerb.m_TableEntryReference.m_KeyId
+      value: 78590304256
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099265967096594157, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: localizedInteractVerb.m_TableReference.m_TableCollectionName
+      value: GUID:09b0306f53cf2634e8280873462c7992
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1928991682, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
     - {fileID: 2024037668861961693, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}

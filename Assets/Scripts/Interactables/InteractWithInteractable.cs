@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using Klaxon.GravitySystem;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Localization.Settings;
 
 public class InteractWithInteractable : MonoBehaviour
 {
@@ -71,6 +72,9 @@ public class InteractWithInteractable : MonoBehaviour
 
     private void Update()
     {
+        interactSlider.gameObject.SetActive(false);
+        interactUI.SetActive(false);
+
         if (PlayerInformation.instance.playerInput.isInUI)
             return;
 
@@ -104,8 +108,8 @@ public class InteractWithInteractable : MonoBehaviour
 
     void DisplayUI()
     {
-        interactSlider.gameObject.SetActive(false);
-        interactUI.SetActive(false);
+        //interactSlider.gameObject.SetActive(false);
+        //interactUI.SetActive(false);
         
         if (currentInteractables.Count > 0)
         {
@@ -126,13 +130,15 @@ public class InteractWithInteractable : MonoBehaviour
                 else
                     canvasOffset = Vector3.forward;
             }
-
+            closest.SetInteractVerb();
             string butt = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
             string action = $"{butt} {closest.interactVerb}";    
             interactCanvas.transform.position = closest.transform.position + canvasOffset;
+
+            string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");
             if (closest.hasLongInteract)
             {
-                action += $"\n Hold {butt} {closest.longInteractVerb}";
+                action += $"\n {hold} {butt} {closest.longInteractVerb.GetLocalizedString()}";
                 interactSlider.gameObject.SetActive(true);
             }
             interactVerb.text = action;

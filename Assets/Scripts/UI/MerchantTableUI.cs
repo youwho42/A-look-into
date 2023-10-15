@@ -48,10 +48,10 @@ public class MerchantTableUI : MonoBehaviour
         itemQuantity = amount;
         icon.sprite = item.Icon;
         price = item.Price * 2;
-        sparks.text = $"Sparks<sprite anim=\"3,5,12\"> {price}";
-        stock.text = $"Stock {amount}";
-        itemName.text = item.Name;
-        itemDescription.text = item.Description;
+        sparks.text = $"<sprite anim=\"3,5,12\"> {price}";
+        stock.text = $"{amount}";
+        itemName.text = item.localizedName.GetLocalizedString();
+        itemDescription.text = item.localizedDescription.GetLocalizedString();
         merchantTable = table;
         SetQuantitySlider();
     }
@@ -69,8 +69,8 @@ public class MerchantTableUI : MonoBehaviour
 
     public void SetQuantityText()
     {
-        purchaseQuantity.text = $"Quantity {purchaseSlider.value} / {purchaseSlider.maxValue}";
-        totalSparks.text = $"Sparks<sprite anim=\"3,5,12\"> {price * purchaseSlider.value}";
+        purchaseQuantity.text = $"{purchaseSlider.value} / {purchaseSlider.maxValue}";
+        totalSparks.text = $"<sprite anim=\"3,5,12\"> {price * purchaseSlider.value}";
     }
 
     public void HideUI()

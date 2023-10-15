@@ -13,14 +13,44 @@ MonoBehaviour:
   m_Name: FindCampsite
   m_EditorClassIdentifier: 
   Name: Find the campsite
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 129563680768
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 133837676544
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedCompleteDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 137079873536
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Description: You were told of a campsite somewhere around here, maybe in the valley?
   CompletedDescription: You found the campsite. Now camp!
   Tasks:
   - {fileID: 11400000, guid: d6bf4648296b52045a165c17df7cbb52, type: 2}
-  CurrentState: 2
+  CurrentState: 0
   SparksReward: 10
   GumptionReward: 0
   AgencyReward: 10
   ItemReward: {fileID: 0}
   ItemQuantity: 0
   RecipeReward: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

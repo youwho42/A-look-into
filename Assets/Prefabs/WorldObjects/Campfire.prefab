@@ -5160,7 +5160,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Light
-  longInteractVerb: Pick Up
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
+    m_TableEntryReference:
+      m_KeyId: 630401795678208
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
@@ -5179,6 +5187,9 @@ MonoBehaviour:
     randomPitch: 0
     source: {fileID: 0}
     overlap: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &8181011660677160059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5191,8 +5202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkRadius: 0.15
-  checkOffset: {x: 0, y: 0}
   grassObjects: []
 --- !u!114 &-3899742487778839439
 MonoBehaviour:

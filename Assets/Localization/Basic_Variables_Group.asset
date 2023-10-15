@@ -16,6 +16,9 @@ MonoBehaviour:
   - name: playerName
     variable:
       rid: 1262911391381323784
+  - name: VillageAreaTime
+    variable:
+      rid: 1262911453605920768
   references:
     version: 2
     RefIds:
@@ -24,3 +27,8 @@ MonoBehaviour:
         asm: Unity.Localization}
       data:
         m_Value: fsd
+    - rid: 1262911453605920768
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables,
+        asm: Unity.Localization}
+      data:
+        m_Value: 0

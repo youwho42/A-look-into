@@ -11,7 +11,8 @@ public class NotificationDisplayObject : MonoBehaviour
     public Image notificationImage;
 
     public Notification currentNotification;
-
+    public BaseNotification notification;
+    NotificationTypeColor currentTypeColor;
 
     public void SetDisplay(string text, Color color, Sprite sprite)
     {
@@ -45,6 +46,33 @@ public class NotificationDisplayObject : MonoBehaviour
        
     }
 
+    public void SetDisplay(BaseNotification note, NotificationTypeColor typeColor)
+    {
+        notification = note;
+        currentTypeColor = typeColor;
+        string text = "";
+        switch (notification.type)
+        {
+            
+            case NotificationsType.Compendium:
+                break;
+            case NotificationsType.Inventory:
+                text = $"{notification.itemData.localizedName.GetLocalizedString()} {note.quantity}";
+                UpdateDisplay(currentTypeColor, text);
+                break;
+            case NotificationsType.Warning:
+                break;
+            case NotificationsType.Undertaking:
+                break;
+            case NotificationsType.Agency:
+                break;
+            case NotificationsType.None:
+                break;
+            
+        }
+
+    }
+
     public void SetCompendiumDisplay(BaseNotificationType notificationType, Notification notification)
     {
         string item = "";
@@ -70,6 +98,12 @@ public class NotificationDisplayObject : MonoBehaviour
 
     }
 
+    public void UpdateNotification(int additionalAmount)
+    {
+        notification.quantity += additionalAmount;
+        SetDisplay(notification, currentTypeColor);
+    }
+
     void UpdateDisplay(BaseNotificationType notificationType, string notificationText)
     {
         image.color = notificationType.notificationColor;
@@ -77,4 +111,13 @@ public class NotificationDisplayObject : MonoBehaviour
         displayText.text = notificationText;
     }
 
+    void UpdateDisplay(NotificationTypeColor notificationType, string notificationText)
+    {
+        image.color = notificationType.color;
+        notificationImage.sprite = notificationType.sprite;
+        displayText.color= notificationType.textColor;
+        displayText.text = notificationText;
+    }
+
+    
 }

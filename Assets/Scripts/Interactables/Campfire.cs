@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Rendering.Universal;
 
 public class Campfire : Interactable
@@ -13,6 +14,9 @@ public class Campfire : Interactable
     public bool isLit;
     public SoundSet sound;
     AudioSource source;
+    string light = "light";
+    string extinguish = "extinguish";
+    string usedWord = ""; 
     float mainVolume;
     private void Awake()
     {
@@ -21,11 +25,17 @@ public class Campfire : Interactable
     public override void Start()
     {
         base.Start();
-        SetFire("light", false);
+        usedWord = light;
+        SetFire(usedWord, false);
         
 
     }
-    
+
+    public override void SetInteractVerb()
+    {
+        interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", usedWord);
+    }
+
     public override void Interact(GameObject interactor)
     {
 
@@ -60,10 +70,12 @@ public class Campfire : Interactable
     void SetFire(string _interactVerb, bool active)
     {
         isLit = active;
+        usedWord = isLit? extinguish : light;
         fireAnimation.SetActive(active);
         lightFlicker.enabled = active;
         fireFlicker.canFlicker = active;
-        interactVerb = _interactVerb;
+        SetInteractVerb();
+        //interactVerb = _interactVerb;
         fireFlicker.StartLightFlicker(active);
         if(sound.clips.Length > 0) 
         { 

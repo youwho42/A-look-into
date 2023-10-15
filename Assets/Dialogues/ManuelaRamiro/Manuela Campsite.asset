@@ -14,21 +14,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueName: Campsite
   type: 1
+  ActivateAtStart: 0
   ActivateUndertakingObject: {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a,
     type: 2}
   UndertakingObject: {fileID: 0}
   UndertakingTask: {fileID: 0}
   DialogueBranches:
   - DialogueType: 1
-    sentences:
-    - I think I saw a campsite around here somewhere. Down in Blu Valley maybe?
-    - It's pretty broken down, but I think it could be a very useful thing to squeek
-      back in to shape.
+    localizedSentences:
+    - m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 10850506694656
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    - m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 10924653600768
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   - DialogueType: 2
-    sentences:
-    - Have you found that campsite yet?
-    - I'm pretty sure it was in Blu Valley.
+    localizedSentences:
+    - m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 11320637841408
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    - m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 11366167011328
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   - DialogueType: 3
-    sentences:
-    - I'm so glad you found the campsite!
+    localizedSentences:
+    - m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 11857584250880
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   Completed: 0
+  references:
+    version: 2
+    RefIds: []

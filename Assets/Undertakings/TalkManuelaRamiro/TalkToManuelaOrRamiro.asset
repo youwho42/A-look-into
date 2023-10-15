@@ -13,10 +13,33 @@ MonoBehaviour:
   m_Name: TalkToManuelaOrRamiro
   m_EditorClassIdentifier: 
   Name: Talk to Manuela or Ramiro
-  Description: You should try to find Manuela or Ramiro, a couple that lives in the
-    shack on the hill. Maybe they can shed some light on where you find yourself.
-  CompletedDescription: You found the couple on the hill. They sure were happy to
-    see a new face.
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 2565963571200
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 2568043945984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedCompleteDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 2569889439744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Tasks:
   - {fileID: 11400000, guid: e0d0a34fc9e7b5243b1d8c4467f269fe, type: 2}
   CurrentState: 0
@@ -26,3 +49,6 @@ MonoBehaviour:
   ItemReward: {fileID: 0}
   ItemQuantity: 0
   RecipeReward: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

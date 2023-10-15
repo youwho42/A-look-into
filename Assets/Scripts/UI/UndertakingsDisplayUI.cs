@@ -74,9 +74,9 @@ public class UndertakingsDisplayUI : MonoBehaviour
     {
         ClearCurrentUndertaking();
         currentUndertaking = undertaking;
-        undertakingTitle.text = currentUndertaking.Name;
+        undertakingTitle.text = currentUndertaking.localizedName.GetLocalizedString();
         //string tasks = "";
-         
+
         //if (undertaking.CurrentState != UndertakingState.Complete)
         //{
         //    for (int i = 0; i < undertaking.Tasks.Count; i++)
@@ -84,8 +84,8 @@ public class UndertakingsDisplayUI : MonoBehaviour
         //        tasks += $"\n-{undertaking.Tasks[i].Name}";
         //    }
         //}
-        
-        string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.CompletedDescription : currentUndertaking.Description;
+
+        string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.localizedCompleteDescription.GetLocalizedString() : currentUndertaking.localizedDescription.GetLocalizedString();
         //undertakingDescription.text = $"{desc}<br>{tasks}";
         undertakingDescription.text = $"{desc}";
     }

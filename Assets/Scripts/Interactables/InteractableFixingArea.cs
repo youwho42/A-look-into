@@ -48,13 +48,13 @@ public class InteractableFixingArea : Interactable
         base.LongInteract(interactor);
         string ingredients = "";
         if (agencyCost > 0)
-            ingredients += $"{agencyCost} - Agency\n";
+            ingredients += $"<sprite name=\"Agency\"> - {agencyCost}\n";
         for (int i = 0; i < this.ingredients.Count; i++)
         {
-            ingredients += $"{this.ingredients[i].amount} - {this.ingredients[i].item.Name}\n";
+            ingredients += $"{this.ingredients[i].amount} - {this.ingredients[i].item.localizedName.GetLocalizedString()}\n";
         }
         
-        BallPersonMessageDisplayUI.instance.ShowFixingAreaIngredients(this, interactVerb, ingredients);
+        BallPersonMessageDisplayUI.instance.ShowFixingAreaIngredients(this, longInteractVerb.GetLocalizedString(), ingredients);
         UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
         canInteract = false;
     }

@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -972553773627931476, guid: 52de873582b53f0439b2e676e110821d,
@@ -262,6 +263,25 @@ PrefabInstance:
     - {fileID: 3199593422043033621, guid: 52de873582b53f0439b2e676e110821d, type: 3}
     - {fileID: 7060560830674837553, guid: 52de873582b53f0439b2e676e110821d, type: 3}
     - {fileID: 74892919846292982, guid: 52de873582b53f0439b2e676e110821d, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6136613428899347180}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5864773831259950576}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6640872499589129780}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8506160686242586601}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
 --- !u!114 &2789071904952057983 stripped
 MonoBehaviour:
@@ -324,7 +344,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Talk
-  longInteractVerb: whaaAA???
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+    m_TableEntryReference:
+      m_KeyId: 1802247144529920
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
@@ -334,6 +371,9 @@ MonoBehaviour:
     undertaking: {fileID: 0}
     task: {fileID: 0}
   started: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &6640872499589129780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2685d7903e7701942a5c8d82d98da036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
   interactableTraveller: {fileID: 5864773831259950576}
 --- !u!114 &8506160686242586601
@@ -360,6 +404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0482dd72038607478a4bdc3fbbdf969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
   target: {fileID: 0}
 --- !u!114 &5393999564062687304 stripped
 MonoBehaviour:

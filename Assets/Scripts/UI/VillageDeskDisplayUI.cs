@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Klaxon.SAP;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using UnityEngine.Localization.SmartFormat.Extensions;
 
 public class VillageDeskDisplayUI : MonoBehaviour
 {
@@ -16,6 +19,9 @@ public class VillageDeskDisplayUI : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        var source = LocalizationSettings.StringDatabase.SmartFormatter.GetSourceExtension<PersistentVariablesSource>();
+        villageAreaTime = source["global"]["VillageAreaTime"] as IntVariable;
     }
 
     public GameObject villageAreasButtonHolder;
@@ -34,6 +40,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
     public RectTransform viewportRect;
     public Button purchaseButton;
     public TextMeshProUGUI buttonText;
+    IntVariable villageAreaTime;
 
     public void ShowUI(FixVillageDesk desk)
     {
@@ -89,9 +96,9 @@ public class VillageDeskDisplayUI : MonoBehaviour
         }
         else
         {
-            buttonText.text =  "Nothing To Build";
+            buttonText.text = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Nothing To Build");
             purchaseButton.interactable = false;
-            villageAreaDescription.text = "Mayor Roger needs to be behind the desk.";
+            villageAreaDescription.text = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Mayor needed at desk");
             villageAreaCost.text = $"<sprite anim=\"3,5,12\">";
             approxDays.text = "";
         }
@@ -101,10 +108,12 @@ public class VillageDeskDisplayUI : MonoBehaviour
     public void SetCurrentVillageArea(FixVillageArea area)
     {
         ClearCurrentVillageArea();
-        villageAreaTitle.text = area.areaName;
-        villageAreaDescription.text = area.areaDescription;
+        villageAreaTitle.text = area.localizedName.GetLocalizedString();
+        villageAreaDescription.text = area.localizedDescription.GetLocalizedString();
         villageAreaCost.text = $"<sprite anim=\"3,5,12\"> {area.sparksRequired}";
-        approxDays.text = $"Approximately {GetTimeToFix(area)} days";
+        //approxDays.text = $"{GetTimeToFix(area)}";
+        var xx = GetTimeToFix(area);
+        //approxDays.text= LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", "Village Area Time");
         for (int i = 0; i < area.ingredients.Count; i++)
         {
             ingredientSlots[i].AddItem(area.ingredients[i].item, area.ingredients[i].amount, PlayerInformation.instance.playerInventory.GetStock(area.ingredients[i].item.Name));
@@ -147,7 +156,9 @@ public class VillageDeskDisplayUI : MonoBehaviour
 
     int GetTimeToFix(FixVillageArea area)
     {
-        return Mathf.CeilToInt((float)area.ticksToFix / 510.0f);
+        villageAreaTime.Value = area.ticksToFix / 60;
+        return villageAreaTime.Value;
+        //return Mathf.CeilToInt((float)area.ticksToFix / 510.0f);
     }
 
 
@@ -198,7 +209,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
             if(a.isFixing) noOthersFixing = false; 
             break;
         }
-        buttonText.text = area.isFixing ? "In Progress" : "Build Area";
+        buttonText.text = area.isFixing ? LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "In Progress") : LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Build Area");
         purchaseButton.interactable = villageDesk.isActive && CanFixArea() && !area.isFixing && noOthersFixing;
 
     }

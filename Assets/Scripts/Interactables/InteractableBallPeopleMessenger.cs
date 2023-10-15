@@ -45,7 +45,8 @@ public class InteractableBallPeopleMessenger : Interactable
 
         if (messageItem != null)
         {
-            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, messageItem.Name, messageItem.Description);
+
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, messageItem.localizedName.GetLocalizedString(), messageItem.localizedDescription.GetLocalizedString());
             QI_ItemDatabase database = GetCompendiumDatabase();
 
             if (!database.Items.Contains(messageItem))
@@ -57,7 +58,7 @@ public class InteractableBallPeopleMessenger : Interactable
         }
         else if (undertaking != null)
         {
-            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, undertaking.Name, undertaking.Description);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, undertaking.localizedName.GetLocalizedString(), undertaking.localizedDescription.GetLocalizedString());
             
             PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
         }

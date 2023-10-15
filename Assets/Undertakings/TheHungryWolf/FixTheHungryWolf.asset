@@ -13,12 +13,33 @@ MonoBehaviour:
   m_Name: FixTheHungryWolf
   m_EditorClassIdentifier: 
   Name: Fix The Hungry Wolf
-  Description: Ah, my dear, the time has come for you to bring my humble establishment,
-    The Hungry Wolf, back to life. Venture to the Village Desk at the heart of the
-    Town Hall, and beseech Slick to weave his magic upon the weary corners and make
-    them anew.
-  CompletedDescription: 'You''ve gotten The Hungry Wolf back in shape! I hope your
-    eyes and teeth are ready for the splendors that await them there. '
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 3364319977472
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 3366064807936
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedCompleteDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:925d16a46771a2246838ee5b5d0b4a56
+    m_TableEntryReference:
+      m_KeyId: 3367545397248
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Tasks:
   - {fileID: 11400000, guid: 3558edd36199d044e80eb3655dc21687, type: 2}
   CurrentState: 0
@@ -28,3 +49,6 @@ MonoBehaviour:
   ItemReward: {fileID: 0}
   ItemQuantity: 0
   RecipeReward: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

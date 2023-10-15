@@ -14,10 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueName: Husband
   type: 0
+  ActivateAtStart: 0
+  ActivateUndertakingObject: {fileID: 0}
   UndertakingObject: {fileID: 0}
   UndertakingTask: {fileID: 0}
   DialogueBranches:
   - DialogueType: 0
-    sentences:
-    - 'Have you met Ramiro, my husband? '
+    localizedSentences:
+    - m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 10314722107392
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
   Completed: 0
+  references:
+    version: 2
+    RefIds: []

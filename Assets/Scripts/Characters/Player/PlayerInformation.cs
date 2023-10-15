@@ -1,13 +1,8 @@
 ﻿using QuantumTek.QuantumInventory;
-using QuantumTek.QuantumAttributes;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Klaxon.GravitySystem;
-using System;
 using Klaxon.UndertakingSystem;
 using UnityEngine.U2D.Animation;
-using UnityEngine.Localization.SmartFormat.GlobalVariables;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.SmartFormat.Extensions;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
@@ -44,7 +39,7 @@ public class PlayerInformation : MonoBehaviour
 
     public bool isSitting;
     public string playerName { get; private set; }
-    public StringVariable pName;
+    StringVariable pName;
     public SpriteResolver playerSpriteResolver;
 
     private void Awake()

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Klaxon.ConversationSystem
 {
@@ -10,9 +11,8 @@ namespace Klaxon.ConversationSystem
     public class DialogueBranch
     {
         public DialogueType DialogueType;
-        [TextArea(3, 15)]
-        public string[] sentences;
         
+        public LocalizedString[] localizedSentences;
     }
     public enum ConversationType
     {

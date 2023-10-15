@@ -43,11 +43,12 @@ namespace Klaxon.ConversationSystem
 
         public void SetNewDialogue(InteractableDialogue interactable, NPC_ConversationSystem convoSystem, DialogueBranch dialogue)
         {
-            speakerName.text = convoSystem.NPC_Name;
+            speakerName.text = convoSystem.NPC_Name.GetLocalizedString();
             currentDialogue = dialogue;
             currentInteractable = interactable;
             currentIndex = 0;
-            messageText.text = currentDialogue.sentences[currentIndex];
+            //messageText.text = currentDialogue.sentences[currentIndex];
+            messageText.text = currentDialogue.localizedSentences[currentIndex].GetLocalizedString();
             isSpeaking = true;
         }
 
@@ -56,10 +57,10 @@ namespace Klaxon.ConversationSystem
             if (!isSpeaking)
                 return;
             currentIndex++;
-            if (currentIndex < currentDialogue.sentences.Length)
+            if (currentIndex < currentDialogue.localizedSentences.Length)
             {
                 
-                messageText.text = currentDialogue.sentences[currentIndex];
+                messageText.text = currentDialogue.localizedSentences[currentIndex].GetLocalizedString();
             }
             else
             {

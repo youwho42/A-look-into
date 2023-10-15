@@ -19,12 +19,17 @@ public class UndertakingsButton : MonoBehaviour
     public void AddUndertaking(UndertakingObject newUndertaking)
     {
         undertaking = newUndertaking;
-        undertakingName.text = undertaking.Name;
+        undertaking.localizedName.StringChanged += ResetName;
+        undertakingName.text = undertaking.localizedName.GetLocalizedString();
         isCompleted = undertaking.CurrentState == UndertakingState.Complete;
         var ac = button.colors;
         ac.normalColor = isCompleted ? completedColor : incompleteColor;
         button.colors = ac;
 
+    }
+    void ResetName(string name)
+    {
+        undertakingName.text = name;
     }
 
     public void Clear()

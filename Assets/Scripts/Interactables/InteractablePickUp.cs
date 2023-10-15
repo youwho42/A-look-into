@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using QuantumTek.QuantumInventory;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class InteractablePickUp : Interactable
 {
@@ -15,10 +16,13 @@ public class InteractablePickUp : Interactable
     {
         base.Start();
         interactableItem = GetComponent<QI_Item>();
-        interactVerb = interactableItem.Data.Name;
+        //interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
         pickUpItem = interactableItem.Data.pickUpItem == null ? interactableItem.Data : interactableItem.Data.pickUpItem;
     }
-
+    public override void SetInteractVerb()
+    {
+        interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
+    }
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
@@ -41,6 +45,7 @@ public class InteractablePickUp : Interactable
             if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
                 obj.ShowObjects(true);
             
+            Notifications.instance.SetNewNotification("", pickUpItem, pickupQuantity, NotificationsType.Inventory);
             NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
             Destroy(gameObject);
 

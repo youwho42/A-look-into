@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class LocalGoodsInteractable : Interactable
 {
@@ -9,6 +10,7 @@ public class LocalGoodsInteractable : Interactable
 
     QI_Inventory inventory;
     public string shopName;
+    public LocalizedString localizedShopName;
     public ItemType validType;
     [Range(1.0f, 1.5f)]
     public float priceMultiplier;
@@ -41,7 +43,7 @@ public class LocalGoodsInteractable : Interactable
     {
         UIScreenManager.instance.DisplayScreen(UIScreenType.LocalGoods);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-        LocalGoodDisplayUI.instance.ShowGoodsUI(inventory, validType, priceMultiplier, shopName);
+        LocalGoodDisplayUI.instance.ShowGoodsUI(inventory, validType, priceMultiplier, localizedShopName.GetLocalizedString());
     }
 
     private void CloseLocalGoods()

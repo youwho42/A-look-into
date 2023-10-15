@@ -5,13 +5,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 [Serializable]
 public class FixVillageArea
 {
     public string areaName;
-    [TextArea(5, 20)]
-    public string areaDescription;
+    public LocalizedString localizedName;
+    public LocalizedString localizedDescription;
+    
     public Sprite areaIcon;
     public GameObject inactiveArea;
     public GameObject activeArea;

@@ -44,7 +44,7 @@ public class LocalGoodDisplayUI : MonoBehaviour
         containerInventory = container;
         validType = type;
         priceMultiplier = multiplier;
-        playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
+        //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         shopName.text = name;
         UpdateGoodsUI();
     }
