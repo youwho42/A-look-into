@@ -172,8 +172,9 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         if (!CheckPlayerVicinity())
         {
-            NotificationManager.instance.SetNewNotification($"Too far from {PlayerInformation.instance.playerName}", NotificationManager.NotificationType.Warning);
-            
+            //NotificationManager.instance.SetNewNotification($"Too far from {PlayerInformation.instance.playerName}", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Too far"), null, 0, NotificationsType.Warning);
+
             Destroy(itemToDrop);
             ResetDragging();
             return;
@@ -181,7 +182,9 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         if (CheckForObstacles() || !CheckTileValid())
         {
-            NotificationManager.instance.SetNewNotification($"Invalid spot for {item.Name}", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Invalid Spot"), null, 0, NotificationsType.Warning);
+
+            //NotificationManager.instance.SetNewNotification($"Invalid spot for {item.Name}", NotificationManager.NotificationType.Warning);
             Destroy(itemToDrop);
             ResetDragging();
             return;

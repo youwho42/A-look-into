@@ -31,7 +31,8 @@ public class PlayerStats : MonoBehaviour
             e = Mathf.Clamp(e, 0, maxBounce);
         playerAttributes.SetAttributeValue(attributeName, e);
         GameEventManager.onStatUpdateEvent.Invoke();
-        NotificationManager.instance.SetNewNotification($"You gained {amountToAdd} {attributeName}", NotificationManager.NotificationType.Agency);
+
+        //NotificationManager.instance.SetNewNotification($"You gained {amountToAdd} {attributeName}", NotificationManager.NotificationType.Agency);
     }
    
     public void AddToAgency(float energyToAdd)
@@ -41,7 +42,9 @@ public class PlayerStats : MonoBehaviour
         e += energyToAdd;
         playerAttributes.SetAttributeValue("Agency", e);
         GameEventManager.onStatUpdateEvent.Invoke();
-        NotificationManager.instance.SetNewNotification($"You gained {energyToAdd} Agency", NotificationManager.NotificationType.Agency);
+        Notifications.instance.SetNewNotification("", null, (int)energyToAdd, NotificationsType.Agency);
+
+        //NotificationManager.instance.SetNewNotification($"You gained {energyToAdd} Agency", NotificationManager.NotificationType.Agency);
     }
     public void AddToBounce(float energyToAdd)
     {

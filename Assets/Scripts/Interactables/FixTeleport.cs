@@ -43,7 +43,9 @@ public class FixTeleport : MonoBehaviour, IFixArea
         foreach (var ingredient in ingredients)
         {
             PlayerInformation.instance.playerInventory.RemoveItem(ingredient.item.Name, ingredient.amount);
-            NotificationManager.instance.SetNewNotification($"{ingredient.amount} {ingredient.item.Name} removed", NotificationManager.NotificationType.Inventory);
+            Notifications.instance.SetNewNotification("", ingredient.item, -ingredient.amount, NotificationsType.Inventory);
+
+            //NotificationManager.instance.SetNewNotification($"{ingredient.amount} {ingredient.item.Name} removed", NotificationManager.NotificationType.Inventory);
 
         }
     }

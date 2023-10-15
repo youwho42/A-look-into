@@ -1,8 +1,6 @@
 using QuantumTek.QuantumInventory;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
 [Serializable]
@@ -58,8 +56,9 @@ public class Notifications : MonoBehaviour
     public Transform notificationHolder;
     
     public NotificationDisplayObject notificationDisplayPrefab;
-    int maxNotifications = 5;
-    int currentNotificationCount = 0;
+    public int maxNotifications = 5;
+    [HideInInspector]
+    public int currentNotificationCount = 0;
     
 
     private void Start()
@@ -135,8 +134,9 @@ public class Notifications : MonoBehaviour
 
             
             displays[i].notification = notification;
-            displays[i].SetDisplay(notification, SetTypeColor(notification.type));
             displays[i].gameObject.SetActive(true);
+            displays[i].SetDisplay(notification, SetTypeColor(notification.type));
+            
             break;
         }
        

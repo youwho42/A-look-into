@@ -28,14 +28,14 @@ public class InteractableLearnRecipe : Interactable
         yield return new WaitForSeconds(0.33f);
         PlayInteractSound();
 
-        if (PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe))
-        {
-            NotificationManager.instance.SetNewNotification("You learned the " + craftingRecipe.Name + " recipe.");
-        }
-        else
-        {
-            NotificationManager.instance.SetNewNotification("You already know the " + craftingRecipe.Name + " recipe.");
-        }
+        //if (PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe))
+        //{
+        //    NotificationManager.instance.SetNewNotification("You learned the " + craftingRecipe.Name + " recipe.");
+        //}
+        //else
+        //{
+        //    NotificationManager.instance.SetNewNotification("You already know the " + craftingRecipe.Name + " recipe.");
+        //}
     
 
         Destroy(gameObject);

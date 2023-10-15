@@ -63,7 +63,9 @@ public class ResearchStationResearchSlot : MonoBehaviour
             {
                 PlayerInformation.instance.playerStats.AddToAgency(item.ResearchRecipes[i].AgencyReward);
                 PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
-                NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
+                Notifications.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+
+                //NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
             }
             //ResearchStationDisplayUI.instance.UpdateResearchDisplay();
 
@@ -79,8 +81,10 @@ public class ResearchStationResearchSlot : MonoBehaviour
             int t = PlayerInformation.instance.playerInventory.GetStock(item.Name);
             if (t < item.ResearchRecipes[index].RecipeRevealAmount)
             {
-            string plural = item.ResearchRecipes[index].RecipeRevealAmount - t == 1 ? "" : "'s";
-            NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.Name}{plural} missing", NotificationManager.NotificationType.Warning);
+                //string plural = item.ResearchRecipes[index].RecipeRevealAmount - t == 1 ? "" : "'s";
+                Notifications.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Warning);
+
+                //NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.Name}{plural} missing", NotificationManager.NotificationType.Warning);
                 return false;
             }
 

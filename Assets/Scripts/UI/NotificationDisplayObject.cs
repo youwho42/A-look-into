@@ -10,44 +10,52 @@ public class NotificationDisplayObject : MonoBehaviour
     public Image image;
     public Image notificationImage;
 
-    public Notification currentNotification;
+    //public Notification currentNotification;
     public BaseNotification notification;
     NotificationTypeColor currentTypeColor;
+    float maxDisplayTime = 3f;
+    float maxFadeTime = 0.5f;
 
-    public void SetDisplay(string text, Color color, Sprite sprite)
-    {
-        displayText.text = text;
-        image.color = color;
-        notificationImage.sprite = sprite;
-    }
-    public void SetDisplay(BaseNotificationType notificationType, Notification notification)
-    {
-        currentNotification = notification;
-        switch (notificationType.notificationType)
-        {
-            case NotificationType.Inventory:
-                break;
+    CanvasGroup displayGroup;
 
-            case NotificationType.Compendium:
-                SetCompendiumDisplay(notificationType, notification);
-                break;
+ 
 
-            case NotificationType.Undertaking:
-                SetUndertakingDisplay(notificationType, notification);
-                break;
+    //IEnumerator displayEnumerator;
+    //public void SetDisplay(string text, Color color, Sprite sprite)
+    //{
+    //    displayText.text = text;
+    //    image.color = color;
+    //    notificationImage.sprite = sprite;
+    //}
+    //public void SetDisplay(BaseNotificationType notificationType, Notification notification)
+    //{
+    //    currentNotification = notification;
+    //    switch (notificationType.notificationType)
+    //    {
+    //        case NotificationType.Inventory:
+    //            break;
 
-            case NotificationType.Agency:
-                break;
+    //        case NotificationType.Compendium:
+    //            SetCompendiumDisplay(notificationType, notification);
+    //            break;
 
-            case NotificationType.Warning:
-                break;
+    //        case NotificationType.Undertaking:
+    //            SetUndertakingDisplay(notificationType, notification);
+    //            break;
 
-        }
-       
-    }
+    //        case NotificationType.Agency:
+    //            break;
+
+    //        case NotificationType.Warning:
+    //            break;
+
+    //    }
+
+    //}
 
     public void SetDisplay(BaseNotification note, NotificationTypeColor typeColor)
     {
+        displayGroup = GetComponent<CanvasGroup>();
         notification = note;
         currentTypeColor = typeColor;
         string text = "";
@@ -55,48 +63,58 @@ public class NotificationDisplayObject : MonoBehaviour
         {
             
             case NotificationsType.Compendium:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.Inventory:
                 text = $"{notification.itemData.localizedName.GetLocalizedString()} {note.quantity}";
                 UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.Warning:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.Undertaking:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.Agency:
+                text = $"<sprite name=\"Agency\"> {note.quantity}";
+                UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.None:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
                 break;
             
         }
 
     }
 
-    public void SetCompendiumDisplay(BaseNotificationType notificationType, Notification notification)
-    {
-        string item = "";
-        if (notification.itemData != null)
-            item = notification.itemData.Name;
-        else if (notification.itemRecipe != null)
-            item = $"{notification.itemRecipe.Name} recipe";
+    //public void SetCompendiumDisplay(BaseNotificationType notificationType, Notification notification)
+    //{
+    //    string item = "";
+    //    if (notification.itemData != null)
+    //        item = notification.itemData.Name;
+    //    else if (notification.itemRecipe != null)
+    //        item = $"{notification.itemRecipe.Name} recipe";
 
-        UpdateDisplay(notificationType, $"{item} added");
+    //    UpdateDisplay(notificationType, $"{item} added");
         
-    }
-    public void SetUndertakingDisplay(BaseNotificationType notificationType, Notification notification)
-    {
-        string state = notification.undertakingObject.CurrentState.ToString();
+    //}
+    //public void SetUndertakingDisplay(BaseNotificationType notificationType, Notification notification)
+    //{
+    //    string state = notification.undertakingObject.CurrentState.ToString();
 
-        UpdateDisplay(notificationType, $"{notification.undertakingObject.Name} Undertaking {notification.undertakingObject.CurrentState}");
+    //    UpdateDisplay(notificationType, $"{notification.undertakingObject.Name} Undertaking {notification.undertakingObject.CurrentState}");
 
         
-    }
+    //}
 
-    public void SetInventoryDisplay(BaseNotificationType notificationType, Notification notification)
-    {
+    //public void SetInventoryDisplay(BaseNotificationType notificationType, Notification notification)
+    //{
 
-    }
+    //}
 
     public void UpdateNotification(int additionalAmount)
     {
@@ -104,20 +122,41 @@ public class NotificationDisplayObject : MonoBehaviour
         SetDisplay(notification, currentTypeColor);
     }
 
-    void UpdateDisplay(BaseNotificationType notificationType, string notificationText)
-    {
-        image.color = notificationType.notificationColor;
-        notificationImage.sprite = notificationType.notificationIcon;
-        displayText.text = notificationText;
-    }
+    //void UpdateDisplay(BaseNotificationType notificationType, string notificationText)
+    //{
+    //    image.color = notificationType.notificationColor;
+    //    notificationImage.sprite = notificationType.notificationIcon;
+    //    displayText.text = notificationText;
+    //}
 
     void UpdateDisplay(NotificationTypeColor notificationType, string notificationText)
     {
+        displayGroup.alpha = 1;
         image.color = notificationType.color;
         notificationImage.sprite = notificationType.sprite;
         displayText.color= notificationType.textColor;
         displayText.text = notificationText;
+        StopCoroutine("DisplayCo");
+        StartCoroutine("DisplayCo");
     }
 
-    
+    IEnumerator DisplayCo()
+    {
+        float dt = 0;
+        while (dt < maxDisplayTime)
+        {
+            dt += Time.deltaTime;
+            yield return null;
+
+        }
+        float t = 0;
+        while (t < maxFadeTime)
+        {
+            t += Time.deltaTime;
+            displayGroup.alpha = Mathf.Lerp(1.0f, 0f, t / maxFadeTime);
+            yield return null;
+        }
+        gameObject.SetActive(false);
+        Notifications.instance.currentNotificationCount--;
+    }
 }

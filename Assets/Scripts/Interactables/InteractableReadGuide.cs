@@ -31,7 +31,8 @@ public class InteractableReadGuide : Interactable
         if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(readableItem))
         {
             PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(readableItem);
-            NotificationManager.instance.SetNewNotification($"{readableItem.Name} guide found", NotificationManager.NotificationType.Compendium);
+            Notifications.instance.SetNewNotification($"{readableItem.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+            //NotificationManager.instance.SetNewNotification($"{readableItem.Name} guide found", NotificationManager.NotificationType.Compendium);
             GameEventManager.onGuideCompediumUpdateEvent.Invoke();
         }
 

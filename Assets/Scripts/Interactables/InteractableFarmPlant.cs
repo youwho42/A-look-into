@@ -38,8 +38,8 @@ public class InteractableFarmPlant : Interactable
             int amount = pickUpItem.GetAmount(item.amountVariance, item.minMaxAmount);
             if (PlayerInformation.instance.playerInventory.AddItem(item.harvestedItem, amount, false))
             {
-                
-                NotificationManager.instance.SetNewNotification($"{item.harvestedItem.Name} {amount}", NotificationManager.NotificationType.Inventory);
+                Notifications.instance.SetNewNotification("", item.harvestedItem, amount, NotificationsType.Inventory);
+                //NotificationManager.instance.SetNewNotification($"{item.harvestedItem.Name} {amount}", NotificationManager.NotificationType.Inventory);
             }
             else
             {

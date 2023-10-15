@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization.Settings;
 
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/Equipment Item/GathererItem", fileName = "New Gatherer Item")]
 public class EquipmentGatherData : EquipmentData
@@ -159,14 +160,16 @@ public class EquipmentGatherData : EquipmentData
                         if (none)
                         {
                             PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-                            NotificationManager.instance.SetNewNotification($"You cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.", NotificationManager.NotificationType.Warning);
+                            //NotificationManager.instance.SetNewNotification($"You cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.", NotificationManager.NotificationType.Warning);
                         }
                         
                     }
                     else
                     {
                         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-                        NotificationManager.instance.SetNewNotification($"You already harvested from this object today.", NotificationManager.NotificationType.Warning);
+                        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Already Harvested"), null, 0, NotificationsType.Warning);
+
+                        //NotificationManager.instance.SetNewNotification($"You already harvested from this object today.", NotificationManager.NotificationType.Warning);
 
                     }
                 }
@@ -183,7 +186,9 @@ public class EquipmentGatherData : EquipmentData
             return true;
         }
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-        NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to do this.");
+        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
+
+        //NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to do this.");
         return false;
     }
 }

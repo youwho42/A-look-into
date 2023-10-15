@@ -108,7 +108,9 @@ public class InteractableTempleStation : Interactable
         if (agency >= agencyCost)
             return true;
 
-        NotificationManager.instance.SetNewNotification($"{agencyCost} Agency needed", NotificationManager.NotificationType.Warning);
+        Notifications.instance.SetNewNotification($"{agencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
+
+        //NotificationManager.instance.SetNewNotification($"{agencyCost} Agency needed", NotificationManager.NotificationType.Warning);
         return false;
     }
 

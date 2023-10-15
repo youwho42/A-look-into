@@ -46,7 +46,7 @@ public class InteractablePickUp : Interactable
                 obj.ShowObjects(true);
             
             Notifications.instance.SetNewNotification("", pickUpItem, pickupQuantity, NotificationsType.Inventory);
-            NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
+            //NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
             Destroy(gameObject);
 
         }

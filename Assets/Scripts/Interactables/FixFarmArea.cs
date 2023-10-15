@@ -4,6 +4,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class FixFarmArea : MonoBehaviour, IFixArea
 {
@@ -20,7 +21,9 @@ public class FixFarmArea : MonoBehaviour, IFixArea
         {
             if (undertakingObject.undertaking.CurrentState != UndertakingState.Active)
             {
-                NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
+                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Unavailable"), null, 0, NotificationsType.Warning);
+
+                //NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
                 return false;
             }
         }
@@ -56,7 +59,9 @@ public class FixFarmArea : MonoBehaviour, IFixArea
         foreach (var ingredient in ingredients)
         {
             PlayerInformation.instance.playerInventory.RemoveItem(ingredient.item.Name, ingredient.amount);
-            NotificationManager.instance.SetNewNotification($"{ingredient.amount} {ingredient.item.Name} removed", NotificationManager.NotificationType.Inventory);
+            Notifications.instance.SetNewNotification("", ingredient.item, -ingredient.amount, NotificationsType.Inventory);
+
+            //NotificationManager.instance.SetNewNotification($"{ingredient.amount} {ingredient.item.Name} removed", NotificationManager.NotificationType.Inventory);
 
         }
     }

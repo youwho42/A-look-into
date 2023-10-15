@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class Interactable : MonoBehaviour
 {
@@ -64,8 +65,10 @@ public class Interactable : MonoBehaviour
             PlayerInformation.instance.playerStats.RemoveFromBounce(bounceCost);
             return true;
         }
-        
-        NotificationManager.instance.SetNewNotification("You are missing Bounce to do this.", NotificationManager.NotificationType.Warning);
+
+        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
+
+        //NotificationManager.instance.SetNewNotification("You are missing Bounce to do this.", NotificationManager.NotificationType.Warning);
         return false;
     }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class InteractableContainer : Interactable
 {
@@ -45,7 +46,7 @@ public class InteractableContainer : Interactable
 
         if (inventory.Stacks.Count > 0)
         {
-            NotificationManager.instance.SetNewNotification("Container must be empty to pick up.", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Container pick up"), null, 0, NotificationsType.Warning);
             return;
         }
         else
@@ -58,6 +59,8 @@ public class InteractableContainer : Interactable
         var item = GetComponent<QI_Item>().Data;
         if(PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
         {
+            Notifications.instance.SetNewNotification("", item, 1, NotificationsType.Inventory);
+
             Destroy(gameObject);
         }
         

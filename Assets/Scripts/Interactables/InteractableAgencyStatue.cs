@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class InteractableAgencyStatue : Interactable
 {
@@ -65,7 +66,7 @@ public class InteractableAgencyStatue : Interactable
         if (!hasBeenActivated && PlayerInformation.instance.playerInventory.CheckInventoryHasSpace(agencyItem))
             StartCoroutine(InteractCo(interactor));
         else
-            NotificationManager.instance.SetNewNotification("Inventory full", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
     }
 
     IEnumerator InteractCo(GameObject interactor)
@@ -113,7 +114,8 @@ public class InteractableAgencyStatue : Interactable
         }
         
         PlayerInformation.instance.playerInventory.AddItem(agencyItem, agencyAmount, false);
-        NotificationManager.instance.SetNewNotification($"{agencyItem.Name} {agencyAmount}", NotificationManager.NotificationType.Inventory);
+        Notifications.instance.SetNewNotification("", agencyItem, agencyAmount, NotificationsType.Agency);
+        //NotificationManager.instance.SetNewNotification($"{agencyItem.Name} {agencyAmount}", NotificationManager.NotificationType.Inventory);
     }
 
     public void SetMaterialColor(float intensity)

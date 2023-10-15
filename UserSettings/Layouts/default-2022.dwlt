@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1728
     height: 1021
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 15802
+  controlID: 7914
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 15803
+  controlID: 7705
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 15804
+  controlID: 7706
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SceneView
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -189,9 +189,9 @@ MonoBehaviour:
     y: 0
     width: 937
     height: 719
-  m_MinSize: {x: 101, y: 121}
+  m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
@@ -201,8 +201,8 @@ MonoBehaviour:
   - {fileID: 16}
   - {fileID: 22}
   - {fileID: 23}
-  m_Selected: 0
-  m_LastSelected: 5
+  m_Selected: 5
+  m_LastSelected: 6
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 16022
+  controlID: 7866
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 16080
+  controlID: 7915
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -378,8 +378,8 @@ MonoBehaviour:
     y: 110
     width: 527
     height: 861
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 30}
   m_Panes:
   - {fileID: 30}
@@ -407,8 +407,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 19
+    x: 1941
+    y: 81
     width: 936
     height: 698
   m_SerializedDataModeController:
@@ -454,7 +454,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -1034,8 +1034,9 @@ MonoBehaviour:
   m_MipLevel: 0
   m_Zoom: -1
   m_ScrollPosition: {x: 0, y: 0}
-  m_SelectedObject: {fileID: 0}
-  m_SelectedSpriteRectGUID: 00000000000000000000000000000000
+  m_SelectedObject: {fileID: 2290513759952256582, guid: 75c868acf0142de4da24e9766252b308,
+    type: 3}
+  m_SelectedSpriteRectGUID: 5e97eb03825dee720800000000000000
   m_LastUsedModuleTypeName: UnityEditor.U2D.Sprites.SpriteFrameModule
 --- !u!114 &20
 MonoBehaviour:
@@ -2161,7 +2162,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1928
+    x: 1941
     y: 81
     width: 936
     height: 698
@@ -2212,10 +2213,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 180}
-      m_SelectedIDs: f29a0000
-      m_LastClickedID: 39666
-      m_ExpandedIDs: f6fafffff4ffffff908e000008950000f29a0000
+      scrollPos: {x: 0, y: 60}
+      m_SelectedIDs: 82a60000
+      m_LastClickedID: 0
+      m_ExpandedIDs: f6faffff888e0000a497000044990000809a0000a29a0000f49a0000129b0000749c00008a9e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2311,7 +2312,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 39666
+  m_LastSelectedObjectID: 39668
 --- !u!114 &27
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -2393,7 +2394,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Sprites/UI
+    - Assets/Prefabs/WorldObjects
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -2401,16 +2402,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Sprites/UI
+  - Assets/Prefabs/WorldObjects
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Julian\Documents\Unity\a-look-into
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 1573}
-    m_SelectedIDs: 363e0200
-    m_LastClickedID: 146998
-    m_ExpandedIDs: 00000000103b0200123b0200143b0200163b0200183b02001a3b02001c3b02001e3b0200203b0200223b0200243b0200263b0200283b02002a3b02002c3b02002e3b0200303b0200323b0200343b0200363b0200383b02003a3b02003c3b02003e3b0200403b0200423b0200da3d0200263e0200ffffff7f
+    scrollPos: {x: 0, y: 561}
+    m_SelectedIDs: e03d0200
+    m_LastClickedID: 146912
+    m_ExpandedIDs: 00000000183b02001a3b02001c3b02001e3b0200203b0200223b0200243b0200263b0200283b02002a3b02002c3b02002e3b0200303b0200323b0200363b0200383b02003a3b02003c3b02003e3b0200403b0200423b0200443b0200463b0200483b02004a3b02004c3b02004e3b0200ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2438,7 +2439,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000103b0200123b0200143b0200163b0200183b02001a3b02001c3b02001e3b0200203b0200223b0200243b0200263b0200283b02002a3b02002c3b02002e3b0200303b0200323b0200343b0200363b0200383b02003a3b02003c3b02003e3b0200403b0200423b0200da3d0200263e0200ffffff7f
+    m_ExpandedIDs: 00000000183b02001a3b02001c3b02001e3b0200203b0200223b0200243b0200263b0200283b02002a3b02002c3b02002e3b0200303b0200323b0200363b0200383b02003a3b02003c3b02003e3b0200403b0200423b0200443b0200463b0200483b02004a3b02004c3b02004e3b0200ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2490,7 +2491,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 418}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 189

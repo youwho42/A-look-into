@@ -54,7 +54,9 @@ public class Campfire : Interactable
         base.LongInteract(interactor);
         if (isLit)
         {
-            NotificationManager.instance.SetNewNotification("You might want to put that fire out, no?", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Fire pick up"), null, 0, NotificationsType.Warning);
+
+            //NotificationManager.instance.SetNewNotification("You might want to put that fire out, no?", NotificationManager.NotificationType.Warning);
             return;
         }
 

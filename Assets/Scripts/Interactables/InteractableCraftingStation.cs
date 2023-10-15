@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class InteractableCraftingStation : Interactable
 {
@@ -44,12 +45,14 @@ public class InteractableCraftingStation : Interactable
 
         if (selfInventory.Stacks.Count > 0)
         {
-            NotificationManager.instance.SetNewNotification("Container must be empty to pick up.", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Container pick up"), null, 0, NotificationsType.Warning);
             return;
         }
         else if (craftingHandler.Queues.Count > 0)
         {
-            NotificationManager.instance.SetNewNotification("Must not be crafting to pick up.", NotificationManager.NotificationType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Crafting pick up"), null, 0, NotificationsType.Warning);
+
+            //NotificationManager.instance.SetNewNotification("Must not be crafting to pick up.", NotificationManager.NotificationType.Warning);
             return;
         }
         else

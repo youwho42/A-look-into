@@ -118,7 +118,9 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         {
             currentAttemptHits++;
             PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
-            NotificationManager.instance.SetNewNotification(item.Name, NotificationManager.NotificationType.Inventory);
+            Notifications.instance.SetNewNotification("", item, 1, NotificationsType.Inventory);
+
+            //NotificationManager.instance.SetNewNotification(item.Name, NotificationManager.NotificationType.Inventory);
             PlaySound(0);
             StartCoroutine(GlowOn(15));
         }

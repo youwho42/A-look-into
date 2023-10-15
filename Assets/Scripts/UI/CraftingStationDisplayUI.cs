@@ -195,7 +195,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
             return true;
 
 
-        NotificationManager.instance.SetNewNotification($"{craftableItem.AgencyCost} Agency needed", NotificationManager.NotificationType.Warning);
+        Notifications.instance.SetNewNotification($"{craftableItem.AgencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
         return false;
     }
 

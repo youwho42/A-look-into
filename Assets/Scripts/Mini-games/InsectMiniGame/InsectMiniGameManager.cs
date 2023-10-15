@@ -141,7 +141,9 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                 PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
                 PlayerInformation.instance.playerStats.AddToAgency(20);
                 GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
-                NotificationManager.instance.SetNewNotification($"{animal.Name} found", NotificationManager.NotificationType.Compendium);
+                Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+
+                //NotificationManager.instance.SetNewNotification($"{animal.Name} found", NotificationManager.NotificationType.Compendium);
             }
             
             // Add animal to compendium information
@@ -160,7 +162,9 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                     {
                         PlayerInformation.instance.playerStats.AddToAgency(animal.ResearchRecipes[i].AgencyReward);
                         PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe);
-                        NotificationManager.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
+                        Notifications.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+
+                        //NotificationManager.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
                     }
                 }
             }
