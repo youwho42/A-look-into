@@ -2,6 +2,8 @@ using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Klaxon.Interactable;
+
 
 public class PlantingArea : MonoBehaviour
 {

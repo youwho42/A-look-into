@@ -20,38 +20,7 @@ public class NotificationDisplayObject : MonoBehaviour
 
  
 
-    //IEnumerator displayEnumerator;
-    //public void SetDisplay(string text, Color color, Sprite sprite)
-    //{
-    //    displayText.text = text;
-    //    image.color = color;
-    //    notificationImage.sprite = sprite;
-    //}
-    //public void SetDisplay(BaseNotificationType notificationType, Notification notification)
-    //{
-    //    currentNotification = notification;
-    //    switch (notificationType.notificationType)
-    //    {
-    //        case NotificationType.Inventory:
-    //            break;
-
-    //        case NotificationType.Compendium:
-    //            SetCompendiumDisplay(notificationType, notification);
-    //            break;
-
-    //        case NotificationType.Undertaking:
-    //            SetUndertakingDisplay(notificationType, notification);
-    //            break;
-
-    //        case NotificationType.Agency:
-    //            break;
-
-    //        case NotificationType.Warning:
-    //            break;
-
-    //    }
-
-    //}
+    
 
     public void SetDisplay(BaseNotification note, NotificationTypeColor typeColor)
     {
@@ -70,16 +39,20 @@ public class NotificationDisplayObject : MonoBehaviour
                 text = $"{notification.itemData.localizedName.GetLocalizedString()} {note.quantity}";
                 UpdateDisplay(currentTypeColor, text);
                 break;
-            case NotificationsType.Warning:
-                text = $"{notification.notificationText}";
-                UpdateDisplay(currentTypeColor, text);
-                break;
-            case NotificationsType.Undertaking:
-                text = $"{notification.notificationText}";
-                UpdateDisplay(currentTypeColor, text);
-                break;
             case NotificationsType.Agency:
                 text = $"<sprite name=\"Agency\"> {note.quantity}";
+                UpdateDisplay(currentTypeColor, text);
+                break;
+            case NotificationsType.UndertakingStart:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
+                break;
+            case NotificationsType.UndertakingComplete:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
+                break;
+            case NotificationsType.Warning:
+                text = $"{notification.notificationText}";
                 UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.None:
@@ -91,30 +64,7 @@ public class NotificationDisplayObject : MonoBehaviour
 
     }
 
-    //public void SetCompendiumDisplay(BaseNotificationType notificationType, Notification notification)
-    //{
-    //    string item = "";
-    //    if (notification.itemData != null)
-    //        item = notification.itemData.Name;
-    //    else if (notification.itemRecipe != null)
-    //        item = $"{notification.itemRecipe.Name} recipe";
-
-    //    UpdateDisplay(notificationType, $"{item} added");
-        
-    //}
-    //public void SetUndertakingDisplay(BaseNotificationType notificationType, Notification notification)
-    //{
-    //    string state = notification.undertakingObject.CurrentState.ToString();
-
-    //    UpdateDisplay(notificationType, $"{notification.undertakingObject.Name} Undertaking {notification.undertakingObject.CurrentState}");
-
-        
-    //}
-
-    //public void SetInventoryDisplay(BaseNotificationType notificationType, Notification notification)
-    //{
-
-    //}
+    
 
     public void UpdateNotification(int additionalAmount)
     {
@@ -122,13 +72,7 @@ public class NotificationDisplayObject : MonoBehaviour
         SetDisplay(notification, currentTypeColor);
     }
 
-    //void UpdateDisplay(BaseNotificationType notificationType, string notificationText)
-    //{
-    //    image.color = notificationType.notificationColor;
-    //    notificationImage.sprite = notificationType.notificationIcon;
-    //    displayText.text = notificationText;
-    //}
-
+    
     void UpdateDisplay(NotificationTypeColor notificationType, string notificationText)
     {
         displayGroup.alpha = 1;
@@ -142,6 +86,8 @@ public class NotificationDisplayObject : MonoBehaviour
 
     IEnumerator DisplayCo()
     {
+        //var obj = image.GetComponent<RectTransform>();
+        //StartCoroutine(ShakeIcon(obj, obj.anchoredPosition, 0.5f));
         float dt = 0;
         while (dt < maxDisplayTime)
         {
@@ -159,4 +105,30 @@ public class NotificationDisplayObject : MonoBehaviour
         gameObject.SetActive(false);
         Notifications.instance.currentNotificationCount--;
     }
+
+    IEnumerator ShakeIcon(RectTransform statObject, Vector2 originalPos, float diff)
+    {
+
+        float shakeAmount = 0.7f;
+        //float shakeTime = 0.1f;
+        float decreaseFactor = 1.0f;
+        float shakeDistance = 4f;
+
+
+        float currentShakeAmount = shakeAmount;
+
+        var shakeDuration = diff;
+        while (shakeDuration > 0)
+        {
+            statObject.anchoredPosition = originalPos + new Vector2(Random.Range(-shakeDistance, shakeDistance), Random.Range(-shakeDistance, shakeDistance)) * currentShakeAmount;
+
+            shakeDuration -= Time.deltaTime * decreaseFactor;
+            currentShakeAmount = Mathf.Lerp(currentShakeAmount, 0, Time.deltaTime * decreaseFactor);
+
+            yield return null;
+        }
+
+        statObject.anchoredPosition = originalPos;
+    }
+
 }

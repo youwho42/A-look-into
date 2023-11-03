@@ -35,7 +35,6 @@ RectTransform:
   - {fileID: 5278250375578632900}
   - {fileID: 2548811209584918826}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -95,6 +94,11 @@ MonoBehaviour:
   displayText: {fileID: 4190195960618327396}
   image: {fileID: 452369270741925570}
   notificationImage: {fileID: 1238536029051970665}
+  notification:
+    type: 0
+    itemData: {fileID: 0}
+    quantity: 0
+    notificationText: 
 --- !u!225 &7107236298887244109
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -138,7 +142,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4009633011316628036}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -214,7 +217,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4009633011316628036}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -249,7 +251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Crafting Station Guide Added
+  m_text: 'Crafting Station Guide Added '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0aa83a6efdfd6b946821e946144a7518, type: 2}
   m_sharedMaterial: {fileID: 3807629882853483367, guid: 0aa83a6efdfd6b946821e946144a7518,
@@ -277,13 +279,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
+  m_fontSize: 9.8
   m_fontSizeBase: 10
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 0.01
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535

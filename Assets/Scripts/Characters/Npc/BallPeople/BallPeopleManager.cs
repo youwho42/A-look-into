@@ -1,3 +1,4 @@
+using Klaxon.Interactable;
 using Klaxon.SAP;
 using Klaxon.SaveSystem;
 using Klaxon.UndertakingSystem;

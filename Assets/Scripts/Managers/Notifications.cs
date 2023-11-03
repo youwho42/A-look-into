@@ -19,9 +19,10 @@ public enum NotificationsType
 {
     Compendium,
     Inventory,
-    Warning,
-    Undertaking,
     Agency,
+    UndertakingStart,
+    UndertakingComplete,
+    Warning,
     None
 }
 

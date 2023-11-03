@@ -14,7 +14,7 @@ public class GlobalShadows : MonoBehaviour
             Destroy(gameObject);
     }
 
-    
+    RealTimeDayNightCycle dayNightCycle;
 
     public Vector3 shadowRotation { get; private set; }
     public Vector3 shadowScale { get; private set; }
@@ -23,6 +23,8 @@ public class GlobalShadows : MonoBehaviour
 
     private IEnumerator Start()
     {
+        dayNightCycle = RealTimeDayNightCycle.instance;
+
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         yield return new WaitForSeconds(0.5f);
         
@@ -39,7 +41,7 @@ public class GlobalShadows : MonoBehaviour
     }
     public bool GetShadowVisible()
     {
-        return RealTimeDayNightCycle.instance.dayState != RealTimeDayNightCycle.DayState.Night;
+        return dayNightCycle.dayState != RealTimeDayNightCycle.DayState.Night;
     }
 
     

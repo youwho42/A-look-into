@@ -433,9 +433,9 @@ MonoBehaviour:
   interactVerb: Check
   localizedInteractVerb:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 4694318318673920
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -454,6 +454,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
   isOpen: 0
   isSquirrelBox: 0
   references:
@@ -792,6 +793,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  replaceObjectOnDrop: {fileID: 4033634133731407011}
   recipeDatabase: {fileID: 11400000, guid: 926a5aa2b30690d40952bb0193d151e6, type: 2}
   selfInventory: {fileID: 7983089396344206566}
   references:
@@ -1262,8 +1264,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4033634133731407011}
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!1 &8339290021182785748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 350820188101534536}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4033634133731407011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8339290021182785748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!4 &9130723163221643684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

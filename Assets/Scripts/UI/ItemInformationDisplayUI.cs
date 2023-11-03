@@ -26,7 +26,7 @@ public class ItemInformationDisplayUI : MonoBehaviour
     public void ShowInformationDisplay(QI_ItemData item)
     {
         itemName.text = item.Name;
-        itemDescription.text = item.Description;
+        //itemDescription.text = item.Description;
         
         Vector2 movePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

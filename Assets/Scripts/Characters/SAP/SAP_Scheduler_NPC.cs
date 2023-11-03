@@ -1,3 +1,4 @@
+using Klaxon.ConversationSystem;
 using Klaxon.GravitySystem;
 using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
@@ -33,7 +34,9 @@ namespace Klaxon.SAP
         int currentGoalTimer = -1;
         [HideInInspector]
         public NavigationNode lastValidNode;
-        bool isTalking;
+        bool inTalkRange;
+        float inTalkRangeTimer;
+        DialogueManagerUI dialogueManager;
 
         [HideInInspector]
         public GravityItemWalk walker;
@@ -54,12 +57,17 @@ namespace Klaxon.SAP
             walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
             sleep = SleepDisplayUI.instance;
+            dialogueManager = DialogueManagerUI.instance;
         }
 
         public void Update()
         {
-            if (isTalking)
+            if (inTalkRange)
+            {
+                TalkRangeTimer();
                 return;
+            }
+                
 
             
             if (currentGoal == -1)
@@ -164,6 +172,31 @@ namespace Klaxon.SAP
         }
 
         
+        void TalkRangeTimer()
+        {
+            if (!dialogueManager.isSpeaking) { 
+                inTalkRangeTimer += Time.deltaTime;
+                if (inTalkRangeTimer >= 5f)
+                {
+                    inTalkRange = false;
+                    inTalkRangeTimer = 0;
+                }
+            }
+            else
+            {
+                if (dialogueManager.currentInteractable.gameObject != gameObject)
+                    inTalkRange = false;
+                inTalkRangeTimer = 0;
+            }
+
+            if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
+            {
+                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
+
+        }
 
 
 
@@ -261,9 +294,7 @@ namespace Klaxon.SAP
 
             if (collision.gameObject.CompareTag("Player"))
             {
-                if (collision.transform.position.z != transform.position.z)
-                    return;
-                isTalking = true;
+                inTalkRange = true;
                 animator.SetFloat(velocityX_hash, 0);
                 walker.currentDir = Vector2.zero;
                 if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
@@ -291,7 +322,7 @@ namespace Klaxon.SAP
             if (collision.gameObject.CompareTag("Player"))
             {
                 
-                isTalking = false;
+                inTalkRange = false;
             }
         }
 

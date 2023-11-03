@@ -3,56 +3,60 @@ using System.Collections.Generic;
 using QuantumTek.QuantumInventory;
 using UnityEngine;
 
-public class InteractableAgencyPickUp : Interactable
+namespace Klaxon.Interactable
 {
-    QI_Item interactableItem;
-
-    
-    
-
-    bool addedToInventory;
-
-    public override void Start()
+    public class InteractableAgencyPickUp : Interactable
     {
-        base.Start();
-        interactableItem = GetComponent<QI_Item>();
-        interactVerb = interactableItem.Data.Name;
-        
-    }
-
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-        
-        StartCoroutine(InteractCo(interactor));
+        QI_Item interactableItem;
 
 
-    }
-
-    IEnumerator InteractCo(GameObject interactor)
-    {
-        interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
-        yield return new WaitForSeconds(0.33f);
-        PlayInteractSound();
-
-        PlayerInformation.instance.playerStats.AddToAgency(agencyReward);
-       
 
 
-        hasInteracted = false;
+        bool addedToInventory;
 
-        WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
-        Destroy(gameObject);
-
-    }
-
-
-    void PlayInteractSound()
-    {
-        if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+        public override void Start()
         {
-            audioManager.PlaySound("PickUp-" + interactSound);
+            base.Start();
+            interactableItem = GetComponent<QI_Item>();
+            interactVerb = interactableItem.Data.Name;
+
         }
+
+        public override void Interact(GameObject interactor)
+        {
+            base.Interact(interactor);
+
+            StartCoroutine(InteractCo(interactor));
+
+
+        }
+
+        IEnumerator InteractCo(GameObject interactor)
+        {
+            interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
+            yield return new WaitForSeconds(0.33f);
+            PlayInteractSound();
+
+            PlayerInformation.instance.playerStats.AddToAgency(agencyReward);
+
+
+
+            hasInteracted = false;
+
+            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
+            Destroy(gameObject);
+
+        }
+
+
+        void PlayInteractSound()
+        {
+            if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+            {
+                audioManager.PlaySound("PickUp-" + interactSound);
+            }
+        }
+
     }
 
 }

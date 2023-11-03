@@ -3,54 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using QuantumTek.QuantumInventory;
 
-public class InteractableReadNote : Interactable
+namespace Klaxon.Interactable
 {
-    public QI_ItemData readableItem;
-
-    public override void Start()
+    public class InteractableReadNote : Interactable
     {
-        base.Start();
+        public QI_ItemData readableItem;
 
-    }
-
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-
-        StartCoroutine(InteractCo(interactor));
-
-
-    }
-
-    IEnumerator InteractCo(GameObject interactor)
-    {
-        interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
-        yield return new WaitForSeconds(0.33f);
-        PlayInteractSound();
-
-        if (!PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Contains(readableItem))
+        public override void Start()
         {
-            PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Add(readableItem);
-            Notifications.instance.SetNewNotification($"{readableItem.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
-            GameEventManager.onNoteCompediumUpdateEvent.Invoke();
+            base.Start();
+
         }
-        
 
-
-        Destroy(gameObject);
-        hasInteracted = false;
-
-        WorldItemManager.instance.RemoveItemFromWorldItemDictionary(readableItem.Name, 1);
-       
-
-
-    }
-
-    void PlayInteractSound()
-    {
-        if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+        public override void Interact(GameObject interactor)
         {
-            audioManager.PlaySound("PickUp-" + interactSound);
+            base.Interact(interactor);
+
+            StartCoroutine(InteractCo(interactor));
+
+
+        }
+
+        IEnumerator InteractCo(GameObject interactor)
+        {
+            interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
+            yield return new WaitForSeconds(0.33f);
+            PlayInteractSound();
+
+            if (!PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Contains(readableItem))
+            {
+                PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Add(readableItem);
+                Notifications.instance.SetNewNotification($"{readableItem.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                GameEventManager.onNoteCompediumUpdateEvent.Invoke();
+            }
+
+
+
+            Destroy(gameObject);
+            hasInteracted = false;
+
+            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(readableItem.Name, 1);
+
+
+
+        }
+
+        void PlayInteractSound()
+        {
+            if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+            {
+                audioManager.PlaySound("PickUp-" + interactSound);
+            }
         }
     }
+
 }

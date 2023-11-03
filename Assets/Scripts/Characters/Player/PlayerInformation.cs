@@ -6,6 +6,7 @@ using UnityEngine.U2D.Animation;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.SmartFormat.Extensions;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
+using Klaxon.StatSystem;
 
 public class PlayerInformation : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class PlayerInformation : MonoBehaviour
     public string playerName { get; private set; }
     StringVariable pName;
     public SpriteResolver playerSpriteResolver;
+    public StatHandler statHandler;
 
     private void Awake()
     {

@@ -38,9 +38,8 @@ namespace Klaxon.UndertakingSystem
             {
                 CurrentState = UndertakingState.Active;
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(this);
-                //NotificationManager.instance.SetNewNotification($"{Name} undertaking started", NotificationManager.NotificationType.Undertaking);
-                //NotificationCenter.instance.SetUndertakingText(this);
-                Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.Undertaking);
+                
+                Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingStart);
                 GameEventManager.onUndertakingsUpdateEvent.Invoke();
             }
         }
@@ -95,9 +94,8 @@ namespace Klaxon.UndertakingSystem
                 player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
             
             CurrentState = UndertakingState.Complete;
-            //NotificationManager.instance.SetNewNotification($"{Name} undertaking completed", NotificationManager.NotificationType.Undertaking);
-            //NotificationCenter.instance.SetUndertakingText(this);
-            Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.Undertaking);
+            
+            Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingComplete);
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
 

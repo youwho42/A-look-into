@@ -1,3 +1,4 @@
+using Klaxon.Interactable;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ public class MerchantTableUI : MonoBehaviour
     void SetQuantitySlider()
     {
 
-        int amount = PlayerInformation.instance.purse.GetPurseAmount() / item.Price;
+        int amount = PlayerInformation.instance.purse.GetPurseAmount() / price;
         amount = Mathf.Clamp(amount, 0, itemQuantity);
         purchaseSlider.maxValue = amount;
         purchaseSlider.value = amount == 0 ? 0 : 1;

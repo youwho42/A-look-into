@@ -12,7 +12,7 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
     }
     public void CheckForObjects()
     {
-        Collider2D coll = GetComponentInChildren<Collider2D>();
+        Collider2D coll = GetComponent<Collider2D>();
         ContactFilter2D filter = new ContactFilter2D().NoFilter();
         
         List<Collider2D> results = new List<Collider2D>();
@@ -33,16 +33,7 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
 
     }
 
-    //void HideObjects()
-    //{
-    //    if(grassObjects.Count > 0)
-    //    {
-    //        foreach (var item in grassObjects)
-    //        {
-    //            item.SetActive(false);
-    //        }
-    //    }
-    //}
+    
     public void ShowObjects(bool showState)
     {
         

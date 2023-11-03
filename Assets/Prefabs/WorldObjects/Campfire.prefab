@@ -5051,7 +5051,6 @@ GameObject:
   - component: {fileID: 5956515340350763639}
   - component: {fileID: 522756923}
   - component: {fileID: 1678774610974919400}
-  - component: {fileID: 8181011660677160059}
   - component: {fileID: -3899742487778839439}
   - component: {fileID: 3393916304729849210}
   - component: {fileID: 4012312534734668365}
@@ -5160,6 +5159,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Light
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   longInteractVerb:
     m_TableReference:
       m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
@@ -5177,6 +5185,7 @@ MonoBehaviour:
   fireAnimation: {fileID: 728350270}
   lightFlicker: {fileID: 1300091588}
   fireFlicker: {fileID: 4012312534734668365}
+  replaceObjectOnDrop: {fileID: 8912352739002934740}
   isLit: 0
   sound:
     clips:
@@ -5190,19 +5199,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &8181011660677160059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9201185386304742779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grassObjects: []
 --- !u!114 &-3899742487778839439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5700,8 +5696,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8912352739002934740}
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!1 &1237512325195705109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7370642073947046025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8912352739002934740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237512325195705109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!4 &2026974592685027941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

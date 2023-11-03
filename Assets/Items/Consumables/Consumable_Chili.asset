@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 3
   AnimationName: 
-  Description: 'A spicy capsicum fruit! '
   Weight: 0.3
   Price: 30
   spawnWeight: 1
@@ -46,6 +45,10 @@ MonoBehaviour:
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  statModifier:
+    StatName: Bounce
+    ModifierAmount: 10
+    ModifierDuration: 10
   attributeModifiers:
   - attributeToModify: Bounce
     amount: 20

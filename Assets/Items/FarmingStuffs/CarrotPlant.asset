@@ -13,9 +13,26 @@ MonoBehaviour:
   m_Name: CarrotPlant
   m_EditorClassIdentifier: 
   Name: Carrot Plant
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 4
   AnimationName: 
-  Description: This should never be in your inventory!
   Weight: 0
   Price: 0
   spawnWeight: 1
@@ -24,13 +41,12 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   harvestedItems:
-  - harvestedItem: {fileID: 11400000, guid: ba23edc22f8420043949c6323ecb1232, type: 2}
+  - harvestedItem: {fileID: 11400000, guid: 2c34b313155638d4f8ef1670b7513e65, type: 2}
     minMaxAmount: {x: 1, y: 1}
     amountVariance:
       serializedVersion: 2
@@ -74,3 +90,6 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  references:
+    version: 2
+    RefIds: []

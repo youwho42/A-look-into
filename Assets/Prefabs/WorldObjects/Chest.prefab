@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 3895996295937873297}
   - component: {fileID: 255031274732785936}
   - component: {fileID: -6500804666801059760}
-  - component: {fileID: 2830053398732432267}
   m_Layer: 13
   m_Name: Chest
   m_TagString: Untagged
@@ -131,6 +130,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  replaceObjectOnDrop: {fileID: 7753344069441805333}
   isOpen: 0
   isSquirrelBox: 0
   references:
@@ -265,19 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2830053398732432267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 169350935358001119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grassObjects: []
 --- !u!1001 &5971419509679480153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,8 +421,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7753344069441805333}
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!1 &2719047634992297669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5971419509679480153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7753344069441805333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719047634992297669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!4 &2933597262524870581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

@@ -4,126 +4,129 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class InteractableTempleStation : Interactable
+namespace Klaxon.Interactable
 {
-    public GameObject purpleRain;
-    public ParticleSystem particleEffect;
-    public List<GameObject> firesToLight = new List<GameObject>();
-    [HideInInspector]
-    public bool isActivated;
-    public Tilemap fissureMap;
-
-    public List<Vector3Int> fissurePositions = new List<Vector3Int>();
-
-    CompleteTaskOnInteraction taskOnInteraction;
-    StartTimelineCutscene timelineCutscene;
-    public override void Start()
+    public class InteractableTempleStation : Interactable
     {
-        base.Start();
-        taskOnInteraction = GetComponent<CompleteTaskOnInteraction>();
-        timelineCutscene = GetComponent<StartTimelineCutscene>();
-    }
+        public GameObject purpleRain;
+        public ParticleSystem particleEffect;
+        public List<GameObject> firesToLight = new List<GameObject>();
+        [HideInInspector]
+        public bool isActivated;
+        public Tilemap fissureMap;
 
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-        if (!isActivated)
+        public List<Vector3Int> fissurePositions = new List<Vector3Int>();
+
+        CompleteTaskOnInteraction taskOnInteraction;
+        StartTimelineCutscene timelineCutscene;
+        public override void Start()
         {
-            if (InteractCostReward())
+            base.Start();
+            taskOnInteraction = GetComponent<CompleteTaskOnInteraction>();
+            timelineCutscene = GetComponent<StartTimelineCutscene>();
+        }
+
+        public override void Interact(GameObject interactor)
+        {
+            base.Interact(interactor);
+            if (!isActivated)
             {
-                
-                //SetTempleFireAndRainStates(true);
-                StartCoroutine(LightFiresCo(true));
+                if (InteractCostReward())
+                {
+
+                    //SetTempleFireAndRainStates(true);
+                    StartCoroutine(LightFiresCo(true));
+                }
             }
-        }
-        
-    }
-
-    IEnumerator LightFiresCo(bool lit)
-    {
-        canInteract = false;
-        isActivated = lit;
-
-        //particle effect
-        particleEffect.Play();
-
-        yield return new WaitForSeconds(1f);
-
-        // Set drops to hide at top
-        var allDrops = purpleRain.GetComponentsInChildren<HideDrop>();
-        foreach (var drop in allDrops)
-        {
-            drop.StartFade();
-        }
-
-        yield return new WaitForSeconds(5f);
-
-        // purple rain stops
-        Destroy(purpleRain);
-
-        // close fissure
-        for (int i = 0; i < fissurePositions.Count; i++)
-        {
-            fissureMap.SetTile(fissurePositions[i], null);
 
         }
 
-        // light flames
-        foreach (var fire in firesToLight)
+        IEnumerator LightFiresCo(bool lit)
         {
-            fire.SetActive(lit);
-        }
+            canInteract = false;
+            isActivated = lit;
 
-        // Complete task/undertaking if there is one
-        if (taskOnInteraction != null)
-            taskOnInteraction.CompleteTask();
+            //particle effect
+            particleEffect.Play();
 
-        // Start cutscene if there is one
-        if (timelineCutscene != null)
-            timelineCutscene.StartTimeline();
-    }
+            yield return new WaitForSeconds(1f);
 
-    public void SetTempleFireAndRainStates(bool lit)
-    {
-        isActivated = lit;
-        canInteract = !lit;
-        foreach (var fire in firesToLight)
-        {
-            fire.SetActive(lit);
-        }
-        if (lit)
-        {
+            // Set drops to hide at top
+            var allDrops = purpleRain.GetComponentsInChildren<HideDrop>();
+            foreach (var drop in allDrops)
+            {
+                drop.StartFade();
+            }
+
+            yield return new WaitForSeconds(5f);
+
+            // purple rain stops
+            Destroy(purpleRain);
+
+            // close fissure
             for (int i = 0; i < fissurePositions.Count; i++)
             {
                 fissureMap.SetTile(fissurePositions[i], null);
+
             }
-            Destroy(purpleRain);
+
+            // light flames
+            foreach (var fire in firesToLight)
+            {
+                fire.SetActive(lit);
+            }
+
+            // Complete task/undertaking if there is one
+            if (taskOnInteraction != null)
+                taskOnInteraction.CompleteTask();
+
+            // Start cutscene if there is one
+            if (timelineCutscene != null)
+                timelineCutscene.StartTimeline();
         }
-            
-    }
 
-    bool InteractCostReward()
-    {
-        float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
-        if (agency >= agencyCost)
-            return true;
-
-        Notifications.instance.SetNewNotification($"{agencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
-
-        //NotificationManager.instance.SetNewNotification($"{agencyCost} Agency needed", NotificationManager.NotificationType.Warning);
-        return false;
-    }
-
-
-    private void OnDrawGizmosSelected()
-    {
-        if (fissurePositions.Count < 0)
-            return;
-
-        for (int i = 0; i < fissurePositions.Count; i++)
+        public void SetTempleFireAndRainStates(bool lit)
         {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(fissureMap.GetCellCenterWorld(fissurePositions[i]), 0.2f);
+            isActivated = lit;
+            canInteract = !lit;
+            foreach (var fire in firesToLight)
+            {
+                fire.SetActive(lit);
+            }
+            if (lit)
+            {
+                for (int i = 0; i < fissurePositions.Count; i++)
+                {
+                    fissureMap.SetTile(fissurePositions[i], null);
+                }
+                Destroy(purpleRain);
+            }
+
         }
-    }
+
+        bool InteractCostReward()
+        {
+            float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+            if (agency >= agencyCost)
+                return true;
+
+            Notifications.instance.SetNewNotification($"{agencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
+
+            //NotificationManager.instance.SetNewNotification($"{agencyCost} Agency needed", NotificationManager.NotificationType.Warning);
+            return false;
+        }
+
+
+        private void OnDrawGizmosSelected()
+        {
+            if (fissurePositions.Count < 0)
+                return;
+
+            for (int i = 0; i < fissurePositions.Count; i++)
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawWireSphere(fissureMap.GetCellCenterWorld(fissurePositions[i]), 0.2f);
+            }
+        }
+    } 
 }

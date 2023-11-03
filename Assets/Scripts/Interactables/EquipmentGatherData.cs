@@ -1,4 +1,5 @@
-﻿using QuantumTek.QuantumInventory;
+﻿using Klaxon.StatSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class EquipmentGatherData : EquipmentData
     public bool oneUse;
 
     public float playerEnergyCost;
-
+    public StatChanger statChanger;
     
 
     public override void UseEquippedItem()
@@ -181,7 +182,7 @@ public class EquipmentGatherData : EquipmentData
     {
         if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
         {
-
+            PlayerInformation.instance.statHandler.ChangeStat(statChanger);
             PlayerInformation.instance.playerStats.RemoveFromBounce(playerEnergyCost);
             return true;
         }

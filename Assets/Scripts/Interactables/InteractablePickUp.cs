@@ -4,83 +4,72 @@ using QuantumTek.QuantumInventory;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
-public class InteractablePickUp : Interactable
+namespace Klaxon.Interactable
 {
-    QI_Item interactableItem;
-    QI_ItemData pickUpItem;
-    QI_Inventory inventoryToAddTo;
-
-    bool addedToInventory;
-    public int pickupQuantity = 1;
-    public override void Start()
+    public class InteractablePickUp : Interactable
     {
-        base.Start();
-        interactableItem = GetComponent<QI_Item>();
-        //interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
-        pickUpItem = interactableItem.Data.pickUpItem == null ? interactableItem.Data : interactableItem.Data.pickUpItem;
-    }
-    public override void SetInteractVerb()
-    {
-        interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
-    }
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-        if(/*InteractCostReward() && */UIScreenManager.instance.canChangeUI)
-            StartCoroutine(InteractCo(interactor));
+        QI_Item interactableItem;
+        QI_ItemData pickUpItem;
+        QI_Inventory inventoryToAddTo;
 
-        
-    }
-
-    IEnumerator InteractCo(GameObject interactor)
-    {
-        interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
-        yield return new WaitForSeconds(0.33f);
-        PlayInteractSound();
-
-        
-        if(PlayerInformation.instance.playerInventory.AddItem(pickUpItem, pickupQuantity, false))
+        bool addedToInventory;
+        public int pickupQuantity = 1;
+        public override void Start()
         {
-            
-            if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
-                obj.ShowObjects(true);
-            
-            Notifications.instance.SetNewNotification("", pickUpItem, pickupQuantity, NotificationsType.Inventory);
-            //NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
-            Destroy(gameObject);
+            base.Start();
+            interactableItem = GetComponent<QI_Item>();
+            //interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
+            pickUpItem = interactableItem.Data.pickUpItem == null ? interactableItem.Data : interactableItem.Data.pickUpItem;
+        }
+        public override void SetInteractVerb()
+        {
+            interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
+        }
+        public override void Interact(GameObject interactor)
+        {
+            base.Interact(interactor);
+            if (/*InteractCostReward() && */UIScreenManager.instance.canChangeUI)
+                StartCoroutine(InteractCo(interactor));
+
 
         }
-            
-        hasInteracted = false;
 
-        WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
-        
-            
-    }
-
-
-
-    //bool InteractCostReward()
-    //{
-    //    if (playerInformation.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
-    //    {
-    //        PlayerInformation.instance.playerStats.AddGameEnergy(gameEnergyReward);
-    //        PlayerInformation.instance.playerStats.RemovePlayerEnergy(playerEnergyCost);
-    //        return true;
-    //    }
-
-    //    NotificationManager.instance.SetNewNotification("You are missing Bounce to pick this up.");
-    //    return false;
-    //}
-
-
-
-    void PlayInteractSound()
-    {
-        if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+        IEnumerator InteractCo(GameObject interactor)
         {
-            audioManager.PlaySound("PickUp-" + interactSound);
-        }
-    }
+            interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
+            yield return new WaitForSeconds(0.33f);
+            PlayInteractSound();
 
+
+            if (PlayerInformation.instance.playerInventory.AddItem(pickUpItem, pickupQuantity, false))
+            {
+
+                if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
+                    obj.ShowObjects(true);
+
+                Notifications.instance.SetNewNotification("", pickUpItem, pickupQuantity, NotificationsType.Inventory);
+                //NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
+                Destroy(gameObject);
+
+            }
+
+            hasInteracted = false;
+
+            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
+
+
+        }
+
+
+
+
+        void PlayInteractSound()
+        {
+            if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+            {
+                audioManager.PlaySound("PickUp-" + interactSound);
+            }
+        }
+
+    } 
 }

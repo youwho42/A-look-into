@@ -6,6 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
+using Klaxon.Interactable;
+
 
 [Serializable]
 public class FixVillageArea

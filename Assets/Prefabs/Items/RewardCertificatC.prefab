@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3993940141931915532}
   - component: {fileID: 3028905092986889510}
   - component: {fileID: 67944884844770456}
-  - component: {fileID: 1879540528}
+  - component: {fileID: 6455351276950456865}
   - component: {fileID: -5433169088697301695}
   - component: {fileID: 8121120471817338951}
   - component: {fileID: -3627907169396618876}
@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 871aee236cdf4634ba16b14e3a6752bf, type: 2}
---- !u!114 &1879540528
+  Data: {fileID: 11400000, guid: a3ea84db874ed5447906779bc3a2789f, type: 2}
+--- !u!114 &6455351276950456865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,16 +147,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2214919984761411202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52dcc3ae942c24389bf688ddfe153b92, type: 3}
+  m_Script: {fileID: 11500000, guid: d6b5d366d6a744d4da6ca613ecbda143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
-  interactVerb: Pick Up
+  interactVerb: whaaAA???
   localizedInteractVerb:
     m_TableReference:
-      m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
+      m_TableCollectionName: GUID:84d27b2870b087a4c943b09f74289e89
     m_TableEntryReference:
-      m_KeyId: 630401795678208
+      m_KeyId: 10650968064
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -175,7 +175,8 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
-  pickupQuantity: 1
+  replaceObjectOnDrop: {fileID: 0}
+  guiseItem: {fileID: 11400000, guid: a3ea84db874ed5447906779bc3a2789f, type: 2}
   references:
     version: 2
     RefIds: []

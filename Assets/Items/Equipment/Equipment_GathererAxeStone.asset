@@ -13,9 +13,26 @@ MonoBehaviour:
   m_Name: Equipment_GathererAxeStone
   m_EditorClassIdentifier: 
   Name: Stone Axe
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 1327054249984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 1331944808448
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 0
   AnimationName: Axe
-  Description: A stone axe that cuts, very badly (not in the better sense)
   Weight: 2
   Price: 5
   spawnWeight: 1
@@ -25,7 +42,6 @@ MonoBehaviour:
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 249755112104138812, guid: 1d3af434289a2d44fbfcc52c0fb0520a,
     type: 3}
-  EquipedItemImage: {fileID: 21300000, guid: aa8749b8b8bb52446be8af6204803388, type: 3}
   MaxStack: 1
   compendiumGuide: {fileID: 11400000, guid: b9687db9beb2471488cf951381e39096, type: 2}
   ResearchRecipes: []
@@ -42,3 +58,7 @@ MonoBehaviour:
   takeSample: 1
   oneUse: 0
   playerEnergyCost: 5
+  statChanger: {fileID: 11400000, guid: 180f100b3ef93f849899c66c572de3b3, type: 2}
+  references:
+    version: 2
+    RefIds: []

@@ -85,13 +85,19 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         {
 
             GameObject newSlot = Instantiate(containerSlot, containerSlotHolder.transform);
-            containerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
+            var s = newSlot.GetComponent<ContainerDisplaySlot>();
+            s.isContainerSlot = true;
+            containerSlots.Add(s);
+
         }
         for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
         {
 
             GameObject newSlot = Instantiate(containerSlot, playerSlotHolder.transform);
-            playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
+            var s = newSlot.GetComponent<ContainerDisplaySlot>();
+            s.isContainerSlot = false;
+            playerSlots.Add(s);
+            
             GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
         }
         

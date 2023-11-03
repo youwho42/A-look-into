@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5518729531771902421}
   - component: {fileID: 5518729531771902420}
+  - component: {fileID: 2148166260611311637}
   m_Layer: 13
   m_Name: BaseFlower_NPG
   m_TagString: Grass
@@ -50,6 +51,41 @@ MonoBehaviour:
   shadowTransform: {fileID: 5518729533234794967}
   shadowSprite: {fileID: 5518729532945011619}
   shadowCaster: {fileID: 0}
+--- !u!58 &2148166260611311637
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0010116659, y: 0.003932245}
+  serializedVersion: 2
+  m_Radius: 0.009060677
 --- !u!1 &5518729532945011621
 GameObject:
   m_ObjectHideFlags: 0

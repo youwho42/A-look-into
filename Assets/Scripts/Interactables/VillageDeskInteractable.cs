@@ -2,51 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VillageDeskInteractable : Interactable
+namespace Klaxon.Interactable
 {
-    FixVillageDesk villageDesk;
-    public bool isOpen;
-
-
-    public override void Start()
+    public class VillageDeskInteractable : Interactable
     {
-        base.Start();
-        villageDesk = GetComponent<FixVillageDesk>();
-    }
+        FixVillageDesk villageDesk;
+        public bool isOpen;
 
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-        if (!isOpen)
+
+        public override void Start()
         {
-            var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-            if (UIScreenManager.instance.CurrentUIScreen() == screen)
+            base.Start();
+            villageDesk = GetComponent<FixVillageDesk>();
+        }
+
+        public override void Interact(GameObject interactor)
+        {
+            base.Interact(interactor);
+            if (!isOpen)
             {
-                OpenVillageDesk();
-                isOpen = true;
+                var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
+                if (UIScreenManager.instance.CurrentUIScreen() == screen)
+                {
+                    OpenVillageDesk();
+                    isOpen = true;
+                }
+
             }
-
+            else
+            {
+                CloseVillageDesk();
+                isOpen = false;
+            }
         }
-        else
+
+        private void OpenVillageDesk()
         {
-            CloseVillageDesk();
-            isOpen = false;
+            UIScreenManager.instance.DisplayScreen(UIScreenType.VillageDesk);
+            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            VillageDeskDisplayUI.instance.ShowUI(villageDesk);
         }
-    }
 
-    private void OpenVillageDesk()
-    {
-        UIScreenManager.instance.DisplayScreen(UIScreenType.VillageDesk);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-        VillageDeskDisplayUI.instance.ShowUI(villageDesk);
-    }
+        private void CloseVillageDesk()
+        {
+            UIScreenManager.instance.HideAllScreens();
+            if (LevelManager.instance.HUDBinary == 1)
+                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            VillageDeskDisplayUI.instance.HideUI();
+        }
 
-    private void CloseVillageDesk()
-    {
-        UIScreenManager.instance.HideAllScreens();
-        if (LevelManager.instance.HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        VillageDeskDisplayUI.instance.HideUI();
     }
 
 }

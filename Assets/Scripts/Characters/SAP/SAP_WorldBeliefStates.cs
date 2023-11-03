@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Klaxon.Interactable;
+
+
 namespace Klaxon.SAP
 {
     public class SAP_WorldBeliefStates : MonoBehaviour

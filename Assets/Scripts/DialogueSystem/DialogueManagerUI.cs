@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Klaxon.Interactable;
+
 
 namespace Klaxon.ConversationSystem
 {
@@ -24,9 +26,9 @@ namespace Klaxon.ConversationSystem
         [HideInInspector]
         public DialogueBranch currentDialogue;
         public GameObject dialoguePanel;
-        InteractableDialogue currentInteractable;
+        public InteractableDialogue currentInteractable;
         int currentIndex;
-        bool isSpeaking;
+        public bool isSpeaking;
 
         private void OnEnable()
         {

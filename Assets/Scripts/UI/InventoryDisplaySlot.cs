@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using Klaxon.SaveSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using Klaxon.Interactable;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {
@@ -121,13 +122,13 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         
         if (itemToDrop.TryGetComponent(out SaveableItemEntity itemDrop))
-        {
             itemDrop.GenerateId();
-        }
-        if (itemToDrop.TryGetComponent(out ReplaceObjectOnItemDrop obj))
-        {
-            obj.CheckForObjects();
-        }
+
+        var replace = itemToDrop.GetComponent<Interactable>().replaceObjectOnDrop;
+        if (replace != null)
+            replace.CheckForObjects();
+        
+        
 
         inventory.RemoveItem(item, 1);
     }

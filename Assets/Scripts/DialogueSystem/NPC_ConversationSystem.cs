@@ -1,6 +1,5 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,8 +7,6 @@ using UnityEngine.Localization;
 
 namespace Klaxon.ConversationSystem
 {
-    
-    
     
     public class NPC_ConversationSystem : MonoBehaviour
     {
@@ -19,9 +16,12 @@ namespace Klaxon.ConversationSystem
         public List<ConversationObject> conversations = new List<ConversationObject>();
         List<ConversationObject> B_Conversations = new List<ConversationObject>();
         List<ConversationObject> U_Conversations = new List<ConversationObject>();
+        SAP_Scheduler_NPC scheduler_NPC;
 
         private void Start()
         {
+            scheduler_NPC = GetComponent<SAP_Scheduler_NPC>();
+
             foreach (var convo in conversations)
             {
                 switch (convo.type)
@@ -40,7 +40,7 @@ namespace Klaxon.ConversationSystem
             DialogueBranch dialogue = null;
             foreach (var convo in U_Conversations)
             {
-                if (convo.Completed)
+                if (convo.Completed || !ConditionalDialogueCheck(convo))
                     continue;
 
                 if (convo.ActivateUndertakingObject && convo.ActivateAtStart)
@@ -89,6 +89,30 @@ namespace Klaxon.ConversationSystem
         void ActivateUndertaking(UndertakingObject undertaking)
         {
             undertaking.ActivateUndertaking();
+        }
+
+        bool ConditionalDialogueCheck(ConversationObject conversation)
+        {
+
+            if(conversation.DialogueCondition.Condition == "" || !conversation.hasCondition)
+                return true;
+
+
+            Dictionary<string, bool> temp = new Dictionary<string, bool>(scheduler_NPC.beliefs);
+            // Combine the two dictionaries without modifying either original dictionary
+            foreach (var kvp in SAP_WorldBeliefStates.instance.worldStates)
+            {
+                temp[kvp.Key] = kvp.Value;
+            }
+            
+            bool state;
+            if (temp.TryGetValue(conversation.DialogueCondition.Condition, out state))
+            {
+                if (conversation.DialogueCondition.State == state)
+                    return true;
+            }
+            
+            return false;
         }
 
     }

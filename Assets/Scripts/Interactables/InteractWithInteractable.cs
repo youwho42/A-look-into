@@ -9,193 +9,197 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 
-public class InteractWithInteractable : MonoBehaviour
+namespace Klaxon.Interactable
 {
-    List<Interactable> currentInteractables = new List<Interactable>();
-    public float interactableRadius;
-    public Vector3 pickupOffset;
-    public LayerMask interactableLayer;
-
-
-    Vector3 canvasOffset;
-    public GravityItemMovementControllerNew playermovement;
-
-
-    public GameObject interactCanvas;
-    public GameObject interactUI;
-    public TextMeshProUGUI interactVerb;
-    public Slider interactSlider;
-    [SerializeField] private InputActionReference holdButton;
-    
-    
-
-    private float currentHoldTime = 0f;
-    public bool isHolding = false;
-
-    private void OnEnable()
+    public class InteractWithInteractable : MonoBehaviour
     {
-        holdButton.action.started += OnHoldButtonPerformed;
-        holdButton.action.canceled += OnHoldButtonCanceled;
-        
-    }
-
-    private void OnDisable()
-    {
-        holdButton.action.started -= OnHoldButtonPerformed;
-        holdButton.action.canceled -= OnHoldButtonCanceled;
-    }
+        List<Interactable> currentInteractables = new List<Interactable>();
+        public float interactableRadius;
+        public Vector3 pickupOffset;
+        public LayerMask interactableLayer;
 
 
+        Vector3 canvasOffset;
+        public GravityItemMovementControllerNew playermovement;
 
 
-    private void Start()
-    {
-        interactSlider.maxValue = InputSystem.settings.defaultHoldTime;
-    }
-
-   
-
-    private void OnHoldButtonPerformed(InputAction.CallbackContext context)
-    {
-
-        isHolding = true;
-    }
-
-    private void OnHoldButtonCanceled(InputAction.CallbackContext context)
-    {
-        isHolding = false;
-        currentHoldTime = 0f;
-        interactSlider.value = currentHoldTime;
-    }
+        public GameObject interactCanvas;
+        public GameObject interactUI;
+        public TextMeshProUGUI interactVerb;
+        public Slider interactSlider;
+        [SerializeField] private InputActionReference holdButton;
 
 
 
-    private void Update()
-    {
-        interactSlider.gameObject.SetActive(false);
-        interactUI.SetActive(false);
+        private float currentHoldTime = 0f;
+        public bool isHolding = false;
 
-        if (PlayerInformation.instance.playerInput.isInUI)
-            return;
-
-        currentInteractables.Clear();
-        Vector3 pickUpPosition = playermovement.facingRight ? transform.position + pickupOffset : transform.position - pickupOffset;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(pickUpPosition, interactableRadius, interactableLayer);
-
-        if (colliders.Length > 0)
+        private void OnEnable()
         {
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].GetComponent<Interactable>() != null)
-                {
-                    if(colliders[i].transform.position.z == transform.position.z)
-                        currentInteractables.Add(colliders[i].gameObject.GetComponent<Interactable>());
-                    
-                }
-            }
-            
+            holdButton.action.started += OnHoldButtonPerformed;
+            holdButton.action.canceled += OnHoldButtonCanceled;
+
         }
 
-        if (isHolding)
+        private void OnDisable()
         {
-            currentHoldTime += Time.deltaTime;
+            holdButton.action.started -= OnHoldButtonPerformed;
+            holdButton.action.canceled -= OnHoldButtonCanceled;
+        }
+
+
+
+
+        private void Start()
+        {
+            interactSlider.maxValue = InputSystem.settings.defaultHoldTime;
+        }
+
+
+
+        private void OnHoldButtonPerformed(InputAction.CallbackContext context)
+        {
+
+            isHolding = true;
+        }
+
+        private void OnHoldButtonCanceled(InputAction.CallbackContext context)
+        {
+            isHolding = false;
+            currentHoldTime = 0f;
             interactSlider.value = currentHoldTime;
         }
 
 
-        DisplayUI();
-    }
 
-    void DisplayUI()
-    {
-        //interactSlider.gameObject.SetActive(false);
-        //interactUI.SetActive(false);
-        
-        if (currentInteractables.Count > 0)
+        private void Update()
         {
-            Interactable closest = GetNearestInteractable(currentInteractables);
+            interactSlider.gameObject.SetActive(false);
+            interactUI.SetActive(false);
 
-            if (closest == null)
+            if (PlayerInformation.instance.playerInput.isInUI)
                 return;
 
-            if (closest.TryGetComponent(out SpriteRenderer renderer))
+            currentInteractables.Clear();
+            Vector3 pickUpPosition = playermovement.facingRight ? transform.position + pickupOffset : transform.position - pickupOffset;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(pickUpPosition, interactableRadius, interactableLayer);
+
+            if (colliders.Length > 0)
             {
-                canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
-            } 
-            else
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    if (colliders[i].GetComponent<Interactable>() != null)
+                    {
+                        if (colliders[i].transform.position.z == transform.position.z)
+                            currentInteractables.Add(colliders[i].gameObject.GetComponent<Interactable>());
+
+                    }
+                }
+
+            }
+
+            if (isHolding)
             {
-                var rend = closest.GetComponentInChildren<SpriteRenderer>();
-                if (rend != null)
-                    canvasOffset = new Vector3(0, rend.bounds.size.y / 2, 1);
+                currentHoldTime += Time.deltaTime;
+                interactSlider.value = currentHoldTime;
+            }
+
+
+            DisplayUI();
+        }
+
+        void DisplayUI()
+        {
+            //interactSlider.gameObject.SetActive(false);
+            //interactUI.SetActive(false);
+
+            if (currentInteractables.Count > 0)
+            {
+                Interactable closest = GetNearestInteractable(currentInteractables);
+
+                if (closest == null)
+                    return;
+
+                if (closest.TryGetComponent(out SpriteRenderer renderer))
+                {
+                    canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
+                }
                 else
-                    canvasOffset = Vector3.forward;
-            }
-            closest.SetInteractVerb();
-            string butt = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
-            string action = $"{butt} {closest.interactVerb}";    
-            interactCanvas.transform.position = closest.transform.position + canvasOffset;
+                {
+                    var rend = closest.GetComponentInChildren<SpriteRenderer>();
+                    if (rend != null)
+                        canvasOffset = new Vector3(0, rend.bounds.size.y / 2, 1);
+                    else
+                        canvasOffset = Vector3.forward;
+                }
+                closest.SetInteractVerb();
+                string butt = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
+                string action = $"{butt} {closest.interactVerb}";
+                interactCanvas.transform.position = closest.transform.position + canvasOffset;
 
-            string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");
-            if (closest.hasLongInteract)
+                string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");
+                if (closest.hasLongInteract)
+                {
+                    action += $"\n {hold} {butt} {closest.longInteractVerb.GetLocalizedString()}";
+                    interactSlider.gameObject.SetActive(true);
+                }
+                interactVerb.text = action;
+
+                interactUI.SetActive(true);
+
+
+            }
+        }
+
+        public void Interact()
+        {
+            if (currentInteractables.Count > 0)
             {
-                action += $"\n {hold} {butt} {closest.longInteractVerb.GetLocalizedString()}";
-                interactSlider.gameObject.SetActive(true);
+                var interactable = GetNearestInteractable(currentInteractables);
+                if (interactable == null)
+                    return;
+                if (interactable.canInteract)
+                    interactable.Interact(gameObject);
             }
-            interactVerb.text = action;
-
-            interactUI.SetActive(true);
-            
-            
         }
-    }
 
-    public void Interact()
-    {
-        if (currentInteractables.Count > 0)
+        public void LongInteract()
         {
-            var interactable = GetNearestInteractable(currentInteractables);
-            if (interactable == null)
-                return;
-            if (interactable.canInteract)
-                interactable.Interact(gameObject);
-        }
-    }
-
-    public void LongInteract()
-    {
-        if (currentInteractables.Count > 0)
-        {
-            var interactable = GetNearestInteractable(currentInteractables);
-            if (interactable.canInteract && interactable.hasLongInteract)
-                interactable.LongInteract(gameObject);
-            
-        }
-    }
-
-    public Interactable GetNearestInteractable(List<Interactable> items)
-    {
-        // Find nearest item.
-        Interactable nearest = null;
-        float distance = 0;
-        
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (!items[i].canInteract)
-                continue;
-            float tempDistance = Vector3.Distance(transform.position, items[i].gameObject.transform.position);
-            if (nearest == null || tempDistance < distance)
+            if (currentInteractables.Count > 0)
             {
-                nearest = items[i];
-                distance = tempDistance;
+                var interactable = GetNearestInteractable(currentInteractables);
+                if (interactable.canInteract && interactable.hasLongInteract)
+                    interactable.LongInteract(gameObject);
+
             }
         }
-        
-        return nearest;
+
+        public Interactable GetNearestInteractable(List<Interactable> items)
+        {
+            // Find nearest item.
+            Interactable nearest = null;
+            float distance = 0;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (!items[i].canInteract)
+                    continue;
+                float tempDistance = Vector3.Distance(transform.position, items[i].gameObject.transform.position);
+                if (nearest == null || tempDistance < distance)
+                {
+                    nearest = items[i];
+                    distance = tempDistance;
+                }
+            }
+
+            return nearest;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position + pickupOffset, interactableRadius);
+        }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position + pickupOffset, interactableRadius);
-    }
 }

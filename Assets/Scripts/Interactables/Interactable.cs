@@ -4,73 +4,78 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
-public class Interactable : MonoBehaviour
+namespace Klaxon.Interactable
 {
-    protected AudioManager audioManager;
-    public string interactSound = "Default";
-    public string interactVerb = "whaaAA???";
-    public LocalizedString localizedInteractVerb;
-    public LocalizedString longInteractVerb;
-
-    public float bounceCost;
-    public float agencyReward;
-    public float agencyCost;
-    public bool canInteract = true;
-
-    protected bool hasInteracted;
-    protected PlayerInformation playerInformation;
-
-    public bool hasLongInteract;
-
-    public virtual void Start()
+    public class Interactable : MonoBehaviour
     {
-        audioManager = AudioManager.instance;
-        playerInformation = PlayerInformation.instance;
-    }
+        protected AudioManager audioManager;
+        public string interactSound = "Default";
+        public string interactVerb = "whaaAA???";
+        public LocalizedString localizedInteractVerb;
+        public LocalizedString longInteractVerb;
 
-    public virtual void SetInteractVerb()
-    {
-        interactVerb = localizedInteractVerb.GetLocalizedString();
-    }
+        public float bounceCost;
+        public float agencyReward;
+        public float agencyCost;
+        public bool canInteract = true;
 
-    public virtual void Interact(GameObject interactor)
-    {
-        if (hasInteracted)
-            return;
+        protected bool hasInteracted;
+        protected PlayerInformation playerInformation;
 
-        
+        public bool hasLongInteract;
 
-        hasInteracted = true;
+        public ReplaceObjectOnItemDrop replaceObjectOnDrop;
 
-        // The rest happens in child script...
-    }
-    public virtual void LongInteract(GameObject interactor)
-    {
-        if (hasInteracted || !hasLongInteract)
-            return;
-
-
-
-        hasInteracted = true;
-
-        // The rest happens in child script...
-    }
-
-
-    public bool InteractBounceCost()
-    {
-        if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= bounceCost)
+        public virtual void Start()
         {
-
-            PlayerInformation.instance.playerStats.RemoveFromBounce(bounceCost);
-            return true;
+            audioManager = AudioManager.instance;
+            playerInformation = PlayerInformation.instance;
         }
 
-        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
+        public virtual void SetInteractVerb()
+        {
+            interactVerb = localizedInteractVerb.GetLocalizedString();
+        }
 
-        //NotificationManager.instance.SetNewNotification("You are missing Bounce to do this.", NotificationManager.NotificationType.Warning);
-        return false;
-    }
+        public virtual void Interact(GameObject interactor)
+        {
+            if (hasInteracted)
+                return;
 
 
+
+            hasInteracted = true;
+
+            // The rest happens in child script...
+        }
+        public virtual void LongInteract(GameObject interactor)
+        {
+            if (hasInteracted || !hasLongInteract)
+                return;
+
+
+
+            hasInteracted = true;
+
+            // The rest happens in child script...
+        }
+
+
+        public bool InteractBounceCost()
+        {
+            if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= bounceCost)
+            {
+
+                PlayerInformation.instance.playerStats.RemoveFromBounce(bounceCost);
+                return true;
+            }
+
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
+
+            //NotificationManager.instance.SetNewNotification("You are missing Bounce to do this.", NotificationManager.NotificationType.Warning);
+            return false;
+        }
+
+
+    } 
 }

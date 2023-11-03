@@ -13,9 +13,26 @@ MonoBehaviour:
   m_Name: Equipment_GathererPickAxeStone
   m_EditorClassIdentifier: 
   Name: Stone Pick Axe
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 2533814231040
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 2535286431744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 0
   AnimationName: Pickaxe
-  Description: A stone pick axe, it pokes rock really hard.
   Weight: 2
   Price: 5
   spawnWeight: 1
@@ -42,3 +59,7 @@ MonoBehaviour:
   takeSample: 1
   oneUse: 0
   playerEnergyCost: 5
+  statChanger: {fileID: 11400000, guid: 180f100b3ef93f849899c66c572de3b3, type: 2}
+  references:
+    version: 2
+    RefIds: []

@@ -50,7 +50,9 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public Button craftButton;
 
-
+    public GameObject containerSlotHolder;
+    public GameObject containerSlot;
+    public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
 
     private void Start()
     {
@@ -75,7 +77,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         if (recipeButtons.Count > 0)
             EventSystem.current.SetSelectedGameObject(recipeButtons[0].GetComponentInChildren<Button>().gameObject);
-        //craftingStationUI.SetActive(true);
+        
     }
 
     public void HideUI()
@@ -83,13 +85,8 @@ public class CraftingStationDisplayUI : MonoBehaviour
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         craftingHandler = null;
-        //craftingStationUI.SetActive(false);
     }
 
-    
-
-    
-    
     public void SetAvailableRecipes()
     {
         ClearRecipeSlots();

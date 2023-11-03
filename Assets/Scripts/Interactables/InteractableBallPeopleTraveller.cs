@@ -5,59 +5,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableBallPeopleTraveller : Interactable
+namespace Klaxon.Interactable
 {
-    public CompleteTaskObject undertaking;
-    //public UndertakingObject undertaking;
-    [HideInInspector]
-    public bool started;
-    public override void Start()
+    public class InteractableBallPeopleTraveller : Interactable
     {
-        base.Start();
-
-    }
-
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-        if (PlayerInformation.instance.uiScreenVisible)
-            return;
-        StartCoroutine(InteractCo(interactor));
-
-
-    }
-
-    IEnumerator InteractCo(GameObject interactor)
-    {
-
-        PlayInteractSound();
-
-        if (!started)
+        public CompleteTaskObject undertaking;
+        //public UndertakingObject undertaking;
+        [HideInInspector]
+        public bool started;
+        public override void Start()
         {
-            undertaking.undertaking.ActivateUndertaking();
-            started = true;
+            base.Start();
+
         }
-        else
+
+        public override void Interact(GameObject interactor)
         {
-            undertaking.undertaking.TryCompleteTask(undertaking.task);
+            base.Interact(interactor);
+            if (PlayerInformation.instance.uiScreenVisible)
+                return;
+            StartCoroutine(InteractCo(interactor));
+
+
         }
-        
-        BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, undertaking.undertaking.CurrentState == UndertakingState.Complete);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-        GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
-        canInteract = false;
-        yield return new WaitForSeconds(0.33f);
-    }
 
-    
-
-    void PlayInteractSound()
-    {
-        if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+        IEnumerator InteractCo(GameObject interactor)
         {
-            audioManager.PlaySound("PickUp-" + interactSound);
+
+            PlayInteractSound();
+
+            if (!started)
+            {
+                undertaking.undertaking.ActivateUndertaking();
+                started = true;
+            }
+            else
+            {
+                undertaking.undertaking.TryCompleteTask(undertaking.task);
+            }
+
+            BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, undertaking.undertaking.CurrentState == UndertakingState.Complete);
+            UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
+            GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
+            canInteract = false;
+            yield return new WaitForSeconds(0.33f);
         }
 
 
-    }
+
+        void PlayInteractSound()
+        {
+            if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+            {
+                audioManager.PlaySound("PickUp-" + interactSound);
+            }
+
+
+        }
+    } 
 }

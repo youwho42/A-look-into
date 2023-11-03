@@ -127,6 +127,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  replaceObjectOnDrop: {fileID: 8125003967965524453}
   isOpen: 0
   isSquirrelBox: 1
   references:
@@ -326,8 +327,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8125003967965524453}
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!1 &316640726468280544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8287096229633780604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8125003967965524453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316640726468280544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!4 &678120841617004944 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

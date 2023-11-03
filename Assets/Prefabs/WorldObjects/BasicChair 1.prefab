@@ -160,6 +160,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 2948045044081655449}
   facingRight: 1
   navigationNode: {fileID: 0}
   references:
@@ -286,8 +287,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2925950814398153594}
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!1 &6034399932977383971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2655786539826454975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2925950814398153594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034399932977383971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!4 &6824002937904993107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,
@@ -415,8 +439,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2948045044081655449}
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!1 &2642249808238393259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6038879867636292663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2948045044081655449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642249808238393259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!4 &3001346183209299675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

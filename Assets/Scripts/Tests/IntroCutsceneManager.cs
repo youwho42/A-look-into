@@ -1,8 +1,7 @@
 
 using Klaxon.SaveSystem;
 using QuantumTek.QuantumInventory;
-using System.Collections;
-using System.Collections.Generic;
+using Klaxon.Interactable;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;

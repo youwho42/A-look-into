@@ -4,6 +4,8 @@ using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Klaxon.Interactable;
+
 
 namespace Klaxon.SAP
 {
@@ -39,7 +41,7 @@ namespace Klaxon.SAP
         List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
 
         [HideInInspector]
-        public Interactable interactor;
+        public Klaxon.Interactable.Interactable interactor;
         [HideInInspector]
         public bool hasInteracted;
         public GameObject arms;
@@ -122,7 +124,7 @@ namespace Klaxon.SAP
             Disolve(true);
             walker.ResetLastPosition();
             
-            interactor = GetComponent<Interactable>();
+            interactor = GetComponent<Interactable.Interactable>();
             SetBeliefState("PlayerClose", true);
             SetBeliefState("FiresLit", false);
 

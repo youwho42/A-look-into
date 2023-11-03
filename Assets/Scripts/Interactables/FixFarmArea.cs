@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using Klaxon.Interactable;
+
 
 public class FixFarmArea : MonoBehaviour, IFixArea
 {

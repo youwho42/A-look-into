@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Klaxon.Interactable;
+
 
 public class NPG_RobotAI : MonoBehaviour
 {

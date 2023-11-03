@@ -5,6 +5,7 @@ using SerializableTypes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Klaxon.Interactable;
 
 namespace Klaxon.SaveSystem
 {

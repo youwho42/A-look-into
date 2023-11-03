@@ -27,6 +27,7 @@ public enum UIScreenType
     VideoScreen,
     MerchantTableScreen,
     VillageDesk,
-    LocalGoods
+    LocalGoods, 
+    GuiseScreen
    
 }

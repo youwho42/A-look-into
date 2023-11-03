@@ -152,13 +152,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Take
-  longInteractVerb: whaaAA???
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
+    m_TableEntryReference:
+      m_KeyId: 630401795678208
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: 0
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
   pickupQuantity: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-3408826983127947495
 MonoBehaviour:
   m_ObjectHideFlags: 0

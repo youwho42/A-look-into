@@ -117,6 +117,7 @@ public class LocalGoodDisplayUI : MonoBehaviour
                 playerSlots[i].containerInventory = containerInventory;
                 playerSlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
                 playerSlots[i].icon.enabled = true;
+                playerSlots[i].isContainerSlot = false;
                 butt.interactable = true;
                 if (validType != ItemType.None && PlayerInformation.instance.playerInventory.Stacks[i].Item.Type != validType)
                     butt.interactable = false;

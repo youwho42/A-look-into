@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Klaxon.Interactable;
+
 
 public class PlayerInputController : MonoBehaviour
 {

@@ -1,7 +1,6 @@
 using Klaxon.UndertakingSystem;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Klaxon.SAP;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -35,6 +34,10 @@ namespace Klaxon.ConversationSystem
         public string DialogueName;
         public ConversationType type;
 
+        public bool hasCondition;
+        [ConditionalHide("hasCondition", true)]
+        public SAP_Condition DialogueCondition;
+
         public bool ActivateAtStart;
         public UndertakingObject ActivateUndertakingObject;
 
@@ -44,6 +47,8 @@ namespace Klaxon.ConversationSystem
         public DialogueBranch[] DialogueBranches;
         [HideInInspector]
         public bool Completed;
+
+
 
         public void ResetConversation()
         {

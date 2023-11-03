@@ -80,7 +80,7 @@ namespace Klaxon.GravitySystem
 
 
                 float s = Mathf.Abs(currentDirection.y) > Mathf.Abs(currentDirection.x) ? flightSpeed * 0.9f : flightSpeed;
-                MoveZ(currentDirectionZ, isLanding ? flightSpeed * 3 : flightSpeed);
+                MoveZ(currentDirectionZ, isLanding ? flightSpeed * 2 : flightSpeed);
                 Move(currentDirection, s);
 
             }
@@ -93,8 +93,13 @@ namespace Klaxon.GravitySystem
             {
                 currentDestinationZ.y = Mathf.Clamp(currentDestinationZ.y, obstacleDisplacement.y, 20);
                 currentDestinationZ.z = Mathf.Clamp(currentDestinationZ.z, obstacleDisplacement.z, 20);
-                if(obstacleDisplacement.z > itemObject.localPosition.z)
-                    currentDestinationZ = obstacleDisplacement;
+
+                if (obstacleDisplacement.z > itemObject.localPosition.z)
+                {
+                    SetDirectionZ();
+                    MoveZ(currentDirectionZ, isLanding ? flightSpeed * 2 : flightSpeed);
+                }
+                    
             }
             else
                 currentDestinationZ = mainDestinationZ;

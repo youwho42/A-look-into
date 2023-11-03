@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Klaxon.Interactable;
+
+
 namespace Klaxon.SAP
 {
     public class SAP_BP_TravellerLightFires : SAP_Action

@@ -64,11 +64,23 @@ namespace Klaxon.SAP
             }
 
             agent.flier.SetDestination(agent.currentDisplacementSpot);
-            if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+            if(agent.flier.currentDestinationZ.z == 0)
             {
-                agent.currentGoalComplete = true;
-                agent.SetBeliefState("Landed", true);
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f)
+                {
+                    agent.currentGoalComplete = true;
+                    agent.SetBeliefState("Landed", true);
+                }
             }
+            else
+            {
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+                {
+                    agent.currentGoalComplete = true;
+                    agent.SetBeliefState("Landed", true);
+                }
+            }
+            
             agent.flier.SetLastPosition();
 
         }

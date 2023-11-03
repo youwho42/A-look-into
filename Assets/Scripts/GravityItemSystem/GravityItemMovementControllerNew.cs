@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Klaxon.GravitySystem
         Vector3 checkPosition;
         Vector3 doubleCheckPosition;
 
+        public StatObject speedStat;
 
         DetectVisibility visibilityCheck;
 
@@ -91,8 +93,7 @@ namespace Klaxon.GravitySystem
 
             if (CanReachNextTile(playerInput.movement))
             {
-                
-                Move(playerInput.movement, (playerInput.isRunning ? runSpeed : walkSpeed));
+                Move(playerInput.movement, (playerInput.isRunning ? runSpeed * speedStat.GetMax() : walkSpeed * speedStat.GetMax()));
             }
 
 

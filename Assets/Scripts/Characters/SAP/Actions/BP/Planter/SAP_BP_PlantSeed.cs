@@ -1,6 +1,5 @@
 using Klaxon.SaveSystem;
-using System.Collections;
-using System.Collections.Generic;
+using Klaxon.Interactable;
 using UnityEngine;
 
 namespace Klaxon.SAP

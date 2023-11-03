@@ -2,45 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableTeleporter : Interactable
+namespace Klaxon.Interactable
 {
-    Teleport teleport;
-    bool isOpen;
-    TeleportDisplayUI teleportUI;
-
-    public override void Start()
+    public class InteractableTeleporter : Interactable
     {
-        base.Start();
-        teleport = GetComponent<Teleport>();
-        teleportUI = TeleportDisplayUI.instance;
-    }
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
+        Teleport teleport;
+        bool isOpen;
+        TeleportDisplayUI teleportUI;
 
-        if (!isOpen)
+        public override void Start()
         {
-            OpenTeleporter();
-            isOpen = true;
+            base.Start();
+            teleport = GetComponent<Teleport>();
+            teleportUI = TeleportDisplayUI.instance;
         }
-        else
+        public override void Interact(GameObject interactor)
         {
-            CloseTeleporter();
-            isOpen = false;
+            base.Interact(interactor);
+
+            if (!isOpen)
+            {
+                OpenTeleporter();
+                isOpen = true;
+            }
+            else
+            {
+                CloseTeleporter();
+                isOpen = false;
+            }
+
+            teleport.SetUpTeleporter(interactor);
+        }
+        private void OpenTeleporter()
+        {
+            UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
+            teleportUI.ShowUI(teleport);
         }
 
-        teleport.SetUpTeleporter(interactor);
-    }
-    private void OpenTeleporter()
-    {
-        UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
-        teleportUI.ShowUI(teleport);
+        private void CloseTeleporter()
+        {
+            UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
+            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            teleportUI.HideUI();
+        }
     }
 
-    private void CloseTeleporter()
-    {
-        UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        teleportUI.HideUI();
-    }
 }

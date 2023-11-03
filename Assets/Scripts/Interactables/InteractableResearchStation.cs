@@ -2,51 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableResearchStation : Interactable
+namespace Klaxon.Interactable
 {
-
-    bool isOpen;
-    //ResearchStationDisplayUI researchDisplay;
-    public override void Start()
+    public class InteractableResearchStation : Interactable
     {
-        base.Start();
-        //researchDisplay = ResearchStationDisplayUI.instance;
-    }
 
-    public override void Interact(GameObject interactor)
-    {
-        base.Interact(interactor);
-        if (!isOpen)
+        bool isOpen;
+        //ResearchStationDisplayUI researchDisplay;
+        public override void Start()
         {
-            var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-            if (UIScreenManager.instance.CurrentUIScreen() == screen)
+            base.Start();
+            //researchDisplay = ResearchStationDisplayUI.instance;
+        }
+
+        public override void Interact(GameObject interactor)
+        {
+            base.Interact(interactor);
+            if (!isOpen)
             {
-                OpenResearch();
-                isOpen = true;
+                var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
+                if (UIScreenManager.instance.CurrentUIScreen() == screen)
+                {
+                    OpenResearch();
+                    isOpen = true;
+                }
+
             }
-            
+            else
+            {
+                CloseResearch();
+                isOpen = false;
+            }
         }
-        else
+
+        private void OpenResearch()
         {
-            CloseResearch();
-            isOpen = false;
+            UIScreenManager.instance.DisplayScreen(UIScreenType.ResearchStationScreen);
+            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            ResearchStationDisplayUI.instance.ShowUI();
         }
-    }
 
-    private void OpenResearch()
-    {
-        UIScreenManager.instance.DisplayScreen(UIScreenType.ResearchStationScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-        ResearchStationDisplayUI.instance.ShowUI();
-    }
+        private void CloseResearch()
+        {
+            UIScreenManager.instance.HideAllScreens();
+            if (LevelManager.instance.HUDBinary == 1)
+                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            ResearchStationDisplayUI.instance.HideUI();
+        }
 
-    private void CloseResearch()
-    {
-        UIScreenManager.instance.HideAllScreens();
-        if (LevelManager.instance.HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        ResearchStationDisplayUI.instance.HideUI();
+
     }
-   
 
 }

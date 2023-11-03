@@ -13,7 +13,25 @@ MonoBehaviour:
   m_Name: OrangeFallLeaf_Debris
   m_EditorClassIdentifier: 
   Name: Orange Fall Leaf Debris
-  Type: 7
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 8
   AnimationName: 
   Description: An orange fall leaf, it's not in your inventory
   Weight: 0.1
@@ -24,8 +42,10 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 11400000, guid: a0122edc16e1d7c48b955fa075be6b1c, type: 2}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  references:
+    version: 2
+    RefIds: []

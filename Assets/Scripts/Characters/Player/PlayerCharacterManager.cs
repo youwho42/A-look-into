@@ -17,7 +17,7 @@ public class PlayerCharacterManager : MonoBehaviour
     }
     public void AddCharacter(string characterName)
     {
-        if(!aquiredCharacters.Contains(characterName))
+        if (!aquiredCharacters.Contains(characterName))
             aquiredCharacters.Add(characterName);
     }
 

@@ -70,7 +70,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
         sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
     }
 
-    IEnumerator ShakeStatUI(RectTransform statObject, Vector2 originalPos, float diff)
+    public IEnumerator ShakeStatUI(RectTransform statObject, Vector2 originalPos, float diff)
     {
         float currentShakeAmount = shakeAmount;
         
