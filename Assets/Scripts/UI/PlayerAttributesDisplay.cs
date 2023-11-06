@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class PlayerAttributesDisplay : MonoBehaviour
 {
     public Slider bounceSlider;
+    public Slider gumptionSlider;
     public TextMeshProUGUI agencyText;
     public TextMeshProUGUI sparksText;
-    public RectTransform bounceUI, agencyUI, sparkUI;
-    Vector2 bouncePos, agencyPos, sparksPos;
+    public RectTransform bounceUI, gumptionUI, agencyUI, sparkUI;
+    Vector2 bouncePos, gumptionPos, agencyPos, sparksPos;
     //PlayerInformation playerInformation;
-    int lastBounce;
+    float lastBounce;
+    float lastGumption;
     int lastAgency;
     int lastSparks;
     float shakeAmount = 0.7f;
@@ -24,6 +26,7 @@ public class PlayerAttributesDisplay : MonoBehaviour
         //playerInformation = PlayerInformation.instance;
         GameEventManager.onStatUpdateEvent.AddListener(UpdateStatsUI);
         bouncePos = bounceUI.anchoredPosition;
+        gumptionPos = gumptionUI.anchoredPosition;
         agencyPos = agencyUI.anchoredPosition;
         sparksPos = sparkUI.anchoredPosition;
     }
@@ -43,15 +46,24 @@ public class PlayerAttributesDisplay : MonoBehaviour
     {
         if (!gameObject.activeSelf)
             return;
-        int newBounce = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
-        int newAgency = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
+        float newMaxBounce = PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("Bounce");
+        float newCurrentBounce = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce");
+        float newMaxGumption = PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("Gumption");
+        float newCurrentGumption = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Gumption");
+        int newAgency = (int)PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("Agency");
         int newSparks = PlayerInformation.instance.purse.GetPurseAmount();
 
-        if(newBounce != lastBounce)
+        if(newCurrentBounce != lastBounce)
         {
-            float diff = Mathf.Abs(newBounce - lastBounce);
-            lastBounce = newBounce;
+            float diff = Mathf.Abs(newCurrentBounce - lastBounce);
+            lastBounce = newCurrentBounce;
             StartCoroutine(ShakeStatUI(bounceUI, bouncePos, diff));
+        }
+        if (newCurrentGumption != lastGumption)
+        {
+            float diff = Mathf.Abs(newCurrentGumption - lastGumption);
+            lastGumption = newCurrentGumption;
+            StartCoroutine(ShakeStatUI(gumptionUI, gumptionPos, diff));
         }
         if (newAgency != lastAgency)
         {
@@ -65,7 +77,10 @@ public class PlayerAttributesDisplay : MonoBehaviour
             lastSparks = newSparks;
             StartCoroutine(ShakeStatUI(sparkUI, sparksPos, diff));
         }
+        bounceSlider.maxValue = newMaxBounce;
         bounceSlider.value = lastBounce;
+        gumptionSlider.maxValue = newMaxGumption;
+        gumptionSlider.value = lastGumption;
         agencyText.text = $"<sprite name=\"Agency\"> {lastAgency}";
         sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
     }

@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d047135f7a7bc5240b95a93dd39cb446, type: 3}
-  m_Name: Speed
+  m_Name: Bounce
   m_EditorClassIdentifier: 
-  Name: Speed
-  MaxAmount: 1
-  CurrentAmount: 0
+  Name: Bounce
+  initialAmounts:
+    Max: 100
+    Current: 100
+  MaxAmount: 100
+  CurrentAmount: 50
+  ClampMax: {x: 0, y: 0}

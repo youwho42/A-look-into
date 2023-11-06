@@ -1,4 +1,5 @@
 ﻿using BezierSolution;
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -39,7 +40,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     public bool hasCompletedMiniGame;
     public List<TargetArea> targetAreas = new List<TargetArea>();
     Color initialIntensity;
-
+    public StatChanger statChanger;
    
 
     private void Start()
@@ -139,7 +140,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
             // Add animal to compendium if not already done
             if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal)){
                 PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
-                PlayerInformation.instance.playerStats.AddToAgency(20);
+                PlayerInformation.instance.statHandler.ChangeStat(statChanger);
                 GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
                 Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
 
@@ -160,7 +161,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                         continue;
                     if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
                     {
-                        PlayerInformation.instance.playerStats.AddToAgency(animal.ResearchRecipes[i].AgencyReward);
+                        //PlayerInformation.instance.playerStats.AddToAgency(animal.ResearchRecipes[i].AgencyReward);
                         PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe);
                         Notifications.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
 

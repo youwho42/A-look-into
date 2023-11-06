@@ -394,6 +394,7 @@ MonoBehaviour:
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
+  characterRenderer: {fileID: 0}
 --- !u!114 &3968540688165807639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,12 +605,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: whaaAA???
-  longInteractVerb: whaaAA???
-  bounceCost: 0
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 11400000, guid: 2dcf33813fba4754c877988660dac881, type: 2}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7803679775236702586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,8 +645,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eaa5b139d82dd42a876cb99a8a268b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC_Name: 
+  NPC_Name:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   conversations: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &7335956055071325998
 MonoBehaviour:
   m_ObjectHideFlags: 0

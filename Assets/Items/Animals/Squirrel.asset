@@ -13,9 +13,26 @@ MonoBehaviour:
   m_Name: Squirrel
   m_EditorClassIdentifier: 
   Name: Squirrel
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 1
   AnimationName: 
-  Description: Of a squirrely sort.
   Weight: 0.2
   Price: 10
   spawnWeight: 1
@@ -24,11 +41,14 @@ MonoBehaviour:
     type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: cad187986b7a14e4c82b8501b9d512f3, type: 2}
     RecipeRevealAmount: 2
-    AgencyReward: 0
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
+  references:
+    version: 2
+    RefIds: []

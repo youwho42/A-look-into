@@ -13,6 +13,6 @@ namespace Klaxon.StatSystem
         public StatObject StatToModify;
         public ModifierType ModifierType;
         public ModifierDestination ModifierDestination;
-        public float ModifierAmount;
+        public float Amount;
     } 
 }

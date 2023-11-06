@@ -201,7 +201,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
                     SetGradient();
             }
             if (cycleSpeed == 1)
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f * PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("TimeDilation"));
             else
                 yield return new WaitForEndOfFrame();
 

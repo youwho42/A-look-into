@@ -129,6 +129,10 @@ public class InventoryDisplaySlot : MonoBehaviour
             replace.CheckForObjects();
         
         
+        if(item.placementGumption != null)
+        {
+            PlayerInformation.instance.statHandler.AddModifiableModifier(item.placementGumption);
+        }
 
         inventory.RemoveItem(item, 1);
     }

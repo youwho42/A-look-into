@@ -5177,15 +5177,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 0
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  replaceObjectOnDrop: {fileID: 8912352739002934740}
   fireAnimation: {fileID: 728350270}
   lightFlicker: {fileID: 1300091588}
   fireFlicker: {fileID: 4012312534734668365}
-  replaceObjectOnDrop: {fileID: 8912352739002934740}
   isLit: 0
   sound:
     clips:
@@ -5196,6 +5197,8 @@ MonoBehaviour:
     randomPitch: 0
     source: {fileID: 0}
     overlap: 0
+  gumptionStatChanger: {fileID: 11400000, guid: 44bbb998803dee249b6ac7dd17deb3d0,
+    type: 2}
   references:
     version: 2
     RefIds: []

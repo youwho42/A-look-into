@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Klaxon.Interactable
         PlayerInformation player;
         public bool facingRight;
         public NavigationNode navigationNode;
+        public StatChanger gumptionChanger;
 
         public override void Start()
         {
@@ -33,9 +35,18 @@ namespace Klaxon.Interactable
                 player.isSitting = true;
                 isSitting = true;
                 canInteract = false;
+                GameEventManager.onTimeTickEvent.AddListener(CheckAddGumption);
+
             }
 
         }
+
+        void CheckAddGumption(int tick)
+        {
+            if (isSitting)
+                PlayerInformation.instance.statHandler.ChangeStat(gumptionChanger);
+        }
+
 
         IEnumerator PlacePlayer(Vector3 position)
         {
@@ -66,6 +77,8 @@ namespace Klaxon.Interactable
                 playerInformation.isSitting = false;
                 isSitting = false;
                 canInteract = true;
+                GameEventManager.onTimeTickEvent.RemoveListener(CheckAddGumption);
+
             }
 
         }

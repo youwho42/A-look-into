@@ -417,7 +417,7 @@ public class RobotAI : MonoBehaviour
 
         var x = seedSpawnChance.Evaluate(UnityEngine.Random.Range(0.0f, 1.0f));
 
-        if (x < PlayerInformation.instance.playerStats.GetPlayerLuck(0.1f))
+        if (x < /*PlayerInformation.instance.playerStats.GetPlayerLuck(0.1f)*/ 0.1f)
             return true;
         return false;
     }

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d047135f7a7bc5240b95a93dd39cb446, type: 3}
-  m_Name: Bounce
+  m_Script: {fileID: 11500000, guid: cb35a62693d4d34448034b1e3b81a84a, type: 3}
+  m_Name: Gumption-Add 0.5
   m_EditorClassIdentifier: 
-  Name: Bounce
-  MaxAmount: 100
-  CurrentAmount: 100
+  StatToModify: {fileID: 11400000, guid: ee56763698d2999498eaf2aac51a8165, type: 2}
+  ModifierType: 0
+  ModifierDestination: 1
+  Amount: 0.5

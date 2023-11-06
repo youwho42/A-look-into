@@ -355,7 +355,11 @@ public class CompendiumDisplayUI : MonoBehaviour
         localizedDisplayDescription = item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
         informationDisplayItemName.text = item.localizedName.GetLocalizedString(item.Name);
-        informationDisplayItemDescription.text = item.localizedDescription.GetLocalizedString(item.Name + " Description");
+        informationDisplayItemDescription.text = item.localizedDescription.GetLocalizedString(item.Name + " Description") + "\n\n";
+        if (item.Type == QuantumTek.QuantumInventory.ItemType.Consumable)
+        {
+            informationDisplayItemDescription.text += GetStatModifierText(item as ConsumableItemData); 
+        }
         recipeDisplay.SetActive(false);
         recipeRevealDisplay.SetActive(false);
         if (recipe!= null)
@@ -395,6 +399,22 @@ public class CompendiumDisplayUI : MonoBehaviour
 
         }
         
+    }
+
+    string GetStatModifierText(ConsumableItemData item)
+    {
+        string text = "";
+        foreach (var mod in item.statChangers)
+        {
+            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.Amount * 100}%" : $"{mod.Amount}";
+            text += $"{mod.StatToModify.Name} {mod.Amount} \n";
+        }
+        foreach (var mod in item.statModifiers)
+        {
+            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.ModifierAmount * 100}%" : $"{mod.ModifierAmount}";
+            text += $"{mod.StatToModify.Name} {amount} \n";
+        }
+        return text;
     }
 
     public void ClearItemInformation()

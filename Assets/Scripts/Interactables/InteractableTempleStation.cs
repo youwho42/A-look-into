@@ -106,7 +106,7 @@ namespace Klaxon.Interactable
 
         bool InteractCostReward()
         {
-            float agency = playerInformation.playerStats.playerAttributes.GetAttributeValue("Agency");
+            float agency = playerInformation.statHandler.GetStatMaxModifiedValue("Agency");
             if (agency >= agencyCost)
                 return true;
 

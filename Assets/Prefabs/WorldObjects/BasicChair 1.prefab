@@ -155,7 +155,8 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 0
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -163,6 +164,7 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 2948045044081655449}
   facingRight: 1
   navigationNode: {fileID: 0}
+  gumptionChanger: {fileID: 11400000, guid: 44bbb998803dee249b6ac7dd17deb3d0, type: 2}
   references:
     version: 2
     RefIds: []

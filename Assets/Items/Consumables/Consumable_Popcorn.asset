@@ -33,8 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 3
   AnimationName: 
-  Description: Popped corn. It's light and slightly salted, and it has great rhythm!
-    Adds bounce to your step.
   Weight: 3
   Price: 25
   spawnWeight: 10
@@ -47,9 +45,9 @@ MonoBehaviour:
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
-  attributeModifiers:
-  - attributeToModify: Bounce
-    amount: 20
+  statChangers: []
+  statModifiers:
+  - {fileID: 11400000, guid: b4da59d6617e9b74ead387ace686b90b, type: 2}
   itemToBecome: {fileID: 0}
   references:
     version: 2

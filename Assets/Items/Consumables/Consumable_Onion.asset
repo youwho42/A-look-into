@@ -33,8 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 3
   AnimationName: 
-  Description: This might make you cry, or add flavor to your life... either way,
-    it's layers upon layers of simplicity.
   Weight: 0.3
   Price: 30
   spawnWeight: 1
@@ -47,9 +45,9 @@ MonoBehaviour:
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
-  attributeModifiers:
-  - attributeToModify: Bounce
-    amount: 20
+  statChangers: []
+  statModifiers:
+  - {fileID: 11400000, guid: 73ec68712674a8e4a934727d0d8a9276, type: 2}
   itemToBecome: {fileID: 0}
   references:
     version: 2

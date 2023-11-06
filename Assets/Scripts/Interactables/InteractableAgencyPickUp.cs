@@ -37,7 +37,7 @@ namespace Klaxon.Interactable
             yield return new WaitForSeconds(0.33f);
             PlayInteractSound();
 
-            PlayerInformation.instance.playerStats.AddToAgency(agencyReward);
+            //PlayerInformation.instance.playerStats.AddToAgency(agencyReward);
 
 
 

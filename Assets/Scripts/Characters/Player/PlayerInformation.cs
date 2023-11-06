@@ -29,7 +29,6 @@ public class PlayerInformation : MonoBehaviour
     public PlayerInputController playerInput;
     public PlayerActivateSpyglass playerActivateSpyglass;
 
-    public PlayerStats playerStats;
     public CurrentTilePosition currentTilePosition;
     public Animator playerAnimator;
 

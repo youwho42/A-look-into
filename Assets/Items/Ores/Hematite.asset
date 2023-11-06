@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: If you can smelt this you'll get some iron
   Weight: 1
   Price: 20
   spawnWeight: 2
@@ -47,7 +46,8 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 58340f31ae41aba42aa085d34e1ba76e, type: 2}
     RecipeRevealAmount: 20
-    AgencyReward: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Klaxon.StatSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -14,7 +15,8 @@ namespace Klaxon.Interactable
         public LocalizedString localizedInteractVerb;
         public LocalizedString longInteractVerb;
 
-        public float bounceCost;
+        public StatChanger bounceCost;
+        public StatChanger gumptionCost;
         public float agencyReward;
         public float agencyCost;
         public bool canInteract = true;
@@ -63,10 +65,9 @@ namespace Klaxon.Interactable
 
         public bool InteractBounceCost()
         {
-            if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= bounceCost)
+            if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(bounceCost.Amount))
             {
-
-                PlayerInformation.instance.playerStats.RemoveFromBounce(bounceCost);
+                PlayerInformation.instance.statHandler.ChangeStat(bounceCost);
                 return true;
             }
 

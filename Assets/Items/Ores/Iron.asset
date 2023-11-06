@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: A bland looking hunk of very solid metal.
   Weight: 1
   Price: 80
   spawnWeight: 1
@@ -47,7 +46,8 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 6bb870fed904c734fafc5cb5c1906d61, type: 2}
     RecipeRevealAmount: 5
-    AgencyReward: 0
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2

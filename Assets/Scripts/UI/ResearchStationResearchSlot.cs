@@ -61,7 +61,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
                 continue;
             if (CheckForInventoryQuantity(i))
             {
-                PlayerInformation.instance.playerStats.AddToAgency(item.ResearchRecipes[i].AgencyReward);
+                PlayerInformation.instance.statHandler.ChangeStat(item.ResearchRecipes[i].agencyStatChanger);
                 PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
                 Notifications.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
 

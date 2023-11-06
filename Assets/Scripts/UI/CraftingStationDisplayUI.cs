@@ -187,7 +187,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     bool InteractCostReward()
     {
-        float agency = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
+        float agency = PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("Agency");
         if (agency >= craftableItem.AgencyCost)
             return true;
 

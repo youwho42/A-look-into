@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: Wood, but of the softer variety.
   Weight: 1
   Price: 2
   spawnWeight: 1
@@ -47,10 +46,12 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: ea02a9c2d97c543d79679f5109aa5cf7, type: 2}
     RecipeRevealAmount: 10
-    AgencyReward: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   - recipe: {fileID: 11400000, guid: 66088c69496ca734cb9d5ee9afd3daab, type: 2}
     RecipeRevealAmount: 20
-    AgencyReward: 30
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2

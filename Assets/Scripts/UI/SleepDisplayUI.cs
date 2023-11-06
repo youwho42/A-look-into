@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Klaxon.StatSystem;
 
 public class SleepDisplayUI : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class SleepDisplayUI : MonoBehaviour
     private Coroutine sleepCoroutine;
     int originalCycleSpeed;
     bool isShowing;
+    public StatChanger bounceStatChanger;
+    public StatChanger gumptionStatChanger;
     public void Start()
     {
         //playerInformation = PlayerInformation.instance;
@@ -77,14 +80,15 @@ public class SleepDisplayUI : MonoBehaviour
     }
     IEnumerator SleepCo()
     {
-        
+        var player = PlayerInformation.instance;
         int wakeTime = (int)slider.value;
         
         while(dayNightCycle.hours != wakeTime)
         {
             isSleeping = true;
             //float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
-            PlayerInformation.instance.playerStats.AddToBounce(1f);
+            player.statHandler.ChangeStat(bounceStatChanger);
+            player.statHandler.ChangeStat(gumptionStatChanger);
             dayNightCycle.cycleSpeed = 0;
             yield return null;
         }

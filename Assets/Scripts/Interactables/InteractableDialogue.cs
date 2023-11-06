@@ -20,20 +20,33 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            currentDialogue = dialogueSystem.GetConversation();
-            if (currentDialogue != null)
+            if (GumptionCost())
             {
-                canInteract = false;
-                DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
-                UIScreenManager.instance.DisplayScreen(UIScreenType.DialogueDisplayScreen);
-                UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-                PlayerInformation.instance.uiScreenVisible = true;
-                PlayerInformation.instance.TogglePlayerInput(false);
+                currentDialogue = dialogueSystem.GetConversation();
+                if (currentDialogue != null)
+                {
+                    canInteract = false;
+                    DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
+                    UIScreenManager.instance.DisplayScreen(UIScreenType.DialogueDisplayScreen);
+                    UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+                    PlayerInformation.instance.uiScreenVisible = true;
+                    PlayerInformation.instance.TogglePlayerInput(false);
+                } 
             }
 
         }
 
-
+        bool GumptionCost()
+        {
+            float gumption = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Gumption");
+            if (gumption >= Mathf.Abs(gumptionCost.Amount))
+            {
+                PlayerInformation.instance.statHandler.ChangeStat(gumptionCost);
+                return true;
+            }
+            Notifications.instance.SetNewNotification($"{Mathf.Abs(gumptionCost.Amount - gumption)} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
+            return false;
+        }
 
     } 
 }

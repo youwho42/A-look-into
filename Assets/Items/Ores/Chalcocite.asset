@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: If you can smelt this you'll get some copper
   Weight: 1
   Price: 10
   spawnWeight: 5
@@ -47,10 +46,12 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 7892b0cadc12b694ab97ef07f5a47e85, type: 2}
     RecipeRevealAmount: 20
-    AgencyReward: 15
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   - recipe: {fileID: 11400000, guid: 04e0b5a6a0210d54d995e583d6e5bdd3, type: 2}
     RecipeRevealAmount: 30
-    AgencyReward: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2

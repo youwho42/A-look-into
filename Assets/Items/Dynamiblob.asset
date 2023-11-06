@@ -33,8 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: A dynamiblob...? Used to generate eternal energy in certain crafting
-    recipes.
   Weight: 0.3
   Price: 15
   spawnWeight: 1
@@ -48,7 +46,8 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: d5d7ca4857132cc439492c07df3a52b0, type: 2}
     RecipeRevealAmount: 20
-    AgencyReward: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 0
   references:
     version: 2

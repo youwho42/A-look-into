@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 1
   AnimationName: 
-  Description: The smartest crow you ever saw.
   Weight: 0.2
   Price: 10
   spawnWeight: 1
@@ -47,7 +46,8 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: d5d7ca4857132cc439492c07df3a52b0, type: 2}
     RecipeRevealAmount: 1
-    AgencyReward: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2

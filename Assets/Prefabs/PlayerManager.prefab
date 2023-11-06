@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056946094}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5769325092054554962}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1056946096
 SpriteRenderer:
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 859df4161f37dc442a3b02c4b71e8d2b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,8 +96,6 @@ GameObject:
   - component: {fileID: 5769325092054554963}
   - component: {fileID: 5769325092054554961}
   - component: {fileID: 5769325092054554960}
-  - component: {fileID: 5769325092054554955}
-  - component: {fileID: 5769325092054554954}
   - component: {fileID: 5769325092054554952}
   - component: {fileID: 5769325092054554956}
   - component: {fileID: 5769325092054554959}
@@ -112,6 +110,8 @@ GameObject:
   - component: {fileID: 4120753285155617664}
   - component: {fileID: 2950931172956523469}
   - component: {fileID: 3126231394876523705}
+  - component: {fileID: 5065497808497423020}
+  - component: {fileID: 1698792034990139457}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -126,6 +126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5769325092054554972}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -133,7 +134,6 @@ Transform:
   m_Children:
   - {fileID: 1056946095}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5769325092054554963
 MonoBehaviour:
@@ -178,16 +178,18 @@ MonoBehaviour:
     type: 2}
   playerGuidesCompendiumDatabase: {fileID: 11400000, guid: a79b324aeb7e61b48818dc2697785478,
     type: 2}
+  purse: {fileID: 3126231394876523705}
   uiScreenVisible: 0
   playerInput: {fileID: 0}
   playerActivateSpyglass: {fileID: 4120753285155617664}
-  playerStats: {fileID: 5769325092054554954}
   currentTilePosition: {fileID: 0}
   playerAnimator: {fileID: 0}
   animalCompendiumInformation: {fileID: 3606313332637372334}
   characterManager: {fileID: 1778278584}
   playerUndertakings: {fileID: 2950931172956523469}
+  isSitting: 0
   playerSpriteResolver: {fileID: 0}
+  statHandler: {fileID: 5065497808497423020}
 --- !u!114 &5769325092054554960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,34 +204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: MainPlayerInventory
   MaxStacks: 12
---- !u!114 &5769325092054554955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5769325092054554972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a730b6264b3b24dc58d806bccdcd51d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttributeDatabase: {fileID: 11400000, guid: 540a9db7325938942b731d34ed2eaff1, type: 2}
-  ModifierDatabase: {fileID: 11400000, guid: de118e4ead254f84aa086812b9ec2d2c, type: 2}
---- !u!114 &5769325092054554954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5769325092054554972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28a1a04ddf88fab4a9a60a87ff419f30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAttributes: {fileID: 5769325092054554955}
-  maxBounce: 100
 --- !u!114 &5769325092054554952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3460d7ac025efa4419e034be40668424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttributes: {fileID: 5769325092054554955}
+  statHandler: {fileID: 5065497808497423020}
+  modifierDatabase: {fileID: 11400000, guid: 7ea500c8caba7a94aaf66b0360d84e7f, type: 2}
 --- !u!114 &4096953219318713192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,7 +354,6 @@ MonoBehaviour:
   - BisonB
   - CatA
   - CatB
-  - Dog
   aquiredCharacters: []
 --- !u!114 &8847118087756521459
 MonoBehaviour:
@@ -436,3 +410,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067350d1de2ee4f4eb4103d99405b397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currency: {fileID: 11400000, guid: 31c9ab98ad1493a45a5584ffc66c4cca, type: 2}
+--- !u!114 &5065497808497423020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41240ab3fe864e446bc37f103a4c62a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statObjects:
+  - {fileID: 11400000, guid: c9ae546d3a0d0a342918f219bfa01f3d, type: 2}
+  - {fileID: 11400000, guid: 50abcf24aba4dcb47bbd91dbcc8fa08f, type: 2}
+  - {fileID: 11400000, guid: 0e9d48b1f995e4a43b378ad8cc9215bc, type: 2}
+  - {fileID: 11400000, guid: ae2895e9bc1dc9642878c9b5117ecdf2, type: 2}
+  - {fileID: 11400000, guid: 687886643cc64544a94c3aa3f9c8b200, type: 2}
+  - {fileID: 11400000, guid: ee56763698d2999498eaf2aac51a8165, type: 2}
+--- !u!114 &1698792034990139457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b448ae1910a36974cbb947e9038a9c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPurse: {fileID: 3126231394876523705}

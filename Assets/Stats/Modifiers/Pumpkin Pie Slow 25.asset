@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f71ba3398ab7b642812d8a55b7065f1, type: 3}
-  m_Name: Speed 110percent
+  m_Name: Pumpkin Pie Slow 25
   m_EditorClassIdentifier: 
+  ModifierName: PumpkinPieSlow25
   StatToModify: {fileID: 11400000, guid: 0e9d48b1f995e4a43b378ad8cc9215bc, type: 2}
   ModifierType: 1
   ModifierDestination: 0
-  ModifierAmount: 0.5
+  ModifierAmount: -0.3
   TimedModifier: 1
-  ModifierDuration: 20
-  ModifierTimer: 0
+  ModifierDuration: 60
+  modIcon: {fileID: 21300000, guid: 87762c210ec18474e8fae19edf7789d3, type: 3}
+  modIconGrey: {fileID: 21300000, guid: 84aa5d2e58bd1d442938651ce865589d, type: 3}

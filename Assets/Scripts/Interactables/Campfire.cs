@@ -1,4 +1,5 @@
-﻿using QuantumTek.QuantumInventory;
+﻿using Klaxon.StatSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,6 +21,9 @@ namespace Klaxon.Interactable
         string light = "light";
         string extinguish = "extinguish";
         string usedWord = "";
+
+        public StatChanger gumptionStatChanger;
+        PlayerInformation player;
         float mainVolume;
         private void Awake()
         {
@@ -30,8 +34,18 @@ namespace Klaxon.Interactable
             base.Start();
             usedWord = light;
             SetFire(usedWord, false);
-
-
+            player = PlayerInformation.instance;
+            
+        }
+       
+        void CheckPlayerDistance(int tick)
+        {
+            if (isLit)
+            {
+                if (PlayerDistanceToggle.instance.GetPlayerDistance(transform, player.player.position) <= 1)
+                    player.statHandler.ChangeStat(gumptionStatChanger);
+            }
+            
         }
 
         public override void SetInteractVerb()
@@ -62,11 +76,13 @@ namespace Klaxon.Interactable
                 //NotificationManager.instance.SetNewNotification("You might want to put that fire out, no?", NotificationManager.NotificationType.Warning);
                 return;
             }
-
-            if (PlayerInformation.instance.playerInventory.AddItem(GetComponent<QI_Item>().Data, 1, false))
+            var item = GetComponent<QI_Item>().Data;
+            if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
             {
                 if (replaceObjectOnDrop != null)
                     replaceObjectOnDrop.ShowObjects(true);
+
+                PlayerInformation.instance.statHandler.RemoveModifiableModifier(item.placementGumption);
 
                 Destroy(gameObject);
             }
@@ -80,6 +96,10 @@ namespace Klaxon.Interactable
             lightFlicker.enabled = active;
             fireFlicker.canFlicker = active;
             SetInteractVerb();
+            if(isLit)
+                GameEventManager.onTimeTickEvent.AddListener(CheckPlayerDistance);
+            else
+                GameEventManager.onTimeTickEvent.RemoveListener(CheckPlayerDistance);
             //interactVerb = _interactVerb;
             fireFlicker.StartLightFlicker(active);
             if (sound.clips.Length > 0)

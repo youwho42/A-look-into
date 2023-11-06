@@ -19,7 +19,7 @@ public class EquipmentGatherData : EquipmentData
     public bool takeSample;
     public bool oneUse;
 
-    public float playerEnergyCost;
+    //public float playerEnergyCost;
     public StatChanger statChanger;
     
 
@@ -180,10 +180,10 @@ public class EquipmentGatherData : EquipmentData
     }
     bool InteractCostReward()
     {
-        if (PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce") >= playerEnergyCost)
+        if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= statChanger.Amount)
         {
             PlayerInformation.instance.statHandler.ChangeStat(statChanger);
-            PlayerInformation.instance.playerStats.RemoveFromBounce(playerEnergyCost);
+            //PlayerInformation.instance.playerStats.RemoveFromBounce(playerEnergyCost);
             return true;
         }
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);

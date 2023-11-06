@@ -25,6 +25,7 @@ namespace Klaxon.GravitySystem
         Vector3 doubleCheckPosition;
 
         public StatObject speedStat;
+        public StatObject jumpStat;
 
         DetectVisibility visibilityCheck;
 
@@ -93,7 +94,7 @@ namespace Klaxon.GravitySystem
 
             if (CanReachNextTile(playerInput.movement))
             {
-                Move(playerInput.movement, (playerInput.isRunning ? runSpeed * speedStat.GetMax() : walkSpeed * speedStat.GetMax()));
+                Move(playerInput.movement, (playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : walkSpeed * speedStat.GetModifiedMax()));
             }
 
 
@@ -102,7 +103,7 @@ namespace Klaxon.GravitySystem
         void Jump()
         {
             if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)
-                Bounce(jumpHeight);
+                Bounce(jumpHeight * jumpStat.GetModifiedMax());
         }
 
         //void TileFound(List<TileDirectionInfo> tileBlock, bool success)
@@ -177,11 +178,12 @@ namespace Klaxon.GravitySystem
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
                 if (tile.direction == nextTileKey)
                 {
-                    if (tile.levelZ < -2)
-                    {
-                        onCliffEdge = true;
-                        return false;
-                    }
+                    // this prevents the player from jumping off too high of a cliff
+                    //if (tile.levelZ < -2)
+                    //{
+                    //    onCliffEdge = true;
+                    //    return false;
+                    //}
 
                     if (!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                     {

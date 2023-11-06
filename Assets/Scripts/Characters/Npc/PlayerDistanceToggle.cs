@@ -90,7 +90,7 @@ public class PlayerDistanceToggle : MonoBehaviour
         agent.offScreen = !state;
     }
 
-    float GetPlayerDistance(Transform objTransform, Vector3 playerPos)
+    public float GetPlayerDistance(Transform objTransform, Vector3 playerPos)
     {
         return Vector3.Distance(objTransform.position, playerPos);
     }

@@ -33,8 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: Plain old fiber, probably from a fibrous plant. I bet you could make
-    some usefull things with it!
   Weight: 0.3
   Price: 1
   spawnWeight: 1
@@ -48,7 +46,8 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 5f954ce7c7465514e926aa1107d813b9, type: 2}
     RecipeRevealAmount: 10
-    AgencyReward: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 0
   references:
     version: 2

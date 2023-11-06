@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,8 +27,9 @@ namespace Klaxon.UndertakingSystem
         public UndertakingState CurrentState;
 
         public int SparksReward;
-        public int GumptionReward;
-        public int AgencyReward;
+        public StatChanger GumptionReward;
+        public StatChanger AgencyReward;
+
         public QI_ItemData ItemReward;
         public int ItemQuantity;
         public QI_CraftingRecipe RecipeReward;
@@ -82,10 +84,10 @@ namespace Klaxon.UndertakingSystem
             
 
             var player = PlayerInformation.instance;
-            if (GumptionReward > 0)
-                player.playerStats.AddToStat("Gumption", GumptionReward);
-            if (AgencyReward > 0)
-                player.playerStats.AddToStat("Agency", AgencyReward);
+            if (GumptionReward != null)
+                player.statHandler.ChangeStat(GumptionReward);
+            if (AgencyReward != null)
+                player.statHandler.ChangeStat(AgencyReward);
             if (SparksReward > 0)
                 player.purse.AddToPurse(SparksReward);
             if (ItemReward != null)

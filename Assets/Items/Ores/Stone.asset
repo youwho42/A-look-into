@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: This is a small stone, made of stone.
   Weight: 10
   Price: 2
   spawnWeight: 20
@@ -47,10 +46,12 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 41dac76e78cdb44b9bbf19c5abfc71db, type: 2}
     RecipeRevealAmount: 20
-    AgencyReward: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   - recipe: {fileID: 11400000, guid: 0b6113092188dd847b17b58ba5fc31e0, type: 2}
     RecipeRevealAmount: 20
-    AgencyReward: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2

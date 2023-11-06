@@ -33,7 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: Clay! Make a bowl? I guess?
   Weight: 1
   Price: 2
   spawnWeight: 20
@@ -47,10 +46,12 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 0934823ebe77b554d96d2e7e18568450, type: 2}
     RecipeRevealAmount: 10
-    AgencyReward: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   - recipe: {fileID: 11400000, guid: e00f29b250b322243b8dad5b668b6397, type: 2}
     RecipeRevealAmount: 30
-    AgencyReward: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 1
   references:
     version: 2
