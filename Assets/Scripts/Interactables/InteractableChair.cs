@@ -64,6 +64,10 @@ namespace Klaxon.Interactable
 
         }
 
+        private void OnDisable()
+        {
+            GameEventManager.onTimeTickEvent.RemoveListener(CheckAddGumption);
+        }
         private void Update()
         {
             if (!isSitting)

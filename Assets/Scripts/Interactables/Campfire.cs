@@ -37,7 +37,11 @@ namespace Klaxon.Interactable
             player = PlayerInformation.instance;
             
         }
-       
+        private void OnDisable()
+        {
+            GameEventManager.onTimeTickEvent.RemoveListener(CheckPlayerDistance);
+        }
+
         void CheckPlayerDistance(int tick)
         {
             if (isLit)
