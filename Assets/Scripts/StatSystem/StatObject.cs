@@ -173,6 +173,11 @@ namespace Klaxon.StatSystem
             List<StatModifier> modsToRemove = new List<StatModifier>();
             foreach (var mod in Modifiers)
             {
+                if (mod == null)
+                {
+                    modsToRemove.Add(mod);
+                    continue;
+                }
                 if (!mod.DecreaseModifierTimer() && mod.TimedModifier)
                     modsToRemove.Add(mod);
             }
@@ -197,7 +202,8 @@ namespace Klaxon.StatSystem
         {
             foreach (var mod in Modifiers)
             {
-                mod.ResetModifier();
+                if(mod != null)
+                    mod.ResetModifier();
             }
             Modifiers.Clear();
         }

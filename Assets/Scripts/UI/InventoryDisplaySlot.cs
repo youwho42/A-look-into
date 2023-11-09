@@ -11,6 +11,96 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using Klaxon.Interactable;
 
+
+[Serializable]
+public class NavNodeQuadTree
+{
+    public Bounds bounds;
+    public int capacity;
+    public List<NavigationNode> allSpots = new List<NavigationNode>();
+    public bool divided;
+    public NavNodeQuadTree northWest;
+    public NavNodeQuadTree northEast;
+    public NavNodeQuadTree southWest;
+    public NavNodeQuadTree southEast;
+
+    public NavNodeQuadTree(Bounds bounds, int capacity)
+    {
+        this.bounds = bounds;
+        this.capacity = capacity;
+    }
+
+    public void Insert(NavigationNode spot)
+    {
+        if (!bounds.Contains(spot.transform.position))
+            return;
+
+        if (allSpots.Count < capacity)
+            allSpots.Add(spot);
+        else
+        {
+            if (!divided)
+                Subdivide();
+
+
+            northEast.Insert(spot);
+            northWest.Insert(spot);
+            southWest.Insert(spot);
+            southEast.Insert(spot);
+        }
+
+    }
+
+
+
+    public void Subdivide()
+    {
+        Bounds nw = new Bounds(new Vector3(bounds.center.x - bounds.extents.x / 2, bounds.center.y + bounds.extents.y / 2), bounds.extents);
+        northWest = new NavNodeQuadTree(nw, capacity);
+        Bounds ne = new Bounds(new Vector3(bounds.center.x + bounds.extents.x / 2, bounds.center.y + bounds.extents.y / 2), bounds.extents);
+        northEast = new NavNodeQuadTree(ne, capacity);
+        Bounds sw = new Bounds(new Vector3(bounds.center.x - bounds.extents.x / 2, bounds.center.y - bounds.extents.y / 2), bounds.extents);
+        southWest = new NavNodeQuadTree(sw, capacity);
+        Bounds se = new Bounds(new Vector3(bounds.center.x + bounds.extents.x / 2, bounds.center.y - bounds.extents.y / 2), bounds.extents);
+        southEast = new NavNodeQuadTree(se, capacity);
+
+        divided = true;
+    }
+
+
+    public List<NavigationNode> QueryTree(Bounds boundry)
+    {
+
+        List<NavigationNode> spots = new List<NavigationNode>();
+
+        if (!bounds.Intersects(boundry))
+            return spots;
+
+        foreach (var spot in allSpots)
+        {
+            if (boundry.Contains(spot.transform.position))
+                spots.Add(spot);
+
+        }
+
+        if (divided)
+        {
+            spots.AddRange(northWest.QueryTree(boundry));
+            spots.AddRange(northEast.QueryTree(boundry));
+            spots.AddRange(southWest.QueryTree(boundry));
+            spots.AddRange(southEast.QueryTree(boundry));
+        }
+
+        return spots;
+    }
+
+
+
+}
+
+
+
+
 public class InventoryDisplaySlot : MonoBehaviour
 {
     public QI_ItemData item;
@@ -27,11 +117,15 @@ public class InventoryDisplaySlot : MonoBehaviour
     public List<ItemTypeNames> itemTypes = new List<ItemTypeNames>();
 
     Button slotButton;
+    
     bool buttonHeld;
 
-    //Vector3Int currentTilePos;
-    //List<TileDirectionInfo> tileBlockInfo = new List<TileDirectionInfo>();
+    int decorationIndex = 0;
 
+    public List<NavigationNode> allAreas = new List<NavigationNode>();
+    public Bounds baseBounds = new Bounds(new Vector3(13, -10, 0), new Vector3(128, 128, 20));
+    NavNodeQuadTree quadTree;
+    Bounds bounds;
     [Serializable]
     public struct ItemTypeNames
     {
@@ -40,13 +134,36 @@ public class InventoryDisplaySlot : MonoBehaviour
     }
     private void Start()
     {
+        allAreas.Clear();
+        var all = FindObjectsOfType<NavigationNode>();
+        foreach (var item in all)
+        {
+            allAreas.Add(item);
+        }
+
+        quadTree = new NavNodeQuadTree(baseBounds, 10);
+
+        foreach (var spot in allAreas)
+        {
+            quadTree.Insert(spot);
+        }
+
+
+
         slotButton = GetComponentInChildren<Button>();
     }
+
+    public List<NavigationNode> QueryQuadTree(Bounds boundry)
+    {
+        return quadTree.QueryTree(boundry);
+    }
+
     private void OnEnable()
     {
         GameEventManager.onInventoryDragEvent.AddListener(DragItem);
         GameEventManager.onInventoryRightClickEvent.AddListener(SetItemSelected);
         GameEventManager.onInventoryRightClickReleaseEvent.AddListener(EndDragItem);
+        GameEventManager.onRotateDecoration.AddListener(RotateDecoration);
     }
 
     private void OnDisable()
@@ -54,6 +171,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         GameEventManager.onInventoryDragEvent.RemoveListener(DragItem);
         GameEventManager.onInventoryRightClickEvent.RemoveListener(SetItemSelected);
         GameEventManager.onInventoryRightClickReleaseEvent.RemoveListener(EndDragItem);
+        GameEventManager.onRotateDecoration.RemoveListener(RotateDecoration);
     }
     public void ShowInformation()
     {
@@ -74,6 +192,23 @@ public class InventoryDisplaySlot : MonoBehaviour
         
     }
 
+    void RotateDecoration()
+    {
+
+        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
+            return;
+
+        Debug.Log("rotating potential");
+        if (item.Type == ItemType.Decoration)
+        {
+            var decoItem = item as DecorationData;
+            decorationIndex = (decorationIndex+1) % decoItem.variants.Count;
+            Destroy(itemToDrop.gameObject);
+            var go = Instantiate(decoItem.variants[decorationIndex], GetMousePosition(), Quaternion.identity);
+            itemToDrop = go.gameObject;
+            Debug.Log("rotated");
+        }
+    }
     public string GetItemType()
     {
         string n = item.GetType().Name;
@@ -130,9 +265,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         
         if(item.placementGumption != null)
-        {
             PlayerInformation.instance.statHandler.AddModifiableModifier(item.placementGumption);
-        }
 
         inventory.RemoveItem(item, 1);
     }
@@ -147,17 +280,23 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         if (!isDragged)
         {
-            var go = Instantiate(item.ItemPrefab, GetMousePosition(), Quaternion.identity);
+            var prefab = item.ItemPrefab;
+            if (item.Type == ItemType.Decoration)
+            {
+                var decoItem = item as DecorationData;
+                prefab = decoItem.variants[decorationIndex];
+            }
+                
+            var go = Instantiate(prefab, GetMousePosition(), Quaternion.identity);
             itemToDrop = go.gameObject;
             isDragged = true;
         }
 
-        
-        if (!CheckPlayerVicinity() || CheckForObstacles() || !CheckTileValid())
+        if (!CheckPlayerVicinity() || !CheckTileValid() || CheckForObstacles())
             TurnObjectColor(Color.red);
         else
             TurnObjectColor(Color.white);
-        
+
         itemToDrop.transform.position = GetMousePosition();
     }
 
@@ -177,7 +316,6 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         if (!CheckPlayerVicinity())
         {
-            //NotificationManager.instance.SetNewNotification($"Too far from {PlayerInformation.instance.playerName}", NotificationManager.NotificationType.Warning);
             Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Too far"), null, 0, NotificationsType.Warning);
 
             Destroy(itemToDrop);
@@ -185,15 +323,16 @@ public class InventoryDisplaySlot : MonoBehaviour
             return;
         }
         
+        
         if (CheckForObstacles() || !CheckTileValid())
         {
             Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Invalid Spot"), null, 0, NotificationsType.Warning);
 
-            //NotificationManager.instance.SetNewNotification($"Invalid spot for {item.Name}", NotificationManager.NotificationType.Warning);
             Destroy(itemToDrop);
             ResetDragging();
             return;
         }
+        
         DropItem(itemToDrop.transform.position);
         
         EventSystem.current.SetSelectedGameObject(null);
@@ -219,19 +358,43 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     bool CheckForObstacles()
     {
-        Collider2D coll = itemToDrop.GetComponentInChildren<Collider2D>();
+        
+        Collider2D coll = itemToDrop.GetComponentInChildren<PolygonCollider2D>();
+        if(coll == null)
+            coll = itemToDrop.GetComponentInChildren<Collider2D>();
+
+        if (PlacedOnNavigationNodes(coll))
+            return true;
+
         ContactFilter2D filter = new ContactFilter2D();
         filter.layerMask = LayerMask.NameToLayer("Obstacle");
         List<Collider2D> results = new List<Collider2D>();
         coll.OverlapCollider(filter, results);
         
+        
+        var interactable = itemToDrop.GetComponent<Interactable>();
+        if(interactable!=null)
+            interactable.visualItem.localPosition = Vector3.zero;
+
         if (results.Count > 0)
         {
             foreach (var hit in results)
             {
                 if (hit.transform.IsChildOf(itemToDrop.transform))
                     continue;
+                
+                
+                if (hit.TryGetComponent(out DrawZasYDisplacement obj))
+                {
+                    if (interactable != null)
+                        interactable.visualItem.localPosition = obj.displacedPosition;
 
+                    if (interactable.canPlaceOnOther)
+                    {
+                        if (obj.isDecorationSurface)
+                            return false;
+                    }
+                }
                 
                 return true;
             }
@@ -241,6 +404,17 @@ public class InventoryDisplaySlot : MonoBehaviour
     }
 
 
+    bool PlacedOnNavigationNodes(Collider2D coll)
+    {
+        bounds = new Bounds(itemToDrop.transform.position, new Vector3(1, 1, 1));
+        List<NavigationNode> closestSpots = quadTree.QueryTree(bounds);
+        foreach (var spot in closestSpots)
+        {
+            if (coll.OverlapPoint(spot.transform.position))
+                return true;
+        }
+        return false;
+    }
 
 
 

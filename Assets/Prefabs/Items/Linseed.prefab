@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5591675364925599087
+--- !u!1 &3953521489002522849
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2997377886582240980}
-  - component: {fileID: 1889378577266817011}
-  - component: {fileID: 3446694186695472097}
-  - component: {fileID: 3340633912972864975}
-  - component: {fileID: 3205467184418445630}
-  - component: {fileID: -3408826983127947495}
-  - component: {fileID: 269489782608738649}
-  - component: {fileID: -2753123647903799989}
-  m_Layer: 13
-  m_Name: Linseed
+  - component: {fileID: 564727384215200281}
+  - component: {fileID: 55548261730398528}
+  m_Layer: 0
+  m_Name: LinseedIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2997377886582240980
+--- !u!4 &564727384215200281
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591675364925599087}
+  m_GameObject: {fileID: 3953521489002522849}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.11, y: -0.53, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2997377886582240980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1889378577266817011
+--- !u!212 &55548261730398528
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5591675364925599087}
+  m_GameObject: {fileID: 3953521489002522849}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -84,12 +78,50 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.0625, y: 0.0625}
+  m_Size: {x: 0.125, y: 0.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &5591675364925599087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2997377886582240980}
+  - component: {fileID: 3446694186695472097}
+  - component: {fileID: 3340633912972864975}
+  - component: {fileID: 3205467184418445630}
+  - component: {fileID: -3408826983127947495}
+  - component: {fileID: 269489782608738649}
+  - component: {fileID: -2753123647903799989}
+  m_Layer: 13
+  m_Name: Linseed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &2997377886582240980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591675364925599087}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.11, y: -0.53, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 564727384215200281}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3446694186695472097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,12 +202,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 0
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
   replaceObjectOnDrop: {fileID: -3408826983127947495}
+  canPlaceOnOther: 1
+  visualItem: {fileID: 564727384215200281}
   pickupQuantity: 1
   references:
     version: 2

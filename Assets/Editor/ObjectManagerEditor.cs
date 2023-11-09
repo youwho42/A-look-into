@@ -10,7 +10,7 @@ public class ObjectManagerEditor : Editor
 
     //The center of the circle
     private Vector3 center;
-
+    int lastRandom;
     private void OnEnable()
     {
         objectManager = target as ObjectManagerCircle;
@@ -159,7 +159,13 @@ public class ObjectManagerEditor : Editor
     }
     GameObject CreateGameObjectFromPrefab()
     {
-        int rand = Random.Range(0, objectManager.prefabGO.Length);
+        int rand = -1;
+        do
+        {
+            rand = Random.Range(0, objectManager.prefabGO.Length);
+        } 
+        while (lastRandom==rand);
+        lastRandom = rand;
         GameObject prefabGO = objectManager.prefabGO[rand];
         GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
         return newGO;

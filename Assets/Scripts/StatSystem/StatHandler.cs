@@ -65,8 +65,8 @@ namespace Klaxon.StatSystem
                     modifier.finalModifierAmount = modifier.ModifierAmount;
                     stat.AddModifier(modifier);
                 }
+                stat.SetCurrent(stat.GetRawCurrent() + modifier.ModifierAmount);
 
-                
                 break;
             }
             GameEventManager.onStatUpdateEvent.Invoke();
@@ -91,7 +91,7 @@ namespace Klaxon.StatSystem
 
                     break;
                 }
-                
+                //stat.SetCurrent(stat.GetRawCurrent() - modifier.ModifierAmount);
                 break;
             }
             GameEventManager.onStatUpdateEvent.Invoke();

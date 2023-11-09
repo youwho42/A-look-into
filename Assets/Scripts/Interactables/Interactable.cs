@@ -27,6 +27,8 @@ namespace Klaxon.Interactable
         public bool hasLongInteract;
 
         public ReplaceObjectOnItemDrop replaceObjectOnDrop;
+        public bool canPlaceOnOther;
+        public Transform visualItem;
 
         public virtual void Start()
         {

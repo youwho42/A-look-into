@@ -73,10 +73,7 @@ namespace Klaxon.Interactable
                 int t = PlayerInformation.instance.GetTotalInventoryQuantity(ingredient.item);
                 if (t < ingredient.amount)
                 {
-                    //string plural = ingredient.amount - t == 1 ? "" : "'s";
                     Notifications.instance.SetNewNotification($"{ingredient.amount - t} {ingredient.item.Name}", null, 0, NotificationsType.Warning);
-
-                    //NotificationManager.instance.SetNewNotification($"Missing {ingredient.amount - t} {ingredient.item.Name}{plural}", NotificationManager.NotificationType.Warning);
                     hasAll = false;
                 }
 
@@ -91,19 +88,11 @@ namespace Klaxon.Interactable
                 return true;
 
             Notifications.instance.SetNewNotification($"{agencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
-
-            //NotificationManager.instance.SetNewNotification($"{agencyCost} <sprite name=\"Agency\">", NotificationManager.NotificationType.Warning);
             return false;
         }
 
 
-        void PlayInteractSound()
-        {
-            if (audioManager.CompareSoundNames("PickUp-" + interactSound))
-            {
-                audioManager.PlaySound("PickUp-" + interactSound);
-            }
-        }
+        
     }
 
 }

@@ -4968,20 +4968,24 @@ MonoBehaviour:
     m_LocalVariables: []
   longInteractVerb:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 1805523701260288
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 20
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 50
   canInteract: 1
   hasLongInteract: 1
+  replaceObjectOnDrop: {fileID: 0}
   ingredients:
-  - item: {fileID: 11400000, guid: c8e5cc38c91f0d34a86879947a8eca3c, type: 2}
+  - item: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}
+    amount: 10
+  - item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
     amount: 10
   references:
     version: 2

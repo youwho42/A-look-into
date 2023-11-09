@@ -19,6 +19,7 @@ namespace Klaxon.SaveSystem
             QI_Item[] items = FindObjectsOfType<QI_Item>();
             List<string> tempItem = new List<string>();
             List<string> tempItemID = new List<string>();
+            List<int> tempItemVariant = new List<int>();
             foreach (var item in items)
             {
                 if (item.TryGetComponent(out SaveableItemEntity entity))
@@ -26,13 +27,15 @@ namespace Klaxon.SaveSystem
 
                     tempItem.Add(item.Data.Name);
                     tempItemID.Add(entity.ID);
+                    tempItemVariant.Add(item.itemVariantIndex);
                 }
 
             }
             return new SaveData
             {
                 items = tempItem,
-                itemID = tempItemID
+                itemID = tempItemID,
+                itemVariantIndex = tempItemVariant
             };
         }
 
@@ -51,9 +54,11 @@ namespace Klaxon.SaveSystem
             for (int i = 0; i < saveData.items.Count; i++)
             {
 
-                var entity = Instantiate(itemDatabase.GetItem(saveData.items[i]).ItemPrefab, transform.position, Quaternion.identity);
+                var entity = Instantiate(itemDatabase.GetItem(saveData.items[i]).ItemPrefabVariants[saveData.itemVariantIndex[i]], transform.position, Quaternion.identity);
                 if (entity.TryGetComponent(out SaveableItemEntity saveableItem))
                     saveableItem.SetId(saveData.itemID[i]);
+                if (entity.TryGetComponent(out QI_Item Item))
+                    Item.itemVariantIndex = saveData.itemVariantIndex[i];
 
             }
 
@@ -67,6 +72,7 @@ namespace Klaxon.SaveSystem
         {
             public List<string> items;
             public List<string> itemID;
+            public List<int> itemVariantIndex;
 
         }
     }

@@ -128,13 +128,17 @@ namespace Klaxon.Interactable
                 {
                     var rend = closest.GetComponentInChildren<SpriteRenderer>();
                     if (rend != null)
-                        canvasOffset = new Vector3(0, rend.bounds.size.y / 2, 1);
+                        canvasOffset = new Vector3(0, rend.transform.localPosition.y + rend.bounds.extents.y , 1);
                     else
                         canvasOffset = Vector3.forward;
+                    
                 }
                 closest.SetInteractVerb();
                 string butt = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
-                string action = $"{butt} {closest.interactVerb}";
+                string action="";
+                if (closest.interactVerb!="")
+                    action = $"{butt} {closest.interactVerb}";
+                
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
 
                 string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");

@@ -119,7 +119,7 @@ public class LocalGoodDisplayUI : MonoBehaviour
                 playerSlots[i].icon.enabled = true;
                 playerSlots[i].isContainerSlot = false;
                 butt.interactable = true;
-                if (validType != ItemType.None && PlayerInformation.instance.playerInventory.Stacks[i].Item.Type != validType)
+                if (PlayerInformation.instance.playerInventory.Stacks[i].Item.Type != validType)
                     butt.interactable = false;
                 
             }

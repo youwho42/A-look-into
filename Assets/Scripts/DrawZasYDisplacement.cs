@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Klaxon.Interactable;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ public class DrawZasYDisplacement : MonoBehaviour
     public Vector3 displacedPosition;
 
     public bool isInUse;
+    public bool isDecorationSurface;
+    
 
     private void Start()
     {
@@ -40,4 +43,6 @@ public class DrawZasYDisplacement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(pos, 0.1f);
     }
+
+    
 }

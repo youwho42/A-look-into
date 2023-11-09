@@ -33,8 +33,6 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: Twine, a rough and very itchy string. I dare you to make a sweater
-    with it!
   Weight: 1
   Price: 30
   spawnWeight: 1
@@ -45,8 +43,13 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
-  ResearchRecipes: []
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: dfb3d9633aef2e349a0f08882b247d98, type: 2}
+    RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 0
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

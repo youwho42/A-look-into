@@ -253,7 +253,7 @@ MonoBehaviour:
   - {x: -0.014650345, y: -0.02299118, z: 0}
   m_ShapePathHash: 254042351
   m_Mesh: {fileID: 0}
-  m_InstanceId: 21910678
+  m_InstanceId: 11112470
   m_LocalBounds:
     m_Center: {x: 0.0007505417, y: 0.0020637512, z: 0}
     m_Extent: {x: 0.04646778, y: 0.027931213, z: 0}
@@ -366,11 +366,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 20
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 833522979003664637}
   agencyItem: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}
   agencyAmount: 5
   rend: {fileID: 833522979003664638}
@@ -579,6 +583,7 @@ MonoBehaviour:
   positionZ: 0.35
   displacedPosition: {x: 0, y: 0, z: 0}
   isInUse: 0
+  isDecorationSurface: 0
 --- !u!1001 &833522979046196142
 PrefabInstance:
   m_ObjectHideFlags: 0

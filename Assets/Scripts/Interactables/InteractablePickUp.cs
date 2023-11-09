@@ -54,7 +54,9 @@ namespace Klaxon.Interactable
             }
 
             hasInteracted = false;
-
+            if(pickUpItem.placementGumption != null)
+                PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
+                
             WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
 
 

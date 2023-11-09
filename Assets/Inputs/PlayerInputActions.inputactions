@@ -193,6 +193,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotateDecoration",
+                    "type": "Button",
+                    "id": "20751a51-dfe8-4cd6-8fd1-a91668b0da49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -820,6 +829,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "LongInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5378cbc-279c-4fd2-b369-3db54e2752ef",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateDecoration",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a81aa3e9-7044-406d-a1d9-73ea1ecaddac",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "RotateDecoration",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -215,6 +215,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateDecoration"",
+                    ""type"": ""Button"",
+                    ""id"": ""20751a51-dfe8-4cd6-8fd1-a91668b0da49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -844,6 +853,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""LongInteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5378cbc-279c-4fd2-b369-3db54e2752ef"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RotateDecoration"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a81aa3e9-7044-406d-a1d9-73ea1ecaddac"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RotateDecoration"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1203,6 +1234,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_InventoryDragItem = m_Player.FindAction("InventoryDragItem", throwIfNotFound: true);
         m_Player_InventoryRightClickItem = m_Player.FindAction("InventoryRightClickItem", throwIfNotFound: true);
         m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
+        m_Player_RotateDecoration = m_Player.FindAction("RotateDecoration", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1294,6 +1326,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_InventoryDragItem;
     private readonly InputAction m_Player_InventoryRightClickItem;
     private readonly InputAction m_Player_DialogueNext;
+    private readonly InputAction m_Player_RotateDecoration;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1319,6 +1352,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @InventoryDragItem => m_Wrapper.m_Player_InventoryDragItem;
         public InputAction @InventoryRightClickItem => m_Wrapper.m_Player_InventoryRightClickItem;
         public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
+        public InputAction @RotateDecoration => m_Wrapper.m_Player_RotateDecoration;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1391,6 +1425,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DialogueNext.started += instance.OnDialogueNext;
             @DialogueNext.performed += instance.OnDialogueNext;
             @DialogueNext.canceled += instance.OnDialogueNext;
+            @RotateDecoration.started += instance.OnRotateDecoration;
+            @RotateDecoration.performed += instance.OnRotateDecoration;
+            @RotateDecoration.canceled += instance.OnRotateDecoration;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1458,6 +1495,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DialogueNext.started -= instance.OnDialogueNext;
             @DialogueNext.performed -= instance.OnDialogueNext;
             @DialogueNext.canceled -= instance.OnDialogueNext;
+            @RotateDecoration.started -= instance.OnRotateDecoration;
+            @RotateDecoration.performed -= instance.OnRotateDecoration;
+            @RotateDecoration.canceled -= instance.OnRotateDecoration;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1637,6 +1677,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInventoryDragItem(InputAction.CallbackContext context);
         void OnInventoryRightClickItem(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
+        void OnRotateDecoration(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
