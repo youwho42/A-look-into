@@ -13,21 +13,43 @@ MonoBehaviour:
   m_Name: Equipment_Lantern
   m_EditorClassIdentifier: 
   Name: Lantern
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 0
   AnimationName: 
-  Description: Some how his shines light on you from above. Far out!
   Weight: 0
   Price: 40
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: b55a4647514f29f47b49aad9e5b5dc2a, type: 3}
   ItemPrefab: {fileID: 249755112104138812, guid: 166e547f684b5314e86f1e3b5f878e1c,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 249755112104138812, guid: 166e547f684b5314e86f1e3b5f878e1c, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 1563155957046086015, guid: 064f455027e9ad1498318afbd4138f9e,
     type: 3}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  placementGumption: {fileID: 0}
   equipmentSlot: 1
+  references:
+    version: 2
+    RefIds: []

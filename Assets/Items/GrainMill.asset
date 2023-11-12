@@ -33,19 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: 'Grinds (like the devs teeth) down grain into a fine flour. '
   Weight: 10
   Price: 50
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: ef733152b872b3d4c98e07099331503d, type: 3}
   ItemPrefab: {fileID: 4101235964617304110, guid: 3d0704bb72efa3243bb49849d3acf979,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 4101235964617304110, guid: 3d0704bb72efa3243bb49849d3acf979, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

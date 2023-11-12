@@ -39,6 +39,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 7b06535b158a06f4eb242c09f1ee79c2, type: 3}
   ItemPrefab: {fileID: 205002403857363210, guid: af7aa6e2ed1c32044859f6ddbdac34aa,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 205002403857363210, guid: af7aa6e2ed1c32044859f6ddbdac34aa, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 249755112104138812, guid: 0290c83c802dc0449b7b40198750d766,
     type: 3}
@@ -46,6 +48,7 @@ MonoBehaviour:
   compendiumGuide: {fileID: 11400000, guid: 720d3daa6616d4f4db0e5f0257fdde8c, type: 2}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
   equipmentSlot: 0
   gatherItemData:
   - {fileID: 11400000, guid: 87f92308592164e4ba696ca7fd370317, type: 2}
@@ -69,7 +72,6 @@ MonoBehaviour:
   detectionRadius: 0.01
   takeSample: 0
   oneUse: 0
-  playerEnergyCost: 5
   statChanger: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
   references:
     version: 2

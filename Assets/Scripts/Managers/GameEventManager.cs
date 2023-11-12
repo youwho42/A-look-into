@@ -87,5 +87,4 @@ public static class GameEventManager
     public static readonly GameEvent<int> onSpyglassAimChageSelectedEvent = new GameEvent<int>();
     public static readonly GameEvent onRotateDecoration = new GameEvent();
 
-
 }

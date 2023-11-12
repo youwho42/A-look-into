@@ -168,6 +168,8 @@ public class PlayerInputController : MonoBehaviour
         rotateDecoration = inputActions.Player.RotateDecoration;
         rotateDecoration.Enable();
         rotateDecoration.started += RotateDecorationAction;
+
+        
     }
     private void OnDisable()
     {

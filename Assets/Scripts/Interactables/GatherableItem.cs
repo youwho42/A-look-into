@@ -12,6 +12,9 @@ public class GatherableItem : MonoBehaviour
     private int currentAmount;
     public int timeToReset;
     public bool hasBeenHarvested;
+    
+    public GameObject harvestedSticker;
+    
 
     private void Start()
     {
@@ -41,6 +44,7 @@ public class GatherableItem : MonoBehaviour
         {
             currentAmount = maxPerDay;
             hasBeenHarvested = false;
+            harvestedSticker.SetActive(false);
         }
         
     }

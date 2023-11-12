@@ -62,12 +62,6 @@ public class InventoryDisplayUI : MonoBehaviour
         }
     }
 
-    
-    
-    
-    
-
-    
     public void UpdateInventoryUI()
     {
         //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";

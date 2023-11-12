@@ -33,22 +33,23 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 3
   AnimationName: 
-  Description: A large, orange, and meaty pumpkin. Maybe it will spook someone?
   Weight: 0.3
   Price: 30
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 02a73a19d28871243ba418ea52dce5a4, type: 3}
   ItemPrefab: {fileID: 2997377886582240980, guid: 4feefe22c1d331e49bddc2eadfbf7ac9,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 2997377886582240980, guid: 4feefe22c1d331e49bddc2eadfbf7ac9, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
-  attributeModifiers:
-  - attributeToModify: Bounce
-    amount: 20
+  placementGumption: {fileID: 0}
+  statChangers: []
+  statModifiers: []
   itemToBecome: {fileID: 0}
   references:
     version: 2

@@ -13,8 +13,24 @@ public class GridManager : MonoBehaviour
             instance = this;
     }
 
-    public Grid grid;
+    Grid grid;
     public Tilemap groundMap;
+    public Grid Grid { get { return grid == null ?SetGrid() : grid; } }
 
+    Grid SetGrid()
+    {
+        if (grid != null)
+            return grid;
 
+        grid = FindObjectOfType<Grid>();
+        Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
+        foreach (var map in maps)
+        {
+            if (map.gameObject.name == "GroundTiles")
+            {
+                groundMap = map;
+            }
+        }
+        return grid;
+    }
 }

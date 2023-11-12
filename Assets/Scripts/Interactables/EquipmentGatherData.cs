@@ -153,8 +153,10 @@ public class EquipmentGatherData : EquipmentData
                                     
                                     PlayerInformation.instance.playerActivateSpyglass.SlowTimeEvent(false);
                                     nearestItemList.hasBeenHarvested = true;
+                                    nearestItemList.harvestedSticker.SetActive(true);
                                     PlayerInformation.instance.uiScreenVisible = true;
                                     MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
+                                    break;
                                 }
                             }
                         }

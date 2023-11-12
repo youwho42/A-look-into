@@ -59,9 +59,10 @@ namespace Klaxon.Interactable
 
         public override void Interact(GameObject interactor)
         {
-
+            
             base.Interact(interactor);
-
+            if (!HasReadHowTo())
+                return;
             if (!isLit)
                 SetFire("extinguish", true);
             else
@@ -73,6 +74,10 @@ namespace Klaxon.Interactable
         {
 
             base.LongInteract(interactor);
+            if (!HasReadHowTo())
+                return;
+
+
             if (isLit)
             {
                 Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Fire pick up"), null, 0, NotificationsType.Warning);

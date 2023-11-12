@@ -168,7 +168,7 @@ public class MenuDisplayUI : MonoBehaviour
     void HideAllMenuUI()
     {
         
-        if (!inMenu)
+        if (!inMenu || PlayerInformation.instance.isDragging)
             return;
         UIScreenManager.instance.HideAllScreens();
         if (LevelManager.instance.HUDBinary == 1)

@@ -13,19 +13,41 @@ MonoBehaviour:
   m_Name: ResearchPostBroken
   m_EditorClassIdentifier: 
   Name: Broken Research Post
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: Pray god this isn't in your inventory
   Weight: 100
   Price: 100
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 83dc1115158be9c42a83e035a1407f8e, type: 3}
   ItemPrefab: {fileID: 1938570435017776998, guid: a3c07abe896c51048972c62414999000,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 1938570435017776998, guid: a3c07abe896c51048972c62414999000, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

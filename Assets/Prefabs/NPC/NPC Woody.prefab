@@ -18,11 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 2506158409241572415}
     - target: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
       propertyPath: pathType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
       propertyPath: goals.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
+      propertyPath: goals.Array.data[1].TimeLimit
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1781550424958762, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
       propertyPath: walkSpeed

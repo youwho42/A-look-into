@@ -14,7 +14,6 @@ namespace Klaxon.Interactable
         public bool facingRight;
         public NavigationNode navigationNode;
         public StatChanger gumptionChanger;
-
         public override void Start()
         {
             base.Start();
@@ -50,6 +49,7 @@ namespace Klaxon.Interactable
 
         IEnumerator PlacePlayer(Vector3 position)
         {
+            
             float timer = 0;
             float maxTime = 0.45f;
             while (timer < maxTime)

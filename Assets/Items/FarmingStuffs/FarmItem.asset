@@ -13,19 +13,41 @@ MonoBehaviour:
   m_Name: FarmItem
   m_EditorClassIdentifier: 
   Name: Farm Item
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 4
   AnimationName: 
-  Description: NOT IN YOUR INVNTORY!!! otherwise, it's the farm area.
   Weight: 0
   Price: 0
   spawnWeight: 1
   Icon: {fileID: 0}
   ItemPrefab: {fileID: 4733545864449224223, guid: ef73bb06e0c5a4c40b4ce5d4e31fd9c4,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 4733545864449224223, guid: ef73bb06e0c5a4c40b4ce5d4e31fd9c4, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

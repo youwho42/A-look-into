@@ -160,12 +160,20 @@ public class ObjectManagerEditor : Editor
     GameObject CreateGameObjectFromPrefab()
     {
         int rand = -1;
-        do
+        if (objectManager.prefabGO.Length > 1)
         {
-            rand = Random.Range(0, objectManager.prefabGO.Length);
-        } 
-        while (lastRandom==rand);
-        lastRandom = rand;
+            do
+            {
+                rand = Random.Range(0, objectManager.prefabGO.Length);
+
+
+            }
+            while (lastRandom == rand);
+            lastRandom = rand;
+        }
+        else 
+            rand = 0;
+            
         GameObject prefabGO = objectManager.prefabGO[rand];
         GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
         return newGO;

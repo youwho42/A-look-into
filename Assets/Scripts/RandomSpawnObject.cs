@@ -62,7 +62,7 @@ public class RandomSpawnObject : MonoBehaviour
             if (hit == null || hit.CompareTag("Grass"))
             {
                 int rand = UnityEngine.Random.Range(0, objectsToSpawn.Count);
-                var go = Instantiate(objectsToSpawn[rand].ItemPrefab, SetPositionY(temp), Quaternion.identity);
+                var go = Instantiate(objectsToSpawn[rand].ItemPrefabVariants[0], SetPositionY(temp), Quaternion.identity);
                 go.transform.parent = this.transform;
                 if (go.TryGetComponent(out SaveableItemEntity entity))
                 {

@@ -13,19 +13,41 @@ MonoBehaviour:
   m_Name: ResearchPost
   m_EditorClassIdentifier: 
   Name: Research Post
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: Pray god this isn't in your inventory
   Weight: 100
   Price: 100
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: e27aba22b32b79b4bb059da230ce0ffb, type: 3}
   ItemPrefab: {fileID: 29696981353999429, guid: 9eb2c8a570e550c479d7f8b961a8fad1,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 29696981353999429, guid: 9eb2c8a570e550c479d7f8b961a8fad1, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 11400000, guid: e170037d549997747a2c4dc5314d43f5, type: 2}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

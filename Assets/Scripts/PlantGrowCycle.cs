@@ -214,7 +214,7 @@ public class PlantGrowCycle : MonoBehaviour
         if (homeOccupiedBy != "" && homeOccupiedBy != null)
         {
 
-            var go = Instantiate(AllItemsDatabaseManager.instance.allItemsDatabase.GetItem(homeOccupiedBy).ItemPrefab, transform.position, Quaternion.identity);
+            var go = Instantiate(AllItemsDatabaseManager.instance.allItemsDatabase.GetItem(homeOccupiedBy).ItemPrefabVariants[0], transform.position, Quaternion.identity);
 
             
         }

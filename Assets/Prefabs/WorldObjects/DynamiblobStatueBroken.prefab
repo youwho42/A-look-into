@@ -186,11 +186,18 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
   replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  howToCondition:
+    Condition: 
+    State: 0
+  instruction: {fileID: 0}
   ingredients:
   - item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
     amount: 5
@@ -254,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 8db8e5b6c7f7cad4a9c53fabaaa6389f, type: 2}
+  itemVariantIndex: 0
 --- !u!1 &1938570436074480658
 GameObject:
   m_ObjectHideFlags: 0

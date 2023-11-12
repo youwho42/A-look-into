@@ -45,14 +45,14 @@ public class SpawnDailyObjects : MonoBehaviour
         }
         foreach (var point in spawnPoints)
         {
-            if (Random.Range(0.0f, 1.0f) > 0.6f)
+            if (Random.Range(0.0f, 1.0f) > 0.5f)
             {
                 var hit = Physics2D.OverlapCircle(point.position, .05f);
                 if (hit == null || hit.CompareTag("Grass"))
                 {
                     
                     var item = itemDatabase.GetRandomWeightedItem();
-                    var go = Instantiate(item.ItemPrefab, point.position, Quaternion.identity);
+                    var go = Instantiate(item.ItemPrefabVariants[0], point.position, Quaternion.identity);
 
                     if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
                         itemToSpawn.GenerateId();

@@ -108,6 +108,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     
     public TextMeshProUGUI itemAmount;
     public TextMeshProUGUI itemUse;
+    public TextMeshProUGUI variantsDisplay;
     public QI_Inventory inventory;
     public EquipmentManager equipmentManager;
     GameObject itemToDrop;
@@ -126,6 +127,10 @@ public class InventoryDisplaySlot : MonoBehaviour
     public Bounds baseBounds = new Bounds(new Vector3(13, -10, 0), new Vector3(128, 128, 20));
     NavNodeQuadTree quadTree;
     Bounds bounds;
+
+    
+
+
     [Serializable]
     public struct ItemTypeNames
     {
@@ -198,16 +203,11 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
             return;
 
-        Debug.Log("rotating potential");
-        if (item.Type == ItemType.Decoration)
-        {
-            var decoItem = item as DecorationData;
-            decorationIndex = (decorationIndex+1) % decoItem.variants.Count;
-            Destroy(itemToDrop.gameObject);
-            var go = Instantiate(decoItem.variants[decorationIndex], GetMousePosition(), Quaternion.identity);
-            itemToDrop = go.gameObject;
-            Debug.Log("rotated");
-        }
+        decorationIndex = (decorationIndex+1) % item.ItemPrefabVariants.Count;
+        Destroy(itemToDrop.gameObject);
+        var go = Instantiate(item.ItemPrefabVariants[decorationIndex], GetMousePosition(), Quaternion.identity);
+        itemToDrop = go.gameObject;
+        SetValidity();
     }
     public string GetItemType()
     {
@@ -243,6 +243,8 @@ public class InventoryDisplaySlot : MonoBehaviour
         icon.enabled = true;
         itemTypeName = GetItemType();
         ShowItemUse(false);
+        if (item.ItemPrefabVariants.Count > 1)
+            variantsDisplay.gameObject.SetActive(true);
     }
     public void RemoveItem()
     {
@@ -258,6 +260,9 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         if (itemToDrop.TryGetComponent(out SaveableItemEntity itemDrop))
             itemDrop.GenerateId();
+
+        if (itemToDrop.TryGetComponent(out QI_Item i))
+            i.itemVariantIndex = decorationIndex;
 
         var replace = itemToDrop.GetComponent<Interactable>().replaceObjectOnDrop;
         if (replace != null)
@@ -276,15 +281,16 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
             return;
-        
+
+        PlayerInformation.instance.isDragging = true;
 
         if (!isDragged)
         {
-            var prefab = item.ItemPrefab;
+            var prefab = item.ItemPrefabVariants[0];
             if (item.Type == ItemType.Decoration)
             {
-                var decoItem = item as DecorationData;
-                prefab = decoItem.variants[decorationIndex];
+                
+                prefab = item.ItemPrefabVariants[decorationIndex];
             }
                 
             var go = Instantiate(prefab, GetMousePosition(), Quaternion.identity);
@@ -292,12 +298,17 @@ public class InventoryDisplaySlot : MonoBehaviour
             isDragged = true;
         }
 
+        SetValidity();
+        
+
+        itemToDrop.transform.position = GetMousePosition();
+    }
+    void SetValidity()
+    {
         if (!CheckPlayerVicinity() || !CheckTileValid() || CheckForObstacles())
             TurnObjectColor(Color.red);
         else
             TurnObjectColor(Color.white);
-
-        itemToDrop.transform.position = GetMousePosition();
     }
 
     void TurnObjectColor(Color color)
@@ -313,7 +324,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || itemToDrop == null)
             return;
         //Check if in player vicinity :)
-
+        PlayerInformation.instance.isDragging = false;
         if (!CheckPlayerVicinity())
         {
             Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Too far"), null, 0, NotificationsType.Warning);
@@ -386,11 +397,9 @@ public class InventoryDisplaySlot : MonoBehaviour
                 
                 if (hit.TryGetComponent(out DrawZasYDisplacement obj))
                 {
-                    if (interactable != null)
-                        interactable.visualItem.localPosition = obj.displacedPosition;
-
                     if (interactable.canPlaceOnOther)
                     {
+                        interactable.visualItem.localPosition = obj.displacedPosition;
                         if (obj.isDecorationSurface)
                             return false;
                     }
@@ -423,7 +432,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         var gManager = GridManager.instance;
         var pos = itemToDrop.transform.position;
         pos.z -= 1;
-        Vector3Int posDown = gManager.grid.WorldToCell(pos);
+        Vector3Int posDown = gManager.Grid.WorldToCell(pos);
         
         Vector3Int posUp = new Vector3Int(posDown.x, posDown.y, posDown.z + 1);
         
@@ -463,6 +472,8 @@ public class InventoryDisplaySlot : MonoBehaviour
         itemAmount.text = "";
         icon.enabled = false;
         itemUse.text = "";
+        decorationIndex = 0;
+        variantsDisplay.gameObject.SetActive(false);
     }
     
 }

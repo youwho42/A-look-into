@@ -13,20 +13,41 @@ MonoBehaviour:
   m_Name: Teleporter
   m_EditorClassIdentifier: 
   Name: Teleporter
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: Transport yourself quickly elsewhere, but you'll have to figure out
-    where where is.
   Weight: 1
   Price: 1
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 1cb412b135af247d1aee6b71b67c790c, type: 3}
   ItemPrefab: {fileID: 6243013556377035767, guid: 42ad06b4003f5491a807c9ea338bc18e,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 6243013556377035767, guid: 42ad06b4003f5491a807c9ea338bc18e, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

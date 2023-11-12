@@ -42,6 +42,9 @@ public class PlayerInformation : MonoBehaviour
     StringVariable pName;
     public SpriteResolver playerSpriteResolver;
     public StatHandler statHandler;
+    public bool isDragging;
+
+
 
     private void Awake()
     {
@@ -68,7 +71,6 @@ public class PlayerInformation : MonoBehaviour
         playerNotesCompendiumDatabase.Items.Clear();
         playerGuidesCompendiumDatabase.Items.Clear();
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdatePlayerResources);
-
         var source = LocalizationSettings.StringDatabase.SmartFormatter.GetSourceExtension<PersistentVariablesSource>();
         pName = source["global"]["playerName"] as StringVariable;
         
@@ -78,6 +80,10 @@ public class PlayerInformation : MonoBehaviour
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdatePlayerResources);
     }
+
+   
+
+
     public void TogglePlayerInput(bool toggle)
     {
         playerInput.isInUI = !toggle;

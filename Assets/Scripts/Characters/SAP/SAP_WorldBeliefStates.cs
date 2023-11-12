@@ -33,7 +33,8 @@ namespace Klaxon.SAP
             var a = FindObjectsOfType<InteractableChair>().ToList();
             foreach (var seat in a)
             {
-                allSeats.Add(seat);
+                if(seat.navigationNode != null)
+                    allSeats.Add(seat);
             }
         }
         private void OnEnable()

@@ -38,7 +38,7 @@ public class StatModifiersUI : MonoBehaviour
                         break;
                     }
                 }
-                if(!found)
+                if(!found && mod.modIcon != null)
                 {
                     
                     var go = Instantiate(modifierObject, modifierHolder.transform);

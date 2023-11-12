@@ -79,7 +79,7 @@ namespace Klaxon.SAP
         void PlantSeed(SAP_Scheduler_BP agent)
         {
             agent.plantingArea.plantUsedLocations.Add(agent.currentPlantDestination);
-            var go = Instantiate(agent.plantingArea.seedItem.plantedObject.ItemPrefab, agent.currentPlantDestination, Quaternion.identity);
+            var go = Instantiate(agent.plantingArea.seedItem.plantedObject.ItemPrefabVariants[0], agent.currentPlantDestination, Quaternion.identity);
             go.GetComponent<InteractableFarmPlant>().plantingArea = agent.plantingArea;
             go.GetComponent<SaveableItemEntity>().GenerateId();
             PlantLife plant = go.GetComponent<PlantLife>();

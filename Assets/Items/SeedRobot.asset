@@ -13,19 +13,41 @@ MonoBehaviour:
   m_Name: SeedRobot
   m_EditorClassIdentifier: 
   Name: Seed Finding Robot
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: A robot, it finds seeds you can't see.
   Weight: 5
   Price: 5
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 15416734b54941442a0832ccaac69bdf, type: 3}
   ItemPrefab: {fileID: 2621164004027186708, guid: c235414690aede146905f06d4536836a,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 2621164004027186708, guid: c235414690aede146905f06d4536836a, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

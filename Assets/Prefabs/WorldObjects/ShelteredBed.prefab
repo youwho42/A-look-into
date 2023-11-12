@@ -123,11 +123,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 0
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 8293278730299291848}
+  instruction: {fileID: 0}
   facingRight: 0
   navigationNode: {fileID: 0}
   references:
@@ -171,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: e6ff0f3aed9c73a448c3178eb1ee56a2, type: 2}
+  itemVariantIndex: 0
 --- !u!1 &7684330644664903140
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,7 +34,15 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         messageContent.text = messageDescription;
         destroyOnClose = false;
     }
-    
+
+    public void ShowHowTo(string messageName, string messageDescription)
+    {
+        SetPlayer();
+        messageTitle.text = messageName;
+        messageContent.text = messageDescription;
+        destroyOnClose = false;
+    }
+
     public void ShowBallPersonMessageUI(IBallPerson messengerAI, string messageName, string messageDescription)
     {
         SetPlayer();

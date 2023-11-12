@@ -33,19 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: Smelts smeltables
   Weight: 100
   Price: 50
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: fe740ae958b44034494d5c6e68ffa022, type: 3}
   ItemPrefab: {fileID: 4101235964617304110, guid: ac845c631754d7d4bb742cb3d2e2af85,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 4101235964617304110, guid: ac845c631754d7d4bb742cb3d2e2af85, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

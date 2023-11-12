@@ -32,7 +32,7 @@ public class SingleRecipeCraftingHandler : MonoBehaviour
         {
             if (!EndInventory.AddItem(queue.Item, queue.Amount, false))
             {
-                Instantiate(queue.Item.ItemPrefab, transform.position + new Vector3(0, -0.2f, 0), Quaternion.identity);
+                Instantiate(queue.Item.ItemPrefabVariants[0], transform.position + new Vector3(0, -0.2f, 0), Quaternion.identity);
             }
             Queues.RemoveAt(index);
             OnCrafted.Invoke();

@@ -33,20 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: A piece of cloth. You can't wear clothes if you're not clothed. But
-    you can't change clothes anyways, so...
   Weight: 1
   Price: 80
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: b69724c7fa45ea441b85fdfe0388ebd2, type: 3}
   ItemPrefab: {fileID: 2997377886582240980, guid: bfd33fd8061ca43498459995ab6087d8,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 2997377886582240980, guid: bfd33fd8061ca43498459995ab6087d8, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

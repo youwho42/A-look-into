@@ -33,20 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 4
   AnimationName: 
-  Description: A cute plant with fuzz on the stems! If you get the fuzz on your fingers
-    it smells like fresh tomatoes! And the you can make a sauce I guess...
   Weight: 0
   Price: 15
   spawnWeight: 10
   Icon: {fileID: 21300000, guid: 455bd216ed621fa4ea97081641c65938, type: 3}
   ItemPrefab: {fileID: 2997377886582240980, guid: 7613b822e27ca1849bc150df4de84168,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 2997377886582240980, guid: 7613b822e27ca1849bc150df4de84168, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
+  placementGumption: {fileID: 0}
   plantingDistance: 0.12
   plantedObject: {fileID: 11400000, guid: 6540314366b67ee4eabd8aeca6f2b777, type: 2}
   references:

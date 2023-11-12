@@ -1,4 +1,5 @@
-﻿using Klaxon.StatSystem;
+﻿using Klaxon.SAP;
+using Klaxon.StatSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,10 @@ namespace Klaxon.Interactable
         public bool canPlaceOnOther;
         public Transform visualItem;
 
+        
+        public InstructionObject instruction;
+
+
         public virtual void Start()
         {
             audioManager = AudioManager.instance;
@@ -43,6 +48,8 @@ namespace Klaxon.Interactable
 
         public virtual void Interact(GameObject interactor)
         {
+            
+
             if (hasInteracted)
                 return;
 
@@ -54,6 +61,8 @@ namespace Klaxon.Interactable
         }
         public virtual void LongInteract(GameObject interactor)
         {
+            
+
             if (hasInteracted || !hasLongInteract)
                 return;
 
@@ -79,6 +88,17 @@ namespace Klaxon.Interactable
             return false;
         }
 
+        public bool HasReadHowTo()
+        {
+            if (instruction == null)
+                return true;
+            if (SAP_WorldBeliefStates.instance.HasWorldState(instruction.condition.Condition, instruction.condition.State))
+                return true;
+            BallPersonMessageDisplayUI.instance.ShowHowTo(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString());
+            UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
+            SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
+            return false;
+        }
 
     } 
 }

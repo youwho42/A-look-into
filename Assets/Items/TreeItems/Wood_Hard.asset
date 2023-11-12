@@ -33,19 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: Wood, but this one is hard.
   Weight: 1
   Price: 20
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 47e6cd5da5041cd4ab3e41ab3f26c758, type: 3}
   ItemPrefab: {fileID: 3193338031072352893, guid: 0ad13446ae3635145a5fc22a548a8db0,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 3193338031072352893, guid: 0ad13446ae3635145a5fc22a548a8db0, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 3
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

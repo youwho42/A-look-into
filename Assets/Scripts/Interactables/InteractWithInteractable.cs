@@ -29,7 +29,7 @@ namespace Klaxon.Interactable
         public Slider interactSlider;
         [SerializeField] private InputActionReference holdButton;
 
-
+        
 
         private float currentHoldTime = 0f;
         public bool isHolding = false;
@@ -38,7 +38,6 @@ namespace Klaxon.Interactable
         {
             holdButton.action.started += OnHoldButtonPerformed;
             holdButton.action.canceled += OnHoldButtonCanceled;
-
         }
 
         private void OnDisable()
@@ -48,7 +47,7 @@ namespace Klaxon.Interactable
         }
 
 
-
+        
 
         private void Start()
         {
@@ -112,6 +111,8 @@ namespace Klaxon.Interactable
         {
             //interactSlider.gameObject.SetActive(false);
             //interactUI.SetActive(false);
+            if (PlayerInformation.instance.isSitting)
+                return;
 
             if (currentInteractables.Count > 0)
             {
@@ -134,17 +135,17 @@ namespace Klaxon.Interactable
                     
                 }
                 closest.SetInteractVerb();
-                string butt = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
+                string buttTap = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
                 string action="";
-                if (closest.interactVerb!="")
-                    action = $"{butt} {closest.interactVerb}";
+                if (closest.interactVerb!= "")
+                    action = $"{buttTap} {closest.interactVerb}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
-
+                string buttHold = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
                 string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");
                 if (closest.hasLongInteract)
                 {
-                    action += $"\n {hold} {butt} {closest.longInteractVerb.GetLocalizedString()}";
+                    action += $"\n {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {closest.localizedInteractVerb.GetLocalizedString()}";
                     interactSlider.gameObject.SetActive(true);
                 }
                 interactVerb.text = action;
@@ -157,6 +158,8 @@ namespace Klaxon.Interactable
 
         public void Interact()
         {
+            if (PlayerInformation.instance.isSitting)
+                return;
             if (currentInteractables.Count > 0)
             {
                 var interactable = GetNearestInteractable(currentInteractables);
@@ -169,6 +172,8 @@ namespace Klaxon.Interactable
 
         public void LongInteract()
         {
+            if (PlayerInformation.instance.isSitting)
+                return;
             if (currentInteractables.Count > 0)
             {
                 var interactable = GetNearestInteractable(currentInteractables);

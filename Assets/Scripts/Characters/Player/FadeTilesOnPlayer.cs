@@ -45,11 +45,11 @@ public class FadeTilesOnPlayer : MonoBehaviour
 
     void GetTileLocation()
     {
-        for (int x = -2; x < 3; x++)
+        for (int x = -3; x < 4; x++)
         {
-            for (int y = -2; y < 3; y++)
+            for (int y = -3; y < 4; y++)
             {
-                for (int z = 0; z < tilemap.size.z + 1; z++)
+                for (int z = lastPlayerTilePosition.z; z < lastPlayerTilePosition.z + 6; z++)
                 {
                     Vector3Int currentPosition = lastPlayerTilePosition;
                     currentPosition.x += x;
@@ -63,8 +63,8 @@ public class FadeTilesOnPlayer : MonoBehaviour
                         var sy = Mathf.Sign(y);
                         if (sx <= 0 && sy <= 0)
                             d += (sx + sy);
-                        d = Mathf.Clamp(d, 0, 3);
-                        StartCoroutine(FadeTile(currentPosition, (d * 0.2f) + 0.05f));
+                        d = Mathf.Clamp(d, 0, 4);
+                        StartCoroutine(FadeTile(currentPosition, (d * 0.1f) + 0.05f));
                         fadedTilePositions.Add(currentPosition);
                     }
                 }
@@ -110,119 +110,3 @@ public class FadeTilesOnPlayer : MonoBehaviour
         }
     }
 }
-
-
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.Tilemaps;
-
-//public class FadeTilesOnPlayer : MonoBehaviour
-//{
-//    public Grid groundGrid;
-//    public Tilemap tilemap;
-
-
-//    List<Vector3Int> lastTilePositions = new List<Vector3Int>();
-
-//    bool inHouse;
-
-//    private void Start()
-//    {
-//        GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
-//    }
-
-//    private void OnDisable()
-//    {
-//        GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(FadeTiles);
-//    }
-
-//    void FadeTiles()
-//    {
-//        if (inHouse)
-//        {
-//            ClearFadedTiles();
-//            GetTileLocation();
-//        }
-
-//    }
-
-
-
-//    void ClearFadedTiles()
-//    {
-//        foreach (Vector3Int pos in lastTilePositions)
-//        {
-//            StopCoroutine("FadeTile");
-//            StartCoroutine(FadeTile(pos));
-//        }
-//        lastTilePositions.Clear();
-//    }
-
-
-
-//    void GetTileLocation()
-//    {
-//        Vector3Int mainPosition = PlayerInformation.instance.currentTilePosition.position;
-//        for (int x = -2; x < 3; x++)
-//        {
-//            for (int y = -2; y < 3; y++)
-//            {
-//                for (int z = 0; z < tilemap.size.z + 1; z++)
-//                {
-//                    Vector3Int currentPosition = mainPosition;
-//                    currentPosition.x += x;
-//                    currentPosition.y += y;
-//                    currentPosition.z = z;
-//                    TileBase tile = tilemap.GetTile(currentPosition);
-//                    if (tile != null)
-//                    {
-//                        StopCoroutine("FadeTile");
-//                        var d = Vector2.Distance((Vector2Int)mainPosition, (Vector2Int)currentPosition);
-//                        var sx = Mathf.Sign(x);
-//                        var sy = Mathf.Sign(y);
-//                        if (sx <= 0 && sy <= 0)
-//                            d += (sx + sy);
-//                        d = Mathf.Clamp(d, 0, 3);
-//                        StartCoroutine(FadeTile(currentPosition, (d * 0.2f) + 0.05f));
-//                        lastTilePositions.Add(currentPosition);
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    IEnumerator FadeTile(Vector3Int tilePosition, float amountToFade = 1)
-//    {
-//        float elapsedTime = 0;
-//        float waitTime = .5f;
-//        tilemap.SetTileFlags(tilePosition, TileFlags.None);
-//        Color tempColor = tilemap.GetColor(tilePosition);
-//        while (elapsedTime < waitTime)
-//        {
-//            tilemap.SetColor(tilePosition, Color.Lerp(tempColor, new Color(tempColor.r, tempColor.g, tempColor.b, amountToFade), elapsedTime / waitTime));
-//            elapsedTime += Time.deltaTime;
-//            yield return null;
-//        }
-
-//    }
-
-
-//    private void OnTriggerEnter2D(Collider2D collision)
-//    {
-//        if (collision.CompareTag("House"))
-//        {
-//            inHouse = true;
-//        }
-//    }
-
-//    private void OnTriggerExit2D(Collider2D collision)
-//    {
-//        if (collision.CompareTag("House"))
-//        {
-//            inHouse = false;
-//            ClearFadedTiles();
-//        }
-//    }
-
-//}

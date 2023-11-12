@@ -1,9 +1,11 @@
+using Klaxon.SAP;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UIElements;
 
 namespace Klaxon.Interactable
 {
@@ -20,6 +22,7 @@ namespace Klaxon.Interactable
 
         public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
         FixingSounds fixSound;
+        
 
         public override void Start()
         {
@@ -29,6 +32,7 @@ namespace Klaxon.Interactable
 
         public override void Interact(GameObject interactor)
         {
+            
             base.Interact(interactor);
             bool hasIngredients = CheckForIngredients();
             bool cost = InteractCostReward();
@@ -49,6 +53,7 @@ namespace Klaxon.Interactable
         }
         public override void LongInteract(GameObject interactor)
         {
+            
             base.LongInteract(interactor);
             string ingredients = "";
             if (agencyCost > 0)
@@ -62,6 +67,8 @@ namespace Klaxon.Interactable
             UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
             canInteract = false;
         }
+
+        
 
 
         public bool CheckForIngredients()

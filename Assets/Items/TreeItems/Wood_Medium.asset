@@ -33,19 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 2
   AnimationName: 
-  Description: Wood, but of the medium variety.
   Weight: 1
   Price: 10
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 2a0441d2fd424c642bc9f7520afe0939, type: 3}
   ItemPrefab: {fileID: 3193338031072352893, guid: b53d908bb12d8914c8da5b7ab00c1527,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 3193338031072352893, guid: b53d908bb12d8914c8da5b7ab00c1527, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 2
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

@@ -33,19 +33,21 @@ MonoBehaviour:
     m_LocalVariables: []
   Type: 8
   AnimationName: 
-  Description: A ball, it rolls and bounces... like a ball!
   Weight: 1
   Price: 2
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: 9b20a731b85918445a7a6e61f5a41590, type: 3}
   ItemPrefab: {fileID: 7924754858217846132, guid: cff726655eaaac54d97cd9a938900adb,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 7924754858217846132, guid: cff726655eaaac54d97cd9a938900adb, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 10
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
   references:
     version: 2
     RefIds: []

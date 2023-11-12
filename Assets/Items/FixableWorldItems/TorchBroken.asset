@@ -13,19 +13,41 @@ MonoBehaviour:
   m_Name: TorchBroken
   m_EditorClassIdentifier: 
   Name: Broken Torch
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 6
   AnimationName: 
-  Description: Pray god this isn't in your inventory
   Weight: 100
   Price: 100
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: eb842f7918ebfbc4ab27a375d562f3dd, type: 3}
   ItemPrefab: {fileID: 6446148457427665765, guid: d0317012e534777439859774cd9cc329,
     type: 3}
+  ItemPrefabVariants:
+  - {fileID: 6446148457427665765, guid: d0317012e534777439859774cd9cc329, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  EquipedItemImage: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
