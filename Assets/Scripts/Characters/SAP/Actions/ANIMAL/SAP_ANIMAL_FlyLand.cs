@@ -50,6 +50,12 @@ namespace Klaxon.SAP
 
             if (agent.flier.isStuck || agent.isDeviating || !agent.flier.canReachNextTile)
             {
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+                {
+                    agent.currentGoalComplete = true;
+                    agent.SetBeliefState("Landed", true);
+                    return;
+                }
                 agent.DeviateFly();
                 return;
             }

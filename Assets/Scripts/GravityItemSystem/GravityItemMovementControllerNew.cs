@@ -179,11 +179,11 @@ namespace Klaxon.GravitySystem
                 if (tile.direction == nextTileKey)
                 {
                     // this prevents the player from jumping off too high of a cliff
-                    //if (tile.levelZ < -2)
-                    //{
-                    //    onCliffEdge = true;
-                    //    return false;
-                    //}
+                    if (tile.levelZ < -2)
+                    {
+                        onCliffEdge = true;
+                        return false;
+                    }
 
                     if (!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                     {

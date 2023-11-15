@@ -82,6 +82,7 @@ namespace Klaxon.SAP
                         agent.walker.SetRandomDestination(wanderDistance);
                         
                     }
+                    agent.walker.FindDeviateDestination(5);
                 }
 
 

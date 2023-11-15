@@ -119,11 +119,12 @@ public class LocalGoodDisplayUI : MonoBehaviour
                 playerSlots[i].icon.enabled = true;
                 playerSlots[i].isContainerSlot = false;
                 butt.interactable = true;
-                if (PlayerInformation.instance.playerInventory.Stacks[i].Item.Type != validType)
-                    butt.interactable = false;
-                
+                if(validType != ItemType.All)
+                {
+                    if (PlayerInformation.instance.playerInventory.Stacks[i].Item.Type != validType)
+                        butt.interactable = false;
+                }
             }
-            
         }
 
         sparksDisplay.text = $"<sprite anim=\"3,5,12\"> {totalSparks}";

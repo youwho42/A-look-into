@@ -66,7 +66,7 @@ public class CreateParticleSuperShape : MonoBehaviour
         {
             float itemAngleIncrement = twoPI / layer.totalItems;
 
-            for (float angle = 0; angle < twoPI; angle += itemAngleIncrement)
+            for (float angle = 0; angle < twoPI - itemAngleIncrement; angle += itemAngleIncrement)
             {
 
                 
