@@ -13,6 +13,8 @@ namespace Klaxon.GravitySystem
         [Header("Player Movement")]
         public float walkSpeed;
         public float runSpeed;
+        [HideInInspector]
+        public float finalSpeed;
         public float jumpHeight;
         PlayerInputController playerInput;
         public bool facingRight;
@@ -94,7 +96,8 @@ namespace Klaxon.GravitySystem
 
             if (CanReachNextTile(playerInput.movement))
             {
-                Move(playerInput.movement, (playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : walkSpeed * speedStat.GetModifiedMax()));
+                finalSpeed = playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : walkSpeed * speedStat.GetModifiedMax();
+                Move(playerInput.movement, finalSpeed);
             }
 
 

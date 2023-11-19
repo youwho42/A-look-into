@@ -27,6 +27,7 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject seekerPrefab;
     public GameObject planterPrefab;
     public GameObject harvesterPrefab;
+    public GameObject indicatorPrefab;
     public GameObject appearFX;
     public float lastColorA;
     public System.Random random = new System.Random();
@@ -113,6 +114,19 @@ public class BallPeopleManager : MonoBehaviour
         harvesterBall.seedBoxInventory = plantingArea.seedBox;
 
     }
+
+    public void SpawnIndicator(int indicatorIndex, Color color, Vector3 position)
+    {
+        GameObject ind = null;
+        SpawnBallPeople(indicatorPrefab, out ind, position);
+
+        ind.GetComponent<SAP_Scheduler_BP>().indicatorIndex = indicatorIndex;
+        ind.GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
+        ind.GetComponent<RandomColor>().SetColor(color.r, color.g, color.b);
+        
+    }
+
+
 
 
     void SpawnBallPeople(GameObject prefab, out GameObject ballPerson, Vector3 position)

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class EquipmentManager : MonoBehaviour
 {
-    public QI_ItemData[] currentEquipment;
+    public EquipmentData[] currentEquipment;
     int totalSlots;
     public static EquipmentManager instance;
     public SpriteRenderer handEquipmentHolder;
@@ -20,14 +20,14 @@ public class EquipmentManager : MonoBehaviour
             Destroy(this);
             
         totalSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        currentEquipment = new QI_ItemData[totalSlots];
+        currentEquipment = new EquipmentData[totalSlots];
     }
 
     
 
     public void Equip(QI_ItemData newItem, int equipedIndex)
     {
-        currentEquipment[equipedIndex] = newItem;
+        currentEquipment[equipedIndex] = newItem as EquipmentData;
         if (equipedIndex == (int)EquipmentSlot.Hands)
         {
             //handEquipmentHolder.sprite = newItem.EquipedItemImage;
@@ -83,5 +83,16 @@ public class EquipmentManager : MonoBehaviour
         }
         handEquipmentHolder.sprite = null;
         GameEventManager.onEquipmentUpdateEvent.Invoke();
+    }
+
+    public bool HasItemEquipped(EquipmentSlot slot)
+    {
+        if (currentEquipment[(int)slot] != null)
+            return true;
+        return false;
+    }
+    public EquipmentTier GetEquipmentTier(EquipmentSlot slot)
+    {
+        return currentEquipment[(int)slot].equipmentTier;
     }
 }

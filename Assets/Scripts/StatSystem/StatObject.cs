@@ -27,8 +27,10 @@ namespace Klaxon.StatSystem
         List<StatModifier> Modifiers = new List<StatModifier>();
         [SerializeField]
         Vector2 ClampMax;
-        
-
+        public bool ConstantDecline;
+        [ConditionalHide("ConstantDecline", true)]
+        public float DeclinePerTick;
+        float CurrentDeclineAmount;
         public void SetMax(float amount)
         {
             MaxAmount = amount;
@@ -186,6 +188,19 @@ namespace Klaxon.StatSystem
                 RemoveModifier(mod);
             }
 
+        }
+
+        public void ConstantDeclineTick()
+        {
+            if (!ConstantDecline)
+                return;
+            CurrentDeclineAmount += DeclinePerTick;
+            CurrentAmount = Mathf.Clamp(CurrentAmount -= DeclinePerTick, 0, MaxAmount);
+            if (CurrentDeclineAmount >= 1)
+            {
+                CurrentDeclineAmount = 0;
+                GameEventManager.onStatUpdateEvent.Invoke(); 
+            }
         }
 
         public void RemoveModifier(StatModifier modifier)

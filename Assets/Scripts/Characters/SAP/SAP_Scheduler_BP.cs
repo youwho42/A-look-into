@@ -48,6 +48,8 @@ namespace Klaxon.SAP
         public LayerMask interactableLayer;
         public LayerMask obstacleLayer;
 
+        [HideInInspector]
+        public int indicatorIndex = -1;
 
         [HideInInspector]
         public CompleteTaskObject task;
@@ -58,7 +60,8 @@ namespace Klaxon.SAP
             Seeker,
             Traveller,
             Farmer,
-            TravellerHome
+            TravellerHome,
+            Indicator
         }
         public BP_Type type;
 

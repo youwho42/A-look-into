@@ -25,6 +25,7 @@ namespace Klaxon.StatSystem
             foreach (var stat in statObjects)
             {
                 stat.DecreaseModifiersTimer();
+                stat.ConstantDeclineTick();
             }
         }
 

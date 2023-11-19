@@ -41,7 +41,7 @@ namespace Klaxon.SAP
 
             if (timeIdle > 0.5f)
             {
-                if (agent.CheckPlayerDistance() >= 0.5f)
+                if (agent.CheckPlayerDistance() >= .5f)
                 {
                     //interactor.canInteract = false;
                     agent.SetBeliefState("PlayerClose", false);
@@ -50,6 +50,7 @@ namespace Klaxon.SAP
                 }
 
             }
+
             if(sleeping)
             {
                 agent.interactor.canInteract = false;

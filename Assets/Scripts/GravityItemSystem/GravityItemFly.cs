@@ -213,8 +213,8 @@ namespace Klaxon.GravitySystem
                     // if the next tile is a slope, am i approaching it in the right direction?
                     if (tile.tileName.Contains("Slope"))
                     {
-                        if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
-                            return false;
+                        //if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                        //    return false;
 
                         onSlope = true;
 
@@ -229,11 +229,11 @@ namespace Klaxon.GravitySystem
                     if (onSlope)
                     {
                         //am i walking 'off' the slope on the upper part in the right direction?
-                        if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
-                        {
-                            //onCliffEdge = true;
-                            return false;
-                        }
+                        //if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                        //{
+                        //    //onCliffEdge = true;
+                        //    return false;
+                        //}
                         if (tile.levelZ > 0)
                             getOffSlope = true;
                     }
@@ -333,7 +333,7 @@ namespace Klaxon.GravitySystem
             var lastDestination = currentDestination;
             Vector2 rand = (Random.insideUnitCircle * flyRoamingDistance);
             Vector3 centerPos = centerOfActiveArea == null ? transform.position : centerOfActiveArea.transform.position;
-            var possiblePos = new Vector3(centerPos.x + rand.x, centerPos.y + rand.y, centerPos.z - 1);
+            var possiblePos = new Vector3(centerPos.x + rand.x, centerPos.y + rand.y, 0 /*centerPos.z - 1*/);
             var d = currentTilePosition.groundMap.WorldToCell(possiblePos);
             for (int z = currentTilePosition.groundMap.size.z; z >= -5; z--)
             {

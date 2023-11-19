@@ -272,6 +272,8 @@ public class PlayerInputController : MonoBehaviour
             GameEventManager.onUseEquipmentEvent.Invoke();
         if (MiniGameManager.instance.gameStarted)
             GameEventManager.onMinigameMouseClickEvent.Invoke();
+        if(isInUI && UIScreenManager.instance.CurrentUIScreen() == UIScreenType.MapScreen)
+            GameEventManager.onMapClickEvent.Invoke();
     }
 
     public void PauseAction(InputAction.CallbackContext context)

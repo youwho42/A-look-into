@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Klaxon.GravitySystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,23 +18,40 @@ public class DetectVisibility : MonoBehaviour
     public bool isHidden;
 
     List<GameObject> tileHiders = new List<GameObject>();
+    GravityItemFly gravityItemFly;
 
     private void Start()
     {
         allTilesInfo = AllTilesInfoManager.instance;
         currentPosition = GetComponent<CurrentTilePosition>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        gravityItemFly = GetComponent<GravityItemFly>();
     }
 
 
     private void Update()
     {
-        if(sprite.isVisible)
-            CheckTiles();
+
+        if (sprite.isVisible)
+        {
+            if (gravityItemFly)
+            {
+                if (gravityItemFly.enabled)
+                {
+                    objectCorrectionZ.localPosition = Vector3.zero;
+                    return;
+                }
+                    
+            }
+            CheckTiles(); 
+        }
+        
+            
     }
 
     void CheckTiles()
     {
+
         isHidden = false;
         List<TileDirectionInfo> tileBlock;
         allTilesInfo.allTilesDictionary.TryGetValue(currentPosition.position, out tileBlock); 

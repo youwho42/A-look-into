@@ -8,8 +8,8 @@ public class EquipmentData : QI_ItemData
 {
 
     public EquipmentSlot equipmentSlot;
-     
 
+    public EquipmentTier equipmentTier;
     
     public override void UseItem()
     {
@@ -39,5 +39,13 @@ public class EquipmentData : QI_ItemData
 public enum EquipmentSlot 
 { 
     Hands, 
-    Light
+    Light,
+    Compass
+}
+
+public enum EquipmentTier
+{
+    I,
+    II,
+    III
 }

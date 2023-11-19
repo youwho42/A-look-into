@@ -97,6 +97,8 @@ namespace Klaxon.SAP
             hover = false;
             agent.glide = false;
             hoverTimer = 0;
+            agent.flier.isStuck = false;
+            agent.isDeviating = false;
         }
 
         void SetBoidsState(SAP_Scheduler_ANIMAL agent, bool isInBoids)

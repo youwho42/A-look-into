@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class PlayerLocationTextureMap : MonoBehaviour
 {
     public RawImage playerLocationImageUI;
-    bool mapDisplayed;
 
     public int maxPositionsViewed;
     Queue<int> positions = new Queue<int>();
+
     private IEnumerator Start()
     {
         GameEventManager.onPlayerPositionUpdateEvent.AddListener(DrawPlayerMap);
@@ -21,23 +21,15 @@ public class PlayerLocationTextureMap : MonoBehaviour
         GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(DrawPlayerMap);
 
     }
-    private void OnEnable()
-    {
-        mapDisplayed = true;
-    }
-    private void OnDisable()
-    {
-        mapDisplayed = false;
-    }
-
+    
 
 
     
 
     public void DrawPlayerMap()
     {
-        if (LevelManager.instance.isInCutscene)
-            return;
+        //if (LevelManager.instance.isInCutscene)
+        //    return;
         int width = 128;
         int height = 128;
 
