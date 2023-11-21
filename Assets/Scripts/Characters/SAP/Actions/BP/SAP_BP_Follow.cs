@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace Klaxon.SAP
@@ -42,8 +43,13 @@ namespace Klaxon.SAP
                 return;
             }
 
-
+            
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+            if (agent.walker.shitSpot)
+            {
+                agent.walker.currentDestination = transform.position;
+                agent.walker.shitSpot = false;
+            }
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
             agent.walker.SetDirection();
             

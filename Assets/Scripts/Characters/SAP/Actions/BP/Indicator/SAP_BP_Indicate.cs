@@ -48,6 +48,14 @@ namespace Klaxon.SAP
 
             SetIndicatorPosition();
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)indicatorPos;
+
+            if (agent.walker.shitSpot)
+            {
+                agent.walker.currentDestination = transform.position;
+                agent.walker.shitSpot = false;
+            }
+
+
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
 
             if (agent.walker.CheckDistanceToDestination() <= 0.02f && PlayerInformation.instance.playerInput.movement == Vector2.zero)

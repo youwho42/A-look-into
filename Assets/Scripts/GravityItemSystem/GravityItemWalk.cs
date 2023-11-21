@@ -64,6 +64,8 @@ namespace Klaxon.GravitySystem
         public Vector3 currentDirectionZ;
         public SpriteRenderer characterRenderer;
 
+        public bool shitSpot;   
+
         public override void Start()
         {
             base.Start();
@@ -80,6 +82,11 @@ namespace Klaxon.GravitySystem
         {
             base.Update();
 
+            if (Mathf.Approximately(currentDir.x, 0))
+                currentDir.x = 0;
+            if (Mathf.Approximately(currentDir.y, 0))
+                currentDir.y = 0;
+
             if (isInInteractAction || currentDir == Vector2.zero && !isClimbing)
                 return;
 
@@ -87,7 +94,7 @@ namespace Klaxon.GravitySystem
                 Move(currentDir, walkSpeed);
 
 
-            if (currentDir.x != 0 && !isInInteractAction)
+            if (!Mathf.Approximately(currentDir.x, 0) && !isInInteractAction)
             {
                 if (currentDir.x > 0.01f && !facingRight)
                     Flip();
@@ -109,7 +116,7 @@ namespace Klaxon.GravitySystem
             if (jumpAhead)
                 Jump();
 
-            if(currentDir == Vector2.zero)
+            if(Mathf.Approximately(currentDir.x, 0) || Mathf.Approximately(currentDir.y, 0))
                 isStuck = false;
         }
 
@@ -133,7 +140,7 @@ namespace Klaxon.GravitySystem
 
         bool CanReachNextTile(Vector2 direction)
         {
-            
+            shitSpot = false;
             tilemapObstacle = false;
             jumpAhead = false;
             checkPosition = (_transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
@@ -269,7 +276,17 @@ namespace Klaxon.GravitySystem
                     if (onSlope)
                     {
                         if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x != 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y != 0)
-                            continue;
+                            return true;
+                    }
+
+                    // This is checking if we are on that shit spot inbetween tiles 
+                    if(Mathf.Abs(tile.levelZ) >= 1)
+                    {
+                        float difference = Mathf.Abs(_transform.position.y - currentDestination.y);
+                        if (difference < spriteDisplacementY * Mathf.Abs(tile.levelZ))
+                        {
+                            shitSpot = true;
+                        }
                     }
 
                     if (tile.levelZ == -1)

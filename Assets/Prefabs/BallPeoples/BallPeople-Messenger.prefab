@@ -1031,6 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 1aab23d936e00c241929a075116ec48b, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &-3627213249282871714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,7 +1081,7 @@ MonoBehaviour:
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.08
+  checkTileDistance: 0.04
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -1106,6 +1107,7 @@ MonoBehaviour:
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 0}
+  shitSpot: 0
 --- !u!114 &7060560830674837553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,11 +1140,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 0
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
   messageItem: {fileID: 0}
   type: 1
   undertaking: {fileID: 0}
@@ -1226,6 +1233,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 524288
+  indicatorIndex: -1
   task:
     undertaking: {fileID: 0}
     task: {fileID: 0}
