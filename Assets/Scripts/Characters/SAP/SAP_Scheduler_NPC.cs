@@ -223,7 +223,7 @@ namespace Klaxon.SAP
 
         public void HandleOffScreen(SAP_Action action)
         {
-            walker.currentDir = Vector2.zero;
+            walker.currentDirection = Vector2.zero;
             if (offScreenPosMoved && action.currentPathIndex < action.path.Count)
             {
                 timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, action.path[action.currentPathIndex].transform.position) / walker.walkSpeed);
@@ -296,7 +296,7 @@ namespace Klaxon.SAP
             {
                 inTalkRange = true;
                 animator.SetFloat(velocityX_hash, 0);
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
                 {
                     if (collision.transform.position.x < transform.position.x && walker.facingRight ||

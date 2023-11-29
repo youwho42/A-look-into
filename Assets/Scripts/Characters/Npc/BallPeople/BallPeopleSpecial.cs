@@ -61,7 +61,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
         switch (currentState)
         {
             case SpecialState.Appear:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 Disolve(true);
                 walker.ResetLastPosition();
                 break;
@@ -123,7 +123,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
 
 
             case SpecialState.Idle:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 var dir = PlayerInformation.instance.player.position - transform.position;
                 walker.SetFacingDirection(dir);
 
@@ -160,7 +160,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 // get another bool to know if i want to keep interactor off after reading... i know what i mean.
 
                 //check distance from player, wait a sec, and start to follow if too far
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 animator.SetBool(sleeping_hash, true);
 
                 if (timeIdle < 0.5f)
@@ -181,7 +181,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 break;
 
             case SpecialState.Disappear:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 animator.SetBool(walking_hash, false);
                 if (!disolved)
                     Disolve(false);
@@ -196,7 +196,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 break;
 
             case SpecialState.Remove:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 if (!disolved)
                 {
                     timeIdle = 0;

@@ -29,7 +29,7 @@ namespace Klaxon.SAP
                 agent.arms.SetActive(can);
                 agent.interactor.canInteract = can;
                 agent.animator.SetBool(agent.walking_hash, false);
-                agent.walker.currentDir = Vector2.zero;
+                agent.walker.currentDirection = Vector2.zero;
                 if (agent.CheckPlayerDistance() > 1.5f)
                 {
                     agent.arms.SetActive(false);

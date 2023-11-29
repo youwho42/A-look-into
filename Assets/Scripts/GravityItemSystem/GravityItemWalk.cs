@@ -9,6 +9,8 @@ namespace Klaxon.GravitySystem
     {
 
         [Space]
+        public DrawZasYDisplacement centerOfActivity;
+        [Space]
         //[Header("Player Movement")]
         public float walkSpeed;
         public float runSpeed;
@@ -19,8 +21,8 @@ namespace Klaxon.GravitySystem
         public bool isInInteractAction;
         [HideInInspector]
         public float moveSpeed;
-        [HideInInspector]
-        public Vector2 currentDir;
+        //[HideInInspector]
+        //public Vector2 currentDir;
         [HideInInspector]
         public Vector2 currentDestination;
 
@@ -82,23 +84,23 @@ namespace Klaxon.GravitySystem
         {
             base.Update();
 
-            if (Mathf.Approximately(currentDir.x, 0))
-                currentDir.x = 0;
-            if (Mathf.Approximately(currentDir.y, 0))
-                currentDir.y = 0;
+            if (Mathf.Approximately(currentDirection.x, 0))
+                currentDirection.x = 0;
+            if (Mathf.Approximately(currentDirection.y, 0))
+                currentDirection.y = 0;
 
-            if (isInInteractAction || currentDir == Vector2.zero && !isClimbing)
+            if (isInInteractAction || currentDirection == Vector2.zero && !isClimbing)
                 return;
 
-            if (CanReachNextTile(currentDir))
-                Move(currentDir, walkSpeed);
+            if (CanReachNextTile(currentDirection))
+                Move(currentDirection, walkSpeed);
 
 
-            if (!Mathf.Approximately(currentDir.x, 0) && !isInInteractAction)
+            if (!Mathf.Approximately(currentDirection.x, 0) && !isInInteractAction)
             {
-                if (currentDir.x > 0.01f && !facingRight)
+                if (currentDirection.x > 0.01f && !facingRight)
                     Flip();
-                else if (currentDir.x < -0.01f && facingRight)
+                else if (currentDirection.x < -0.01f && facingRight)
                     Flip();
             }
 
@@ -110,13 +112,13 @@ namespace Klaxon.GravitySystem
                 MoveZ(currentDirectionZ, walkSpeed * 2);
             }
 
-            moveSpeed = currentDir.x + currentDir.y;
+            moveSpeed = currentDirection.x + currentDirection.y;
 
 
             if (jumpAhead)
                 Jump();
 
-            if(Mathf.Approximately(currentDir.x, 0) || Mathf.Approximately(currentDir.y, 0))
+            if(Mathf.Approximately(currentDirection.x, 0) || Mathf.Approximately(currentDirection.y, 0))
                 isStuck = false;
         }
 
@@ -319,7 +321,7 @@ namespace Klaxon.GravitySystem
         {
             var dir = currentDestination - (Vector2)_transform.position;
             dir = dir.normalized;
-            currentDir = dir;
+            currentDirection = dir;
         }
 
 
@@ -330,12 +332,12 @@ namespace Klaxon.GravitySystem
             float angleIncrement = 360f / rays;
             for (int i = 0; i < rays; i++)
             {
-                Vector2 dir = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDir;
+                Vector2 dir = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDirection;
                 
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, dir, 0.5f, obstacleLayer);
                 if (hit.collider == null)
                 {
-                    if (dir != currentDir)
+                    if (dir != currentDirection)
                     {
                         dir = dir.normalized;
                         directions.Add(dir);
@@ -346,7 +348,7 @@ namespace Klaxon.GravitySystem
             {
                 int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
                 int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDir.y, rb * currentDir.x) * 0.15f;
+                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
                 SetDirection();
                 return;
             }
@@ -358,7 +360,7 @@ namespace Klaxon.GravitySystem
                 int ra = Random.value < .5 ? 1 : -1;
                 int rb = Random.value < .5 ? 1 : -1;
                 float d = Random.Range(0.05f, 0.25f);
-                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDir.y, rb * currentDir.x) * d;
+                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * d;
                 hasDeviatePosition = true;
                 SetDirection();
                 framesStuck = 0;
@@ -369,7 +371,7 @@ namespace Klaxon.GravitySystem
             int secondBestIndex = 0;
             for (int i = 0; i < directions.Count; i++)
             {
-                float dot = Vector2.Dot(currentDir, directions[i]);
+                float dot = Vector2.Dot(currentDirection, directions[i]);
                 if (dot > best)
                 {
                     best = dot;
@@ -468,7 +470,8 @@ namespace Klaxon.GravitySystem
         {
 
             Vector2 rand = (Random.insideUnitCircle * roamingDistance);
-            var d = currentTilePosition.groundMap.WorldToCell(new Vector2(_transform.position.x + rand.x, _transform.position.y + rand.y));
+            Vector3 center = centerOfActivity==null? _transform.position:centerOfActivity.transform.position;
+            var d = currentTilePosition.groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
             for (int z = currentTilePosition.groundMap.cellBounds.zMax; z > currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
             {
                 d.z = z;
@@ -476,7 +479,7 @@ namespace Klaxon.GravitySystem
                 {
 
                     currentDestination = GetTileWorldPosition(d);
-                    currentDestination += new Vector2(Random.Range(0f, .2f), Random.Range(0f, .2f));
+                    currentDestination += new Vector2(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f));
                     break;
                 }
             }
@@ -486,6 +489,11 @@ namespace Klaxon.GravitySystem
        
         public void SetWorldDestination(Vector3 destination)
         {
+            if (shitSpot)
+            {
+                destination = transform.position;
+                shitSpot = false;
+            }
             currentDestination = destination;
             
         }

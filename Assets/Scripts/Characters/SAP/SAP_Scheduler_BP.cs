@@ -118,7 +118,7 @@ namespace Klaxon.SAP
         public void Start()
         {
             walker = GetComponent<GravityItemWalk>();
-            walker.currentDir = Vector2.zero;
+            walker.currentDirection = Vector2.zero;
             allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
             foreach (var sprite in allSprites)
             {

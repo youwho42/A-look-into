@@ -49,11 +49,7 @@ namespace Klaxon.SAP
             SetIndicatorPosition();
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)indicatorPos;
 
-            if (agent.walker.shitSpot)
-            {
-                agent.walker.currentDestination = transform.position;
-                agent.walker.shitSpot = false;
-            }
+            
 
 
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
@@ -63,7 +59,7 @@ namespace Klaxon.SAP
 
             if (waiting)
             {
-                agent.walker.currentDir = Vector2.zero;
+                agent.walker.currentDirection = Vector2.zero;
                 agent.animator.SetBool(agent.walking_hash, false);
                 if (agent.walker.CheckDistanceToDestination() >= 0.2f + leadDistanceOffset)
                 {

@@ -1,3 +1,4 @@
+using Klaxon.ConversationSystem;
 using Klaxon.GravitySystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,11 @@ namespace Klaxon.SAP
         public List<DrawZasYDisplacement> closestSpots = new List<DrawZasYDisplacement>();
         public bool removeFromMusicAtHome;
 
+        public bool hasDialogue;
+        bool inTalkRange;
+        float inTalkRangeTimer;
+        DialogueManagerUI dialogueManager;
+
         void OnEnable()
         {
             GameEventManager.onTimeTickEvent.AddListener(TimeTick);
@@ -85,10 +91,11 @@ namespace Klaxon.SAP
 
         public void Start()
         {
+            dialogueManager = DialogueManagerUI.instance;
             walker = GetComponent<GravityItemWalk>();
             if (walker != null)
             {
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 walker.ResetLastPosition();
             }
                 
@@ -126,6 +133,13 @@ namespace Klaxon.SAP
 
         public void Update()
         {
+            if (inTalkRange && hasDialogue)
+            {
+                TalkRangeTimer();
+                return;
+            }
+
+
 
 
             if (currentGoal == -1)
@@ -357,6 +371,67 @@ namespace Klaxon.SAP
 
         public void SetActiveState(bool active)
         {
+            
+        }
+
+        void TalkRangeTimer()
+        {
+            if (!dialogueManager.isSpeaking)
+            {
+                inTalkRangeTimer += Time.deltaTime;
+                if (inTalkRangeTimer >= 5f)
+                {
+                    inTalkRange = false;
+                    inTalkRangeTimer = 0;
+                }
+            }
+            else
+            {
+                if (dialogueManager.currentInteractable.gameObject != gameObject)
+                    inTalkRange = false;
+                inTalkRangeTimer = 0;
+            }
+
+            if (!animator.GetBool(sleeping_hash))
+            {
+                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
+
+        }
+
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+
+            if (collision.transform.position.z != transform.position.z || !hasDialogue)
+                return;
+
+            
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                inTalkRange = true;
+                animator.SetBool(walking_hash, false);
+                walker.currentDirection = Vector2.zero;
+                if (!animator.GetBool(sleeping_hash))
+                {
+                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
+                    collision.transform.position.x > transform.position.x && !walker.facingRight)
+                        walker.Flip();
+                }
+
+            }
+        }
+
+
+
+        public void OnTriggerExit2D(Collider2D collision)
+        {
+            if (!hasDialogue)
+                return;
+            if (collision.gameObject.CompareTag("Player"))
+                inTalkRange = false;
             
         }
     }

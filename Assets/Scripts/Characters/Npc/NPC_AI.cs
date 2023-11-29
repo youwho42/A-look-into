@@ -129,7 +129,7 @@ public class NPC_AI : MonoBehaviour
                 atWandering = true;
                 atHome = false;
                 atActivity = false;
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 animator.SetFloat(velocityX_hash, 0);
                 if (timeIdle > maxIdleTime)
                 {
@@ -235,7 +235,7 @@ public class NPC_AI : MonoBehaviour
                 break;
 
             case NPCState.Activity:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 atWandering = false;
                 atHome = false;
                 atActivity = true;
@@ -244,7 +244,7 @@ public class NPC_AI : MonoBehaviour
                 break;
 
             case NPCState.Sleeping:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 currentNavigationNodeType = NavigationNodeType.Inside;
                 atWandering = false;
                 atHome = true;
@@ -254,7 +254,7 @@ public class NPC_AI : MonoBehaviour
                 break;
 
             case NPCState.Talking:
-                walker.currentDir = Vector2.zero;
+                walker.currentDirection = Vector2.zero;
                 animator.SetFloat(velocityX_hash, 0);
                 FacePlayer();
                 

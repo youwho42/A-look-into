@@ -52,7 +52,7 @@ namespace Klaxon.SAP
                 {
 
                     agent.animator.SetBool(agent.walking_hash, false);
-                    agent.walker.currentDir = Vector2.zero;
+                    agent.walker.currentDirection = Vector2.zero;
 
                     headTimer -= Time.deltaTime;
                     if (headTimer <= 0)
@@ -106,7 +106,7 @@ namespace Klaxon.SAP
             atDestination = true;
             timer = 0;
             headTimer = 0;
-            agent.walker.currentDir = Vector2.zero;
+            agent.walker.currentDirection = Vector2.zero;
 
             if (agent.currentDisplacementSpot != null) 
             { 

@@ -44,7 +44,8 @@ public class GatherableItem : MonoBehaviour
         {
             currentAmount = maxPerDay;
             hasBeenHarvested = false;
-            harvestedSticker.SetActive(false);
+            if(harvestedSticker!= null)
+                harvestedSticker.SetActive(false);
         }
         
     }

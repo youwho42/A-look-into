@@ -42,7 +42,7 @@ namespace Klaxon.GravitySystem
 
         [HideInInspector]
         public float currentVelocity;
-        //[HideInInspector]
+        [HideInInspector]
         public Vector2 currentDirection;
         [HideInInspector]
         public int currentLevel;

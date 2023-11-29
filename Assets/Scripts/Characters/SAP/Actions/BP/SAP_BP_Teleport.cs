@@ -9,7 +9,7 @@ namespace Klaxon.SAP
         float timer;
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
-            agent.walker.currentDir = Vector2.zero;
+            agent.walker.currentDirection = Vector2.zero;
             agent.animator.SetBool(agent.walking_hash, false);
             agent.interactor.canInteract = false;
 

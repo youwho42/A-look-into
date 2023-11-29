@@ -45,11 +45,7 @@ namespace Klaxon.SAP
 
             
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
-            if (agent.walker.shitSpot)
-            {
-                agent.walker.currentDestination = transform.position;
-                agent.walker.shitSpot = false;
-            }
+           
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
             agent.walker.SetDirection();
             

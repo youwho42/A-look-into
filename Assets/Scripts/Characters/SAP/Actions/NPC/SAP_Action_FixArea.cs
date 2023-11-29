@@ -165,7 +165,7 @@ namespace Klaxon.SAP
             currentArea.fixingSounds.StartSoundsNoTimer();
             currentArea.fixingEffect.Play();
             agent.animator.SetFloat(agent.velocityX_hash, 0);
-            agent.walker.currentDir = Vector2.zero;
+            agent.walker.currentDirection = Vector2.zero;
         }
     }
 

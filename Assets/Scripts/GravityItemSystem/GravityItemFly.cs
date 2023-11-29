@@ -48,6 +48,8 @@ namespace Klaxon.GravitySystem
         public bool isStuck;
         [HideInInspector]
         public bool hasDeviatePosition;
+        public bool shitSpot;
+
         public override void Start()
         {
             base.Start();
@@ -255,6 +257,15 @@ namespace Klaxon.GravitySystem
                             continue;
                     }
 
+                    // This is checking if we are on that shit spot inbetween tiles 
+                    if (Mathf.Abs(tile.levelZ) >= 1)
+                    {
+                        float difference = Mathf.Abs(_transform.position.y - currentDestination.y);
+                        if (difference < spriteDisplacementY * Mathf.Abs(tile.levelZ))
+                        {
+                            shitSpot = true;
+                        }
+                    }
 
                     // This is where we are on top of a cliff
                     /*if (tile.Value.levelZ <= 0)

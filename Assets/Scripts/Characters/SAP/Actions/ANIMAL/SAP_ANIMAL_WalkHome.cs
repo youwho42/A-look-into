@@ -64,7 +64,7 @@ namespace Klaxon.SAP
                     if (!agent.sounds.mute)
                         agent.sounds.mute = true;
                 }
-                agent.walker.currentDir = Vector2.zero;
+                agent.walker.currentDirection = Vector2.zero;
                 agent.animator.SetBool(agent.sleeping_hash, true);
                 agent.animator.SetBool(agent.walking_hash, false);
                 return;
@@ -81,7 +81,8 @@ namespace Klaxon.SAP
                 }
             }
 
-
+            agent.walker.SetWorldDestination(home.transform.position);
+            agent.animator.SetBool(agent.walking_hash, true);
             agent.walker.SetDirection();
 
             agent.walker.SetLastPosition();

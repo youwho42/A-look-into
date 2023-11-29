@@ -28,7 +28,7 @@ namespace Klaxon.SAP
                 if (!hasLicked)
                 {
                     agent.animator.SetBool(agent.walking_hash, false);
-                    agent.walker.currentDir = Vector2.zero;
+                    agent.walker.currentDirection = Vector2.zero;
                     agent.animator.SetTrigger(agent.lick_hash);
                     hasLicked = true;
                 }
@@ -51,7 +51,7 @@ namespace Klaxon.SAP
                     agent.walker.hasDeviatePosition = false;
                     agent.isDeviating = false;
                     agent.currentGoalComplete = true;
-                    agent.walker.currentDir = Vector2.zero;
+                    agent.walker.currentDirection = Vector2.zero;
                     agent.animator.SetBool(agent.walking_hash, false);
                     agent.walker.ResetLastPosition();
                     return;

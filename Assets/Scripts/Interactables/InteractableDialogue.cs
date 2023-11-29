@@ -38,6 +38,11 @@ namespace Klaxon.Interactable
 
         bool GumptionCost()
         {
+
+            if (gumptionCost == null)
+                return true;
+
+
             float gumption = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Gumption");
             if (gumption >= Mathf.Abs(gumptionCost.Amount))
             {

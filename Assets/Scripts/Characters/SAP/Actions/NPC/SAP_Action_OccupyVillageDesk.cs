@@ -126,7 +126,7 @@ namespace Klaxon.SAP
             agent.isDeviating = false;
             atArea = true;
             agent.animator.SetFloat(agent.velocityX_hash, 0);
-            agent.walker.currentDir = Vector2.zero;
+            agent.walker.currentDirection = Vector2.zero;
             
             StartCoroutine(PlaceNPC(agent, chair.transform.position));
             if (agent.walker.facingRight && !chair.facingRight || !agent.walker.facingRight && chair.facingRight)

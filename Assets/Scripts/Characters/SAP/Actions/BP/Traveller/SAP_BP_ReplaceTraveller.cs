@@ -12,7 +12,7 @@ namespace Klaxon.SAP {
             if (agent.interactor != null)
                 agent.interactor.canInteract = false;
             agent.arms.SetActive(false);
-            agent.walker.currentDir = Vector2.zero;
+            agent.walker.currentDirection = Vector2.zero;
         }
         public override void PerformAction(SAP_Scheduler_BP agent)
         {

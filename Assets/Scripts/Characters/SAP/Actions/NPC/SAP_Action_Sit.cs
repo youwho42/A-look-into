@@ -80,7 +80,7 @@ namespace Klaxon.SAP
                 agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
                 agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
                 agent.animator.SetFloat(agent.velocityX_hash, 0);
-                agent.walker.currentDir = Vector2.zero;
+                agent.walker.currentDirection = Vector2.zero;
                 Vector3 displacement = new Vector3(agent.walker.transform.position.x, agent.walker.transform.position.y, agent.walker.transform.position.z + 0.33f);
                 agent.walker.transform.position = displacement;
                 sitCycle = RealTimeDayNightCycle.instance.GetCycleTime(maxTime);
@@ -139,7 +139,7 @@ namespace Klaxon.SAP
 
                     ReachFinalDestination(agent);
                     agent.animator.SetFloat(agent.velocityX_hash, 0);
-                    agent.walker.currentDir = Vector2.zero;
+                    agent.walker.currentDirection = Vector2.zero;
                 }
             }
 
@@ -171,7 +171,7 @@ namespace Klaxon.SAP
             destinationReached = true;
 
             agent.animator.SetFloat(agent.velocityX_hash, 0);
-            agent.walker.currentDir = Vector2.zero;
+            agent.walker.currentDirection = Vector2.zero;
         }
 
 
