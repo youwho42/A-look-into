@@ -112,6 +112,8 @@ GameObject:
   - component: {fileID: 3126231394876523705}
   - component: {fileID: 5065497808497423020}
   - component: {fileID: 1698792034990139457}
+  - component: {fileID: 6235873277994820259}
+  - component: {fileID: 6133568523072871628}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -190,6 +192,7 @@ MonoBehaviour:
   isSitting: 0
   playerSpriteResolver: {fileID: 0}
   statHandler: {fileID: 5065497808497423020}
+  isDragging: 0
 --- !u!114 &5769325092054554960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,3 +446,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPurse: {fileID: 3126231394876523705}
+--- !u!114 &6235873277994820259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d723e2973dc0d5418d5ee94104a4126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapAreas:
+  - mapName: Gunther Cove
+    mapImage: {fileID: 21300000, guid: 3f1e67fceb8ca7248940771b7a4db561, type: 3}
+    active: 0
+  - mapName: Blu Valley
+    mapImage: {fileID: 21300000, guid: 0a7cd2f9ac3480d429f06aff92b9b3c5, type: 3}
+    active: 0
+--- !u!114 &6133568523072871628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d661dce6548a5ea46984ff9c59279d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapManager: {fileID: 6235873277994820259}

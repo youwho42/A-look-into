@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using System;
 using QuantumTek.QuantumInventory;
-using UnityEngine.UIElements;
 
 public class ConsoleDisplayUI : MonoBehaviour
 {
@@ -14,11 +13,26 @@ public class ConsoleDisplayUI : MonoBehaviour
     public TMP_Dropdown locationsDropdownField;
     public QI_ItemDatabase allItemsDatabase;
     public List<Transform> locations = new List<Transform>();
+    public TMP_Dropdown timesDropdownField;
 
     private void Start()
     {
         SetUpItems();
         SetUpLocations();
+        SetUpTimes();
+    }
+
+    void SetUpTimes()
+    {
+        timesDropdownField.ClearOptions();
+        List<string> times = new List<string>();
+        
+        for (int i = 0; i < 24; i++)
+        {
+            times.Add(i.ToString());
+        }
+
+        timesDropdownField.AddOptions(times);
     }
     void SetUpItems()
     {
@@ -90,10 +104,18 @@ public class ConsoleDisplayUI : MonoBehaviour
             {
                 PlayerInformation.instance.player.position = position.position;
                 PlayerInformation.instance.currentTilePosition.position = PlayerInformation.instance.currentTilePosition.GetCurrentTilePosition(position.position);
+                PlayerInformation.instance.playerController.currentLevel = (int)position.position.z - 1;
                 break;
             }
 
         }
         
+    }
+
+    public void SetTime()
+    {
+        int time = int.Parse(timesDropdownField.options[timesDropdownField.value].text);
+        time *= 60;
+        RealTimeDayNightCycle.instance.currentTimeRaw = time;
     }
 }

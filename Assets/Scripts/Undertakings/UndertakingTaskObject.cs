@@ -21,6 +21,7 @@ namespace Klaxon.UndertakingSystem
         public int ItemQuantity;
         public QI_CraftingRecipe RecipeReward;
 
+        public string mapName;
         public void CompleteTask()
         {
             IsComplete = true;
@@ -46,7 +47,8 @@ namespace Klaxon.UndertakingSystem
                 player.playerInventory.AddItem(ItemReward, ItemQuantity, false);
             if (RecipeReward != null)
                 player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
-
+            if (mapName != "")
+                PlayerMapsManager.instance.ActivateMapArea(mapName);
         }
     }
 }

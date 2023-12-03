@@ -134,7 +134,7 @@ public class TilemapToPNG : MonoBehaviour
         return texture;
     }
 
-    private void SaveTexture(Texture2D texture, string mapType)
+    public void SaveTexture(Texture2D texture, string mapType)
     {
         byte[] bytes = texture.EncodeToPNG();
         

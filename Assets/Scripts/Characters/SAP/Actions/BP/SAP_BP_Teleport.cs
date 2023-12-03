@@ -37,6 +37,7 @@ namespace Klaxon.SAP
 
         }
 
+        
         void SetPositionNearPlayer(SAP_Scheduler_BP agent)
         {
             Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
@@ -53,7 +54,9 @@ namespace Klaxon.SAP
                         {
                             agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(transform.position);
                             var p = transform.position;
+                            
                             p.z = agent.walker.currentTilePosition.position.z + 1;
+                            
                             transform.position = p;
                         }
                         else

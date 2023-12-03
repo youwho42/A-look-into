@@ -60,7 +60,7 @@ public class UndertakingsDisplayUI : MonoBehaviour
                 CreateUndertakingButton(undertaking);
         }
 
-        ClearCurrentUndertaking();
+        //ClearCurrentUndertaking();
     }
 
     void CreateUndertakingButton(UndertakingObject undertaking)
