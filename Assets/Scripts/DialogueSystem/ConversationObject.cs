@@ -45,7 +45,7 @@ namespace Klaxon.ConversationSystem
         public UndertakingTaskObject UndertakingTask;
 
         public DialogueBranch[] DialogueBranches;
-        [HideInInspector]
+        //[HideInInspector]
         public bool Completed;
 
 

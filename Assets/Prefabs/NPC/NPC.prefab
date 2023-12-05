@@ -377,13 +377,13 @@ MonoBehaviour:
   tileBlockInfo: []
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
+  centerOfActivity: {fileID: 0}
   walkSpeed: 0.5
   runSpeed: 0
   jumpHeight: 8
   facingRight: 1
   isInInteractAction: 0
   moveSpeed: 0
-  currentDir: {x: 0, y: 0}
   currentDestination: {x: 0, y: 0}
   jumpAhead: 0
   hasDeviatePosition: 0
@@ -395,6 +395,7 @@ MonoBehaviour:
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 0}
+  shitSpot: 0
 --- !u!114 &3968540688165807639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +631,9 @@ MonoBehaviour:
   canInteract: 1
   hasLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
   references:
     version: 2
     RefIds: []

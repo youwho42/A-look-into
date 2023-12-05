@@ -35,6 +35,7 @@ public class GenerateMapFog : MonoBehaviour
     }
     private void OnDisable()
     {
+        mapImage.texture = null;
         CancelInvoke("Boop");
     }
 
@@ -81,7 +82,7 @@ public class GenerateMapFog : MonoBehaviour
                 }
                 float c = CellShade(tileMapArray[x, y]);
                 
-                colorMap[y * width + x] = new Color(c, c, c, Mathf.Clamp(c + minAlpha, 0, 1.17f) - alpha);
+                colorMap[y * width + x] = new Color(c - alpha, c - alpha, c - alpha, Mathf.Clamp(c + minAlpha, 0, 1.17f) - alpha);
             }
         }
 
