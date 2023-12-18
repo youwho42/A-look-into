@@ -6,6 +6,7 @@ namespace Klaxon.SAP
 {
 	public class SAP_ANIMAL_WalkWander : SAP_Action
 	{
+        
         public Vector2 idleTimeRange;
         float timer;
         public Vector2 headTimeRange;
@@ -15,21 +16,28 @@ namespace Klaxon.SAP
 
         public override void StartPerformAction(SAP_Scheduler_ANIMAL agent)
         {
-            if (agent.walker.itemObject.localPosition.y != 0)
-                agent.walker.isWeightless = true;
+            
             agent.animator.SetBool(agent.landed_hash, true);
 
             agent.walker.enabled = true;
 
             if (agent.flier != null)
             {
+                if (agent.walker.itemObject.localPosition.y != 0)
+                    agent.walker.isWeightless = true;
                 if (agent.flier.enabled)
                 {
                     agent.walker.facingRight = agent.flier.facingRight;
                     agent.flier.enabled = false;
                 }
             }
-
+            if (agent.jumper != null)
+            {
+                if(agent.jumper.enabled)
+                    agent.walker.facingRight = agent.jumper.facingRight;
+                agent.jumper.enabled = false;
+            }
+            
 
             timer = agent.SetRandomRange(idleTimeRange);
             headTimer = agent.SetRandomRange(headTimeRange);
@@ -85,7 +93,7 @@ namespace Klaxon.SAP
                     agent.walker.FindDeviateDestination(5);
                 }
 
-
+                agent.walker.SetWorldDestination(agent.walker.currentDestination);
                 agent.walker.SetDirection();
 
                 agent.walker.SetLastPosition();

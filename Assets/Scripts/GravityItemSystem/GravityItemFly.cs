@@ -36,7 +36,6 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public bool useBoids;
         public Boid boid;
-        public bool facingRight;
         [HideInInspector]
         public bool canReachNextTile;
 
@@ -313,17 +312,6 @@ namespace Klaxon.GravitySystem
         bool IsFacingForward()
         {
             return currentDirection.x < 0f && !facingRight || currentDirection.x > 0f && facingRight;
-        }
-
-        public void Flip()
-        {
-            // Switch the way the player is labelled as facing
-            facingRight = !facingRight;
-
-            // Multiply the player's x local scale by -1
-            Vector3 theScale = _transform.localScale;
-            theScale.x *= -1;
-            _transform.localScale = theScale;
         }
 
         public void SetRandomDestinationZ()

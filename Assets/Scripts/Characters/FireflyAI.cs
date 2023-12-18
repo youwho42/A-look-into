@@ -192,7 +192,7 @@ public class FireflyAI : MonoBehaviour, IAnimal
         activeState = active;
     }
 
-    public void FleePlayer()
+    public void FleePlayer(Transform playerTransform)
     {
         
     }

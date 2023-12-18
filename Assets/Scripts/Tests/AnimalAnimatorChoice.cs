@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class AnimalAnimatorChoice : MonoBehaviour
 {
-    public List<AnimatorController> animators = new List<AnimatorController>();
+    public List<RuntimeAnimatorController> animators = new List<RuntimeAnimatorController>();
     Animator animator;
+
     private void Start()
     {
         animator = GetComponent<Animator>();

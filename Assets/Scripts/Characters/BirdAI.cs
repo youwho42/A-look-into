@@ -375,7 +375,7 @@ public class BirdAI : MonoBehaviour, IAnimal
         activeState = active;
     }
 
-    public void FleePlayer()
+    public void FleePlayer(Transform playerTransform)
     {
         SetToFlyingState();
     }

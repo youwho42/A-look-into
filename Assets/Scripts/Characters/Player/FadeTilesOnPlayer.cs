@@ -5,13 +5,13 @@ using UnityEngine.Tilemaps;
 
 public class FadeTilesOnPlayer : MonoBehaviour
 {
-    public Grid groundGrid;
+    
     public Tilemap tilemap;
 
     HashSet<Vector3Int> fadedTilePositions = new HashSet<Vector3Int>();
     Vector3Int lastPlayerTilePosition;
     bool inHouse;
-
+    bool debugging;
     private void Start()
     {
         GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
@@ -21,6 +21,8 @@ public class FadeTilesOnPlayer : MonoBehaviour
     {
         GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(FadeTiles);
     }
+
+    
 
     void FadeTiles()
     {
@@ -35,9 +37,9 @@ public class FadeTilesOnPlayer : MonoBehaviour
 
     void ClearFadedTiles()
     {
+        StopAllCoroutines();
         foreach (Vector3Int pos in fadedTilePositions)
         {
-            StopCoroutine("FadeTile");
             StartCoroutine(FadeTile(pos, 1f)); // Fade back to full visibility
         }
         fadedTilePositions.Clear();
@@ -72,24 +74,30 @@ public class FadeTilesOnPlayer : MonoBehaviour
         }
     }
 
+   
     IEnumerator FadeTile(Vector3Int tilePosition, float targetAlpha)
     {
         float elapsedTime = 0;
         float waitTime = 0.5f;
         tilemap.SetTileFlags(tilePosition, TileFlags.None);
+
         Color tempColor = tilemap.GetColor(tilePosition);
         float startAlpha = tempColor.a;
 
         while (elapsedTime < waitTime)
         {
             float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / waitTime);
+
             tilemap.SetColor(tilePosition, new Color(tempColor.r, tempColor.g, tempColor.b, newAlpha));
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
+
         // Ensure that the tile is set to the exact target alpha when the coroutine finishes
         tilemap.SetColor(tilePosition, new Color(tempColor.r, tempColor.g, tempColor.b, targetAlpha));
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

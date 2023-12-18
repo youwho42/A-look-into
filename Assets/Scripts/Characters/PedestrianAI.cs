@@ -298,7 +298,7 @@ namespace Klaxon.GravitySystem
             activeState = active;
         }
 
-        public void FleePlayer()
+        public void FleePlayer(Transform playerTransform)
         {
             if (walk.isClimbing)
             {

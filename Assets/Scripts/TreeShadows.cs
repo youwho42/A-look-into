@@ -13,7 +13,7 @@ public class TreeShadows : MonoBehaviour
     public ShadowCaster2D shadowCaster;
     private IEnumerator Start()
     {
-        globalShadows = GlobalShadows.instance;
+        
         
         if (shadowCaster != null)
         {
@@ -21,10 +21,13 @@ public class TreeShadows : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1.0f);
+        globalShadows = GlobalShadows.instance;
+        GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         SetShadows(0);
     }
     private void OnBecameVisible()
     {
+         
         globalShadows = GlobalShadows.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         isVisible = true;

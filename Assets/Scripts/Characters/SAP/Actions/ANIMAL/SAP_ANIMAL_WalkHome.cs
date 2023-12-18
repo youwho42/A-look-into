@@ -34,6 +34,9 @@ namespace Klaxon.SAP
                     agent.flier.enabled = false;
                 }
             }
+            if (agent.jumper != null)
+                agent.jumper.enabled = false;
+
 
             agent.walker.SetWorldDestination(home.transform.position);
             

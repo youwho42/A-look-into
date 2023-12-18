@@ -123,7 +123,7 @@ public class GrasshopperAI : MonoBehaviour, IAnimal
         activeState = active;
     }
 
-    public void FleePlayer()
+    public void FleePlayer(Transform playerTransform)
     {
         jump.SetRandomDestination();
         currentState = PedestrianState.isJumping;

@@ -16,7 +16,7 @@ namespace Klaxon.GravitySystem
         public float runSpeed;
         public float jumpHeight;
         //PlayerInputController playerInput;
-        public bool facingRight;
+        
         [HideInInspector]
         public bool isInInteractAction;
         [HideInInspector]
@@ -430,8 +430,7 @@ namespace Klaxon.GravitySystem
 
             var newPos = new Vector3Int(x, y, z);
             currentTilePosition.position += newPos;
-            if (newPos != Vector3Int.zero)
-                GameEventManager.onPlayerPositionUpdateEvent.Invoke();
+            
         }
 
         public void SetFacingDirection(Vector3 direction)
@@ -445,17 +444,7 @@ namespace Klaxon.GravitySystem
             
         }
 
-        public void Flip()
-        {
-            // Switch the way the player is labelled as facing
-            facingRight = !facingRight;
-
-            // Multiply the player's x local scale by -1
-            Vector3 theScale = _transform.localScale;
-            theScale.x *= -1;
-            _transform.localScale = theScale;
-        }
-
+        
 
 
 

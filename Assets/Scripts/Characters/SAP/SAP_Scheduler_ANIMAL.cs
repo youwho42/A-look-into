@@ -14,6 +14,8 @@ namespace Klaxon.SAP
         public readonly int gliding_hash = Animator.StringToHash("IsGliding");
         public readonly int sleeping_hash = Animator.StringToHash("IsSleeping");
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
+        public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
+        public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
         public readonly int idle_hash = Animator.StringToHash("Idle");
         public readonly int climbing_hash = Animator.StringToHash("IsClimbing");
@@ -47,6 +49,8 @@ namespace Klaxon.SAP
         [HideInInspector]
         public GravityItemFly flier;
         [HideInInspector]
+        public GravityItemJump jumper;
+        [HideInInspector]
         public bool isDeviating;
 
         public Vector2 minMaxFlap;
@@ -78,7 +82,9 @@ namespace Klaxon.SAP
         bool inTalkRange;
         float inTalkRangeTimer;
         DialogueManagerUI dialogueManager;
-
+        [HideInInspector]
+        public Transform fleeTransfrom;
+        bool fleeing;
         void OnEnable()
         {
             GameEventManager.onTimeTickEvent.AddListener(TimeTick);
@@ -100,7 +106,7 @@ namespace Klaxon.SAP
             }
                 
             flier = GetComponent<GravityItemFly>();
-
+            jumper = GetComponent<GravityItemJump>();
             
 
             sounds = GetComponent<AnimalSounds>();
@@ -165,6 +171,19 @@ namespace Klaxon.SAP
                     }
                 }
             }
+            
+            if(GetBeliefState("Flee"))
+            {
+                if(fleeing == false)
+                {
+                    fleeing = true;
+                    ResetCurrentGoal();
+                }
+            }
+            else
+            {
+                fleeing = false;
+            }
 
 
             if (currentGoalComplete && currentGoal >= 0)
@@ -179,11 +198,23 @@ namespace Klaxon.SAP
 
         void LateUpdate()
         {
-            if (walker == null)
-                return;
-            animator.SetBool(isGrounded_hash, walker.isGrounded);
-            animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
 
+            if (walker != null)
+            {
+                if (walker.enabled)
+                {
+                    animator.SetBool(isGrounded_hash, walker.isGrounded);
+                    animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
+                }
+            }
+            if (jumper != null)
+            {
+                if (jumper.enabled)
+                {
+                    animator.SetBool(isGrounded_hash, jumper.isGrounded);
+                    animator.SetFloat(velocityY_hash, jumper.isGrounded ? 0 : jumper.displacedPosition.y); 
+                } 
+            }
         }
 
         void SetNewGoal()
@@ -364,9 +395,10 @@ namespace Klaxon.SAP
         }
 
 
-        public void FleePlayer()
+        public void FleePlayer(Transform playerTransform)
         {
-            
+            fleeTransfrom = playerTransform;
+            SetBeliefState("Flee", true);
         }
 
         public void SetActiveState(bool active)
@@ -408,6 +440,7 @@ namespace Klaxon.SAP
             if (collision.transform.position.z != transform.position.z || !hasDialogue)
                 return;
 
+           
             
             if (collision.gameObject.CompareTag("Player"))
             {

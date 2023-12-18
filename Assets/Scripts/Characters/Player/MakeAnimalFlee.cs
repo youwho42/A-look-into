@@ -13,7 +13,7 @@ public class MakeAnimalFlee : MonoBehaviour
 
         if (collision.TryGetComponent(out IAnimal animal))
         {
-           animal.FleePlayer();
+           animal.FleePlayer(transform);
         }
     }
 

@@ -253,7 +253,7 @@ public class BeeAI : MonoBehaviour, IAnimal
         activeState = active;
     }
 
-    public void FleePlayer()
+    public void FleePlayer(Transform playerTransform)
     {
         SetToFlyingState();
     }

@@ -271,7 +271,7 @@ public class DragonflyAI : MonoBehaviour, IAnimal
         activeState = active;
     }
 
-    public void FleePlayer()
+    public void FleePlayer(Transform playerTransform)
     {
         
         SetToFlyingState();
