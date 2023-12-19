@@ -54,6 +54,7 @@ namespace Klaxon.Interactable
                 if (!database.Items.Contains(messageItem))
                 {
                     database.Items.Add(messageItem);
+                    Notifications.instance.SetNewNotification(messageItem.localizedName.GetLocalizedString(), messageItem, 1, NotificationsType.Compendium);
                     GameEventManager.onNoteCompediumUpdateEvent.Invoke();
                     GameEventManager.onGuideCompediumUpdateEvent.Invoke();
                 }

@@ -80,7 +80,7 @@ namespace Klaxon.SAP
             }
 
             fleeTimer += Time.deltaTime;
-            if (Vector3.Distance(transform.position, agent.fleeTransfrom.position) >= 3.5f && fleeTimer > 5)
+            if (Vector3.Distance(transform.position, agent.fleeTransfrom.position) >= fleeDistance - 0.3f && fleeTimer > 5)
             {
                 agent.SetBeliefState("Flee", false);
                 agent.currentGoalComplete = true;

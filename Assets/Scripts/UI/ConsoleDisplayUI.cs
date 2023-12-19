@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using QuantumTek.QuantumInventory;
+using Klaxon.StatSystem;
 
 public class ConsoleDisplayUI : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ConsoleDisplayUI : MonoBehaviour
     public QI_ItemDatabase allItemsDatabase;
     public List<Transform> locations = new List<Transform>();
     public TMP_Dropdown timesDropdownField;
+    public StatChanger agencyChanger;
 
     private void Start()
     {
@@ -117,5 +119,14 @@ public class ConsoleDisplayUI : MonoBehaviour
         int time = int.Parse(timesDropdownField.options[timesDropdownField.value].text);
         time *= 60;
         RealTimeDayNightCycle.instance.currentTimeRaw = time;
+    }
+
+    public void AddAgency()
+    {
+        PlayerInformation.instance.statHandler.ChangeStat(agencyChanger);
+    }
+    public void AddSparks()
+    {
+        PlayerInformation.instance.purse.AddToPurse(1000);
     }
 }

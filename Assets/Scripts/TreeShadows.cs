@@ -11,6 +11,8 @@ public class TreeShadows : MonoBehaviour
     GlobalShadows globalShadows;
     bool isVisible = true;
     public ShadowCaster2D shadowCaster;
+
+
     private IEnumerator Start()
     {
         
@@ -27,7 +29,6 @@ public class TreeShadows : MonoBehaviour
     }
     private void OnBecameVisible()
     {
-         
         globalShadows = GlobalShadows.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         isVisible = true;

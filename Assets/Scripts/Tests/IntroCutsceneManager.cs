@@ -73,10 +73,16 @@ public class IntroCutsceneManager : MonoBehaviour
 
         //PlayerInformation.instance.playerQuestHandler.ActivateQuest("Talk to Manuela or Ramiro");
         //PlayerInformation.instance.playerUndertakings.AddUndertaking(startUndertaking);
-        
-        GameEventManager.onUndertakingsUpdateEvent.Invoke();
-        var pos = PlayerInformation.instance.player.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f),0);
-        BallPeopleManager.instance.SpawnMessenger(messageControls, BallPeopleMessageType.Guide, null, null, pos);
+
+        //GameEventManager.onUndertakingsUpdateEvent.Invoke();
+        //var pos = PlayerInformation.instance.player.position + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f),0);
+        //BallPeopleManager.instance.SpawnMessenger(messageControls, BallPeopleMessageType.Guide, null, null, pos);
+        if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(messageControls))
+        {
+            PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(messageControls);
+            Notifications.instance.SetNewNotification(messageControls.localizedName.GetLocalizedString(), messageControls, 1, NotificationsType.Compendium);
+            GameEventManager.onGuideCompediumUpdateEvent.Invoke();
+        }
     }
 
     
