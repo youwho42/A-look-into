@@ -61,7 +61,8 @@ namespace Klaxon.GravitySystem
         float finalJumpVariation;
         public float jumpVariation = 2;
         float v = 1;
-
+        [Range(0f, 1f)]
+        public float groundedTimeBeforeJump;
         float groundedTimer;
         public override void Start()
         {
@@ -89,7 +90,7 @@ namespace Klaxon.GravitySystem
                 if (isGrounded)
                 {
                     groundedTimer += Time.deltaTime;
-                    if (groundedTimer >= 0.08f && currentDirection != Vector2.zero)
+                    if (groundedTimer >= groundedTimeBeforeJump && currentDirection != Vector2.zero)
                     {
                         groundedTimer = 0;
                         finalJumpVariation = jumpHeight + Random.Range(-jumpVariation, jumpVariation);

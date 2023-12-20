@@ -50,6 +50,8 @@ public class GlobalShadows : MonoBehaviour
     {
         SetShadowRotation();
         StartShadowFade();
+        
+        GameEventManager.onShadowTickEvent.Invoke(time);
     }
 
     public void StartShadowFade()
@@ -75,7 +77,8 @@ public class GlobalShadows : MonoBehaviour
         float alpha = dayToNight ? 0.5f : 0.0f;
         float amount = dayToNight ? 0.0f : 0.5f;
         alpha = Mathf.Lerp(alpha, amount, elapsedTime / waitTime);
-        shadowColor = new Color(shadowColor.r, shadowColor.g, shadowColor.b, alpha);
+        //shadowColor = new Color(shadowColor.r, shadowColor.g, shadowColor.b, alpha);
+        shadowColor = new Color(0, 0, 0, alpha);
         
     }
 

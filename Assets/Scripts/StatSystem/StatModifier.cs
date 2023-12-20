@@ -33,6 +33,7 @@ namespace Klaxon.StatSystem
         public ModifierType ModifierType;
         public ModifierDestination ModifierDestination;
         public float ModifierAmount;
+        
         public float finalModifierAmount;
         public bool TimedModifier;
         [ConditionalHide("TimedModifier", true)]

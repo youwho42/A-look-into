@@ -131,6 +131,7 @@ MonoBehaviour:
   shadowTransform: {fileID: 5518729533234794967}
   shadowSprite: {fileID: 5518729532945011619}
   shadowCaster: {fileID: 7067902391315928121}
+  shadowUpdateTick: 1
 --- !u!1 &3750450476680140025
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +585,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -605,8 +606,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2cc5bfee52e192e4d9703809b9e1897c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Sprite: {fileID: 21300000, guid: 1aa9e03d990530f408aec99e5564ee72, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -614,7 +615,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 2
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!1 &5518729533234794968
 GameObject:
@@ -772,7 +773,7 @@ MonoBehaviour:
   - {x: 0.03224373, y: -0.03504181, z: 0}
   m_ShapePathHash: -1176579523
   m_Mesh: {fileID: 0}
-  m_InstanceId: 728488
+  m_InstanceId: 4638140
   m_LocalBounds:
     m_Center: {x: 0.004122734, y: 0.0008029938, z: 0}
     m_Extent: {x: 0.060807228, y: 0.037240982, z: 0}

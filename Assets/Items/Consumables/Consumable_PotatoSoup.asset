@@ -36,7 +36,7 @@ MonoBehaviour:
   Weight: 3
   Price: 20
   spawnWeight: 5
-  Icon: {fileID: 21300000, guid: 8a637071cf7641d40bd5cbfd9e5f0e48, type: 3}
+  Icon: {fileID: 21300000, guid: 25ac3fd89ddf6bf49b32e26400400342, type: 3}
   ItemPrefabVariants:
   - {fileID: 1470096350422221036, guid: e910cf58af8d5a54a89b891374232a5c, type: 3}
   pickUpItem: {fileID: 0}
@@ -46,8 +46,10 @@ MonoBehaviour:
   ResearchRecipes: []
   GameDificulty: 0
   placementGumption: {fileID: 0}
-  statChangers: []
-  statModifiers: []
+  statChangers:
+  - {fileID: 11400000, guid: d9e443b49fa92954abea5251a2b52ebf, type: 2}
+  statModifiers:
+  - {fileID: 11400000, guid: 5b19d504171f27e4ea807bd860cc2170, type: 2}
   itemToBecome: {fileID: 11400000, guid: b886aba0eb71d4c4c88c8713361a1c6e, type: 2}
   references:
     version: 2

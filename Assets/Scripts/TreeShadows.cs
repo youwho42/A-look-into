@@ -11,33 +11,39 @@ public class TreeShadows : MonoBehaviour
     GlobalShadows globalShadows;
     bool isVisible = true;
     public ShadowCaster2D shadowCaster;
+    Material shadowMaterial;
+    [Range(1, 10)]
+    public int shadowUpdateTick = 1;
 
-
+    private void Awake()
+    {
+        if (shadowCaster != null)
+            shadowCaster.enabled = false;
+    }
     private IEnumerator Start()
     {
-        
-        
-        if (shadowCaster != null)
-        {
-            shadowCaster.enabled = false;
-        }
 
+        
+        shadowMaterial = shadowSprite.material;
         yield return new WaitForSeconds(1.0f);
         globalShadows = GlobalShadows.instance;
-        GameEventManager.onTimeTickEvent.AddListener(SetShadows);
-        SetShadows(0);
+        GameEventManager.onShadowTickEvent.AddListener(SetShadows);
+        SetShadows(shadowUpdateTick);
+
+        
     }
     private void OnBecameVisible()
     {
+        shadowMaterial = shadowSprite.material;
         globalShadows = GlobalShadows.instance;
-        GameEventManager.onTimeTickEvent.AddListener(SetShadows);
+        GameEventManager.onShadowTickEvent.AddListener(SetShadows);
         isVisible = true;
-        SetShadows(0);
+        SetShadows(shadowUpdateTick);
     }
 
     private void OnBecameInvisible()
     {
-        GameEventManager.onTimeTickEvent.RemoveListener(SetShadows);
+        GameEventManager.onShadowTickEvent.RemoveListener(SetShadows);
         isVisible = false;
         if (shadowCaster != null)
         {
@@ -46,26 +52,33 @@ public class TreeShadows : MonoBehaviour
     }
     private void OnDisable()
     {
-        GameEventManager.onTimeTickEvent.RemoveListener(SetShadows);
+        GameEventManager.onShadowTickEvent.RemoveListener(SetShadows);
     }
 
-    public void SetShadows(int time)
+    public void SetShadows(int tick)
     {
         if (!isVisible)
             return;
+        int sleep = 0;
+        if (SleepDisplayUI.instance.isSleeping)
+        {
+            sleep = 3;
+        }
+        if (tick % (shadowUpdateTick + sleep) == 0)
+            SetShadowState();
         
-        SetShadowState();
     }
 
     void SetShadowState()
     {
         shadowSprite.enabled = globalShadows.GetShadowVisible();
-        shadowSprite.color = globalShadows.GetShadowColor();
+        //shadowSprite.color = globalShadows.GetShadowColor();
+        shadowMaterial.SetColor("_Color", globalShadows.GetShadowColor());
         shadowTransform.eulerAngles = globalShadows.shadowRotation;
         shadowSprite.transform.localScale = globalShadows.shadowScale;
         if (shadowCaster != null)
         {
-            shadowCaster.enabled = shadowSprite.color.a <= 0.2f;
+            shadowCaster.enabled = globalShadows.GetShadowColor().a <= 0.2f;
         }
     }
     

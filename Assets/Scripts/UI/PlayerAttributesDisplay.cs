@@ -8,6 +8,8 @@ public class PlayerAttributesDisplay : MonoBehaviour
 {
     public Slider bounceSlider;
     public Slider gumptionSlider;
+    public TextMeshProUGUI bounceText;
+    public TextMeshProUGUI gumptionText;
     public TextMeshProUGUI agencyText;
     public TextMeshProUGUI sparksText;
     public RectTransform bounceUI, gumptionUI, agencyUI, sparkUI;
@@ -81,8 +83,11 @@ public class PlayerAttributesDisplay : MonoBehaviour
         bounceSlider.value = lastBounce;
         gumptionSlider.maxValue = newMaxGumption;
         gumptionSlider.value = lastGumption;
+        bounceText.text = $"<sprite anim=\"6,21,12\"> {newCurrentBounce}/{newMaxBounce}";
+        gumptionText.text = $"<sprite name=\"Gumption\"> {newCurrentGumption}/{newMaxGumption}";
         agencyText.text = $"<sprite name=\"Agency\"> {lastAgency}";
         sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
+
     }
 
     public IEnumerator ShakeStatUI(RectTransform statObject, Vector2 originalPos, float diff)

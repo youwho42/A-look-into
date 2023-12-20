@@ -36,9 +36,13 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-
+            
             if (!isOpen)
+            {
+                if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
+                    return;
                 OpenContainer();
+            }
             else
                 CloseContainer();
         }
@@ -46,7 +50,7 @@ namespace Klaxon.Interactable
         public override void LongInteract(GameObject interactor)
         {
             base.Interact(interactor);
-
+            
             if (inventory.Stacks.Count > 0)
             {
                 Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Container pick up"), null, 0, NotificationsType.Warning);
