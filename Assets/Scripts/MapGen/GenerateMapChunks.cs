@@ -220,8 +220,52 @@ public class GenerateMapChunks : MonoBehaviour
         
     }
 
+    public void RemoveHiddenTiles()
+    {
+        List<Vector3Int> removeTiles = new List<Vector3Int>();
+        for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
+        {
+            for (int y = groundTilemap.cellBounds.min.y; y < groundTilemap.cellBounds.max.y; y++)
+            {
+                for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
+                {
+                    Vector3Int pos = new Vector3Int(x, y, z);
+                    if (CheckTileIsSurrounded(pos))
+                        removeTiles.Add(pos);
+                }
+            }
+        }
+        foreach (var tile in removeTiles)
+        {
+            groundTilemap.SetTile(tile, null);
+        }
+    }
 
-    
+    bool CheckTileIsSurrounded(Vector3Int pos)
+    {
+        for (int x = -1; x < 2; x++)
+        {
+            for (int y = -1; y < 2; y++)
+            {
+                for (int z = 0; z < 2; z++)
+                {
+                    var p = new Vector3Int(pos.x + x, pos.y + y, pos.z + z);
+                    if (!TileIsValid(p))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    bool TileIsValid(Vector3Int pos)
+    {
+        if (groundTilemap.GetTile(pos) == null/* || groundTileMap.GetTile(pos + Vector3Int.forward) != null*/)
+            return false;
+
+        return true;
+    }
+
 
 
 }

@@ -72,13 +72,12 @@ public class TreeShadows : MonoBehaviour
     void SetShadowState()
     {
         shadowSprite.enabled = globalShadows.GetShadowVisible();
-        //shadowSprite.color = globalShadows.GetShadowColor();
         shadowMaterial.SetColor("_Color", globalShadows.GetShadowColor());
         shadowTransform.eulerAngles = globalShadows.shadowRotation;
         shadowSprite.transform.localScale = globalShadows.shadowScale;
         if (shadowCaster != null)
         {
-            shadowCaster.enabled = globalShadows.GetShadowColor().a <= 0.2f;
+            shadowCaster.enabled = globalShadows.ShadowCasterEnabled();
         }
     }
     

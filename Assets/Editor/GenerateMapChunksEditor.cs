@@ -29,7 +29,14 @@ public class GenerateMapChunksEditor : Editor
         {
             mapChunks.LoadChunksFromSave();
         }
-        
+
+        EditorGUILayout.Space();
+
+
+        if (GUILayout.Button("Remove Hidden Tiles"))
+        {
+            mapChunks.RemoveHiddenTiles();
+        }
 
         EditorGUILayout.Space();
 

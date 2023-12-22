@@ -21,6 +21,7 @@ public class GenerateAllTilesInfoEditor : Editor
             allTilesInfo.GetAllTiles();
             SaveTilesInfo(allTilesInfo);
         }
+        
     }
 
     public void SaveTilesInfo(GenerateAllTilesInfo allTiles)

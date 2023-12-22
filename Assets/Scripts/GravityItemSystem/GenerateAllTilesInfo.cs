@@ -79,6 +79,7 @@ public class GenerateAllTilesInfo : MonoBehaviour
         
     }
 
+
     bool TileIsValid(Vector3Int pos)
     {
         if(groundTileMap.GetTile(pos) == null/* || groundTileMap.GetTile(pos + Vector3Int.forward) != null*/)

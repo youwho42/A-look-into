@@ -21,7 +21,9 @@ public enum SoundType
     Bee,
     Firefly,
     Seaweed,
-    Crow
+    Crow,
+    Chicken,
+    Pigeon
 
 }
 public class MusicGenerator : MonoBehaviour

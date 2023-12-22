@@ -282,7 +282,12 @@ public class PlayerInputController : MonoBehaviour
         if (UIScreenManager.instance.canChangeUI && !LevelManager.instance.isInCutscene)
         {
             if (PlayerInformation.instance.uiScreenVisible)
+            {
+                GameEventManager.onEscapeEvent.Invoke();
+                GameEventManager.onMenuHideEvent.Invoke();
                 return;
+            }
+                
             isPaused = !isPaused;
             LevelManager.instance.Pause(isPaused);
         }

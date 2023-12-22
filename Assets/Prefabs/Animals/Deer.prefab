@@ -314,7 +314,7 @@ PrefabInstance:
     - target: {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: wanderDistance
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6225581241868902536, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -628,6 +628,7 @@ MonoBehaviour:
   characterRenderer: {fileID: 0}
   shitSpot: 0
   jumpVariation: 3
+  groundedTimeBeforeJump: 0
 --- !u!114 &7849212215251888979
 MonoBehaviour:
   m_ObjectHideFlags: 0

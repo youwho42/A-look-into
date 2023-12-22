@@ -60,6 +60,7 @@ public static class GameEventManager
     /// <summary>
     /// UI interactions
     /// </summary>
+    public static readonly GameEvent onEscapeEvent = new GameEvent();
     public static readonly GameEvent<GameObject> onEventSystemSelectedChangedEvent = new GameEvent<GameObject>();
     public static readonly GameEvent onMinigameMouseClickEvent = new GameEvent();
     public static readonly GameEvent onMenuToggleEvent = new GameEvent();

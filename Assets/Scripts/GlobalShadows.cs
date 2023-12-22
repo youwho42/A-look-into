@@ -20,7 +20,7 @@ public class GlobalShadows : MonoBehaviour
     public Vector3 shadowScale { get; private set; }
     
     Color shadowColor = Color.black;
-
+    bool shadowCasterEnabled = false;
     private IEnumerator Start()
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
@@ -43,7 +43,10 @@ public class GlobalShadows : MonoBehaviour
     {
         return dayNightCycle.dayState != RealTimeDayNightCycle.DayState.Night;
     }
-
+    public bool ShadowCasterEnabled()
+    {
+        return shadowCasterEnabled;
+    }
     
 
     public void SetShadows(int time)
@@ -66,7 +69,9 @@ public class GlobalShadows : MonoBehaviour
         else
             shadowColor = new Color(shadowColor.r, shadowColor.g, shadowColor.b, 0.0f);
 
-        
+        shadowCasterEnabled = shadowColor.a <= 0.2f;
+
+
     }
 
 

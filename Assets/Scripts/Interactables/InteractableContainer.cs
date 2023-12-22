@@ -30,7 +30,12 @@ namespace Klaxon.Interactable
                 if (inventory == null)
                     inventory = GetComponentInParent<QI_Inventory>();
             }
+            GameEventManager.onEscapeEvent.AddListener(CloseContainer);
+        }
 
+        private void OnDisable()
+        {
+            GameEventManager.onEscapeEvent.RemoveListener(CloseContainer);
         }
 
         public override void Interact(GameObject interactor)
@@ -83,6 +88,8 @@ namespace Klaxon.Interactable
 
         private void CloseContainer()
         {
+            if (!isOpen)
+                return;
             UIScreenManager.instance.HideAllScreens();
             if (LevelManager.instance.HUDBinary == 1)
                 UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);

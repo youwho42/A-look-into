@@ -27,6 +27,8 @@ namespace Klaxon.Interactable
             base.Interact(interactor);
             if (!isOpen)
             {
+                if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
+                    return;
                 var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
                 if (UIScreenManager.instance.CurrentUIScreen() == screen)
                 {
