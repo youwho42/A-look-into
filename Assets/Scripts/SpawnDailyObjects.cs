@@ -4,7 +4,7 @@ using UnityEngine;
 using QuantumTek.QuantumInventory;
 using Klaxon.SaveSystem;
 
-public class SpawnDailyObjects : MonoBehaviour
+public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
 {
 
     public QI_ItemDatabase itemDatabase;
@@ -28,14 +28,15 @@ public class SpawnDailyObjects : MonoBehaviour
             if(points[i].CompareTag("ItemSpawnPoint"))
                 spawnPoints.Add(points[i]);
         }
-        GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
-        SpawnObjects(hourToDailySpawn);
+        //GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
+        SetToManager();
+        SpawnObjects();
     }
 
 
-    public void SpawnObjects(int timeOfDay)
+    public void SpawnObjects()
     {
-        if (timeOfDay != hourToDailySpawn || itemDatabase == null)
+        if (itemDatabase == null)
             return;
        
         if (TryGetComponent(out PlantGrowCycle plantCycle))
@@ -52,7 +53,7 @@ public class SpawnDailyObjects : MonoBehaviour
                 {
                     
                     var item = itemDatabase.GetRandomWeightedItem();
-                    var go = Instantiate(item.ItemPrefabVariants[0], point.position, Quaternion.identity);
+                    var go = Instantiate(item.ItemPrefabVariants[0], point.position, Quaternion.identity, transform);
 
                     if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
                         itemToSpawn.GenerateId();
@@ -63,8 +64,18 @@ public class SpawnDailyObjects : MonoBehaviour
 
     
 
-    private void OnDestroy()
+    //private void OnDestroy()
+    //{
+    //    GameEventManager.onTimeHourEvent.RemoveListener(SpawnObjects);
+    //}
+
+    public void ResetAtDawn()
     {
-        GameEventManager.onTimeHourEvent.RemoveListener(SpawnObjects);
+        SpawnObjects();
+    }
+
+    public void SetToManager()
+    {
+        ResetAtDawnManager.instance.AddToManager(this);
     }
 }

@@ -6,9 +6,9 @@ using UnityEngine.Localization.Settings;
 
 namespace Klaxon.Interactable
 {
-    public class InteractableAgencyStatue : Interactable
+    public class InteractableAgencyStatue : Interactable, IResetAtDawn
     {
-
+        
         public QI_ItemData agencyItem;
         public int agencyAmount;
         Material material;
@@ -38,28 +38,36 @@ namespace Klaxon.Interactable
             source = GetComponent<AudioSource>();
             particles = GetComponent<ParticlesToPlayer>();
             agencySpawnDisplacement = GetComponent<DrawZasYDisplacement>();
-            GameEventManager.onTimeHourEvent.AddListener(ResetStatue);
+            SetToManager();
+            //GameEventManager.onTimeHourEvent.AddListener(ResetStatue);
         }
-        public void OnDisable()
-        {
-            GameEventManager.onTimeHourEvent.RemoveListener(ResetStatue);
-        }
+        //public void OnDisable()
+        //{
+        //    GameEventManager.onTimeHourEvent.RemoveListener(ResetStatue);
+        //}
 
         void GetMaterial()
         {
             material = rend.material;
 
         }
-        void ResetStatue(int time)
+        public void ResetAtDawn()
         {
-            if (time == 5)
-            {
-                float factor = Mathf.Pow(2, onIntensity);
-                material.SetColor("_EmissionColor", initialColor * factor);
-                hasBeenActivated = false;
-                canInteract = true;
-            }
+            float factor = Mathf.Pow(2, onIntensity);
+            material.SetColor("_EmissionColor", initialColor * factor);
+            hasBeenActivated = false;
+            canInteract = true;
         }
+        //void ResetStatue(int time)
+        //{
+        //    if (time == 5)
+        //    {
+        //        float factor = Mathf.Pow(2, onIntensity);
+        //        material.SetColor("_EmissionColor", initialColor * factor);
+        //        hasBeenActivated = false;
+        //        canInteract = true;
+        //    }
+        //}
 
         public override void Interact(GameObject interactor)
         {
@@ -68,7 +76,7 @@ namespace Klaxon.Interactable
             if (!hasBeenActivated && PlayerInformation.instance.playerInventory.CheckInventoryHasSpace(agencyItem))
                 StartCoroutine(InteractCo(interactor));
             else
-                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
+                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory full"), null, 0, NotificationsType.Warning);
         }
 
         IEnumerator InteractCo(GameObject interactor)
@@ -116,7 +124,7 @@ namespace Klaxon.Interactable
             }
 
             PlayerInformation.instance.playerInventory.AddItem(agencyItem, agencyAmount, false);
-            Notifications.instance.SetNewNotification("", agencyItem, agencyAmount, NotificationsType.Agency);
+            Notifications.instance.SetNewNotification("", agencyItem, agencyAmount, NotificationsType.Inventory);
             //NotificationManager.instance.SetNewNotification($"{agencyItem.Name} {agencyAmount}", NotificationManager.NotificationType.Inventory);
         }
 
@@ -151,6 +159,10 @@ namespace Klaxon.Interactable
 
         }
 
+        public void SetToManager()
+        {
+            ResetAtDawnManager.instance.AddToManager(this);
+        }
     }
 
 }

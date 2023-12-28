@@ -46,8 +46,8 @@ namespace Klaxon.ConversationSystem
                 if (convo.ActivateUndertakingObject && convo.ActivateAtStart)
                     ActivateUndertaking(convo.ActivateUndertakingObject);
 
-                if (convo.UndertakingTask)
-                    convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
+                //if (convo.UndertakingTask)
+                //    convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
 
                 var currObject = convo.ActivateUndertakingObject == null ? convo.UndertakingObject : convo.ActivateUndertakingObject;
                 switch (currObject.CurrentState)
@@ -56,10 +56,19 @@ namespace Klaxon.ConversationSystem
                         if (convo.ActivateUndertakingObject)
                             ActivateUndertaking(convo.ActivateUndertakingObject);
                         dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Inactive);
+                        if (convo.UndertakingTask)
+                            convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
                         break;
 
                     case UndertakingState.Active:
-                        dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
+                        if (!convo.UndertakingTask.IsComplete)
+                        {
+                            dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
+                            if (convo.UndertakingTask)
+                                convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
+                        }
+                            
+                        
                         break;
 
                     case UndertakingState.Complete:

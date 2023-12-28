@@ -228,7 +228,10 @@ namespace Klaxon.SAP
             {
                 timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, action.path[action.currentPathIndex].transform.position) / walker.walkSpeed);
                 timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
-
+                if (transform.position.x < action.path[action.currentPathIndex].transform.position.x && !walker.facingRight)
+                    walker.Flip();
+                else if (transform.position.x > action.path[action.currentPathIndex].transform.position.x && walker.facingRight)
+                    walker.Flip();
                 offScreenPosMoved = false;
             }
 

@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using Klaxon.ConversationSystem;
 using Klaxon.GravitySystem;
+using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace Klaxon.SAP
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
         public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
         public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
+        public readonly int isEating_hash = Animator.StringToHash("IsEating");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
         public readonly int idle_hash = Animator.StringToHash("Idle");
         public readonly int climbing_hash = Animator.StringToHash("IsClimbing");
@@ -85,6 +88,18 @@ namespace Klaxon.SAP
         [HideInInspector]
         public Transform fleeTransfrom;
         bool fleeing;
+
+
+        public bool canEat;
+        [ConditionalHide("canEat", true)]
+        public Transform eatPoint;
+        [ConditionalHide("canEat", true)]
+        public LayerMask interactableLayer;
+        public List<QI_ItemData> edibleItems = new List<QI_ItemData>();
+        [HideInInspector]
+        public bool isEating;
+        public GameObject currentEdible;
+
         void OnEnable()
         {
             GameEventManager.onTimeTickEvent.AddListener(TimeTick);
@@ -171,6 +186,9 @@ namespace Klaxon.SAP
                     }
                 }
             }
+
+            if (FoundFood())
+                ResetCurrentGoal();
             
             if(GetBeliefState("Flee"))
             {
@@ -394,6 +412,27 @@ namespace Klaxon.SAP
 
         }
 
+        bool FoundFood()
+        {
+            if (!canEat || isEating || fleeing)
+                return false;
+            
+            var hit = Physics2D.OverlapPoint(eatPoint.position, interactableLayer, transform.position.z, transform.position.z);
+            if (hit != null)
+            {
+                if(hit.TryGetComponent(out QI_Item item))
+                {
+                    if(edibleItems.Contains(item.Data))
+                    {
+                        currentEdible = hit.gameObject;
+                        isEating = true;
+                        SetBeliefState("Eating", true);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         public void FleePlayer(Transform playerTransform)
         {

@@ -45,6 +45,7 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
+            
 
             for (int i = 0; i < saveData.undertakingName.Count; i++)
             {
@@ -56,7 +57,9 @@ namespace Klaxon.SaveSystem
             {
                 Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.SetTaskState(saveData.taskUndertakingNames[j], saveData.taskNames[j], saveData.taskStates[j]);
             }
+            
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
+            
         }
 
         [Serializable]

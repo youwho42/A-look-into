@@ -1,3 +1,4 @@
+using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,7 @@ public static class GameEventManager
     /// Game Started New or Load or Save
     /// </summary>
     public static readonly GameEvent onNewGameStartedEvent = new GameEvent();
+    public static readonly GameEvent onGameStartLoadEvent = new GameEvent();
     public static readonly GameEvent onGameLoadedEvent = new GameEvent();
     public static readonly GameEvent onGameSavedEvent = new GameEvent();
 

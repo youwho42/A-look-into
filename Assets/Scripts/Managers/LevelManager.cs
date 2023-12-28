@@ -333,7 +333,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
-        
+        GameEventManager.onGameStartLoadEvent.Invoke();
         UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);

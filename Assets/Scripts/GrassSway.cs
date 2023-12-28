@@ -6,27 +6,19 @@ public class GrassSway : MonoBehaviour
 {
     Material material;
 
-
-
     private void Start()
     {
         material = GetComponent<SpriteRenderer>().material;
         
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void SwayItem()
     {
-        if (collision.CompareTag("Player"))
-        {
-            StartCoroutine("SwayCo");
-        }
+        StartCoroutine("SwayCo");
     }
- 
-
 
     IEnumerator SwayCo()
     {
-        
         float timePercentage = 0f;
         float fadeTime = 0.2f;
         material.SetVector("_WindMovement", new Vector4(Random.Range(1f, 2f), 0,0,0));
@@ -48,14 +40,5 @@ public class GrassSway : MonoBehaviour
 
             yield return null;
         }
-        
-    }
-    void OnBecameInvisible()
-    {
-        enabled = false;
-    }
-    void OnBecameVisible()
-    {
-        enabled = true;
     }
 }

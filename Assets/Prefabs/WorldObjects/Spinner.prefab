@@ -355,8 +355,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7513994827273356288}
-  - component: {fileID: 9203865556483221440}
-  - component: {fileID: 8360802278536025709}
   m_Layer: 13
   m_Name: spinner box
   m_TagString: Untagged
@@ -382,87 +380,6 @@ Transform:
   - {fileID: 7513994827739316979}
   m_Father: {fileID: 211382645291712649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &9203865556483221440
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7513994827273356289}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.01704979}
-  serializedVersion: 2
-  m_Radius: 0.050748825
---- !u!114 &8360802278536025709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7513994827273356289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908229049c2bbd844bf36248c996f161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactSound: Default
-  interactVerb: Check
-  localizedInteractVerb:
-    m_TableReference:
-      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
-    m_TableEntryReference:
-      m_KeyId: 4694318318673920
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  longInteractVerb:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
-  agencyReward: 0
-  agencyCost: 0
-  canInteract: 1
-  hasLongInteract: 0
-  replaceObjectOnDrop: {fileID: 0}
-  canPlaceOnOther: 0
-  visualItem: {fileID: 0}
-  isOpen: 0
-  isSquirrelBox: 0
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &7513994827536451838
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 547a06a4d93130447995dcab263e9f09, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &7513994828343454792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,6 +717,7 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 4033634133731407011}
   canPlaceOnOther: 0
   visualItem: {fileID: 211382645291712649}
+  instruction: {fileID: 0}
   recipeDatabase: {fileID: 11400000, guid: 926a5aa2b30690d40952bb0193d151e6, type: 2}
   selfInventory: {fileID: 7983089396344206566}
   references:
@@ -836,9 +755,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.001540184, y: 0.0057559013}
+  m_Offset: {x: 0.04950285, y: -0.012565613}
   serializedVersion: 2
-  m_Radius: 0.07731581
+  m_Radius: 0.13490295
 --- !u!114 &3633450691709350029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,7 +784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Loom
-  MaxStacks: 3
+  MaxStacks: 5
 --- !u!114 &2284212566851634536
 MonoBehaviour:
   m_ObjectHideFlags: 0

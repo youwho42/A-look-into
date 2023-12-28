@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 6524370319776425805}
   - component: {fileID: 8886255186444013669}
   - component: {fileID: -5588685915569633627}
+  - component: {fileID: 5928343956375143761}
   m_Layer: 13
   m_Name: TallGrass
   m_TagString: Untagged
@@ -308,9 +309,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.16523439}
+  m_Offset: {x: 0, y: 0.01571083}
   serializedVersion: 2
-  m_Radius: 0.17578125
+  m_Radius: 0.055067062
 --- !u!114 &8886255186444013669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,9 +342,9 @@ MonoBehaviour:
   interactVerb: Tall Grass
   localizedInteractVerb:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 630401795678208
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -365,9 +366,21 @@ MonoBehaviour:
   hasLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
-  visualItem: {fileID: 0}
+  visualItem: {fileID: 7897041632071972314}
   instruction: {fileID: 0}
   pickupQuantity: 3
   references:
     version: 2
     RefIds: []
+--- !u!114 &5928343956375143761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897041632071972312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19123f15967be4e02a06000a8fd371d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

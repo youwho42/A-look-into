@@ -76,6 +76,8 @@ namespace Klaxon.Interactable
 
         public bool InteractBounceCost()
         {
+            if (bounceCost == null)
+                return true;
             if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(bounceCost.Amount))
             {
                 PlayerInformation.instance.statHandler.ChangeStat(bounceCost);
@@ -92,11 +94,11 @@ namespace Klaxon.Interactable
         {
             if (instruction == null)
                 return true;
-            if (SAP_WorldBeliefStates.instance.HasWorldState(instruction.condition.Condition, instruction.condition.State))
-                return true;
+            //if (SAP_WorldBeliefStates.instance.HasWorldState(instruction.condition.Condition, instruction.condition.State))
+            //    return true;
             BallPersonMessageDisplayUI.instance.ShowHowTo(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString());
             UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-            SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
+            //SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
             return false;
         }
 

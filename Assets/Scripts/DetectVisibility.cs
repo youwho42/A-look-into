@@ -19,7 +19,7 @@ public class DetectVisibility : MonoBehaviour
 
     List<GameObject> tileHiders = new List<GameObject>();
     GravityItemFly gravityItemFly;
-
+    float displacementPos;
     private void Start()
     {
         allTilesInfo = AllTilesInfoManager.instance;
@@ -64,11 +64,7 @@ public class DetectVisibility : MonoBehaviour
                 if (tile.levelZ > 0 && !tile.isValid)
                 {
                     if (CheckObjectPosition())
-                    {
-                        
                         isHidden = true;
-                    }
-                        
                 }
                 if (tile.levelZ == 0 && tile.isValid && tile.tileName.Contains("Slope"))
                 {
@@ -92,34 +88,22 @@ public class DetectVisibility : MonoBehaviour
         Vector3 relativePos = pos - tileworldpos;
 
         if (relativePos.y < 0.33f)
+        {
+            displacementPos = relativePos.y;
             return true;
+        }
+            
 
         return false;
     }
 
     void ChangeObjectZ(bool isHidden)
     {
-        
-        Vector3 pos = new Vector3(0, 0, isHidden ? -0.9f : 0);
+        float remap = MapNumber.Remap(displacementPos, 0.0f, 0.33f, -1f, -0.33f);
+        Vector3 pos = new Vector3(0, 0, isHidden ? remap : 0);
         objectCorrectionZ.localPosition = pos;
         
         
-    }
-
-    void HideTile(TileDirectionInfo tile)
-    {
-        Vector3 pos = transform.position - Vector3.forward;
-
-        
-        Vector3 tileworldpos = currentPosition.grid.GetCellCenterWorld(currentPosition.position + tile.direction);
-        tileworldpos.z = 0;
-        Vector3 finalPos = tileworldpos + new Vector3(0, -0.1445f, transform.position.z);
-        var obj = TileHidersManager.instance.GetPooledObject(tile.tileName, finalPos);
-        
-        tileHiders.Add(obj);
-        obj.gameObject.SetActive(true);
-        
-        // show that there tile
     }
 
 }

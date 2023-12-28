@@ -81,7 +81,7 @@ public class NavigationNodesManager : MonoBehaviour
             nodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
             foreach (var node in nodes)
             {
-                var dist = Vector2.Distance(position, node.transform.position);
+                var dist = Vector3.Distance(position, node.transform.position);
                 if (dist <= maxDistance)
                     nodesInArea.Add(node);
             }

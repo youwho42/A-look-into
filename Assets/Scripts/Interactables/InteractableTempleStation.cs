@@ -19,6 +19,10 @@ namespace Klaxon.Interactable
 
         CompleteTaskOnInteraction taskOnInteraction;
         StartTimelineCutscene timelineCutscene;
+
+        public bool isDisabledDemo;
+
+
         public override void Start()
         {
             base.Start();
@@ -29,6 +33,11 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
+            if(isDisabledDemo)
+            {
+                HasReadHowTo();
+                return;
+            }
             if (!isActivated)
             {
                 if (InteractCostReward())

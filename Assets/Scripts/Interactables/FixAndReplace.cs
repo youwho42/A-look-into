@@ -4,7 +4,6 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Localization.Settings;
 using Klaxon.Interactable;
 
 
@@ -19,18 +18,6 @@ public class FixAndReplace : MonoBehaviour, IFixArea
     
     public bool Fix(List<FixableAreaIngredient> ingredients)
     {
-        if(undertakingObject.undertaking != null)
-        {
-            if (undertakingObject.undertaking.CurrentState != UndertakingState.Active)
-            {
-                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Unavailable"), null, 0, NotificationsType.Warning);
-
-                //NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
-                return false;
-            }
-        }
-        
-
         if (!isFixing)
             StartCoroutine(FixCo(ingredients));
         return true;
@@ -55,7 +42,12 @@ public class FixAndReplace : MonoBehaviour, IFixArea
         {
             item.GenerateId();
         }
-        
+
+        if (go.TryGetComponent(out ActivateOnQuestComplete obj))
+        {
+            obj.undertakingName = undertakingObject.undertaking.Name;
+        }
+
         fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
         yield return new WaitForSeconds(3);
         if(fixableReplacementObject.TryGetComponent(out QI_Item data))

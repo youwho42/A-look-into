@@ -50,16 +50,23 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public Button craftButton;
 
+    [Space]
+    [Header("Output Container")]
+    public GameObject finalContainer;
     public GameObject containerSlotHolder;
     public GameObject containerSlot;
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
 
+
     private void Start()
     {
         craftingStationUI.SetActive(false);
-        
+        GameEventManager.onInventoryUpdateEvent.AddListener(SetContainerUI);
     }
-
+    private void OnDisable()
+    {
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(SetContainerUI);
+    }
 
 
     public void ShowUI(QI_CraftingHandler handler, QI_CraftingRecipeDatabase database, QI_Inventory inventory)
@@ -74,6 +81,13 @@ public class CraftingStationDisplayUI : MonoBehaviour
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
 
+        finalContainer.SetActive(false);
+        if(finalInventory.Name != "MainPlayerInventory")
+        {
+            finalContainer.SetActive(true);
+            SetContainerUI();
+        }
+        
         EventSystem.current.SetSelectedGameObject(null);
         if (recipeButtons.Count > 0)
             EventSystem.current.SetSelectedGameObject(recipeButtons[0].GetComponentInChildren<Button>().gameObject);
@@ -85,6 +99,65 @@ public class CraftingStationDisplayUI : MonoBehaviour
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         craftingHandler = null;
+    }
+    void SetContainerUI()
+    {
+        if (finalInventory == null)
+            return;
+        ClearSlots();
+        for (int i = 0; i < finalInventory.MaxStacks; i++)
+        {
+
+            GameObject newSlot = Instantiate(containerSlot, containerSlotHolder.transform);
+            var s = newSlot.GetComponent<ContainerDisplaySlot>();
+            s.isContainerSlot = true;
+            containerSlots.Add(s);
+
+        }
+        
+        UpdateContainerInventoryUI();
+    }
+
+    public void ClearSlots()
+    {
+        foreach (Transform child in containerSlotHolder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
+        containerSlots.Clear();
+    }
+
+
+    public void UpdateContainerInventoryUI()
+    {
+        if (finalInventory == null)
+            return;
+        foreach (ContainerDisplaySlot containerSlot in containerSlots)
+        {
+            containerSlot.ClearSlot();
+            containerSlot.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+        }
+
+        for (int i = 0; i < finalInventory.Stacks.Count; i++)
+        {
+            var butt = containerSlots[i].GetComponentInChildren<Button>();
+
+            if (finalInventory.Stacks[i].Item != null)
+            {
+                containerSlots[i].containerInventory = finalInventory;
+                containerSlots[i].AddItem(finalInventory.Stacks[i].Item, finalInventory.Stacks[i].Amount);
+                containerSlots[i].icon.enabled = true;
+                containerSlots[i].isContainerSlot = true;
+                butt.interactable = true;
+            }
+            else
+            {
+                butt.interactable = false;
+            }
+        }
+
     }
 
     public void SetAvailableRecipes()
