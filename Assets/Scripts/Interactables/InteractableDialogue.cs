@@ -20,19 +20,21 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
+
+            currentDialogue = dialogueSystem.GetConversation();
+            if (currentDialogue == null)
+                return;
+
             if (GumptionCost())
             {
-                currentDialogue = dialogueSystem.GetConversation();
-                if (currentDialogue != null)
-                {
-                    canInteract = false;
-                    DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
-                    UIScreenManager.instance.DisplayScreen(UIScreenType.DialogueDisplayScreen);
-                    UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-                    PlayerInformation.instance.uiScreenVisible = true;
-                    PlayerInformation.instance.TogglePlayerInput(false);
-                } 
-            }
+                canInteract = false;
+                DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
+                UIScreenManager.instance.DisplayScreen(UIScreenType.DialogueDisplayScreen);
+                UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+                PlayerInformation.instance.uiScreenVisible = true;
+                PlayerInformation.instance.TogglePlayerInput(false);
+            } 
+            
 
         }
 

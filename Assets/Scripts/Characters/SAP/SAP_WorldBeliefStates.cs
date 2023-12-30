@@ -34,7 +34,11 @@ namespace Klaxon.SAP
             foreach (var seat in a)
             {
                 if(seat.navigationNode != null)
-                    allSeats.Add(seat);
+                {
+                    if (seat.navigationNode.nodeType == NavigationNodeType.Outside)
+                        allSeats.Add(seat);
+                }
+                    
             }
         }
         private void OnEnable()

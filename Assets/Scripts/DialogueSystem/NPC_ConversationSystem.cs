@@ -61,14 +61,18 @@ namespace Klaxon.ConversationSystem
                         break;
 
                     case UndertakingState.Active:
-                        if (!convo.UndertakingTask.IsComplete)
+                        if (convo.UndertakingTask)
                         {
-                            dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
-                            if (convo.UndertakingTask)
+                            if (!convo.UndertakingTask.IsComplete)
+                            {
                                 convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
+                                dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
+                            }
+                                
                         }
-                            
-                        
+                        else
+                            dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
+
                         break;
 
                     case UndertakingState.Complete:
