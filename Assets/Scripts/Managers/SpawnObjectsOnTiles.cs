@@ -135,14 +135,14 @@ public class SpawnObjectsOnTiles : MonoBehaviour
 
     void SetObjectsVisible()
     {
-        bounds = new Bounds(PlayerInformation.instance.player.position, new Vector3(10, 10, 16));
-        var currentObjects = QueryQuadTree(bounds);
-        pool.CheckAllObjectsVisible();
-        foreach (var pos in currentObjects)
-        {
-            pool.SetObjectVisible(pos);
-        }
-        
+        //bounds = new Bounds(PlayerInformation.instance.player.position, new Vector3(10, 5, 512));
+        //var currentObjects = QueryQuadTree(bounds);
+        //pool.CheckAllObjectsVisible();
+        //foreach (var pos in currentObjects)
+        //{
+        //    pool.SetObjectVisible(pos);
+        //}
+
     }
 
 
@@ -166,7 +166,7 @@ public class SpawnObjectsOnTiles : MonoBehaviour
                 int possible = Mathf.RoundToInt(maxObjectsPerTile * mass);
                 
 
-                if (possible != 0)
+                if (possible > 2)
                 {
                     for (int z = groundTilemap.cellBounds.zMax; z >= groundTilemap.cellBounds.zMin; z--)
                     {
@@ -178,11 +178,12 @@ public class SpawnObjectsOnTiles : MonoBehaviour
                             for (int i = 0; i <= possible; i++)
                             {
 
-                                var finalPos = pos + new Vector3(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.3f, 0.3f), 1);
+                                var finalPos = pos + new Vector3(UnityEngine.Random.Range(-0.25f, 0.25f), UnityEngine.Random.Range(-0.25f, 0.25f), 1);
                                 var hit = Physics2D.OverlapPoint(finalPos);
                                 if (!hit)
                                 {
-                                    quadTree.Insert(finalPos);
+                                    pool.CreateAndSetObject(finalPos);
+                                    //quadTree.Insert(finalPos);
                                 }
                             }
                             break;

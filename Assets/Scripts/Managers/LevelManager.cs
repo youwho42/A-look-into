@@ -80,6 +80,10 @@ public class LevelManager : MonoBehaviour
     {
         if (Application.isPlaying && loadTerrains)
         {
+            if (!SceneManager.GetSceneByName("MainScene-Grass").isLoaded)
+            {
+                SceneManager.LoadSceneAsync("MainScene-Grass", LoadSceneMode.Additive);
+            }
 
             if (!SceneManager.GetSceneByName("MainScene-Decoration").isLoaded)
             {
@@ -342,9 +346,6 @@ public class LevelManager : MonoBehaviour
 
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName +"-Terrain");
 
-        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main Menu", LoadSceneMode.Additive);
-
-        
         while (!currentLevelLoading.isDone)
         {
             
@@ -353,23 +354,34 @@ public class LevelManager : MonoBehaviour
             loadScreenSlider.value = progress;
             text.text = $"Loading Terrain: {Mathf.RoundToInt(progress * 100)}%";
 
-            
             yield return null;
         }
-        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
 
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
 
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Decorations: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Grass: {Mathf.RoundToInt(progress * 100)}%";
 
 
             yield return null;
         }
 
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Trees and Animals: {Mathf.RoundToInt(progress * 100)}%";
+
+
+            yield return null;
+        }
 
 
         text.text = "Loading data from save.";
@@ -423,6 +435,20 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
+
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Grass: {Mathf.RoundToInt(progress * 100)}%";
+
+
+            yield return null;
+        }
+
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
 
         while (!currentLevelLoading.isDone)
@@ -431,7 +457,7 @@ public class LevelManager : MonoBehaviour
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Decorations: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Trees: {Mathf.RoundToInt(progress * 100)}%";
 
 
             yield return null;
@@ -439,8 +465,7 @@ public class LevelManager : MonoBehaviour
 
 
 
-        
-        
+
         yield return new WaitForSecondsRealtime(0.5f);
 
         text.text = "Thank you for waiting.";

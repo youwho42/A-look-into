@@ -20,7 +20,7 @@ public class ObjectManagerCircle : MonoBehaviour
     public enum Actions { AddObjects, RemoveObjects }
 
     public Actions action;
-
+    public Vector2 lastRandomPosition;
 
     public int GetTileZ(Vector3 point)
     {
@@ -42,11 +42,20 @@ public class ObjectManagerCircle : MonoBehaviour
     //Add a prefab that we instantiated in the editor script
     public void AddPrefab(GameObject newPrefabObj, Vector3 center)
     {
+        Vector2 randomPos2D = Vector2.zero;
+        bool found = false;
+        while (!found)
+        {
+            //Get a random position within a circle in 2d space
+            randomPos2D = Random.insideUnitCircle * radius;
+            if(Vector2.Distance(randomPos2D, lastRandomPosition) > radius / 2)
+            {
+                lastRandomPosition = randomPos2D;
+                found = true;
+            }
+        }
+            
         
-        
-        //Get a random position within a circle in 2d space
-        Vector2 randomPos2D = Random.insideUnitCircle * radius;
-
         //But we are in pseudo3d, so make it so and move it to where the center is
         Vector3 randomPos = new Vector3(randomPos2D.x, randomPos2D.y, 0) + center;
 

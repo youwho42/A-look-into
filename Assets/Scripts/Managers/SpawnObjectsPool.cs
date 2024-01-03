@@ -26,7 +26,7 @@ public class SpawnObjectsPool : MonoBehaviour
             availableObjects.Add(go);
         }
 
-        void CreateAndSetObject(Vector3 position)
+        public void CreateAndSetObject(Vector3 position)
         {
             var r = Random.Range(0, objectsToSpawn.Count);
             var go = Instantiate(objectsToSpawn[r], position, Quaternion.identity, poolHolder);
