@@ -1089,13 +1089,13 @@ MonoBehaviour:
   tileBlockInfo: []
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
+  facingRight: 1
+  centerOfActivity: {fileID: 0}
   walkSpeed: 0.7
   runSpeed: 0
   jumpHeight: 8
-  facingRight: 1
   isInInteractAction: 0
   moveSpeed: 0
-  currentDir: {x: 0, y: 0}
   currentDestination: {x: 0, y: 0}
   jumpAhead: 0
   hasDeviatePosition: 0
@@ -1304,6 +1304,7 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   finalDestination: 0
   target: {fileID: 0}
+  bubbles: {fileID: 4152339571674851407}
 --- !u!114 &74892919846292982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1509,6 +1510,7 @@ Transform:
   m_Children:
   - {fileID: 3669067541027879401}
   - {fileID: 3669067540875941390}
+  - {fileID: 1117722706844209764}
   m_Father: {fileID: 3669067540651531075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3669067541797113144
@@ -3210,3 +3212,114 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1001 &3991266473448852897
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3669067541791994077}
+    m_Modifications:
+    - target: {fileID: 1063906559976957422, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: growSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063906559976957422, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: amountOfBubbles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063906559976957422, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: spawnTimeRange.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063906559976957422, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: spawnTimeRange.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474950405006546665, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: positionZ
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779069589584293816, guid: 5793cd6bd2f285544947729acc617fe1,
+        type: 3}
+      propertyPath: m_Name
+      value: Bubbles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5793cd6bd2f285544947729acc617fe1, type: 3}
+--- !u!4 &1117722706844209764 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4098593794554732485, guid: 5793cd6bd2f285544947729acc617fe1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3991266473448852897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4152339571674851407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1063906559976957422, guid: 5793cd6bd2f285544947729acc617fe1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3991266473448852897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8a8d44b3423ce45a3f6361e65d1512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

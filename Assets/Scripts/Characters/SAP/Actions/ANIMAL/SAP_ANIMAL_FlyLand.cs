@@ -70,7 +70,7 @@ namespace Klaxon.SAP
             }
 
             agent.flier.SetDestination(agent.currentDisplacementSpot);
-            if(agent.flier.currentDestinationZ.z == 0)
+            if(agent.currentDisplacementSpot.positionZ == 0)
             {
                 if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f)
                 {

@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7779069589584293816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4098593794554732485}
+  - component: {fileID: 1063906559976957422}
+  - component: {fileID: 1474950405006546665}
+  m_Layer: 0
+  m_Name: Bubbles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4098593794554732485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779069589584293816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.2152, y: -26.1379, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1063906559976957422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779069589584293816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8a8d44b3423ce45a3f6361e65d1512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubblesActive: 0
+  amountOfBubbles: 30
+  allStopped: 0
+  objectPrefab: {fileID: 2277885052078467205, guid: abbb10fd224a6f242a4f5b66fdbfd0e0,
+    type: 3}
+  maxHeightZ: 7
+  movementSpeed: 0.1
+  displacementSpeed: 0.03
+  spawnDistanceFromCenter: 0.01
+  minMaxSize: {x: 0.2, y: 1}
+  baseDisplacement: {fileID: 1474950405006546665}
+--- !u!114 &1474950405006546665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779069589584293816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3530c8aa8666e7498cc22eabd4bac95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spotType: 0
+  positionZ: 0.13
+  displacedPosition: {x: 0, y: 0, z: 0}
+  isInUse: 0
+  isDecorationSurface: 0

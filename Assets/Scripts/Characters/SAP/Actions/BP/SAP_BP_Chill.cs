@@ -8,6 +8,7 @@ namespace Klaxon.SAP
     {
         float timeIdle;
         bool sleeping;
+        public Bubbles bubbles;
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
             agent.interactor.canInteract = true;
@@ -54,7 +55,7 @@ namespace Klaxon.SAP
             if(sleeping)
             {
                 agent.interactor.canInteract = false;
-
+                bubbles.bubblesActive = true;
                 agent.animator.SetBool(agent.sleeping_hash, true);
                 return;
             }
@@ -67,6 +68,7 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_BP agent)
         {
+            bubbles.bubblesActive = false;
             agent.animator.SetBool(agent.sleeping_hash, false);
             timeIdle = 0;
             sleeping = false;
