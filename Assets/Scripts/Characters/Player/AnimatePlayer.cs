@@ -78,8 +78,9 @@ public class AnimatePlayer : MonoBehaviour
 
     public void TriggerPickUp()
     {
-       
-        animator.SetTrigger("PickUp");
+        var currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        if (currentClipInfo[0].clip.name != "PickUp")
+            animator.SetTrigger("PickUp");
     }
     bool GetIdleAnimState()
     {

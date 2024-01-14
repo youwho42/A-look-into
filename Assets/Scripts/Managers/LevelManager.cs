@@ -388,7 +388,7 @@ public class LevelManager : MonoBehaviour
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
         SavingLoading.instance.Load(LoadSelectionUI.instance.currentLoadFileName);
-        PlayerDistanceToggle.instance.PopulateAnimalList();
+        PlayerDistanceToggle.instance.PopulateLists();
 
         yield return new WaitForSecondsRealtime(0.5f);
 
@@ -473,7 +473,7 @@ public class LevelManager : MonoBehaviour
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         RealTimeDayNightCycle.instance.SetDayTime(420, 1);
-        PlayerDistanceToggle.instance.PopulateAnimalList();
+        PlayerDistanceToggle.instance.PopulateLists();
         yield return new WaitForSecondsRealtime(3f);
 
 

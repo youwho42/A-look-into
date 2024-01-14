@@ -142,6 +142,7 @@ namespace Klaxon.GravitySystem
 
         public void TileFound(List<TileDirectionInfo> tileBlock, bool success)
         {
+            
             if (success)
                 tileBlockInfo = tileBlock;
             else

@@ -48,7 +48,7 @@ namespace Klaxon.SAP
         {
             swayed = true;
             if (agent.currentEdible.TryGetComponent(out GrassSway sway))
-                sway.SwayItem();
+                sway.SwayMedium();
         }
 
         public override void EndPerformAction(SAP_Scheduler_ANIMAL agent)

@@ -12,7 +12,7 @@ namespace Klaxon.SAP
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
             agent.animator.SetBool(agent.walking_hash, true);
-            offset = new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+            offset = new Vector2(Random.Range(-0.1f, 0.1f), -0.15f);
         }
         public override void PerformAction(SAP_Scheduler_BP agent)
         {

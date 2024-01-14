@@ -18,7 +18,7 @@ public class TilemapToPNG : MonoBehaviour
     public string textureName;
 
     public List<MapLayer> mapLayers = new List<MapLayer>();
-
+    
     public void SaveBaseMap()
     {
         float[,] tiles = new float[groundMap.cellBounds.size.x, groundMap.cellBounds.size.y];

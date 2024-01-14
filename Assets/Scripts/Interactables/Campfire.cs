@@ -70,6 +70,15 @@ namespace Klaxon.Interactable
 
         }
 
+        public void ToggleFire(bool active)
+        {
+            isLit = active;
+            if (active)
+                SetFire("extinguish", true);
+            else
+                SetFire("light", false);
+        }
+
         public override void LongInteract(GameObject interactor)
         {
 

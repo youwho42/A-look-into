@@ -11,8 +11,7 @@ namespace Klaxon.SaveSystem
 {
     public class BallPeopleSeekerSaveSystem : MonoBehaviour, ISaveable
     {
-        public RandomAccessories accessories;
-        public RandomColor colors;
+        
         public InteractableBallPeopleSeeker seekerInteractable;
         public SAP_Scheduler_BP seekerAI;
         public QI_ItemDatabase itemDatabase;
@@ -38,11 +37,7 @@ namespace Klaxon.SaveSystem
 
             return new SaveData
             {
-                accessoryIndex = accessories.accessoryIndex,
-                r = colors.randomColor.r,
-                g = colors.randomColor.g,
-                b = colors.randomColor.b,
-
+               
                 undertakingName = q,
                 talkTaskName = t,
                 seekTaskName = s,
@@ -58,9 +53,7 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            colors.SetColor(saveData.r, saveData.g, saveData.b);
-            accessories.PopulateList();
-            accessories.SetAccessories(saveData.accessoryIndex);
+            
             if (saveData.undertakingName != "")
             {
                 seekerInteractable.talkTask.undertaking = Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.GetUndertaking(saveData.undertakingName);
@@ -88,13 +81,6 @@ namespace Klaxon.SaveSystem
         [Serializable]
         private struct SaveData
         {
-
-            public int accessoryIndex;
-            public float r;
-            public float g;
-            public float b;
-
-
 
             public string undertakingName;
             public string talkTaskName;

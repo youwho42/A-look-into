@@ -33,7 +33,7 @@ public class Bubbles : MonoBehaviour
     public bool allStopped;
 
     public Transform objectPrefab;
-
+    public Transform objectHolder;
     public float maxHeightZ;
     public float movementSpeed;
     public float displacementSpeed;
@@ -50,7 +50,8 @@ public class Bubbles : MonoBehaviour
     private JobHandle movementUpdateJobHandle;
     private JobHandle displacementUpdateJobHandle;
     public DrawZasYDisplacement baseDisplacement;
-    
+   
+
     private void Start()
     {
         //the object that we move lives here
@@ -70,18 +71,19 @@ public class Bubbles : MonoBehaviour
         randomDisplacementSpeed = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
         randomMovementSpeed = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
         randomWindAngle = new NativeArray<Vector3>(amountOfBubbles, Allocator.Persistent);
-
+        allStopped = true;
         resettingBubbles = !bubblesActive;
         for (int i = 0; i < amountOfBubbles; i++)
         {
             randomMovementSpeed[i] = Random.Range(0.8f, 1.2f);
             randomWindAngle[i] = GetRandomAngle();
+            
         }
-
+        
         for (int i = 0; i < amountOfBubbles; i++)
         {
             Vector3 spawnPoint = (transform.position + new Vector3(Random.Range(-spawnDistanceFromCenter, spawnDistanceFromCenter), Random.Range(-spawnDistanceFromCenter, spawnDistanceFromCenter),0));
-            Transform t = Instantiate(objectPrefab, spawnPoint, Quaternion.identity);
+            Transform t = Instantiate(objectPrefab, spawnPoint, Quaternion.identity, objectHolder);
             float size = Random.Range(minMaxSize.x, minMaxSize.y);
             
             Transform to = t.GetChild(0);
@@ -95,6 +97,7 @@ public class Bubbles : MonoBehaviour
             ts.localScale = new Vector3(size, size, 1);
             randomHeight[i] = Random.Range(maxHeightZ / 2, maxHeightZ);
             randomSize[i] = size;
+            
             randomDisplacementSpeed[i] = Random.Range(0.8f,1.2f);
             bubbleDisplacements[i] = baseDisplacement.displacedPosition;
             movementAccessArray.Add(t);
@@ -120,14 +123,16 @@ public class Bubbles : MonoBehaviour
             displacementAccessArray[i].transform.localPosition = baseDisplacement.displacedPosition;
             bubbleDisplacements[i] = baseDisplacement.displacedPosition;
             movementAccessArray[i].transform.gameObject.SetActive(true);
-            displacementAccessArray[i].transform.localScale = new Vector3(0.05f, 0.05f, 1);
+            displacementAccessArray[i].transform.localScale = new Vector3(0.1f, 0.1f, 1);
             growing[i] = true;
+
+
             yield return new WaitForSeconds(Random.Range(spawnTimeRange.x, spawnTimeRange.y));
         }
     }
     private void Update()
     {
-        if (!bubblesActive)
+        if (!bubblesActive && !allStopped)
         {
             StopAllCoroutines();
             allStopped = true;
@@ -138,7 +143,7 @@ public class Bubbles : MonoBehaviour
                     movementAccessArray[i].transform.gameObject.SetActive(false);
                     resetFlags[i] = false;
                 }
-                
+
             }
             for (int i = 0; i < movementAccessArray.length; i++)
             {
@@ -148,12 +153,12 @@ public class Bubbles : MonoBehaviour
                     allStopped = false;
                     break;
                 }
-                    
+
             }
 
             resettingBubbles = false;
         }
-        else
+        if(bubblesActive)
         {
             if (!resettingBubbles)
             {
@@ -216,6 +221,8 @@ public class Bubbles : MonoBehaviour
     {
         movementUpdateJobHandle.Complete();
         displacementUpdateJobHandle.Complete();
+
+        
     }
 
     private void OnDestroy()
@@ -252,21 +259,26 @@ public class Bubbles : MonoBehaviour
         
         public void Execute(int i, TransformAccess transform)
         {
-
+            
             random randomGen = new random((uint)(i * time + 1 + seed));
+            
+            
             transform.position += (direction + randomDirections[i].normalized) * speed * speeds[i] * jobDeltaTime;
             objectMovements[i] = transform.position;
             
+            
+            
+            
+            
             // Reset position here
-            if (resetFlags[i])
+            if (resetFlags[i] && !stopBubbles)
             {
-                if (!stopBubbles)
-                {
-                    Vector3 spawnPoint = new Vector3(randomGen.NextFloat(-dist, dist), randomGen.NextFloat(-dist, dist), 0);
-                    transform.position = basePosition + spawnPoint;
-                    objectMovements[i] = transform.position;
+                Vector3 spawnPoint = new Vector3(randomGen.NextFloat(-dist, dist), randomGen.NextFloat(-dist, dist), 0);
+                transform.position = basePosition + spawnPoint;
+                objectMovements[i] = transform.position;
+                
                     resetFlags[i] = false;
-                }
+                
             }
         }
     }
@@ -294,14 +306,8 @@ public class Bubbles : MonoBehaviour
 
         public void Execute(int i, TransformAccess transform)
         {
-            Vector3 currentVelocity = objectDisplacements[i];
-            positionZ = currentVelocity.z;
             random randomGen = new random((uint)(i * time + 1 + seed));
-            positionZ += gravity * speed * speeds[i] * jobDeltaTime;
-            displacedPosition = new Vector3(transform.localPosition.x, displacementY * positionZ, positionZ);
-            transform.localPosition = displacedPosition;
-            objectDisplacements[i] = transform.localPosition;
-            Vector3 currentPosition = transform.localPosition;
+
 
             if (growing[i])
             {
@@ -309,6 +315,17 @@ public class Bubbles : MonoBehaviour
                 if (transform.localScale.x >= size[i])
                     growing[i] = false;
             }
+            
+            Vector3 currentVelocity = objectDisplacements[i];
+            positionZ = currentVelocity.z;
+            positionZ += gravity * speed * speeds[i] * jobDeltaTime;
+            displacedPosition = new Vector3(transform.localPosition.x, displacementY * positionZ, positionZ);
+            transform.localPosition = displacedPosition;
+            objectDisplacements[i] = transform.localPosition;
+            
+            
+            Vector3 currentPosition = transform.localPosition;
+
             //Reset position here
             if (currentPosition.y >= displacementY * height[i])
             {
@@ -318,7 +335,7 @@ public class Bubbles : MonoBehaviour
                 transform.localPosition = spawnPoint;
                 objectDisplacements[i] = spawnPoint;
                 resetFlags[i] = true;
-                transform.localScale = new Vector3(0.05f, 0.05f, 1);
+                transform.localScale = new Vector3(0.1f, 0.1f, 1);
                 growing[i] = true;
             }
         }

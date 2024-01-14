@@ -1,3 +1,4 @@
+using Klaxon.GravitySystem;
 using Klaxon.Interactable;
 using Klaxon.SAP;
 using Klaxon.SaveSystem;
@@ -28,6 +29,8 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject planterPrefab;
     public GameObject harvesterPrefab;
     public GameObject indicatorPrefab;
+    public GameObject homeBoundPrefab;
+    public GameObject homeBoundLighterPrefab;
     public GameObject appearFX;
     public float lastColorA;
     public System.Random random = new System.Random();
@@ -45,6 +48,19 @@ public class BallPeopleManager : MonoBehaviour
         messItem.undertaking = undertaking;
         messItem.craftingRecipe = craftingRecipe;
     }
+
+    public void SpawnVillager(GameObject travelerDestination, Vector3 position, bool lighter)
+    {
+        Vector3 offset = new Vector2(Random.Range(-0.2f, 0.2f), -0.13f);
+        GameObject villager = null;
+
+        SpawnBallPeople(lighter ? homeBoundLighterPrefab : homeBoundPrefab, out villager, position + offset);
+
+        var travelBall = villager.GetComponent<SAP_Scheduler_BP>();
+        travelBall.travellerDestination = position;
+        
+    }
+
 
     public void SpawnTraveller(CompleteTaskObject taskObject, GameObject travelerDestination, Vector3 position)
     {

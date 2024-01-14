@@ -30,7 +30,7 @@ public class RandomAccessories : MonoBehaviour
         if (BallPeopleManager.instance.accessoryIndexQueue.Count <= 0)
             BallPeopleManager.instance.GenerateRandomList(accessoryList.Count);
 
-        accessoryIndex = 0;
+        accessoryIndex = -1;
         System.Random random = new System.Random();
         float r = random.Next(0, 100);
         float max = 100 / accessoryList.Count;

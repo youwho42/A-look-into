@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using Klaxon.Interactable;
 
-
 namespace Klaxon.SAP
 {
     public class SAP_WorldBeliefStates : MonoBehaviour
@@ -88,6 +87,15 @@ namespace Klaxon.SAP
             {
                 if (worldStates[condition] == state)
                     return true;
+            }
+            return false;
+        }
+
+        public bool GetConditionState(string condition)
+        {
+            if (worldStates.ContainsKey(condition))
+            {
+                return worldStates[condition];
             }
             return false;
         }

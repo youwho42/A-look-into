@@ -13,16 +13,26 @@ namespace Klaxon.SAP
         bool atFire;
         bool hasLicked;
         float timer;
+
+        public float maxFireDistance = 1;
+
         public override void StartPerformAction(SAP_Scheduler_BP agent)
         {
             fires = FindFires(agent);
             agent.arms.SetActive(false);
+            agent.animator.SetBool(agent.sleeping_hash, false);
             agent.animator.SetBool(agent.walking_hash, true);
             agent.SetBeliefState("IsHome", false);
+            agent.SetBeliefState("CanWander", false);
         }
 
         public override void PerformAction(SAP_Scheduler_BP agent)
         {
+            if(fires.Count < 1)
+            {
+                agent.currentGoalComplete = true;
+                return;
+            }
             if (atFire)
             {
 
@@ -32,7 +42,7 @@ namespace Klaxon.SAP
                     agent.walker.currentDirection = Vector2.zero;
                     agent.animator.SetTrigger(agent.lick_hash);
                     hasLicked = true;
-                    fires[lightIndex].Interact(gameObject);
+                    fires[lightIndex].ToggleFire(!SAP_WorldBeliefStates.instance.GetConditionState("Day"));
                 }
 
 
@@ -47,7 +57,7 @@ namespace Klaxon.SAP
                         timer = 0;
                         lightIndex++;
                     }
-                    if (lightIndex == fires.Count)
+                    if (lightIndex >= fires.Count)
                         agent.currentGoalComplete = true;
                         
                 }
@@ -80,7 +90,8 @@ namespace Klaxon.SAP
 
         public override void EndPerformAction(SAP_Scheduler_BP agent)
         {
-            agent.SetBeliefState("FiresLit", fires[0].isLit);
+            if(fires.Count > 0)
+                agent.SetBeliefState("FiresLit", fires[0].isLit);
             fires.Clear();
             lightIndex = 0;
             atFire = false;
@@ -91,7 +102,7 @@ namespace Klaxon.SAP
         List<Campfire> FindFires(SAP_Scheduler_BP agent)
         {
             List<Campfire> all = new List<Campfire>();
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1, agent.interactableLayer);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, maxFireDistance, agent.interactableLayer);
 
             if (colliders.Length > 0)
             {

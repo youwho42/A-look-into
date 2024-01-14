@@ -61,7 +61,8 @@ namespace Klaxon.SAP
             Traveller,
             Farmer,
             TravellerHome,
-            Indicator
+            Indicator,
+            Villager
         }
         public BP_Type type;
 
@@ -130,7 +131,10 @@ namespace Klaxon.SAP
             interactor = GetComponent<Interactable.Interactable>();
             SetBeliefState("PlayerClose", true);
             SetBeliefState("FiresLit", false);
-
+            foreach (var goal in goals)
+            {
+                SetGoalTimer(goal);
+            }
 
         }
         public void TimeTick(int tick)
@@ -139,6 +143,12 @@ namespace Klaxon.SAP
                 return;
             if (goals[currentGoal].TimeLimit > 0)
                 currentGoalTimer++;
+        }
+
+        void SetGoalTimer(SAP_Goal goal)
+        {
+            if (goal.TimeLimitRange != Vector2.zero)
+                goal.TimeLimit = Random.Range(goal.TimeLimitRange.x, goal.TimeLimitRange.y);
         }
 
         public void Update()
@@ -404,6 +414,7 @@ namespace Klaxon.SAP
 
         void ResetCurrentGoal()
         {
+            SetGoalTimer(goals[currentGoal]);
             if (currentGoal > -1)
                 goals[currentGoal].Action.EndPerformAction(this);
             currentGoal = -1;
