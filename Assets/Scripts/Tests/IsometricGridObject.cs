@@ -1,19 +1,19 @@
 
 using UnityEngine;
-using UnityEngine.Tilemaps;
+
 
 public class IsometricGridObject : MonoBehaviour
 {
-    public static IsometricGridObject instance;
+    //public static IsometricGridObject instance;
 
 
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(gameObject);
-    }
+    //private void Awake()
+    //{
+    //    if (instance == null)
+    //        instance = this;
+    //    else
+    //        Destroy(gameObject);
+    //}
     private float angle = 30; // The angle of the isometric grid
     public float  size { get; private set; } // The size of each cell in the grid
     
@@ -21,15 +21,11 @@ public class IsometricGridObject : MonoBehaviour
     public float yComponent { get; private set; }// The y component of the angle
 
 
-    [HideInInspector]
-    public Grid grid;
-    [HideInInspector]
-    public Tilemap groundMap;
-
-
+    
+    
     private void SetIsometric()
     {
-        size = 0.2890626f / 2;
+        size = 0.2990625f;
         float angleRad = angle * Mathf.Deg2Rad;
         xComponent = Mathf.Cos(angleRad);
         yComponent = Mathf.Sin(angleRad);
@@ -57,9 +53,24 @@ public class IsometricGridObject : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
+    //returns real world position with x y inputs
+    public Vector3 GetWorldPosition(float x, float y)
+    {
+        SetIsometric();
+
+        float worldX = (x - y) * size * xComponent;
+        float worldY = (x + y) * size * yComponent;
+
+        Vector3 worldPosition = new Vector3(worldX, worldY, 0f);
+
+        return worldPosition;
+    }
+
+
+
     public Vector3Int GetTileZ(Vector3 position)
     {
-        SetGrid();
+        var groundMap = GridManager.instance.groundMap;
 
         Vector3Int cellIndex = groundMap.WorldToCell(position - Vector3.forward);
         for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin - 1; i--)
@@ -76,21 +87,7 @@ public class IsometricGridObject : MonoBehaviour
     }
 
 
-    void SetGrid()
-    {
-        if (grid != null)
-            return;
-
-        grid = FindObjectOfType<Grid>();
-        Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
-        foreach (var map in maps)
-        {
-            if (map.gameObject.name == "GroundTiles")
-            {
-                groundMap = map;
-            }
-        }
-    }
+    
 
     
 

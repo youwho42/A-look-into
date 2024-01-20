@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class IsometricGridPlacement : MonoBehaviour
 {
-    IsometricGridObject gridObject;
+    public IsometricGridObject gridObject;
    
     public GameObject prefabToPlace;
     
@@ -22,7 +22,7 @@ public class IsometricGridPlacement : MonoBehaviour
     Vector2 currentPosition;
     void Start()
     {
-        gridObject = IsometricGridObject.instance;
+        
         outlineSprite = tileOutline.GetComponent<SpriteRenderer>();
         tileOutline.SetActive(false);
     }

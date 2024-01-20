@@ -26,6 +26,8 @@ namespace Klaxon.GravitySystem
         public bool isGrounded;
         protected Transform _transform;
 
+        protected bool canJump;
+
         [Header("Gravity Bounce")]
         [Range(0, 1)]
         public float bounceFriction;
@@ -101,7 +103,8 @@ namespace Klaxon.GravitySystem
             currentTilePosition.position = currentTilePosition.GetCurrentTilePosition(transform.position);
             
             currentLevel = currentTilePosition.position.z;
-            
+
+            canJump = true;
         }
         public virtual void Update()
         {
@@ -343,7 +346,8 @@ namespace Klaxon.GravitySystem
 
         protected void ApplyGravity()
         {
-            positionZ -= gravity * Time.fixedDeltaTime;
+            float gravityMultiplier = canJump ? 1 : 2;
+            positionZ -= gravity * gravityMultiplier * Time.fixedDeltaTime;
 
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
             

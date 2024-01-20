@@ -20,7 +20,7 @@ namespace Klaxon.GravitySystem
         public bool isInInteractAction;
         [HideInInspector]
         public float moveSpeed;
-
+        
 
         Vector3 checkPosition;
         Vector3 doubleCheckPosition;
@@ -44,7 +44,7 @@ namespace Klaxon.GravitySystem
         private new IEnumerator Start()
         {
             base.Start();
-
+            
             visibilityCheck = GetComponent<DetectVisibility>();
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
             playerInput = GetComponent<PlayerInputController>();
@@ -104,6 +104,9 @@ namespace Klaxon.GravitySystem
 
         void Jump()
         {
+            if (!canJump)
+                return;
+
             if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)
                 Bounce(jumpHeight * jumpStat.GetModifiedMax());
         }
@@ -336,7 +339,17 @@ namespace Klaxon.GravitySystem
 
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Maze"))
+                canJump = false;
+        }
 
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Maze"))
+                canJump = true;
+        }
 
 
     }
