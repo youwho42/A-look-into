@@ -118,7 +118,7 @@ public class ConsoleDisplayUI : MonoBehaviour
     {
         int time = int.Parse(timesDropdownField.options[timesDropdownField.value].text);
         time *= 60;
-        RealTimeDayNightCycle.instance.currentTimeRaw = time;
+        RealTimeDayNightCycle.instance.currentTimeRaw = time-1;
     }
 
     public void AddAgency()

@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Klaxon.Interactable;
+using System;
 
 namespace Klaxon.SAP
 {
     public class SAP_WorldBeliefStates : MonoBehaviour
     {
         public static SAP_WorldBeliefStates instance;
+
+        [Serializable]
+        public struct Conditions
+        {
+            public SAP_Condition condition;
+            public bool setOnStart;
+            public int setOnTimeTick;
+            public Vector2 setFromToTimeTick;
+        }
+        public List<Conditions> conditions = new List<Conditions>();
+
 
         private void Awake()
         {
@@ -20,9 +32,9 @@ namespace Klaxon.SAP
 
         public Dictionary<string, bool> worldStates = new Dictionary<string, bool>();
 
-        public Vector2Int dayTimes;
-        public Vector2Int animalDayTimes;
-        public Vector2Int workTimes;
+        //public Vector2Int dayTimes;
+        //public Vector2Int animalDayTimes;
+        //public Vector2Int workTimes;
 
         public List<InteractableChair> allSeats = new List<InteractableChair>();
 
@@ -39,33 +51,65 @@ namespace Klaxon.SAP
                 }
                     
             }
+            
+            foreach (var item in conditions)
+            {
+                if (item.setOnStart)
+                {
+                    SetWorldState(item.condition.Condition, item.condition.State);
+                    
+                }
+
+            }
+
+            
         }
         private void OnEnable()
         {
-            GameEventManager.onTimeTickEvent.AddListener(SetDayBelief);
+            GameEventManager.onTimeTickEvent.AddListener(SetBeliefOnTick);
         }
 
         private void OnDisable()
         {
-            GameEventManager.onTimeTickEvent.RemoveListener(SetDayBelief);
+            GameEventManager.onTimeTickEvent.RemoveListener(SetBeliefOnTick);
         }
 
-        void SetDayBelief(int tick)
+        void SetBeliefOnTick(int tick)
         {
-            bool isDay = false;
-            if (tick >= dayTimes.x && tick < dayTimes.y)
-                isDay = true;
-            SetWorldState("Day", isDay);
+            //bool isDay = false;
+            //if (tick >= dayTimes.x && tick < dayTimes.y)
+            //    isDay = true;
+            //SetWorldState("Day", isDay);
 
-            bool aniDay = false;
-            if (tick >= animalDayTimes.x && tick < animalDayTimes.y)
-                aniDay = true;
-            SetWorldState("AnimalDay", aniDay);
+            //bool aniDay = false;
+            //if (tick >= animalDayTimes.x && tick < animalDayTimes.y)
+            //    aniDay = true;
+            //SetWorldState("AnimalDay", aniDay);
 
-            bool canWork = false;
-            if (tick >= workTimes.x && tick < workTimes.y)
-                canWork = true;
-            SetWorldState("Work", canWork);
+            //bool canWork = false;
+            //if (tick >= workTimes.x && tick < workTimes.y)
+            //    canWork = true;
+            //SetWorldState("Work", canWork);
+            
+
+            foreach (var item in conditions)
+            {
+                if (item.setOnTimeTick != 0)
+                {
+                    if (tick == item.setOnTimeTick)
+                    {
+                        SetWorldState(item.condition.Condition, item.condition.State);
+                    }
+
+                }
+                if (item.setFromToTimeTick != Vector2.zero)
+                {
+                    SetWorldState(item.condition.Condition, !item.condition.State);
+                    if (tick >= item.setFromToTimeTick.x && tick < item.setFromToTimeTick.y)
+                        SetWorldState(item.condition.Condition, item.condition.State);
+                }
+            }
+            
         }
 
 

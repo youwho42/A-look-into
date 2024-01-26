@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -8,7 +9,7 @@ public class NightLights : MonoBehaviour
 
     RealTimeDayNightCycle dayNightCycle;
 
-    public LightFlicker[] lights;
+    public List<LightFlicker> lights = new List<LightFlicker>();
 
 
 
@@ -16,7 +17,7 @@ public class NightLights : MonoBehaviour
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetLights);
-       
+        lights = GetComponentsInChildren<LightFlicker>().ToList();
         Invoke("SetInitialLights", 1f);
     }
 

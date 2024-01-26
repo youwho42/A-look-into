@@ -12,6 +12,11 @@ public class ItemDatabaseEditor : Editor
 
         QI_ItemDatabase scriptableObject = (QI_ItemDatabase)target;
 
+        if (GUILayout.Button("Get All Items"))
+        {
+            // Perform your custom context menu action here
+            scriptableObject.Items = scriptableObject.Items.OrderBy(x => x.Type).ThenBy(x => x.name).ToList();
+        }
         if (GUILayout.Button("Order List"))
         {
             // Perform your custom context menu action here

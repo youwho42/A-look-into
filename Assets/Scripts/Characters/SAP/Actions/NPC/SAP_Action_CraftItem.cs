@@ -120,6 +120,7 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
+            agent.animator.SetBool(agent.isCrafting_hash, false);
             agent.offScreenPosMoved = true;
             currentTimer = -1;
             canCraft = false;
@@ -158,6 +159,7 @@ namespace Klaxon.SAP
 
         public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
         {
+            agent.animator.SetBool(agent.isCrafting_hash, true);
             agent.offScreenPosMoved = true;
             craftingStation.SetCraftingOn();
             currentTimer = (RealTimeDayNightCycle.instance.currentTimeRaw + craftingTime) % 1440;

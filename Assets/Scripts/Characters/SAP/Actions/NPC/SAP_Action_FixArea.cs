@@ -57,6 +57,7 @@ namespace Klaxon.SAP
 
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
+            
         }
 
         public override void PerformAction(SAP_Scheduler_NPC agent)
@@ -64,7 +65,8 @@ namespace Klaxon.SAP
 
             if (canFix)
             {
-                if(SAP_WorldBeliefStates.instance.HasWorldState("Work", false))
+                
+                if (SAP_WorldBeliefStates.instance.HasWorldState("Work", false))
                 {
                     agent.currentGoalComplete = true;
                     return;
@@ -150,7 +152,7 @@ namespace Klaxon.SAP
             target = null;
             canFix = false;
             currentArea = null;
-
+            agent.animator.SetBool(agent.isCrafting_hash, false);
             agent.offScreenPosMoved = true;
             agent.lastValidNode = currentNode;
             currentNode = null;
@@ -164,6 +166,7 @@ namespace Klaxon.SAP
             canFix = true;
             currentArea.fixingSounds.StartSoundsNoTimer();
             currentArea.fixingEffect.Play();
+            agent.animator.SetBool(agent.isCrafting_hash, true);
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.walker.currentDirection = Vector2.zero;
         }

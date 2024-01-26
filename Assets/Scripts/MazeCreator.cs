@@ -1,9 +1,11 @@
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
-
-
+using Klaxon.Interactable;
+using System;
+using System.Linq;
 namespace Klaxon.MazeTech
 {
     public class MazeTile
@@ -41,27 +43,33 @@ namespace Klaxon.MazeTech
         public IsometricGridObject gridObject;
 
         public List<GameObject> itemsToPlace = new List<GameObject>();
-        public GameObject endPostItem;
+        public MazePost endPostItem;
         public int zLevel;
         public int mazeSize = 37;
         int tileSize = 3;
         public int rows = 12;
         public Vector2Int basePosition;
-        Vector3 convertedBasePosition;
+        [HideInInspector]
+        public Vector3 convertedBasePosition;
+        public Transform hedgeHolder;
+        public Transform postHolder;
+        public Transform itemsHolder;
+        public QI_ItemDatabase mazeItems;
 
         GameObject[,] hedgePieces;
-        GameObject[] endPosts;
-
-        List<MazeTile> allTiles = new List<MazeTile>();
+        [HideInInspector]
+        public MazePost[] endPosts;
+        [HideInInspector]
+        public List<MazeTile> allTiles = new List<MazeTile>();
         List<MazeTile> nonCollapsedTiles = new List<MazeTile>();
         List<MazeTile> collapsedTiles = new List<MazeTile>();
 
         private void Start()
         {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
+            EmptyHolder(hedgeHolder);
+            EmptyHolder(postHolder);
+            EmptyHolder(itemsHolder);
+            
             SetGridAndTiles();
         }
 
@@ -69,7 +77,7 @@ namespace Klaxon.MazeTech
         void SetGridAndTiles()
         {
             allTiles.Clear();
-            endPosts = new GameObject[3];
+            endPosts = new MazePost[3];
             hedgePieces = new GameObject[mazeSize, mazeSize];
             convertedBasePosition = gridObject.GetWorldPosition(basePosition.x, basePosition.y);
             for (int x = 0; x < mazeSize; x++)
@@ -78,7 +86,7 @@ namespace Klaxon.MazeTech
                 {
                     GameObject go = null;
                     if (x == 0 || x % tileSize == 0 || y == 0 || y % tileSize == 0)
-                        go = PlaceObject(gridObject.GetWorldPosition(x, y), y+x*mazeSize);
+                        go = PlaceObject(gridObject.GetWorldPosition(x, y), y + x * mazeSize, hedgeHolder);
 
                     hedgePieces[x, y] = go;
                 }
@@ -121,13 +129,23 @@ namespace Klaxon.MazeTech
             }
             for (int i = 0; i < 3; i++)
             {
-                var go = Instantiate(endPostItem, transform);
+                var go = Instantiate(endPostItem, postHolder);
                 endPosts[i] = go;
-                endPosts[i].SetActive(false);
+                endPosts[i].gameObject.SetActive(false);
             }
             SetEntrance();
             //ChooseRandomStartTile();
         }
+
+        void EmptyHolder(Transform holder)
+        {
+            foreach (Transform child in holder)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        
+
 
         void SetEntrance()
         {
@@ -141,6 +159,8 @@ namespace Klaxon.MazeTech
         [ContextMenu("Reset Maze")]
         public void ResetMaze()
         {
+            EmptyHolder(itemsHolder);
+
             collapsedTiles.Clear();
             nonCollapsedTiles.Clear();
             foreach (var tile in allTiles)
@@ -163,12 +183,12 @@ namespace Klaxon.MazeTech
             }
             for (int i = 0; i < endPosts.Length; i++)
             {
-                endPosts[i].SetActive(false);
+                endPosts[i].gameObject.SetActive(false);
             }
             SetEntrance();
         }
         [ContextMenu("Set Maze")]
-        void StartMazeCreation()
+        public void StartMazeCreation()
         {
             ChooseRandomStartTile();
             
@@ -180,9 +200,10 @@ namespace Klaxon.MazeTech
             if (nonCollapsedTiles.Count <= 0)
                 return;
 
-            int r = Random.Range(0, nonCollapsedTiles.Count);
+            int r = UnityEngine.Random.Range(0, nonCollapsedTiles.Count);
             SetCorridor(nonCollapsedTiles[r].Index);
             SetEntrance();
+            
         }
 
 
@@ -204,15 +225,41 @@ namespace Klaxon.MazeTech
 
             if (collapsedTiles.Count <= 0)
             {
+                SetItems();
                 SetPosts();
                 return;
             }
                 
 
 
-            int r = Random.Range(0, collapsedTiles.Count);
+            int r = UnityEngine.Random.Range(0, collapsedTiles.Count);
             SetCorridor(collapsedTiles[r].Index);
         }
+
+        void SetItems()
+        {
+            List<MazeTile> mazeTiles= new List<MazeTile>();
+            foreach (var tile in allTiles)
+            {
+                if (!tile.EndTile)
+                    mazeTiles.Add(tile);
+            }
+
+            foreach (var tile in mazeTiles)
+            {
+                float r = UnityEngine.Random.Range(0.0f, 1.0f);
+                if (r < 0.8f)
+                    continue;
+                var item = mazeItems.GetRandomWeightedItem();
+                var go = Instantiate(item.ItemPrefabVariants[0], tile.TileCenter, Quaternion.identity, itemsHolder);
+                if(go.TryGetComponent(out InteractablePickUp i))
+                {
+                    float height = 0.6f;
+                    i.visualItem.transform.localPosition = new Vector3(0, 0.2990625f * height, height);
+                }
+            }
+        }
+
 
         void SetPosts()
         {
@@ -224,15 +271,23 @@ namespace Klaxon.MazeTech
             }
             if (endTiles.Count <= 0)
                 return;
-            while (endTiles.Count > 3)
+
+           
+            var rand = new System.Random();
+            var t =  endTiles.OrderBy(a => rand.Next()).ToList();
+            
+
+
+            while (t.Count > 3)
             {
-                int r = Random.Range(0, endTiles.Count);
-                endTiles.RemoveAt(r);
+                int r = UnityEngine.Random.Range(0, t.Count);
+                t.RemoveAt(r);
             }
-            for (int i = 0; i < endTiles.Count; i++)
+            for (int i = 0; i < t.Count; i++)
             {
-                endPosts[i].transform.position = endTiles[i].TileCenter;
-                endPosts[i].SetActive(true);
+                endPosts[i].transform.position = t[i].TileCenter;
+                endPosts[i].SetPostSign(i);
+                endPosts[i].gameObject.SetActive(true);
             }
             
         }
@@ -384,7 +439,7 @@ namespace Klaxon.MazeTech
 
 
 
-            int r = Random.Range(0, possibleDirections.Count);
+            int r = UnityEngine.Random.Range(0, possibleDirections.Count);
             CollapseTile(allTiles[allIndex], possibleDirections[r]);
             SetCollapsedTiles();
 
@@ -426,14 +481,14 @@ namespace Klaxon.MazeTech
             tile.HasNeighbor = false;
         }
 
-        public GameObject PlaceObject(Vector3 position, int index)
+        public GameObject PlaceObject(Vector3 position, int index, Transform holder)
         {
             position = position / 2;
             position.z = zLevel;
             position += convertedBasePosition;
 
             int r = index % 2 == 0 ? 0 : 1;
-            GameObject go = Instantiate(itemsToPlace[r], transform);
+            GameObject go = Instantiate(itemsToPlace[r], holder);
             go.transform.position = position;
             return go;
         }
