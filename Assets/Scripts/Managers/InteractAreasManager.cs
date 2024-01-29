@@ -69,6 +69,8 @@ public class QuadTree
 
         foreach (var spot in allSpots)
         {
+            if (spot == null)
+                continue;
             if (boundry.Contains(spot.transform.position))
                 spots.Add(spot);
 
@@ -129,13 +131,14 @@ public class InteractAreasManager : MonoBehaviour
 
     public List<DrawZasYDisplacement> QueryQuadTree(Bounds boundry)
     {
-        if(Time.time - lastRefreshTime >= maxRefreshRate)
+        var t = quadTree.QueryTree(boundry);
+        if (Time.time - lastRefreshTime >= maxRefreshRate)
         {
             lastRefreshTime = Time.time;
             RefreshQuadTree();
         }
 
-        return quadTree.QueryTree(boundry);
+        return t;
     }
 
 

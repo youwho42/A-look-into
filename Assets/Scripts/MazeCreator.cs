@@ -43,7 +43,7 @@ namespace Klaxon.MazeTech
         public IsometricGridObject gridObject;
 
         public List<GameObject> itemsToPlace = new List<GameObject>();
-        public MazePost endPostItem;
+        public List<MazePost> endPostItems = new List<MazePost>();
         public int zLevel;
         public int mazeSize = 37;
         int tileSize = 3;
@@ -52,22 +52,21 @@ namespace Klaxon.MazeTech
         [HideInInspector]
         public Vector3 convertedBasePosition;
         public Transform hedgeHolder;
-        public Transform postHolder;
         public Transform itemsHolder;
         public QI_ItemDatabase mazeItems;
 
         GameObject[,] hedgePieces;
-        [HideInInspector]
-        public MazePost[] endPosts;
+        MazeStringGame mazeString;
         [HideInInspector]
         public List<MazeTile> allTiles = new List<MazeTile>();
         List<MazeTile> nonCollapsedTiles = new List<MazeTile>();
         List<MazeTile> collapsedTiles = new List<MazeTile>();
-
+        public bool mazeSet;
+        public MazeDoor mazeDoor;
         private void Start()
         {
+            mazeString = GetComponent<MazeStringGame>();
             EmptyHolder(hedgeHolder);
-            EmptyHolder(postHolder);
             EmptyHolder(itemsHolder);
             
             SetGridAndTiles();
@@ -77,7 +76,6 @@ namespace Klaxon.MazeTech
         void SetGridAndTiles()
         {
             allTiles.Clear();
-            endPosts = new MazePost[3];
             hedgePieces = new GameObject[mazeSize, mazeSize];
             convertedBasePosition = gridObject.GetWorldPosition(basePosition.x, basePosition.y);
             for (int x = 0; x < mazeSize; x++)
@@ -127,14 +125,12 @@ namespace Klaxon.MazeTech
                     index++;
                 }
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < endPostItems.Count; i++)
             {
-                var go = Instantiate(endPostItem, postHolder);
-                endPosts[i] = go;
-                endPosts[i].gameObject.SetActive(false);
+                endPostItems[i].gameObject.SetActive(false);
             }
             SetEntrance();
-            //ChooseRandomStartTile();
+            mazeSet = false;
         }
 
         void EmptyHolder(Transform holder)
@@ -154,15 +150,18 @@ namespace Klaxon.MazeTech
             {
                 item.SetActive(false);
             }
+            
         }
 
         [ContextMenu("Reset Maze")]
         public void ResetMaze()
         {
             EmptyHolder(itemsHolder);
-
+            mazeString.ResetLine();
             collapsedTiles.Clear();
             nonCollapsedTiles.Clear();
+            mazeSet = false;
+            mazeDoor.ResetDoor();
             foreach (var tile in allTiles)
             {
                 foreach (var item in tile.NW)
@@ -181,12 +180,14 @@ namespace Klaxon.MazeTech
                 tile.HasNeighbor = false;
                 tile.EndTile = false;
             }
-            for (int i = 0; i < endPosts.Length; i++)
+            for (int i = 0; i < endPostItems.Count; i++)
             {
-                endPosts[i].gameObject.SetActive(false);
+                endPostItems[i].gameObject.SetActive(false);
             }
             SetEntrance();
         }
+
+
         [ContextMenu("Set Maze")]
         public void StartMazeCreation()
         {
@@ -227,6 +228,7 @@ namespace Klaxon.MazeTech
             {
                 SetItems();
                 SetPosts();
+                mazeSet = true;
                 return;
             }
                 
@@ -266,7 +268,8 @@ namespace Klaxon.MazeTech
             List<MazeTile> endTiles = new List<MazeTile>();
             foreach (var tile in allTiles)
             {
-                if(tile.EndTile)
+                
+                if (tile.EndTile && tile.Index != rows * (rows - 1))
                     endTiles.Add(tile);
             }
             if (endTiles.Count <= 0)
@@ -285,9 +288,9 @@ namespace Klaxon.MazeTech
             }
             for (int i = 0; i < t.Count; i++)
             {
-                endPosts[i].transform.position = t[i].TileCenter;
-                endPosts[i].SetPostSign(i);
-                endPosts[i].gameObject.SetActive(true);
+                endPostItems[i].transform.position = t[i].TileCenter;
+                endPostItems[i].SetPostSign(i);
+                endPostItems[i].gameObject.SetActive(true);
             }
             
         }

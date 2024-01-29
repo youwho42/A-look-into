@@ -88,7 +88,8 @@ namespace Klaxon.SAP
         [HideInInspector]
         public Transform fleeTransfrom;
         bool fleeing;
-
+        [HideInInspector]
+        public SleepDisplayUI sleep;
 
         public bool canEat;
         [ConditionalHide("canEat", true)]
@@ -113,6 +114,8 @@ namespace Klaxon.SAP
         public void Start()
         {
             dialogueManager = DialogueManagerUI.instance;
+            sleep = SleepDisplayUI.instance;
+
             walker = GetComponent<GravityItemWalk>();
             if (walker != null)
             {
@@ -380,6 +383,8 @@ namespace Klaxon.SAP
 
         public DrawZasYDisplacement CheckForDisplacementSpot()
         {
+            if (sleep.isSleeping)
+                return null;
             closestSpots = interactAreas.QueryQuadTree(bounds);
             if (closestSpots.Count <= 0)
                 return null;
@@ -411,6 +416,52 @@ namespace Klaxon.SAP
             return bestTarget;
 
         }
+
+
+        public void HandleOffScreen(SAP_Action action)
+        {
+            
+            //walker.currentDirection = Vector2.zero;
+            //if (offScreenPosMoved && action.currentPathIndex < action.path.Count)
+            //{
+            //    timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, action.path[action.currentPathIndex].transform.position) / walker.walkSpeed);
+            //    timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+            //    if (transform.position.x < action.path[action.currentPathIndex].transform.position.x && !walker.facingRight)
+            //        walker.Flip();
+            //    else if (transform.position.x > action.path[action.currentPathIndex].transform.position.x && walker.facingRight)
+            //        walker.Flip();
+            //    offScreenPosMoved = false;
+            //}
+
+
+            //if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
+            //{
+
+            //    offScreenPosMoved = true;
+            //    walker.transform.position = action.path[action.currentPathIndex].transform.position;
+            //    walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+            //    walker.currentLevel = walker.currentTilePosition.position.z;
+            //    if (action.currentPathIndex < action.path.Count)
+            //    {
+            //        lastValidNode = action.currentNode;
+            //        action.currentPathIndex++;
+
+            //    }
+            //    if (action.currentPathIndex >= action.path.Count)
+            //    {
+
+            //        lastValidNode = action.currentNode;
+            //        action.ReachFinalDestination(this);
+            //    }
+            //    else
+            //    {
+            //        action.currentNode = action.path[action.currentPathIndex];
+            //    }
+
+            //}
+        }
+
+
 
         bool FoundFood()
         {

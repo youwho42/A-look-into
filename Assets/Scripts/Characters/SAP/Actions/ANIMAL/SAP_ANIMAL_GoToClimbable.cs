@@ -19,6 +19,14 @@ namespace Klaxon.SAP
             
             agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
 
+            if (agent.currentDisplacementSpot == null)
+            {
+                agent.currentGoalComplete = true;
+                return;
+            }
+
+
+
             agent.walker.enabled = true;
 
             if (agent.flier != null)

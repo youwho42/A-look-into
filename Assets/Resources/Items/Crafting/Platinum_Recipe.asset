@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: Platinum_Recipe
+  m_EditorClassIdentifier: 
+  Name: Platinum
+  Ingredients:
+  - Item: {fileID: 11400000, guid: b3700cf2e3da9a147bb2b33fd40ecf81, type: 2}
+    Amount: 10
+  - Item: {fileID: 11400000, guid: dc156d855dfe05b4eba6ac1a3266fba9, type: 2}
+    Amount: 10
+  Product:
+    Item: {fileID: 11400000, guid: 3a8c7deb331535947b5c3f9a2798e635, type: 2}
+    Amount: 1
+  CraftingTime: 120
+  AgencyCost: 0

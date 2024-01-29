@@ -45,8 +45,15 @@ namespace Klaxon.SAP
         }
         public override void PerformAction(SAP_Scheduler_ANIMAL agent)
         {
-            
-            
+
+            if (agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this);
+                return;
+            }
+
+
+
 
             if (agent.flier.isStuck || agent.isDeviating || !agent.flier.canReachNextTile)
             {

@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
+  m_Name: Stone
+  m_EditorClassIdentifier: 
+  Name: Stone
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
+    m_TableEntryReference:
+      m_KeyId: 2699686371328
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
+    m_TableEntryReference:
+      m_KeyId: 2774911213568
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 2
+  AnimationName: 
+  Weight: 10
+  Price: 2
+  spawnWeight: 20
+  Icon: {fileID: 21300000, guid: 614293e558a8844c5a265d1ef52b83cb, type: 3}
+  ItemPrefab: {fileID: 205002403857363210, guid: f7d0e5eff3afa46b2af29291cfa27f4c,
+    type: 3}
+  ItemPrefabVariants:
+  - {fileID: 205002403857363210, guid: f7d0e5eff3afa46b2af29291cfa27f4c, type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  MaxStack: 100
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 41dac76e78cdb44b9bbf19c5abfc71db, type: 2}
+    RecipeRevealAmount: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
+  - recipe: {fileID: 11400000, guid: 0b6113092188dd847b17b58ba5fc31e0, type: 2}
+    RecipeRevealAmount: 20
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
+  GameDificulty: 1
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

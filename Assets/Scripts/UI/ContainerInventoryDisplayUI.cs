@@ -87,6 +87,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             GameObject newSlot = Instantiate(containerSlot, containerSlotHolder.transform);
             var s = newSlot.GetComponent<ContainerDisplaySlot>();
             s.isContainerSlot = true;
+            s.canTransfer = true;
             containerSlots.Add(s);
 
         }
@@ -96,6 +97,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             GameObject newSlot = Instantiate(containerSlot, playerSlotHolder.transform);
             var s = newSlot.GetComponent<ContainerDisplaySlot>();
             s.isContainerSlot = false;
+            s.canTransfer = containerInventory.PlayerCanAddToInventory;
             playerSlots.Add(s);
             
             GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);

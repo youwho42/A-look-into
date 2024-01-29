@@ -81,7 +81,7 @@ namespace Klaxon.SAP
 
             //if (!walker.onSlope)
             agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.01f)
             {
 
                 if (currentPathIndex < path.Count - 1)

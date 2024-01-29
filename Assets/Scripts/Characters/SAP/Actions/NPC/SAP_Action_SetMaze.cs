@@ -38,7 +38,7 @@ public class SAP_Action_SetMaze : SAP_Action
                 agent.walker.currentDestination = path[currentPathIndex].transform.position;
             }
         }
-        mazeCreator.ResetMaze();
+        
         setupParticles.Stop();
         positionTimer = Random.Range(positionTimerMinMax.x, positionTimerMinMax.y);
     }
@@ -116,7 +116,7 @@ public class SAP_Action_SetMaze : SAP_Action
 
         if (!agent.walker.onSlope)
             agent.walker.SetDirection();
-        if (agent.walker.CheckDistanceToDestination() <= 0.02f)
+        if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.01f)
         {
             if (currentPathIndex < path.Count - 1)
             {
@@ -153,6 +153,7 @@ public class SAP_Action_SetMaze : SAP_Action
 
     public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
     {
+        mazeCreator.ResetMaze();
         agent.offScreenPosMoved = true;
         agent.isDeviating = false;
         destinationReached = true;

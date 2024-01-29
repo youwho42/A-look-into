@@ -1,13 +1,15 @@
+using Klaxon.Interactable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazePost : MonoBehaviour
+public class MazePost : Interactable
 {
     public List<GameObject> postSigns = new List<GameObject>();
     [HideInInspector]
-    public int postIndex;
+    public int postIndex = 0;
     public DrawZasYDisplacement lineDisplacement;
+    public MazeStringGame mazeString;
 
     public void SetPostSign(int index)
     {
@@ -18,9 +20,27 @@ public class MazePost : MonoBehaviour
             if(index == i)
             {
                 postSigns[i].SetActive(true);
-                postIndex = i;
+                postIndex = i + 1;
             }
                 
         }
+    }
+
+    public override void Interact(GameObject interactor)
+    {
+        base.Interact(interactor);
+
+        InteractWithPost();
+    }
+
+    void InteractWithPost()
+    {
+        if (postIndex - 1 == mazeString.currentIndex)
+        {
+            mazeString.SetLinePosition();
+            mazeString.inMaze = true;
+        }
+            
+        
     }
 }

@@ -44,7 +44,7 @@ namespace Klaxon.SAP
 
             
             CheckCurrentTree();
-            if (currentClimable == null)
+            if (currentClimable == null || agent.currentDisplacementSpot == null)
             {
                 agent.currentGoalComplete = true;
                 return;
@@ -123,7 +123,8 @@ namespace Klaxon.SAP
             agent.SetBeliefState("CanClimb", false);
             agent.SetBeliefState("AtClimbable", false);
             currentClimable = null;
-            agent.currentDisplacementSpot.isInUse = false;
+            if(agent.currentDisplacementSpot != null)
+                agent.currentDisplacementSpot.isInUse = false;
 
         }
 

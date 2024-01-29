@@ -14,8 +14,9 @@ public class ItemDatabaseEditor : Editor
 
         if (GUILayout.Button("Get All Items"))
         {
+            scriptableObject.Items.Clear();
             // Perform your custom context menu action here
-            scriptableObject.Items = scriptableObject.Items.OrderBy(x => x.Type).ThenBy(x => x.name).ToList();
+            scriptableObject.Items = Resources.LoadAll<QI_ItemData>("Items/").ToList();
         }
         if (GUILayout.Button("Order List"))
         {

@@ -19,6 +19,8 @@ public class ContainerDisplaySlot : MonoBehaviour
 
     bool leftCtrl;
 
+    public bool canTransfer;
+
     private void Start()
     {
         GameEventManager.onStackTransferToggleEvent.AddListener(ToggleLeftCtrl);
@@ -32,7 +34,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     }
     public void TransferItem()
     {
-        if (item == null)
+        if (item == null || !canTransfer)
             return;
         
         if (isContainerSlot)

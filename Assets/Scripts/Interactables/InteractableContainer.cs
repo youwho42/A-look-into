@@ -14,7 +14,7 @@ namespace Klaxon.Interactable
         ContainerInventoryDisplayUI containerUI;
         QI_Inventory inventory;
         public bool isSquirrelBox;
-
+        
         public override void Start()
         {
             base.Start();

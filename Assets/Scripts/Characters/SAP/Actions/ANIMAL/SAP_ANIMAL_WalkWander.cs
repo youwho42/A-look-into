@@ -48,6 +48,7 @@ namespace Klaxon.SAP
         public override void PerformAction(SAP_Scheduler_ANIMAL agent)
         {
 
+
             if (agent.walker.itemObject.localPosition.y > 0)
             {
                 headTimer -= Time.deltaTime;
@@ -80,7 +81,13 @@ namespace Klaxon.SAP
                 }
                 
                 agent.animator.SetBool(agent.walking_hash, true);
-                
+
+                if (agent.sleep.isSleeping)
+                {
+                    agent.HandleOffScreen(this);
+                    return;
+                }
+
 
                 if (agent.walker.isStuck || agent.isDeviating)
                 {

@@ -36,18 +36,26 @@ public class CharacterChoiceUI : MonoBehaviour
         //Changes the character limit in the main input field.
         playerNameInputField.characterLimit = 12;
         CheckPlayerNameValid();
+        
         HideUI();
     }
 
     public void ShowUI()
     {
+        SetRandomCharacter();
         characterChoiceCameraObject.SetActive(true);
     }
     public void HideUI()
     {
         characterChoiceCameraObject.SetActive(false);
     }
-
+    void SetRandomCharacter()
+    {
+        int r = Random.Range(0, PlayerInformation.instance.characterManager.aquiredCharacters.Count);
+        index = r;
+        spriteName = PlayerInformation.instance.characterManager.aquiredCharacters[index];
+        chooseSpriteResolver.SetCategoryAndLabel("Player", spriteName);
+    }
     public void ChangeSprite(int dir)
     {
         

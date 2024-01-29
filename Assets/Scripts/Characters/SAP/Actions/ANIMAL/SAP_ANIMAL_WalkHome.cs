@@ -24,6 +24,12 @@ namespace Klaxon.SAP
             if (!hasFixedHome)
                 home = agent.CheckForDisplacementSpot();
 
+            if (home == null)
+            {
+                agent.currentGoalComplete = true;
+                return;
+            }
+
             agent.walker.enabled = true;
 
             if (agent.flier != null)
@@ -84,6 +90,12 @@ namespace Klaxon.SAP
                 }
             }
 
+            if (home == null)
+            {
+                agent.currentGoalComplete = true;
+                return;
+            }
+
             agent.walker.SetWorldDestination(home.transform.position);
             agent.animator.SetBool(agent.walking_hash, true);
             agent.walker.SetDirection();
@@ -103,7 +115,9 @@ namespace Klaxon.SAP
         {
             
             agent.animator.SetBool(agent.sleeping_hash, false);
-            home.isInUse = false;
+
+            if(home != null)
+                home.isInUse = false;
             
             isHome = false;
             agent.closestSpots.Clear();

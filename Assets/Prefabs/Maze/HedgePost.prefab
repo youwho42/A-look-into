@@ -346,7 +346,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1501616254833140881}
   - component: {fileID: -6908654910655201637}
-  m_Layer: 0
+  - component: {fileID: 4879430501289191337}
+  m_Layer: 13
   m_Name: HedgePost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,12 +386,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7547e62d1780d4ba26f529eb6631e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: whaaAA???
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+    m_TableEntryReference:
+      m_KeyId: 40304449005608960
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
+  agencyReward: 0
+  agencyCost: 0
+  canInteract: 1
+  hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
   postSigns:
   - {fileID: 3043509407180070768}
   - {fileID: 5425321787600314985}
   - {fileID: 7312710536030655687}
   postIndex: 0
   lineDisplacement: {fileID: 515790126711730772}
+  mazeString: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
+--- !u!58 &4879430501289191337
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8345002272511582776}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.04891403
 --- !u!1001 &8200758820978156785
 PrefabInstance:
   m_ObjectHideFlags: 0

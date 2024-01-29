@@ -37,7 +37,11 @@ namespace Klaxon.SAP
                     agent.walker.enabled = false;
                 }
             }
-
+            if(home == null)
+            {
+                agent.currentGoalComplete = true;
+                return;
+            }
             agent.flier.SetDestination(home);
             agent.flier.isLanding = true;
 
@@ -71,6 +75,11 @@ namespace Klaxon.SAP
                 agent.DeviateFly();
                 return;
             }
+            if (home == null)
+            {
+                agent.currentGoalComplete = true;
+                return;
+            }
 
             agent.flier.SetDestination(home);
             if (Vector3.Distance(agent.flier.itemObject.localPosition, home.displacedPosition) <= 0.02f && Vector2.Distance(agent.transform.position, home.transform.position) <= 0.02f)
@@ -101,7 +110,8 @@ namespace Klaxon.SAP
             agent.SetBeliefState("Land", false);
             agent.SetBeliefState("AtHome", true);
             
-            home.isInUse = false;
+            if(home != null)
+                home.isInUse = false;
             
             
             agent.closestSpots.Clear();

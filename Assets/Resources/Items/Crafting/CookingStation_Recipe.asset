@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: CookingStation_Recipe
+  m_EditorClassIdentifier: 
+  Name: Cooking Station
+  Ingredients:
+  - Item: {fileID: 11400000, guid: 3561f0acfb516994fb622de6ce4e3419, type: 2}
+    Amount: 4
+  - Item: {fileID: 11400000, guid: 2f1bddb4f4bba0f4cbc6de1a56330c02, type: 2}
+    Amount: 3
+  - Item: {fileID: 11400000, guid: 2bfc6b8cad68c8e4c90de550208d9e5d, type: 2}
+    Amount: 6
+  Product:
+    Item: {fileID: 11400000, guid: 526bdcd4ed20aa740b71e180e8e39c16, type: 2}
+    Amount: 1
+  CraftingTime: 0
+  AgencyCost: 150

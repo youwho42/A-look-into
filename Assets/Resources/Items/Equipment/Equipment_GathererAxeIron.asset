@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererAxeIron
+  m_EditorClassIdentifier: 
+  Name: Iron Axe
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 951139753984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 960308502528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 0
+  AnimationName: Axe
+  Weight: 2
+  Price: 100
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 4e6b45dfe94d5f2419ba55d7e7d33cef, type: 3}
+  ItemPrefabVariants:
+  - {fileID: 205002403857363210, guid: f638a0d4ba9d1c84ca39e2d351bfbb3c, type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 249755112104138812, guid: 95eff17cc8384f54e9946520ef11aff5,
+    type: 3}
+  MaxStack: 1
+  compendiumGuide: {fileID: 11400000, guid: b9687db9beb2471488cf951381e39096, type: 2}
+  ResearchRecipes: []
+  GameDificulty: 3
+  placementGumption: {fileID: 0}
+  equipmentSlot: 0
+  equipmentTier: 2
+  gatherItemData:
+  - {fileID: 11400000, guid: 2bfc6b8cad68c8e4c90de550208d9e5d, type: 2}
+  - {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+  - {fileID: 11400000, guid: fa67655462b22984690264cd226e12cf, type: 2}
+  miniGameType: 1
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.5
+  takeSample: 1
+  oneUse: 0
+  statChanger: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
+  references:
+    version: 2
+    RefIds: []
