@@ -15,6 +15,17 @@ public class AnimatePlayer : MonoBehaviour
     PlayerInputController playerInput;
     bool lostBalance;
     float timeIdle;
+
+    public readonly int balance_hash = Animator.StringToHash("LostBalance");
+    public readonly int idleSit_hash = Animator.StringToHash("IdleSit");
+    public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
+    public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
+    public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
+    public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
+    public readonly int pickUp_hash = Animator.StringToHash("PickUp");
+    public readonly int isCrafting_hash = Animator.StringToHash("IsCrafting");
+
+    
     private void Start()
     {
         
@@ -38,7 +49,7 @@ public class AnimatePlayer : MonoBehaviour
         {
             playerMovement.isInInteractAction = true;
             lostBalance = true;
-            animator.SetTrigger("LostBalance");
+            animator.SetTrigger(balance_hash);
             playerMovement.onCliffEdge = false;
             float t = animator.GetCurrentAnimatorStateInfo(0).length;
             Invoke("ResetBalance", t);
@@ -52,7 +63,7 @@ public class AnimatePlayer : MonoBehaviour
 
 
         isIdleSitting = timeIdle > 20;
-        animator.SetBool("IdleSit", isIdleSitting);
+        animator.SetBool(idleSit_hash, isIdleSitting);
           
         
             
@@ -61,13 +72,13 @@ public class AnimatePlayer : MonoBehaviour
     private void LateUpdate()
     {
         
-        animator.SetBool("IsRunning", playerInput.isRunning);
-        animator.SetFloat("VelocityX", Mathf.Abs(playerMovement.moveSpeed));
-        animator.SetBool("IsGrounded", playerMovement.isGrounded);
+        animator.SetBool(isRunning_hash, playerInput.isRunning);
+        animator.SetFloat(velocityX_hash, Mathf.Abs(playerMovement.moveSpeed));
+        animator.SetBool(isGrounded_hash, playerMovement.isGrounded);
         if(!playerMovement.isGrounded)
-            animator.SetFloat("VelocityY", playerMovement.displacedPosition.y);
+            animator.SetFloat(velocityY_hash, playerMovement.displacedPosition.y);
         else
-            animator.SetFloat("VelocityY", 0);
+            animator.SetFloat(velocityY_hash, 0);
     }
 
     void ResetBalance()
@@ -80,8 +91,14 @@ public class AnimatePlayer : MonoBehaviour
     {
         var currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
         if (currentClipInfo[0].clip.name != "PickUp")
-            animator.SetTrigger("PickUp");
+            animator.SetTrigger(pickUp_hash);
     }
+
+    public void SetCraftAnimation(bool state)
+    {
+        animator.SetBool(isCrafting_hash, state);
+    }
+
     bool GetIdleAnimState()
     {
         if (PlayerInformation.instance.uiScreenVisible)

@@ -11,16 +11,24 @@ public class FixingSounds : MonoBehaviour
     [SerializeField]
     public SoundSet soundSet;
     public float soundDuration = 6f;
+    [Range(0f, 1f)]
+    public float minSoundGap = 0.2f;
+    [Range(0f, 1f)]
+    public float maxSoundGap = 0.5f;
     public AudioMixerGroup mixerGroup;
     int lastSoundIndex = -1;
     bool timing;
     bool playSounds;
     private void Start()
     {
-        source = GetComponent<AudioSource>();
-        
+        SetSource();
     }
-    
+
+    private void SetSource()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     public void StartSoundsWithTimer()
     {
         StartCoroutine(StartSoundsOnTimerCo());
@@ -53,7 +61,7 @@ public class FixingSounds : MonoBehaviour
         PlaySound();
         while(timing)
         {
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            yield return new WaitForSeconds(Random.Range(minSoundGap, maxSoundGap));
             PlaySound();
             yield return null;
         }
@@ -66,7 +74,7 @@ public class FixingSounds : MonoBehaviour
         PlaySound();
         while (playSounds)
         {
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            yield return new WaitForSeconds(Random.Range(minSoundGap, maxSoundGap));
             PlaySound();
             yield return null;
         }
@@ -75,7 +83,8 @@ public class FixingSounds : MonoBehaviour
 
     void PlaySound()
     {
-        
+        if (source == null)
+            SetSource();
         int t = Random.Range(0, soundSet.clips.Length);
         if(t==lastSoundIndex)
         {

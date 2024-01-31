@@ -16,6 +16,8 @@ public class PlayerInformation : MonoBehaviour
     public SpriteRenderer playerSprite;
     public GameObject playerShadow;
     public GravityItemMovementControllerNew playerController;
+    public AnimatePlayer animatePlayerScript;
+
     public QI_Inventory playerInventory;
     public EquipmentManager equipmentManager;
     public QI_CraftingRecipeDatabase playerRecipeDatabase;

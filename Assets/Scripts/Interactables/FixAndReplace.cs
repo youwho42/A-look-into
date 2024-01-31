@@ -25,6 +25,9 @@ public class FixAndReplace : MonoBehaviour, IFixArea
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)
     {
+        var player = PlayerInformation.instance;
+        player.playerInput.isInUI = true;
+        player.animatePlayerScript.SetCraftAnimation(true);
         isFixing = true;
         RemoveItemsFromInventory(ingredients);
         fixingEffect.Play();
@@ -54,9 +57,9 @@ public class FixAndReplace : MonoBehaviour, IFixArea
         {
             if (data.Data.compendiumGuide != null)
             {
-                if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(data.Data.compendiumGuide))
+                if (!player.playerGuidesCompendiumDatabase.Items.Contains(data.Data.compendiumGuide))
                 {
-                    PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(data.Data.compendiumGuide);
+                    player.playerGuidesCompendiumDatabase.Items.Add(data.Data.compendiumGuide);
                     Notifications.instance.SetNewNotification($"{data.Data.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
 
                     //NotificationManager.instance.SetNewNotification($"{data.Data.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
@@ -66,7 +69,8 @@ public class FixAndReplace : MonoBehaviour, IFixArea
         }
         if (undertakingObject.undertaking != null)
             undertakingObject.undertaking.TryCompleteTask(undertakingObject.task);
-        
+        player.playerInput.isInUI = false;
+        player.animatePlayerScript.SetCraftAnimation(false);
         Destroy(this.gameObject);
     }
     void RemoveItemsFromInventory(List<FixableAreaIngredient> ingredients)

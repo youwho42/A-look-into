@@ -10,7 +10,7 @@ using Klaxon.SaveSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using Klaxon.Interactable;
-
+using System.Linq;
 
 [Serializable]
 public class NavNodeQuadTree
@@ -140,11 +140,8 @@ public class InventoryDisplaySlot : MonoBehaviour
     private void Start()
     {
         allAreas.Clear();
-        var all = FindObjectsOfType<NavigationNode>();
-        foreach (var item in all)
-        {
-            allAreas.Add(item);
-        }
+        allAreas = FindObjectsOfType<NavigationNode>().ToList();
+        
 
         quadTree = new NavNodeQuadTree(baseBounds, 10);
 
