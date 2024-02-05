@@ -42,8 +42,9 @@ public class CharacterChoiceUI : MonoBehaviour
 
     public void ShowUI()
     {
-        SetRandomCharacter();
+        
         characterChoiceCameraObject.SetActive(true);
+        SetRandomCharacter();
     }
     public void HideUI()
     {
@@ -55,6 +56,7 @@ public class CharacterChoiceUI : MonoBehaviour
         index = r;
         spriteName = PlayerInformation.instance.characterManager.aquiredCharacters[index];
         chooseSpriteResolver.SetCategoryAndLabel("Player", spriteName);
+        
     }
     public void ChangeSprite(int dir)
     {

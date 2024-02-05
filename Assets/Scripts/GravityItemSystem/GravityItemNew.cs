@@ -289,19 +289,60 @@ namespace Klaxon.GravitySystem
             _transform.position = currentPosition;
         }
         
+        //public Vector2 CollisionAvoidanceDirection(Vector2 direction)
+        //{
+        //    Vector2 dir = direction;
+        //    List<Vector2> directions = new List<Vector2>();
+            
+        //    for (int i = -1; i < 2; i++)
+        //    {
+                
+        //        var offset = (Vector3)Vector2.Perpendicular(direction) * (i * 0.03f);
+        //        var h = Physics2D.Raycast(transform.position + offset, direction, checkTileDistance * 2, obstacleLayer, _transform.position.z, _transform.position.z);
+        //        if (h.collider != null)
+        //        {
+                    
+        //            if (h.collider.TryGetComponent(out DrawZasYDisplacement obs))
+        //            {
+        //                directions.Add((h.normal + direction).normalized);
+        //            }
+        //        }
+        //    }
+
+
+        //    float closest = -1f;
+        //    foreach (var item in directions)
+        //    {
+        //        var c = Vector2.Dot(direction, item);
+        //        if (c > closest) 
+        //        { 
+        //            closest = c;
+        //            dir = item;
+        //        } 
+                    
+        //    }
+        //    if (directions.Count > 0 && closest < -0.1)
+        //        dir = Vector2.zero;
+        //    return dir;
+        //}
 
         public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey)
         {
             //onObstacle = false;
             
+            
+            
             // Check for a positive gameobject on the obstacle layer
             hit = Physics2D.OverlapCircleAll(checkPosition, 0.01f, obstacleLayer, _transform.position.z, _transform.position.z);
             if (hit != null)
             {
+                
                 bool isColliding = false;
                 // do it got a thing
                 for (int i = 0; i < hit.Length; i++)
                 {
+                    
+                    
                     if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
                     {
                         InteractableDoor door = hit[i].GetComponentInParent<InteractableDoor>();

@@ -83,12 +83,16 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     void SetAnimalActiveBasedOnDistance(GameObject obj, Vector3 playerPos, float maxDist)
     {
+        if (obj == null)
+            return;
         bool state = GetPlayerDistance(obj.transform, playerPos) <= maxDist;
         obj.SetActive(state);
     }
 
     void SetAgentPropertiesBasedOnDistance(SAP_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
     {
+        if (agent == null)
+            return;
         bool state = GetPlayerDistance(agent.transform, playerPos) <= maxDist;
         agent.animator.enabled = state;
         agent.offScreen = !state;

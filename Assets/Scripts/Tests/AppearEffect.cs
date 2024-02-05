@@ -22,7 +22,7 @@ public class AppearEffect : MonoBehaviour
 
     public void Disable()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
 }

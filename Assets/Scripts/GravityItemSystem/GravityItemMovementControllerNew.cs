@@ -40,6 +40,7 @@ namespace Klaxon.GravitySystem
 
         Vector3 lastValidPosition;
 
+       //Vector2 avoidanceDirection;
 
         private new IEnumerator Start()
         {
@@ -92,7 +93,7 @@ namespace Klaxon.GravitySystem
             
             if (isInInteractAction)
                 return;
-
+            
             if (CanReachNextTile(playerInput.movement))
             {
                 finalSpeed = playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : walkSpeed * speedStat.GetModifiedMax();
@@ -132,8 +133,12 @@ namespace Klaxon.GravitySystem
             Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
             onCliffEdge = false;
 
+            //avoidanceDirection = CollisionAvoidanceDirection(direction);
+            //avoidanceDirection = direction;
             if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey))
                 return false;
+            //avoidanceDirection = CollisionAvoidanceDirection(direction);
+
 
             int level = 0;
 

@@ -21,6 +21,7 @@ public class TilemapToPNG : MonoBehaviour
     
     public void SaveBaseMap()
     {
+        
         float[,] tiles = new float[groundMap.cellBounds.size.x, groundMap.cellBounds.size.y];
         int indX = 0;
         int indY = 0;
@@ -94,7 +95,7 @@ public class TilemapToPNG : MonoBehaviour
     {
         int width = tileMapArray.GetLength(0);
         int height = tileMapArray.GetLength(1);
-
+        
         Texture2D texture = new Texture2D(width, height);
         
         Color[] colorMap = new Color[width * height];
@@ -116,7 +117,7 @@ public class TilemapToPNG : MonoBehaviour
     {
         int width = tileMapArray.GetLength(0);
         int height = tileMapArray.GetLength(1);
-
+        
         Texture2D texture = new Texture2D(width, height);
 
         Color[] colorMap = new Color[width * height];

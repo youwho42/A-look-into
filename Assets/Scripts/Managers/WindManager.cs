@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TreeEditor;
-using Unity.Mathematics;
+
 using UnityEngine;
 
 public class WindManager : MonoBehaviour
@@ -40,10 +37,10 @@ public class WindManager : MonoBehaviour
 
     private void Start()
     {
-        directionOffsetX = UnityEngine.Random.Range(1, 1000);
-        directionOffsetY = UnityEngine.Random.Range(1, 1000);
-        magnitudeOffsetX = UnityEngine.Random.Range(1, 1000);
-        magnitudeOffsetY = UnityEngine.Random.Range(1, 1000);
+        directionOffsetX = Random.Range(1, 1000);
+        directionOffsetY = Random.Range(1, 1000);
+        magnitudeOffsetX = Random.Range(1, 1000);
+        magnitudeOffsetY = Random.Range(1, 1000);
         GameEventManager.onTimeTickEvent.AddListener(SetWind);
         SetWind(0);
     }

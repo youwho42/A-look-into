@@ -49,4 +49,12 @@ public class MazeDoor : Interactable
         doorClosed.SetActive(true);
         isOpen = false;
     }
+
+    public void SetDoorFromSave(bool doorIsOpen)
+    {
+        canInteract = !doorIsOpen;
+        isOpen = doorIsOpen;
+        doorOpen.SetActive(isOpen);
+        doorClosed.SetActive(!isOpen);
+    }
 }

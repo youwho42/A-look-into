@@ -10,7 +10,7 @@ public class MazePost : Interactable
     public int postIndex = 0;
     public DrawZasYDisplacement lineDisplacement;
     public MazeStringGame mazeString;
-
+    public FixingSounds attachSound;
     public void SetPostSign(int index)
     {
 
@@ -21,6 +21,7 @@ public class MazePost : Interactable
             {
                 postSigns[i].SetActive(true);
                 postIndex = i + 1;
+                
             }
                 
         }
@@ -39,8 +40,14 @@ public class MazePost : Interactable
         {
             mazeString.SetLinePosition();
             mazeString.inMaze = true;
+            
         }
             
         
+    }
+
+    public void StartSounds()
+    {
+        attachSound.StartSoundsWithTimer();
     }
 }

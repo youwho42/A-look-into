@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &153837486672758202
 Transform:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5192496699542945837
 Transform:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3952046590445756557
 Transform:
   m_ObjectHideFlags: 0
@@ -424,6 +424,7 @@ MonoBehaviour:
   postIndex: 0
   lineDisplacement: {fileID: 515790126711730772}
   mazeString: {fileID: 0}
+  attachSound: {fileID: 4914746343452357258}
   references:
     version: 2
     RefIds: []
@@ -591,6 +592,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 885956133210516999}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4914746343452357258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5223933306700553357, guid: aad9517fac673474a8d80fb12d39a5d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 885956133210516999}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ad0e8f55bebd744bfdc6399693e54d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8200758820978156785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -687,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 8567683575678473893, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}
       propertyPath: positionZ
-      value: 2.6
+      value: 2.58
       objectReference: {fileID: 0}
     - target: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}
@@ -697,12 +710,12 @@ PrefabInstance:
     - target: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0017
       objectReference: {fileID: 0}
     - target: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0189
       objectReference: {fileID: 0}
     - target: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}

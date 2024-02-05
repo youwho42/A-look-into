@@ -114,6 +114,16 @@ public class AudioManager : MonoBehaviour
         return false;
     }
 
+    public void PlaySoundWithDelay(string _name, float _time)
+    {
+        StartCoroutine(PlaySoundDelayCo(_name, _time));
+    }
+    IEnumerator PlaySoundDelayCo(string _name, float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        PlaySound(_name);
+    }
+
     public void PlaySound(string _name)
     {
         for (int i = 0; i < sounds.Length; i++)

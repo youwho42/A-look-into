@@ -387,7 +387,7 @@ public class LevelManager : MonoBehaviour
         text.text = "Loading data from save.";
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
-        SavingLoading.instance.Load(LoadSelectionUI.instance.currentLoadFileName);
+        SavingLoading.instance.Load(loadFileName);
         PlayerDistanceToggle.instance.PopulateLists();
 
         yield return new WaitForSecondsRealtime(0.5f);
@@ -432,11 +432,10 @@ public class LevelManager : MonoBehaviour
             loadScreenSlider.value = progress;
             text.text = $"Loading Terrain: {Mathf.RoundToInt(progress * 100)}%";
 
-
             yield return null;
         }
-        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
 
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
 
@@ -450,14 +449,13 @@ public class LevelManager : MonoBehaviour
         }
 
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
-
         while (!currentLevelLoading.isDone)
         {
 
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Trees: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Trees and Animals: {Mathf.RoundToInt(progress * 100)}%";
 
 
             yield return null;

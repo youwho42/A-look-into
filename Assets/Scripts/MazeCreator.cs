@@ -55,7 +55,8 @@ namespace Klaxon.MazeTech
         public Transform itemsHolder;
         public QI_ItemDatabase mazeItems;
 
-        GameObject[,] hedgePieces;
+        [HideInInspector]
+        public GameObject[,] hedgePieces;
         MazeStringGame mazeString;
         [HideInInspector]
         public List<MazeTile> allTiles = new List<MazeTile>();
@@ -63,18 +64,23 @@ namespace Klaxon.MazeTech
         List<MazeTile> collapsedTiles = new List<MazeTile>();
         public bool mazeSet;
         public MazeDoor mazeDoor;
+
+        [HideInInspector]
+        public bool initialized;
+
         private void Start()
         {
             mazeString = GetComponent<MazeStringGame>();
             EmptyHolder(hedgeHolder);
             EmptyHolder(itemsHolder);
-            
-            SetGridAndTiles();
+            if(!initialized)
+                SetGridAndTiles();
         }
 
-        [ContextMenu("Initialize maze")]
-        void SetGridAndTiles()
+        
+        public void SetGridAndTiles()
         {
+            initialized = true;
             allTiles.Clear();
             hedgePieces = new GameObject[mazeSize, mazeSize];
             convertedBasePosition = gridObject.GetWorldPosition(basePosition.x, basePosition.y);
@@ -141,7 +147,34 @@ namespace Klaxon.MazeTech
             }
         }
         
+        public void SetMazeFromSave(bool[,] states, List<Vector3> postPositions, bool mazeState)
+        {
+            if (!initialized)
+                SetGridAndTiles();
 
+
+            // Setting Hedges
+            for (int x = 0; x < mazeSize; x++)
+            {
+                for (int y = 0; y < mazeSize; y++)
+                {
+                    if(hedgePieces[x, y] != null)
+                        hedgePieces[x, y].SetActive(states[x, y]);
+                }
+            }
+
+            // Setting Posts
+            for (int i = 0; i < endPostItems.Count; i++)
+            {
+                endPostItems[i].transform.position = postPositions[i];
+                endPostItems[i].SetPostSign(i);
+                endPostItems[i].gameObject.SetActive(true);
+            }
+
+            // Maze State
+            mazeSet = mazeState;
+
+        }
 
         void SetEntrance()
         {
@@ -153,7 +186,7 @@ namespace Klaxon.MazeTech
             
         }
 
-        [ContextMenu("Reset Maze")]
+        
         public void ResetMaze()
         {
             EmptyHolder(itemsHolder);
@@ -188,7 +221,7 @@ namespace Klaxon.MazeTech
         }
 
 
-        [ContextMenu("Set Maze")]
+        
         public void StartMazeCreation()
         {
             ChooseRandomStartTile();

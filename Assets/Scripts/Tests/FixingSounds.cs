@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 [RequireComponent(typeof(AudioSource))]
 public class FixingSounds : MonoBehaviour
 {
-    AudioSource source;
+    public AudioSource source;
     [SerializeField]
     public SoundSet soundSet;
     public float soundDuration = 6f;
@@ -19,23 +19,29 @@ public class FixingSounds : MonoBehaviour
     int lastSoundIndex = -1;
     bool timing;
     bool playSounds;
-    private void Start()
-    {
-        SetSource();
-    }
+    //private void Start()
+    //{
+    //    SetSource();
+    //}
+    //private void OnEnable()
+    //{
+    //    SetSource();
+    //}
 
-    private void SetSource()
-    {
-        source = GetComponent<AudioSource>();
-    }
+    //private void SetSource()
+    //{
+    //    source = GetComponent<AudioSource>();
+    //}
 
     public void StartSoundsWithTimer()
     {
+        StopAllCoroutines();
         StartCoroutine(StartSoundsOnTimerCo());
     }
     public void StartSoundsNoTimer()
     {
         playSounds = true;
+        StopAllCoroutines();
         StartCoroutine(StartSoundsNoTimerCo());
     }
     public void StopSoundsNoTimer()
@@ -83,8 +89,7 @@ public class FixingSounds : MonoBehaviour
 
     void PlaySound()
     {
-        if (source == null)
-            SetSource();
+        
         int t = Random.Range(0, soundSet.clips.Length);
         if(t==lastSoundIndex)
         {

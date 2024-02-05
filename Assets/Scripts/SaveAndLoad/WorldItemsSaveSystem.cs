@@ -53,8 +53,13 @@ namespace Klaxon.SaveSystem
 
             for (int i = 0; i < saveData.items.Count; i++)
             {
-
-                var entity = Instantiate(itemDatabase.GetItem(saveData.items[i]).ItemPrefabVariants[saveData.itemVariantIndex[i]], transform.position, Quaternion.identity);
+                var itemData = itemDatabase.GetItem(saveData.items[i]);
+                if (itemData == null)
+                    continue;
+                var itemObject = itemData.ItemPrefabVariants[saveData.itemVariantIndex[i]];
+                if (itemObject == null)
+                    continue;
+                var entity = Instantiate(itemObject, transform.position, Quaternion.identity);
                 if (entity.TryGetComponent(out SaveableItemEntity saveableItem))
                     saveableItem.SetId(saveData.itemID[i]);
                 if (entity.TryGetComponent(out QI_Item Item))

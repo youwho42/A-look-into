@@ -17,7 +17,8 @@ public class MazeStringGame : MonoBehaviour
     public bool mazeComplete;
     public QI_ItemDatabase mazeItemDatabase;
     public QI_Inventory rewardBox;
-    FixingSounds attachSound;
+    public ParticleSystem confetti;
+    public GameObject popEffect;
 
     [Space]
     [Header("Line Shader")]
@@ -33,7 +34,7 @@ public class MazeStringGame : MonoBehaviour
         lineMaterial = line.material;
         dayNightCycle = RealTimeDayNightCycle.instance;
         initialColor = lineMaterial.GetColor("_EmissionColor");
-        attachSound = GetComponentInChildren<FixingSounds>();
+        
     }
 
     private void OnEnable()
@@ -59,6 +60,14 @@ public class MazeStringGame : MonoBehaviour
             line.SetPosition(line.positionCount - 1, PlayerInformation.instance.player.position + new Vector3(0, 0.2990625f*0.6f, endPostItems[currentIndex].transform.position.z + 3));
     }
 
+    public void SetStringGameFromSave(int index, bool complete, Vector3[] stringPositions)
+    {
+        currentIndex = index;
+        mazeComplete = complete;
+        line.positionCount = stringPositions.Length;
+        line.SetPositions(stringPositions);
+
+    }
     
     public void SetLinePosition()
     {
@@ -74,19 +83,31 @@ public class MazeStringGame : MonoBehaviour
     {
         if (currentIndex == endPostItems.Count - 1)
         {
+            StartCoroutine(CompleteEffects());
             line.positionCount = currentIndex + 1;
             mazeComplete = true;
             inMaze = false;
             rewardBox.AddItem(mazeItemDatabase.GetRandomWeightedItem(), 1, false);
         }
     }
+    IEnumerator CompleteEffects()
+    {
+        var appearPosition = endPostItems[currentIndex].transform.position + endPostItems[currentIndex].lineDisplacement.displacedPosition + new Vector3(0, 0, 3);
+        AudioManager.instance.PlaySoundWithDelay("MazeComplete", 0.6f);
+        yield return new WaitForSeconds(2.6f);
+        Instantiate(popEffect, appearPosition, Quaternion.identity, transform);
+        AudioManager.instance.PlaySound("ConfettiPop");
+        confetti.transform.position = appearPosition;
+        confetti.Play();
+    }
 
     IEnumerator AttachString()
     {
-        attachSound.StartSoundsWithTimer();
+        
         var player = PlayerInformation.instance;
         player.playerInput.isInUI = true;
         player.animatePlayerScript.SetCraftAnimation(true);
+        endPostItems[currentIndex].StartSounds();
         yield return new WaitForSeconds(2.0f);
         line.SetPosition(currentIndex, endPostItems[currentIndex].transform.position + endPostItems[currentIndex].lineDisplacement.displacedPosition + new Vector3(0, 0, 3));
         player.playerInput.isInUI = false;
