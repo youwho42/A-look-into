@@ -44,15 +44,14 @@ namespace Klaxon.Interactable
         private void OpenLocalGoods()
         {
             UIScreenManager.instance.DisplayScreen(UIScreenType.LocalGoods);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(true);
             LocalGoodDisplayUI.instance.ShowGoodsUI(inventory, validType, priceMultiplier, localizedShopName.GetLocalizedString());
         }
 
         private void CloseLocalGoods()
         {
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
             LocalGoodDisplayUI.instance.HideGoodsUI();
         }
     } 

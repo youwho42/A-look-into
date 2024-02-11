@@ -111,6 +111,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
             GameObject newSlot = Instantiate(containerSlot, containerSlotHolder.transform);
             var s = newSlot.GetComponent<ContainerDisplaySlot>();
             s.isContainerSlot = true;
+            s.canTransfer = true;
             containerSlots.Add(s);
 
         }

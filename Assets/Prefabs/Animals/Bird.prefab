@@ -421,13 +421,13 @@ MonoBehaviour:
   tileBlockInfo: []
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
+  facingRight: 1
+  centerOfActivity: {fileID: 0}
   walkSpeed: 0.15
   runSpeed: 0
   jumpHeight: 7
-  facingRight: 1
   isInInteractAction: 0
   moveSpeed: 0
-  currentDir: {x: 0, y: 0}
   currentDestination: {x: 0, y: 0}
   jumpAhead: 0
   hasDeviatePosition: 0
@@ -439,6 +439,7 @@ MonoBehaviour:
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 0}
+  shitSpot: 0
 --- !u!114 &637667237279358708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +483,7 @@ MonoBehaviour:
   tileBlockInfo: []
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
+  facingRight: 1
   centerOfActiveArea: {fileID: 0}
   flightSpeed: 0.9
   flyRoamingDistance: 4
@@ -496,10 +498,10 @@ MonoBehaviour:
   isOverWater: 0
   useBoids: 0
   boid: {fileID: 7510586649099672996}
-  facingRight: 1
   canReachNextTile: 0
   isStuck: 0
   hasDeviatePosition: 0
+  shitSpot: 0
 --- !u!114 &7968763202729641296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +586,7 @@ MonoBehaviour:
   offScreen: 0
   walker: {fileID: 0}
   flier: {fileID: 0}
+  jumper: {fileID: 0}
   isDeviating: 0
   minMaxFlap: {x: 0.5, y: 10}
   minMaxGlide: {x: 0.5, y: 5}
@@ -599,6 +602,17 @@ MonoBehaviour:
   minHomeDistance: 1
   closestSpots: []
   removeFromMusicAtHome: 1
+  hasDialogue: 0
+  fleeTransfrom: {fileID: 0}
+  sleep: {fileID: 0}
+  canEat: 0
+  eatPoint: {fileID: 0}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  edibleItems: []
+  isEating: 0
+  currentEdible: {fileID: 0}
 --- !u!114 &2302526306177949363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,7 +891,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f06fccd63d79b8f42a0a5223765f7478, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

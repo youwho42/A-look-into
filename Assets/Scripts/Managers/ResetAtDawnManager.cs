@@ -28,17 +28,17 @@ public class ResetAtDawnManager : MonoBehaviour
 
     int hourToDailySpawn = 5;
 
-    public void AddToManager(IResetAtDawn item)
-    {
-        itemsToReset.Add(item);
-    }
+    //public void AddToManager(IResetAtDawn item)
+    //{
+    //    itemsToReset.Add(item);
+    //}
     void ResetManager()
     {
         itemsToReset.Clear();
     }
     public void ResetAllItems(int time)
     {
-        
+        itemsToReset = FindObjectsOfType<MonoBehaviour>(true).OfType<IResetAtDawn>().ToList();
         if (time != hourToDailySpawn)
             return;
         foreach (var item in itemsToReset)

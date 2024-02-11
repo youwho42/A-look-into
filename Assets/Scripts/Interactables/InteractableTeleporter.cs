@@ -42,7 +42,7 @@ namespace Klaxon.Interactable
         private void CloseTeleporter()
         {
             UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
             teleportUI.HideUI();
         }
     }

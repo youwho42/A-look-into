@@ -30,7 +30,7 @@ namespace Klaxon.Interactable
             PlayInteractSound();
 
             UIScreenManager.instance.DisplayScreen(UIScreenType.GuiseScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            //UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
 
             GuiseUI.instance.ShowUI();
         }
@@ -38,8 +38,8 @@ namespace Klaxon.Interactable
         {
 
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            //if (LevelManager.instance.HUDBinary == 1)
+            //    UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
 
             GuiseUI.instance.HideUI();
 

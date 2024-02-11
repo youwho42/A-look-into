@@ -66,8 +66,7 @@ public class GuiseUI : MonoBehaviour
     public void CancelSelection()
     {
         UIScreenManager.instance.HideAllScreens();
-        if (LevelManager.instance.HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
 
         HideUI();
     }

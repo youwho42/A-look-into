@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
-
+using System.Linq;
 
 public class CharacterChoiceUI : MonoBehaviour
 {
@@ -35,16 +36,17 @@ public class CharacterChoiceUI : MonoBehaviour
         chooseSpriteResolver.SetCategoryAndLabel("Player", PlayerInformation.instance.characterManager.baseCharacters[0]);
         //Changes the character limit in the main input field.
         playerNameInputField.characterLimit = 12;
+
         CheckPlayerNameValid();
-        
         HideUI();
     }
 
     public void ShowUI()
     {
-        
+        CheckPlayerNameValid();
         characterChoiceCameraObject.SetActive(true);
         SetRandomCharacter();
+        ChangeSprite(1);
     }
     public void HideUI()
     {
@@ -87,14 +89,18 @@ public class CharacterChoiceUI : MonoBehaviour
     }
     void SetPlayerName()
     {
+        
+
         PlayerInformation.instance.SetPlayerName(playerNameInputField.text);
     }
     public void CheckPlayerNameValid()
     {
-        if(playerNameInputField.text == "")
+        bool valid = playerNameInputField.text.All(c => char.IsLetterOrDigit(c));
+        if (string.IsNullOrWhiteSpace(playerNameInputField.text) || !valid)
             acceptButton.interactable = false;
         else
             acceptButton.interactable = true;
+        
     }
 
     public void CharacterNameEnter()

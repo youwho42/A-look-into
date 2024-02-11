@@ -46,6 +46,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
     {
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
+        UIScreenManager.instance.DisplayPlayerHUD(true);
         villageDesk = desk;
         SetVillageButtons();
     }
@@ -55,8 +56,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         UIScreenManager.instance.HideAllScreens();
-        if (LevelManager.instance.HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
     }
 
     void SetVillageButtons()

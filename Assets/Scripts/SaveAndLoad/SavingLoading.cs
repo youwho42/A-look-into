@@ -24,7 +24,7 @@ namespace Klaxon.SaveSystem
         private string LoadPath;
 
 
-        public void Save()
+        public void SaveGame()
         {
             SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
             DeleteFile(SavePath);
@@ -37,7 +37,7 @@ namespace Klaxon.SaveSystem
 
 
 
-        public void Load(string fileName)
+        public void LoadGame(string fileName)
         {
             var state = LoadFile(fileName);
             RestoreState(state);

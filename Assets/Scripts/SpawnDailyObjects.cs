@@ -11,8 +11,6 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
 
     public bool hideOnStart;
     
-    int hourToDailySpawn = 5;
-
     List<Transform> spawnPoints = new List<Transform>();
 
     private void Start()
@@ -29,7 +27,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
                 spawnPoints.Add(points[i]);
         }
         //GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
-        SetToManager();
+        //SetToManager();
         SpawnObjects();
     }
 
@@ -74,8 +72,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         SpawnObjects();
     }
 
-    public void SetToManager()
-    {
-        ResetAtDawnManager.instance.AddToManager(this);
-    }
+    //public void SetToManager()
+    //{
+    //    ResetAtDawnManager.instance.AddToManager(this);
+    //}
 }

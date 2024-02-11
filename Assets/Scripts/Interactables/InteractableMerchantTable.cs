@@ -51,15 +51,14 @@ namespace Klaxon.Interactable
         private void OpenMerchantTable()
         {
             UIScreenManager.instance.DisplayScreen(UIScreenType.MerchantTableScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(true);
             merchantTable.SetMerchantUI(item, amount, this);
         }
 
         private void CloseMerchantTable()
         {
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
         }
 
         public void RemoveItems(int quantity)

@@ -39,15 +39,14 @@ namespace Klaxon.Interactable
         private void OpenVillageDesk()
         {
             UIScreenManager.instance.DisplayScreen(UIScreenType.VillageDesk);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(true);
             VillageDeskDisplayUI.instance.ShowUI(villageDesk);
         }
 
         private void CloseVillageDesk()
         {
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
             VillageDeskDisplayUI.instance.HideUI();
         }
 

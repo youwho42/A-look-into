@@ -79,7 +79,7 @@ namespace Klaxon.Interactable
         private void OpenCrafting()
         {
             UIScreenManager.instance.DisplayScreen(UIScreenType.CraftingStationScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(true);
             selfInventory = selfInventory != null ? selfInventory : playerInformation.playerInventory;
             craftingDisplay.ShowUI(craftingHandler, recipeDatabase, selfInventory);
         }
@@ -87,8 +87,7 @@ namespace Klaxon.Interactable
         private void CloseCrafting()
         {
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
             craftingDisplay.HideUI();
         }
     }

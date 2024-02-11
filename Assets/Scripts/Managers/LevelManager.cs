@@ -160,8 +160,8 @@ public class LevelManager : MonoBehaviour
         isInCutscene = false;
         PlayerInformation.instance.TogglePlayerInput(true);
         GameEventManager.onPlayerPositionUpdateEvent.Invoke();
-        if (HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
+        GameEventManager.onStatUpdateEvent.Invoke();
     }
 
     public void ToggleVSync()
@@ -228,14 +228,14 @@ public class LevelManager : MonoBehaviour
 
     public void SaveGame()
     {
-        SavingLoading.instance.Save();
+        SavingLoading.instance.SaveGame();
         savedAlert.SetActive(true);
     }
 
-    private void ChangeLevel(string levelName)
-    {
-        StartCoroutine(ChangeLevelCo(levelName));
-    }
+    //private void ChangeLevel(string levelName)
+    //{
+    //    StartCoroutine(ChangeLevelCo(levelName));
+    //}
 
     private void LoadLevel(string levelName, string loadFileName)
     {
@@ -262,8 +262,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
-            if(HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
             PlayerInformation.instance.TogglePlayerInput(true);
         }
         savedAlert.SetActive(false);
@@ -315,29 +314,30 @@ public class LevelManager : MonoBehaviour
     }
 
     
-    IEnumerator ChangeLevelCo (string levelName)
-    {
-        AsyncOperation currentLevelLoading =  SceneManager.LoadSceneAsync(levelName);
-        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
+    //IEnumerator ChangeLevelCo (string levelName)
+    //{
+    //    AsyncOperation currentLevelLoading =  SceneManager.LoadSceneAsync(levelName);
+    //    UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+    //    UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
         
-        while (!currentLevelLoading.isDone)
-        {
-            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+    //    while (!currentLevelLoading.isDone)
+    //    {
+    //        float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
-            loadScreenSlider.value = progress;
-            text.text = $"Loading: {Mathf.RoundToInt(progress * 100)}%";
+    //        loadScreenSlider.value = progress;
+    //        text.text = $"Loading: {Mathf.RoundToInt(progress * 100)}%";
 
-            yield return null;
-        }
+    //        yield return null;
+    //    }
 
-        UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
+    //    UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
 
-    }
+    //}
 
     IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
         GameEventManager.onGameStartLoadEvent.Invoke();
+        UIScreenManager.instance.DisplayPlayerHUD(false);
         UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
         UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
         UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
@@ -387,7 +387,7 @@ public class LevelManager : MonoBehaviour
         text.text = "Loading data from save.";
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
-        SavingLoading.instance.Load(loadFileName);
+        SavingLoading.instance.LoadGame(loadFileName);
         PlayerDistanceToggle.instance.PopulateLists();
 
         yield return new WaitForSecondsRealtime(0.5f);
@@ -397,14 +397,14 @@ public class LevelManager : MonoBehaviour
         playerMaterial.SetFloat("_Fade", 0);
         
         GameEventManager.onGameLoadedEvent.Invoke();
+        
         yield return new WaitForSecondsRealtime(3f);
        
 
         Time.timeScale = 1;
         UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
-        if(HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        
+        UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
+        GameEventManager.onStatUpdateEvent.Invoke();
         yield return new WaitForSecondsRealtime(0.1f);
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
         yield return new WaitForSecondsRealtime(1.5f);

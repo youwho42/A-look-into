@@ -18,6 +18,7 @@ namespace Klaxon.StatSystem
         private void OnDisable()
         {
             GameEventManager.onTimeTickEvent.RemoveListener(TickModifierTimers);
+            ResetStats();
         }
 
         void TickModifierTimers(int tick)

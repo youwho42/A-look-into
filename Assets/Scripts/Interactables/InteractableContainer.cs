@@ -91,8 +91,7 @@ namespace Klaxon.Interactable
             if (!isOpen)
                 return;
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            
             containerUI.HideContainerUI();
             isOpen = false;
         }

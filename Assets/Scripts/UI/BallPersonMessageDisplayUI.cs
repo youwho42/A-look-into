@@ -66,7 +66,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void CloseMessageUI()
     {
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         PlayerInformation.instance.playerInput.isInUI = false;
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);

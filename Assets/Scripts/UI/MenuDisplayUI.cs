@@ -21,7 +21,7 @@ public class MenuDisplayUI : MonoBehaviour
         GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
         maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEventManager.onMenuToggleEvent.RemoveListener(ToggleDisplayUI);
         GameEventManager.onMenuDisplayEvent.RemoveListener(DisplayMenuUI);
@@ -39,6 +39,7 @@ public class MenuDisplayUI : MonoBehaviour
     MenuButtons currentButton;
     int currentButtonIndex;
     int maxButtons;
+
     void DisplayMenuUI()
     {
         if (MiniGameManager.instance.gameStarted)
@@ -49,7 +50,7 @@ public class MenuDisplayUI : MonoBehaviour
                 return;
             GameEventManager.onInventoryUpdateEvent.Invoke();
             SetInventoryUI();
-            
+            UIScreenManager.instance.DisplayPlayerHUD(true);
         }
         
     }
@@ -62,6 +63,7 @@ public class MenuDisplayUI : MonoBehaviour
             if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
                 return;
             SetMapUI();
+            UIScreenManager.instance.DisplayPlayerHUD(true);
         }
     }
     void ToggleDisplayUI()
@@ -70,6 +72,8 @@ public class MenuDisplayUI : MonoBehaviour
             DisplayMenuUI();
         else
             HideAllMenuUI();
+            
+        
     }
     void ChangeUI(int dir)
     {
@@ -106,7 +110,6 @@ public class MenuDisplayUI : MonoBehaviour
         ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
         tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.MapScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
@@ -122,7 +125,6 @@ public class MenuDisplayUI : MonoBehaviour
         ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
         tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.CompendiumScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
@@ -138,7 +140,6 @@ public class MenuDisplayUI : MonoBehaviour
         ChangeControlTextInventory(PlayerInformation.instance.playerInput.currentControlScheme);
         tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.InventoryScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
@@ -154,7 +155,6 @@ public class MenuDisplayUI : MonoBehaviour
         ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
         tipPanel.gameObject.SetActive(true);
         UIScreenManager.instance.DisplayScreen(UIScreenType.Undertakings);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
         UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
@@ -171,8 +171,7 @@ public class MenuDisplayUI : MonoBehaviour
         if (!inMenu || PlayerInformation.instance.isDragging)
             return;
         UIScreenManager.instance.HideAllScreens();
-        if (LevelManager.instance.HUDBinary == 1)
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
         PlayerInformation.instance.TogglePlayerInput(true);
         PlayerInformation.instance.uiScreenVisible = false;
         SetButtonSelectedColor(map, false);

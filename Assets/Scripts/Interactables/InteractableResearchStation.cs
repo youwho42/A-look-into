@@ -40,15 +40,14 @@ namespace Klaxon.Interactable
         private void OpenResearch()
         {
             UIScreenManager.instance.DisplayScreen(UIScreenType.ResearchStationScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(true);
             ResearchStationDisplayUI.instance.ShowUI();
         }
 
         private void CloseResearch()
         {
             UIScreenManager.instance.HideAllScreens();
-            if (LevelManager.instance.HUDBinary == 1)
-                UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
             ResearchStationDisplayUI.instance.HideUI();
         }
 

@@ -38,7 +38,7 @@ namespace Klaxon.Interactable
             source = GetComponent<AudioSource>();
             particles = GetComponent<ParticlesToPlayer>();
             agencySpawnDisplacement = GetComponent<DrawZasYDisplacement>();
-            SetToManager();
+            //SetToManager();
             //GameEventManager.onTimeHourEvent.AddListener(ResetStatue);
         }
         //public void OnDisable()
@@ -159,10 +159,10 @@ namespace Klaxon.Interactable
 
         }
 
-        public void SetToManager()
-        {
-            ResetAtDawnManager.instance.AddToManager(this);
-        }
+        //public void SetToManager()
+        //{
+        //    ResetAtDawnManager.instance.AddToManager(this);
+        //}
     }
 
 }

@@ -70,8 +70,8 @@ namespace Klaxon.ConversationSystem
                 currentInteractable.canInteract = true;
                 UIScreenManager.instance.HideAllScreens();
 
-                if (LevelManager.instance.HUDBinary == 1)
-                    UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+               
+                //UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
                 PlayerInformation.instance.uiScreenVisible = false;
                 PlayerInformation.instance.TogglePlayerInput(true);
 

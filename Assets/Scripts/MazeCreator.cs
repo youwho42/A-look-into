@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using Klaxon.Interactable;
+using Klaxon.SaveSystem;
 using System;
 using System.Linq;
+
 namespace Klaxon.MazeTech
 {
     public class MazeTile
@@ -291,6 +293,10 @@ namespace Klaxon.MazeTech
                 {
                     float height = 0.6f;
                     i.visualItem.transform.localPosition = new Vector3(0, 0.2990625f * height, height);
+                }
+                if (go.TryGetComponent(out SaveableItemEntity saveable))
+                {
+                    saveable.GenerateId();
                 }
             }
         }

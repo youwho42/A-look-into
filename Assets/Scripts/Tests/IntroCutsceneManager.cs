@@ -51,7 +51,7 @@ public class IntroCutsceneManager : MonoBehaviour
     public void SaveGameStart()
     {
         RealTimeDayNightCycle.instance.isPaused = false;
-        SavingLoading.instance.Save();
+        SavingLoading.instance.SaveGame();
     }
 
     public void SetPlayerActive()

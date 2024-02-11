@@ -59,9 +59,6 @@ public class LocalGoodDisplayUI : MonoBehaviour
 
     }
 
-    
-
-
     public void UpdateGoodsUI()
     {
         ClearSlots();
@@ -71,12 +68,18 @@ public class LocalGoodDisplayUI : MonoBehaviour
 
             GameObject newSlot = Instantiate(containerSlot, playerSlotHolder.transform);
             playerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
+            var s = newSlot.GetComponent<ContainerDisplaySlot>();
+            s.isContainerSlot = false;
+            s.canTransfer = true;
         }
         for (int i = 0; i < containerInventory.Stacks.Count; i++)
         {
 
             GameObject newSlot = Instantiate(containerSlot, localGoodsSlotHolder.transform);
             containerSlots.Add(newSlot.GetComponent<ContainerDisplaySlot>());
+            var s = newSlot.GetComponent<ContainerDisplaySlot>();
+            s.isContainerSlot = true;
+            s.canTransfer = true;
         }
 
         foreach (ContainerDisplaySlot containerSlot in containerSlots)

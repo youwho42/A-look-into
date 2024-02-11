@@ -57,6 +57,8 @@ namespace Klaxon.SaveSystem
             GameEventManager.onStatUpdateEvent.Invoke();
         }
 
+        
+
         [Serializable]
         private struct SaveData
         {

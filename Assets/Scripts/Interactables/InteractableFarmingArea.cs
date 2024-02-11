@@ -27,14 +27,14 @@ namespace Klaxon.Interactable
         private void OpenFarming()
         {
             UIScreenManager.instance.DisplayScreen(UIScreenType.CraftingStationScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            //UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
             isOpen = true;
         }
 
         private void CloseFarming()
         {
             UIScreenManager.instance.HideScreens(UIScreenType.CraftingStationScreen);
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+            //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
             isOpen = false;
         }
     }

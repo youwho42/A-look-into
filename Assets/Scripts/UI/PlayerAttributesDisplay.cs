@@ -14,7 +14,6 @@ public class PlayerAttributesDisplay : MonoBehaviour
     public TextMeshProUGUI sparksText;
     public RectTransform bounceUI, gumptionUI, agencyUI, sparkUI;
     Vector2 bouncePos, gumptionPos, agencyPos, sparksPos;
-    //PlayerInformation playerInformation;
     float lastBounce;
     float lastGumption;
     int lastAgency;
@@ -23,27 +22,24 @@ public class PlayerAttributesDisplay : MonoBehaviour
     float shakeTime = 0.1f;
     float decreaseFactor = 1.0f;
     float shakeDistance = 4f;
+
     private void Start()
     {
-        //playerInformation = PlayerInformation.instance;
         GameEventManager.onStatUpdateEvent.AddListener(UpdateStatsUI);
+        
         bouncePos = bounceUI.anchoredPosition;
         gumptionPos = gumptionUI.anchoredPosition;
         agencyPos = agencyUI.anchoredPosition;
         sparksPos = sparkUI.anchoredPosition;
-    }
-    //private void OnEnable()
-    //{
-    //    lastBounce = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
-    //    lastAgency = (int)PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Agency");
-    //    bounceSlider.value = lastBounce;
-    //    agencyText.text = lastAgency.ToString();
         
-    //}
-    private void OnDisable()
+        gameObject.SetActive(false);
+    }
+    
+    private void OnDestroy()
     {
         GameEventManager.onStatUpdateEvent.RemoveListener(UpdateStatsUI);
     }
+
     private void UpdateStatsUI()
     {
         if (!gameObject.activeSelf)
@@ -83,8 +79,8 @@ public class PlayerAttributesDisplay : MonoBehaviour
         bounceSlider.value = lastBounce;
         gumptionSlider.maxValue = newMaxGumption;
         gumptionSlider.value = lastGumption;
-        bounceText.text = $"<sprite anim=\"6,21,12\"> {newCurrentBounce}/{newMaxBounce}";
-        gumptionText.text = $"<sprite name=\"Gumption\"> {newCurrentGumption}/{newMaxGumption}";
+        bounceText.text = $"<sprite anim=\"6,21,12\"> {Mathf.FloorToInt(newCurrentBounce)}/{Mathf.FloorToInt(newMaxBounce)}";
+        gumptionText.text = $"<sprite name=\"Gumption\"> {Mathf.FloorToInt(newCurrentGumption)}/{Mathf.FloorToInt(newMaxGumption)}";
         agencyText.text = $"<sprite name=\"Agency\"> {lastAgency}";
         sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
 

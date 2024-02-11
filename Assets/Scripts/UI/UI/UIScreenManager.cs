@@ -14,6 +14,8 @@ public class UIScreenManager : MonoBehaviour
             Destroy(gameObject);
     }
     public List<GameObject> screens = new List<GameObject>();
+    public UIScreen playerHUD;
+    public UIScreen tabbedMenu;
 
    
     private UIScreenType currentScreen;
@@ -22,7 +24,16 @@ public class UIScreenManager : MonoBehaviour
 
     private void Start()
     {
-        
+        // using TAB to toggle tabbedMenu
+        GameEventManager.onMenuToggleEvent.AddListener(ToggleTabbedMenu);
+        // using gamepad UP to display tabbedMenu
+        GameEventManager.onMenuDisplayEvent.AddListener(GamepadDisplayTabbedMenu);
+        // using ESC to hide tabbedMenu
+        GameEventManager.onMenuHideEvent.AddListener(HideTabbedMenu);
+        // using gamepad B to hide tabbedMenu
+        GameEventManager.onMapDisplayEvent.AddListener(HideTabbedMenu);
+
+
         canChangeUI = true;
         foreach (GameObject go in screens)
         {
@@ -31,6 +42,39 @@ public class UIScreenManager : MonoBehaviour
             
         }
         DisplayScreen(UIScreenType.StartScreen);
+
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onMenuToggleEvent.RemoveListener(ToggleTabbedMenu);
+        GameEventManager.onMenuDisplayEvent.RemoveListener(GamepadDisplayTabbedMenu);
+        GameEventManager.onMenuHideEvent.RemoveListener(HideTabbedMenu);
+        GameEventManager.onMapDisplayEvent.RemoveListener(HideTabbedMenu);
+    }
+
+    void GamepadDisplayTabbedMenu()
+    {
+        DisplayTabbedMenu(true);
+    }
+    void HideTabbedMenu()
+    {
+        DisplayTabbedMenu(false);
+    }
+
+    void ToggleTabbedMenu()
+    {
+        DisplayTabbedMenu(!tabbedMenu.gameObject.activeInHierarchy);
+    }
+
+    public void DisplayTabbedMenu(bool state)
+    {
+        tabbedMenu.gameObject.SetActive(state);
+    }
+
+    public void DisplayPlayerHUD(bool state)
+    {
+        playerHUD.gameObject.SetActive(state);
     }
 
     public void DisplayAdditionalUI(UIScreenType screenType)
@@ -92,4 +136,14 @@ public class UIScreenManager : MonoBehaviour
     {
         return currentScreen;
     }
+
+
+    // dedicated main menu display
+    // dedicated pause menu display
+    // dedicated options menu => needs to know which of the above it came from to go back to
+        // try setting up a save system for the options
+
+    // done - dedicated playerHUD display
+    // dedicated tabbed menu display
+    // dedicated ingame ui display
 }
