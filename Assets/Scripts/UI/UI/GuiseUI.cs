@@ -33,6 +33,7 @@ public class GuiseUI : MonoBehaviour
         //Changes the character limit in the main input field.
         
         HideUI();
+        gameObject.SetActive(false);
     }
 
     public void ShowUI()
@@ -65,8 +66,7 @@ public class GuiseUI : MonoBehaviour
     
     public void CancelSelection()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+        UIScreenManager.instance.HideScreenUI();
 
         HideUI();
     }

@@ -33,4 +33,13 @@ public class GridManager : MonoBehaviour
         }
         return grid;
     }
+
+    public bool GetTileValid(Vector3 position)
+    {
+        var tile = groundMap.WorldToCell(position) - Vector3Int.forward;
+        var tileAbove = tile + Vector3Int.forward;
+        if (groundMap.GetTile(tile) != null && groundMap.GetTile(tileAbove) == null)
+            return true;
+        return false;
+    }
 }

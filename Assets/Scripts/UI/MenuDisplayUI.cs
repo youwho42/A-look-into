@@ -10,23 +10,22 @@ public class MenuDisplayUI : MonoBehaviour
     public Color selectedColor;
     public Color idleColor;
     public Button map, inventory, compendium, undertakings;
-    public TipPanelUI tipPanel;
+    public GameObject inventoryDisplaySection;
+    public GameObject mapDisplaySection;
+    public GameObject compendiumsDisplaySection;
+    public GameObject undertakingsDisplaySection;
 
     private void Start()
     {
-        GameEventManager.onMenuToggleEvent.AddListener(ToggleDisplayUI);
-        GameEventManager.onMenuDisplayEvent.AddListener(DisplayMenuUI);
-        GameEventManager.onMenuHideEvent.AddListener(HideAllMenuUI);
-        GameEventManager.onMapDisplayEvent.AddListener(DisplayMapUI);
+        
         GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
         maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
+        HideAllTabbedUI();
+        gameObject.SetActive(false);
     }
     private void OnDestroy()
     {
-        GameEventManager.onMenuToggleEvent.RemoveListener(ToggleDisplayUI);
-        GameEventManager.onMenuDisplayEvent.RemoveListener(DisplayMenuUI);
-        GameEventManager.onMenuHideEvent.RemoveListener(HideAllMenuUI);
-        GameEventManager.onMapDisplayEvent.RemoveListener(DisplayMapUI);
+        
         GameEventManager.onGamepadBumpersButtonEvent.RemoveListener(ChangeUI);
     }
     enum MenuButtons
@@ -105,14 +104,34 @@ public class MenuDisplayUI : MonoBehaviour
         }
     }
 
+    void HideAllTabbedUI()
+    {
+        inventoryDisplaySection.SetActive(false);
+        mapDisplaySection.SetActive(false);
+        compendiumsDisplaySection.SetActive(false);
+        undertakingsDisplaySection.SetActive(false);
+        UIScreenManager.instance.SetMapOpen(false);
+    }
+
+    public void SetInventoryUI()
+    {
+        ChangeControlTextInventory(PlayerInformation.instance.playerInput.currentControlScheme);
+        HideAllTabbedUI();
+        inventoryDisplaySection.SetActive(true);
+        
+        SetButtonSelectedColor(map, false);
+        SetButtonSelectedColor(inventory, true);
+        SetButtonSelectedColor(compendium, false);
+        SetButtonSelectedColor(undertakings, false);
+        currentButtonIndex = (int)MenuButtons.Inventory;
+        inMenu = true;
+    }
     public void SetMapUI()
     {
-        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
-        tipPanel.gameObject.SetActive(true);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.MapScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        UIScreenManager.instance.CloseTipPanel();
+        HideAllTabbedUI();
+        mapDisplaySection.SetActive(true);
+        UIScreenManager.instance.SetMapOpen(true);
         SetButtonSelectedColor(map, true);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
@@ -122,12 +141,9 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetCompendiumUI()
     {
-        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
-        tipPanel.gameObject.SetActive(true);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.CompendiumScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        UIScreenManager.instance.CloseTipPanel(); HideAllTabbedUI();
+        compendiumsDisplaySection.SetActive(true);
+        
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, true);
@@ -135,29 +151,12 @@ public class MenuDisplayUI : MonoBehaviour
         currentButtonIndex = (int)MenuButtons.Compendium;
         inMenu = true;
     }
-    public void SetInventoryUI()
-    {
-        ChangeControlTextInventory(PlayerInformation.instance.playerInput.currentControlScheme);
-        tipPanel.gameObject.SetActive(true);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.InventoryScreen);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
-        SetButtonSelectedColor(map, false);
-        SetButtonSelectedColor(inventory, true);
-        SetButtonSelectedColor(compendium, false);
-        SetButtonSelectedColor(undertakings, false);
-        currentButtonIndex = (int)MenuButtons.Inventory;
-        inMenu = true;
-    }
+   
     public void SetUndertakingsUI()
     {
-        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
-        tipPanel.gameObject.SetActive(true);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.Undertakings);
-        UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.MenuScreen);
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        UIScreenManager.instance.CloseTipPanel(); HideAllTabbedUI();
+        undertakingsDisplaySection.SetActive(true);
+        
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
@@ -170,17 +169,17 @@ public class MenuDisplayUI : MonoBehaviour
         
         if (!inMenu || PlayerInformation.instance.isDragging)
             return;
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
-        PlayerInformation.instance.TogglePlayerInput(true);
-        PlayerInformation.instance.uiScreenVisible = false;
+        UIScreenManager.instance.HideScreenUI();
+        
         SetButtonSelectedColor(map, false);
         SetButtonSelectedColor(inventory, false);
         SetButtonSelectedColor(compendium, false);
         SetButtonSelectedColor(undertakings, false);
         inMenu = false;
-        tipPanel.gameObject.SetActive(false);
+        
     }
+
+    
 
     void SetButtonSelectedColor(Button butt, bool selected)
     {
@@ -212,27 +211,8 @@ public class MenuDisplayUI : MonoBehaviour
         }
 
         displayText = $"{t0} select - {t1} > equip / unequip / consume - {t2} > place item in world - {t3} > close";
-        tipPanel.SetTipPanel(displayText);
+        UIScreenManager.instance.SetTipPanel(displayText);
 
     }
-    void ChangeControlText(string text)
-    {
-        string displayText = "";
-        string t1 = "";
-        
-        if (text == "Gamepad")
-        {
-            t1 = "B";
-            
-        }
-        else
-        {
-            t1 = "Tab";
-            
-        }
-
-        displayText = $"{t1} > close";
-        tipPanel.SetTipPanel(displayText);
-
-    }
+    
 }

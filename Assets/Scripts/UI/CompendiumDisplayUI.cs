@@ -84,7 +84,17 @@ public class CompendiumDisplayUI : MonoBehaviour
         playerNoteCompendium = playerInformation.playerNotesCompendiumDatabase;
         playerGuideCompendium = playerInformation.playerGuidesCompendiumDatabase;
 
-        compendiumUI.SetActive(false);
+        //compendiumUI.SetActive(false);
+        
+        maxItemTypes = System.Enum.GetValues(typeof(ItemType)).Length;
+
+        SetCompendiumTypeAnimal();
+        UpdateCompendiumList();
+    }
+
+    private void OnEnable()
+    {
+        ClearItemInformation();
         GameEventManager.onAnimalCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onResourceCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onRecipeCompediumUpdateEvent.AddListener(UpdateCompendiumList);
@@ -92,12 +102,10 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onGuideCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onGamepadTriggersButtonEvent.AddListener(ChangeDisplayUI);
 
-        maxItemTypes = System.Enum.GetValues(typeof(ItemType)).Length;
-
-        SetCompendiumTypeAnimal();
-        UpdateCompendiumList();
     }
-    private void OnDestroy()
+
+
+    private void OnDisable()
     {
         GameEventManager.onAnimalCompediumUpdateEvent.RemoveListener(UpdateCompendiumList);
         GameEventManager.onResourceCompediumUpdateEvent.RemoveListener(UpdateCompendiumList);
@@ -107,6 +115,8 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onGamepadTriggersButtonEvent.RemoveListener(ChangeDisplayUI);
 
     }
+    
+
     public void ShowUI()
     {
         PlayerInformation.instance.uiScreenVisible = true;
@@ -120,11 +130,7 @@ public class CompendiumDisplayUI : MonoBehaviour
 
         playerInformation.TogglePlayerInput(true);
     }
-    private void OnEnable()
-    {
-        ClearItemInformation();
-    }
-
+    
     void ChangeDisplayUI(int dir)
     {
         if (!compendiumUI.activeInHierarchy)

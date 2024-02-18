@@ -28,10 +28,12 @@ namespace Klaxon.Interactable
         private void Read()
         {
 
-            UIScreenManager.instance.DisplayScreen(UIScreenType.DialogueDisplayScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-            PlayerInformation.instance.uiScreenVisible = true;
-            PlayerInformation.instance.TogglePlayerInput(false);
+            if(UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
+            {
+                PlayerInformation.instance.uiScreenVisible = true;
+                PlayerInformation.instance.TogglePlayerInput(false);
+            }
+            
 
         }
 

@@ -24,35 +24,23 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (!isOpen)
-            {
-                var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-                if (UIScreenManager.instance.CurrentUIScreen() == screen)
-                {
-                    OpenLocalGoods();
-                    isOpen = true;
-                }
-
-            }
-            else
-            {
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
+                OpenLocalGoods();
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.LocalGoodsUI)
                 CloseLocalGoods();
-                isOpen = false;
-            }
         }
 
         private void OpenLocalGoods()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.LocalGoods);
-            UIScreenManager.instance.DisplayPlayerHUD(true);
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.LocalGoodsUI, true);
             LocalGoodDisplayUI.instance.ShowGoodsUI(inventory, validType, priceMultiplier, localizedShopName.GetLocalizedString());
         }
 
         private void CloseLocalGoods()
         {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
             LocalGoodDisplayUI.instance.HideGoodsUI();
+            UIScreenManager.instance.HideScreenUI();
+            
         }
     } 
 }

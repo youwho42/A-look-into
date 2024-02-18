@@ -256,7 +256,7 @@ public class LevelManager : MonoBehaviour
         {
             UIScreenManager.instance.HideAllScreens();
             UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
+            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerHUD);
             PlayerInformation.instance.TogglePlayerInput(false);
         }
         else

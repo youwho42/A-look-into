@@ -35,13 +35,13 @@ namespace Klaxon.Interactable
         }
         private void OpenTeleporter()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
+            //UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
             teleportUI.ShowUI(teleport);
         }
 
         private void CloseTeleporter()
         {
-            UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
+            //UIScreenManager.instance.HideScreens(UIScreenType.ContainerScreen);
             //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
             teleportUI.HideUI();
         }

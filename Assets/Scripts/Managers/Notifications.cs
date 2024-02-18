@@ -23,6 +23,7 @@ public enum NotificationsType
     UndertakingStart,
     UndertakingComplete,
     Warning,
+    Map,
     None
 }
 
@@ -153,5 +154,11 @@ public class Notifications : MonoBehaviour
                 col = notificationColors[i];
         }
         return col;
+    }
+
+    public void ClearNotifications()
+    {
+        currentNotificationCount = 0;
+        allNotifications.Clear();
     }
 }

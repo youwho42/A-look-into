@@ -20,26 +20,28 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            //if (!isOpen)
-            //{
-            var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-            if (UIScreenManager.instance.CurrentUIScreen() == screen)
-            {
+            
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 OpenSleeping();
-                isOpen = true;
-            }
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.SleepUI && !SleepDisplayUI.instance.isSleeping)
+                CloseSleeping();
 
             
+
         }
 
         private void OpenSleeping()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.SleepScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-            sleepDisplay.ShowUI();
+            if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.SleepUI, true))
+                sleepDisplay.ShowUI();
         }
 
-        
+        private void CloseSleeping()
+        {
+            UIScreenManager.instance.HideScreenUI();
+        }
+
+
     }
 
 }

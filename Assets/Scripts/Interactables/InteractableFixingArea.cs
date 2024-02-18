@@ -64,7 +64,7 @@ namespace Klaxon.Interactable
             }
 
             BallPersonMessageDisplayUI.instance.ShowFixingAreaIngredients(this, longInteractVerb.GetLocalizedString(), ingredients);
-            UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
             canInteract = false;
         }
 

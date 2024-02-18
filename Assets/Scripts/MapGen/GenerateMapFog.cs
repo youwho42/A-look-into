@@ -43,8 +43,8 @@ public class GenerateMapFog : MonoBehaviour
     private void Boop()
     {
         offset.x -= 0.025f;
-        if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.MapScreen)
-            GenerateMapFromNoise();
+        //if (UIScreenManager.instance.CurrentUIScreen() == UIScreenType.MapScreen)
+        GenerateMapFromNoise();
     }
 
     [ContextMenu("Generate Map Fog Image")]

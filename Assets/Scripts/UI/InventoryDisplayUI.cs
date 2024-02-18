@@ -36,7 +36,7 @@ public class InventoryDisplayUI : MonoBehaviour
 
         
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
         
         GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);

@@ -20,12 +20,12 @@ public class PlayerUseEquipment : MonoBehaviour
     }
 
     
-
+    
     void UseEquipment()
     {
-        if (PlayerInformation.instance.uiScreenVisible || equipmentManager.currentEquipment[(int)EquipmentSlot.Hands] == null)
+        if (equipmentManager.currentEquipment[(int)EquipmentSlot.Hands] == null || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
             return;
-
+        
         if (equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName == "Spyglass")
         {
             if (PlayerInformation.instance.playerActivateSpyglass.selectedAnimal == null)

@@ -19,7 +19,7 @@ Blu - Slick dialogue:
 (ADDED)
     First NPC's, the mice drawn by Cryssball, named Ramiro and Manuela
 
-(THIS IS ADDED, ALTHOUGH OF NO USE SO FAR)
+
 	Gumption named by ChaosTails
 		This is your ability to interact with NPC's. Each interaction diminishes you gumption,
 		making you need to choose who and how many people you interact with. Naturally sitting, intentionally sitting 
@@ -365,19 +365,53 @@ BUGS!!!!!!!!!!
 
 THINGS TO CHANGE
 	
-	!!you can talk to the chicken in the start menu if he wanjdersw right in to the invisible player.
+	
+	- check needed when you go to the main menu from a game about losing your progress. 
+		maybe "are you sure... last save x-amount-of-time ago."
 
+				- there was a wierd stick where there should not have been one, up top where stick licker spawns.
+
+	- "Too Far" notification turns up when you click on an inventory item without moving it.
+
+	- Why no interest in the camp area??!??
+
+	- Visual tutorial for crafting and research (arrows in a certain order).
+
+				- maybe add pulsing intensity going from furtherst player location towards current player location
+				- Maybe add to legend player trail color.
+	
+	- Need a button to reset the player position if you get stuck... figure out a place to reset the player (start area?)
+
+	- e to exit crafting et al. needs to be verys explicit. and esc to close it in any case.
+
+	- research/crafting station tutorial on first opening...
+
+	- Option for sprinting >> toggle/hold
+
+					- you can still harvest when in the pause menu, maybe just in the load menu?
+
+	- figure out how to add content to the game and not need people to restart the game when they update.
+
+	- INDISCERNIBLE KLAXON (Loud and un-noticed)
 
 CHANGELOG:
 	
-		Fixed:		You can now fix the crafting station, the player would get stuck in the crafting animation.
-		Fixed:		You can no longer have invalid characters in your name.
-		Fixed:		Time no longer freezes at 4:59am when the game is trying to respawn dropped items from trees and things.
-		Fixed:		Gathering crafted items from a specialized crafting station now goes in player inventory.
+	- Fixed:	You can no longer enter a conversation with an NPC if you are already in a menu.
+	- Fixed:	A followers could get stuck trying to do something impossible and had no way out of the loop.
+	- Fixed:	Gatherable items that spawn on the ground no longer spawn in invalid locations (for the most part).
+	- Fixed:	Early undertaking area did not show that you could interact with it.
+	- Fixed:	You can no longer get stuck on chicken houses.
+	- Fixed:	The recipe viewer in the compendiums was showing the wrong icon.
+	- Fixed:	No warning popup was showing when trying to harvest from something with the wrong tool or do not have the right tiered tool to use.
+	- Fixed:	Notification queue cleared when entering load screen.
+	- Added:	You now get a notification when the map has been updated with a new area.
+	- Changed:  Player location on map is now red with an orange back-trail instead of all yellow.
+	- Changed:	There is now a very short cooldown when resetting the player to not running.
+	
 
 COMMENTS
 		
-		Option for sprinting >> toggle/hold
+		
 
 
 ACHIEVEMENTS: (https://wiki.facepunch.com/steamworks/)

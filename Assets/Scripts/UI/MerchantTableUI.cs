@@ -18,6 +18,11 @@ public class MerchantTableUI : MonoBehaviour
             Destroy(this);
     }
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
+
     QI_ItemData item;
     int itemQuantity;
     public Image icon;
@@ -76,8 +81,8 @@ public class MerchantTableUI : MonoBehaviour
 
     public void HideUI()
     {
-        UIScreenManager.instance.HideAllScreens();
+        UIScreenManager.instance.HideScreenUI();
         merchantTable.isOpen = false;
-        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+        
     }
 }

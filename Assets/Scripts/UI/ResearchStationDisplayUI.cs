@@ -26,8 +26,8 @@ public class ResearchStationDisplayUI : MonoBehaviour
     List<ResearchStationInventorySlot> researchStationInventorySlots = new List<ResearchStationInventorySlot>();
     private void Start()
     {
-        researchStationUI.SetActive(false);
-        //playerInformation = PlayerInformation.instance;
+        
+        gameObject.SetActive(false);
         playerRecipes = PlayerCrafting.instance;
     }
 
@@ -36,14 +36,12 @@ public class ResearchStationDisplayUI : MonoBehaviour
         UpdateResearchDisplay();
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
-        //researchStationUI.SetActive(true);
     }
 
     public void HideUI()
     {
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
-        //researchStationUI.SetActive(false);
     }
     
     public void UpdateResearchDisplay()

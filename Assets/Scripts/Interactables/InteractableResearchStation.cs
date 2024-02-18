@@ -12,42 +12,35 @@ namespace Klaxon.Interactable
         public override void Start()
         {
             base.Start();
+            
             //researchDisplay = ResearchStationDisplayUI.instance;
         }
 
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (!isOpen)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
             {
                 if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
                     return;
-                var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-                if (UIScreenManager.instance.CurrentUIScreen() == screen)
-                {
-                    OpenResearch();
-                    isOpen = true;
-                }
-
+                
+                OpenResearch();
             }
-            else
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.ResearchStationUI)
             {
                 CloseResearch();
-                isOpen = false;
             }
         }
 
         private void OpenResearch()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.ResearchStationScreen);
-            UIScreenManager.instance.DisplayPlayerHUD(true);
-            ResearchStationDisplayUI.instance.ShowUI();
+            if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.ResearchStationUI, true))
+                ResearchStationDisplayUI.instance.ShowUI();
         }
 
         private void CloseResearch()
         {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+            UIScreenManager.instance.HideScreenUI();
             ResearchStationDisplayUI.instance.HideUI();
         }
 

@@ -18,6 +18,10 @@ public class LocalGoodDisplayUI : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
 
     public GameObject localGoodsSlotHolder;
     public GameObject playerSlotHolder;
@@ -39,8 +43,7 @@ public class LocalGoodDisplayUI : MonoBehaviour
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateGoodsUI);
 
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        
         containerInventory = container;
         validType = type;
         priceMultiplier = multiplier;
@@ -52,8 +55,7 @@ public class LocalGoodDisplayUI : MonoBehaviour
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateGoodsUI);
 
-        PlayerInformation.instance.uiScreenVisible = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
+        
         ClearSlots();
         
 

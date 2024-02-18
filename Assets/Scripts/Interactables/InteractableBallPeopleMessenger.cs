@@ -79,7 +79,7 @@ namespace Klaxon.Interactable
 
             // display recipe name and ingredients...
             // add recipe to player recipes
-            UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
             GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
             canInteract = false;
             //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);

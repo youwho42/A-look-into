@@ -60,7 +60,10 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     private void Start()
     {
-        craftingStationUI.SetActive(false);
+        gameObject.SetActive(false);
+    }
+    private void OnEnable()
+    {
         GameEventManager.onInventoryUpdateEvent.AddListener(SetContainerUI);
     }
     private void OnDisable()

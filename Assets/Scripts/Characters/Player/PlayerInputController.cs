@@ -23,7 +23,8 @@ public class PlayerInputController : MonoBehaviour
     public Vector2 rightStickPos;
     [HideInInspector]
     public string currentControlScheme = "Keyboard&Mouse";
-
+    float stopRunningTime = 0.3f;
+    float runningTimer;
     InteractWithInteractable interactable;
     float scrollY;
 
@@ -213,7 +214,19 @@ public class PlayerInputController : MonoBehaviour
             movement.y = Mathf.Clamp(movement.y, -0.578125f, 0.578125f);
             movement = movement.normalized;
             if (movement == Vector2.zero)
-                isRunning = false;
+            {
+                runningTimer += Time.deltaTime;
+                if (runningTimer >= stopRunningTime)
+                {
+                    isRunning = false;
+                    runningTimer = 0;
+                }
+            }
+            else
+            {
+                runningTimer = 0;
+            }
+                
 
             if (scrollY != 0)
                 GameEventManager.onMouseScrollEvent.Invoke(scrollY);
@@ -268,11 +281,13 @@ public class PlayerInputController : MonoBehaviour
 
     public void UseEquipementStart(InputAction.CallbackContext context)
     {
+        if (LevelManager.instance.inPauseMenu)
+            return;
         if (!isPaused || !isInUI)
             GameEventManager.onUseEquipmentEvent.Invoke();
         if (MiniGameManager.instance.gameStarted)
             GameEventManager.onMinigameMouseClickEvent.Invoke();
-        if(isInUI && UIScreenManager.instance.CurrentUIScreen() == UIScreenType.MapScreen)
+        if(isInUI && UIScreenManager.instance.GetMapOpen())
             GameEventManager.onMapClickEvent.Invoke();
     }
 
@@ -284,13 +299,14 @@ public class PlayerInputController : MonoBehaviour
             if (PlayerInformation.instance.uiScreenVisible)
             {
                 GameEventManager.onEscapeEvent.Invoke();
-                GameEventManager.onMenuHideEvent.Invoke();
+                
                 return;
             }
-                
+            
             isPaused = !isPaused;
             LevelManager.instance.Pause(isPaused);
         }
+        GameEventManager.onMenuHideEvent.Invoke();
     }
 
     public void InteractAction(InputAction.CallbackContext context)

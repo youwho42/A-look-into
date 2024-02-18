@@ -27,6 +27,9 @@ public class EquipmentGatherData : EquipmentData
     {
         base.UseEquippedItem();
         Vector3 pos;
+
+        if (LevelManager.instance.inPauseMenu)
+            return;
         
         if(this.AnimationName == "Spyglass")
         {
@@ -163,9 +166,11 @@ public class EquipmentGatherData : EquipmentData
                         if (none)
                         {
                             PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+                            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Wrong equipment"), null, 0, NotificationsType.Warning);
+
                             //NotificationManager.instance.SetNewNotification($"You cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.", NotificationManager.NotificationType.Warning);
                         }
-                        
+
                     }
                     else
                     {

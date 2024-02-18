@@ -30,9 +30,11 @@ public class UndertakingsDisplayUI : MonoBehaviour
     private void Start()
     {
         GameEventManager.onUndertakingsUpdateEvent.AddListener(SetAvailableUndertakings);
+        SetAvailableUndertakings();
+        ClearCurrentUndertaking();
     }
     
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEventManager.onUndertakingsUpdateEvent.RemoveListener(SetAvailableUndertakings);
     }

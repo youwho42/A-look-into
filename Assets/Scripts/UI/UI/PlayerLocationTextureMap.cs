@@ -65,7 +65,10 @@ public class PlayerLocationTextureMap : MonoBehaviour
         for (int i = 0; i < pos.Length; i++)
         {
             float alpha = MapNumber.Remap(i, 0, pos.Length - 1, 0, 1);
-            colorMap[pos[i]] = new Color(1, 1, 0, alpha);
+            if(alpha >= 1)
+                colorMap[pos[i]] = new Color(1f, 0, 0.1f, alpha);
+            else
+                colorMap[pos[i]] = new Color(1, 0.6f, 0, alpha);
         }
         texture.SetPixels(colorMap);
         texture.Apply();

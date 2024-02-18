@@ -44,8 +44,11 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         }
         foreach (var point in spawnPoints)
         {
+            if (!GridManager.instance.GetTileValid(point.position))
+                continue;
             if (Random.Range(0.0f, 1.0f) > 0.5f)
             {
+
                 var hit = Physics2D.OverlapCircle(point.position, .05f);
                 if (hit == null || hit.CompareTag("Grass"))
                 {

@@ -53,7 +53,7 @@ public class PlayerMarkerTextureMap : MonoBehaviour
 
     private void Start()
     {
-        GameEventManager.onMapClickEvent.AddListener(SetMarkerPosition);
+        
         markers = new Marker[maxMarkers];
         for (int i = 0; i < markers.Length; i++)
         {
@@ -62,6 +62,10 @@ public class PlayerMarkerTextureMap : MonoBehaviour
         DrawPlayerMap();
     }
 
+    private void OnEnable()
+    {
+        GameEventManager.onMapClickEvent.AddListener(SetMarkerPosition);
+    }
     private void OnDisable()
     {
         GameEventManager.onMapClickEvent.RemoveListener(SetMarkerPosition);

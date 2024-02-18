@@ -62,8 +62,13 @@ namespace Klaxon.SAP
 
             agent.walker.hasDeviatePosition = false;
 
+            if (agent.CheckPlayerDistance() > 4)
+            {
+                agent.SetBeliefState("PlayerFar", true);
+                agent.currentGoalComplete = true;
+                return;
+            }
 
-            
             agent.walker.SetWorldDestination(agent.currentSeekItemLocation);
             agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)

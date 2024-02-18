@@ -39,8 +39,12 @@ public class PlayerMapsManager : MonoBehaviour
     {
         foreach (var map in mapAreas)
         {
-            if (map.mapName == mapName)
+            if (map.mapName == mapName && !map.active)
+            {
                 map.active = true;
+               Notifications.instance.SetNewNotification("Map Added", null, 0, NotificationsType.Map);
+            }
+                
         }
     }
 }

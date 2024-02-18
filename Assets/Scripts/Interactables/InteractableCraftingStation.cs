@@ -17,6 +17,7 @@ namespace Klaxon.Interactable
         public override void Start()
         {
             base.Start();
+            
             craftingDisplay = CraftingStationDisplayUI.instance;
             craftingHandler = GetComponent<QI_CraftingHandler>();
         }
@@ -25,21 +26,19 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (!isOpen)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
             {
                 if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
                     return;
-                var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-                if (UIScreenManager.instance.CurrentUIScreen() == screen)
-                {
-                    OpenCrafting();
-                    isOpen = true;
-                }
+                
+                OpenCrafting();
+                
+                
             }
-            else
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.CraftingStationUI)
             {
                 CloseCrafting();
-                isOpen = false;
+               
             }
         }
 
@@ -78,18 +77,20 @@ namespace Klaxon.Interactable
 
         private void OpenCrafting()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.CraftingStationScreen);
-            UIScreenManager.instance.DisplayPlayerHUD(true);
-            selfInventory = selfInventory != null ? selfInventory : playerInformation.playerInventory;
-            craftingDisplay.ShowUI(craftingHandler, recipeDatabase, selfInventory);
+            if(UIScreenManager.instance.DisplayIngameUI(UIScreenType.CraftingStationUI, true))
+            {
+                selfInventory = selfInventory != null ? selfInventory : playerInformation.playerInventory;
+                craftingDisplay.ShowUI(craftingHandler, recipeDatabase, selfInventory);
+            }
+            
         }
 
         private void CloseCrafting()
         {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+            UIScreenManager.instance.HideScreenUI();
             craftingDisplay.HideUI();
         }
+        
     }
 
 }

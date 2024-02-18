@@ -13,12 +13,17 @@ public class UIScreenManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+    // old
     public List<GameObject> screens = new List<GameObject>();
-    public UIScreen playerHUD;
-    public UIScreen tabbedMenu;
-
-   
     private UIScreenType currentScreen;
+
+    // new
+    public MenuDisplayUI tabbedMenu;
+    public TipPanelUI tipsPanelUI;
+    bool mapIsOpen;
+    public List<GameObject> allScreens = new List<GameObject>();
+    
+    private UIScreenType currentUI;
 
     public bool canChangeUI;
 
@@ -29,9 +34,9 @@ public class UIScreenManager : MonoBehaviour
         // using gamepad UP to display tabbedMenu
         GameEventManager.onMenuDisplayEvent.AddListener(GamepadDisplayTabbedMenu);
         // using ESC to hide tabbedMenu
-        GameEventManager.onMenuHideEvent.AddListener(HideTabbedMenu);
-        // using gamepad B to hide tabbedMenu
-        GameEventManager.onMapDisplayEvent.AddListener(HideTabbedMenu);
+        GameEventManager.onMenuHideEvent.AddListener(HideScreenUI);
+        // using M to display tabbedMenu at Map
+        GameEventManager.onMapDisplayEvent.AddListener(DisplayMapMenu);
 
 
         canChangeUI = true;
@@ -49,33 +54,134 @@ public class UIScreenManager : MonoBehaviour
     {
         GameEventManager.onMenuToggleEvent.RemoveListener(ToggleTabbedMenu);
         GameEventManager.onMenuDisplayEvent.RemoveListener(GamepadDisplayTabbedMenu);
-        GameEventManager.onMenuHideEvent.RemoveListener(HideTabbedMenu);
-        GameEventManager.onMapDisplayEvent.RemoveListener(HideTabbedMenu);
+        GameEventManager.onMenuHideEvent.RemoveListener(HideScreenUI);
+        GameEventManager.onMapDisplayEvent.RemoveListener(DisplayMapMenu);
     }
 
     void GamepadDisplayTabbedMenu()
     {
-        DisplayTabbedMenu(true);
+        if (currentUI == UIScreenType.None)
+        {
+            tabbedMenu.SetInventoryUI();
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
+        }
+            
     }
-    void HideTabbedMenu()
+    public void HideScreenUI()
     {
-        DisplayTabbedMenu(false);
+        if (currentUI != UIScreenType.None && !SleepDisplayUI.instance.isSleeping)
+            DisplayScreenUI(currentUI, false);
     }
-
+    void DisplayMapMenu()
+    {
+        if (currentUI == UIScreenType.None)
+        {
+            tabbedMenu.SetMapUI();
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
+        }
+            
+    }
     void ToggleTabbedMenu()
     {
-        DisplayTabbedMenu(!tabbedMenu.gameObject.activeInHierarchy);
+        if (currentUI == UIScreenType.TabbedMenuUI || currentUI == UIScreenType.None)
+        {
+            tabbedMenu.SetInventoryUI();
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
+        }
+            
     }
 
-    public void DisplayTabbedMenu(bool state)
+    public void DisplayScreenUI(UIScreenType screenType, bool state)
     {
-        tabbedMenu.gameObject.SetActive(state);
+        if (MiniGameManager.instance.gameStarted || LevelManager.instance.isInCutscene)
+            return;
+        SetScreenUI(screenType, state);
+        
+        if (state)
+        {
+            currentUI = screenType;
+            DisplayPlayerHUD(true);
+        }
+        else
+        {
+            currentUI = UIScreenType.None;
+            DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+            CloseTipPanel();
+        }
+        canChangeUI = !state;
+        PlayerInformation.instance.playerInput.isInUI = state;
+        PlayerInformation.instance.uiScreenVisible = state;
+        PlayerInformation.instance.TogglePlayerInput(!state);
+    }
+    
+    void SetScreenUI(UIScreenType screenType, bool state)
+    {
+        foreach (var screen in allScreens)
+        {
+            if (screen.TryGetComponent(out UIScreen ui))
+            {
+                if (ui.GetScreenType() == screenType)
+                {
+                    screen.SetActive(state);
+                    break;
+                }
+
+            }
+        }
     }
 
     public void DisplayPlayerHUD(bool state)
     {
-        playerHUD.gameObject.SetActive(state);
+        SetScreenUI(UIScreenType.PlayerHUD, state);
+        //playerHUD.gameObject.SetActive(state);
     }
+
+    public bool DisplayIngameUI(UIScreenType screenType, bool state)
+    {
+        if (currentUI == screenType || currentUI == UIScreenType.None)
+        {
+            DisplayScreenUI(screenType, state);
+            return true;
+        }
+        return false;
+    }
+
+    public UIScreenType GetCurrentUI()
+    {
+        return currentUI;
+    }
+
+    public void SetTipPanel(string tiptText)
+    {
+        tipsPanelUI.SetTipPanel(tiptText);
+        tipsPanelUI.gameObject.SetActive(true);
+    }
+
+    public void CloseTipPanel()
+    {
+        tipsPanelUI.gameObject.SetActive(false);
+    }
+
+    public bool GetMapOpen()
+    {
+        return mapIsOpen;
+    }
+
+    public void SetMapOpen(bool state)
+    {
+        mapIsOpen = state;
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public void DisplayAdditionalUI(UIScreenType screenType)
     {
@@ -144,6 +250,6 @@ public class UIScreenManager : MonoBehaviour
         // try setting up a save system for the options
 
     // done - dedicated playerHUD display
-    // dedicated tabbed menu display
-    // dedicated ingame ui display
+    // done - dedicated tabbed menu display
+    // done - dedicated ingame ui display
 }

@@ -31,11 +31,15 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     //PlayerInformation playerInformation;
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
     public List<ContainerDisplaySlot> playerSlots = new List<ContainerDisplaySlot>();
-    public TipPanelUI tipPanel;
+    string tipText;
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     void ChangeControlText(string text)
     {
-        string displayText = "";
+        
         string t1 = "";
         string t2 = "";
         string t3 = "";
@@ -52,8 +56,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             t3 = "E";
         }
 
-        displayText = $"{t1} > transfer item - {t2} > transfer stack / {t3} > close";
-        tipPanel.SetTipPanel(displayText);
+        tipText = $"{t1} > transfer item - {t2} > transfer stack / {t3} > close";
+        UIScreenManager.instance.SetTipPanel(tipText);
 
     }
 
@@ -61,9 +65,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     public void ShowContainerUI(QI_Inventory container)
     {
         ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
-        tipPanel.gameObject.SetActive(true);
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        
+        
         containerInventory = container;
         containerName.text = LocalizationSettings.StringDatabase.GetLocalizedString("Items-Utility", container.Name);
         //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
@@ -71,11 +74,9 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     }
     public void HideContainerUI()
     {
-        tipPanel.gameObject.SetActive(false);
-        PlayerInformation.instance.uiScreenVisible = false;
+        
         ClearSlots();
         containerInventory = null;
-        PlayerInformation.instance.TogglePlayerInput(true);
     }
 
     void SetContainerUI()

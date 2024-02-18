@@ -8,7 +8,10 @@ public class TipPanelUI : MonoBehaviour
     
 
     public TextMeshProUGUI tipTextField;
-
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void SetTipPanel(string tipText)
     {
         tipTextField.text = tipText;

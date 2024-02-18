@@ -42,6 +42,10 @@ public class VillageDeskDisplayUI : MonoBehaviour
     public TextMeshProUGUI buttonText;
     IntVariable villageAreaTime;
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void ShowUI(FixVillageDesk desk)
     {
         PlayerInformation.instance.uiScreenVisible = true;

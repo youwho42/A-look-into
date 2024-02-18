@@ -26,9 +26,13 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     bool destroyOnClose;
     InteractableFixingArea fixingArea;
 
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void ShowFixingAreaIngredients(InteractableFixingArea fixingArea, string messageName, string messageDescription)
     {
-        SetPlayer();
+        //SetPlayer();
         this.fixingArea = fixingArea;
         messageTitle.text = messageName;
         messageContent.text = messageDescription;
@@ -37,7 +41,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void ShowHowTo(string messageName, string messageDescription)
     {
-        SetPlayer();
+        //SetPlayer();
         messageTitle.text = messageName;
         messageContent.text = messageDescription;
         destroyOnClose = false;
@@ -45,7 +49,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void ShowBallPersonMessageUI(IBallPerson messengerAI, string messageName, string messageDescription)
     {
-        SetPlayer();
+        //SetPlayer();
         ballPerson = messengerAI;
         messageTitle.text = messageName;
         messageContent.text = messageDescription;
@@ -55,7 +59,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking, bool _destroyOnClose)
     {
-        SetPlayer();
+        //SetPlayer();
         ballPerson = _ballPerson;
         undertaking = _undertaking;
         messageTitle.text = undertaking.localizedName.GetLocalizedString();
@@ -66,10 +70,10 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void CloseMessageUI()
     {
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-        PlayerInformation.instance.playerInput.isInUI = false;
-        PlayerInformation.instance.uiScreenVisible = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
+        UIScreenManager.instance.HideScreenUI();
+        //PlayerInformation.instance.playerInput.isInUI = false;
+        //PlayerInformation.instance.uiScreenVisible = false;
+        //PlayerInformation.instance.TogglePlayerInput(true);
         if(destroyOnClose)
             Invoke("DestroyMessenger", .1f);
         if(fixingArea != null)
@@ -79,12 +83,12 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         }
     }
 
-    void SetPlayer()
-    {
-        PlayerInformation.instance.playerInput.isInUI = true;
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
-    }
+    //void SetPlayer()
+    //{
+    //    PlayerInformation.instance.playerInput.isInUI = true;
+    //    PlayerInformation.instance.uiScreenVisible = true;
+    //    PlayerInformation.instance.TogglePlayerInput(false);
+    //}
 
     void DestroyMessenger()
     {

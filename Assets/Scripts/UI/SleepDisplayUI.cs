@@ -33,9 +33,8 @@ public class SleepDisplayUI : MonoBehaviour
     public StatChanger gumptionStatChanger;
     public void Start()
     {
-        //playerInformation = PlayerInformation.instance;
+        gameObject.SetActive(false);
         dayNightCycle = RealTimeDayNightCycle.instance;
-        //originalCycleSpeed = dayNightCycle.cycleSpeed;
     }
 
     private void Update()
@@ -57,9 +56,8 @@ public class SleepDisplayUI : MonoBehaviour
 
     public void HideUI()
     {
-        
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+
+        UIScreenManager.instance.HideScreenUI();
         isShowing = false;
     }
 
@@ -75,7 +73,7 @@ public class SleepDisplayUI : MonoBehaviour
         dayNightCycle.cycleSpeed = 1;
         isSleeping = false;
         HideUI();
-        sleepDisplay.SetActive(false);
+        
     }
     IEnumerator SleepCo()
     {

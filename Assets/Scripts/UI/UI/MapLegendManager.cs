@@ -21,7 +21,7 @@ public class MapLegendManager : MonoBehaviour
     void SetAllLegends()
     {
         var p = Instantiate(mapLegendOject, legendHolder);
-        p.SetLegend(new Color(1, 1, 0, 1), "Player");
+        p.SetLegend(new Color(1f, 0, 0.1f, 1), "Player");
         
         foreach (var item in tilemapToPNG.mapLayers)
         {

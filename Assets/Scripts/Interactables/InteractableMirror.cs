@@ -7,7 +7,6 @@ namespace Klaxon.Interactable
     public class InteractableMirror : Interactable
     {
 
-        public bool isOpen;
         public override void Start()
         {
             base.Start();
@@ -17,32 +16,23 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (!isOpen)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 OpenGuiseUI();
-            else
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.GuiseUI)
                 CloseGuiseUI();
 
         }
 
         void OpenGuiseUI()
         {
-
             PlayInteractSound();
-
-            UIScreenManager.instance.DisplayScreen(UIScreenType.GuiseScreen);
-            //UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.GuiseUI, true);
             GuiseUI.instance.ShowUI();
         }
         public void CloseGuiseUI()
         {
-
-            UIScreenManager.instance.HideAllScreens();
-            //if (LevelManager.instance.HUDBinary == 1)
-            //    UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
-
             GuiseUI.instance.HideUI();
-
+            UIScreenManager.instance.HideScreenUI();
         }
 
         void PlayInteractSound()

@@ -30,16 +30,12 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (!isOpen)
-            {
-                var screen = LevelManager.instance.HUDBinary == 0 ? UIScreenType.None : UIScreenType.PlayerUI;
-                if (UIScreenManager.instance.CurrentUIScreen() == screen)
-                {
-                    OpenMerchantTable();
-                    isOpen = true;
-                }
-            }
-            else
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
+                OpenMerchantTable();
+                    
+                
+            
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.MerchantTableUI)
             {
                 CloseMerchantTable();
                 isOpen = false;
@@ -50,15 +46,13 @@ namespace Klaxon.Interactable
 
         private void OpenMerchantTable()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.MerchantTableScreen);
-            UIScreenManager.instance.DisplayPlayerHUD(true);
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.MerchantTableUI, true);
             merchantTable.SetMerchantUI(item, amount, this);
         }
 
         private void CloseMerchantTable()
         {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+            UIScreenManager.instance.HideScreenUI();
         }
 
         public void RemoveItems(int quantity)

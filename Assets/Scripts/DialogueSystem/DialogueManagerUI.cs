@@ -29,7 +29,10 @@ namespace Klaxon.ConversationSystem
         public InteractableDialogue currentInteractable;
         int currentIndex;
         public bool isSpeaking;
-
+        private void Start()
+        {
+            gameObject.SetActive(false);
+        }
         private void OnEnable()
         {
             GameEventManager.onDialogueNextEvent.AddListener(DialogueNextActivate);
@@ -38,6 +41,9 @@ namespace Klaxon.ConversationSystem
 
         private void OnDisable()
         {
+            isSpeaking = false;
+            if(currentInteractable!=null)
+                currentInteractable.canInteract = true;
             GameEventManager.onDialogueNextEvent.RemoveListener(DialogueNextActivate);
         }
 
@@ -68,12 +74,7 @@ namespace Klaxon.ConversationSystem
             {
                 isSpeaking = false;
                 currentInteractable.canInteract = true;
-                UIScreenManager.instance.HideAllScreens();
-
-               
-                //UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
-                PlayerInformation.instance.uiScreenVisible = false;
-                PlayerInformation.instance.TogglePlayerInput(true);
+                UIScreenManager.instance.HideScreenUI();
 
             }
             

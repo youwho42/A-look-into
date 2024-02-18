@@ -97,8 +97,7 @@ namespace Klaxon.Interactable
             //if (SAP_WorldBeliefStates.instance.HasWorldState(instruction.condition.Condition, instruction.condition.State))
             //    return true;
             BallPersonMessageDisplayUI.instance.ShowHowTo(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString());
-            UIScreenManager.instance.DisplayScreen(UIScreenType.BallPersonUndertakingScreen);
-            //SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);            //SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
             return false;
         }
 

@@ -30,26 +30,27 @@ namespace Klaxon.Interactable
                 if (inventory == null)
                     inventory = GetComponentInParent<QI_Inventory>();
             }
-            GameEventManager.onEscapeEvent.AddListener(CloseContainer);
+           
+
+            
         }
 
-        private void OnDisable()
-        {
-            GameEventManager.onEscapeEvent.RemoveListener(CloseContainer);
-        }
-
+        
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
             
-            if (!isOpen)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
             {
                 if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
                     return;
                 OpenContainer();
             }
-            else
+            else if(UIScreenManager.instance.GetCurrentUI() == UIScreenType.ContainerUI)
+            {
                 CloseContainer();
+            }
+                
         }
 
         public override void LongInteract(GameObject interactor)
@@ -80,20 +81,14 @@ namespace Klaxon.Interactable
 
         private void OpenContainer()
         {
-            UIScreenManager.instance.DisplayScreen(UIScreenType.ContainerScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerUI);
-            containerUI.ShowContainerUI(inventory);
-            isOpen = true;
+            if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.ContainerUI, true))
+                containerUI.ShowContainerUI(inventory);
         }
 
         private void CloseContainer()
         {
-            if (!isOpen)
-                return;
-            UIScreenManager.instance.HideAllScreens();
-            
+            UIScreenManager.instance.HideScreenUI();
             containerUI.HideContainerUI();
-            isOpen = false;
         }
 
 
@@ -101,6 +96,8 @@ namespace Klaxon.Interactable
         {
             audioManager.PlaySound(interactSound);
         }
+
+
     } 
 }
 

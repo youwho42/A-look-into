@@ -55,6 +55,10 @@ public class NotificationDisplayObject : MonoBehaviour
                 text = $"{notification.notificationText}";
                 UpdateDisplay(currentTypeColor, text);
                 break;
+            case NotificationsType.Map:
+                text = $"{notification.notificationText}";
+                UpdateDisplay(currentTypeColor, text);
+                break;
             case NotificationsType.None:
                 text = $"{notification.notificationText}";
                 UpdateDisplay(currentTypeColor, text);
