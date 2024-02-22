@@ -30,17 +30,17 @@ public class CameraZoom : MonoBehaviour
 	{
         //SetZoom();
 
-		if (LevelManager.instance.autoZoomBinary == 1)
-		{
-            if (zoomActive)
-                timer += Time.deltaTime;
+		//if (LevelManager.instance.autoZoomBinary == 1)
+		//{
+  //          if (zoomActive)
+  //              timer += Time.deltaTime;
 
-            if (timer >= timeAfterZoom)
-            {
-                resetZoom = ResetZoomCo();
-                StartCoroutine(resetZoom);
-            }
-        }
+  //          if (timer >= timeAfterZoom)
+  //          {
+  //              resetZoom = ResetZoomCo();
+  //              StartCoroutine(resetZoom);
+  //          }
+  //      }
 	}
 
 	void SetZoom(float dir)

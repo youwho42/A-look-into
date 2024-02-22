@@ -37,26 +37,26 @@ public class LevelManager : MonoBehaviour
     
     [SerializeField]
     private GameObject loadScreen;
-    [SerializeField]
-    private GameObject titleMenu;
-    [SerializeField]
-    private GameObject startButton;
-    [SerializeField]
-    private GameObject pauseMenu;
-    [SerializeField]
-    private GameObject savedAlert;
-    [SerializeField]
-    private GameObject newGameWarning;
-    [SerializeField]
-    private Toggle vSync;
-    [SerializeField]
-    private Toggle fullscreen;
-    [SerializeField]
-    private Toggle autoZoomReset;
-    [HideInInspector]
-    public int autoZoomBinary;
-    [SerializeField]
-    private Toggle HUDDisplay;
+    //[SerializeField]
+    //private GameObject titleMenu;
+    //[SerializeField]
+    //private GameObject startButton;
+    //[SerializeField]
+    //private GameObject pauseMenu;
+    //[SerializeField]
+    //private GameObject savedAlert;
+    //[SerializeField]
+    //private GameObject newGameWarning;
+    //[SerializeField]
+    //private Toggle vSync;
+    //[SerializeField]
+    //private Toggle fullscreen;
+    //[SerializeField]
+    //private Toggle autoZoomReset;
+    //[HideInInspector]
+    //public int autoZoomBinary;
+    //[SerializeField]
+    //private Toggle HUDDisplay;
     [HideInInspector]
     public int HUDBinary;
 
@@ -93,14 +93,15 @@ public class LevelManager : MonoBehaviour
         }
 
 
-        PlayerInformation.instance.TogglePlayerInput(false);
+        //PlayerInformation.instance.TogglePlayerInput(false);
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         isInCutscene = true;
         yield return new WaitForSeconds(0.2f);
         SelectStartButton();
-        fullscreen.isOn = Screen.fullScreen;
+        //fullscreen.isOn = Screen.fullScreen;
+        loadScreen.SetActive(false);
 
 #if UNITY_STANDALONE && !UNITY_EDITOR
         LoadTitleScreen();
@@ -109,45 +110,46 @@ public class LevelManager : MonoBehaviour
     }
     public void SelectStartButton()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
+        //UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
 
     }
     
     public void StartNewGame(string levelName)
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
-        CharacterChoiceUI.instance.ShowUI();
-        NewGameWarning(false);
+        UIScreenManager.instance.DisplayScreenUI(UIScreenType.CharacterSelectUI, true);
+        //UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
+        //CharacterChoiceUI.instance.ShowUI();
+        //NewGameWarning(false);
     }
 
     public void DisplayLoadFilesUI()
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadFileScreen);
+        //UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.LoadFileScreen);
         
     }
     public void LoadFileBackButton()
     {
-        if (inPauseMenu)
-        {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
-        }
-        else
-        {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
-        }
+        //if (inPauseMenu)
+        //{
+        //    UIScreenManager.instance.HideAllScreens();
+        //    UIScreenManager.instance.DisplayScreen(UIScreenType.PauseUI);
+        //}
+        //else
+        //{
+        //    UIScreenManager.instance.HideAllScreens();
+        //    UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
+        //}
 
     }
 
     public void PlayerSpriteAndNameAccepted()
     {
         isInCutscene = true;
-        UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
-        CharacterChoiceUI.instance.HideUI();
+        //UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
+        //CharacterChoiceUI.instance.HideUI();
         GameEventManager.onNewGameStartedEvent.Invoke();
         GameEventManager.onStatUpdateEvent.Invoke();
     }
@@ -164,73 +166,74 @@ public class LevelManager : MonoBehaviour
         GameEventManager.onStatUpdateEvent.Invoke();
     }
 
-    public void ToggleVSync()
-    {
-        if (vSync.isOn)
-            QualitySettings.vSyncCount = 1;
-        else
-            QualitySettings.vSyncCount = 0;
-        PlayerPreferencesManager.instance.SaveVSync(QualitySettings.vSyncCount);
-    }
-    public void SetVSync(int sync)
-    {
-        QualitySettings.vSyncCount = sync;
-        vSync.isOn = sync == 0 ? false : true;
-    }
-    public void ToggleAutoZoomReset()
-    {
-        autoZoomBinary = autoZoomReset.isOn? 1 : 0;
-        PlayerPreferencesManager.instance.SaveAutoZoomReset(autoZoomBinary);
-    }
+    //public void ToggleVSync()
+    //{
+    //    if (vSync.isOn)
+    //        QualitySettings.vSyncCount = 1;
+    //    else
+    //        QualitySettings.vSyncCount = 0;
+    //    PlayerPreferencesManager.instance.SaveVSync(QualitySettings.vSyncCount);
+    //}
+    //public void SetVSync(int sync)
+    //{
+    //    QualitySettings.vSyncCount = sync;
+    //    vSync.isOn = sync == 0 ? false : true;
+    //}
+    //public void ToggleAutoZoomReset()
+    //{
+    //    autoZoomBinary = autoZoomReset.isOn? 1 : 0;
+    //    PlayerPreferencesManager.instance.SaveAutoZoomReset(autoZoomBinary);
+    //}
     
-    public void SetAutoZoomReset(int zoomBinary)
-    {
-        autoZoomBinary = zoomBinary;
-        autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
-    }
-    public void ToggleDisplayHUD()
-    {
-        HUDBinary = HUDDisplay.isOn ? 1 : 0;
-        PlayerPreferencesManager.instance.SaveDisplayHUD(HUDBinary);
-    }
-    public void SetDisplayHUD(int displayHUD)
-    {
-        HUDBinary = displayHUD;
-        HUDDisplay.isOn = HUDBinary == 0 ? false : true;
+    //public void SetAutoZoomReset(int zoomBinary)
+    //{
+    //    autoZoomBinary = zoomBinary;
+    //    autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
+    //}
+    //public void ToggleDisplayHUD()
+    //{
+    //    HUDBinary = HUDDisplay.isOn ? 1 : 0;
+    //    PlayerPreferencesManager.instance.SaveDisplayHUD(HUDBinary);
+    //}
+    //public void SetDisplayHUD(int displayHUD)
+    //{
+    //    HUDBinary = displayHUD;
+    //    HUDDisplay.isOn = HUDBinary == 0 ? false : true;
         
-    }
-    public int GetVSync()
-    {
-        return QualitySettings.vSyncCount;
-    }
-    public void SetFullScreen()
-    {
-        Screen.fullScreen = fullscreen.isOn;
-    }
+    //}
+    //public int GetVSync()
+    //{
+    //    return QualitySettings.vSyncCount;
+    //}
+    //public void SetFullScreen()
+    //{
+    //    Screen.fullScreen = fullscreen.isOn;
+    //}
 
-    public void CancelNewGame()
-    {
-        newGameWarning.SetActive(false);
-        SelectStartButton();
-    }
+    //public void CancelNewGame()
+    //{
+    //    newGameWarning.SetActive(false);
+    //    SelectStartButton();
+    //}
 
-    public void NewGameWarning(bool active)
-    {
-        newGameWarning.SetActive(active);
-        if (newGameWarning.TryGetComponent(out SetButtonSelected butt) && active)
-            butt.SetSelectedButton();
-    }
+    //public void NewGameWarning(bool active)
+    //{
+    //    //UIScreenManager.instance.DisplayWarning("New Game Warning", UIScreenType.PlayerSelect, UIScreenType.LoadScreen);
+    //    newGameWarning.SetActive(active);
+    //    if (newGameWarning.TryGetComponent(out SetButtonSelected butt) && active)
+    //        butt.SetSelectedButton();
+    //}
 
     public void LoadCurrentGame(string levelName, string loadFileName)
     {
         LoadLevel(levelName, loadFileName);
     }
 
-    public void SaveGame()
-    {
-        SavingLoading.instance.SaveGame();
-        savedAlert.SetActive(true);
-    }
+    //public void SaveGame()
+    //{
+    //    SavingLoading.instance.SaveGame();
+    //    savedAlert.SetActive(true);
+    //}
 
     //private void ChangeLevel(string levelName)
     //{
@@ -250,35 +253,35 @@ public class LevelManager : MonoBehaviour
     {
         inPauseMenu = isPaused;
         RealTimeDayNightCycle.instance.isPaused = isPaused;
-        
+
         Time.timeScale = isPaused ? 0.0f : 1.0f;
-        if (isPaused)
-        {
-            UIScreenManager.instance.HideAllScreens();
-            UIScreenManager.instance.DisplayScreen(UIScreenType.PauseScreen);
-            UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerHUD);
-            PlayerInformation.instance.TogglePlayerInput(false);
-        }
-        else
-        {
-            UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
-            UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
-            PlayerInformation.instance.TogglePlayerInput(true);
-        }
-        savedAlert.SetActive(false);
-        
+        //if (isPaused)
+        //{
+        //    UIScreenManager.instance.HideAllScreens();
+        //    UIScreenManager.instance.DisplayScreen(UIScreenType.PauseUI);
+        //    UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerHUD);
+        //    PlayerInformation.instance.TogglePlayerInput(false);
+        //}
+        //else
+        //{
+        //    UIScreenManager.instance.HideScreens(UIScreenType.PauseUI);
+        //    UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
+        //    PlayerInformation.instance.TogglePlayerInput(true);
+        //}
+        //savedAlert.SetActive(false);
+
     }
 
     public void ViewControls()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.ControlsScreen);
+        //UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.ControlsScreen);
     }
 
     public void ViewVideoSettings()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.VideoScreen);
+        //UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.VideoScreen);
     }
 
 
@@ -288,8 +291,8 @@ public class LevelManager : MonoBehaviour
     }
     public void ViewVolumeControls()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.AudioScreen);
+        //UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.AudioScreen);
     }
 
     public void HideVolumeControls()
@@ -297,13 +300,14 @@ public class LevelManager : MonoBehaviour
         LoadFileBackButton();
     }
 
-    public void ViewSettings()
+    public void ViewOptions()
     {
-        UIScreenManager.instance.HideAllScreens();
-        UIScreenManager.instance.DisplayScreen(UIScreenType.SettingsScreen);
+        UIScreenManager.instance.DisplayOptionsUI(true, UIScreenType.MainMenuUI);
+        //UIScreenManager.instance.HideAllScreens();
+        //UIScreenManager.instance.DisplayScreen(UIScreenType.SettingsScreen);
     }
 
-    public void HideSettings()
+    public void HideOptions()
     {
         LoadFileBackButton();
     }
@@ -337,11 +341,10 @@ public class LevelManager : MonoBehaviour
     IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
         GameEventManager.onGameStartLoadEvent.Invoke();
+        UIScreenManager.instance.HideScreenUI();
+        UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
         UIScreenManager.instance.DisplayPlayerHUD(false);
-        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
-        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
-        PlayerInformation.instance.TogglePlayerInput(false);
+        Pause(true);
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
 
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName +"-Terrain");
@@ -402,8 +405,9 @@ public class LevelManager : MonoBehaviour
        
 
         Time.timeScale = 1;
-        UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
+        UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
+        UIScreenManager.instance.inMainMenu = false;
         GameEventManager.onStatUpdateEvent.Invoke();
         yield return new WaitForSecondsRealtime(0.1f);
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
@@ -416,12 +420,11 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadTitleScreenCo(string levelName)
     {
-        UIScreenManager.instance.HideScreens(UIScreenType.PauseScreen);
-        UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
-        PlayerInformation.instance.TogglePlayerInput(false);
+        UIScreenManager.instance.HideScreenUI();
+        UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
+        UIScreenManager.instance.DisplayPlayerHUD(false);
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
-
+        Pause(true);
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Terrain");
 
         while (!currentLevelLoading.isDone)
@@ -473,13 +476,11 @@ public class LevelManager : MonoBehaviour
         RealTimeDayNightCycle.instance.SetDayTime(420, 1);
         PlayerDistanceToggle.instance.PopulateLists();
         yield return new WaitForSecondsRealtime(3f);
-
-
+        Pause(false);
         Time.timeScale = 1;
-        UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
-        UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
-
-       
+        UIScreenManager.instance.HideScreenUI();
+        UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);
+        UIScreenManager.instance.inMainMenu = true;
     }
 
 

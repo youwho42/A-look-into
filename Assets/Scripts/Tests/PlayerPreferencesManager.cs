@@ -47,9 +47,9 @@ public class PlayerPreferencesManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("DisplayHUD"))
             PlayerPrefs.SetInt("DisplayHUD", 1);
         yield return new WaitForSeconds(2);
-        LevelManager.instance.SetVSync(PlayerPrefs.GetInt("Vsync"));
-        LevelManager.instance.SetAutoZoomReset(PlayerPrefs.GetInt("AutoZoomReset"));
-        LevelManager.instance.SetDisplayHUD(PlayerPrefs.GetInt("DisplayHUD"));
+        //LevelManager.instance.SetVSync(PlayerPrefs.GetInt("Vsync"));
+        //LevelManager.instance.SetAutoZoomReset(PlayerPrefs.GetInt("AutoZoomReset"));
+        //LevelManager.instance.SetDisplayHUD(PlayerPrefs.GetInt("DisplayHUD"));
         
     }
 

@@ -294,19 +294,24 @@ public class PlayerInputController : MonoBehaviour
     public void PauseAction(InputAction.CallbackContext context)
     {
         
-        if (UIScreenManager.instance.canChangeUI && !LevelManager.instance.isInCutscene)
+        
+        if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
         {
-            if (PlayerInformation.instance.uiScreenVisible)
+            isPaused = true;
+            UIScreenManager.instance.SetPauseScreen(isPaused);
+            
+            //LevelManager.instance.Pause(isPaused);
+        }
+        else
+        {
+            if (!UIScreenManager.instance.inMainMenu)
             {
-                GameEventManager.onEscapeEvent.Invoke();
-                
-                return;
+                isPaused = false;
+                GameEventManager.onMenuHideEvent.Invoke();
             }
             
-            isPaused = !isPaused;
-            LevelManager.instance.Pause(isPaused);
         }
-        GameEventManager.onMenuHideEvent.Invoke();
+            
     }
 
     public void InteractAction(InputAction.CallbackContext context)

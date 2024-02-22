@@ -23,12 +23,12 @@ namespace Klaxon.Interactable
         }
         public override void SetInteractVerb()
         {
-            interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type.ToString()}", interactableItem.Data.Name);
+            interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type}", interactableItem.Data.Name);
         }
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (/*InteractCostReward() && */UIScreenManager.instance.canChangeUI)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 StartCoroutine(InteractCo(interactor));
 
 

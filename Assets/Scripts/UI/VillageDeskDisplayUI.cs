@@ -48,18 +48,18 @@ public class VillageDeskDisplayUI : MonoBehaviour
     }
     public void ShowUI(FixVillageDesk desk)
     {
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
-        UIScreenManager.instance.DisplayPlayerHUD(true);
+        //PlayerInformation.instance.uiScreenVisible = true;
+        //PlayerInformation.instance.TogglePlayerInput(false);
+        //UIScreenManager.instance.DisplayPlayerHUD(true);
         villageDesk = desk;
         SetVillageButtons();
     }
 
     public void HideUI()
     {
-        PlayerInformation.instance.uiScreenVisible = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
-        UIScreenManager.instance.HideAllScreens();
+        //PlayerInformation.instance.uiScreenVisible = false;
+        //PlayerInformation.instance.TogglePlayerInput(true);
+        //UIScreenManager.instance.HideAllScreens();
         UIScreenManager.instance.DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
     }
 

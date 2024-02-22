@@ -55,7 +55,7 @@ public class TreeShadows : MonoBehaviour
             return;
 
         int sleep = 0;
-        if (SleepDisplayUI.instance.isSleeping)
+        if (UIScreenManager.instance.isSleeping)
             sleep = 3;
         
         if (tick % (shadowUpdateTick + sleep) == 0)

@@ -20,7 +20,6 @@ public class SleepDisplayUI : MonoBehaviour
 
     RealTimeDayNightCycle dayNightCycle;
 
-    public bool isSleeping;
     public GameObject sleepDisplay;
     //PlayerInformation playerInformation;
     public TextMeshProUGUI currentTime;
@@ -71,7 +70,7 @@ public class SleepDisplayUI : MonoBehaviour
         if(sleepCoroutine != null)
             StopCoroutine(sleepCoroutine);
         dayNightCycle.cycleSpeed = 1;
-        isSleeping = false;
+        UIScreenManager.instance.isSleeping = false;
         HideUI();
         
     }
@@ -82,7 +81,7 @@ public class SleepDisplayUI : MonoBehaviour
         
         while(dayNightCycle.hours != wakeTime)
         {
-            isSleeping = true;
+            UIScreenManager.instance.isSleeping = true;
             //float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
             player.statHandler.ChangeStat(bounceStatChanger);
             player.statHandler.ChangeStat(gumptionStatChanger);
@@ -90,7 +89,7 @@ public class SleepDisplayUI : MonoBehaviour
             yield return null;
         }
         dayNightCycle.cycleSpeed = 1;
-        isSleeping = false;
+        UIScreenManager.instance.isSleeping = false;
         //UIScreenManager.instance.HideAllScreens();
         //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         HideUI();

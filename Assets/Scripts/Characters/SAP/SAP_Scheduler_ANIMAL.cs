@@ -89,7 +89,7 @@ namespace Klaxon.SAP
         public Transform fleeTransfrom;
         bool fleeing;
         [HideInInspector]
-        public SleepDisplayUI sleep;
+        public UIScreenManager sleep;
 
         public bool canEat;
         [ConditionalHide("canEat", true)]
@@ -114,7 +114,7 @@ namespace Klaxon.SAP
         public void Start()
         {
             dialogueManager = DialogueManagerUI.instance;
-            sleep = SleepDisplayUI.instance;
+            sleep = UIScreenManager.instance;
 
             walker = GetComponent<GravityItemWalk>();
             if (walker != null)

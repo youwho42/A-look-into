@@ -46,7 +46,7 @@ namespace Klaxon.SAP
         public QI_Inventory agentInventory;
         public QI_Inventory stashInventory;
         [HideInInspector]
-        public SleepDisplayUI sleep;
+        public UIScreenManager sleep;
         [HideInInspector]
         public bool offScreenPosMoved = true;
         [HideInInspector]
@@ -57,7 +57,7 @@ namespace Klaxon.SAP
         {
             walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
-            sleep = SleepDisplayUI.instance;
+            sleep = UIScreenManager.instance;
             dialogueManager = DialogueManagerUI.instance;
         }
 

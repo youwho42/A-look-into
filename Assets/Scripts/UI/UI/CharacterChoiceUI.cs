@@ -27,7 +27,7 @@ public class CharacterChoiceUI : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public Button acceptButton;
     string spriteName;
-    public SetButtonSelected setButtonSelected;
+   // public SetButtonSelected setButtonSelected;
 
     void Start()
     {
@@ -38,25 +38,25 @@ public class CharacterChoiceUI : MonoBehaviour
         playerNameInputField.characterLimit = 12;
 
         CheckPlayerNameValid();
-        HideUI();
+        characterChoiceCameraObject.SetActive(false);
+        gameObject.SetActive(false);
     }
-
-    public void ShowUI()
+    private void OnEnable()
     {
         CheckPlayerNameValid();
         characterChoiceCameraObject.SetActive(true);
         SetRandomCharacter();
         ChangeSprite(1);
     }
-    public void HideUI()
+    public void OnDisable()
     {
         characterChoiceCameraObject.SetActive(false);
     }
     void SetRandomCharacter()
     {
-        int r = Random.Range(0, PlayerInformation.instance.characterManager.aquiredCharacters.Count);
+        int r = Random.Range(0, PlayerInformation.instance.characterManager.baseCharacters.Count);
         index = r;
-        spriteName = PlayerInformation.instance.characterManager.aquiredCharacters[index];
+        spriteName = PlayerInformation.instance.characterManager.baseCharacters[index];
         chooseSpriteResolver.SetCategoryAndLabel("Player", spriteName);
         
     }
@@ -65,11 +65,11 @@ public class CharacterChoiceUI : MonoBehaviour
         
         index += dir;
         if (index < 0)
-            index = PlayerInformation.instance.characterManager.aquiredCharacters.Count - 1;
-        else if(index >= PlayerInformation.instance.characterManager.aquiredCharacters.Count)
+            index = PlayerInformation.instance.characterManager.baseCharacters.Count - 1;
+        else if(index >= PlayerInformation.instance.characterManager.baseCharacters.Count)
             index = 0;
         //index = Mathf.Clamp(index, 0, playerCharacters.aquiredCharacters.Count - 1);
-        spriteName = PlayerInformation.instance.characterManager.aquiredCharacters[index];
+        spriteName = PlayerInformation.instance.characterManager.baseCharacters[index];
         chooseSpriteResolver.SetCategoryAndLabel("Player", spriteName);
     }
 
@@ -78,10 +78,13 @@ public class CharacterChoiceUI : MonoBehaviour
         SetPlayerSprite();
         SetPlayerName();
         LevelManager.instance.PlayerSpriteAndNameAccepted();
+        UIScreenManager.instance.inMainMenu = false;
+        UIScreenManager.instance.HideScreenUI();
     }
     public void CancelSelection()
     {
-        UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
+        UIScreenManager.instance.HideScreenUI();
+        UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);
     }
     void SetPlayerSprite()
     {
@@ -89,8 +92,6 @@ public class CharacterChoiceUI : MonoBehaviour
     }
     void SetPlayerName()
     {
-        
-
         PlayerInformation.instance.SetPlayerName(playerNameInputField.text);
     }
     public void CheckPlayerNameValid()
@@ -103,8 +104,8 @@ public class CharacterChoiceUI : MonoBehaviour
         
     }
 
-    public void CharacterNameEnter()
-    {
-        setButtonSelected.SetSelectedButton();
-    }
+    //public void CharacterNameEnter()
+    //{
+    //    setButtonSelected.SetSelectedButton();
+    //}
 }

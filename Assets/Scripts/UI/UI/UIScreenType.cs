@@ -2,30 +2,24 @@
 public enum UIScreenType
 {
     None,
-    StartScreen,
-    LoadScreen,
+    MainMenuUI,
     PlayerHUD,
-    SettingsScreen,
-    PauseScreen,
-    
+    PauseUI,
     ContainerUI,
+    LoadGameUI,
     SleepUI,
     ResearchStationUI,
     CraftingStationUI,
-    
     TabbedMenuUI,
-    PlayerSelect, 
+    CharacterSelectUI, 
     DialogueUI,
-    
-    LoadFileScreen,
-    ControlsScreen,
-    AudioScreen,
     BallPersonDialogueUI,
-    VideoScreen,
     MerchantTableUI,
     VillageDeskUI,
     LocalGoodsUI, 
     GuiseUI, 
-    OptionsUI
+    OptionsUI,
+    WarningUI, 
+    LoadScreenUI
    
 }

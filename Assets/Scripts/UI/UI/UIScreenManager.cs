@@ -14,16 +14,25 @@ public class UIScreenManager : MonoBehaviour
             Destroy(gameObject);
     }
     // old
-    public List<GameObject> screens = new List<GameObject>();
-    private UIScreenType currentScreen;
+    //public List<GameObject> screens = new List<GameObject>();
+    //private UIScreenType currentScreen;
 
     // new
     public MenuDisplayUI tabbedMenu;
+    public OptionsDisplayUI optionsMenu;
+    public PauseUI pauseMenu;
+    public LoadSelectionUI loadGame;
+    public WarningUI warningUI;
     public TipPanelUI tipsPanelUI;
     bool mapIsOpen;
+    public bool isSleeping;
+    public bool inMainMenu;
     public List<GameObject> allScreens = new List<GameObject>();
     
     private UIScreenType currentUI;
+
+
+
 
     public bool canChangeUI;
 
@@ -39,15 +48,14 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMapDisplayEvent.AddListener(DisplayMapMenu);
 
 
-        canChangeUI = true;
-        foreach (GameObject go in screens)
-        {
-           
-            go.SetActive(false);
-            
-        }
-        DisplayScreen(UIScreenType.StartScreen);
-
+        //canChangeUI = true;
+        //foreach (GameObject go in screens)
+        //{
+        //    go.SetActive(false);
+        //}
+        inMainMenu = true;
+        DisplayScreenUI(UIScreenType.MainMenuUI, true);
+        
     }
 
     private void OnDestroy()
@@ -69,7 +77,8 @@ public class UIScreenManager : MonoBehaviour
     }
     public void HideScreenUI()
     {
-        if (currentUI != UIScreenType.None && !SleepDisplayUI.instance.isSleeping)
+        
+        if (currentUI != UIScreenType.None && !isSleeping)
             DisplayScreenUI(currentUI, false);
     }
     void DisplayMapMenu()
@@ -90,52 +99,94 @@ public class UIScreenManager : MonoBehaviour
         }
             
     }
-
+    
     public void DisplayScreenUI(UIScreenType screenType, bool state)
     {
-        if (MiniGameManager.instance.gameStarted || LevelManager.instance.isInCutscene)
+        if (MiniGameManager.instance.gameStarted /*|| LevelManager.instance.isInCutscene*/)
             return;
         SetScreenUI(screenType, state);
         
         if (state)
         {
             currentUI = screenType;
-            DisplayPlayerHUD(true);
+            DisplayPlayerHUD(!inMainMenu);
         }
         else
         {
             currentUI = UIScreenType.None;
             DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
             CloseTipPanel();
+            pauseMenu.SetPause(false);
         }
-        canChangeUI = !state;
+        //canChangeUI = !state;
         PlayerInformation.instance.playerInput.isInUI = state;
         PlayerInformation.instance.uiScreenVisible = state;
         PlayerInformation.instance.TogglePlayerInput(!state);
     }
-    
+    /// <summary>
+    /// Setting a screen here will just bypass all other functions and display the screen with any others that exist.
+    /// </summary>
+    /// <param name="screenType"></param>
+    /// <param name="state"></param>
     void SetScreenUI(UIScreenType screenType, bool state)
     {
         foreach (var screen in allScreens)
         {
             if (screen.TryGetComponent(out UIScreen ui))
             {
-                if (ui.GetScreenType() == screenType)
-                {
-                    screen.SetActive(state);
-                    break;
-                }
+                if (ui.GetScreenType() != screenType)
+                    continue;
 
+                screen.SetActive(state);
+
+                if (screen.TryGetComponent(out SetButtonSelected selectedButton) && state)
+                    selectedButton.SetSelectedButton();
+
+                break;
             }
         }
     }
 
+    public void DisplayWarning(string warning, UIScreenType continueScreen)
+    {
+        SetScreenUI(UIScreenType.WarningUI, true);
+        warningUI.SetWarning(warning, continueScreen);
+    }
+
+    public void SetPauseScreen(bool state)
+    {
+        DisplayScreenUI(UIScreenType.PauseUI, state);
+        pauseMenu.SetPause(state);
+    }
+
+    public void DisplayOptionsUI(bool state, UIScreenType screenType)
+    {
+        HideScreenUI();
+        DisplayScreenUI(UIScreenType.OptionsUI, state);
+        optionsMenu.SetBackButton(screenType);
+        
+    }
+
+    public void DisplayLoadGameUI(bool state, UIScreenType screenType)
+    {
+        HideScreenUI();
+        DisplayScreenUI(UIScreenType.LoadGameUI, state);
+        loadGame.SetBackButton(screenType);
+
+    }
+    
+
     public void DisplayPlayerHUD(bool state)
     {
         SetScreenUI(UIScreenType.PlayerHUD, state);
-        //playerHUD.gameObject.SetActive(state);
     }
 
+    /// <summary>
+    /// This is used to display the Ingame UI, Crafting, merchants, etc...
+    /// </summary>
+    /// <param name="screenType"></param>
+    /// <param name="state"></param>
+    /// <returns></returns>
     public bool DisplayIngameUI(UIScreenType screenType, bool state)
     {
         if (currentUI == screenType || currentUI == UIScreenType.None)
@@ -183,65 +234,72 @@ public class UIScreenManager : MonoBehaviour
 
 
 
-    public void DisplayAdditionalUI(UIScreenType screenType)
-    {
-        foreach (var s in screens)
-        {
-            if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
-            {
-                s.SetActive(true);
+
+
+
+
+
+
+
+    //public void DisplayAdditionalUI(UIScreenType screenType)
+    //{
+    //    foreach (var s in screens)
+    //    {
+    //        if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
+    //        {
+    //            s.SetActive(true);
                 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
     
-    public void DisplayScreen(UIScreenType screen)
-    {
-        if (!canChangeUI)
-            return;
-        foreach (var s in screens)
-        {
-            if(s.GetComponent<UIScreen>().GetScreenType() == screen)
-            {
-                s.SetActive(true);
-                currentScreen = screen;
-                if (s.TryGetComponent(out SetButtonSelected button))
-                    button.SetSelectedButton();
-            }
-            else
-            {
-                s.SetActive(false);
-            }
-        }
+    //public void DisplayScreen(UIScreenType screen)
+    //{
+    //    //if (!canChangeUI)
+    //    //    return;
+    //    foreach (var s in screens)
+    //    {
+    //        if(s.GetComponent<UIScreen>().GetScreenType() == screen)
+    //        {
+    //            s.SetActive(true);
+    //            currentScreen = screen;
+    //            if (s.TryGetComponent(out SetButtonSelected button))
+    //                button.SetSelectedButton();
+    //        }
+    //        else
+    //        {
+    //            s.SetActive(false);
+    //        }
+    //    }
        
-    }
+    //}
 
-    public void HideScreens(UIScreenType screenType)
-    {
-        foreach (var s in screens)
-        {
-            if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
-            {
-                s.SetActive(false);
-            }
-        }
-    }
+    //public void HideScreens(UIScreenType screenType)
+    //{
+    //    foreach (var s in screens)
+    //    {
+    //        if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
+    //        {
+    //            s.SetActive(false);
+    //        }
+    //    }
+    //}
 
-    public void HideAllScreens()
-    {
-        foreach (var s in screens)
-        {
-            currentScreen = UIScreenType.None;
-            s.SetActive(false);
-        }
-        PlayerInformation.instance.uiScreenVisible = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
-    }
+    //public void HideAllScreens()
+    //{
+    //    foreach (var s in screens)
+    //    {
+    //        currentScreen = UIScreenType.None;
+    //        s.SetActive(false);
+    //    }
+    //    PlayerInformation.instance.uiScreenVisible = false;
+    //    PlayerInformation.instance.TogglePlayerInput(true);
+    //}
 
-    public UIScreenType CurrentUIScreen()
-    {
-        return currentScreen;
-    }
+    //public UIScreenType CurrentUIScreen()
+    //{
+    //    return currentScreen;
+    //}
 
 
     // dedicated main menu display

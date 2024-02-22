@@ -26,6 +26,8 @@ public class LoadSelectionUI : MonoBehaviour
     public Button loadButton;
     public Button deleteButton;
 
+    UIScreenType backButtonScreen;
+
     public GameObject deleteWarning;
     string fileDeletePath;
 
@@ -33,21 +35,26 @@ public class LoadSelectionUI : MonoBehaviour
     public string currentLoadFileName { get; private set; }
     private void Start()
     {
+        gameObject.SetActive(false);
+    }
+    
+
+    private void OnEnable()
+    {
         GameEventManager.onGameSavedEvent.AddListener(SetAvailableLoads);
+        HideDeleteWarning();
+        SetAvailableLoads();
+        RefreshButtonsValid();
     }
     private void OnDisable()
     {
         GameEventManager.onGameSavedEvent.RemoveListener(SetAvailableLoads);
     }
-
-    private void OnEnable()
+    public void SetBackButton(UIScreenType screen)
     {
-        HideDeleteWarning();
-        SetAvailableLoads();
-        RefreshButtonsValid();
+        backButtonScreen = screen;
     }
 
-   
     public void LoadGameFile()
     {
         if (!warningActive)
@@ -58,7 +65,8 @@ public class LoadSelectionUI : MonoBehaviour
     {
         if (!warningActive)
         {
-            LevelManager.instance.LoadFileBackButton();
+            UIScreenManager.instance.HideScreenUI();
+            UIScreenManager.instance.DisplayScreenUI(backButtonScreen, true);
             ClearCurrentLoadFileName();
         }
             
@@ -152,7 +160,7 @@ public class LoadSelectionUI : MonoBehaviour
         deleteWarning.SetActive(false);
         ClearCurrentLoadFileName();
         warningActive = false;
-        deleteWarning.transform.parent.GetComponent<SetButtonSelected>().SetSelectedButton();
+        gameObject.GetComponent<SetButtonSelected>().SetSelectedButton();
     }
 
     public void DeleteSaveFile()

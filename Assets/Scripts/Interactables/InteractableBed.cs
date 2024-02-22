@@ -23,7 +23,7 @@ namespace Klaxon.Interactable
             
             if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 OpenSleeping();
-            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.SleepUI && !SleepDisplayUI.instance.isSleeping)
+            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.SleepUI && !UIScreenManager.instance.isSleeping)
                 CloseSleeping();
 
             
