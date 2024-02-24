@@ -89,5 +89,6 @@ public static class GameEventManager
     public static readonly GameEvent<bool> onSpyglassAimEvent = new GameEvent<bool>();
     public static readonly GameEvent<int> onSpyglassAimChageSelectedEvent = new GameEvent<int>();
     public static readonly GameEvent onRotateDecoration = new GameEvent();
-
+    public static readonly GameEvent onSurroundingItemsEvent = new GameEvent();
+    
 }

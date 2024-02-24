@@ -83,6 +83,8 @@ public class LoadSelectionUI : MonoBehaviour
             List<FileInfo> files = new List<FileInfo>();
             foreach (var file in d.GetFiles("*.ali"))
             {
+                if (file.Name == "Options_save.ali")
+                    continue;
                 files.Add(file);
             }
             //sort using date created

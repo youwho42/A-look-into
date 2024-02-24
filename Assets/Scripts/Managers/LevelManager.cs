@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(this);
         }
+
         DontDestroyOnLoad(gameObject);
 
     }

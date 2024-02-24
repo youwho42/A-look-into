@@ -51,6 +51,7 @@ public class PlayerInputController : MonoBehaviour
     InputAction inventoryDragItem;
     InputAction dialogueNext;
     InputAction rotateDecoration;
+    InputAction surroundingItems;
     PlayerInputActions inputActions;
     public PlayerInput playerInput;
     
@@ -170,7 +171,11 @@ public class PlayerInputController : MonoBehaviour
         rotateDecoration.Enable();
         rotateDecoration.started += RotateDecorationAction;
 
-        
+        surroundingItems = inputActions.Player.SurroundingItemsDisplay;
+        surroundingItems.Enable();
+        surroundingItems.started += DisplaySurroundingItems;
+
+
     }
     private void OnDisable()
     {
@@ -197,6 +202,7 @@ public class PlayerInputController : MonoBehaviour
         inventoryDragItem.Disable();
         dialogueNext.Disable();
         rotateDecoration.Disable();
+        surroundingItems.Disable();
     }
 
    
@@ -350,5 +356,6 @@ public class PlayerInputController : MonoBehaviour
 
     public void DialogueNextAction(InputAction.CallbackContext context) => GameEventManager.onDialogueNextEvent.Invoke();
     public void RotateDecorationAction(InputAction.CallbackContext context) => GameEventManager.onRotateDecoration.Invoke();
+    public void DisplaySurroundingItems(InputAction.CallbackContext context) => GameEventManager.onSurroundingItemsEvent.Invoke();
 
 }

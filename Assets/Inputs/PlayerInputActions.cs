@@ -224,6 +224,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SurroundingItemsDisplay"",
+                    ""type"": ""Button"",
+                    ""id"": ""f79dd8cd-e8c9-4a28-8c39-306228e97c9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -875,6 +884,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RotateDecoration"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7a23a4e-66c3-4253-99ce-c61eb9d7055e"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SurroundingItemsDisplay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d35b62c3-dcc4-4597-a7b5-58b9c24d12ca"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SurroundingItemsDisplay"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1235,6 +1266,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_InventoryRightClickItem = m_Player.FindAction("InventoryRightClickItem", throwIfNotFound: true);
         m_Player_DialogueNext = m_Player.FindAction("DialogueNext", throwIfNotFound: true);
         m_Player_RotateDecoration = m_Player.FindAction("RotateDecoration", throwIfNotFound: true);
+        m_Player_SurroundingItemsDisplay = m_Player.FindAction("SurroundingItemsDisplay", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1327,6 +1359,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_InventoryRightClickItem;
     private readonly InputAction m_Player_DialogueNext;
     private readonly InputAction m_Player_RotateDecoration;
+    private readonly InputAction m_Player_SurroundingItemsDisplay;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1353,6 +1386,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @InventoryRightClickItem => m_Wrapper.m_Player_InventoryRightClickItem;
         public InputAction @DialogueNext => m_Wrapper.m_Player_DialogueNext;
         public InputAction @RotateDecoration => m_Wrapper.m_Player_RotateDecoration;
+        public InputAction @SurroundingItemsDisplay => m_Wrapper.m_Player_SurroundingItemsDisplay;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1428,6 +1462,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateDecoration.started += instance.OnRotateDecoration;
             @RotateDecoration.performed += instance.OnRotateDecoration;
             @RotateDecoration.canceled += instance.OnRotateDecoration;
+            @SurroundingItemsDisplay.started += instance.OnSurroundingItemsDisplay;
+            @SurroundingItemsDisplay.performed += instance.OnSurroundingItemsDisplay;
+            @SurroundingItemsDisplay.canceled += instance.OnSurroundingItemsDisplay;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1498,6 +1535,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RotateDecoration.started -= instance.OnRotateDecoration;
             @RotateDecoration.performed -= instance.OnRotateDecoration;
             @RotateDecoration.canceled -= instance.OnRotateDecoration;
+            @SurroundingItemsDisplay.started -= instance.OnSurroundingItemsDisplay;
+            @SurroundingItemsDisplay.performed -= instance.OnSurroundingItemsDisplay;
+            @SurroundingItemsDisplay.canceled -= instance.OnSurroundingItemsDisplay;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1678,6 +1718,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInventoryRightClickItem(InputAction.CallbackContext context);
         void OnDialogueNext(InputAction.CallbackContext context);
         void OnRotateDecoration(InputAction.CallbackContext context);
+        void OnSurroundingItemsDisplay(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
