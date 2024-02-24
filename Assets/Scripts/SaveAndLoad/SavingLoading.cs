@@ -23,6 +23,8 @@ namespace Klaxon.SaveSystem
         //private string LoadPath => $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
         private string LoadPath;
 
+        string OptionsPath;
+        public SaveableOptions saveableOptions;
 
         public void SaveGame()
         {
@@ -34,6 +36,14 @@ namespace Klaxon.SaveSystem
             GameEventManager.onGameSavedEvent.Invoke();
         }
 
+        public void SaveOptions()
+        {
+            OptionsPath = $"{Application.persistentDataPath}/Options_save.ali";
+            DeleteFile(OptionsPath);
+            var state = LoadFile("Options");
+            CaptureOptions(state);
+            SaveOptions(state);
+        }
 
 
 
@@ -43,9 +53,23 @@ namespace Klaxon.SaveSystem
             RestoreState(state);
         }
 
+        public void LoadOptions()
+        {
+            var state = LoadFile("Options");
+            RestoreOptions(state);
+        }
+
         private void SaveFile(object state)
         {
             using (var stream = File.Open(SavePath, FileMode.Create))
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(stream, state);
+            }
+        }
+        private void SaveOptions(object state)
+        {
+            using (var stream = File.Open(OptionsPath, FileMode.Create))
             {
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, state);
@@ -79,6 +103,7 @@ namespace Klaxon.SaveSystem
             }
 
         }
+        
 
         private void RestoreState(Dictionary<string, object> state)
         {
@@ -97,6 +122,22 @@ namespace Klaxon.SaveSystem
                 }
             }
         }
+
+
+        private void CaptureOptions(Dictionary<string, object> state)
+        {
+            state[saveableOptions.optionsName] = saveableOptions.CaptureState();
+        }
+
+        private void RestoreOptions(Dictionary<string, object> state)
+        {
+            if (state.TryGetValue(saveableOptions.optionsName, out object value))
+            {
+                saveableOptions.RestoreState(value);
+            }
+        }
+
+
 
         public bool SaveExists()
         {

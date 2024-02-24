@@ -23,7 +23,7 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (/*InteractCostReward() && */UIScreenManager.instance.canChangeUI)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 StartCoroutine(InteractCo(interactor));
 
 

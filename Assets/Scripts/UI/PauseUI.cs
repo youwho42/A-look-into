@@ -11,7 +11,7 @@ public class PauseUI : MonoBehaviour
     public bool inPauseMenu;
     [SerializeField]
     private TextMeshProUGUI pauseSaveAlertText;
-
+    public Transform unstuckPlayerPosition;
     private void Start()
     {
         gameObject.SetActive(false);
@@ -52,5 +52,13 @@ public class PauseUI : MonoBehaviour
     public void ViewLoadGameUI()
     {
         UIScreenManager.instance.DisplayLoadGameUI(true, UIScreenType.PauseUI);
+    }
+
+    public void UnstuckPlayer()
+    {
+        PlayerInformation.instance.player.position = unstuckPlayerPosition.position;
+        PlayerInformation.instance.currentTilePosition.position = PlayerInformation.instance.currentTilePosition.GetCurrentTilePosition(unstuckPlayerPosition.position);
+        PlayerInformation.instance.playerController.currentLevel = (int)unstuckPlayerPosition.position.z - 1;
+        UIScreenManager.instance.SetPauseScreen(false);
     }
 }

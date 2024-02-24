@@ -21,31 +21,31 @@ public class CameraZoom : MonoBehaviour
 		SetCamera();
 		GameEventManager.onMouseScrollEvent.AddListener(SetZoom);
 	}
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEventManager.onMouseScrollEvent.RemoveListener(SetZoom);
     }
 
     private void Update()
 	{
-        //SetZoom();
+		//SetZoom();
 
-		//if (LevelManager.instance.autoZoomBinary == 1)
-		//{
-  //          if (zoomActive)
-  //              timer += Time.deltaTime;
+		if (UIScreenManager.instance.gameplay.autoZoomBinary == 1)
+		{
+			if (zoomActive)
+				timer += Time.deltaTime;
 
-  //          if (timer >= timeAfterZoom)
-  //          {
-  //              resetZoom = ResetZoomCo();
-  //              StartCoroutine(resetZoom);
-  //          }
-  //      }
+			if (timer >= timeAfterZoom)
+			{
+				resetZoom = ResetZoomCo();
+				StartCoroutine(resetZoom);
+			}
+		}
 	}
 
 	void SetZoom(float dir)
     {
-		if (PlayerInformation.instance.uiScreenVisible)
+		if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
 			return;
 		SetCamera();
 		if (dir > 0)

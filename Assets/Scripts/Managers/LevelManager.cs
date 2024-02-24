@@ -30,35 +30,11 @@ public class LevelManager : MonoBehaviour
 
     public bool loadTerrains;
 
-    //[SerializeField]
-    //private CinemachineVirtualCamera startCam;
-    //[SerializeField]
-    //private CinemachineVirtualCamera mainCam;
     
     [SerializeField]
     private GameObject loadScreen;
-    //[SerializeField]
-    //private GameObject titleMenu;
-    //[SerializeField]
-    //private GameObject startButton;
-    //[SerializeField]
-    //private GameObject pauseMenu;
-    //[SerializeField]
-    //private GameObject savedAlert;
-    //[SerializeField]
-    //private GameObject newGameWarning;
-    //[SerializeField]
-    //private Toggle vSync;
-    //[SerializeField]
-    //private Toggle fullscreen;
-    //[SerializeField]
-    //private Toggle autoZoomReset;
-    //[HideInInspector]
-    //public int autoZoomBinary;
-    //[SerializeField]
-    //private Toggle HUDDisplay;
-    [HideInInspector]
-    public int HUDBinary;
+    
+    
 
     [SerializeField]
     private Slider loadScreenSlider;
@@ -93,63 +69,25 @@ public class LevelManager : MonoBehaviour
         }
 
 
-        //PlayerInformation.instance.TogglePlayerInput(false);
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         isInCutscene = true;
         yield return new WaitForSeconds(0.2f);
-        SelectStartButton();
-        //fullscreen.isOn = Screen.fullScreen;
-        loadScreen.SetActive(false);
+        loadScreen.gameObject.SetActive(false);
 
 #if UNITY_STANDALONE && !UNITY_EDITOR
         LoadTitleScreen();
 #endif
 
     }
-    public void SelectStartButton()
-    {
-        //UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
-
-    }
     
-    public void StartNewGame(string levelName)
-    {
-        UIScreenManager.instance.DisplayScreenUI(UIScreenType.CharacterSelectUI, true);
-        //UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerSelect);
-        //CharacterChoiceUI.instance.ShowUI();
-        //NewGameWarning(false);
-    }
 
-    public void DisplayLoadFilesUI()
-    {
-        //UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.LoadFileScreen);
-        
-    }
-    public void LoadFileBackButton()
-    {
-        //if (inPauseMenu)
-        //{
-        //    UIScreenManager.instance.HideAllScreens();
-        //    UIScreenManager.instance.DisplayScreen(UIScreenType.PauseUI);
-        //}
-        //else
-        //{
-        //    UIScreenManager.instance.HideAllScreens();
-        //    UIScreenManager.instance.DisplayScreen(UIScreenType.StartScreen);
-        //}
-
-    }
+    
 
     public void PlayerSpriteAndNameAccepted()
     {
         isInCutscene = true;
-        //UIScreenManager.instance.HideScreens(UIScreenType.PlayerSelect);
-        //CharacterChoiceUI.instance.HideUI();
         GameEventManager.onNewGameStartedEvent.Invoke();
         GameEventManager.onStatUpdateEvent.Invoke();
     }
@@ -160,85 +98,21 @@ public class LevelManager : MonoBehaviour
     public void ActivatePlayer()
     {
         isInCutscene = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
+        UIScreenManager.instance.inMainMenu = false;
+        UIScreenManager.instance.DisplayPlayerHUD(UIScreenManager.instance.gameplay.HUDBinary == 1);
         GameEventManager.onPlayerPositionUpdateEvent.Invoke();
-        UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
+       
         GameEventManager.onStatUpdateEvent.Invoke();
     }
 
-    //public void ToggleVSync()
-    //{
-    //    if (vSync.isOn)
-    //        QualitySettings.vSyncCount = 1;
-    //    else
-    //        QualitySettings.vSyncCount = 0;
-    //    PlayerPreferencesManager.instance.SaveVSync(QualitySettings.vSyncCount);
-    //}
-    //public void SetVSync(int sync)
-    //{
-    //    QualitySettings.vSyncCount = sync;
-    //    vSync.isOn = sync == 0 ? false : true;
-    //}
-    //public void ToggleAutoZoomReset()
-    //{
-    //    autoZoomBinary = autoZoomReset.isOn? 1 : 0;
-    //    PlayerPreferencesManager.instance.SaveAutoZoomReset(autoZoomBinary);
-    //}
     
-    //public void SetAutoZoomReset(int zoomBinary)
-    //{
-    //    autoZoomBinary = zoomBinary;
-    //    autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
-    //}
-    //public void ToggleDisplayHUD()
-    //{
-    //    HUDBinary = HUDDisplay.isOn ? 1 : 0;
-    //    PlayerPreferencesManager.instance.SaveDisplayHUD(HUDBinary);
-    //}
-    //public void SetDisplayHUD(int displayHUD)
-    //{
-    //    HUDBinary = displayHUD;
-    //    HUDDisplay.isOn = HUDBinary == 0 ? false : true;
-        
-    //}
-    //public int GetVSync()
-    //{
-    //    return QualitySettings.vSyncCount;
-    //}
-    //public void SetFullScreen()
-    //{
-    //    Screen.fullScreen = fullscreen.isOn;
-    //}
-
-    //public void CancelNewGame()
-    //{
-    //    newGameWarning.SetActive(false);
-    //    SelectStartButton();
-    //}
-
-    //public void NewGameWarning(bool active)
-    //{
-    //    //UIScreenManager.instance.DisplayWarning("New Game Warning", UIScreenType.PlayerSelect, UIScreenType.LoadScreen);
-    //    newGameWarning.SetActive(active);
-    //    if (newGameWarning.TryGetComponent(out SetButtonSelected butt) && active)
-    //        butt.SetSelectedButton();
-    //}
 
     public void LoadCurrentGame(string levelName, string loadFileName)
     {
         LoadLevel(levelName, loadFileName);
     }
 
-    //public void SaveGame()
-    //{
-    //    SavingLoading.instance.SaveGame();
-    //    savedAlert.SetActive(true);
-    //}
-
-    //private void ChangeLevel(string levelName)
-    //{
-    //    StartCoroutine(ChangeLevelCo(levelName));
-    //}
+    
 
     private void LoadLevel(string levelName, string loadFileName)
     {
@@ -255,88 +129,11 @@ public class LevelManager : MonoBehaviour
         RealTimeDayNightCycle.instance.isPaused = isPaused;
 
         Time.timeScale = isPaused ? 0.0f : 1.0f;
-        //if (isPaused)
-        //{
-        //    UIScreenManager.instance.HideAllScreens();
-        //    UIScreenManager.instance.DisplayScreen(UIScreenType.PauseUI);
-        //    UIScreenManager.instance.DisplayAdditionalUI(UIScreenType.PlayerHUD);
-        //    PlayerInformation.instance.TogglePlayerInput(false);
-        //}
-        //else
-        //{
-        //    UIScreenManager.instance.HideScreens(UIScreenType.PauseUI);
-        //    UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
-        //    PlayerInformation.instance.TogglePlayerInput(true);
-        //}
-        //savedAlert.SetActive(false);
+        
 
-    }
-
-    public void ViewControls()
-    {
-        //UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.ControlsScreen);
-    }
-
-    public void ViewVideoSettings()
-    {
-        //UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.VideoScreen);
-    }
-
-
-    public void HideControls()
-    {
-        LoadFileBackButton();
-    }
-    public void ViewVolumeControls()
-    {
-        //UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.AudioScreen);
-    }
-
-    public void HideVolumeControls()
-    {
-        LoadFileBackButton();
-    }
-
-    public void ViewOptions()
-    {
-        UIScreenManager.instance.DisplayOptionsUI(true, UIScreenType.MainMenuUI);
-        //UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.SettingsScreen);
-    }
-
-    public void HideOptions()
-    {
-        LoadFileBackButton();
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 
     
-    //IEnumerator ChangeLevelCo (string levelName)
-    //{
-    //    AsyncOperation currentLevelLoading =  SceneManager.LoadSceneAsync(levelName);
-    //    UIScreenManager.instance.HideScreens(UIScreenType.StartScreen);
-    //    UIScreenManager.instance.DisplayScreen(UIScreenType.LoadScreen);
-        
-    //    while (!currentLevelLoading.isDone)
-    //    {
-    //        float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
-
-    //        loadScreenSlider.value = progress;
-    //        text.text = $"Loading: {Mathf.RoundToInt(progress * 100)}%";
-
-    //        yield return null;
-    //    }
-
-    //    UIScreenManager.instance.HideScreens(UIScreenType.LoadScreen);
-
-    //}
 
     IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
@@ -405,9 +202,10 @@ public class LevelManager : MonoBehaviour
        
 
         Time.timeScale = 1;
-        UIScreenManager.instance.HideScreenUI();
-        UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
         UIScreenManager.instance.inMainMenu = false;
+        UIScreenManager.instance.HideScreenUI();
+        //UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
+        
         GameEventManager.onStatUpdateEvent.Invoke();
         yield return new WaitForSecondsRealtime(0.1f);
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
@@ -479,8 +277,9 @@ public class LevelManager : MonoBehaviour
         Pause(false);
         Time.timeScale = 1;
         UIScreenManager.instance.HideScreenUI();
-        UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);
         UIScreenManager.instance.inMainMenu = true;
+        UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);
+        
     }
 
 
@@ -491,7 +290,6 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f);
         PlayerInformation.instance.playerShadow.SetActive(true);
         yield return new WaitForSecondsRealtime(0.5f);
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
         
     }
 }

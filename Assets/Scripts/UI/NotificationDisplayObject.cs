@@ -36,7 +36,7 @@ public class NotificationDisplayObject : MonoBehaviour
                 UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.Inventory:
-                text = $"{notification.itemData.localizedName.GetLocalizedString()} {note.quantity}";
+                text = $"{note.quantity} {notification.itemData.localizedName.GetLocalizedString()} ({PlayerInformation.instance.playerInventory.GetStock(notification.itemData.Name)})";
                 UpdateDisplay(currentTypeColor, text);
                 break;
             case NotificationsType.Agency:

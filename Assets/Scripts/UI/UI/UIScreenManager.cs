@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Klaxon.SaveSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,15 +14,12 @@ public class UIScreenManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    // old
-    //public List<GameObject> screens = new List<GameObject>();
-    //private UIScreenType currentScreen;
-
-    // new
+    
     public MenuDisplayUI tabbedMenu;
     public OptionsDisplayUI optionsMenu;
     public PauseUI pauseMenu;
     public LoadSelectionUI loadGame;
+    public GameplayUI gameplay;
     public WarningUI warningUI;
     public TipPanelUI tipsPanelUI;
     bool mapIsOpen;
@@ -30,11 +28,6 @@ public class UIScreenManager : MonoBehaviour
     public List<GameObject> allScreens = new List<GameObject>();
     
     private UIScreenType currentUI;
-
-
-
-
-    public bool canChangeUI;
 
     private void Start()
     {
@@ -48,11 +41,8 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMapDisplayEvent.AddListener(DisplayMapMenu);
 
 
-        //canChangeUI = true;
-        //foreach (GameObject go in screens)
-        //{
-        //    go.SetActive(false);
-        //}
+        SavingLoading.instance.LoadOptions();
+
         inMainMenu = true;
         DisplayScreenUI(UIScreenType.MainMenuUI, true);
         
@@ -77,13 +67,14 @@ public class UIScreenManager : MonoBehaviour
     }
     public void HideScreenUI()
     {
-        
-        if (currentUI != UIScreenType.None && !isSleeping)
+        if (GetCurrentUI() == UIScreenType.MiniGameUI)
+            return;
+        if (GetCurrentUI() != UIScreenType.None && !isSleeping)
             DisplayScreenUI(currentUI, false);
     }
     void DisplayMapMenu()
     {
-        if (currentUI == UIScreenType.None)
+        if (GetCurrentUI() == UIScreenType.None)
         {
             tabbedMenu.SetMapUI();
             DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
@@ -92,7 +83,7 @@ public class UIScreenManager : MonoBehaviour
     }
     void ToggleTabbedMenu()
     {
-        if (currentUI == UIScreenType.TabbedMenuUI || currentUI == UIScreenType.None)
+        if (GetCurrentUI() == UIScreenType.TabbedMenuUI || GetCurrentUI() == UIScreenType.None)
         {
             tabbedMenu.SetInventoryUI();
             DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
@@ -102,8 +93,8 @@ public class UIScreenManager : MonoBehaviour
     
     public void DisplayScreenUI(UIScreenType screenType, bool state)
     {
-        if (MiniGameManager.instance.gameStarted /*|| LevelManager.instance.isInCutscene*/)
-            return;
+        //if (MiniGameManager.instance.gameStarted /*|| LevelManager.instance.isInCutscene*/)
+        //    return;
         SetScreenUI(screenType, state);
         
         if (state)
@@ -114,11 +105,10 @@ public class UIScreenManager : MonoBehaviour
         else
         {
             currentUI = UIScreenType.None;
-            DisplayPlayerHUD(LevelManager.instance.HUDBinary == 1);
+            DisplayPlayerHUD(gameplay.HUDBinary == 1);
             CloseTipPanel();
             pauseMenu.SetPause(false);
         }
-        //canChangeUI = !state;
         PlayerInformation.instance.playerInput.isInUI = state;
         PlayerInformation.instance.uiScreenVisible = state;
         PlayerInformation.instance.TogglePlayerInput(!state);
@@ -157,6 +147,8 @@ public class UIScreenManager : MonoBehaviour
     {
         DisplayScreenUI(UIScreenType.PauseUI, state);
         pauseMenu.SetPause(state);
+        if (!state)
+            PlayerInformation.instance.playerInput.isPaused = false;
     }
 
     public void DisplayOptionsUI(bool state, UIScreenType screenType)
@@ -197,6 +189,10 @@ public class UIScreenManager : MonoBehaviour
         return false;
     }
 
+    public void SetCurrentUI(UIScreenType screenType)
+    {
+        currentUI = screenType;
+    }
     public UIScreenType GetCurrentUI()
     {
         return currentUI;
@@ -224,90 +220,4 @@ public class UIScreenManager : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //public void DisplayAdditionalUI(UIScreenType screenType)
-    //{
-    //    foreach (var s in screens)
-    //    {
-    //        if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
-    //        {
-    //            s.SetActive(true);
-                
-    //        }
-    //    }
-    //}
-    
-    //public void DisplayScreen(UIScreenType screen)
-    //{
-    //    //if (!canChangeUI)
-    //    //    return;
-    //    foreach (var s in screens)
-    //    {
-    //        if(s.GetComponent<UIScreen>().GetScreenType() == screen)
-    //        {
-    //            s.SetActive(true);
-    //            currentScreen = screen;
-    //            if (s.TryGetComponent(out SetButtonSelected button))
-    //                button.SetSelectedButton();
-    //        }
-    //        else
-    //        {
-    //            s.SetActive(false);
-    //        }
-    //    }
-       
-    //}
-
-    //public void HideScreens(UIScreenType screenType)
-    //{
-    //    foreach (var s in screens)
-    //    {
-    //        if (s.GetComponent<UIScreen>().GetScreenType() == screenType)
-    //        {
-    //            s.SetActive(false);
-    //        }
-    //    }
-    //}
-
-    //public void HideAllScreens()
-    //{
-    //    foreach (var s in screens)
-    //    {
-    //        currentScreen = UIScreenType.None;
-    //        s.SetActive(false);
-    //    }
-    //    PlayerInformation.instance.uiScreenVisible = false;
-    //    PlayerInformation.instance.TogglePlayerInput(true);
-    //}
-
-    //public UIScreenType CurrentUIScreen()
-    //{
-    //    return currentScreen;
-    //}
-
-
-    // dedicated main menu display
-    // dedicated pause menu display
-    // dedicated options menu => needs to know which of the above it came from to go back to
-        // try setting up a save system for the options
-
-    // done - dedicated playerHUD display
-    // done - dedicated tabbed menu display
-    // done - dedicated ingame ui display
 }

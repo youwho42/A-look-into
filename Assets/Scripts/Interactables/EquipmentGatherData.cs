@@ -137,7 +137,7 @@ public class EquipmentGatherData : EquipmentData
                 if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
                     
-                    if (!nearestItemList.hasBeenHarvested && !PlayerInformation.instance.uiScreenVisible)
+                    if (!nearestItemList.hasBeenHarvested)
                     {
                         
 
@@ -157,7 +157,6 @@ public class EquipmentGatherData : EquipmentData
                                     PlayerInformation.instance.playerActivateSpyglass.SlowTimeEvent(false);
                                     nearestItemList.hasBeenHarvested = true;
                                     nearestItemList.harvestedSticker.SetActive(true);
-                                    PlayerInformation.instance.uiScreenVisible = true;
                                     MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
                                     break;
                                 }

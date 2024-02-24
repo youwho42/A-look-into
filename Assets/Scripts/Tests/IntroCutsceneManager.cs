@@ -46,6 +46,7 @@ public class IntroCutsceneManager : MonoBehaviour
     public void LoadPlayer()
     {
         LevelManager.instance.NewGamePlayerFadeIn();
+        
     }
 
     public void SaveGameStart()

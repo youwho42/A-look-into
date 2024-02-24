@@ -10,16 +10,21 @@ public class GraphicsSettingsUI : MonoBehaviour
     [SerializeField]
     private Toggle fullscreen;
 
+    private void Awake()
+    {
+        SetVSync(1);
+        fullscreen.isOn = true;
+        SetFullScreen();
+    }
     public void ToggleVSync()
     {
         int sync = vSync.isOn ? 1 : 0;
         QualitySettings.vSyncCount = sync;
-        //PlayerPreferencesManager.instance.SaveVSync(QualitySettings.vSyncCount);
     }
     public void SetVSync(int sync)
     {
         QualitySettings.vSyncCount = sync;
-        vSync.isOn = sync == 0 ? false : true;
+        vSync.isOn = sync == 1;
     }
 
     public int GetVSync()
@@ -27,10 +32,21 @@ public class GraphicsSettingsUI : MonoBehaviour
         return QualitySettings.vSyncCount;
     }
 
+    public bool GetFullscreen()
+    {
+        return fullscreen.isOn;
+    }
+
     public void SetFullScreen()
     {
         Screen.fullScreen = fullscreen.isOn;
     }
 
+    public void SetFromSave(int sync, bool screen)
+    {
+        SetVSync(sync);
+        fullscreen.isOn = screen;
+        SetFullScreen();
+    }
 
 }

@@ -33,6 +33,7 @@ public class PlayerHUDDisplayUI : MonoBehaviour
         sparksPos = sparkUI.anchoredPosition;
         
         gameObject.SetActive(false);
+        UpdateStatsUI();
     }
     
     private void OnDestroy()

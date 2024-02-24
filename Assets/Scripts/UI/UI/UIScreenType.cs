@@ -20,6 +20,7 @@ public enum UIScreenType
     GuiseUI, 
     OptionsUI,
     WarningUI, 
-    LoadScreenUI
+    LoadScreenUI,
+    MiniGameUI
    
 }

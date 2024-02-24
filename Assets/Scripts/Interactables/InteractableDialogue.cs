@@ -22,9 +22,7 @@ namespace Klaxon.Interactable
             base.Interact(interactor);
             if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
             {
-                if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
-                    return;
-
+                
 
                 currentDialogue = dialogueSystem.GetConversation();
                 if (currentDialogue == null)

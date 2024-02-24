@@ -11,16 +11,17 @@ public class GameplayUI : MonoBehaviour
 
     [SerializeField]
     private Toggle autoZoomReset;
-    [HideInInspector]
-    public int autoZoomBinary;
+    //[HideInInspector]
+    public int autoZoomBinary = 1;
     [SerializeField]
     private Toggle HUDDisplay;
-    [HideInInspector]
-    public int HUDBinary;
-
+    //[HideInInspector]
+    public int HUDBinary = 1;
+    public int languageSelected;
 
     void Start()
     {
+        
         localeDropdown.ClearOptions();
 
         var options = new List<TMP_Dropdown.OptionData>();
@@ -33,21 +34,23 @@ public class GameplayUI : MonoBehaviour
             options.Add(new TMP_Dropdown.OptionData(locale.name));
         }
         localeDropdown.options = options;
-
+        languageSelected = selected;
         localeDropdown.value = selected;
         localeDropdown.onValueChanged.AddListener(LocaleSelected);
+        SetDisplayHUD(HUDBinary);
+        SetAutoZoomReset(autoZoomBinary);
     }
 
     void LocaleSelected(int index)
     {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        languageSelected = index;
     }
 
 
     public void ToggleAutoZoomReset()
     {
         autoZoomBinary = autoZoomReset.isOn ? 1 : 0;
-        //PlayerPreferencesManager.instance.SaveAutoZoomReset(autoZoomBinary);
     }
 
     public void SetAutoZoomReset(int zoomBinary)
@@ -58,7 +61,6 @@ public class GameplayUI : MonoBehaviour
     public void ToggleDisplayHUD()
     {
         HUDBinary = HUDDisplay.isOn ? 1 : 0;
-        //PlayerPreferencesManager.instance.SaveDisplayHUD(HUDBinary);
     }
     public void SetDisplayHUD(int displayHUD)
     {
@@ -67,6 +69,12 @@ public class GameplayUI : MonoBehaviour
 
     }
 
+    public void SetFromSave(int locale, int autoZoom, int hud)
+    {
+        LocaleSelected(locale);
+        SetAutoZoomReset(autoZoom);
+        SetDisplayHUD(hud);
+    }
 
 
 }

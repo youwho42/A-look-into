@@ -1,3 +1,4 @@
+using Klaxon.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class OptionsDisplayUI : MonoBehaviour
 {
+
+
     bool inMenu;
     public Color selectedColor;
     public Color idleColor;
@@ -43,16 +46,7 @@ public class OptionsDisplayUI : MonoBehaviour
     int currentButtonIndex;
     int maxButtons;
 
-    void DisplayMenuUI()
-    {
-        
-        if (!inMenu)
-        {
-            
-            
-        }
-
-    }
+    
 
     void HideAllOptionsUI()
     {
@@ -154,6 +148,7 @@ public class OptionsDisplayUI : MonoBehaviour
     }
     public void Back()
     {
+        SavingLoading.instance.SaveOptions();
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(backButtonScreen, true);
     }

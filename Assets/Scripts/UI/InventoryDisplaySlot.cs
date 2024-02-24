@@ -128,6 +128,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     NavNodeQuadTree quadTree;
     Bounds bounds;
 
+    float dragTimer;
     
 
 
@@ -281,8 +282,11 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         PlayerInformation.instance.isDragging = true;
 
+        dragTimer += Time.deltaTime;
+        
         if (!isDragged)
         {
+            
             var prefab = item.ItemPrefabVariants[0];
             if (item.Type == ItemType.Decoration)
             {
@@ -321,7 +325,16 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || itemToDrop == null)
             return;
         //Check if in player vicinity :)
-        PlayerInformation.instance.isDragging = false;
+        if (dragTimer < 0.3f)
+        {
+            Destroy(itemToDrop);
+            ResetDragging();
+            return;
+        }
+            
+
+        
+
         if (!CheckPlayerVicinity())
         {
             Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Too far"), null, 0, NotificationsType.Warning);
@@ -342,7 +355,6 @@ public class InventoryDisplaySlot : MonoBehaviour
         }
         
         DropItem(itemToDrop.transform.position);
-        
         EventSystem.current.SetSelectedGameObject(null);
         ResetDragging();
 
@@ -350,8 +362,10 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     void ResetDragging()
     {
+        PlayerInformation.instance.isDragging = false;
         isDragged = false;
         itemToDrop = null;
+        dragTimer = 0;
     }
     
     void SetItemSelected()
