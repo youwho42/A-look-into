@@ -148,6 +148,7 @@ public class LoadSelectionUI : MonoBehaviour
             return;
         string path = $"{Application.persistentDataPath}/{currentLoadFileName}_save.ali";
         DisplayDeleteWarning(path);
+        
     }
 
     public void DisplayDeleteWarning(string path = "")
@@ -168,6 +169,8 @@ public class LoadSelectionUI : MonoBehaviour
     public void DeleteSaveFile()
     {
         SavingLoading.instance.DeleteFile(fileDeletePath);
+        string versionPath = $"{Application.persistentDataPath}/{currentLoadFileName}Version_save.aliv";
+        SavingLoading.instance.DeleteFile(versionPath);
         SetAvailableLoads();
         ClearCurrentLoadFileName();
         HideDeleteWarning();

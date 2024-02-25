@@ -15,18 +15,18 @@ public class PlayerSurroundingItemsContainer : MonoBehaviour
     {
         containerUI = ContainerInventoryDisplayUI.instance;
         GameEventManager.onSurroundingItemsEvent.AddListener(TryGetSurroundingtItems);
-        GameEventManager.onInventoryUpdateEvent.AddListener(CrossCheckCurrentItems);
+        //GameEventManager.onInventoryUpdateEvent.AddListener(CrossCheckCurrentItems);
     }
     public void OnDestroy()
     {
         GameEventManager.onSurroundingItemsEvent.RemoveListener(TryGetSurroundingtItems);
-        GameEventManager.onInventoryUpdateEvent.RemoveListener(CrossCheckCurrentItems);
+       //s GameEventManager.onInventoryUpdateEvent.RemoveListener(CrossCheckCurrentItems);
 
     }
 
     void TryGetSurroundingtItems()
     {
-        
+        inventory.RemoveAllItems();
         foreach (var item in GetSurroundingItems())
         {
             inventory.AddItem(item, 1, false);

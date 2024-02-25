@@ -97,7 +97,7 @@ public class CharacterChoiceUI : MonoBehaviour
     public void CheckPlayerNameValid()
     {
         bool valid = playerNameInputField.text.All(c => char.IsLetterOrDigit(c));
-        if (string.IsNullOrWhiteSpace(playerNameInputField.text) || !valid || playerNameInputField.text == "Options")
+        if (string.IsNullOrWhiteSpace(playerNameInputField.text) || !valid)
             acceptButton.interactable = false;
         else
             acceptButton.interactable = true;

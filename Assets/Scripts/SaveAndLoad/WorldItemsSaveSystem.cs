@@ -19,6 +19,7 @@ namespace Klaxon.SaveSystem
             QI_Item[] items = FindObjectsOfType<QI_Item>();
             List<string> tempItem = new List<string>();
             List<string> tempItemID = new List<string>();
+            List<string> tempVersion = new List<string>();
             List<int> tempItemVariant = new List<int>();
             foreach (var item in items)
             {
@@ -27,6 +28,7 @@ namespace Klaxon.SaveSystem
 
                     tempItem.Add(item.Data.Name);
                     tempItemID.Add(entity.ID);
+                    tempVersion.Add(entity.version);
                     tempItemVariant.Add(item.itemVariantIndex);
                 }
 
@@ -35,6 +37,7 @@ namespace Klaxon.SaveSystem
             {
                 items = tempItem,
                 itemID = tempItemID,
+                version = tempVersion,
                 itemVariantIndex = tempItemVariant
             };
         }
@@ -61,7 +64,11 @@ namespace Klaxon.SaveSystem
                     continue;
                 var entity = Instantiate(itemObject, transform.position, Quaternion.identity);
                 if (entity.TryGetComponent(out SaveableItemEntity saveableItem))
-                    saveableItem.SetId(saveData.itemID[i]);
+                {
+                    saveableItem.SetId(saveData.itemID[i]); 
+                    saveableItem.SetVersionFromSave(saveData.version[i]);
+                }
+                   
                 if (entity.TryGetComponent(out QI_Item Item))
                     Item.itemVariantIndex = saveData.itemVariantIndex[i];
 
@@ -77,6 +84,7 @@ namespace Klaxon.SaveSystem
         {
             public List<string> items;
             public List<string> itemID;
+            public List<string> version;
             public List<int> itemVariantIndex;
 
         }

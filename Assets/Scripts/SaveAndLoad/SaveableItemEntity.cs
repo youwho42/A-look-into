@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Klaxon.SaveSystem
 {
     public class SaveableItemEntity : MonoBehaviour
@@ -12,9 +13,22 @@ namespace Klaxon.SaveSystem
 
         public string ID => id;
 
-        [ContextMenu("Generate ID")]
+        
         public void GenerateId() => id = Guid.NewGuid().ToString();
 
+
+        public string version;
+
+        [ContextMenu("Set ID and Version")]
+        public void SetVersion()
+        {
+            version = Application.version;
+            GenerateId();
+        }
+        public void SetVersionFromSave(string savedVersion)
+        {
+            version = savedVersion;
+        }
 
         public void SetId(string newID)
         {

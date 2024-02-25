@@ -70,6 +70,18 @@ public class LevelManager : MonoBehaviour
         }
 
 
+        // create a tempsavefile of all the items from the latest version
+
+        SavingLoading.instance.SaveVersionItems();
+
+
+        // this happens elsewhere
+        // when  saving the version include the gamesave name in the version file name.
+        //SavingLoading.instance.LoadVersion();
+        // VersionDisplay.instance.CompareVersions();
+        // the next time I load a gamefile if compare fails load tempsavefile also.
+
+
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
@@ -190,6 +202,10 @@ public class LevelManager : MonoBehaviour
         // but the data still loads after this... figure it out?
         SavingLoading.instance.LoadGame(loadFileName);
         PlayerDistanceToggle.instance.PopulateLists();
+        SavingLoading.instance.LoadVersion();
+        if(!VersionDisplay.instance.CompareVersions())
+            SavingLoading.instance.LoadVersionItems();
+
 
         yield return new WaitForSecondsRealtime(0.5f);
 
