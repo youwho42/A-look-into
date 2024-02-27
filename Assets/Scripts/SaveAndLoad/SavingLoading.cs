@@ -213,7 +213,7 @@ namespace Klaxon.SaveSystem
             state[saveableVersionItems.versionItemsName] = saveableVersionItems.CaptureState();
             foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
             {
-                if(saveableItemEntity.version == Application.version)
+                if(saveableItemEntity.version != "")
                     state[saveableItemEntity.ID] = saveableItemEntity.CaptureState();
             }
 

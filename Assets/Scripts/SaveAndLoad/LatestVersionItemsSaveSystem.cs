@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -25,12 +26,13 @@ namespace Klaxon.SaveSystem
             {
                 if (item.TryGetComponent(out SaveableItemEntity entity))
                 {
-                    if(entity.version == Application.version)
+                    if(entity.version != "")
                     {
                         tempItem.Add(item.Data.Name);
                         tempItemID.Add(entity.ID);
                         tempVersion.Add(entity.version);
                         tempItemVariant.Add(item.itemVariantIndex);
+                        
                     }
                     
                 }
@@ -48,14 +50,8 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            //SaveableItemEntity[] items = FindObjectsOfType<SaveableItemEntity>();
-            //foreach (var item in items)
-            //{
-            //    if (item.TryGetComponent(out QI_Item value))
-            //        Destroy(item.gameObject);
-            //}
 
-
+            var savedVersion = VersionDisplay.instance.intVersion;
 
             for (int i = 0; i < saveData.items.Count; i++)
             {
@@ -65,6 +61,11 @@ namespace Klaxon.SaveSystem
                 var itemObject = itemData.ItemPrefabVariants[saveData.itemVariantIndex[i]];
                 if (itemObject == null)
                     continue;
+
+                
+                if (!IsNewerVersion(savedVersion, saveData.version[i]))
+                    continue;
+
                 var entity = Instantiate(itemObject, transform.position, Quaternion.identity);
                 if (entity.TryGetComponent(out SaveableItemEntity saveableItem))
                 {
@@ -74,12 +75,18 @@ namespace Klaxon.SaveSystem
 
                 if (entity.TryGetComponent(out QI_Item Item))
                     Item.itemVariantIndex = saveData.itemVariantIndex[i];
-
             }
+        }
 
-
-
-
+        bool IsNewerVersion(int[] savedVersion, string itemV)
+        {
+            int[] itemVersion = itemV.Split('.').Select(s => int.Parse(s)).ToArray();
+            for (int i = 0; i < savedVersion.Length; i++)
+            {
+                if (itemVersion[i] > savedVersion[i])
+                    return true;
+            }
+            return false;
         }
 
         [Serializable]

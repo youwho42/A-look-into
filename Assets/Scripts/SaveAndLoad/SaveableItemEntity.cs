@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,16 +18,21 @@ namespace Klaxon.SaveSystem
 
 
         public string version;
+        public int[] intVersion;
 
         [ContextMenu("Set ID and Version")]
         public void SetVersion()
         {
             version = Application.version;
+            intVersion = version.Split('.').Select(s => int.Parse(s)).ToArray();
             GenerateId();
         }
         public void SetVersionFromSave(string savedVersion)
         {
+            if (version == "")
+                return;
             version = savedVersion;
+            intVersion = version.Split('.').Select(s => int.Parse(s)).ToArray();
         }
 
         public void SetId(string newID)

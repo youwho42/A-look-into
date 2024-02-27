@@ -62,6 +62,10 @@ namespace Klaxon.SaveSystem
                 var itemObject = itemData.ItemPrefabVariants[saveData.itemVariantIndex[i]];
                 if (itemObject == null)
                     continue;
+
+                // somewhere / somehow, check if this item is in the tempload file
+                // if it isn't do not instantiate it.
+
                 var entity = Instantiate(itemObject, transform.position, Quaternion.identity);
                 if (entity.TryGetComponent(out SaveableItemEntity saveableItem))
                 {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Klaxon.SaveSystem
 {
@@ -12,24 +13,30 @@ namespace Klaxon.SaveSystem
 
         public object CaptureState()
         {
-
-            return new SaveData
-            {
-                version = Application.version
+            
+            int[] asIntegers = Application.version.Split('.').Select(s => int.Parse(s)).ToArray();
+            
+            return new SaveData { 
+           
+                version = Application.version,
+                intVersion = asIntegers
             };
         }
 
+        
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
             versionDisplay.savedVersion = saveData.version;
+            versionDisplay.SetVersion(saveData.intVersion);
         }
 
         [Serializable]
         private struct SaveData
         {
             public string version;
-
+            public int[] intVersion;
+            
         }
     }
 }

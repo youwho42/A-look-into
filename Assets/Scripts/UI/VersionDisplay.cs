@@ -1,8 +1,10 @@
 using Klaxon.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class VersionDisplay : MonoBehaviour
 {
@@ -20,16 +22,25 @@ public class VersionDisplay : MonoBehaviour
     public TextMeshProUGUI versionText;
     public string savedVersion;
 
+    public int[] intVersion;
+    
+
     private void Start()
     {
         versionText.text = $"v {Application.version}";
-        
+    }
+
+    public void SetVersion(int[] intV)
+    {
+        intVersion = intV;
     }
 
     public bool CompareVersions()
     {
-        if (savedVersion == "")
+        if (savedVersion == "" || savedVersion == Application.version)
             return true;
-        return savedVersion == Application.version;
+
+        return false;
+        
     }
 }
