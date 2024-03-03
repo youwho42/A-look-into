@@ -17,5 +17,9 @@ public class AllItemsDatabaseManager : MonoBehaviour
     }
 
     public QI_ItemDatabase allItemsDatabase;
-  
+
+    public void ResetItemsDatabase()
+    {
+        allItemsDatabase.SetAllItems();
+    }
 }

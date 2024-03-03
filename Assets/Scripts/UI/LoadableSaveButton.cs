@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -14,10 +16,13 @@ public class LoadableSaveButton : MonoBehaviour
             LoadSelectionUI.instance.SetCurrenLoadFileName(loadFileName);
     }
 
-    public void SetLoadButton(string fileName)
+    public void SetLoadButton(FileInfo file)
     {
-        string[] name = fileName.Split('_');
-        loadableSaveName.text = name[0];
+        string[] name = file.Name.Split('_');
+        var format = new CultureInfo(CultureInfo.CurrentCulture.Name);
+        string date = file.LastWriteTime.ToString("d", format);
+        string time = file.LastWriteTime.ToString("t", format);
+        loadableSaveName.text = $"{name[0]} - {date} - {time}";
         loadFileName = name[0];
     }
 
@@ -27,14 +32,4 @@ public class LoadableSaveButton : MonoBehaviour
         loadFileName = "";
     }
 
-    //public void DeleteSave()
-    //{
-    //    if (LoadSelectionUI.instance.warningActive)
-    //        return;
-    //    string path = $"{Application.persistentDataPath}/{loadFileName}_save.ali";
-    //    LoadSelectionUI.instance.DisplayDeleteWarning(path);
-    //}
-
-    
-    
 }

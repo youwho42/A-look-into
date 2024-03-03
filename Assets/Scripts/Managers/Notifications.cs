@@ -77,7 +77,7 @@ public class Notifications : MonoBehaviour
 
     private void Update()
     {
-        if (currentNotificationCount >= maxNotifications)
+        if (currentNotificationCount >= maxNotifications || UIScreenManager.instance.GetIsCurrentUI(UIScreenType.DialogueUI))
             return;
         if (allNotifications.Count > 0)
         {

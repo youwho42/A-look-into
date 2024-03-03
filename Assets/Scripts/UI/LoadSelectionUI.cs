@@ -29,6 +29,7 @@ public class LoadSelectionUI : MonoBehaviour
     UIScreenType backButtonScreen;
 
     public GameObject deleteWarning;
+    public GameObject deleteAllWarning;
     string fileDeletePath;
 
     public bool warningActive;
@@ -42,7 +43,8 @@ public class LoadSelectionUI : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onGameSavedEvent.AddListener(SetAvailableLoads);
-        HideDeleteWarning();
+        HideDeleteWarning(deleteWarning);
+        HideDeleteWarning(deleteAllWarning);
         SetAvailableLoads();
         RefreshButtonsValid();
     }
@@ -74,7 +76,7 @@ public class LoadSelectionUI : MonoBehaviour
     public void SetAvailableLoads()
     {
         ClearLoadableSavesButtons();
-         
+        
         if (Directory.Exists(Application.persistentDataPath))
         {
             string saveFolder = Application.persistentDataPath;
@@ -83,8 +85,6 @@ public class LoadSelectionUI : MonoBehaviour
             List<FileInfo> files = new List<FileInfo>();
             foreach (var file in d.GetFiles("*.ali"))
             {
-                if (file.Name == "Options_save.ali")
-                    continue;
                 files.Add(file);
             }
             //sort using date created
@@ -105,7 +105,7 @@ public class LoadSelectionUI : MonoBehaviour
         {
             LoadableSaveButton newLoadableSave = Instantiate(loadableSaveButton, loadButtonHolder.transform);
             loadableSaveButtons.Add(newLoadableSave);
-            newLoadableSave.SetLoadButton(file.Name);
+            newLoadableSave.SetLoadButton(file);
         }
     }
     public void RefreshButtonsValid()
@@ -147,20 +147,27 @@ public class LoadSelectionUI : MonoBehaviour
         if (warningActive)
             return;
         string path = $"{Application.persistentDataPath}/{currentLoadFileName}_save.ali";
-        DisplayDeleteWarning(path);
-        
+        DisplayDeleteWarning(deleteWarning, path); 
     }
 
-    public void DisplayDeleteWarning(string path = "")
+    public void DeleteAllSaves()
     {
-        deleteWarning.SetActive(true);
+        if (warningActive)
+            return;
+        
+        DisplayDeleteWarning(deleteAllWarning);
+    }
+
+    public void DisplayDeleteWarning(GameObject warning, string path = "")
+    {
+        warning.SetActive(true);
         fileDeletePath = path;
         warningActive = true;
-        deleteWarning.GetComponent<SetButtonSelected>().SetSelectedButton();
+        warning.GetComponent<SetButtonSelected>().SetSelectedButton();
     }
-    public void HideDeleteWarning()
+    public void HideDeleteWarning(GameObject warning)
     {
-        deleteWarning.SetActive(false);
+        warning.SetActive(false);
         ClearCurrentLoadFileName();
         warningActive = false;
         gameObject.GetComponent<SetButtonSelected>().SetSelectedButton();
@@ -168,11 +175,28 @@ public class LoadSelectionUI : MonoBehaviour
 
     public void DeleteSaveFile()
     {
+        
         SavingLoading.instance.DeleteFile(fileDeletePath);
         string versionPath = $"{Application.persistentDataPath}/{currentLoadFileName}Version_save.aliv";
         SavingLoading.instance.DeleteFile(versionPath);
         SetAvailableLoads();
         ClearCurrentLoadFileName();
-        HideDeleteWarning();
+        HideDeleteWarning(deleteWarning);
+    }
+    public void DeleteAllSaveFiles()
+    {
+        string saveFolder = Application.persistentDataPath;
+        string[] filePaths = Directory.GetFiles(saveFolder);
+        foreach (string filePath in filePaths)
+        {
+            if (filePath.EndsWith(".alio") || filePath.EndsWith(".alit") || filePath.EndsWith(".log"))
+                continue;
+            SavingLoading.instance.DeleteFile(filePath);
+            
+        }
+
+        SetAvailableLoads();
+        ClearCurrentLoadFileName();
+        HideDeleteWarning(deleteAllWarning);
     }
 }

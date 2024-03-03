@@ -1,4 +1,5 @@
-﻿using QuantumTek.QuantumInventory;
+﻿using Klaxon.StatSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -182,5 +183,35 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         playerSlots.Clear();
     }
 
-    
+    public void SortInventory()
+    {
+        containerInventory.SortInventory();
+        UpdateContainerInventoryUI();
+    }
+
+    public void PlaceAllSimilarItems()
+    {
+        if (!containerInventory.PlayerCanAddToInventory)
+            return;
+        List<QI_ItemData> items = new List<QI_ItemData>();
+        List<int> amounts = new List<int>();
+        foreach (var stack in containerInventory.Stacks)
+        {
+            int amount = PlayerInformation.instance.playerInventory.GetStock(stack.Item.Name);
+            if (amount > 0)
+            {
+                items.Add(stack.Item);
+                amounts.Add(amount);
+                
+            }
+
+        }
+        for (int i = 0; i < items.Count; i++)
+        {
+            int space = containerInventory.CheckInventoryHasSpace(items[i], amounts[i]);
+            int finalAmount = amounts[i] < space ? amounts[i] : space;
+            containerInventory.AddItem(items[i], finalAmount, false);
+            PlayerInformation.instance.playerInventory.RemoveItem(items[i], finalAmount);
+        }
+    }
 }

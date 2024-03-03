@@ -35,7 +35,7 @@ public class CharacterChoiceUI : MonoBehaviour
         spriteName = PlayerInformation.instance.characterManager.baseCharacters[0];
         chooseSpriteResolver.SetCategoryAndLabel("Player", PlayerInformation.instance.characterManager.baseCharacters[0]);
         //Changes the character limit in the main input field.
-        playerNameInputField.characterLimit = 12;
+        playerNameInputField.characterLimit = 16;
 
         CheckPlayerNameValid();
         characterChoiceCameraObject.SetActive(false);

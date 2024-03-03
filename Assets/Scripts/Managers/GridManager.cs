@@ -36,8 +36,8 @@ public class GridManager : MonoBehaviour
 
     public bool GetTileValid(Vector3 position)
     {
-        if (groundMap == null)
-            return false;
+        if (grid == null || groundMap == null)
+            SetGrid();
         var tile = groundMap.WorldToCell(position) - Vector3Int.forward;
         var tileAbove = tile + Vector3Int.forward;
         if (groundMap.GetTile(tile) != null && groundMap.GetTile(tileAbove) == null)

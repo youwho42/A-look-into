@@ -136,7 +136,9 @@ namespace Klaxon.SaveSystem
 
         private Dictionary<string, object> LoadFile(string fileName, string extention)
         {
+
             LoadPath = $"{Application.persistentDataPath}/{fileName}_save.{extention}";
+            
             if (!File.Exists(LoadPath))
             {
                 return new Dictionary<string, object>();
@@ -165,13 +167,17 @@ namespace Klaxon.SaveSystem
 
         private void RestoreState(Dictionary<string, object> state)
         {
+            
             foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
             {
+                
                 if (state.TryGetValue(saveableWorldEntity.ID, out object value))
                 {
                     saveableWorldEntity.RestoreState(value);
                 }
+                
             }
+            //ConsoleDebuggerUI.instance.SetDebuggerText("restoring file");
             foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
             {
                 if (state.TryGetValue(saveableItemEntity.ID, out object value))

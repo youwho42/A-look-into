@@ -13,10 +13,11 @@ public class ResetAtDawnManager : MonoBehaviour
             instance = this;
            
     }
-    private void Start()
+    private void OnEnable()
     {
         GameEventManager.onTimeHourEvent.AddListener(ResetAllItems);
         GameEventManager.onGameStartLoadEvent.AddListener(ResetManager);
+        ResetAllItems(hourToDailySpawn);
     }
     private void OnDisable()
     {
@@ -38,9 +39,10 @@ public class ResetAtDawnManager : MonoBehaviour
     }
     public void ResetAllItems(int time)
     {
-        itemsToReset = FindObjectsOfType<MonoBehaviour>(true).OfType<IResetAtDawn>().ToList();
+        
         if (time != hourToDailySpawn)
             return;
+        itemsToReset = FindObjectsOfType<MonoBehaviour>(true).OfType<IResetAtDawn>().ToList();
         foreach (var item in itemsToReset)
         {
             item.ResetAtDawn();

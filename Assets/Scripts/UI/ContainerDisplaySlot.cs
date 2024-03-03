@@ -66,8 +66,13 @@ public class ContainerDisplaySlot : MonoBehaviour
 
     void Transfer(QI_ItemData item, int amount, QI_Inventory fromInventory, QI_Inventory toInventory)
     {
-        if (toInventory.AddItem(item, amount, false))
-            fromInventory.RemoveItem(item, amount);
+        int space = toInventory.CheckInventoryHasSpace(item, amount);
+        int finalAmount = amount < space ? amount : space;
+        if(toInventory.AddItem(item, finalAmount, false))
+            fromInventory.RemoveItem(item, finalAmount);
+
+        //if (toInventory.AddItem(item, amount, false))
+        //    fromInventory.RemoveItem(item, amount);
        // ContainerInventoryDisplayUI.instance.UpdateContainerInventoryUI();
         
     }

@@ -71,15 +71,7 @@ public class LevelManager : MonoBehaviour
 
 
         // create a tempsavefile of all the items from the latest version
-
         SavingLoading.instance.SaveVersionItems();
-
-
-        // this happens elsewhere
-        // when  saving the version include the gamesave name in the version file name.
-        //SavingLoading.instance.LoadVersion();
-        // VersionDisplay.instance.CompareVersions();
-        // the next time I load a gamefile if compare fails load tempsavefile also.
 
 
         playerMaterial = PlayerInformation.instance.playerSprite.material;
@@ -88,6 +80,8 @@ public class LevelManager : MonoBehaviour
         isInCutscene = true;
         yield return new WaitForSeconds(0.2f);
         loadScreen.gameObject.SetActive(false);
+
+        AllItemsDatabaseManager.instance.ResetItemsDatabase();
 
 #if UNITY_STANDALONE && !UNITY_EDITOR
         LoadTitleScreen();
@@ -201,8 +195,11 @@ public class LevelManager : MonoBehaviour
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
         // but the data still loads after this... figure it out?
         SavingLoading.instance.LoadGame(loadFileName);
+        //ConsoleDebuggerUI.instance.SetDebuggerText($"{loadFileName} loaded");
         PlayerDistanceToggle.instance.PopulateLists();
+        //ConsoleDebuggerUI.instance.SetDebuggerText("about to load version");
         SavingLoading.instance.LoadVersion();
+        //ConsoleDebuggerUI.instance.SetDebuggerText("loaded version");
         if(!VersionDisplay.instance.CompareVersions())
             SavingLoading.instance.LoadVersionItems();
 
@@ -283,20 +280,21 @@ public class LevelManager : MonoBehaviour
 
 
         yield return new WaitForSecondsRealtime(0.5f);
-
+        GameEventManager.onGameStartLoadEvent.Invoke();
         text.text = "Thank you for waiting.";
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
         RealTimeDayNightCycle.instance.SetDayTime(420, 1);
         PlayerDistanceToggle.instance.PopulateLists();
+        
         yield return new WaitForSecondsRealtime(3f);
         Pause(false);
         Time.timeScale = 1;
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.inMainMenu = true;
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);
-        
+        ResetAtDawnManager.instance.ResetAllItems(5);
     }
 
 

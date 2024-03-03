@@ -50,6 +50,7 @@ namespace Klaxon.ConversationSystem
                 //    convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
 
                 var currObject = convo.ActivateUndertakingObject == null ? convo.UndertakingObject : convo.ActivateUndertakingObject;
+                
                 switch (currObject.CurrentState)
                 {
                     case UndertakingState.Inactive:
@@ -57,7 +58,7 @@ namespace Klaxon.ConversationSystem
                             ActivateUndertaking(convo.ActivateUndertakingObject);
                         dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Inactive);
                         if (convo.UndertakingTask)
-                            convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
+                             convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
                         break;
 
                     case UndertakingState.Active:

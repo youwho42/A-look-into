@@ -18,5 +18,11 @@ public class ConsoleDebuggerUI : MonoBehaviour
     public void SetDebuggerText(string text)
     {
         debuggerText.text = text;
+        Invoke("ResetText", 5f);
+    }
+
+    void ResetText()
+    {
+        debuggerText.text = "";
     }
 }

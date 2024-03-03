@@ -10,9 +10,12 @@ public class StatModifiersUI : MonoBehaviour
     public ModifierDisplay modifierObject;
     public List<ModifierDisplay> modifiers = new List<ModifierDisplay>();
 
-    public void Start()
+    private void Start()
     {
         ClearModifiers();
+    }
+    public void OnEnable()
+    {
         GameEventManager.onStatUpdateEvent.AddListener(UpdateModifierUI);
     }
     public void OnDisable()

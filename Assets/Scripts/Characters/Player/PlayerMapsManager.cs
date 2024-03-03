@@ -28,6 +28,11 @@ public class PlayerMapsManager : MonoBehaviour
 
     private void Start()
     {
+        SetMapAreas();
+    }
+
+    public void SetMapAreas()
+    {
         foreach (var map in mapAreas)
         {
             Color[] c = map.mapImage.texture.GetPixels();
@@ -42,7 +47,8 @@ public class PlayerMapsManager : MonoBehaviour
             if (map.mapName == mapName && !map.active)
             {
                 map.active = true;
-               Notifications.instance.SetNewNotification("Map Added", null, 0, NotificationsType.Map);
+                
+                Notifications.instance.SetNewNotification("Map Added", null, 0, NotificationsType.Map);
             }
                 
         }

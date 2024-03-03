@@ -31,6 +31,7 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     public void PopulateLists()
     {
+        //ConsoleDebuggerUI.instance.SetDebuggerText("lists populating");
         animals.Clear();
         var a = FindObjectsOfType<MonoBehaviour>().OfType<IAnimal>().ToList();
         foreach (var animalComponent in a)

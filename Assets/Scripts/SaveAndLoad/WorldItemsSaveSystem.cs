@@ -52,16 +52,20 @@ namespace Klaxon.SaveSystem
                     Destroy(item.gameObject);
             }
 
-
-
+            
             for (int i = 0; i < saveData.items.Count; i++)
             {
+
+
                 var itemData = itemDatabase.GetItem(saveData.items[i]);
                 if (itemData == null)
                     continue;
+                
                 var itemObject = itemData.ItemPrefabVariants[saveData.itemVariantIndex[i]];
                 if (itemObject == null)
                     continue;
+
+                
 
                 // somewhere / somehow, check if this item is in the tempload file
                 // if it isn't do not instantiate it.
@@ -77,7 +81,6 @@ namespace Klaxon.SaveSystem
                     Item.itemVariantIndex = saveData.itemVariantIndex[i];
 
             }
-
 
 
 

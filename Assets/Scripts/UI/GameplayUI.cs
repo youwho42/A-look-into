@@ -10,13 +10,17 @@ public class GameplayUI : MonoBehaviour
     public TMP_Dropdown localeDropdown;
 
     [SerializeField]
-    private Toggle autoZoomReset;
-    //[HideInInspector]
+    private Slider autoZoomReset;
+    [HideInInspector]
     public int autoZoomBinary = 1;
     [SerializeField]
-    private Toggle HUDDisplay;
-    //[HideInInspector]
+    private TextMeshProUGUI autoZoomText;
+    [SerializeField]
+    private Slider HUDDisplay;
+    [HideInInspector]
     public int HUDBinary = 1;
+    [SerializeField]
+    private TextMeshProUGUI HUDText;
     public int languageSelected;
 
     void Start()
@@ -50,23 +54,41 @@ public class GameplayUI : MonoBehaviour
 
     public void ToggleAutoZoomReset()
     {
-        autoZoomBinary = autoZoomReset.isOn ? 1 : 0;
+        autoZoomBinary = (int)autoZoomReset.value;
+        SetAutoZoomText();
     }
 
     public void SetAutoZoomReset(int zoomBinary)
     {
         autoZoomBinary = zoomBinary;
-        autoZoomReset.isOn = autoZoomBinary == 0 ? false : true;
+        autoZoomReset.value = zoomBinary;
+        SetAutoZoomText();
     }
+
     public void ToggleDisplayHUD()
     {
-        HUDBinary = HUDDisplay.isOn ? 1 : 0;
+        HUDBinary = (int)HUDDisplay.value;
+        SetHUDText();
     }
     public void SetDisplayHUD(int displayHUD)
     {
         HUDBinary = displayHUD;
-        HUDDisplay.isOn = HUDBinary == 0 ? false : true;
+        HUDDisplay.value = displayHUD;
+        SetHUDText();
+    }
 
+    void SetAutoZoomText()
+    {
+        autoZoomText.text = autoZoomBinary == 1 ?
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Reset Zoom On") :
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Reset Zoom Off");
+    }
+
+    void SetHUDText()
+    {
+        HUDText.text = HUDBinary == 1 ?
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "HUD Display on") :
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "HUD Display off");
     }
 
     public void SetFromSave(int locale, int autoZoom, int hud)

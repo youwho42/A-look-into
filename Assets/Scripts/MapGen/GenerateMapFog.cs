@@ -33,6 +33,7 @@ public class GenerateMapFog : MonoBehaviour
         GenerateMapFromNoise();
         InvokeRepeating("Boop", 0, 0.25f);
     }
+
     private void OnDisable()
     {
         mapImage.texture = null;
@@ -59,6 +60,8 @@ public class GenerateMapFog : MonoBehaviour
 
     Texture2D CreateTexture(float[,] tileMapArray)
     {
+        if (PlayerMapsManager.instance == null)
+            return null;
         var playerMapsColors = PlayerMapsManager.instance.colors;
         var playerMaps = PlayerMapsManager.instance.mapAreas;
 
@@ -69,7 +72,6 @@ public class GenerateMapFog : MonoBehaviour
         Texture2D texture = new Texture2D(width, height);
 
         Color[] colorMap = new Color[width * height];
-
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -77,11 +79,10 @@ public class GenerateMapFog : MonoBehaviour
                 float alpha = 0;
                 for (int i = 0; i < playerMaps.Count; i++)
                 {
-                    if (playerMaps[i].active)
+                    if (playerMaps[i].active && playerMapsColors[i][y * width + x].a > 0)
                         alpha += playerMapsColors[i][y * width + x].a;
                 }
                 float c = CellShade(tileMapArray[x, y]);
-                
                 colorMap[y * width + x] = new Color(c - alpha, c - alpha, c - alpha, Mathf.Clamp(c + minAlpha, 0, 1.17f) - alpha);
             }
         }

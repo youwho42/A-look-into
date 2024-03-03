@@ -193,9 +193,22 @@ public class UIScreenManager : MonoBehaviour
     {
         currentUI = screenType;
     }
+    /// <summary>
+    /// Return the current UIScreenType
+    /// </summary>
+    /// <returns>UIScreenType</returns>
     public UIScreenType GetCurrentUI()
     {
         return currentUI;
+    }
+    /// <summary>
+    /// Returns true/false if what you sent is is the currentUI
+    /// </summary>
+    /// <param name="screenType"></param>
+    /// <returns>bool</returns>
+    public bool GetIsCurrentUI(UIScreenType screenType)
+    {
+        return currentUI == screenType;
     }
 
     public void SetTipPanel(string tiptText)
