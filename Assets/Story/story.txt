@@ -364,7 +364,15 @@ BUGS!!!!!!!!!!
 	
 
 THINGS TO CHANGE
+
+	- Check out spyglass minigame, wolfheat says can't get out of it, and you can move around apparently. 
+		And you haven't looked at it in way too long.
+	- Add continue button to pause screen.
 	
+	- make the run toggle a straight toggle that only the player turns on or off
+		have some type of obvious indicator for it
+	
+
 	
 	- check needed when you go to the main menu from a game about losing your progress. 
 		maybe "are you sure... last save x-amount-of-time ago."
@@ -378,7 +386,7 @@ THINGS TO CHANGE
 				- maybe add pulsing intensity going from furtherst player location towards current player location
 				- Maybe add to legend player trail color.
 
-	- map reveal when you first open the map after finding a bit of map.
+	
 
 	- add pulling crafting materials from nearby chests for crafting stations
 
@@ -392,35 +400,38 @@ THINGS TO CHANGE
 	- Chicken peck animation as save icon... somewhere.
 
 
+	- compass is broken
+
+
+        
+        * CHANGE - player get already harvested notification for mining the kiln
+        * CHANGE - Spinner seems to queue up objects created, but player cant see this queue
+        * SUGGESTION - Spinner should prob have a header showing the name of the station
+        * SUGGESTION - the research station should state that the items needed to research wont get comsumed
+        * SUGGESTION - would be nice to be able to TAB out of crafting stations
+
+        // These bugs seems to happen after the game already broke some
+        * BUG - Game not allowing tools to be dropped? Maybe this should be allowed. If inventory is full player cant pick up anything.
+        * BUG - Placing the kiln leaves the icon in the inventory as well as placing it in world, it also gets placed before releasing mouse button, prob as soon as it hits a valid spot?
+        * BUG - Stone axe recipes filling up workstations recipe list - photo
+        * BUG - equipping a tool when already having a tool equipped but no free space in inventory destroyes/"player lose" the removed tool
+        * BUG - After a few seconds in the workstation the output changes to show the players inventory instead        
+        * BUG - Time seems to have stopped at 12:40 on day 7    
+
+
+
+
+
+
 CHANGELOG:
 	
-	- Fixed:		You can no longer enter a conversation with an NPC if you are already in a menu.
-	- Fixed:		A followers could get stuck trying to do something impossible and had no way out of the loop.
-	- Fixed:		Gatherable items that spawn on the ground no longer spawn in invalid locations (for the most part).
-	- Fixed:		Early undertaking area did not show that you could interact with it.
-	- Fixed:		You can no longer get stuck on chicken houses, well, you can, but now you can jump out of them.
-	- Fixed:		The recipe viewer in the compendiums was showing the wrong icon.
-	- Fixed:		No warning popup was showing when trying to harvest from something with the wrong tool or do not have the right tiered tool to use.
-	- Fixed:		Notification queue cleared when entering load screen.
-	- Fixed:		You can no longer enter the pause screen when in a minigame.
-	- Fixed:		"Too Far" notification shows correctly when interacting with the inventory.
+	- Fixed:		Settings actually restore, not just visually, when reloading a game. 
+	- Fixed:		Audio volume no longer jumps back up at 0.
+	- Fixed:		One of the guides that you get had a visual bug.
+	- Fixed:		Crafting stations now show the correct amount of items that will be crafted when moving the slider.
+	- Fixed:		The harvested icon that appears on already harvested item now restores correctly.
+	- Fixed:		Player can no longer move around during a minigame.
 
-	- Added:		You now get a notification when the map has been updated with a new area.
-	- Added:		ESC now closes all UI screens along with whatever button was used to enter said UI screen.
-	- Added:		Button added to pause menu to unstick the player.
-	- Added:		Sort button added to containers.
-	- Added:		Button on containers to place all similar items from player inventory to container.
-
-	- Changed:		Player location on map is now red with an orange back-trail instead of all yellow.
-	- Changed:		There is now a very short cooldown when resetting the player to not running.
-	- Changed:		Notification now appears when you unlock a bit of map.
-	- Changed:		The item pick-up notification now also displays how many of said item are currently in your inventory.
-	- Changed:		You no longer need to start a fresh game with every new update... AFTER this update. 
-							You WILL have to START OVER for this to carry through to future updates.
-							Please delete all of your save files that exist before this update, 
-							there is a Delete All button on the load screen.
-	- Changed:		Save files now display the last date/time save of the file.
-	- Changed:		Notifications that come from a dialogue now appear after the dialogue has finished.
 
 COMMENTS
 		
@@ -448,3 +459,7 @@ ACHIEVEMENTS: (https://wiki.facepunch.com/steamworks/)
 							The game itself is starting to come in to its own. There have been many cute and exciting additions lately, making it an even greater joy to work on! 
 							I would love some feedback on either <link="https://twitch.tv/klaxon42"><b>twitch.tv/klaxon42</b></link>, or on the discord server at <link="https://discord.gg/89wFG3S"><b>discord.gg/89wFG3S</b></link>.
 							I hope you enjoy the game so far!
+
+
+
+							

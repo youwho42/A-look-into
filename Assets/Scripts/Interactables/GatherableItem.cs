@@ -49,4 +49,11 @@ public class GatherableItem : MonoBehaviour
         }
         
     }
+
+    public void SetStateFromSave(bool state)
+    {
+        hasBeenHarvested = state;
+        if (harvestedSticker != null)
+            harvestedSticker.SetActive(state);
+    }
 }

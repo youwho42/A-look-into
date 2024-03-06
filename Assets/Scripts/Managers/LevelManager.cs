@@ -203,7 +203,7 @@ public class LevelManager : MonoBehaviour
         if(!VersionDisplay.instance.CompareVersions())
             SavingLoading.instance.LoadVersionItems();
 
-
+        SavingLoading.instance.LoadOptions();
         yield return new WaitForSecondsRealtime(0.5f);
 
         text.text = "Thank you for waiting.";
@@ -211,7 +211,7 @@ public class LevelManager : MonoBehaviour
         playerMaterial.SetFloat("_Fade", 0);
         
         GameEventManager.onGameLoadedEvent.Invoke();
-        
+       
         yield return new WaitForSecondsRealtime(3f);
        
 
@@ -287,7 +287,7 @@ public class LevelManager : MonoBehaviour
         PlayerInformation.instance.playerShadow.SetActive(false);
         RealTimeDayNightCycle.instance.SetDayTime(420, 1);
         PlayerDistanceToggle.instance.PopulateLists();
-        
+        SavingLoading.instance.LoadOptions();
         yield return new WaitForSecondsRealtime(3f);
         Pause(false);
         Time.timeScale = 1;

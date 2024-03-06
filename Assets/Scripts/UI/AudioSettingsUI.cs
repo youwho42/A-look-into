@@ -15,9 +15,14 @@ public class AudioSettingsUI : MonoBehaviour
     public AudioMixer audioMixer;
 
 
-    private void Start()
+    private IEnumerator Start()
     {
         InitializeVolumeSettings();
+        yield return new WaitForSeconds(0.33f);
+        ChangeMasterVolume();
+        ChangeMusicVolume();
+        ChangeEffectsVolume();
+        ChangeAnimalVolume();
     }
 
 

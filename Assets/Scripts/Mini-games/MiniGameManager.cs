@@ -43,6 +43,7 @@ public class MiniGameManager : MonoBehaviour
             {
                 if (game.miniGameType == miniGameType)
                 {
+                    UIScreenManager.instance.SetMiniGameUI(true);
                     yield return new WaitForSeconds(1.5f);
                     game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(/*1.5f*/ 0, 0, 100);
                     game.miniGame.SetActive(true);
@@ -50,7 +51,7 @@ public class MiniGameManager : MonoBehaviour
                     
                 }
             }
-            UIScreenManager.instance.SetCurrentUI(UIScreenType.MiniGameUI);
+            
             
             gameStarted = true;
         }
@@ -66,7 +67,7 @@ public class MiniGameManager : MonoBehaviour
                
             }
         }
-        UIScreenManager.instance.SetCurrentUI(UIScreenType.None);
+        UIScreenManager.instance.SetMiniGameUI(false);
         gameStarted = false;
     }
 }

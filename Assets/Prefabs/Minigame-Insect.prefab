@@ -256,7 +256,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2685735638108156618}
-  - component: {fileID: 1299334289}
   m_Layer: 15
   m_Name: Minigame-Insect
   m_TagString: Untagged
@@ -283,18 +282,6 @@ Transform:
   - {fileID: 2685735638257786600}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &1299334289
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685735638108156619}
-  m_Enabled: 1
-  m_SortingLayerID: 826532753
-  m_SortingLayer: 3
-  m_SortingOrder: 100
-  m_SortAtRoot: 0
 --- !u!1 &2685735638257786601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1156,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0
     randomPitch: 0
+    source: {fileID: 0}
     overlap: 0
   - clips:
     - {fileID: 8300000, guid: 221d46d2b4de5654e8de350bd02bb76e, type: 3}
@@ -1176,6 +1164,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.15
+    source: {fileID: 0}
     overlap: 0
   bezierSpline: {fileID: 2685735637784473705}
   points: 7
@@ -1200,6 +1189,7 @@ MonoBehaviour:
     targetCollider: {fileID: 5475664234933571982}
     targetHitDetection: {fileID: 2685735637792561960}
     shrinkSpeed: 2
+  statChanger: {fileID: 0}
 --- !u!4 &8139434861341004837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 923b49931481f944283bc80e217e4c8d,

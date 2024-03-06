@@ -24,7 +24,7 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            gatherableItem.hasBeenHarvested = saveData.hasBeenHarvested;
+            gatherableItem.SetStateFromSave(saveData.hasBeenHarvested);
 
 
         }

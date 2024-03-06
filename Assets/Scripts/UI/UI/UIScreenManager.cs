@@ -109,9 +109,8 @@ public class UIScreenManager : MonoBehaviour
             CloseTipPanel();
             pauseMenu.SetPause(false);
         }
-        PlayerInformation.instance.playerInput.isInUI = state;
-        PlayerInformation.instance.uiScreenVisible = state;
-        PlayerInformation.instance.TogglePlayerInput(!state);
+        TogglePlayerInputs(state);
+       
     }
     /// <summary>
     /// Setting a screen here will just bypass all other functions and display the screen with any others that exist.
@@ -211,6 +210,14 @@ public class UIScreenManager : MonoBehaviour
         return currentUI == screenType;
     }
 
+    public void SetMiniGameUI(bool state)
+    {
+        SetCurrentUI(state ? UIScreenType.MiniGameUI : UIScreenType.None);
+        TogglePlayerInputs(state);
+    }
+
+
+
     public void SetTipPanel(string tiptText)
     {
         tipsPanelUI.SetTipPanel(tiptText);
@@ -232,5 +239,11 @@ public class UIScreenManager : MonoBehaviour
         mapIsOpen = state;
     }
 
+    void TogglePlayerInputs(bool state)
+    {
+        PlayerInformation.instance.playerInput.isInUI = state;
+        PlayerInformation.instance.uiScreenVisible = state;
+        PlayerInformation.instance.TogglePlayerInput(!state);
+    }
 
 }

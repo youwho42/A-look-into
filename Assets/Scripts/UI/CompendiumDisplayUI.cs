@@ -89,7 +89,6 @@ public class CompendiumDisplayUI : MonoBehaviour
         maxItemTypes = System.Enum.GetValues(typeof(ItemType)).Length;
 
         SetCompendiumTypeAnimal();
-        UpdateCompendiumList();
     }
 
     private void OnEnable()
@@ -101,7 +100,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onNoteCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onGuideCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onGamepadTriggersButtonEvent.AddListener(ChangeDisplayUI);
-
+        UpdateCompendiumList();
     }
 
 
@@ -236,6 +235,8 @@ public class CompendiumDisplayUI : MonoBehaviour
         recipeDisplay.SetActive(false);
         recipeRevealDisplay.SetActive(false);
         agencyText.text = "";
+        if (playerAnimalCompendium == null)
+            return;
         switch (itemType)
         {
             

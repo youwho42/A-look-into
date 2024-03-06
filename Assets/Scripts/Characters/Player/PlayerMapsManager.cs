@@ -21,6 +21,7 @@ public class PlayerMapsManager : MonoBehaviour
         public string mapName;
         public Sprite mapImage;
         public bool active;
+        public bool hasAnimated = true;
     }
 
     public List<MapArea> mapAreas = new List<MapArea>();
@@ -47,7 +48,7 @@ public class PlayerMapsManager : MonoBehaviour
             if (map.mapName == mapName && !map.active)
             {
                 map.active = true;
-                
+                map.hasAnimated = false;
                 Notifications.instance.SetNewNotification("Map Added", null, 0, NotificationsType.Map);
             }
                 

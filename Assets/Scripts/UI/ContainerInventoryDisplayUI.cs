@@ -38,6 +38,21 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    private void OnEnable()
+    {
+        GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        if (containerSlots.Count > 0)
+            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
+
+
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
+    }
     void ChangeControlText(string text)
     {
         
@@ -102,7 +117,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             s.canTransfer = containerInventory.PlayerCanAddToInventory;
             playerSlots.Add(s);
             
-            GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
+            
         }
         
         UpdateContainerInventoryUI();
@@ -162,9 +177,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             }
         }
         
-        EventSystem.current.SetSelectedGameObject(null);
-        if (containerSlots.Count > 0)
-            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
+        
     }
 
     public void ClearSlots()
@@ -178,7 +191,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             Destroy(child.gameObject);
         }
         
-        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
+        
         containerSlots.Clear();
         playerSlots.Clear();
     }
