@@ -54,8 +54,17 @@ public class PauseUI : MonoBehaviour
 
     public void SaveGame()
     {
-        SavingLoading.instance.SaveGame();
-        pauseSaveAlertText.text = "Saved";
+        var currentClipInfo = PlayerInformation.instance.playerAnimator.GetCurrentAnimatorClipInfo(0);
+        if (currentClipInfo[0].clip.name != "Craft")
+        {
+            SavingLoading.instance.SaveGame();
+            pauseSaveAlertText.text = "Saved";
+        }
+        else
+        {
+            Notifications.instance.SetNewNotification("Cannot save now", null, 0, NotificationsType.Warning);
+        }
+            
     }
 
     public void ViewLoadGameUI()

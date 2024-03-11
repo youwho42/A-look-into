@@ -15,10 +15,9 @@ public class AudioSettingsUI : MonoBehaviour
     public AudioMixer audioMixer;
 
 
-    private IEnumerator Start()
+    private void Start()
     {
         InitializeVolumeSettings();
-        yield return new WaitForSeconds(0.33f);
         ChangeMasterVolume();
         ChangeMusicVolume();
         ChangeEffectsVolume();
@@ -32,6 +31,10 @@ public class AudioSettingsUI : MonoBehaviour
         {
             return audioMixer.FindMatchingGroups(string.Empty);
         }
+    }
+    public void Mute()
+    {
+        audioMixer.SetFloat("Master", Mathf.Log10(0.001f) * 20);
     }
 
     public void ChangeMasterVolume()

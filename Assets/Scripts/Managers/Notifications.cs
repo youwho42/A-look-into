@@ -109,7 +109,7 @@ public class Notifications : MonoBehaviour
 
             if (notification.type == NotificationsType.Inventory)
             {
-                if (displays[i].notification.itemData == notification.itemData)
+                if (displays[i].notification.itemData == notification.itemData && Mathf.Sign(displays[i].notification.quantity) == Mathf.Sign(notification.quantity))
                 {
                     displays[i].UpdateNotification(notification.quantity);
                     return true;

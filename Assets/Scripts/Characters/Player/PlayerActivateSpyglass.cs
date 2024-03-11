@@ -39,9 +39,10 @@ public class PlayerActivateSpyglass : MonoBehaviour
 
     public void SlowTimeEvent(bool active)
     {
-        if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None || EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].AnimationName != "Spyglass" || Time.timeScale == 0f)
+        if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None || EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands] == null || Time.timeScale == 0f)
             return;
-
+        if (EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].AnimationName != "Spyglass")
+            return;
         if (!active)
         {
             PlayerInformation.instance.playerInput.isInUI = false;

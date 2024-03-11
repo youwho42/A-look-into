@@ -49,6 +49,8 @@ public class LevelManager : MonoBehaviour
     Material playerMaterial;
     [HideInInspector]
     public bool inPauseMenu;
+
+    public AudioSettingsUI audioSettings;
     public string GetCurrentLevel()
     {
         return SceneManager.GetActiveScene().name;
@@ -152,7 +154,7 @@ public class LevelManager : MonoBehaviour
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
 
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName +"-Terrain");
-
+        audioSettings.Mute();
         while (!currentLevelLoading.isDone)
         {
             
@@ -163,7 +165,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
-
+        audioSettings.Mute();
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -176,7 +178,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
-
+        audioSettings.Mute();
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -189,7 +191,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
-
+        audioSettings.Mute();
 
         text.text = "Loading data from save.";
         // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
@@ -203,7 +205,7 @@ public class LevelManager : MonoBehaviour
         if(!VersionDisplay.instance.CompareVersions())
             SavingLoading.instance.LoadVersionItems();
 
-        SavingLoading.instance.LoadOptions();
+        
         yield return new WaitForSecondsRealtime(0.5f);
 
         text.text = "Thank you for waiting.";
@@ -213,7 +215,7 @@ public class LevelManager : MonoBehaviour
         GameEventManager.onGameLoadedEvent.Invoke();
        
         yield return new WaitForSecondsRealtime(3f);
-       
+        SavingLoading.instance.LoadOptions();
 
         Time.timeScale = 1;
         UIScreenManager.instance.inMainMenu = false;
@@ -238,7 +240,7 @@ public class LevelManager : MonoBehaviour
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
         Pause(true);
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Terrain");
-
+        audioSettings.Mute();
         while (!currentLevelLoading.isDone)
         {
 
@@ -249,7 +251,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
-
+        audioSettings.Mute();
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -262,7 +264,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
-
+        audioSettings.Mute();
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -275,7 +277,7 @@ public class LevelManager : MonoBehaviour
 
             yield return null;
         }
-
+        audioSettings.Mute();
 
 
 
@@ -287,8 +289,9 @@ public class LevelManager : MonoBehaviour
         PlayerInformation.instance.playerShadow.SetActive(false);
         RealTimeDayNightCycle.instance.SetDayTime(420, 1);
         PlayerDistanceToggle.instance.PopulateLists();
-        SavingLoading.instance.LoadOptions();
+        
         yield return new WaitForSecondsRealtime(3f);
+        SavingLoading.instance.LoadOptions();
         Pause(false);
         Time.timeScale = 1;
         UIScreenManager.instance.HideScreenUI();
@@ -307,4 +310,8 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         
     }
+
+
+
+    
 }

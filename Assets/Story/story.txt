@@ -366,8 +366,6 @@ BUGS!!!!!!!!!!
 THINGS TO CHANGE
 
 	
-	- SPYGLASS mofo!
-	
 	
 	
 	- check needed when you go to the main menu from a game about losing your progress. 
@@ -400,14 +398,12 @@ THINGS TO CHANGE
 
         
         
-        * No Translation found for seed - picture
+        
 
         * BUG - Still an issue - Stone axe recipes filling up workstations recipe list - photo Still an issue
             OUTPUT shown below crafting station at this point, saving at this point ruins/removes the save file from showing up in load (the aliv files exists in file system)
-        * Going back to main menu unsets the sound settings briefly like half a second or so.
-        * Going back to main menu and restarting a new game starts with old name filled in in the input box
+        
 
-        // Picking up stone right before using it for reconstruction messes up the popup amount -Video https://gemoo.com/tools/upload-video/share/625434510884421632?codeId=PYabol9J9lb4B&card=625434507273125888
         * SUGGESTION -  maybe have agency as an item in the compendium that describes more what it is and how to aquire it 
 
 
@@ -423,6 +419,9 @@ CHANGELOG:
 	- Changed:		You can now use TAB to exit containers, crafting stations and research stations.
 	- Changed:		You can now see the crafting queue when in a crafting station.
 	- Changed:		The run toggle no longer resets when you stop moving.
+	- Changed:		Audio is now muted while in the loading screen.
+	- Changed:		Player name input field reset when starting a new character within the same session.
+	- Changed:		The game now pauses when it is no longer in focus.
 
 	- Added:		There is now a continue button in the pause screen.
 

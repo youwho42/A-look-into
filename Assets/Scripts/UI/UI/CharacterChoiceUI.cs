@@ -47,6 +47,7 @@ public class CharacterChoiceUI : MonoBehaviour
     }
     private void OnEnable()
     {
+        playerNameInputField.text = "";
         CheckPlayerNameValid();
         characterChoiceCameraObject.SetActive(true);
         SetRandomCharacter();
