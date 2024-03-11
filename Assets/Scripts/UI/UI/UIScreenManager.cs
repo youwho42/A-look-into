@@ -247,12 +247,12 @@ public class UIScreenManager : MonoBehaviour
         PlayerInformation.instance.TogglePlayerInput(!state);
     }
 
+#if UNITY_STANDALONE && !UNITY_EDITOR
+        void OnApplicationFocus(bool hasFocus)
+        {
+            if (!hasFocus && !inMainMenu)
+                SetPauseScreen(true);
+        }
+#endif
 
-    void OnApplicationFocus(bool hasFocus)
-    {
-        if(!hasFocus && !inMainMenu)
-            SetPauseScreen(true);
-    }
-
-    
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class PauseUI : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class PauseUI : MonoBehaviour
         }
         else
         {
-            Notifications.instance.SetNewNotification("Cannot save now", null, 0, NotificationsType.Warning);
+            Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Cannot Save"), null, 0, NotificationsType.Warning);
         }
             
     }

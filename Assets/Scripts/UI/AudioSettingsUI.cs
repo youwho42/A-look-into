@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class AudioSettingsUI : MonoBehaviour
 {
+    public static AudioSettingsUI instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
+
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider fxSlider;

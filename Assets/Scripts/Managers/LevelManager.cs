@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
     [HideInInspector]
     public bool inPauseMenu;
 
-    public AudioSettingsUI audioSettings;
+    
     public string GetCurrentLevel()
     {
         return SceneManager.GetActiveScene().name;
@@ -146,6 +146,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
+        var audioSettings = AudioSettingsUI.instance;
         GameEventManager.onGameStartLoadEvent.Invoke();
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
@@ -234,6 +235,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadTitleScreenCo(string levelName)
     {
+        var audioSettings = AudioSettingsUI.instance;
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
         UIScreenManager.instance.DisplayPlayerHUD(false);
