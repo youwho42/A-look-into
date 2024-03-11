@@ -30,8 +30,14 @@ public class SleepDisplayUI : MonoBehaviour
     bool isShowing;
     public StatChanger bounceStatChanger;
     public StatChanger gumptionStatChanger;
-    public void Start()
+
+    UIScreen screen;
+
+    private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.SleepUI);
+   
         gameObject.SetActive(false);
         dayNightCycle = RealTimeDayNightCycle.instance;
     }

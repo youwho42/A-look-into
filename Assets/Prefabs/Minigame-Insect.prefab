@@ -103,7 +103,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 2
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -126,7 +126,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 826532753
   m_SortingLayer: 3
-  m_SortingOrder: 100
+  m_SortingOrder: 150
   m_Sprite: {fileID: 21300000, guid: b2a8d59140bb81641a1d643d76caec98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -352,8 +352,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 826532753
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8417420941954122440, guid: d8b8cd6a8b61a41d48ed560b5c090859,
     type: 3}
@@ -545,6 +545,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4879450582746267458, guid: 923b49931481f944283bc80e217e4c8d,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4879450582746267458, guid: 923b49931481f944283bc80e217e4c8d,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 826532753
+      objectReference: {fileID: 0}
     - target: {fileID: -3014565804036064820, guid: 923b49931481f944283bc80e217e4c8d,
         type: 3}
       propertyPath: m_SortingLayer
@@ -728,7 +738,7 @@ SpriteMask:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 2
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
@@ -760,7 +770,7 @@ SpriteMask:
   m_FrontSortingLayer: 3
   m_BackSortingLayer: 3
   m_FrontSortingOrder: 200
-  m_BackSortingOrder: 0
+  m_BackSortingOrder: 101
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
 --- !u!114 &641486897847852822
@@ -881,7 +891,7 @@ SpriteMask:
   m_FrontSortingLayer: 3
   m_BackSortingLayer: 3
   m_FrontSortingOrder: 200
-  m_BackSortingOrder: 0
+  m_BackSortingOrder: 101
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
 --- !u!114 &3437895479657753130
@@ -1002,7 +1012,7 @@ SpriteMask:
   m_FrontSortingLayer: 3
   m_BackSortingLayer: 3
   m_FrontSortingOrder: 200
-  m_BackSortingOrder: 0
+  m_BackSortingOrder: 101
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
 --- !u!114 &2570180985465008011
@@ -1189,7 +1199,7 @@ MonoBehaviour:
     targetCollider: {fileID: 5475664234933571982}
     targetHitDetection: {fileID: 2685735637792561960}
     shrinkSpeed: 2
-  statChanger: {fileID: 0}
+  statChanger: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
 --- !u!4 &8139434861341004837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 923b49931481f944283bc80e217e4c8d,

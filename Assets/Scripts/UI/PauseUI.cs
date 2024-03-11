@@ -12,8 +12,13 @@ public class PauseUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI pauseSaveAlertText;
     public Transform unstuckPlayerPosition;
+
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.PauseUI);
         gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -25,6 +30,10 @@ public class PauseUI : MonoBehaviour
         inPauseMenu = state;
         RealTimeDayNightCycle.instance.isPaused = state;
         Time.timeScale = state ? 0.0f : 1.0f;
+    }
+    public void UnPause()
+    {
+        UIScreenManager.instance.SetPauseScreen(false);
     }
 
     // Called from buttons set in inspector

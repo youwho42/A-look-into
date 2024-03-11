@@ -384,6 +384,8 @@ public class InventoryDisplaySlot : MonoBehaviour
         Collider2D coll = itemToDrop.GetComponentInChildren<PolygonCollider2D>();
         if(coll == null)
             coll = itemToDrop.GetComponentInChildren<Collider2D>();
+        if (coll == null)
+            coll = itemToDrop.GetComponent<Collider2D>();
 
         if (PlacedOnNavigationNodes(coll))
             return true;
@@ -402,7 +404,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         {
             foreach (var hit in results)
             {
-                if (hit.transform.IsChildOf(itemToDrop.transform))
+                if (hit.transform == itemToDrop.transform || hit.transform.IsChildOf(itemToDrop.transform))
                     continue;
                 
                 

@@ -63,7 +63,7 @@ public class UIScreenManager : MonoBehaviour
             tabbedMenu.SetInventoryUI();
             DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
         }
-            
+        
     }
     public void HideScreenUI()
     {
@@ -79,7 +79,7 @@ public class UIScreenManager : MonoBehaviour
             tabbedMenu.SetMapUI();
             DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
         }
-            
+        
     }
     void ToggleTabbedMenu()
     {
@@ -88,9 +88,10 @@ public class UIScreenManager : MonoBehaviour
             tabbedMenu.SetInventoryUI();
             DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
         }
-            
+        if (GetCurrentUI() == UIScreenType.CraftingStationUI || GetCurrentUI() == UIScreenType.ResearchStationUI || GetCurrentUI() == UIScreenType.ContainerUI)
+            DisplayScreenUI(currentUI, false);
     }
-    
+
     public void DisplayScreenUI(UIScreenType screenType, bool state)
     {
         //if (MiniGameManager.instance.gameStarted /*|| LevelManager.instance.isInCutscene*/)
@@ -109,7 +110,7 @@ public class UIScreenManager : MonoBehaviour
             CloseTipPanel();
             pauseMenu.SetPause(false);
         }
-        TogglePlayerInputs(state);
+        PreventPlayerInputs(state);
        
     }
     /// <summary>
@@ -213,7 +214,7 @@ public class UIScreenManager : MonoBehaviour
     public void SetMiniGameUI(bool state)
     {
         SetCurrentUI(state ? UIScreenType.MiniGameUI : UIScreenType.None);
-        TogglePlayerInputs(state);
+        PreventPlayerInputs(state);
     }
 
 
@@ -239,7 +240,7 @@ public class UIScreenManager : MonoBehaviour
         mapIsOpen = state;
     }
 
-    void TogglePlayerInputs(bool state)
+    public void PreventPlayerInputs(bool state)
     {
         PlayerInformation.instance.playerInput.isInUI = state;
         PlayerInformation.instance.uiScreenVisible = state;

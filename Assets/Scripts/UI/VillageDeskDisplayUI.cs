@@ -42,8 +42,13 @@ public class VillageDeskDisplayUI : MonoBehaviour
     public TextMeshProUGUI buttonText;
     IntVariable villageAreaTime;
 
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.VillageDeskUI);
+    
         gameObject.SetActive(false);
     }
     public void ShowUI(FixVillageDesk desk)

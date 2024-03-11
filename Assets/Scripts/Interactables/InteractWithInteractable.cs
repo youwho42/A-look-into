@@ -76,7 +76,7 @@ namespace Klaxon.Interactable
             interactSlider.gameObject.SetActive(false);
             interactUI.SetActive(false);
 
-            if (PlayerInformation.instance.playerInput.isInUI)
+            if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
                 return;
 
             currentInteractables.Clear();

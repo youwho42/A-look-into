@@ -365,14 +365,10 @@ BUGS!!!!!!!!!!
 
 THINGS TO CHANGE
 
-	- Check out spyglass minigame, wolfheat says can't get out of it, and you can move around apparently. 
-		And you haven't looked at it in way too long.
-	- Add continue button to pause screen.
 	
-	- make the run toggle a straight toggle that only the player turns on or off
-		have some type of obvious indicator for it
+	- SPYGLASS mofo!
 	
-
+	
 	
 	- check needed when you go to the main menu from a game about losing your progress. 
 		maybe "are you sure... last save x-amount-of-time ago."
@@ -393,44 +389,42 @@ THINGS TO CHANGE
 	- add hold e to gather all surrounding items... 
 			Press Q to open a container that has all the surrounding objects in a certain radius.
 
-					- Option for sprinting >> toggle/hold
-
+					
 	- INDISCERNIBLE KLAXON (Loud and un-noticed)
 
 	- Chicken peck animation as save icon... somewhere.
 
 
-	- compass is broken
+	
 
 
         
-        * CHANGE - player get already harvested notification for mining the kiln
-        * CHANGE - Spinner seems to queue up objects created, but player cant see this queue
-        * SUGGESTION - Spinner should prob have a header showing the name of the station
-        * SUGGESTION - the research station should state that the items needed to research wont get comsumed
-        * SUGGESTION - would be nice to be able to TAB out of crafting stations
+        
+        * No Translation found for seed - picture
 
-        // These bugs seems to happen after the game already broke some
-        * BUG - Game not allowing tools to be dropped? Maybe this should be allowed. If inventory is full player cant pick up anything.
-        * BUG - Placing the kiln leaves the icon in the inventory as well as placing it in world, it also gets placed before releasing mouse button, prob as soon as it hits a valid spot?
-        * BUG - Stone axe recipes filling up workstations recipe list - photo
-        * BUG - equipping a tool when already having a tool equipped but no free space in inventory destroyes/"player lose" the removed tool
-        * BUG - After a few seconds in the workstation the output changes to show the players inventory instead        
-        * BUG - Time seems to have stopped at 12:40 on day 7    
+        * BUG - Still an issue - Stone axe recipes filling up workstations recipe list - photo Still an issue
+            OUTPUT shown below crafting station at this point, saving at this point ruins/removes the save file from showing up in load (the aliv files exists in file system)
+        * Going back to main menu unsets the sound settings briefly like half a second or so.
+        * Going back to main menu and restarting a new game starts with old name filled in in the input box
 
+        // Picking up stone right before using it for reconstruction messes up the popup amount -Video https://gemoo.com/tools/upload-video/share/625434510884421632?codeId=PYabol9J9lb4B&card=625434507273125888
+        * SUGGESTION -  maybe have agency as an item in the compendium that describes more what it is and how to aquire it 
 
 
 
 
 
 CHANGELOG:
-	
-	- Fixed:		Settings actually restore, not just visually, when reloading a game. 
-	- Fixed:		Audio volume no longer jumps back up at 0.
-	- Fixed:		One of the guides that you get had a visual bug.
-	- Fixed:		Crafting stations now show the correct amount of items that will be crafted when moving the slider.
-	- Fixed:		The harvested icon that appears on already harvested item now restores correctly.
-	- Fixed:		Player can no longer move around during a minigame.
+
+	- Fixed:		Equipping a tool while already having a tool equipped but no free space in inventory destroyed the removed tool
+	- Fixed:		Interact prompt no longer shows while in a UI screen.
+	- Fixed:		You are no longer able to jump when picking something up.
+
+	- Changed:		You can now use TAB to exit containers, crafting stations and research stations.
+	- Changed:		You can now see the crafting queue when in a crafting station.
+	- Changed:		The run toggle no longer resets when you stop moving.
+
+	- Added:		There is now a continue button in the pause screen.
 
 
 COMMENTS
@@ -450,16 +444,13 @@ ACHIEVEMENTS: (https://wiki.facepunch.com/steamworks/)
 
 
 
-						Thank you title text:
-
-						-	Caution! As of Update 0.04.05 you need to START A NEW GAME! 
-							In theory you no longer need to start a fresh game with every new update... AFTER this update. 
-							If you would please delete any save files you have that might be from a version before this, I would apreciate it quite a bit!
-							This is, for the most part, an art project that I have worked on for many years, and will continue to work on for many years to come. I work on it as much as I can as a solo dev, with the incredible help and support of my followers on Twitch.
-							The game itself is starting to come in to its own. There have been many cute and exciting additions lately, making it an even greater joy to work on! 
-							I would love some feedback on either <link="https://twitch.tv/klaxon42"><b>twitch.tv/klaxon42</b></link>, or on the discord server at <link="https://discord.gg/89wFG3S"><b>discord.gg/89wFG3S</b></link>.
-							I hope you enjoy the game so far!
+						
+						
 
 
 
-							
+
+
+
+
+

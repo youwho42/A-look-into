@@ -26,8 +26,13 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     bool destroyOnClose;
     InteractableFixingArea fixingArea;
 
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.BallPersonDialogueUI);
+    
         gameObject.SetActive(false);
     }
     public void ShowFixingAreaIngredients(InteractableFixingArea fixingArea, string messageName, string messageDescription)

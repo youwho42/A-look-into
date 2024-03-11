@@ -57,9 +57,17 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public GameObject containerSlot;
     public List<ContainerDisplaySlot> containerSlots = new List<ContainerDisplaySlot>();
 
+    [Space]
+    [Header("Crafting Queue")]
+    public TextMeshProUGUI craftingQueue;
+    public GameObject craftingQueueObject;
+    UIScreen screen;
 
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.CraftingStationUI);
+    
         gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -81,13 +89,14 @@ public class CraftingStationDisplayUI : MonoBehaviour
         quantityToCraftSlider.maxValue = 0;
         quantityToCraftSlider.value = 0;
         SetQuantityText();
-        PlayerInformation.instance.uiScreenVisible = true;
-        PlayerInformation.instance.TogglePlayerInput(false);
+        
 
         finalContainer.SetActive(false);
+        craftingQueueObject.SetActive(false);
         if(finalInventory.Name != "MainPlayerInventory")
         {
             finalContainer.SetActive(true);
+            craftingQueueObject.SetActive(true);
             SetContainerUI();
         }
         
@@ -99,8 +108,6 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public void HideUI()
     {
-        PlayerInformation.instance.uiScreenVisible = false;
-        PlayerInformation.instance.TogglePlayerInput(true);
         craftingHandler = null;
     }
     void SetContainerUI()
@@ -118,7 +125,6 @@ public class CraftingStationDisplayUI : MonoBehaviour
             containerSlots.Add(s);
 
         }
-        
         UpdateContainerInventoryUI();
     }
 
@@ -129,7 +135,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
             Destroy(child.gameObject);
         }
         
-        GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
+        
         containerSlots.Clear();
     }
 
@@ -161,7 +167,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
                 butt.interactable = false;
             }
         }
-
+        GetCraftingQueueItems();
     }
 
     public void SetAvailableRecipes()
@@ -249,17 +255,10 @@ public class CraftingStationDisplayUI : MonoBehaviour
         if (craftableItem != null)
         {
             if (InteractCostReward())
-            {
-                for (int i = 0; i < (int)quantityToCraftSlider.value; i++)
-                {
-                    craftingHandler.Craft(craftableItem, 1, finalInventory);
-                }
-                
-            }
-                
+                craftingHandler.Craft(craftableItem, (int)quantityToCraftSlider.value, finalInventory);
         }
         SetCurrentRecipe(craftableItem);
-        
+        GetCraftingQueueItems();
     }
 
     bool InteractCostReward()
@@ -273,4 +272,55 @@ public class CraftingStationDisplayUI : MonoBehaviour
         return false;
     }
 
+    void GetCraftingQueueItems()
+    {
+        
+        
+
+        QI_ItemData lastItem = null;
+        
+
+        string craftingText = "";
+
+       
+        int finalAmount = 0;
+        List<string> lines = new List<string>();
+        int lineIndex = 0;
+        for (int i = 0; i < craftingHandler.Queues.Count; i++)
+        {
+            if (lastItem == null)
+            {
+                lastItem = craftingHandler.Queues[i].Item;
+                lines.Add("");
+            }
+              
+            
+            if (craftingHandler.Queues[i].Item == lastItem)
+            {
+                
+                finalAmount += craftingHandler.Queues[i].Amount;
+                lines[lineIndex] = $"{lastItem.localizedName.GetLocalizedString()} x {finalAmount}\n";
+            }
+            else
+            {
+                lastItem = craftingHandler.Queues[i].Item;
+               
+                finalAmount = craftingHandler.Queues[i].Amount;
+                lines.Add($"{lastItem.localizedName.GetLocalizedString()} x {finalAmount}\n");
+                lineIndex++;
+                
+            }
+        }
+        foreach (var line in lines)
+        {
+            craftingText += line;
+        }
+        craftingQueue.text = craftingText;
+        //string craftingText = "";
+        //foreach (var item in craftingHandler.craftingQueue)
+        //{
+        //    craftingText += $"{item.Key.localizedName.GetLocalizedString()} x {item.Value} \n";
+        //}
+        //craftingQueue.text = craftingText;
+    }
 }

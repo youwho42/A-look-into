@@ -25,9 +25,13 @@ public class GuiseUI : MonoBehaviour
     string spriteName;
     public SetButtonSelected setButtonSelected;
 
-    void Start()
-    {
+    UIScreen screen;
 
+    private void Start()
+    {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.GuiseUI);
+    
         //spriteName = PlayerInformation.instance.characterManager.baseCharacters[0];
         chooseSpriteResolver.SetCategoryAndLabel("Player", PlayerInformation.instance.characterManager.baseCharacters[0]);
         //Changes the character limit in the main input field.

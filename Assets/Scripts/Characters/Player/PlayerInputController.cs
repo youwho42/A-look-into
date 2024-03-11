@@ -23,8 +23,8 @@ public class PlayerInputController : MonoBehaviour
     public Vector2 rightStickPos;
     [HideInInspector]
     public string currentControlScheme = "Keyboard&Mouse";
-    float stopRunningTime = 0.3f;
-    float runningTimer;
+    //float stopRunningTime = 0.3f;
+    //float runningTimer;
     InteractWithInteractable interactable;
     float scrollY;
 
@@ -219,19 +219,19 @@ public class PlayerInputController : MonoBehaviour
             movement = move.ReadValue<Vector2>();
             movement.y = Mathf.Clamp(movement.y, -0.578125f, 0.578125f);
             movement = movement.normalized;
-            if (movement == Vector2.zero)
-            {
-                runningTimer += Time.deltaTime;
-                if (runningTimer >= stopRunningTime)
-                {
-                    isRunning = false;
-                    runningTimer = 0;
-                }
-            }
-            else
-            {
-                runningTimer = 0;
-            }
+            //if (movement == Vector2.zero)
+            //{
+            //    runningTimer += Time.deltaTime;
+            //    if (runningTimer >= stopRunningTime)
+            //    {
+            //        isRunning = false;
+            //        runningTimer = 0;
+            //    }
+            //}
+            //else
+            //{
+            //    runningTimer = 0;
+            //}
                 
 
             if (scrollY != 0)

@@ -301,11 +301,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: 0
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 3483506780370557460}
+  instruction: {fileID: 0}
   plantingArea: {fileID: 0}
   references:
     version: 2
@@ -323,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: f6c3efec5f432f149be14d613159a016, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &-633232119355792533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &7577138377960264525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,3 +417,4 @@ MonoBehaviour:
   shadowTransform: {fileID: 3483506780751848448}
   shadowSprite: {fileID: 3483506779567513000}
   shadowCaster: {fileID: 0}
+  shadowUpdateTick: 1

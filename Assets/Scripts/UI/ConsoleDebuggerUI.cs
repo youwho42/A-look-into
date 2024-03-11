@@ -14,9 +14,13 @@ public class ConsoleDebuggerUI : MonoBehaviour
     }
 
     public TextMeshProUGUI debuggerText;
-
+    private void Start()
+    {
+        debuggerText.gameObject.SetActive(false);
+    }
     public void SetDebuggerText(string text)
     {
+        debuggerText.gameObject.SetActive(true);
         debuggerText.text = text;
         Invoke("ResetText", 5f);
     }
@@ -24,5 +28,6 @@ public class ConsoleDebuggerUI : MonoBehaviour
     void ResetText()
     {
         debuggerText.text = "";
+        debuggerText.gameObject.SetActive(false);
     }
 }

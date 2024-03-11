@@ -32,7 +32,7 @@ public class CraftingRecipeButton : MonoBehaviour
         item = newItem;
         QI_ItemData i = item.Product.Item;
         var n = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{i.Type.ToString()}", i.Name);
-        recipeName.text = n;
+        recipeName.text = item.Product.Amount > 1 ? $"{n} ({item.Product.Amount})" : n;
         
     }
 

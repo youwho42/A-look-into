@@ -34,8 +34,13 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     public List<ContainerDisplaySlot> playerSlots = new List<ContainerDisplaySlot>();
     string tipText;
 
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.ContainerUI);
+    
         gameObject.SetActive(false);
     }
 

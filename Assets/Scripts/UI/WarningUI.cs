@@ -9,10 +9,14 @@ public class WarningUI : MonoBehaviour
 
     public TextMeshProUGUI warningText;
     UIScreenType continueUI;
-    
+
+    UIScreen screen;
 
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.WarningUI);
+    
         gameObject.SetActive(false);
     }
     public void SetWarning(string warning, UIScreenType continueScreen)

@@ -5000,6 +5000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Seed Box
   MaxStacks: 4
+  PlayerCanAddToInventory: 1
 --- !u!58 &6803151418195802917
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5252,7 +5253,7 @@ MonoBehaviour:
   hasLongInteract: 1
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
-  visualItem: {fileID: 0}
+  visualItem: {fileID: 4733545864449224223}
   instruction: {fileID: 0}
   ingredients:
   - item: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}

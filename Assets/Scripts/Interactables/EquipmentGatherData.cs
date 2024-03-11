@@ -68,12 +68,15 @@ public class EquipmentGatherData : EquipmentData
         {
             
             float tempDistance = Vector3.Distance(PlayerInformation.instance.player.position, colliders[i].transform.position);
+            if (tempDistance > 0.3f && this.AnimationName != "Spyglass")
+                continue;
             if (nearest == null || tempDistance < distance)
             {
                 nearest = colliders[i];
                 distance = tempDistance;
             }
         }
+        
         // Found an object, no minigame required.
         if (nearest != null)
         {

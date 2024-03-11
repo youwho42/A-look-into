@@ -29,8 +29,14 @@ namespace Klaxon.ConversationSystem
         public InteractableDialogue currentInteractable;
         int currentIndex;
         public bool isSpeaking;
+
+        UIScreen screen;
+
         private void Start()
         {
+            screen = GetComponent<UIScreen>();
+            screen.SetScreenType(UIScreenType.DialogueUI);
+       
             gameObject.SetActive(false);
         }
         private void OnEnable()

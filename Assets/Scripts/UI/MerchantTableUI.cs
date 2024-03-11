@@ -18,8 +18,13 @@ public class MerchantTableUI : MonoBehaviour
             Destroy(this);
     }
 
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.MerchantTableUI);
+    
         gameObject.SetActive(false);
     }
 

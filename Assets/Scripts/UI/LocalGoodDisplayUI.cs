@@ -17,9 +17,13 @@ public class LocalGoodDisplayUI : MonoBehaviour
         else
             Destroy(gameObject);
     }
+    UIScreen screen;
 
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.LocalGoodsUI);
+   
         gameObject.SetActive(false);
     }
 

@@ -34,8 +34,14 @@ public class LoadSelectionUI : MonoBehaviour
 
     public bool warningActive;
     public string currentLoadFileName { get; private set; }
+
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.LoadGameUI);
+    
         gameObject.SetActive(false);
     }
     

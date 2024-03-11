@@ -48,7 +48,7 @@ public class PlayerMarkerTextureMap : MonoBehaviour
     public List<ColorScheme> colorSchemes = new List<ColorScheme>();
     public int selectedColorScheme = 0;
 
-    
+    public GameObject markersLegend;
 
 
     private void Start()
@@ -65,6 +65,7 @@ public class PlayerMarkerTextureMap : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onMapClickEvent.AddListener(SetMarkerPosition);
+        markersLegend.SetActive(PlayerInformation.instance.equipmentManager.HasItemEquipped(EquipmentSlot.Compass));
     }
     private void OnDisable()
     {

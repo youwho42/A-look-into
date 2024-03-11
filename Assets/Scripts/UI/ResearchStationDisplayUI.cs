@@ -24,9 +24,14 @@ public class ResearchStationDisplayUI : MonoBehaviour
     public GameObject inventoryItemArea;
     public ResearchStationResearchSlot researchSlot;
     List<ResearchStationInventorySlot> researchStationInventorySlots = new List<ResearchStationInventorySlot>();
+
+    UIScreen screen;
+
     private void Start()
     {
-        
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.ResearchStationUI);
+     
         gameObject.SetActive(false);
         playerRecipes = PlayerCrafting.instance;
     }

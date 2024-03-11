@@ -27,11 +27,15 @@ public class CharacterChoiceUI : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public Button acceptButton;
     string spriteName;
-   // public SetButtonSelected setButtonSelected;
+    // public SetButtonSelected setButtonSelected;
 
-    void Start()
+    UIScreen screen;
+
+    private void Start()
     {
-
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.CharacterSelectUI);
+    
         spriteName = PlayerInformation.instance.characterManager.baseCharacters[0];
         chooseSpriteResolver.SetCategoryAndLabel("Player", PlayerInformation.instance.characterManager.baseCharacters[0]);
         //Changes the character limit in the main input field.

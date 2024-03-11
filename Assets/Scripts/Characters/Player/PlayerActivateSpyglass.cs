@@ -28,7 +28,8 @@ public class PlayerActivateSpyglass : MonoBehaviour
 
     private void Update()
     {
-        if(spyglassAiming && allAnimals.Count > 0)
+
+        if (spyglassAiming && allAnimals.Count > 0)
         {
             CheckAnimalsStillVisible();
             GetAllAnimals();
@@ -38,8 +39,9 @@ public class PlayerActivateSpyglass : MonoBehaviour
 
     public void SlowTimeEvent(bool active)
     {
-        if (PlayerInformation.instance.uiScreenVisible || EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands] == null || Time.timeScale == 0f)
+        if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None || EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].AnimationName != "Spyglass" || Time.timeScale == 0f)
             return;
+
         if (!active)
         {
             PlayerInformation.instance.playerInput.isInUI = false;
@@ -80,7 +82,8 @@ public class PlayerActivateSpyglass : MonoBehaviour
                 if (all[i].GetComponentInParent<IAnimal>() != null) 
                 { 
                     var animal = all[i].GetComponent<GatherableItem>();
-                    
+                    if (animal == null)
+                        continue;
                     if(!allAnimals.ContainsKey(animal))
                     {
                         allAnimals.Add(animal, animal.GetComponent<SpriteRenderer>());
@@ -89,7 +92,7 @@ public class PlayerActivateSpyglass : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     void CheckAnimalsStillVisible()

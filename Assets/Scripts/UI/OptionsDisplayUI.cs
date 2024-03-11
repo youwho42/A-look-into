@@ -17,9 +17,14 @@ public class OptionsDisplayUI : MonoBehaviour
     public GameObject gameplayDisplaySection;
     public GameObject controlsDisplaySection;
     UIScreenType backButtonScreen;
+
+    UIScreen screen;
+
     private void Start()
     {
-
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.OptionsUI);
+    
         GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
         maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
         HideAllOptionsUI();

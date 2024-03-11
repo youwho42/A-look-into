@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/EquipmentItem", fileName = "New Equipment Item")]
 public class EquipmentData : QI_ItemData
@@ -21,8 +22,15 @@ public class EquipmentData : QI_ItemData
         if(EquipmentManager.instance.currentEquipment[(int)equipmentSlot] != null)
         {
             PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
-            EquipmentManager.instance.UnEquipToInventory(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], (int)equipmentSlot);
-            EquipmentManager.instance.Equip(this, (int)equipmentSlot);
+            if (EquipmentManager.instance.UnEquipToInventory(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], (int)equipmentSlot))
+            {
+                EquipmentManager.instance.Equip(this, (int)equipmentSlot);
+            }
+            else
+            {
+                PlayerInformation.instance.playerInventory.AddItem(this, 1, false);
+                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", "Inventory Full"), null, 0, NotificationsType.Warning);
+            }
         } 
         else
         {

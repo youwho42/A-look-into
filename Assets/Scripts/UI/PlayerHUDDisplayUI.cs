@@ -23,8 +23,14 @@ public class PlayerHUDDisplayUI : MonoBehaviour
     float decreaseFactor = 1.0f;
     float shakeDistance = 4f;
 
+
+    UIScreen screen;
+
     private void Start()
     {
+        screen = GetComponent<UIScreen>();
+        screen.SetScreenType(UIScreenType.PlayerHUD);
+   
         GameEventManager.onStatUpdateEvent.AddListener(UpdateStatsUI);
         
         bouncePos = bounceUI.anchoredPosition;

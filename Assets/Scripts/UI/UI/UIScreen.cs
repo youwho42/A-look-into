@@ -11,4 +11,9 @@ public class UIScreen : MonoBehaviour
     {
         return screenType;
     }
+
+    public void SetScreenType(UIScreenType screen)
+    {
+        screenType = screen;
+    }
 }
