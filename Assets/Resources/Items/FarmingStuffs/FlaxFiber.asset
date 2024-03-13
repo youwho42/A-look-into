@@ -43,7 +43,11 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
-  ResearchRecipes: []
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 9df8cc5e719a036478a51d7eee69f475, type: 2}
+    RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 0
   placementGumption: {fileID: 0}
   references:

@@ -61,8 +61,7 @@ namespace Klaxon.Interactable
         {
             
             base.Interact(interactor);
-            if (!HasReadHowTo())
-                return;
+            
             if (!isLit)
                 SetFire("extinguish", true);
             else
@@ -83,8 +82,7 @@ namespace Klaxon.Interactable
         {
 
             base.LongInteract(interactor);
-            if (!HasReadHowTo())
-                return;
+            
 
 
             if (isLit)

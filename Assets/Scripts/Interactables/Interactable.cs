@@ -1,5 +1,6 @@
 ﻿using Klaxon.SAP;
 using Klaxon.StatSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +34,7 @@ namespace Klaxon.Interactable
 
         
         public InstructionObject instruction;
+        public QI_ItemData playerGuide;
 
 
         public virtual void Start()
@@ -101,5 +103,16 @@ namespace Klaxon.Interactable
             return false;
         }
 
+        public void SetGuideOrNote()
+        {
+            if (playerGuide == null)
+                return;
+            if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(playerGuide))
+            {
+                PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(playerGuide);
+                Notifications.instance.SetNewNotification($"{playerGuide.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                GameEventManager.onGuideCompediumUpdateEvent.Invoke();
+            }
+        }
     } 
 }

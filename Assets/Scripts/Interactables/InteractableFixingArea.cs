@@ -43,6 +43,7 @@ namespace Klaxon.Interactable
                 {
                     if (GetComponent<IFixArea>().Fix(ingredients))
                     {
+                        SetGuideOrNote();
                         fixSound.StartSoundsWithTimer();
                         canInteract = false;
                     }

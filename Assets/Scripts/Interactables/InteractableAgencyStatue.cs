@@ -75,8 +75,9 @@ namespace Klaxon.Interactable
 
             if (!hasBeenActivated && PlayerInformation.instance.playerInventory.CheckInventoryHasSpace(agencyItem))
                 StartCoroutine(InteractCo(interactor));
-            else
-                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory full"), null, 0, NotificationsType.Warning);
+            //else
+            //    Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory full"), null, 0, NotificationsType.Warning);
+        
         }
 
         IEnumerator InteractCo(GameObject interactor)

@@ -219,7 +219,9 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 1072104655217636070}
-  recipeDatabase: {fileID: 11400000, guid: d0aefd46193a58d49982ad6dc18b2bd5, type: 2}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
+  recipeDatabase: {fileID: 11400000, guid: e37e00ab6900e374d948ea1506c302cb, type: 2}
   selfInventory: {fileID: 0}
   references:
     version: 2
@@ -237,6 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-3278501876233368275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: c20cdaca1d1abc746bb37a953b4d764f, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &16967409682878202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,15 +280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
-  OnCrafted:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCrafting:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCraftedFailed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5472314278476153674
 GameObject:
   m_ObjectHideFlags: 0

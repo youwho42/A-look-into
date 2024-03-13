@@ -14,6 +14,7 @@ namespace Klaxon.Interactable
         QI_CraftingHandler craftingHandler;
         public QI_CraftingRecipeDatabase recipeDatabase;
         public QI_Inventory selfInventory;
+
         public override void Start()
         {
             base.Start();

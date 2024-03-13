@@ -173,24 +173,31 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public void SetAvailableRecipes()
     {
         ClearRecipeSlots();
-
+        QI_CraftingRecipeDatabase playerRecipes = PlayerInformation.instance.playerRecipeDatabase;
+        List<QI_CraftingRecipe> recipes = new List<QI_CraftingRecipe>();
         for (int i = 0; i < recipeDatabase.CraftingRecipes.Count; i++)
         {
-            GameObject newRecipe = Instantiate(recipeButton, recipeButtonHolder.transform);
-            recipeButtons.Add(newRecipe.GetComponent<CraftingRecipeButton>());
+            if (playerRecipes.CraftingRecipes.Contains(recipeDatabase.CraftingRecipes[i]))
+            {
+                GameObject newRecipe = Instantiate(recipeButton, recipeButtonHolder.transform);
+                recipeButtons.Add(newRecipe.GetComponent<CraftingRecipeButton>());
+                recipes.Add(recipeDatabase.CraftingRecipes[i]);
+            }
+            
         }
-        UpdateCraftingUI();
+        UpdateCraftingUI(recipes);
         ClearCurrentRecipe();
     }
 
-    public void UpdateCraftingUI()
+    public void UpdateCraftingUI(List<QI_CraftingRecipe> recipes)
     {
         for (int i = 0; i < recipeButtons.Count; i++)
         {
-            recipeButtons[i].AddItem(recipeDatabase.CraftingRecipes[i]);
+            recipeButtons[i].AddItem(recipes[i]);
         }
 
     }
+
     public void ClearCurrentRecipe()
     {
         craftButton.interactable = false;
