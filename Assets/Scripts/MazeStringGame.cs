@@ -49,6 +49,7 @@ public class MazeStringGame : MonoBehaviour
     public void ResetLine()
     {
         inMaze = false;
+        PlayerInformation.instance.inMaze = false;
         line.positionCount = 0;
         mazeComplete = false;
         currentIndex = -1;
@@ -87,6 +88,7 @@ public class MazeStringGame : MonoBehaviour
             line.positionCount = currentIndex + 1;
             mazeComplete = true;
             inMaze = false;
+            PlayerInformation.instance.inMaze = false;
             rewardBox.AddItem(mazeItemDatabase.GetRandomWeightedItem(), 1, false);
         }
     }
@@ -99,11 +101,12 @@ public class MazeStringGame : MonoBehaviour
         AudioManager.instance.PlaySound("ConfettiPop");
         confetti.transform.position = appearPosition;
         confetti.Play();
+        mazeCreator.mazeDoor.SetDoorInMaze(false);
     }
 
     IEnumerator AttachString()
     {
-        
+        mazeCreator.mazeDoor.SetDoorInMaze(true);
         var player = PlayerInformation.instance;
         player.playerInput.isInUI = true;
         player.animatePlayerScript.SetCraftAnimation(true);

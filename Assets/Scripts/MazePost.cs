@@ -40,7 +40,7 @@ public class MazePost : Interactable
         {
             mazeString.SetLinePosition();
             mazeString.inMaze = true;
-            
+            PlayerInformation.instance.inMaze = true;
         }
             
         

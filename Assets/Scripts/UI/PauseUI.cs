@@ -56,7 +56,7 @@ public class PauseUI : MonoBehaviour
     public void SaveGame()
     {
         var currentClipInfo = PlayerInformation.instance.playerAnimator.GetCurrentAnimatorClipInfo(0);
-        if (currentClipInfo[0].clip.name != "Craft")
+        if (currentClipInfo[0].clip.name != "Craft" && !PlayerInformation.instance.inMaze)
         {
             SavingLoading.instance.SaveGame();
             pauseSaveAlertText.text = "Saved";

@@ -46,7 +46,7 @@ public class PlayerInformation : MonoBehaviour
     public StatHandler statHandler;
     public bool isDragging;
 
-
+    public bool inMaze;
 
     private void Awake()
     {
