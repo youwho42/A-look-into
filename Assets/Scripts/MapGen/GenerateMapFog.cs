@@ -173,7 +173,6 @@ public class GenerateMapFog : MonoBehaviour
         
 
         yield return null;
-
         // reset the texture at the end so that it doesnt interfere later on.
         mapRevealImage.texture = blankTexture;
         animatingReveal = false;

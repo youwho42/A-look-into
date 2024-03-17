@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MainMenuUI : MonoBehaviour
     }
     public void StartNewGame()
     {
-        UIScreenManager.instance.DisplayWarning("New Game Warning", UIScreenType.CharacterSelectUI);
+        UIScreenManager.instance.DisplayWarning("New Game Warning", UIScreenType.CharacterSelectUI, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Start"));
         
     }
 

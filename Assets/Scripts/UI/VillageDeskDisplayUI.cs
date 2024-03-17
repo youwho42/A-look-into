@@ -215,12 +215,15 @@ public class VillageDeskDisplayUI : MonoBehaviour
         bool noOthersFixing = true;
         foreach (var a in villageDesk.fixableAreas)
         {
-            if(a.isFixing) noOthersFixing = false; 
-            break;
+            if (a.isFixing)
+            {
+                noOthersFixing = false;
+                break;
+            }
         }
         buttonText.text = area.isFixing ? LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "In Progress") : LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Build Area");
         purchaseButton.interactable = villageDesk.isActive && CanFixArea() && !area.isFixing && noOthersFixing;
-
+        
     }
 
     public void PurchaseArea()

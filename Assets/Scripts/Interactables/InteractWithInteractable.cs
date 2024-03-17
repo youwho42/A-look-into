@@ -111,7 +111,7 @@ namespace Klaxon.Interactable
         {
             //interactSlider.gameObject.SetActive(false);
             //interactUI.SetActive(false);
-            if (PlayerInformation.instance.isSitting)
+            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded)
                 return;
 
             if (currentInteractables.Count > 0)
@@ -158,7 +158,7 @@ namespace Klaxon.Interactable
 
         public void Interact()
         {
-            if (PlayerInformation.instance.isSitting)
+            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded)
                 return;
             if (currentInteractables.Count > 0)
             {
@@ -172,7 +172,7 @@ namespace Klaxon.Interactable
 
         public void LongInteract()
         {
-            if (PlayerInformation.instance.isSitting)
+            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded)
                 return;
             if (currentInteractables.Count > 0)
             {

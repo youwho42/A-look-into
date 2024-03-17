@@ -137,10 +137,10 @@ public class UIScreenManager : MonoBehaviour
         }
     }
 
-    public void DisplayWarning(string warning, UIScreenType continueScreen)
+    public void DisplayWarning(string warning, UIScreenType continueScreen, string continueButtonText)
     {
         SetScreenUI(UIScreenType.WarningUI, true);
-        warningUI.SetWarning(warning, continueScreen);
+        warningUI.SetWarning(warning, continueScreen, continueButtonText);
     }
 
     public void SetPauseScreen(bool state)
@@ -156,7 +156,8 @@ public class UIScreenManager : MonoBehaviour
         HideScreenUI();
         DisplayScreenUI(UIScreenType.OptionsUI, state);
         optionsMenu.SetBackButton(screenType);
-        
+        if(screenType == UIScreenType.PauseUI)
+            pauseMenu.SetPause(true);
     }
 
     public void DisplayLoadGameUI(bool state, UIScreenType screenType)

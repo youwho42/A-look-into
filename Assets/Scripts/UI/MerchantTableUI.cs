@@ -42,14 +42,17 @@ public class MerchantTableUI : MonoBehaviour
     public Slider purchaseSlider;
     InteractableMerchantTable merchantTable;
     int price;
-
+    public Button purchaseButton;
     public void Purchase()
     {
-        PlayerInformation.instance.playerInventory.AddItem(item, (int)purchaseSlider.value, false);
-        PlayerInformation.instance.purse.RemoveFromPurse((int)purchaseSlider.value * price);
-        merchantTable.RemoveItems((int)purchaseSlider.value);
-        SetQuantityText();
-        HideUI();
+        if (PlayerInformation.instance.playerInventory.AddItem(item, (int)purchaseSlider.value, false))
+        {
+            PlayerInformation.instance.purse.RemoveFromPurse((int)purchaseSlider.value * price);
+            merchantTable.RemoveItems((int)purchaseSlider.value);
+            SetQuantityText();
+            HideUI();
+        }
+        
     }
 
 
@@ -65,6 +68,12 @@ public class MerchantTableUI : MonoBehaviour
         itemDescription.text = item.localizedDescription.GetLocalizedString();
         merchantTable = table;
         SetQuantitySlider();
+        SetPurchaseButton();
+    }
+
+    void SetPurchaseButton()
+    {
+        purchaseButton.interactable = purchaseSlider.value > 0;
     }
 
     void SetQuantitySlider()
