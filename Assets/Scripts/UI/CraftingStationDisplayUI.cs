@@ -46,6 +46,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     QI_CraftingRecipe craftableItem;
 
     public Slider quantityToCraftSlider;
+    UISelectHandler sliderSelectHandler;
     public TextMeshProUGUI quantitySelectedText;
 
     public Button craftButton;
@@ -62,12 +63,15 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public TextMeshProUGUI craftingQueue;
     public GameObject craftingQueueObject;
     UIScreen screen;
+    [HideInInspector]
+    public TutorialUI tutorial;
 
     private void Start()
     {
+        tutorial = GetComponent<TutorialUI>();
         screen = GetComponent<UIScreen>();
         screen.SetScreenType(UIScreenType.CraftingStationUI);
-    
+        sliderSelectHandler = quantityToCraftSlider.GetComponent<UISelectHandler>();
         gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -228,12 +232,13 @@ public class CraftingStationDisplayUI : MonoBehaviour
         recipeAgencyText.text = craftableItem.AgencyCost.ToString();
 
         SetQuantitySlider();
-
+       
+            
         for (int i = 0; i < craftableItem.Ingredients.Count; i++)
         {
             ingredientSlots[i].AddItem(craftableItem.Ingredients[i].Item, craftableItem.Ingredients[i].Amount, PlayerInformation.instance.playerInventory.GetStock(craftableItem.Ingredients[i].Item.Name));
         }
-        craftButton.interactable = true;
+        
     }
     void SetQuantitySlider()
     {
@@ -253,14 +258,18 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
     public void SetQuantityText()
     {
-        
-        quantitySelectedText.text = ($"{quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}");
+        if(sliderSelectHandler.IsSelected)
+            tutorial.SetNextTutorialIndex(1);
+        quantitySelectedText.text = $"{quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}";
+        craftButton.interactable = quantityToCraftSlider.value > 0;
+        quantityToCraftSlider.interactable = quantityToCraftSlider.maxValue > 0;
     }
 
     public void CraftItem()
     {
         if (craftableItem != null)
         {
+            
             if (InteractCostReward())
                 craftingHandler.Craft(craftableItem, (int)quantityToCraftSlider.value, finalInventory);
         }

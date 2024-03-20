@@ -8,6 +8,16 @@ public class ResearchStationInventorySlot : MonoBehaviour
 {
     QI_ItemData item;
     public Image icon;
+    public Button button;
+    TutorialUI tutorial;
+
+    private void Start()
+    {
+        tutorial = GetComponentInParent<TutorialUI>();
+        button.onClick.AddListener(SetTutorial);
+    }
+
+
     public void AddItem(QI_ItemData newItem)
     {
         item = newItem;
@@ -29,5 +39,10 @@ public class ResearchStationInventorySlot : MonoBehaviour
     public void AddItemToResearchSlot()
     {
         ResearchStationDisplayUI.instance.researchSlot.AddItem(item);
+    }
+
+    private void SetTutorial()
+    {
+        tutorial.SetNextTutorialIndex(0);
     }
 }

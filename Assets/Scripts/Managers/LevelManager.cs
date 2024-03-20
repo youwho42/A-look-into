@@ -241,6 +241,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.DisplayPlayerHUD(false);
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
         Pause(true);
+        
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Terrain");
         audioSettings.Mute();
         while (!currentLevelLoading.isDone)

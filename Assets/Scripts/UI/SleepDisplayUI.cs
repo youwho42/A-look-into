@@ -30,7 +30,8 @@ public class SleepDisplayUI : MonoBehaviour
     bool isShowing;
     public StatChanger bounceStatChanger;
     public StatChanger gumptionStatChanger;
-
+    int hours;
+    int minutes;
     UIScreen screen;
 
     private void Start()
@@ -42,15 +43,28 @@ public class SleepDisplayUI : MonoBehaviour
         dayNightCycle = RealTimeDayNightCycle.instance;
     }
 
+    private void OnEnable()
+    {
+        slider.value = (dayNightCycle.currentTimeRaw + 60) % 1440;
+    }
+
     private void Update()
     {
         if (isShowing)
         {
             currentTime.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
-            sleepUntilTime.text = string.Format("{0:00}:00", slider.value);
+            ConvertTicksToTime((int)slider.value);
+            sleepUntilTime.text = string.Format("{0:00}:{1:00}", hours, minutes);
         }
         
     }
+
+    void ConvertTicksToTime(int currentTimeRaw)
+    {
+        hours = Mathf.RoundToInt(currentTimeRaw / 60);
+        minutes = currentTimeRaw % 60;
+    }
+
     public void ShowUI()
     {
         PlayerInformation.instance.uiScreenVisible = true;
@@ -85,10 +99,9 @@ public class SleepDisplayUI : MonoBehaviour
         var player = PlayerInformation.instance;
         int wakeTime = (int)slider.value;
         
-        while(dayNightCycle.hours != wakeTime)
+        while(dayNightCycle.currentTimeRaw != wakeTime)
         {
             UIScreenManager.instance.isSleeping = true;
-            //float currentEnergy = PlayerInformation.instance.playerStats.playerAttributes.GetAttributeValue("Bounce");
             player.statHandler.ChangeStat(bounceStatChanger);
             player.statHandler.ChangeStat(gumptionStatChanger);
             dayNightCycle.cycleSpeed = 0;
@@ -96,8 +109,7 @@ public class SleepDisplayUI : MonoBehaviour
         }
         dayNightCycle.cycleSpeed = 1;
         UIScreenManager.instance.isSleeping = false;
-        //UIScreenManager.instance.HideAllScreens();
-        //UIScreenManager.instance.DisplayScreen(UIScreenType.PlayerUI);
+        
         HideUI();
         yield return null;
 

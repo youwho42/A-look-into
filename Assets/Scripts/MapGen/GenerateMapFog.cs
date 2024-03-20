@@ -70,7 +70,8 @@ public class GenerateMapFog : MonoBehaviour
         float[,] noiseMap = NoiseGenerator.GenerateNoiseMap(true, mapSize, mapSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
         var t = CreateTexture(noiseMap);
         mapImage.texture = t;
-        mapImage.texture.filterMode = FilterMode.Point;
+        if(mapImage.texture != null)
+            mapImage.texture.filterMode = FilterMode.Point;
     }
 
     Texture2D CreateTexture(float[,] tileMapArray)

@@ -19,12 +19,18 @@ public class CraftingRecipeButton : MonoBehaviour
     {
         craftingStation = CraftingStationDisplayUI.instance;
         button.onClick.AddListener(SetCurrentRecipe);
+        button.onClick.AddListener(SetTutorial);
     }
 
     private void SetCurrentRecipe()
     {
         craftingStation.SetCurrentRecipe(item);
         AudioManager.instance.PlaySound("Crafting_SetRecipe");
+    }
+
+    private void SetTutorial()
+    {
+        craftingStation.tutorial.SetNextTutorialIndex(0);
     }
 
     public void AddItem(QI_CraftingRecipe newItem)

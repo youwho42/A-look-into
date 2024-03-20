@@ -16,19 +16,17 @@ public class CraftingTimerUI : MonoBehaviour
     }
     public void ShowTimer()
     {
-        timerCanvas.enabled = true;
+        timerCanvas.gameObject.SetActive(true);
     }
 
     public void HideTimer()
     {
-        timerCanvas.enabled = false;
+        timerCanvas.gameObject.SetActive(false);
     }
    
 
     public void SetCraftingTimer(int time, int maxTime)
     {
-        
-        timerCanvas.gameObject.SetActive(true);
         timerImage.fillAmount = MapNumber.Remap(time-1, 0, maxTime, 0, 1);
     }
 }

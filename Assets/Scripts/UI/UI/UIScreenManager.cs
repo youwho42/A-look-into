@@ -131,7 +131,8 @@ public class UIScreenManager : MonoBehaviour
 
                 if (screen.TryGetComponent(out SetButtonSelected selectedButton) && state)
                     selectedButton.SetSelectedButton();
-
+                if (screen.TryGetComponent(out TutorialUI tutorial) && state)
+                    tutorial.StartTutorial();
                 break;
             }
         }
