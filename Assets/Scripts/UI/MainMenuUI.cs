@@ -29,6 +29,12 @@ public class MainMenuUI : MonoBehaviour
         UIScreenManager.instance.DisplayOptionsUI(true, UIScreenType.MainMenuUI);
     }
 
+    public void ViewCredits()
+    {
+        UIScreenManager.instance.HideScreenUI();
+        UIScreenManager.instance.DisplayIngameUI(UIScreenType.CreditsUI, true);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

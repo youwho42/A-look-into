@@ -361,8 +361,8 @@ public class CompendiumDisplayUI : MonoBehaviour
         localizedDisplayName.StringChanged += UpdateName;
         localizedDisplayDescription = item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
-        informationDisplayItemName.text = item.localizedName.GetLocalizedString(item.Name);
-        informationDisplayItemDescription.text = item.localizedDescription.GetLocalizedString(item.Name + " Description") + "\n\n";
+        //informationDisplayItemName.text = item.localizedName.GetLocalizedString(item.Name);
+        informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString(item.Name)}</style>\n\n{item.localizedDescription.GetLocalizedString(item.Name + " Description")}\n\n";
         if (item.Type == QuantumTek.QuantumInventory.ItemType.Consumable)
         {
             informationDisplayItemDescription.text += GetStatModifierText(item as ConsumableItemData); 
