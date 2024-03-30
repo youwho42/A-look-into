@@ -23,7 +23,7 @@ public class UndertakingsDisplayUI : MonoBehaviour
     public GameObject undertakingsSpace;
     public UndertakingObject currentUndertaking;
 
-    public TextMeshProUGUI undertakingTitle;
+    //public TextMeshProUGUI undertakingTitle;
     public TextMeshProUGUI undertakingDescription;
 
     List<UndertakingsButton> undertakingsButtons = new List<UndertakingsButton>();
@@ -51,7 +51,8 @@ public class UndertakingsDisplayUI : MonoBehaviour
                 CreateUndertakingButton(undertaking);
         }
 
-        Instantiate(undertakingsSpace, undertakingsButtonHolder.transform);
+        var go = Instantiate(undertakingsSpace, undertakingsButtonHolder.transform);
+        go.SetActive(activeUndertakings.Count > 0);
         // create undertaking buttons of complete undertakings
         
         var reverso = activeUndertakings;
@@ -76,26 +77,18 @@ public class UndertakingsDisplayUI : MonoBehaviour
     {
         ClearCurrentUndertaking();
         currentUndertaking = undertaking;
-        undertakingTitle.text = currentUndertaking.localizedName.GetLocalizedString();
-        //string tasks = "";
-
-        //if (undertaking.CurrentState != UndertakingState.Complete)
-        //{
-        //    for (int i = 0; i < undertaking.Tasks.Count; i++)
-        //    {
-        //        tasks += $"\n-{undertaking.Tasks[i].Name}";
-        //    }
-        //}
+        //undertakingTitle.text = currentUndertaking.localizedName.GetLocalizedString();
+        
 
         string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.localizedCompleteDescription.GetLocalizedString() : currentUndertaking.localizedDescription.GetLocalizedString();
         //undertakingDescription.text = $"{desc}<br>{tasks}";
-        undertakingDescription.text = $"{desc}";
+        undertakingDescription.text = $"\n<style=\"H1\">{currentUndertaking.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n";
     }
 
     public void ClearCurrentUndertaking()
     {
         currentUndertaking = null;
-        undertakingTitle.text = "";
+        
         undertakingDescription.text = "";
     }
 

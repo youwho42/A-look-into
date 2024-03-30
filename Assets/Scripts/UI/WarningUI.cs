@@ -13,7 +13,7 @@ public class WarningUI : MonoBehaviour
     public TextMeshProUGUI continueButton;
 
     UIScreen screen;
-    
+    SetButtonSelected backSelect;
     private void Start()
     {
         screen = GetComponent<UIScreen>();
@@ -21,11 +21,12 @@ public class WarningUI : MonoBehaviour
     
         gameObject.SetActive(false);
     }
-    public void SetWarning(string warning, UIScreenType continueScreen, string continueButtonText)
+    public void SetWarning(string warning, UIScreenType continueScreen, string continueButtonText, SetButtonSelected backSelectButton)
     {
         warningText.text = LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", warning);
         continueUI = continueScreen;
         continueButton.text = continueButtonText;
+        backSelect = backSelectButton;
     }
 
     public void Continue()
@@ -49,6 +50,7 @@ public class WarningUI : MonoBehaviour
 
     public void Cancel()
     {
+        backSelect.SetSelectedButton();
         gameObject.SetActive(false);
     }
 }

@@ -122,7 +122,7 @@ public class PlayerInputController : MonoBehaviour
 
         menuClose = inputActions.Player.MenuClose;
         menuClose.Enable();
-        menuClose.performed += MenuCloseAction;
+        menuClose.performed += CloseUI;
 
         map = inputActions.Player.Map;
         map.Enable();
@@ -310,14 +310,19 @@ public class PlayerInputController : MonoBehaviour
         }
         else
         {
-            if (!UIScreenManager.instance.inMainMenu)
-            {
-                isPaused = false;
-                GameEventManager.onMenuHideEvent.Invoke();
-            }
             
+            CloseUI(context);
         }
             
+    }
+
+    public void CloseUI(InputAction.CallbackContext context)
+    {
+        if (!UIScreenManager.instance.inMainMenu)
+        {
+            isPaused = false;
+            GameEventManager.onMenuHideEvent.Invoke();
+        }
     }
 
     public void InteractAction(InputAction.CallbackContext context)
@@ -335,7 +340,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void MenuToggleAction(InputAction.CallbackContext context) => GameEventManager.onMenuToggleEvent.Invoke();
     public void MenuOpenAction(InputAction.CallbackContext context) => GameEventManager.onMenuDisplayEvent.Invoke();
-    public void MenuCloseAction(InputAction.CallbackContext context) => GameEventManager.onMenuHideEvent.Invoke();
+    //public void MenuCloseAction(InputAction.CallbackContext context) => GameEventManager.onMenuHideEvent.Invoke();
 
     public void MapAction(InputAction.CallbackContext context) => GameEventManager.onMapDisplayEvent.Invoke();
 

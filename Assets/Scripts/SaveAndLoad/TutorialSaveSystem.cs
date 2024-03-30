@@ -10,6 +10,7 @@ namespace Klaxon.SaveSystem
 
         public TutorialUI craftingTutorial;
         public TutorialUI researchTutorial;
+        public TutorialUI sleepTutorial;
 
         public object CaptureState()
         {
@@ -18,6 +19,7 @@ namespace Klaxon.SaveSystem
             {
                 craftingHasShownTutorial = craftingTutorial.hasShownTutorial,
                 researchHasShownTutorial = researchTutorial.hasShownTutorial,
+                sleepHasShownTutorial = sleepTutorial.hasShownTutorial
                 
             };
             
@@ -28,6 +30,7 @@ namespace Klaxon.SaveSystem
             var saveData = (SaveData)state;
             craftingTutorial.SetFromSave(saveData.craftingHasShownTutorial);
             researchTutorial.SetFromSave(saveData.researchHasShownTutorial);
+            sleepTutorial.SetFromSave(saveData.sleepHasShownTutorial);
         }
 
 
@@ -37,6 +40,7 @@ namespace Klaxon.SaveSystem
         {
             public bool craftingHasShownTutorial;
             public bool researchHasShownTutorial;
+            public bool sleepHasShownTutorial;
             
         }
     } 

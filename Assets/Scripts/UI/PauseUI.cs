@@ -45,13 +45,15 @@ public class PauseUI : MonoBehaviour
 
     public void QuitGame()
     {
-        UIScreenManager.instance.DisplayWarning("Closing game", UIScreenType.None, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Continue"));
+        var backSelect = GetComponent<SetButtonSelected>();
+        UIScreenManager.instance.DisplayWarning("Closing game", UIScreenType.None, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Continue"), backSelect);
         //Application.Quit();
     }
 
     public void MainMenu()
     {
-        UIScreenManager.instance.DisplayWarning("Return To Main Menu", UIScreenType.MainMenuUI, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Continue"));
+        var backSelect = GetComponent<SetButtonSelected>();
+        UIScreenManager.instance.DisplayWarning("Return To Main Menu", UIScreenType.MainMenuUI, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Continue"), backSelect);
         //LevelManager.instance.LoadTitleScreen();
     }
 

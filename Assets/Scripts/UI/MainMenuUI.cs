@@ -15,7 +15,8 @@ public class MainMenuUI : MonoBehaviour
     }
     public void StartNewGame()
     {
-        UIScreenManager.instance.DisplayWarning("New Game Warning", UIScreenType.CharacterSelectUI, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Start"));
+        var backSelect = GetComponent<SetButtonSelected>();
+        UIScreenManager.instance.DisplayWarning("New Game Warning", UIScreenType.CharacterSelectUI, LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Start"), backSelect);
         
     }
 

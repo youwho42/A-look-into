@@ -7,6 +7,8 @@ public class UIScreenManager : MonoBehaviour
 {
     public static UIScreenManager instance;
 
+    
+
     private void Awake()
     {
         if (instance == null)
@@ -15,6 +17,7 @@ public class UIScreenManager : MonoBehaviour
             Destroy(gameObject);
     }
     
+    public MainMenuUI mainMenu;
     public MenuDisplayUI tabbedMenu;
     public OptionsDisplayUI optionsMenu;
     public PauseUI pauseMenu;
@@ -45,7 +48,7 @@ public class UIScreenManager : MonoBehaviour
 
         inMainMenu = true;
         DisplayScreenUI(UIScreenType.MainMenuUI, true);
-        
+        mainMenu.GetComponent<SetButtonSelected>().SetSelectedButton();
     }
 
     private void OnDestroy()
@@ -58,6 +61,8 @@ public class UIScreenManager : MonoBehaviour
 
     void GamepadDisplayTabbedMenu()
     {
+        if (inMainMenu)
+            return;
         if (currentUI == UIScreenType.None)
         {
             tabbedMenu.SetInventoryUI();
@@ -67,6 +72,7 @@ public class UIScreenManager : MonoBehaviour
     }
     public void HideScreenUI()
     {
+        
         if (GetCurrentUI() == UIScreenType.MiniGameUI)
             return;
         if (GetCurrentUI() != UIScreenType.None && !isSleeping)
@@ -74,6 +80,8 @@ public class UIScreenManager : MonoBehaviour
     }
     void DisplayMapMenu()
     {
+        if (inMainMenu)
+            return;
         if (GetCurrentUI() == UIScreenType.None)
         {
             tabbedMenu.SetMapUI();
@@ -83,6 +91,8 @@ public class UIScreenManager : MonoBehaviour
     }
     void ToggleTabbedMenu()
     {
+        if (inMainMenu)
+            return;
         if (GetCurrentUI() == UIScreenType.TabbedMenuUI || GetCurrentUI() == UIScreenType.None)
         {
             tabbedMenu.SetInventoryUI();
@@ -138,14 +148,16 @@ public class UIScreenManager : MonoBehaviour
         }
     }
 
-    public void DisplayWarning(string warning, UIScreenType continueScreen, string continueButtonText)
+    public void DisplayWarning(string warning, UIScreenType continueScreen, string continueButtonText, SetButtonSelected backSelect)
     {
         SetScreenUI(UIScreenType.WarningUI, true);
-        warningUI.SetWarning(warning, continueScreen, continueButtonText);
+        warningUI.SetWarning(warning, continueScreen, continueButtonText, backSelect);
     }
 
     public void SetPauseScreen(bool state)
     {
+        if (inMainMenu)
+            return;
         DisplayScreenUI(UIScreenType.PauseUI, state);
         pauseMenu.SetPause(state);
         if (!state)

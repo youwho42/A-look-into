@@ -368,26 +368,23 @@ BUGS!!!!!!!!!!
 	
 	
 Scroll Text Areas
-		ball person message
-		undertaking menu	
 
-		controller needs to be able to scroll text boxes
+		
 	
 
 THINGS TO CHANGE
 
+
+	- Options > L1 R1 don't change the menu
+	- Options > didn't seem like any buttons were selected on entering. 
 	- tabbing out of the game when in sleep menu breaks shit.
 	 
 	
-	
-	
+
 
 	- Why no interest in the camp area??!??
 
-	- Visual tutorial for crafting and research (arrows in a certain order).
-
-				- maybe add pulsing intensity going from furtherst player location towards current player location
-				- Maybe add to legend player trail color.
+	
 
 	
 
@@ -408,8 +405,9 @@ THINGS TO CHANGE
 
 CHANGELOG:
 
-	
+	Changed:		There are now scroll boxes for texts that might be too long to fit in the allotted space.
 
+	Added:			Simple visual tutorials for certain interactions.
 
 COMMENTS
 		
@@ -427,7 +425,12 @@ ACHIEVEMENTS: (https://wiki.facepunch.com/steamworks/)
 
 
 
+Debug Helpers
 
+		using System.Diagnostics;
+
+		StackTrace stackTrace = new StackTrace();
+        UnityEngine.Debug.Log(stackTrace.GetFrame(1).GetMethod().Name);
 						
 			
 

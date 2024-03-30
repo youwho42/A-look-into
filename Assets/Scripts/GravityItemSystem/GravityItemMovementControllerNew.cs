@@ -105,7 +105,7 @@ namespace Klaxon.GravitySystem
 
         void Jump()
         {
-            if (!canJump || isInInteractAction)
+            if (!canJump || isInInteractAction || UIScreenManager.instance.inMainMenu)
                 return;
 
             if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)

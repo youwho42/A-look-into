@@ -28,6 +28,7 @@ public class SleepDisplayUI : MonoBehaviour
     public Slider sleepSlider;
     private Coroutine sleepCoroutine;
     public Slider currentTimeSlider;
+    UISelectHandler sliderSelectHandler;
 
     public StatChanger bounceStatChanger;
     public StatChanger gumptionStatChanger;
@@ -56,11 +57,16 @@ public class SleepDisplayUI : MonoBehaviour
     public RectTransform cloudHolder;
     int lastSliderValue;
     int startTicks;
+
+    [HideInInspector]
+    public TutorialUI tutorial;
+
     private void Start()
     {
+        tutorial = GetComponent<TutorialUI>();
         screen = GetComponent<UIScreen>();
         screen.SetScreenType(UIScreenType.SleepUI);
-   
+        sliderSelectHandler = sleepSlider.GetComponent<UISelectHandler>();
         gameObject.SetActive(false);
         dayNightCycle = RealTimeDayNightCycle.instance;
         CreateClouds();
@@ -102,7 +108,8 @@ public class SleepDisplayUI : MonoBehaviour
     }
     public void SetSleepTime()
     {
-
+        if (sliderSelectHandler.IsSelected)
+            tutorial.SetNextTutorialIndex(0);
         ConvertTicksToTime((int)sleepSlider.value);
         sleepUntilTime.text = string.Format("{0:00}:{1:00}", hours, minutes);
         SetDayNightUI();

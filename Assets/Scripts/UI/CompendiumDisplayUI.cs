@@ -57,7 +57,6 @@ public class CompendiumDisplayUI : MonoBehaviour
     public Color selectedColor;
     public Color idleColor;
 
-    public TextMeshProUGUI informationDisplayItemName;
     public TextMeshProUGUI informationDisplayItemDescription;
     LocalizedString localizedDisplayName;
     LocalizedString localizedDisplayDescription;
@@ -345,10 +344,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         
     }
 
-    void UpdateName(string value)
-    {
-        informationDisplayItemName.text = value;
-    }
+    
     void UpdateDescription(string value)
     {
         informationDisplayItemDescription.text = value;
@@ -357,11 +353,10 @@ public class CompendiumDisplayUI : MonoBehaviour
     public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)
     {
         recipeRevealDescription.SetActive(false);
-        localizedDisplayName = item.localizedName;
-        localizedDisplayName.StringChanged += UpdateName;
+       
+       
         localizedDisplayDescription = item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
-        //informationDisplayItemName.text = item.localizedName.GetLocalizedString(item.Name);
         informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString(item.Name)}</style>\n\n{item.localizedDescription.GetLocalizedString(item.Name + " Description")}\n\n";
         if (item.Type == QuantumTek.QuantumInventory.ItemType.Consumable)
         {
@@ -427,7 +422,6 @@ public class CompendiumDisplayUI : MonoBehaviour
     public void ClearItemInformation()
     {
         
-        informationDisplayItemName.text = "";
         informationDisplayItemDescription.text = "";
         agencyText.text = "";
         timesViewedText.text = "";

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3858297514931977266}
+  - component: {fileID: 7435926144973879959}
   m_Layer: 5
   m_Name: UndertakingsSpace
   m_TagString: Untagged
@@ -36,6 +37,69 @@ RectTransform:
   m_AnchoredPosition: {x: -0.00039672852, y: -20.3241}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7435926144973879959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533818564113449579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 1262911480079843332
+  references:
+    version: 2
+    RefIds:
+    - rid: 1262911480079843332
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
+        asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 3858297514931977266}
+        m_TrackedProperties:
+          items:
+          - rid: 1262911480079843333
+          - rid: 1262911480079843334
+          - rid: 1262911480079843335
+    - rid: 1262911480079843333
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchorMin.y
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 1
+        - localeIdentifier:
+            m_Code: de
+          value: 0
+    - rid: 1262911480079843334
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchorMax.y
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 1
+        - localeIdentifier:
+            m_Code: de
+          value: 0
+    - rid: 1262911480079843335
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.y
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: -35.143997
+        - localeIdentifier:
+            m_Code: de
+          value: 0
 --- !u!1 &2901443934832703346
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,8 +135,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.1, y: -0.11392}
-  m_SizeDelta: {x: 170.3925, y: 19.772}
+  m_AnchoredPosition: {x: 103.7167, y: -0.1139}
+  m_SizeDelta: {x: 197.5647, y: 19.772}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7360501354176625386
 CanvasRenderer:
@@ -96,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

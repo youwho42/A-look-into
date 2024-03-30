@@ -20,7 +20,6 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     UndertakingObject undertaking;
 
-    public TextMeshProUGUI messageTitle;
     public TextMeshProUGUI messageContent;
 
     bool destroyOnClose;
@@ -35,51 +34,47 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     
         gameObject.SetActive(false);
     }
+    private void OnDisable()
+    {
+        if(!UIScreenManager.instance.inMainMenu)
+            CloseMessageUI();
+    }
     public void ShowFixingAreaIngredients(InteractableFixingArea fixingArea, string messageName, string messageDescription)
     {
-        //SetPlayer();
         this.fixingArea = fixingArea;
-        messageTitle.text = messageName;
-        messageContent.text = messageDescription;
+        messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";
         destroyOnClose = false;
     }
 
     public void ShowHowTo(string messageName, string messageDescription)
     {
-        //SetPlayer();
-        messageTitle.text = messageName;
-        messageContent.text = messageDescription;
+        messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";
         destroyOnClose = false;
     }
 
     public void ShowBallPersonMessageUI(IBallPerson messengerAI, string messageName, string messageDescription)
     {
-        //SetPlayer();
         ballPerson = messengerAI;
-        messageTitle.text = messageName;
-        messageContent.text = messageDescription;
+        messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";
         destroyOnClose = true;
     }
 
 
     public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking, bool _destroyOnClose)
     {
-        //SetPlayer();
         ballPerson = _ballPerson;
         undertaking = _undertaking;
-        messageTitle.text = undertaking.localizedName.GetLocalizedString();
         destroyOnClose = _destroyOnClose;
         string t = undertaking.CurrentState == UndertakingState.Complete ? undertaking.localizedCompleteDescription.GetLocalizedString() : undertaking.localizedDescription.GetLocalizedString();
-        messageContent.text = t;
+        
+        messageContent.text = $"\n<style=\"H1\">{undertaking.localizedName.GetLocalizedString()}</style>\n\n{t}\n\n";
     }
 
     public void CloseMessageUI()
     {
         UIScreenManager.instance.HideScreenUI();
-        //PlayerInformation.instance.playerInput.isInUI = false;
-        //PlayerInformation.instance.uiScreenVisible = false;
-        //PlayerInformation.instance.TogglePlayerInput(true);
-        if(destroyOnClose)
+        
+        if(destroyOnClose && ballPerson != null)
             Invoke("DestroyMessenger", .1f);
         if(fixingArea != null)
         {
@@ -88,17 +83,15 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         }
     }
 
-    //void SetPlayer()
-    //{
-    //    PlayerInformation.instance.playerInput.isInUI = true;
-    //    PlayerInformation.instance.uiScreenVisible = true;
-    //    PlayerInformation.instance.TogglePlayerInput(false);
-    //}
-
+    
     void DestroyMessenger()
     {
-        ballPerson.SetToRemoveState();
-        ballPerson = null;
+        if(ballPerson != null)
+        {
+            ballPerson.SetToRemoveState();
+            ballPerson = null;
+        }
+            
     }
 
 }
