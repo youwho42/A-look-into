@@ -1,9 +1,12 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 
 Shader "Custom/ShadowShader" {
 	 Properties {
 	     [PerRendererData] _MainTex ( "Sprite Texture", 2D ) = "white" {}
 		 
 	     _Color ( "Tint", Color ) = ( 1, 1, 1, 1 )
+		 
 
 	 }
 	 
@@ -48,6 +51,8 @@ Shader "Custom/ShadowShader" {
 			     half2 uv = MultiplyUV( UNITY_MATRIX_TEXTURE0, v.texcoord );
 			     o.uv = uv;
 			     o.color = _Color;
+
+
 			     return o;
 			 }
 

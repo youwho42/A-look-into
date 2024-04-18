@@ -19,12 +19,12 @@ public class OptionsDisplayUI : MonoBehaviour
     UIScreenType backButtonScreen;
 
     UIScreen screen;
-
+    SetButtonSelected buttonSelected;
     private void Start()
     {
         screen = GetComponent<UIScreen>();
         screen.SetScreenType(UIScreenType.OptionsUI);
-    
+        buttonSelected = GetComponent<SetButtonSelected>();
         GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
         maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
         HideAllOptionsUI();
@@ -93,6 +93,7 @@ public class OptionsDisplayUI : MonoBehaviour
                 SetControlsUI();
                 break;
         }
+        buttonSelected.SetSelectedButton();
     }
 
     public void SetAudioUI()

@@ -31,7 +31,7 @@ public class UIScreenManager : MonoBehaviour
     public List<GameObject> allScreens = new List<GameObject>();
     
     private UIScreenType currentUI;
-
+    UIScreenType lastUI;
     private void Start()
     {
         // using TAB to toggle tabbedMenu
@@ -158,10 +158,30 @@ public class UIScreenManager : MonoBehaviour
     {
         if (inMainMenu)
             return;
+        if(state)
+            lastUI = currentUI;
         DisplayScreenUI(UIScreenType.PauseUI, state);
         pauseMenu.SetPause(state);
         if (!state)
+        {
             PlayerInformation.instance.playerInput.isPaused = false;
+            currentUI = lastUI == UIScreenType.PauseUI ? UIScreenType.None : lastUI;
+            if(currentUI != UIScreenType.None)
+            {
+                PreventPlayerInputs(true);
+                foreach (var screen in allScreens)
+                {
+                    if (screen.TryGetComponent(out UIScreen ui))
+                    {
+                        if (ui.GetScreenType() == currentUI && screen.TryGetComponent(out SetButtonSelected setButton))
+                            setButton.SetSelectedButton();
+                    }
+                        
+                }
+            }
+            
+        }
+            
     }
 
     public void DisplayOptionsUI(bool state, UIScreenType screenType)
