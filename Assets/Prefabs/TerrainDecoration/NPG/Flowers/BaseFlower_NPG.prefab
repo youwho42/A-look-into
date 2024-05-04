@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5518729531771902421}
   - component: {fileID: 2148166260611311637}
+  - component: {fileID: 4945412199821993355}
+  - component: {fileID: 875342350109306203}
   m_Layer: 0
   m_Name: BaseFlower_NPG
   m_TagString: Grass
@@ -70,6 +72,34 @@ CircleCollider2D:
   m_Offset: {x: -0.0010116659, y: 0.003932245}
   serializedVersion: 2
   m_Radius: 0.009060677
+--- !u!114 &4945412199821993355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8dea789f9a3324e930b33b555f59e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neighboringObjects: 
+--- !u!114 &875342350109306203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainImage: {fileID: 5518729533509488751}
+  mainShadow: {fileID: 5518729532945011619}
+  itemSpritesList: []
 --- !u!1 &5518729532945011621
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +438,7 @@ PrefabInstance:
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0014
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: 4456420677667414221, guid: bc9361ac0ecc6d94abb476599cfc3e97,
         type: 3}

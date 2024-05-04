@@ -8,86 +8,79 @@ public class Worm : MonoBehaviour
     Animator animator;
     public GameObject worm;
 
-    
-    CircleCollider2D peckCollider;
-
     float emergeTime;
     float wiggleTime;
+    public Vector2 minMaxBetweenEmerges;
     public Vector2 minMaxBetweenWiggles;
     bool isEmerged;
-    bool isEaten;
+    Vector3 location;
 
     private void Start()
     {
         animator = worm.GetComponent<Animator>();
-        peckCollider = GetComponent<CircleCollider2D>();
         
         isEmerged = false;
-        ResetWiggleTime();
+        ResetEmergeTime();
         worm.SetActive(false);
+        
     }
-
-   
-    private void Update()
+    
+    void ResetEmergeTime()
     {
-        if(!isEmerged && !isEaten)
-        {
-            emergeTime -= Time.deltaTime;
-            if(emergeTime <= 0)
-            {
-                ForceWormEmerge();
-            }
-        }
-        if (isEaten)
-        {
-            emergeTime -= Time.deltaTime;
-            if (emergeTime <= 0)
-            {
-                ResetWorm();
-            }
-        }
+        emergeTime = Random.Range(minMaxBetweenEmerges.x, minMaxBetweenEmerges.y);
+        Invoke("AttemptEmerge", emergeTime);
     }
-
     private void ResetWiggleTime()
     {
-        emergeTime = Random.Range(minMaxBetweenWiggles.x, minMaxBetweenWiggles.y) * 3f;
         wiggleTime = Random.Range(minMaxBetweenWiggles.x, minMaxBetweenWiggles.y);
+    }
+
+    void AttemptEmerge()
+    {
+        ForceWormEmerge();
     }
 
     public void ForceWormEmerge()
     {
         if (!isEmerged)
         {
+            ResetWiggleTime();
+            location = ChooseEmergeLocation();
             StartCoroutine(StartWormAnimationCo());
         }
     }
-        
-    public void WormEaten()
+    Vector3 ChooseEmergeLocation()
     {
-        peckCollider.enabled = false;
-        worm.SetActive(false);
-        isEaten = true;
-        emergeTime = 60.0f;
-        
+        var groundMap = GridManager.instance.groundMap;
+        Vector2 rand = Random.insideUnitCircle * 2f;
+         
+        Vector3 center = PlayerInformation.instance.player.position;
+        location = center;
+        var d = groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
+        for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin - 1; z--)
+        {
+            d.z = z;
+            if (groundMap.GetTile(d) != null)
+            {
+                location = groundMap.GetCellCenterWorld(d);
+                location += new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 1);
+            }
+        }
+        return location;
     }
-
-    void ResetWorm()
-    {
-        peckCollider.enabled = true;
+    
         
-        ResetWiggleTime();
-        isEaten = false;
-    }
-
+   
     IEnumerator StartWormAnimationCo()
     {
+        worm.transform.position = location;
         isEmerged = true;
         worm.SetActive(true);
         yield return new WaitForSeconds(wiggleTime);
         animator.SetTrigger("Hide");
         yield return new WaitForSeconds(3f);
         worm.SetActive(false);
-        ResetWiggleTime();
+        ResetEmergeTime();
         isEmerged = false;
     }
   

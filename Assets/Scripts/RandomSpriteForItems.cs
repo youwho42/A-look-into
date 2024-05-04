@@ -9,7 +9,7 @@ public class RandomSpriteForItems : MonoBehaviour
     public struct ItemSprites
     {
         public Sprite item;
-        public Sprite shadow;
+        //public Sprite shadow;
     }
 
     public SpriteRenderer mainImage;
@@ -24,10 +24,21 @@ public class RandomSpriteForItems : MonoBehaviour
 
     private void SetRandomSprites()
     {
+        bool r = UnityEngine.Random.Range(0, 2) == 0 ? true : false;
+        
         int i = UnityEngine.Random.Range(0, itemSpritesList.Count);
         if(mainImage != null)
+        {
             mainImage.sprite = itemSpritesList[i].item;
+            mainImage.flipX = r;
+        }
+            
         if (mainShadow != null)
-            mainShadow.sprite = itemSpritesList[i].shadow;
+        {
+            mainShadow.sprite = itemSpritesList[i].item;
+            mainShadow.flipX = r;
+        }
+            
     }
+    
 }

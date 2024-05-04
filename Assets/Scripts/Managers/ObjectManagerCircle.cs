@@ -7,10 +7,15 @@ public class ObjectManagerCircle : MonoBehaviour
 {
     //The object we want to add
     public GameObject[] prefabGO;
+
+    public bool useNeighboringObjects;
+
+    public bool canFlipX;
     //public Tilemap groundMap;
     //Whats the radius of the circle we will add objects inside of?
     public float radius = 1f;
     //How many GOs will we add each time we press a button?
+   
     public int howManyObjects;
     //Should we use poisson
     public bool usePoissonDisc;
@@ -66,7 +71,7 @@ public class ObjectManagerCircle : MonoBehaviour
         newPrefabObj.transform.parent = transform;
     }
 
-    //Add a prefab that we instantiated in the editor script
+    //Add a prefab that we instantiated in the editor script using poisson 
     public void AddPrefab(GameObject newPrefabObj, Vector3 center, Vector2 position)
     {
 

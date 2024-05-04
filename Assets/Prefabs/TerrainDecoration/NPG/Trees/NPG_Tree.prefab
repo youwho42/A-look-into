@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 6458142365622952364}
   - component: {fileID: 87908482278756822}
   - component: {fileID: 3250532703386214230}
+  - component: {fileID: 4725258295000800131}
   m_Layer: 14
   m_Name: NPG_Tree
   m_TagString: GrowingItem
@@ -533,6 +534,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: 4f473bf34c0d9a84a94f60e4f12f6e0f, type: 2}
   hideOnStart: 0
+--- !u!114 &4725258295000800131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d1a6d2f5984b34dbe6e4e4818e7a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NeighborObjectType: 1
 --- !u!1 &5518729532945011621
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +787,7 @@ MonoBehaviour:
   - {x: 0.03224373, y: -0.03504181, z: 0}
   m_ShapePathHash: -1176579523
   m_Mesh: {fileID: 0}
-  m_InstanceId: 14284068
+  m_InstanceId: 6567588
   m_LocalBounds:
     m_Center: {x: 0.004122734, y: 0.0008029938, z: 0}
     m_Extent: {x: 0.060807228, y: 0.037240982, z: 0}

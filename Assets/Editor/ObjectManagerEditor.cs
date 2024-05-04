@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 [CustomEditor(typeof(ObjectManagerCircle))]
 public class ObjectManagerEditor : Editor
@@ -130,7 +131,7 @@ public class ObjectManagerEditor : Editor
             for (int i = 0; i < howManyObjects; i++)
             {
                 
-                GameObject newGO = CreateGameObjectFromPrefab();
+                GameObject newGO = objectManager.useNeighboringObjects? CreateGameObjectFromNeighbor(center) : CreateGameObjectFromPrefab();
 
                 //Send it to the main script to add it at a random position within the circle
                 objectManager.AddPrefab(newGO, center);
@@ -147,7 +148,7 @@ public class ObjectManagerEditor : Editor
                 //Check if position is in the circle
                 if (Vector2.Distance(positions[i], area/2) < objectManager.radius)
                 {
-                    GameObject newGO = CreateGameObjectFromPrefab();
+                    GameObject newGO = objectManager.useNeighboringObjects ? CreateGameObjectFromNeighbor(center) : CreateGameObjectFromPrefab();
 
                     //Send it to the main script to add it at a random position within the circle
                     objectManager.AddPrefab(newGO, center, positions[i]);
@@ -159,13 +160,13 @@ public class ObjectManagerEditor : Editor
     }
     GameObject CreateGameObjectFromPrefab()
     {
+        
         int rand = -1;
         if (objectManager.prefabGO.Length > 1)
         {
             do
             {
                 rand = Random.Range(0, objectManager.prefabGO.Length);
-
 
             }
             while (lastRandom == rand);
@@ -176,6 +177,96 @@ public class ObjectManagerEditor : Editor
             
         GameObject prefabGO = objectManager.prefabGO[rand];
         GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
+        if(objectManager.canFlipX)
+        {
+            int f = Random.Range(0, 2);
+            if (newGO.TryGetComponent(out SpriteRenderer sprite))
+                sprite.flipX = f == 0 ? false : true;
+        }
+        return newGO;
+
+
+    }
+
+    GameObject CreateGameObjectFromNeighbor(Vector3 center)
+    {
+        float r = Random.Range(0.0f, 1.0f);
+        if(r < 0.085f)
+        {
+            GameObject rprefabGO = objectManager.prefabGO[Random.Range(0, objectManager.prefabGO.Length)];
+            GameObject rnewGO = PrefabUtility.InstantiatePrefab(rprefabGO) as GameObject;
+            return rnewGO;
+        }
+
+        // get closest neighbor object type (if closest = null set to none)
+        List<NeighborObjectType> closest = new List<NeighborObjectType>();
+        List<NeighboringObject> allNeighbors = new List<NeighboringObject>();
+        var hit = Physics2D.OverlapCircleAll(center, 1.5f);
+        foreach(var neighbor in hit )
+        {
+            if (Mathf.Abs(neighbor.transform.position.z - center.z) > 1)
+                continue;
+            if(neighbor.TryGetComponent(out NeighboringObject n))
+                allNeighbors.Add(n);
+        }
+        
+        allNeighbors = allNeighbors.OrderBy(x => Vector3.Distance(center, x.transform.position)).Take(3).ToList();
+        foreach (var item in allNeighbors)
+        {
+            closest.Add(item.NeighborObjectType);
+        }
+        while (closest.Count < 3)
+        {
+            closest.Add(NeighborObjectType.None);
+        }
+
+        
+        // make a list of all the items that could spawn near type
+        List<GameObject> possibleItems = new List<GameObject>();
+        
+       
+        foreach (var flower in objectManager.prefabGO)
+        {
+            foreach (var neighbor in closest)
+            {
+                if (flower.TryGetComponent(out NeighboringObjectsSpawn spawn))
+                {
+                    foreach (var type in spawn.neighboringObjects)
+                    {
+                        if (type == neighbor)
+                            possibleItems.Add(flower);
+                    }
+                }
+            }
+            
+        }
+
+
+
+        // choose and return an item from said list
+
+        int rand = -1;
+        if (possibleItems.Count > 1)
+        {
+            do
+            {
+                rand = Random.Range(0, possibleItems.Count);
+
+            }
+            while (lastRandom == rand);
+            lastRandom = rand;
+        }
+        else
+            rand = 0;
+
+        GameObject prefabGO = possibleItems.Count == 0 ? objectManager.prefabGO[Random.Range(0, objectManager.prefabGO.Length)] : possibleItems[rand];
+        GameObject newGO = PrefabUtility.InstantiatePrefab(prefabGO) as GameObject;
+        if (objectManager.canFlipX)
+        {
+            int f = Random.Range(0, 2);
+            if (newGO.TryGetComponent(out SpriteRenderer sprite))
+                sprite.flipX = f == 0 ? false : true;
+        }
         return newGO;
     }
 }
