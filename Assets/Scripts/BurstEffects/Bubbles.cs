@@ -14,6 +14,8 @@ public class Bubbles : MonoBehaviour
 {
     private NativeArray<Vector3> bubbleMovements;
     private NativeArray<Vector3> bubbleDisplacements;
+    private NativeArray<Vector2> windDirections;
+    private NativeArray<float> windSpeeds;
 
     private TransformAccessArray movementAccessArray;
     private TransformAccessArray displacementAccessArray;
@@ -24,7 +26,6 @@ public class Bubbles : MonoBehaviour
     private NativeArray<float> randomHeight;
     private NativeArray<float> randomSize;
     private NativeArray<float> randomDisplacementSpeed;
-    private NativeArray<float> randomMovementSpeed;
     private NativeArray<Vector3> randomWindAngle;
 
     public bool bubblesActive;
@@ -42,7 +43,6 @@ public class Bubbles : MonoBehaviour
 
     public Vector2 minMaxSize = Vector2.up;
     public float growSpeed;
-    WindManager windManager;
 
     private MovementUpdateJob movementUpdateJob;
     private DisplacementUpdateJob displacementUpdateJob;
@@ -57,25 +57,24 @@ public class Bubbles : MonoBehaviour
         //the object that we move lives here
         bubbleMovements = new NativeArray<Vector3>(amountOfBubbles, Allocator.Persistent);
         bubbleDisplacements = new NativeArray<Vector3>(amountOfBubbles, Allocator.Persistent);
+        windDirections = new NativeArray<Vector2>(amountOfBubbles, Allocator.Persistent);
+        windSpeeds = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
 
         //the object that we move lives here
         movementAccessArray = new TransformAccessArray(amountOfBubbles);
         displacementAccessArray = new TransformAccessArray(amountOfBubbles);
 
-        windManager = WindManager.instance;
 
         resetFlags = new NativeArray<bool>(amountOfBubbles, Allocator.Persistent);
         growing = new NativeArray<bool>(amountOfBubbles, Allocator.Persistent);
         randomHeight = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
         randomSize = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
         randomDisplacementSpeed = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
-        randomMovementSpeed = new NativeArray<float>(amountOfBubbles, Allocator.Persistent);
         randomWindAngle = new NativeArray<Vector3>(amountOfBubbles, Allocator.Persistent);
         allStopped = true;
         resettingBubbles = !bubblesActive;
         for (int i = 0; i < amountOfBubbles; i++)
         {
-            randomMovementSpeed[i] = Random.Range(0.8f, 1.2f);
             randomWindAngle[i] = GetRandomAngle();
             
         }
@@ -108,9 +107,7 @@ public class Bubbles : MonoBehaviour
     }
     Vector2 GetRandomAngle()
     {
-        float a = Random.Range(-0.1f, 0.1f) * (2 * Mathf.PI);
-
-        return new Vector2(Mathf.Sin(a), Mathf.Cos(a));
+        return new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
     }
     IEnumerator ResetBubbles()
     {
@@ -171,6 +168,11 @@ public class Bubbles : MonoBehaviour
 
         if (!allStopped)
         {
+            for (int i = 0; i < windDirections.Length; i++)
+            {
+                windDirections[i] = WindManager.instance.GetWindDirectionFromPosition(movementAccessArray[i].position);
+                windSpeeds[i] = WindManager.instance.GetWindMagnitude(movementAccessArray[i].position);
+            }
             for (int i = 0; i < shadows.Count; i++)
             {
                 shadows[i].localScale = displacementAccessArray[i].localScale;
@@ -178,13 +180,13 @@ public class Bubbles : MonoBehaviour
             movementUpdateJob = new MovementUpdateJob()
             {
                 objectMovements = bubbleMovements,
+                windDirection = windDirections,
                 jobDeltaTime = Time.deltaTime,
                 time = Time.time,
                 basePosition = transform.position,
-                direction = windManager.Wind,
                 speed = movementSpeed,
                 resetFlags = resetFlags,
-                speeds = randomMovementSpeed,
+                speeds = windSpeeds,
                 stopBubbles = !bubblesActive,
                 dist = spawnDistanceFromCenter,
                 seed = System.DateTimeOffset.Now.Millisecond,
@@ -228,13 +230,14 @@ public class Bubbles : MonoBehaviour
     private void OnDestroy()
     {
         movementAccessArray.Dispose();
+        windDirections.Dispose();
         displacementAccessArray.Dispose();
         bubbleMovements.Dispose();
         bubbleDisplacements.Dispose();
         resetFlags.Dispose();
         randomHeight.Dispose();
         randomDisplacementSpeed.Dispose();
-        randomMovementSpeed.Dispose();
+        windSpeeds.Dispose();
         randomWindAngle.Dispose();
         randomSize.Dispose();
         growing.Dispose();
@@ -244,10 +247,10 @@ public class Bubbles : MonoBehaviour
     struct MovementUpdateJob : IJobParallelForTransform
     {
         public NativeArray<Vector3> objectMovements;
+        public NativeArray<Vector2> windDirection;
         public float jobDeltaTime;
         public float time;
         public Vector3 basePosition;
-        public Vector3 direction;
         public float speed;
         public NativeArray<bool> resetFlags;
         public NativeArray<float> speeds;
@@ -261,9 +264,9 @@ public class Bubbles : MonoBehaviour
         {
             
             random randomGen = new random((uint)(i * time + 1 + seed));
+
             
-            
-            transform.position += (direction + randomDirections[i].normalized) * speed * speeds[i] * jobDeltaTime;
+            transform.position += ((Vector3)windDirection[i] + randomDirections[i]).normalized * speed * speeds[i] * jobDeltaTime;
             objectMovements[i] = transform.position;
             
             

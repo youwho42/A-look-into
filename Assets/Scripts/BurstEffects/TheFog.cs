@@ -10,10 +10,12 @@ using math = Unity.Mathematics.math;
 using random = Unity.Mathematics.Random;
 using Unity.Jobs;
 
-public class TheFog : MonoBehaviour
+public class TheFog : MonoBehaviour, IWeatherObject
 {
     
     private NativeArray<Vector3> fogMovements;
+    private NativeArray<Vector2> fogDirections;
+    private NativeArray<float> windSpeeds;
     private NativeArray<Vector3> fogDisplacements;
 
     private TransformAccessArray movementAccessArray;
@@ -21,14 +23,13 @@ public class TheFog : MonoBehaviour
 
     public int amountOfFog;
     public int densityVariation;
-    public Vector2 minMaxCenterX;
-    public Vector2 minMaxCenterY;
-
+    
     public Transform objectPrefab;
 
     public float maxHeightZ;
-
-    public float spawnDisplacement;
+    
+   
+    
 
     public float sinFrequency;
 
@@ -36,11 +37,11 @@ public class TheFog : MonoBehaviour
 
     public Vector2 speeds;
 
-    public Vector2 spawnBounds;
-    
+    public Vector2 fogBounds;
+    public float fogFloofDisplacement;
+
     public Vector2 minMaxSize = Vector2.up;
 
-    public Vector2 generalDirection;
     
 
     private MovementUpdateJob movementUpdateJob;
@@ -49,10 +50,16 @@ public class TheFog : MonoBehaviour
     private JobHandle movementUpdateJobHandle;
     private JobHandle displacementUpdateJobHandle;
 
+    List<FogFloof> fogFloofList = new List<FogFloof>();
+
     private void Start()
     {
+       
+
         //the object that we move lives here
         fogMovements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
+        fogDirections = new NativeArray<Vector2>(amountOfFog, Allocator.Persistent);
+        windSpeeds = new NativeArray<float>(amountOfFog, Allocator.Persistent);
         fogDisplacements = new NativeArray<Vector3>(amountOfFog, Allocator.Persistent);
 
         //the object that we move lives here
@@ -64,45 +71,38 @@ public class TheFog : MonoBehaviour
         for (int i = 0; i < amountOfFog; i++)
         {
 
-            float distanceX = Random.Range(-spawnBounds.x / 2, spawnBounds.x / 2) + Random.Range(-spawnDisplacement, spawnDisplacement);
-            float distanceY = Random.Range(-spawnBounds.y / 2, spawnBounds.y / 2) + Random.Range(-spawnDisplacement, spawnDisplacement);
+            float distanceX = Random.Range(-fogBounds.x / 2, fogBounds.x / 2) + Random.Range(-fogFloofDisplacement, fogFloofDisplacement);
+            float distanceY = Random.Range(-fogBounds.y / 2, fogBounds.y / 2) + Random.Range(-fogFloofDisplacement, fogFloofDisplacement);
             float size = Random.Range(minMaxSize.x, minMaxSize.y);
             
 
-            Vector3 spawnPoint = transform.position + new Vector3(distanceX, distanceY, 1);
-
-            Transform t = Instantiate(objectPrefab, spawnPoint, Quaternion.identity);
-
-            t.parent = transform;
+            Vector3 spawnPoint = transform.position + new Vector3(distanceX, distanceY, 0);
+            
+            Transform t = Instantiate(objectPrefab, spawnPoint, Quaternion.identity, transform);
+            fogFloofList.Add(t.GetComponent<FogFloof>());
             Transform tc = t.GetChild(0);
             tc.localScale = new Vector3(size, size, 1);
             float z = Random.Range(0, maxHeightZ / 2);
-            fogDisplacements[i] = new Vector3(transform.localPosition.x, 0.27808595f * z, z);
+            fogDisplacements[i] = new Vector3(transform.localPosition.x, 0.2990625f * z, z);
             movementAccessArray.Add(t);
             displacementAccessArray.Add(t.GetChild(0));
         }
         ResetFog();
     }
 
-    public void OnDisable()
-    {
-        ResetFog();
-    }
+    
     public void ResetFog()
     {
-        var p = transform.position;
-        p.x = Random.Range(minMaxCenterX.x, minMaxCenterX.y);
-        p.y = Random.Range(minMaxCenterY.x, minMaxCenterY.y);
-        transform.position = p;
+        
         var fogDensityVariation = Random.Range(0, densityVariation);
         for (int i = 0; i < movementAccessArray.capacity; i++)
         {
             
-            float distanceX = Random.Range(-spawnBounds.x / 2, spawnBounds.x / 2) + Random.Range(-spawnDisplacement, spawnDisplacement);
-            float distanceY = Random.Range(-spawnBounds.y / 2, spawnBounds.y / 2) + Random.Range(-spawnDisplacement, spawnDisplacement);
+            float distanceX = Random.Range(-fogBounds.x / 2, fogBounds.x / 2) + Random.Range(-fogFloofDisplacement, fogFloofDisplacement);
+            float distanceY = Random.Range(-fogBounds.y / 2, fogBounds.y / 2) + Random.Range(-fogFloofDisplacement, fogFloofDisplacement);
             float size = Random.Range(minMaxSize.x, minMaxSize.y);
 
-            Vector3 spawnPoint = new Vector3(distanceX, distanceY, 1);
+            Vector3 spawnPoint = new Vector3(distanceX, distanceY, 0);
 
             movementAccessArray[i].localPosition = spawnPoint;
             
@@ -112,15 +112,33 @@ public class TheFog : MonoBehaviour
         }
     }
 
+    public void Activate(float amount)
+    {
+        foreach(var floof in fogFloofList)
+        {
+            floof.Fade(amount);
+        }
+    }
+
+    
+
+
+
     private void Update()
     {
+        for (int i = 0; i < fogDirections.Length; i++)
+        {
+            fogDirections[i] = WindManager.instance.GetWindDirectionFromPosition(movementAccessArray[i].position).normalized;
+            windSpeeds[i] = WindManager.instance.GetWindMagnitude(movementAccessArray[i].position);
+        }
+
         movementUpdateJob = new MovementUpdateJob()
         {
             objectMovements = fogMovements,
             jobDeltaTime = Time.deltaTime,
             time = Time.time,
-
-            direction = generalDirection,
+            speeds = windSpeeds,
+            directions = fogDirections,
             speed = speeds.x,
             
             seed = System.DateTimeOffset.Now.Millisecond
@@ -157,6 +175,8 @@ public class TheFog : MonoBehaviour
         movementAccessArray.Dispose();
         displacementAccessArray.Dispose();
         fogMovements.Dispose();
+        fogDirections.Dispose();
+        windSpeeds.Dispose();
         fogDisplacements.Dispose();
     }
 
@@ -169,6 +189,8 @@ public class TheFog : MonoBehaviour
     struct MovementUpdateJob : IJobParallelForTransform
     {
         public NativeArray<Vector3> objectMovements;
+        public NativeArray<Vector2> directions;
+        public NativeArray<float> speeds;
         public float jobDeltaTime;
         public float time;
 
@@ -183,7 +205,7 @@ public class TheFog : MonoBehaviour
             
             random randomGen = new random((uint)(i * time + 1 + seed));
 
-            transform.position += direction * speed * jobDeltaTime * randomGen.NextFloat(0.3f, 1.0f);
+            transform.position += (Vector3)directions[i] * (speeds[i] * speed) * jobDeltaTime * randomGen.NextFloat(0.3f, 1.0f);
             
             objectMovements[i] = transform.position;
             
@@ -203,7 +225,7 @@ public class TheFog : MonoBehaviour
         public float maxHeight;
         public Vector2 sizeMinMax;
         public float positionZ;
-        const float displacementY = 0.27808595f;
+        const float displacementY = 0.2990625f;
         public Vector3 displacedPosition;
         public float frequency;
         public float noise;
@@ -227,15 +249,7 @@ public class TheFog : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Vector3 p = transform.position;
-        Vector3 pXa = new Vector3(minMaxCenterX.x, p.y, p.z);
-        Vector3 pXb = new Vector3(minMaxCenterX.y, p.y, p.z);
-        Vector3 pYa = new Vector3(p.x, minMaxCenterY.x, p.z);
-        Vector3 pYb = new Vector3(p.x, minMaxCenterY.y, p.z);
+    
 
-        Gizmos.DrawLine(pXa, pXb);
-        Gizmos.DrawLine(pYa, pYb);
-    }
+    
 }

@@ -190,13 +190,7 @@ public class ObjectManagerEditor : Editor
 
     GameObject CreateGameObjectFromNeighbor(Vector3 center)
     {
-        float r = Random.Range(0.0f, 1.0f);
-        if(r < 0.085f)
-        {
-            GameObject rprefabGO = objectManager.prefabGO[Random.Range(0, objectManager.prefabGO.Length)];
-            GameObject rnewGO = PrefabUtility.InstantiatePrefab(rprefabGO) as GameObject;
-            return rnewGO;
-        }
+        
 
         // get closest neighbor object type (if closest = null set to none)
         List<NeighborObjectType> closest = new List<NeighborObjectType>();
