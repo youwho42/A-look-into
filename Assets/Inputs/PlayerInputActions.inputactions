@@ -211,6 +211,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Smell",
+                    "type": "Button",
+                    "id": "cdc47698-023a-4ac9-b82e-d5eeb8fd7b73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -877,11 +886,33 @@
                 {
                     "name": "",
                     "id": "d35b62c3-dcc4-4597-a7b5-58b9c24d12ca",
-                    "path": "<Gamepad>/dpad/down",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SurroundingItemsDisplay",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "603820d5-987b-439e-936e-81de85a8f8ab",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Smell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28ee5ab1-ad8c-4d1c-9bd6-32ae4cab4965",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Smell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -48,7 +48,8 @@ public class WindManager : MonoBehaviour
         float scale = 10.0f;
 
         float a = (float)openSimplexNoise.Evaluate(position.x / scale + offset, position.y / scale + offset, currentZ + (position.z / scale + offset));
-        return maxMagnitude * a;
+        a = MapNumber.Remap(a, -1.0f, 1.0f, 0.0f, 1.0f);
+        return Mathf.Abs(maxMagnitude * a);
 
         
     }
@@ -62,7 +63,7 @@ public class WindManager : MonoBehaviour
 
         float a = (float)openSimplexNoise.Evaluate(position.x / scale + offset, position.y / scale + offset, currentZ + (position.z / scale + offset)) * (2 * Mathf.PI);
 
-        var dir = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+        var dir = new Vector2(Mathf.Sin(a), Mathf.Cos(a));
         return dir;
     }
 

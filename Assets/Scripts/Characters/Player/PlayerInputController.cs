@@ -23,9 +23,9 @@ public class PlayerInputController : MonoBehaviour
     public Vector2 rightStickPos;
     [HideInInspector]
     public string currentControlScheme = "Keyboard&Mouse";
-    //float stopRunningTime = 0.3f;
-    //float runningTimer;
+    
     InteractWithInteractable interactable;
+    PlayerActivateSmells playerSmells;
     float scrollY;
 
     InputAction submit;
@@ -52,6 +52,7 @@ public class PlayerInputController : MonoBehaviour
     InputAction dialogueNext;
     InputAction rotateDecoration;
     InputAction surroundingItems;
+    
     PlayerInputActions inputActions;
     public PlayerInput playerInput;
     
@@ -70,6 +71,7 @@ public class PlayerInputController : MonoBehaviour
         //            Cursor.lockState = CursorLockMode.Confined;
         //PlayerSettings.resizableWindow = true;
         interactable = GetComponent<InteractWithInteractable>();
+        playerSmells = GetComponent<PlayerActivateSmells>();
     }
 
     private void OnEnable()
@@ -175,7 +177,7 @@ public class PlayerInputController : MonoBehaviour
         surroundingItems.Enable();
         surroundingItems.started += DisplaySurroundingItems;
 
-
+        
     }
     private void OnDisable()
     {
@@ -203,6 +205,7 @@ public class PlayerInputController : MonoBehaviour
         dialogueNext.Disable();
         rotateDecoration.Disable();
         surroundingItems.Disable();
+        
     }
 
    
@@ -334,7 +337,9 @@ public class PlayerInputController : MonoBehaviour
         if(context.phase == InputActionPhase.Performed)
             interactable.LongInteract();
     }
+    
 
+    
     public void SubmitAction(InputAction.CallbackContext context) => GameEventManager.onSubmitEvent.Invoke();
 
 

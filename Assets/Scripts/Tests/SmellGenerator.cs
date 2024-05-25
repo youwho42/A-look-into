@@ -12,21 +12,47 @@ public class SmellGenerator : MonoBehaviour
     public ObjectPool<SmellsObject> smellPool;
     //List<SmellsObject> objects = new List<SmellsObject>();
     public DrawZasYDisplacement currentZAsYDisplacement;
-    [ColorUsage(true, true)]
-    public Color currentEmissionColor;
-    public Color currentColor;
+    public SmellItemData smellData;
+    //[ColorUsage(true, true)]
+    //public Color currentEmissionColor;
+    //public Color currentColor;
+    List<SmellsObject> startSmells = new List<SmellsObject>();
     
     public void Start()
     {
+        
         smellPool = new ObjectPool<SmellsObject>
             (
                 createFunc: CreateSmell,
                 actionOnGet: GetFromPool,
                 actionOnRelease: ReleaseToPool,
-                defaultCapacity:poolAmount
-               
+                defaultCapacity: poolAmount
+
             );
+        //StartSmells();
+
+    }
+
+    public void StartSmells()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            startSmells.Add(CreateSmell());
+        }
+        for (int i = 0; i < startSmells.Count; i++)
+        {
+            for (int j = 0; j < i * 5; j++)
+            {
+                startSmells[i].UpdateSmell();
+            }
+        }
         InvokeRepeating("EmitSmell", 0.0f, 0.4f);
+    }
+    public void StopSmells()
+    {
+        CancelInvoke();
+        startSmells.Clear();
+        smellPool.Dispose();
     }
 
     void EmitSmell()
@@ -39,12 +65,12 @@ public class SmellGenerator : MonoBehaviour
         smellPool.Release(smellsObject);
     }
 
-    public void SpawnSmell()
+    void SpawnSmell()
     {
         
         var smell = smellPool.Get();
         smell.transform.position = currentZAsYDisplacement.transform.position;
-        smell.SetSmell(this, currentZAsYDisplacement, currentColor, currentEmissionColor);
+        smell.SetSmell(this, currentZAsYDisplacement, smellData);
     }
     SmellsObject CreateSmell()
     {
@@ -52,7 +78,7 @@ public class SmellGenerator : MonoBehaviour
         smell.transform.position = currentZAsYDisplacement.transform.position;
         
         smell.gameObject.SetActive(true);
-        smell.SetSmell(this, currentZAsYDisplacement, currentColor, currentEmissionColor);
+        smell.SetSmell(this, currentZAsYDisplacement, smellData);
         return smell;
     }
 

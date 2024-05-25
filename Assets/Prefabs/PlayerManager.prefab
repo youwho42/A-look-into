@@ -168,6 +168,7 @@ MonoBehaviour:
   playerSprite: {fileID: 0}
   playerShadow: {fileID: 0}
   playerController: {fileID: 0}
+  animatePlayerScript: {fileID: 0}
   playerInventory: {fileID: 5769325092054554960}
   equipmentManager: {fileID: 5769325092054554963}
   playerRecipeDatabase: {fileID: 11400000, guid: d0aefd46193a58d49982ad6dc18b2bd5,
@@ -193,6 +194,7 @@ MonoBehaviour:
   playerSpriteResolver: {fileID: 0}
   statHandler: {fileID: 5065497808497423020}
   isDragging: 0
+  inMaze: 0
 --- !u!114 &5769325092054554960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: MainPlayerInventory
   MaxStacks: 12
+  PlayerCanAddToInventory: 1
 --- !u!114 &5769325092054554952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +436,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ae2895e9bc1dc9642878c9b5117ecdf2, type: 2}
   - {fileID: 11400000, guid: 687886643cc64544a94c3aa3f9c8b200, type: 2}
   - {fileID: 11400000, guid: ee56763698d2999498eaf2aac51a8165, type: 2}
+  - {fileID: 11400000, guid: 39d985611bea819448e4ae9b39d36928, type: 2}
 --- !u!114 &1698792034990139457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,9 +466,11 @@ MonoBehaviour:
   - mapName: Gunther Cove
     mapImage: {fileID: 21300000, guid: 3f1e67fceb8ca7248940771b7a4db561, type: 3}
     active: 0
+    hasAnimated: 1
   - mapName: Blu Valley
     mapImage: {fileID: 21300000, guid: 0a7cd2f9ac3480d429f06aff92b9b3c5, type: 3}
     active: 0
+    hasAnimated: 1
 --- !u!114 &6133568523072871628
 MonoBehaviour:
   m_ObjectHideFlags: 0

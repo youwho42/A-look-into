@@ -24,8 +24,11 @@ public class AnimatePlayer : MonoBehaviour
     public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
     public readonly int pickUp_hash = Animator.StringToHash("PickUp");
     public readonly int isCrafting_hash = Animator.StringToHash("IsCrafting");
+    public readonly int isBreathing_hash = Animator.StringToHash("Breathing");
+    public readonly int BreathingState_hash = Animator.StringToHash("BreatheState");
 
-    
+
+
     private void Start()
     {
         
@@ -97,6 +100,15 @@ public class AnimatePlayer : MonoBehaviour
     public void SetCraftAnimation(bool state)
     {
         animator.SetBool(isCrafting_hash, state);
+    }
+
+    public void ToggleBreatheAnimation(bool state)
+    {
+        animator.SetBool(isBreathing_hash, state);
+    }
+    public void SetBreateState(float t)
+    {
+        animator.SetFloat(BreathingState_hash, t);
     }
 
     bool GetIdleAnimState()

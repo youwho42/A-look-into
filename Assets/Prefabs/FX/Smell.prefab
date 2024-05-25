@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8534286431401859771}
   - component: {fileID: 2698306259377388479}
-  m_Layer: 0
+  - component: {fileID: 7490515268291297704}
+  - component: {fileID: 8349301227459276939}
+  m_Layer: 14
   m_Name: Smell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620321830874702874}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.11, y: -25.892, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48,6 +50,59 @@ MonoBehaviour:
   smellSprite: {fileID: 7033411051413863073}
   animator: {fileID: 3704291578234896944}
   speed: 0.05
+  gatherableItem: {fileID: 7490515268291297704}
+--- !u!114 &7490515268291297704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620321830874702874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataList: []
+  maxPerDay: 0
+  timeToReset: 0
+  hasBeenHarvested: 0
+  harvestedSticker: {fileID: 0}
+--- !u!58 &8349301227459276939
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620321830874702874}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.025
 --- !u!1 &3171135475925046480
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGlow: 0
   maxGlow: 0
-  bloomMinIntensity: 1
-  bloomMaxIntensity: 20
+  bloomMinIntensity: 0
+  bloomMaxIntensity: 30
   useAlpha: 0
   useIntensity: 1

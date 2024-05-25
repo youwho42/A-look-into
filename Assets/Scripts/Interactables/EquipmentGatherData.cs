@@ -50,6 +50,7 @@ public class EquipmentGatherData : EquipmentData
         Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, gathererLayer);
         if (hit.Length > 0)
         {
+            
             GetNearestItem(hit);
         }
         else
@@ -63,11 +64,25 @@ public class EquipmentGatherData : EquipmentData
         // Find nearest item.
         Collider2D nearest = null;
         float distance = 0;
-
+        var playerPos = PlayerInformation.instance.player.position;
         for (int i = 0; i < colliders.Length; i++)
         {
-            
-            float tempDistance = Vector3.Distance(PlayerInformation.instance.player.position, colliders[i].transform.position);
+
+            float tempDistance = 0;
+
+            if (colliders[i].CompareTag("Water"))
+            {
+                if (playerPos.z == 1)
+                    tempDistance = Vector2.Distance(playerPos, colliders[i].ClosestPoint(playerPos));
+            }
+            else
+            {
+                if (playerPos.z != colliders[i].transform.position.z)
+                    continue;
+
+                tempDistance = Vector2.Distance(playerPos, colliders[i].transform.position);
+            }
+                
             if (tempDistance > 0.3f && this.AnimationName != "Spyglass")
                 continue;
             if (nearest == null || tempDistance < distance)
@@ -80,6 +95,7 @@ public class EquipmentGatherData : EquipmentData
         // Found an object, no minigame required.
         if (nearest != null)
         {
+            
             if (miniGameType == MiniGameType.None)
             {
                 // If it is a singular item (sticks, flowers...)
@@ -101,9 +117,10 @@ public class EquipmentGatherData : EquipmentData
                         }
 
                     }
-                }// If it is a gatherable item (water...)
+                }// If it is a gatherable item (water, smells...)
                 else if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
+                    
                     foreach (QI_ItemData itemData in nearestItemList.dataList)
                     {
                         for (int i = 0; i < gatherItemData.Count; i++)
