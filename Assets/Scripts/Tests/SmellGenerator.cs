@@ -5,22 +5,18 @@ using UnityEngine.Pool;
 
 public class SmellGenerator : MonoBehaviour
 {
-    
+
     public int poolAmount;
 
     public SmellsObject smellObject;
     public ObjectPool<SmellsObject> smellPool;
-    //List<SmellsObject> objects = new List<SmellsObject>();
     public DrawZasYDisplacement currentZAsYDisplacement;
     public SmellItemData smellData;
-    //[ColorUsage(true, true)]
-    //public Color currentEmissionColor;
-    //public Color currentColor;
     List<SmellsObject> startSmells = new List<SmellsObject>();
-    
+
     public void Start()
     {
-        
+
         smellPool = new ObjectPool<SmellsObject>
             (
                 createFunc: CreateSmell,
@@ -29,7 +25,6 @@ public class SmellGenerator : MonoBehaviour
                 defaultCapacity: poolAmount
 
             );
-        //StartSmells();
 
     }
 
@@ -67,7 +62,7 @@ public class SmellGenerator : MonoBehaviour
 
     void SpawnSmell()
     {
-        
+
         var smell = smellPool.Get();
         smell.transform.position = currentZAsYDisplacement.transform.position;
         smell.SetSmell(this, currentZAsYDisplacement, smellData);
@@ -76,7 +71,7 @@ public class SmellGenerator : MonoBehaviour
     {
         SmellsObject smell = Instantiate(smellObject, transform);
         smell.transform.position = currentZAsYDisplacement.transform.position;
-        
+
         smell.gameObject.SetActive(true);
         smell.SetSmell(this, currentZAsYDisplacement, smellData);
         return smell;
@@ -91,5 +86,5 @@ public class SmellGenerator : MonoBehaviour
     {
         smell.gameObject.SetActive(false);
     }
-    
+
 }

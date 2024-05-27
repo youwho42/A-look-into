@@ -41,17 +41,11 @@ public class SmellsObject : MonoBehaviour
         var c = smellItem.smellColor;
         c.a = ra;
         smellSprite.color = c;
-        
+
         timer = 0;
         maxSize = Random.Range(1.5f, 3.3f);
-        //StartCoroutine(SmellSizeCo());
-        //Invoke("Fade", 5.0f);
+
     }
-    
-    //void Fade()
-    //{
-    //    StartCoroutine(FadeSmellCo());
-    //}
 
     void Update()
     {
@@ -62,7 +56,7 @@ public class SmellsObject : MonoBehaviour
     {
         var windDirection = wind.GetWindDirectionFromPosition(transform.position);
         float windSpeed = wind.GetWindMagnitude(transform.position);
-        
+
         Vector3 currentPosition = transform.position;
         currentPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + windDirection.normalized, speed * windSpeed * Time.deltaTime);
         currentPosition.z = 1;
@@ -77,7 +71,7 @@ public class SmellsObject : MonoBehaviour
     {
         if (timer > time)
             return;
-        
+
         if (timer < time)
         {
             float size = Mathf.Lerp(0.3f, maxSize, timer / time);
@@ -88,7 +82,7 @@ public class SmellsObject : MonoBehaviour
 
     void FadeSmell(float time)
     {
-        if(timer>10)
+        if (timer > 10)
         {
             smellGenerator.StopEmit(this);
             return;
@@ -100,7 +94,7 @@ public class SmellsObject : MonoBehaviour
             float a = Mathf.Lerp(startAlpha, 0.0f, timer / time);
             smellSprite.color = new Color(c.r, c.g, c.b, a);
         }
-        
-        
+
+
     }
 }

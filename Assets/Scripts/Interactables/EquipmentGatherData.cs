@@ -28,7 +28,7 @@ public class EquipmentGatherData : EquipmentData
         base.UseEquippedItem();
         Vector3 pos;
 
-        if (LevelManager.instance.inPauseMenu)
+        if (LevelManager.instance.inPauseMenu || PlayerInformation.instance.playerInput.isInUI)
             return;
         
         if(this.AnimationName == "Spyglass")
@@ -114,6 +114,7 @@ public class EquipmentGatherData : EquipmentData
                                 Destroy(nearest.gameObject);
                             else
                                 EquipmentManager.instance.UnEquipAndDestroy(0);
+                            return;
                         }
 
                     }
@@ -143,7 +144,7 @@ public class EquipmentGatherData : EquipmentData
 
                                         EquipmentManager.instance.UnEquipAndDestroy(0);
                                     }
-
+                                    return;
                                 }
                             }
 
