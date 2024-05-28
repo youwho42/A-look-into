@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2283122143913384006}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Minigame-Ore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,6 +876,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+    source: {fileID: 0}
     overlap: 1
   - clips:
     - {fileID: 8300000, guid: ef22e59d8a9122946b7462cf92be62b6, type: 3}
@@ -883,6 +884,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.1
     randomPitch: 0.1
+    source: {fileID: 0}
     overlap: 1
   hasCompletedMiniGame: 0
   miniGameType: 3
@@ -920,6 +922,8 @@ MonoBehaviour:
     gameDificulty: 3
     dificultyAreaRotate: {fileID: 3438814413925033625}
     targetHitCollider: {fileID: 4357751422817021929}
+  successEmission: {r: 0, g: 6.179412, b: 11.984314, a: 1}
+  failEmission: {r: 0.0029258574, g: 0, b: 0.00011819216, a: 0}
 --- !u!1 &1868212770991441835 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 942812129351635850, guid: c48ca2dfdca361e4f8e1c45d0ab99aa1,

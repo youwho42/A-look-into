@@ -47,7 +47,10 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     public List<PlayerControlArea> playerControlSections = new List<PlayerControlArea>();
     public List<TargetArea> targetAreas = new List<TargetArea>();
     MiniGameDificulty currentDificulty;
-
+    [ColorUsage(true, true)]
+    public Color successEmission;
+    [ColorUsage(true, true)]
+    public Color failEmission;
 
     private void Start()
     {
@@ -146,13 +149,13 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
             Notifications.instance.SetNewNotification("", item, 1, NotificationsType.Inventory);
             PlaySound(0);
-            StartCoroutine(GlowOn(material, 10));
+            StartCoroutine(GlowOn(material, successEmission));
         }
          else
          {
             currentSection++;
             PlaySound(1);
-            StartCoroutine(GlowOn(material, -5));
+            StartCoroutine(GlowOn(material, failEmission));
         }
 
         float wait = 0.2f;
@@ -164,14 +167,14 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         yield return null;
     }
    
-   IEnumerator GlowOn(Material materialToSet, int amount)
+   IEnumerator GlowOn(Material materialToSet, Color color)
    {
       float elapsedTime = 0;
       float waitTime = 0.2f;
 
       while (elapsedTime < waitTime)
       {
-          Color i = Color.Lerp(initialIntensity, initialIntensity * amount, (elapsedTime / waitTime));
+          Color i = Color.Lerp(initialIntensity, color, (elapsedTime / waitTime));
 
             materialToSet.SetColor("_EmissionColor", i);
           elapsedTime += Time.deltaTime;
@@ -179,7 +182,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
           yield return null;
       }
 
-        materialToSet.SetColor("_EmissionColor", initialIntensity * amount);
+        materialToSet.SetColor("_EmissionColor", color);
       yield return null;
    }
    void GlowOff(Material materialToSet)

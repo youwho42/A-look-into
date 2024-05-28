@@ -36,7 +36,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     int currentAttemptHits;
     QI_ItemData item;
     public bool hasCompletedMiniGame;
-    Material material;
+    //Material material;
     Color initialIntensity;
     public MiniGameType miniGameType;
     public List<Ball> balls = new List<Ball>();
@@ -44,13 +44,16 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     MiniGameDificulty currentDificulty;
     GameObject currentGameObject;
     bool minigameIsActive;
+    [ColorUsage(true, true)]
+    public Color successEmission;
+    [ColorUsage(true, true)]
+    public Color failEmission;
 
     private void Start() 
     {
         
         source = GetComponent<AudioSource>();
-        material = balls[0].ballSprite.material;
-        initialIntensity = material.GetColor("_EmissionColor");
+        initialIntensity = balls[0].ballSprite.material.GetColor("_EmissionColor");
        
         ResetMiniGame();
     }
@@ -86,27 +89,27 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             MiniGameManager.instance.EndMiniGame(miniGameType);
         }
     }
-    IEnumerator GlowOn(int amount)
+    IEnumerator GlowOn(Material materialToSet, Color color)
     {
         float elapsedTime = 0;
-        float waitTime = 0.5f;
+        float waitTime = 0.2f;
 
         while (elapsedTime < waitTime)
         {
-            Color i = Color.Lerp(initialIntensity, initialIntensity * amount, (elapsedTime / waitTime));
+            Color i = Color.Lerp(initialIntensity, color, (elapsedTime / waitTime));
 
-            material.SetColor("_EmissionColor", i);
-            elapsedTime +=Time.deltaTime;
+            materialToSet.SetColor("_EmissionColor", i);
+            elapsedTime += Time.deltaTime;
 
             yield return null;
         }
 
-        material.SetColor("_EmissionColor", initialIntensity * amount);
+        materialToSet.SetColor("_EmissionColor", color);
         yield return null;
     }
-    void GlowOff()
+    void GlowOff(Material materialToSet)
     {
-        material.SetColor("_EmissionColor", initialIntensity);
+        materialToSet.SetColor("_EmissionColor", initialIntensity);
     }
 
 
@@ -114,6 +117,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     {
         transitioning = true;
         balls[currentIndex].rotateBall.enabled = false;
+        var mat = balls[currentIndex].ballSprite.material;
         if (success)
         {
             currentAttemptHits++;
@@ -122,15 +126,15 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
             //NotificationManager.instance.SetNewNotification(item.Name, NotificationManager.NotificationType.Inventory);
             PlaySound(0);
-            StartCoroutine(GlowOn(15));
+            StartCoroutine(GlowOn(mat, successEmission));
         }
         else
         {
             PlaySound(1);
-            StartCoroutine(GlowOn(-5));
+            StartCoroutine(GlowOn(mat, failEmission));
         }
-        
-        yield return new WaitForSeconds(1f);
+        float t = currentIndex == balls.Count - 1 ? 0.75f : 0.1f;
+        yield return new WaitForSeconds(t);
         if (currentIndex < balls.Count - 1)
         {
             currentIndex++;
@@ -153,26 +157,39 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
     private void ResetBalls(int index)
     {
+        if (index == 0)
+        {
+            
+            for (int i = 0; i < balls.Count; i++)
+            {
+                GlowOff(balls[i].ballSprite.material);
+                balls[i].rotateBall.RandomizeRotation();
+                //balls[i].rotateBall.enabled = true;
+                balls[i].rotateBall.RandomizeDirection();
+            }
+        }
         transitioning = false;
-        GlowOff();
+        
         for (int i = 0; i < balls.Count; i++)
         {
-            if (index != i)
+            if (i < index)
             {
-                balls[i].rotateBall.RandomizeRotation();
                 balls[i].rotateBall.enabled = false;
                 balls[i].ballCollider.enabled = false;
-                balls[i].ballSprite.enabled = false;
+            }
+            else if (i > index)
+            {
+                balls[i].rotateBall.enabled = true;
+                balls[i].ballSprite.enabled = true;
             }
             else
             {
-                material = balls[i].ballSprite.material;
-                balls[i].rotateBall.RandomizeRotation();
+                //material = balls[i].ballSprite.material;
                 balls[i].rotateBall.enabled = true;
-                balls[i].rotateBall.RandomizeDirection();
                 balls[i].ballCollider.enabled = true;
                 balls[i].ballSprite.enabled = true;
             }
+
         }
     }
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) 
@@ -206,17 +223,13 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         }
     }
 
-    bool PlaySound(int soundSet)
+    void PlaySound(int soundSet)
     {
-        if (!source.isPlaying)
-        {
-            int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
-            soundSets[soundSet].SetSource(source, t);
-            soundSets[soundSet].Play();
-            
-            return true;
-        }
-        return false;
+        
+        int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
+        soundSets[soundSet].SetSource(source, t);
+        soundSets[soundSet].Play();
+         
     }
 
     public void ResetMiniGame()

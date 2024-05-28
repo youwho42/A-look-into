@@ -930,7 +930,7 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
     source: {fileID: 0}
-    overlap: 0
+    overlap: 1
   - clips:
     - {fileID: 8300000, guid: aa371b0c1b8adad4e98a0114a479f846, type: 3}
     volume: 0.7
@@ -938,7 +938,7 @@ MonoBehaviour:
     randomVolume: 0
     randomPitch: 0
     source: {fileID: 0}
-    overlap: 0
+    overlap: 1
   maxAttempts: 3
   attemptSteps: 3
   hasCompletedMiniGame: 0
@@ -969,6 +969,8 @@ MonoBehaviour:
     gameDificulty: 3
     rotate: {fileID: 6699779203012478957}
     collider: {fileID: 6699779203012478956}
+  successEmission: {r: 13.866667, g: 11.105883, b: 1.882353, a: 1}
+  failEmission: {r: 0.003921569, g: 0, b: 0, a: 0}
 --- !u!1 &3809930973844339646 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1718688712706737093, guid: 649a4882a38353540b17cf601bb86920,

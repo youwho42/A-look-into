@@ -24,7 +24,8 @@ public class SleepDisplayUI : MonoBehaviour
     public GameObject sleepDisplay;
     //PlayerInformation playerInformation;
     public TextMeshProUGUI currentTime;
-    public TextMeshProUGUI sleepUntilTime;
+    public TextMeshProUGUI wakeTime;
+    public TextMeshProUGUI sleepAmountTime;
     public Slider sleepSlider;
     private Coroutine sleepCoroutine;
     public Slider currentTimeSlider;
@@ -104,19 +105,24 @@ public class SleepDisplayUI : MonoBehaviour
     private void SetTime(int tick)
     {
         currentTime.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
-       
+        SetWakeTime();
     }
     public void SetSleepTime()
     {
         if (sliderSelectHandler.IsSelected)
             tutorial.SetNextTutorialIndex(0);
         ConvertTicksToTime((int)sleepSlider.value);
-        sleepUntilTime.text = string.Format("{0:00}:{1:00}", hours, minutes);
+        sleepAmountTime.text = string.Format("{0:00}:{1:00}", hours, minutes);
         SetDayNightUI();
-        //SetClouds();
-        
-        
+        SetWakeTime();  
     }
+    void SetWakeTime()
+    {
+        int t = (dayNightCycle.currentTimeRaw + (int)sleepSlider.value) % 1440;
+        ConvertTicksToTime(t);
+        wakeTime.text = string.Format("{0:00}:{1:00}", Mathf.RoundToInt(t / 60), t % 60);
+    }
+
     void ConvertTicksToTime(int currentTimeRaw)
     {
         hours = Mathf.RoundToInt(currentTimeRaw / 60);
@@ -196,7 +202,7 @@ public class SleepDisplayUI : MonoBehaviour
     {
         lastSliderValue--;
         ConvertTicksToTime(lastSliderValue);
-        sleepUntilTime.text = string.Format("{0:00}:{1:00}", hours, minutes);
+        sleepAmountTime.text = string.Format("{0:00}:{1:00}", hours, minutes);
     }
 
     void SetDayNightUI()
