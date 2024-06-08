@@ -27,44 +27,39 @@ public class EquipmentGatherData : EquipmentData
     {
         base.UseEquippedItem();
         Vector3 pos;
-
-        if (LevelManager.instance.inPauseMenu || PlayerInformation.instance.playerInput.isInUI)
+        var player = PlayerInformation.instance;
+        if (LevelManager.instance.inPauseMenu || player.playerInput.isInUI && !player.playerActivateSpyglass.SpyglassAiming)
             return;
-        
-        if(this.AnimationName == "Spyglass")
+
+        bool isSpyglass = false;
+        if (this.AnimationName == "Spyglass")
         {
-           
-            //var mouse = Mouse.current.position.ReadValue();
-            //pos = Camera.main.ScreenToWorldPoint(mouse);
-            pos = PlayerInformation.instance.playerActivateSpyglass.GetSelectedAnimalPosition();
+            pos = player.playerActivateSpyglass.GetSelectedAnimalPosition();
             
-            if (Mathf.Sign(pos.x - PlayerInformation.instance.player.position.x) < 0 && PlayerInformation.instance.playerController.facingRight || 
-                Mathf.Sign(pos.x - PlayerInformation.instance.player.position.x) > 0 && !PlayerInformation.instance.playerController.facingRight)
-                PlayerInformation.instance.playerController.Flip();
+            if (Mathf.Sign(pos.x - player.player.position.x) < 0 && player.playerController.facingRight || 
+                Mathf.Sign(pos.x - player.player.position.x) > 0 && !player.playerController.facingRight)
+                player.playerController.Flip();
             pos.z = 0;
+            isSpyglass = true;
         }
         else
         {
-            pos = PlayerInformation.instance.player.position;
+            pos = player.player.position;
         }
+
         Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, gathererLayer);
         if (hit.Length > 0)
-        {
-            
-            GetNearestItem(hit);
-        }
+            GetNearestItem(hit, isSpyglass, pos);
         else
-        {
-            PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-        }
+            player.playerAnimator.SetBool("UseEquipement", false);
     }
 
-    public void GetNearestItem(Collider2D[] colliders)
+    public void GetNearestItem(Collider2D[] colliders, bool isSpyglass, Vector3 position)
     {
         // Find nearest item.
         Collider2D nearest = null;
         float distance = 0;
-        var playerPos = PlayerInformation.instance.player.position;
+       
         for (int i = 0; i < colliders.Length; i++)
         {
 
@@ -72,19 +67,20 @@ public class EquipmentGatherData : EquipmentData
 
             if (colliders[i].CompareTag("Water"))
             {
-                if (playerPos.z == 1)
-                    tempDistance = Vector2.Distance(playerPos, colliders[i].ClosestPoint(playerPos));
+                if (position.z == 1)
+                    tempDistance = Vector2.Distance(position, colliders[i].ClosestPoint(position));
             }
             else
             {
-                if (playerPos.z != colliders[i].transform.position.z)
+                if (position.z != colliders[i].transform.position.z && !isSpyglass)
                     continue;
 
-                tempDistance = Vector2.Distance(playerPos, colliders[i].transform.position);
+                tempDistance = Vector2.Distance(position, colliders[i].transform.position);
             }
                 
             if (tempDistance > 0.3f && this.AnimationName != "Spyglass")
                 continue;
+
             if (nearest == null || tempDistance < distance)
             {
                 nearest = colliders[i];
@@ -95,7 +91,6 @@ public class EquipmentGatherData : EquipmentData
         // Found an object, no minigame required.
         if (nearest != null)
         {
-            
             if (miniGameType == MiniGameType.None)
             {
                 // If it is a singular item (sticks, flowers...)
@@ -157,10 +152,8 @@ public class EquipmentGatherData : EquipmentData
                 // If gatherable item (wood, ore...)
                 if (nearest.gameObject.TryGetComponent(out GatherableItem nearestItemList))
                 {
-                    
                     if (!nearestItemList.hasBeenHarvested)
                     {
-                        
 
                         bool none = true;
                         foreach (QI_ItemData itemData in nearestItemList.dataList)
@@ -187,7 +180,7 @@ public class EquipmentGatherData : EquipmentData
                         {
                             PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
                             Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Wrong equipment"), null, 0, NotificationsType.Warning);
-
+                            
                             //NotificationManager.instance.SetNewNotification($"You cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.", NotificationManager.NotificationType.Warning);
                         }
 

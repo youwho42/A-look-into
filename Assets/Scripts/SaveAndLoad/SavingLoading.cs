@@ -35,15 +35,31 @@ namespace Klaxon.SaveSystem
         string VersionItemsPath;
         public SaveableVersionItems saveableVersionItems;
 
-        public void SaveGame()
+        public bool SaveGame()
         {
             SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
+            string BackUpPath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_saveBackUp.ali";
+            
+            if (File.Exists(SavePath))
+                File.Copy(SavePath, BackUpPath);
+                
             DeleteFile(SavePath);
+            
             var state = LoadFile(LoadSelectionUI.instance.currentLoadFileName, "ali");
             CaptureState(state);
-            SaveFile(state);
+            SaveFile(SavePath, state);
+            bool success = false;
+            if (!File.Exists(SavePath))
+                File.Copy(BackUpPath, SavePath);
+            else
+            {
+                success = true;
+                DeleteFile(BackUpPath);
+            }
+                
             GameEventManager.onGameSavedEvent.Invoke();
             SaveVersion();
+            return success;
         }
 
         public void SaveOptions()
@@ -52,7 +68,7 @@ namespace Klaxon.SaveSystem
             DeleteFile(OptionsPath);
             var state = LoadFile("Options", "alio");
             CaptureOptions(state);
-            SaveOptions(state);
+            SaveFile(OptionsPath, state);
         }
 
         public void SaveVersion()
@@ -61,7 +77,7 @@ namespace Klaxon.SaveSystem
             DeleteFile(VersionPath);
             var state = LoadFile($"{PlayerInformation.instance.playerName}Version", "aliv");
             CaptureVersion(state);
-            SaveVersion(state);
+            SaveFile(VersionPath, state);
         }
 
         public void SaveVersionItems()
@@ -70,7 +86,7 @@ namespace Klaxon.SaveSystem
             DeleteFile(VersionItemsPath);
             var state = LoadFile("TempVersionItems", "alit");
             CaptureVersionItems(state);
-            SaveVersionItems(state);
+            SaveFile(VersionItemsPath, state);
         }
 
 
@@ -99,41 +115,15 @@ namespace Klaxon.SaveSystem
             RestoreVersionItems(state);
         }
 
-        private void SaveFile(object state)
+        private void SaveFile(string path, object state)
         {
-            using (var stream = File.Open(SavePath, FileMode.Create))
+            using (var stream = File.Open(path, FileMode.Create))
             {
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, state);
             }
         }
-        private void SaveOptions(object state)
-        {
-            using (var stream = File.Open(OptionsPath, FileMode.Create))
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, state);
-            }
-        }
-
-        private void SaveVersion(object state)
-        {
-            using (var stream = File.Open(VersionPath, FileMode.Create))
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, state);
-            }
-        }
-
-        private void SaveVersionItems(object state)
-        {
-            using (var stream = File.Open(VersionItemsPath, FileMode.Create))
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, state);
-            }
-        }
-
+        
         private Dictionary<string, object> LoadFile(string fileName, string extention)
         {
 
@@ -238,13 +228,6 @@ namespace Klaxon.SaveSystem
                     saveableItemEntity.RestoreState(itemValue);
                 }
             }
-        }
-
-
-
-        public bool SaveExists()
-        {
-            return File.Exists(SavePath);
         }
 
         public void DeleteFile(string path)

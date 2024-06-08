@@ -28,8 +28,10 @@ public class PlayerUseEquipment : MonoBehaviour
         
         if (equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName == "Spyglass")
         {
+            
             if (PlayerInformation.instance.playerActivateSpyglass.selectedAnimal == null)
                 return;
+            
             animator.SetBool("UseEquipement", true);
             equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
             

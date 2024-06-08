@@ -192,6 +192,9 @@ public class PlayerActivateSmells : MonoBehaviour
 
     Transform CreateNose()
     {
+        if(player==null)
+            player = PlayerInformation.instance;
+
         Transform nose = Instantiate(noseKnowsObject, transform);
         nose.transform.position = player.player.position;
 

@@ -524,6 +524,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6749660901358875026}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7097097845392203936}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4582796077490006833}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
 --- !u!1 &4997007799972478863 stripped
 GameObject:
@@ -630,6 +638,71 @@ MonoBehaviour:
     setOnTimeTick: 0
   schedulerNPC: {fileID: 0}
   schedulerBP: {fileID: 5393999564062687304}
+--- !u!114 &-7097097845392203936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997007799972478863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da16979517e39044b167c03ad1ba5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: Talk
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+    m_TableEntryReference:
+      m_KeyId: 1802247144529920
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
+  agencyReward: 0
+  agencyCost: 0
+  canInteract: 1
+  hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
+  undertaking:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}
+  started: 0
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &4582796077490006833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997007799972478863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444886507d9c62f409f326c4f5883d33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  villagerInteractable: {fileID: -7097097845392203936}
+  villagerAI: {fileID: 5393999564062687304}
+  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!114 &5393999564062687304 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4424931104086339238, guid: 52de873582b53f0439b2e676e110821d,

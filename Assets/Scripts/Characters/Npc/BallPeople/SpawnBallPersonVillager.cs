@@ -6,9 +6,10 @@ using UnityEngine;
 public class SpawnBallPersonVillager : MonoBehaviour
 {
     public bool canLightFires;
+    public CompleteTaskObject taskObject;
     private void Start()
     {
-        BallPeopleManager.instance.SpawnVillager(gameObject, transform.position, canLightFires);
+        BallPeopleManager.instance.SpawnVillager(taskObject, transform.position, canLightFires);
     }
 
 }

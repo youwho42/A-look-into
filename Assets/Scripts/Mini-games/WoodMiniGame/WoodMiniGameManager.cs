@@ -75,10 +75,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
 
         if (currentAttempts != maxAttempts && !transitioning)
-        {
-            PlayerInformation.instance.playerAnimator.SetTrigger("Swing_Axe");
             StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
-        }
+        
     }
     void CheckCurrentAttempts()
     {

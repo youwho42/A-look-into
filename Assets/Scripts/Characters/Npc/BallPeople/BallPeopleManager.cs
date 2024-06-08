@@ -49,16 +49,22 @@ public class BallPeopleManager : MonoBehaviour
         messItem.craftingRecipe = craftingRecipe;
     }
 
-    public void SpawnVillager(GameObject travelerDestination, Vector3 position, bool lighter)
+    public void SpawnVillager(CompleteTaskObject taskObject, Vector3 position, bool lighter)
     {
-        Vector3 offset = new Vector2(Random.Range(-0.2f, 0.2f), -0.13f);
+        Vector3 offset = new Vector2(Random.Range(-0.2f, 0.2f), -0.2f);
         GameObject villager = null;
 
         SpawnBallPeople(lighter ? homeBoundLighterPrefab : homeBoundPrefab, out villager, position + offset);
 
-        var travelBall = villager.GetComponent<SAP_Scheduler_BP>();
-        travelBall.travellerDestination = position;
-        
+        if (taskObject.undertaking != null)
+        {
+            var v = villager.GetComponent<InteractableBallPeopleVillager>();
+            v.undertaking.undertaking = taskObject.undertaking;
+            v.undertaking.task = taskObject.task; 
+        }
+        var villagerBall = villager.GetComponent<SAP_Scheduler_BP>();
+        villagerBall.travellerDestination = position;
+
     }
 
 

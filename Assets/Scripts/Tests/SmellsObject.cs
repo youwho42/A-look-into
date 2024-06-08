@@ -33,7 +33,9 @@ public class SmellsObject : MonoBehaviour
         gatherableItem.dataList.Add(smellItem);
         wind = WindManager.instance;
         smellGenerator = generator;
-        smellSprite.transform.localPosition = displacement.displacedPosition;
+        var pos = displacement.displacedPosition;
+        pos.z = displacement.transform.parent.transform.position.z;
+        smellSprite.transform.localPosition = pos;
         smellSprite.transform.localScale = new Vector3(minSize, minSize, minSize);
         float ra = Random.Range(0.5f, 1.0f);
         smellMaterial = smellSprite.material;

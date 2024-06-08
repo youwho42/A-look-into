@@ -387,16 +387,13 @@ Scroll Text Areas
 
 THINGS TO CHANGE
 
-	- Dragging an item from your inventory 
-		and tabbing out before releasing the item places the item in the world, 
-		you can pick it up and then it breaks your inventory.
+	
 
 
 	- Fix the tabbing out of the game problem with the local goods shops. 
 		probably need to check the merchant tables for the same thing.
 
-	- The save file is deleted before saving the current game,
-		make a backup before the save and restore it if the current save fails.
+	
 
 
 	- Options > L1 R1 don't change the menu
@@ -429,12 +426,16 @@ THINGS TO CHANGE
 
 CHANGELOG:
 
+
 	Fixed:			Tabbing out of the game when in a menu made things stop working.
 	Fixed:			Gathering water with the clay bowl works again.
+	Fixed:			Dragging an item from your inventory and tabbing out before releasing the item placed the item in the world, 
+						but while it was in the world it was also still in your inventory and you could pick it up, at which point your inventory broke.
+	Fixed:			An error could occur when saving your game that could erase your save file.
 
 	Changed:		There are now scroll boxes for texts that might be too long to fit in the allotted space.
 	Changed:		You can now sort the Items section in the Compendium.
-	Changed:		The wood gathering minigame is a faster process.
+	Changed:		The wood gathering minigame was re-worked and improved.
 
 	Added:			Simple visual tutorials for certain interactions.
 	Added:			SMELLS!!

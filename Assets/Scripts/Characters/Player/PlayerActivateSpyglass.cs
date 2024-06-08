@@ -11,6 +11,10 @@ public class PlayerActivateSpyglass : MonoBehaviour
     public LayerMask detectionLayer;
     public GameObject spyglassReticle;
     bool spyglassAiming;
+    public bool SpyglassAiming
+    {
+        get { return spyglassAiming;}
+    }
     int currentSelected;
     [HideInInspector]
     public GatherableItem selectedAnimal;
@@ -56,6 +60,7 @@ public class PlayerActivateSpyglass : MonoBehaviour
             
         if (EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].AnimationName == "Spyglass")
         {
+            
             PlayerInformation.instance.playerInput.isInUI = true;
             spyglassAiming = true;
             currentSelected = 0;

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7b06535b158a06f4eb242c09f1ee79c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b4ba73e88ca96648a124c339e9ab521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 650217486188983954}
   - component: {fileID: 6135434081488674208}
   m_Layer: 13
-  m_Name: Spyglass
+  m_Name: Spyglass III
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 89e6d151011f7584d85fbc8c6a64f311, type: 2}
+  Data: {fileID: 11400000, guid: 3ef3c122363e7604b97864cb05668d6e, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &1644589846858681769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +212,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 6704786705930763455}
   canPlaceOnOther: 1
   visualItem: {fileID: 6626194703435523428}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -241,6 +244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &6135434081488674208
 MonoBehaviour:
   m_ObjectHideFlags: 0

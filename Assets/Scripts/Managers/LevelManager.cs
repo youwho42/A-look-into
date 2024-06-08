@@ -43,8 +43,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI text;
 
-
-
     public bool isInCutscene;
     Material playerMaterial;
     [HideInInspector]
@@ -160,10 +158,11 @@ public class LevelManager : MonoBehaviour
         {
             
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
-
+            
             loadScreenSlider.value = progress;
             text.text = $"Loading Terrain: {Mathf.RoundToInt(progress * 100)}%";
-
+            
+            
             yield return null;
         }
         audioSettings.Mute();
@@ -175,8 +174,7 @@ public class LevelManager : MonoBehaviour
 
             loadScreenSlider.value = progress;
             text.text = $"Loading Grass: {Mathf.RoundToInt(progress * 100)}%";
-
-
+            
             yield return null;
         }
         audioSettings.Mute();
@@ -188,8 +186,7 @@ public class LevelManager : MonoBehaviour
 
             loadScreenSlider.value = progress;
             text.text = $"Loading Trees and Animals: {Mathf.RoundToInt(progress * 100)}%";
-
-
+           
             yield return null;
         }
         audioSettings.Mute();

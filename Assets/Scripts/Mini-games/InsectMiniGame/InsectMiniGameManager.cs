@@ -1,5 +1,4 @@
-﻿using BezierSolution;
-using Klaxon.StatSystem;
+﻿using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -8,45 +7,68 @@ using UnityEngine;
 
 public class InsectMiniGameManager : MonoBehaviour, IMinigame
 {
+    
     [Serializable]
-    public struct TargetArea
+    public struct Focal
     {
-        public SpriteRenderer targetAreaSprite;
-        public Collider2D targetCollider;
-        public DetectAreaHit targetHitDetection;
-        public float shrinkSpeed;
+        public SpriteRenderer focalSprite;
+        public Collider2D focalCollider;
+        public DetectAreaHit focalHitDetection;
+        public SimpleRotate rotateFocal;
     }
+
+    [Serializable]
+    public struct DifficultyArea
+    {
+        public SpriteRenderer dificultyAreaGameObject;
+        public MiniGameDificulty gameDificulty;
+        public SimpleRotate rotate;
+        public Collider2D collider;
+    }
+
+
+    public MiniGameType miniGameType;
+    MiniGameDificulty currentDificulty;
+
     AudioSource source;
     [SerializeField]
     public SoundSet[] soundSets;
 
-    //public GameObject playerCircle;
-    public BezierSpline bezierSpline;
-    public int points;
+    public Focal focal;
+    public List<DifficultyArea> difficultyAreas = new List<DifficultyArea>();
+    public SpriteRenderer baseImage;
+    
     public QI_ItemData animal;
     public SpriteRenderer animalHolder;
-    public float areaSize;
-    public MiniGameType miniGameType;
-    public BezierWalkerWithTime walker;
-    GameObject targetGameObject;
+    Material animalFocusMaterial;
+    
+    
+    
+    GameObject animalGameObject;
 
     public int maxAttempts;
-    public int attemptSteps;
-    int currentAttempts;
-    int currentAttemptHits;
+    int successfullHits;
+    
     int currentIndex;
     bool transitioning;
-    bool shrinking;
+
     public bool hasCompletedMiniGame;
-    public List<TargetArea> targetAreas = new List<TargetArea>();
+    
     Color initialIntensity;
     public StatChanger statChanger;
-   
+
+
+    [ColorUsage(true, true)]
+    public Color successEmission;
+    [ColorUsage(true, true)]
+    public Color failEmission;
+    bool blurred;
 
     private void Start()
     {
+        animalFocusMaterial = animalHolder.material;
         source = GetComponent<AudioSource>();
-        initialIntensity = targetAreas[0].targetAreaSprite.material.GetColor("_EmissionColor");
+        initialIntensity = focal.focalSprite.material.GetColor("_EmissionColor");
         ResetMiniGame();
     }
 
@@ -60,153 +82,146 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     }
 
     
+
+
     void OnMouseClick()
     {
-        if (walker == null)
-            return;
-        
         if (!transitioning)
         {
-            if (currentAttempts != maxAttempts)
-                StartCoroutine(NextTargetAreaCo(targetAreas[currentIndex].targetHitDetection.isInArea));
+            if (currentIndex != maxAttempts)
+                StartCoroutine(NextTargetAreaCo(focal.focalHitDetection.isInArea));
         }
+        
     }
 
-    
-
-    IEnumerator GlowOn(int amount, Material material)
+    IEnumerator GlowOn(bool success)
     {
-
         float elapsedTime = 0;
-        float waitTime = 0.5f;
-
+        float waitTime = 0.2f;
+        var focalMaterial = focal.focalSprite.material;
+        var baseMaterial = baseImage.material;
+        var color = success ? successEmission : failEmission;
         while (elapsedTime < waitTime)
         {
-            Color i = Color.Lerp(initialIntensity, initialIntensity * amount, (elapsedTime / waitTime));
-
-            material.SetColor("_EmissionColor", i);
+            Color i = Color.Lerp(initialIntensity, color, (elapsedTime / waitTime));
+            if(success)
+                baseMaterial.SetColor("_EmissionColor", i);
+            focalMaterial.SetColor("_EmissionColor", i);
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
-
-        material.SetColor("_EmissionColor", initialIntensity * amount);
+        if (success)
+            baseMaterial.SetColor("_EmissionColor", color);
+        focalMaterial.SetColor("_EmissionColor", color);
         yield return null;
     }
 
     void GlowOff()
     {
-        foreach (var target in targetAreas)
-        {
-            target.targetAreaSprite.material.SetColor("_EmissionColor", initialIntensity);
-        }
+        var focalMaterial = focal.focalSprite.material;
+        var baseMaterial = baseImage.material;
+        baseMaterial.SetColor("_EmissionColor", initialIntensity);
+        focalMaterial.SetColor("_EmissionColor", initialIntensity);
     }
-    
-    
+
+    IEnumerator SetBlur(bool blur)
+    {
+        float timer = 0;
+        float waitTime = 0.15f;
+        float startBlur = blur ? 0.0f : 10.0f;
+        float endBlur = blur ? 10.0f : 0.0f;
+        while (timer < waitTime)
+        {
+
+            float b = Mathf.Lerp(startBlur, endBlur, timer / waitTime);
+            animalFocusMaterial.SetFloat("_Blur", b);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        blurred = blur;
+        animalFocusMaterial.SetFloat("_Blur", endBlur);
+        yield return null;
+    }
+
     IEnumerator NextTargetAreaCo(bool success)
     {
         transitioning = true;
-        bool continues = true; 
+        focal.rotateFocal.enabled = false;
+        StartCoroutine(GlowOn(success));
+        
         if (success)
         {
-            currentAttemptHits++;
+            successfullHits++;
             PlaySound(0);
-            StartCoroutine(GlowOn(20, targetAreas[currentIndex].targetAreaSprite.material));
+            StartCoroutine(SetBlur(false));
         }
         else
         {
             PlaySound(1);
-            StartCoroutine(GlowOn(-20, targetAreas[currentIndex].targetAreaSprite.material));
-            continues = false;
         }
-        yield return new WaitForSeconds(1f);
-        if (!continues)
-        {
-            MiniGameManager.instance.EndMiniGame(miniGameType);
-            yield return null;
-        }
-        if (currentIndex < targetAreas.Count - 1)
-        {
+        yield return new WaitForSeconds(0.7f);
+        bool miniGameOver = false;
+        if (currentIndex < maxAttempts - 1)
             currentIndex++;
-        }
         else
         {
             currentIndex = 0;
-            currentAttempts++;
-        }
-        if (currentAttemptHits == attemptSteps)
-        {
 
-            // Add animal to compendium if not already done
-            if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal)){
-                PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
-                PlayerInformation.instance.statHandler.ChangeStat(statChanger);
-                GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
-                Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
 
-                //NotificationManager.instance.SetNewNotification($"{animal.Name} found", NotificationManager.NotificationType.Compendium);
-            }
-            
-            // Add animal to compendium information
-            PlayerInformation.instance.animalCompendiumInformation.AddAnimal(animal.Name);
-
-            // Add recipe revealed if already viewed enough times and you don't have the recipe already
-            if(animal.ResearchRecipes.Count > 0)
+            if (successfullHits > 0)
             {
-                int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(animal.Name);
-                int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
-                for (int i = 0; i < animal.ResearchRecipes.Count; i++)
-                {
-                    if (PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(animal.ResearchRecipes[i].recipe))
-                        continue;
-                    if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
-                    {
-                        //PlayerInformation.instance.playerStats.AddToAgency(animal.ResearchRecipes[i].AgencyReward);
-                        PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe);
-                        Notifications.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
 
-                        //NotificationManager.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
+                // Add animal to compendium if not already done
+                if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal))
+                {
+                    PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
+                    PlayerInformation.instance.statHandler.ChangeStat(statChanger);
+                    GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
+                    Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                }
+
+                // Add animal to compendium information
+                PlayerInformation.instance.animalCompendiumInformation.AddAnimal(animal.Name, successfullHits);
+
+                // Add recipe revealed if already viewed enough times and you don't have the recipe already
+                if (animal.ResearchRecipes.Count > 0)
+                {
+                    int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(animal.Name);
+                    int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
+                    for (int i = 0; i < animal.ResearchRecipes.Count; i++)
+                    {
+                        if (PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(animal.ResearchRecipes[i].recipe))
+                            continue;
+                        if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
+                        {
+                            if(PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe))
+                                Notifications.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                        }
                     }
                 }
+                miniGameOver = true;
+                
+                MiniGameManager.instance.EndMiniGame(miniGameType);
             }
-            
-            currentAttemptHits = 0;
-            MiniGameManager.instance.EndMiniGame(miniGameType);
         }
-        ResetTargetArea(currentIndex);
+        if(!miniGameOver)
+            ResetTargetArea();
         yield return null;
     }
 
-    private void ResetTargetArea(int index)
+    private void ResetTargetArea()
     {
+        if(!blurred)
+            StartCoroutine(SetBlur(true));
         transitioning = false;
-        shrinking = false;
+        focal.rotateFocal.enabled = true;
+        SetDificulty(currentDificulty);
+        //animalFocusMaterial.SetFloat("_Blur", 10);
         GlowOff();
-        for (int i = 0; i < targetAreas.Count; i++)
-        {
-            if (index != i)
-            {
-                targetAreas[i].targetAreaSprite.gameObject.SetActive(false);
-            }
-            else
-            {
-                animalHolder.transform.position = bezierSpline[(int)bezierSpline.Count / 4 * i].position;
-                targetAreas[i].targetAreaSprite.gameObject.SetActive(true);
-            }
-        }
     }
 
-    void SetBezierPath()
-    {
-        for (int i = 0; i < points; i++)
-        {
-            Vector2 rand = (Vector2)transform.position + new Vector2(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize));
-            bezierSpline.InsertNewPointAt(i);
-            bezierSpline[i].position = rand;
-
-        }
-        bezierSpline.AutoConstructSpline2();
-    }
+   
     bool PlaySound(int soundSet)
     {
         if (!source.isPlaying)
@@ -220,87 +235,69 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         return false;
     }
 
-    public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) 
+    public void SetupMiniGame(QI_ItemData item, GameObject animalObject, MiniGameDificulty gameDificulty)
     {
         animal = item;
-        animalHolder.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        UpdateShapeToSprite(animalHolder.GetComponent<PolygonCollider2D>(), animalHolder.sprite);
-        targetGameObject = gameObject;
-
+        animalHolder.sprite = animalObject.GetComponent<SpriteRenderer>().sprite;
+        animalGameObject = animalObject;
+        SetDificulty(gameDificulty);
+        ResetFocal();
+        ResetTargetArea();
         SetAnimalState(false);
-
-
-        for (int i = 0; i < targetAreas.Count; i++)
-        {
-            if (targetAreas[i].targetAreaSprite.gameObject.activeSelf)
-            {
-                if (targetAreas[i].targetAreaSprite.gameObject.TryGetComponent(out BezierWalkerWithTime newWalker))
-                {
-                    walker = newWalker;
-                }
-            }
-        }
-        
-        
-        SetBezierPath();
+        animalFocusMaterial.SetFloat("_Blur", 10.0f);
+        blurred = true;
     }
 
-    public static void UpdateShapeToSprite(PolygonCollider2D collider, Sprite sprite)
+    private void ResetFocal()
     {
-        // ensure both valid
-        if (collider != null && sprite != null)
+        
+        focal.rotateFocal.RandomizeRotation();
+        focal.rotateFocal.RandomizeDirection();
+        focal.rotateFocal.enabled = true;
+        transitioning = false;
+    }
+
+    void SetDificulty(MiniGameDificulty dificulty)
+    {
+        currentDificulty = dificulty;
+        foreach (var dif in difficultyAreas)
         {
-            // update count
-            collider.pathCount = sprite.GetPhysicsShapeCount();
-
-            // new paths variable
-            List<Vector2> path = new List<Vector2>();
-
-            // loop path count
-            for (int i = 0; i < collider.pathCount; i++)
+            if (dificulty == dif.gameDificulty)
             {
-                // clear
-                path.Clear();
-                // get shape
-                sprite.GetPhysicsShape(i, path);
-                // set path
-                collider.SetPath(i, path.ToArray());
+                dif.rotate.gameObject.SetActive(true);
+                dif.dificultyAreaGameObject.enabled = true;
+                dif.collider.enabled = true;
+                dif.rotate.AnimateRandomizeRotation(0.5f);
+
+            }
+            else
+            {
+                dif.rotate.gameObject.SetActive(false);
+                dif.dificultyAreaGameObject.enabled = false;
+                dif.collider.enabled = false;
             }
         }
     }
-
 
     public void ResetMiniGame()
     {
-        
-        bezierSpline.ResetSpline();
-        currentAttemptHits = 0;
-        currentAttempts = 0;
         currentIndex = 0;
-        shrinking = false;
-        ResetTargetArea(currentIndex);
+        successfullHits = 0;
         transform.parent.gameObject.SetActive(false);
-        
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
         SetAnimalState(true);
-
     }
 
     void SetAnimalState(bool active)
     {
-        if (targetGameObject != null)
+        if (animalGameObject != null)
         {
-            IAnimal thisAnimal = targetGameObject.transform.GetComponentInParent<IAnimal>();
+            IAnimal thisAnimal = animalGameObject.transform.GetComponentInParent<IAnimal>();
             if (thisAnimal != null)
                 thisAnimal.SetActiveState(active);
-            targetGameObject.GetComponent<Animator>().speed = active? 1 : 0;
+            animalGameObject.GetComponent<Animator>().speed = active? 1 : 0;
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(areaSize*2, areaSize*2, 0));
-    }
 }
 

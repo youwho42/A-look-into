@@ -71,7 +71,6 @@ public class SmellGenerator : MonoBehaviour
     {
         SmellsObject smell = Instantiate(smellObject, transform);
         smell.transform.position = currentZAsYDisplacement.transform.position;
-
         smell.gameObject.SetActive(true);
         smell.SetSmell(this, currentZAsYDisplacement, smellData);
         return smell;

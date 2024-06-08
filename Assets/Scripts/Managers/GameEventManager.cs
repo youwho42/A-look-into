@@ -1,3 +1,4 @@
+using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +45,11 @@ public static class GameEventManager
     ///  Player Undertakings Update
     /// </summary>
     public static readonly GameEvent onUndertakingsUpdateEvent = new GameEvent();
+
+    /// <summary>
+    ///  World State Update
+    /// </summary>
+    public static readonly GameEvent onWorldStateUpdateEvent = new GameEvent();
 
 
     /// <summary>

@@ -487,6 +487,11 @@ namespace Klaxon.SAP
 
         public void FleePlayer(Transform playerTransform)
         {
+            if(flier != null)
+            {
+                if (flier.enabled)
+                    return;
+            }
             fleeTransfrom = playerTransform;
             SetBeliefState("Flee", true);
         }

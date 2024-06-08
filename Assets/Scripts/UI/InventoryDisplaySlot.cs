@@ -175,6 +175,13 @@ public class InventoryDisplaySlot : MonoBehaviour
         GameEventManager.onInventoryRightClickEvent.RemoveListener(SetItemSelected);
         GameEventManager.onInventoryRightClickReleaseEvent.RemoveListener(EndDragItem);
         GameEventManager.onRotateDecoration.RemoveListener(RotateDecoration);
+
+        if (itemToDrop)
+        {
+            Destroy(itemToDrop);
+            ResetDragging();
+        }
+            
     }
     public void ShowInformation()
     {

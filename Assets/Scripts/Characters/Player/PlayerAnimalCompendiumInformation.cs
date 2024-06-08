@@ -12,17 +12,17 @@ public class PlayerAnimalCompendiumInformation : MonoBehaviour
     public List<int> animalTimesViewed = new List<int>();
     
 
-    public void AddAnimal(string name)
+    public void AddAnimal(string name, int amount)
     {
         if (animalNames.Contains(name))
         {
             int index = animalNames.IndexOf(name);
-            animalTimesViewed[index] += 1;
+            animalTimesViewed[index] += amount;
         }
         else
         {
             animalNames.Add(name);
-            animalTimesViewed.Add(1);
+            animalTimesViewed.Add(amount);
         }
     }
 

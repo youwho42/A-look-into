@@ -123,6 +123,8 @@ namespace Klaxon.SAP
             {
                 worldStates[condition] = state;
             }
+            
+            GameEventManager.onWorldStateUpdateEvent.Invoke();
         }
 
         public bool HasWorldState(string condition, bool state)

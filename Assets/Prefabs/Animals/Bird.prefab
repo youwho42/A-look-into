@@ -578,6 +578,18 @@ MonoBehaviour:
     TimeLimitCondition:
       Condition: 
       State: 0
+  - GoalName: Flee
+    Priority: 9
+    Conditions:
+    - Condition: Flee
+      State: 1
+    Action: {fileID: 2302526306177949363}
+    IsRunning: 0
+    TimeLimit: 0
+    TimeLimitRange: {x: 5, y: 10}
+    TimeLimitCondition:
+      Condition: Flee
+      State: 0
   currentGoal: -1
   sounds: {fileID: 0}
   musicItem: {fileID: 0}
