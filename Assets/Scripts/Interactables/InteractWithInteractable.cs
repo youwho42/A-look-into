@@ -158,7 +158,7 @@ namespace Klaxon.Interactable
 
         public void Interact()
         {
-            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded)
+            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded || isHolding)
                 return;
             if (currentInteractables.Count > 0)
             {

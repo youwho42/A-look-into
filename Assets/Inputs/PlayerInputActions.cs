@@ -242,6 +242,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sit"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc1d0611-2a72-462e-bad5-fef9fd073f36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -922,7 +931,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Smell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -933,10 +942,54 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Smell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e2e99ee-0579-4d0b-bcd9-30a453cbe9dd"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Sit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""81302bcb-d364-4db7-b113-861599b8d514"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sit"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""10b89311-1501-4f2e-85c4-36f13d83a6b9"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""5650f56b-396f-4c90-93f5-50f301f02a63"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -1299,6 +1352,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_RotateDecoration = m_Player.FindAction("RotateDecoration", throwIfNotFound: true);
         m_Player_SurroundingItemsDisplay = m_Player.FindAction("SurroundingItemsDisplay", throwIfNotFound: true);
         m_Player_Smell = m_Player.FindAction("Smell", throwIfNotFound: true);
+        m_Player_Sit = m_Player.FindAction("Sit", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1393,6 +1447,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RotateDecoration;
     private readonly InputAction m_Player_SurroundingItemsDisplay;
     private readonly InputAction m_Player_Smell;
+    private readonly InputAction m_Player_Sit;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1421,6 +1476,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @RotateDecoration => m_Wrapper.m_Player_RotateDecoration;
         public InputAction @SurroundingItemsDisplay => m_Wrapper.m_Player_SurroundingItemsDisplay;
         public InputAction @Smell => m_Wrapper.m_Player_Smell;
+        public InputAction @Sit => m_Wrapper.m_Player_Sit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1502,6 +1558,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Smell.started += instance.OnSmell;
             @Smell.performed += instance.OnSmell;
             @Smell.canceled += instance.OnSmell;
+            @Sit.started += instance.OnSit;
+            @Sit.performed += instance.OnSit;
+            @Sit.canceled += instance.OnSit;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1578,6 +1637,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Smell.started -= instance.OnSmell;
             @Smell.performed -= instance.OnSmell;
             @Smell.canceled -= instance.OnSmell;
+            @Sit.started -= instance.OnSit;
+            @Sit.performed -= instance.OnSit;
+            @Sit.canceled -= instance.OnSit;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1760,6 +1822,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRotateDecoration(InputAction.CallbackContext context);
         void OnSurroundingItemsDisplay(InputAction.CallbackContext context);
         void OnSmell(InputAction.CallbackContext context);
+        void OnSit(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

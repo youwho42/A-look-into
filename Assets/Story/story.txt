@@ -387,7 +387,7 @@ Scroll Text Areas
 
 THINGS TO CHANGE
 
-	
+	- blips and bloops might be nice with buttons (just on click? or maybe also on enter)
 
 
 	- Fix the tabbing out of the game problem with the local goods shops. 
@@ -432,10 +432,13 @@ CHANGELOG:
 	Fixed:			Dragging an item from your inventory and tabbing out before releasing the item placed the item in the world, 
 						but while it was in the world it was also still in your inventory and you could pick it up, at which point your inventory broke.
 	Fixed:			An error could occur when saving your game that could erase your save file.
+	Fixed:			Placing an object in the world after loading a save works again.
 
 	Changed:		There are now scroll boxes for texts that might be too long to fit in the allotted space.
 	Changed:		You can now sort the Items section in the Compendium.
-	Changed:		The wood gathering minigame was re-worked and improved.
+	Changed:		The wood gathering mini-game was re-worked and improved.
+	Changed:		The animal observing mini-game was completely refactored.
+	Changed:		Sitting on the ground can now be activated by pressing (c) instead of just being an automatic animation.
 
 	Added:			Simple visual tutorials for certain interactions.
 	Added:			SMELLS!!

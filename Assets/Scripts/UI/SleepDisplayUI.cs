@@ -118,6 +118,8 @@ public class SleepDisplayUI : MonoBehaviour
     }
     void SetWakeTime()
     {
+        if (UIScreenManager.instance.isSleeping)
+            return;
         int t = (dayNightCycle.currentTimeRaw + (int)sleepSlider.value) % 1440;
         ConvertTicksToTime(t);
         wakeTime.text = string.Format("{0:00}:{1:00}", Mathf.RoundToInt(t / 60), t % 60);

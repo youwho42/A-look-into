@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Klaxon.Interactable;
-
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -52,10 +52,14 @@ public class PlayerInputController : MonoBehaviour
     InputAction dialogueNext;
     InputAction rotateDecoration;
     InputAction surroundingItems;
-    
+    InputAction playerSit;
+
     PlayerInputActions inputActions;
     public PlayerInput playerInput;
-    
+
+    float mouseInactiveTimer;
+    Vector2 lastMouseActiveP;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -72,6 +76,7 @@ public class PlayerInputController : MonoBehaviour
         //PlayerSettings.resizableWindow = true;
         interactable = GetComponent<InteractWithInteractable>();
         playerSmells = GetComponent<PlayerActivateSmells>();
+        
     }
 
     private void OnEnable()
@@ -177,7 +182,10 @@ public class PlayerInputController : MonoBehaviour
         surroundingItems.Enable();
         surroundingItems.started += DisplaySurroundingItems;
 
-        
+        playerSit = inputActions.Player.Sit;
+        playerSit.Enable();
+        playerSit.started += PlayerSit;
+
     }
     private void OnDisable()
     {
@@ -205,14 +213,26 @@ public class PlayerInputController : MonoBehaviour
         dialogueNext.Disable();
         rotateDecoration.Disable();
         surroundingItems.Disable();
-        
+        playerSit.Disable();
     }
 
    
 
     void Update()
     {
-        
+        var lastP = Mouse.current.position.ReadValue();
+        if (lastMouseActiveP != lastP)
+        {
+            lastMouseActiveP = lastP;
+            mouseInactiveTimer = 0;
+        }
+        else
+        {
+            
+            mouseInactiveTimer += Time.unscaledDeltaTime;
+        }
+            
+        Cursor.visible = mouseInactiveTimer < 5;
         if (isPaused || isInUI)
         {
             movement = Vector2.zero;
@@ -242,12 +262,13 @@ public class PlayerInputController : MonoBehaviour
 
             //rightStickPos = inventoryDragItem.ReadValue<Vector2>();
         }
+        
 
         //var stick = rightStickPos;
         if(Gamepad.current != null)
         {
             
-            Cursor.visible = playerInput.currentControlScheme == "Gamepad" ? false : true;
+            Cursor.visible = playerInput.currentControlScheme == "Gamepad" || mouseInactiveTimer > 5 ? false : true;
            
             var stick = Gamepad.current.rightStick.ReadValue();
             rightStickPos = stick;
@@ -367,5 +388,6 @@ public class PlayerInputController : MonoBehaviour
     public void DialogueNextAction(InputAction.CallbackContext context) => GameEventManager.onDialogueNextEvent.Invoke();
     public void RotateDecorationAction(InputAction.CallbackContext context) => GameEventManager.onRotateDecoration.Invoke();
     public void DisplaySurroundingItems(InputAction.CallbackContext context) => GameEventManager.onSurroundingItemsEvent.Invoke();
+    public void PlayerSit(InputAction.CallbackContext context) => GameEventManager.onSitEvent.Invoke();
 
 }

@@ -12,9 +12,10 @@ public class AnimatePlayer : MonoBehaviour
     GravityItemMovementControllerNew playerMovement;
 
     public StatChanger gumptionChanger;
+    public StatChanger bounceChanger;
     PlayerInputController playerInput;
     bool lostBalance;
-    float timeIdle;
+    int timeIdle;
 
     public readonly int balance_hash = Animator.StringToHash("LostBalance");
     public readonly int idleSit_hash = Animator.StringToHash("IdleSit");
@@ -35,15 +36,38 @@ public class AnimatePlayer : MonoBehaviour
         playerMovement = GetComponent<GravityItemMovementControllerNew>();
         playerInput = GetComponent<PlayerInputController>();
         GameEventManager.onTimeTickEvent.AddListener(CheckAddGumption);
+        GameEventManager.onTimeTickEvent.AddListener(CheckCanSit);
+        GameEventManager.onSitEvent.AddListener(Sit);
     }
     private void OnDisable()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(CheckAddGumption);
+        GameEventManager.onTimeTickEvent.RemoveListener(CheckCanSit);
+        GameEventManager.onSitEvent.RemoveListener(Sit);
+
     }
     void CheckAddGumption(int tick)
     {
-        if(isIdleSitting)
+        if (isIdleSitting)
+        {
             PlayerInformation.instance.statHandler.ChangeStat(gumptionChanger);
+            PlayerInformation.instance.statHandler.ChangeStat(bounceChanger);
+        }
+            
+    }
+
+
+    void CheckCanSit(int tick)
+    {
+        if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None || UIScreenManager.instance.inMainMenu)
+            return;
+
+        if (GetIdleAnimState())
+            timeIdle++;
+        
+
+        if (timeIdle > 20)
+            PlayerSit(true);
     }
 
     private void Update()
@@ -58,23 +82,34 @@ public class AnimatePlayer : MonoBehaviour
             Invoke("ResetBalance", t);
         }
 
+        //if(playerMovement.currentVelocity > 0 || !playerMovement.isGrounded )
+        //    PlayerSit(false);
 
-        if (GetIdleAnimState())
-            timeIdle += Time.deltaTime;
-        else
-            timeIdle = 0;
+        //if (GetIdleAnimState())
+        //    timeIdle += Time.deltaTime;
+        //else
+        //    timeIdle = 0;
 
 
-        isIdleSitting = timeIdle > 20;
-        animator.SetBool(idleSit_hash, isIdleSitting);
+        //isIdleSitting = timeIdle > 20;
+        //animator.SetBool(idleSit_hash, isIdleSitting);
           
         
             
     }
+    void Sit()
+    {
+        PlayerSit(true);
+    }
+    void PlayerSit(bool state)
+    {
+        isIdleSitting = state;
+        animator.SetBool(idleSit_hash, state);
+    }
 
     private void LateUpdate()
     {
-        
+        GetIdleAnimState();
         animator.SetBool(isRunning_hash, playerInput.isRunning);
         animator.SetFloat(velocityX_hash, Mathf.Abs(playerMovement.moveSpeed));
         animator.SetBool(isGrounded_hash, playerMovement.isGrounded);
@@ -113,13 +148,14 @@ public class AnimatePlayer : MonoBehaviour
 
     bool GetIdleAnimState()
     {
-        if (PlayerInformation.instance.uiScreenVisible)
-            return false;
+        
         var currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
         if (currentClipInfo[0].clip.name == "Idle")
             return true;
         if (currentClipInfo[0].clip.name == "SitOnGround")
             return true;
+        timeIdle = 0;
+        PlayerSit(false);
         return false;
         
     }

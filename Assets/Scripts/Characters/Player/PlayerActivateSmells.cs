@@ -24,8 +24,7 @@ public class PlayerActivateSmells : MonoBehaviour
     float currentScale;
     float scaleSpeed = 10f;
     Vector2 minMaxNoseScale = new Vector2(2, 15);
-
-    bool canActivate;
+    bool canSmell;
 
     int activatedSmells;
    
@@ -33,19 +32,19 @@ public class PlayerActivateSmells : MonoBehaviour
 
     public void Start()
     {
-        canActivate = true;
         noseKnows = CreateNose();
         noseKnows.gameObject.SetActive(false);
         noseSprite = noseKnows.GetComponentInChildren<SpriteRenderer>();
         noseMaterial = noseSprite.material;
         currentScale = 2;
+        canSmell = true;
     }
 
 
     private void OnEnable()
     {
         holdButton.action.started += OnHoldButtonPerformed;
-        holdButton.action.canceled += OnHoldButtonCanceled;
+        
         player = PlayerInformation.instance;
        
     }
@@ -53,19 +52,22 @@ public class PlayerActivateSmells : MonoBehaviour
     private void OnDisable()
     {
         holdButton.action.started -= OnHoldButtonPerformed;
-        holdButton.action.canceled -= OnHoldButtonCanceled;
+        
     }
 
     private void OnHoldButtonPerformed(InputAction.CallbackContext context)
     {
+        if (UIScreenManager.instance.inMainMenu || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None || !canSmell)
+            return;
+
         ActivateSmells();
+        
     }
 
     private void OnHoldButtonCanceled(InputAction.CallbackContext context)
     {
-        if (!canActivate)
-            return;
         DeactivateSmells();
+        
     }
 
     private void Update()
@@ -81,10 +83,6 @@ public class PlayerActivateSmells : MonoBehaviour
 
     public void ActivateSmells()
     {
-        if (UIScreenManager.instance.inMainMenu || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None || !canActivate)
-            return;
-        
-        
         
         smellGenerators = GetSmells();
         if (smellGenerators.Count <= 0)
@@ -92,6 +90,7 @@ public class PlayerActivateSmells : MonoBehaviour
             active = false;
             return;
         }
+        holdButton.action.canceled += OnHoldButtonCanceled;
         foreach (var smell in smellGenerators)
         {
             smell.StartSmells();
@@ -107,6 +106,7 @@ public class PlayerActivateSmells : MonoBehaviour
     }
     void DeactivateSmells()
     {
+        holdButton.action.canceled -= OnHoldButtonCanceled;
         UIScreenManager.instance.PreventPlayerInputs(false);
         StopAllCoroutines();
 
@@ -129,7 +129,6 @@ public class PlayerActivateSmells : MonoBehaviour
             noseMaterial.SetFloat("_FisheyeIntensity", currentScale);
             yield return null;
         }
-        canActivate = false;
         StartCoroutine(ColorNose());
         yield return new WaitForSeconds(2.0f);
         DeactivateSmells();
@@ -138,6 +137,8 @@ public class PlayerActivateSmells : MonoBehaviour
 
     IEnumerator ColorNose()
     {
+        canSmell = false;
+        holdButton.action.canceled -= OnHoldButtonCanceled;
         noseSprite.color = Color.red;
         yield return new WaitForSeconds(0.5f);
         noseSprite.color = Color.white;
@@ -156,11 +157,11 @@ public class PlayerActivateSmells : MonoBehaviour
             noseMaterial.SetFloat("_FisheyeIntensity", currentScale);
             yield return null;
         }
+        canSmell = true;
         activatedSmells = 0;
         player.animatePlayerScript.SetBreateState(0);
         noseKnows.gameObject.SetActive(false);
         active = false;
-        canActivate = true;
     }
 
 
@@ -177,7 +178,9 @@ public class PlayerActivateSmells : MonoBehaviour
             {
                 if(item.TryGetComponent(out SmellGenerator smell))
                 {
-                    var windDirection = wind.GetWindDirectionFromPosition(player.player.position).normalized;
+                    if (smell.transform.position.z != player.player.position.z)
+                        continue;
+                    var windDirection = wind.GetWindDirectionFromPosition(smell.transform.position).normalized;
                     var smellDirection = ((Vector2)player.player.position - (Vector2)smell.transform.position).normalized;
                     float dot = Vector2.Dot(windDirection, smellDirection);
                     if(dot > 0.5f)

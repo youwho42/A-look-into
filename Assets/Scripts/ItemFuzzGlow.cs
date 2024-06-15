@@ -32,6 +32,8 @@ public class ItemFuzzGlow : MonoBehaviour
 
     public void SetGlow(int time)
     {
+        if(dayNightCycle == null)
+            dayNightCycle = RealTimeDayNightCycle.instance;
         if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Sunrise)
             SetGlowAmount(time, false);
         if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Sunset)
@@ -53,7 +55,8 @@ public class ItemFuzzGlow : MonoBehaviour
         if (useIntensity)
         {
             float intensity = state ? bloomMinIntensity : bloomMaxIntensity;
-            material.SetColor("_EmissionColor", initialColor * intensity);
+            if(material != null)
+                material.SetColor("_EmissionColor", initialColor * intensity);
         }
         isStable = true;
     }

@@ -17,13 +17,15 @@ namespace Klaxon.SAP
         float timer;
 
         public QI_ItemDatabase findablesDatabase;
-
+        bool gatheredObject;
+        [Range(0.0f, 1.0f)]
+        public float gatherChance = 1;
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
         {
             if (target == null)
                 target = NavigationNodesManager.instance.GetRandomNode(NavigationNodeType.Outside, agent.pathType, transform.position, 3f);
 
-
+            gatheredObject = false;
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
 
@@ -50,8 +52,15 @@ namespace Klaxon.SAP
                 timer += Time.deltaTime;
                 if (timer >= gatherAnimTime)
                 {
-                    int r = Random.Range(5, 20);
-                    agent.agentInventory.AddItem(findablesDatabase.GetRandomWeightedItem(), r, false);
+                    float gathered = Random.Range(0.0f, 1.0f);
+                    if (gathered < gatherChance)
+                    {
+                        agent.animator.SetTrigger("PickUp");
+                        gatheredObject = true;
+                        int r = Random.Range(5, 20);
+                        agent.agentInventory.AddItem(findablesDatabase.GetRandomWeightedItem(), r, false);
+                    }
+                    
                     agent.currentGoalComplete = true;
                 }
                 return;
@@ -59,7 +68,7 @@ namespace Klaxon.SAP
             if (canGather && !isGathering)
             {
                 isGathering = true;
-                agent.animator.SetTrigger("PickUp");
+                
 
                 return;
             }
@@ -130,7 +139,8 @@ namespace Klaxon.SAP
         {
 
             agent.offScreenPosMoved = true;
-            agent.SetBeliefState("HasSeed", true);
+            if(gatheredObject)
+                agent.SetBeliefState("HasSeed", true);
             timer = 0;
             canGather = false;
             isGathering = false;

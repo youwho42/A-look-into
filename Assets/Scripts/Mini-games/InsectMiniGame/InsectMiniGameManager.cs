@@ -195,8 +195,12 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                             continue;
                         if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
                         {
-                            if(PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe))
+                            if (PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe))
+                            {
                                 Notifications.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                                PlayerInformation.instance.statHandler.ChangeStat(animal.ResearchRecipes[i].agencyStatChanger);
+                            }
+                            
                         }
                     }
                 }

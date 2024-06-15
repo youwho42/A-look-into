@@ -149,7 +149,7 @@ namespace Klaxon.GravitySystem
             if (success)
                 tileBlockInfo = tileBlock;
             else
-                Debug.LogError("Tile not found in tile dictionary!");
+                Debug.LogWarning("Tile not found in tile dictionary!", this);
         }
 
 

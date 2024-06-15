@@ -200,7 +200,7 @@ public class EquipmentGatherData : EquipmentData
     }
     bool InteractCostReward()
     {
-        if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= statChanger.Amount)
+        if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(statChanger.Amount))
         {
             PlayerInformation.instance.statHandler.ChangeStat(statChanger);
             //PlayerInformation.instance.playerStats.RemoveFromBounce(playerEnergyCost);
