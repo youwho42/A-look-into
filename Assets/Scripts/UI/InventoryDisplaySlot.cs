@@ -38,7 +38,9 @@ public class InventoryDisplaySlot : MonoBehaviour
     Bounds bounds;
 
     float dragTimer;
-    
+
+    Vector3 dropLocation;
+    DropAmountUI dropAmountUI;
 
 
     [Serializable]
@@ -149,12 +151,39 @@ public class InventoryDisplaySlot : MonoBehaviour
             return;
         inventory.RemoveItem(item, 1);
     }
-    public void DropItem(Vector3 position)
+
+    void OpenDropAmountUI()
+    {
+        if (itemToDrop.GetComponent<InteractablePickUp>() == null)
+        {
+            DropItem(1);
+            return;
+        }
+            
+
+
+        int quantity = inventory.GetStock(item.Name);
+        if (quantity > 1)
+        {
+            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity);
+        }
+        else
+        {
+            DropItem(1);
+        }
+    }
+    public void SetDropAmount()
+    {
+        DropItem(dropAmountUI.CurrentAmount);
+        UIScreenManager.instance.CloseDropAmountUI();
+    }
+    public void DropItem(int quantity)
     {
         if (item == null)
             return;
+
         
-        
+
         if (itemToDrop.TryGetComponent(out SaveableItemEntity itemDrop))
             itemDrop.GenerateId();
 
@@ -164,12 +193,18 @@ public class InventoryDisplaySlot : MonoBehaviour
         var replace = itemToDrop.GetComponent<Interactable>().replaceObjectOnDrop;
         if (replace != null)
             replace.CheckForObjects();
-        
-        
-        if(item.placementGumption != null)
-            PlayerInformation.instance.statHandler.AddModifiableModifier(item.placementGumption);
 
-        inventory.RemoveItem(item, 1);
+        if (itemToDrop.TryGetComponent(out InteractablePickUp pickUpItem))
+            pickUpItem.pickupQuantity = quantity;
+
+        if (item.placementGumption != null)
+        PlayerInformation.instance.statHandler.AddModifiableModifier(item.placementGumption);
+
+        // get interactablePickUp and add said amount to drop
+
+        inventory.RemoveItem(item, quantity);
+        EventSystem.current.SetSelectedGameObject(null);
+        ResetDragging();
     }
 
 
@@ -252,10 +287,10 @@ public class InventoryDisplaySlot : MonoBehaviour
             ResetDragging();
             return;
         }
+
+        dropLocation = itemToDrop.transform.position;
+        OpenDropAmountUI();
         
-        DropItem(itemToDrop.transform.position);
-        EventSystem.current.SetSelectedGameObject(null);
-        ResetDragging();
 
     }
 
@@ -387,5 +422,6 @@ public class InventoryDisplaySlot : MonoBehaviour
         decorationIndex = 0;
         variantsDisplay.gameObject.SetActive(false);
     }
+
     
 }

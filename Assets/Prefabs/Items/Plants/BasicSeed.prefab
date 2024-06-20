@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 445403753940302961}
   - component: {fileID: 6126646994597112785}
   - component: {fileID: 5602583184588347520}
+  - component: {fileID: 1540571305537019359}
   m_Layer: 13
   m_Name: BasicSeed
   m_TagString: GrowingItem
@@ -31,12 +32,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4806734095490554465}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.594502, y: -0.5430176, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5194983041506339069
 SpriteRenderer:
@@ -100,6 +102,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -119,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 2e2666e5c36959a438f1a26a822e78ad, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &2827569493296489943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,9 +155,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Default
   interactVerb: Take
-  playerEnergyCost: 0
-  gameEnergyReward: 0
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
+  agencyReward: 0
+  agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
+  pickupQuantity: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &4169175394159801238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,8 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkRadius: 0.03
-  checkOffset: {x: 0, y: 0}
   grassObjects: []
 --- !u!114 &445403753940302961
 MonoBehaviour:
@@ -163,7 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f3691f48b79ea4ca46f05312b02914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTickToGrow: 1440
+  daysToGrow: 0
+  currentDay: 0
+  currentTimeTick: 0
   checkRadius: 0.15
   itemsToBecome:
   - {fileID: 5518729531771902423, guid: 9186d10a782f55e42847ea4465819be9, type: 3}
@@ -182,6 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &5602583184588347520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,3 +248,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93f0aff96a0f9341918d1ebdcfb0e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1540571305537019359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 2827569493296489943}

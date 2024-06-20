@@ -25,6 +25,8 @@ public class UIScreenManager : MonoBehaviour
     public GameplayUI gameplay;
     public WarningUI warningUI;
     public TipPanelUI tipsPanelUI;
+    public DropAmountUI dropAmountUI;
+
     bool mapIsOpen;
     public bool isSleeping;
     public bool inMainMenu;
@@ -251,6 +253,21 @@ public class UIScreenManager : MonoBehaviour
         PreventPlayerInputs(state);
     }
 
+
+    public DropAmountUI DisplayDropAmountUI(InventoryDisplaySlot inventoryDisplaySlot, int maxAmount)
+    {
+        dropAmountUI.gameObject.SetActive(true);
+        dropAmountUI.okButton.onClick.AddListener(inventoryDisplaySlot.SetDropAmount);
+        dropAmountUI.SetAmount(maxAmount);
+        dropAmountUI.SetupUI(maxAmount);
+        return dropAmountUI;
+    }
+    public void CloseDropAmountUI()
+    {
+        dropAmountUI.okButton.onClick.RemoveAllListeners();
+        dropAmountUI.ResetUI();
+        dropAmountUI.gameObject.SetActive(false);
+    }
 
 
     public void SetTipPanel(string tiptText)

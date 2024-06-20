@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1748626086008490583}
   - component: {fileID: -4724633185608668304}
   - component: {fileID: 6793559515206251402}
+  - component: {fileID: -2530289634240318037}
   m_Layer: 13
   m_Name: StickWeak
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: b581bbd250a074af0a3f75e68accf984, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &1731244999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +214,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 7316366533430306331}
   canPlaceOnOther: 1
   visualItem: {fileID: 6637279319423121595}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -242,6 +246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-4724633185608668304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +276,17 @@ MonoBehaviour:
   mainShadow: {fileID: 0}
   itemSpritesList:
   - item: {fileID: 21300000, guid: a03d9caf6156e4af0a256d6ecde58a54, type: 3}
-    shadow: {fileID: 0}
   - item: {fileID: 21300000, guid: 06b6a76c4cf73df438ee98634a7b4cac, type: 3}
-    shadow: {fileID: 0}
+--- !u!114 &-2530289634240318037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 1731244999}

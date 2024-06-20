@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3525222170554690915}
   - component: {fileID: 3643044242165082458}
   - component: {fileID: 3555877685079096549}
+  - component: {fileID: 5965522279647610913}
   m_Layer: 13
   m_Name: FibrousPlant
   m_TagString: Untagged
@@ -31,6 +32,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3459197263679992930}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,7 +40,6 @@ Transform:
   m_Children:
   - {fileID: 1314339209700361901}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3459197263679992931
 SpriteRenderer:
@@ -102,6 +103,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -121,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &5247146421993626994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,11 +156,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSound: Fiber
   interactVerb: Pick
-  bounceCost: 0
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
+  hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 3
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &8101374786852265420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +204,7 @@ MonoBehaviour:
   shadowTransform: {fileID: 1314339209700361901}
   shadowSprite: {fileID: 7909383838140338833}
   shadowCaster: {fileID: 0}
+  shadowUpdateTick: 1
 --- !u!114 &3525222170554690915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &3643044242165082458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,17 +248,24 @@ MonoBehaviour:
   mainShadow: {fileID: 7909383838140338833}
   itemSpritesList:
   - item: {fileID: 21300000, guid: 0d297e9fa2fbb0d478d08e5aa07ce48f, type: 3}
-    shadow: {fileID: 21300000, guid: 0d297e9fa2fbb0d478d08e5aa07ce48f, type: 3}
   - item: {fileID: 21300000, guid: fde450005c461344ab51da3275f84bcf, type: 3}
-    shadow: {fileID: 21300000, guid: fde450005c461344ab51da3275f84bcf, type: 3}
   - item: {fileID: 21300000, guid: 9559daec88679784cb85087148cbc090, type: 3}
-    shadow: {fileID: 21300000, guid: 9559daec88679784cb85087148cbc090, type: 3}
   - item: {fileID: 21300000, guid: 44d50f77775a7f445aec992f593fe693, type: 3}
-    shadow: {fileID: 21300000, guid: 44d50f77775a7f445aec992f593fe693, type: 3}
   - item: {fileID: 21300000, guid: 353db64ac45bc4105911171721c79a30, type: 3}
-    shadow: {fileID: 21300000, guid: 353db64ac45bc4105911171721c79a30, type: 3}
   - item: {fileID: 21300000, guid: f1d28fff693e0cf49b5706559f68c5ba, type: 3}
-    shadow: {fileID: 21300000, guid: f1d28fff693e0cf49b5706559f68c5ba, type: 3}
+--- !u!114 &5965522279647610913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459197263679992930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 5247146421993626994}
 --- !u!1 &4964545557207372249
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +289,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4964545557207372249}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -237,7 +297,6 @@ Transform:
   m_Children:
   - {fileID: 9102316954546489937}
   m_Father: {fileID: 3459197263679992928}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 60}
 --- !u!1 &6435095024884546957
 GameObject:
@@ -263,13 +322,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6435095024884546957}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1314339209700361901}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7909383838140338833
 SpriteRenderer:

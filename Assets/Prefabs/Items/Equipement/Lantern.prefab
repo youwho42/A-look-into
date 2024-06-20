@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2205414069559571003}
   - component: {fileID: 7302315021586878134}
   - component: {fileID: 6657543003066565468}
+  - component: {fileID: 3854956401634820199}
   m_Layer: 13
   m_Name: Lantern
   m_TagString: Untagged
@@ -87,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 0432e70505ae2c747aa1845e01eb4729, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &3796595456441089329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +130,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: -3944244787544571831}
   canPlaceOnOther: 1
   visualItem: {fileID: 7890626937924536301}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -158,6 +162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &7302315021586878134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +194,19 @@ MonoBehaviour:
   bloomMaxIntensity: 20
   useAlpha: 0
   useIntensity: 1
+--- !u!114 &3854956401634820199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249755112104138815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 3796595456441089329}
 --- !u!1 &3489762649359069991
 GameObject:
   m_ObjectHideFlags: 0

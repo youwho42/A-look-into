@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4169175394159801238}
   - component: {fileID: -8489922534359793243}
   - component: {fileID: -7358030287148332892}
+  - component: {fileID: 1259071714783916003}
   m_Layer: 13
   m_Name: Copper
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 73879aa94f4bad94d8f653cba268548e, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &2827569493296489943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 4169175394159801238}
   canPlaceOnOther: 1
   visualItem: {fileID: 8217885770330078508}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -157,6 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-7358030287148332892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +175,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1259071714783916003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 2827569493296489943}
 --- !u!1 &7508357004687946344
 GameObject:
   m_ObjectHideFlags: 0

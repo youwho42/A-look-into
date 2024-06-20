@@ -9,21 +9,24 @@ Equipment, Clay Bowl, 10, ***
 Equipment, Copper Pick Axe, 1, ***
 Equipment, Iron Pick Axe, 1, ***
 Equipment, Stone Pick Axe, 1, ***
-Equipment, Spyglass, 1, ***
+Equipment, Spyglass I, 1, ***
+Equipment, Vial, 10, ***
 Equipment, Lantern, 1, ***
 Animal, BP-Harvester, 0, ***
 Animal, BP-Planter, 0, ***
+Animal, BP-Indicator, 0, ***
 Animal, BP-Messenger, 0, ***
 Animal, BP-Seeker, 0, ***
 Animal, BP-Traveller, 0, ***
 Animal, BP-Traveller At Home, 0, ***
+Animal, BP-Villager, 0, ***
 Animal, Bat, 5, ***
 Animal, Bee, 5, ***
 Animal, Beehive, 5, ***
-Animal, Blue Butterfly, 1, ***
-Animal, Bluebell Butterfly, 1, ***
-Animal, Green Butterfly, 1, ***
-Animal, Red Butterfly, 1, ***
+Animal, Blue Butterfly, 1,  - Campfire
+Animal, Bluebell Butterfly, 1,  - Campfire
+Animal, Green Butterfly, 1,  - Campfire
+Animal, Red Butterfly, 1,  - Campfire
 Animal, Crow, 1,  - Lantern
 Animal, Deer, 0,  - Potato soup
 Animal, Blue Dragonfly, 5, ***
@@ -33,42 +36,46 @@ Animal, Mouse, 5, ***
 Animal, Owl, 1, ***
 Animal, Sparrow, 1, ***
 Animal, Squirrel, 1,  - Squirrel box
+Resource, Acorn, 100, ***
 Resource, Burlap, 100, ***
-Resource, Chalcocite, 100,  - Copper Axe - Smelter
+Resource, Cassava, 100, ***
+Resource, Chalcocite, 100,  - Smelter - Copper
 Resource, Coal, 100, ***
 Resource, Clay, 100,  - Clay Bowl - Charcoal Pile
 Resource, Cloth, 100, ***
-Resource, Copper, 100,  - Compass I
+Resource, Copper, 100,  - Compass I - Copper Axe
 Resource, Corn Meal, 100, ***
 Resource, Dynamiblob, 100,  - Lantern
-Resource, Fiber, 100,  - Spinner
+Resource, Fiber, 100,  - Spinner - Twine
 Resource, Fibrous Plant, 100, ***
-Resource, Flax Fibers, 100, ***
-Resource, Hematite, 100,  - Iron Axe
-Resource, Iron, 100,  - Cooking Station
-Resource, Linen Thread, 100, ***
+Resource, Flax Fibers, 100,  - Linen Thread
+Resource, Hematite, 100,  - Iron
+Resource, Iron, 100,  - Cooking Station - Iron Axe
+Resource, Linen Thread, 100,  - Cloth
 Resource, Linseed, 100, ***
-Resource, Pinecone, 100, ***
+Resource, Maze Ticket, 100, ***
 Resource, Platinum, 100, ***
 Resource, Rope, 100, ***
-Resource, Sap, 100, ***
-Resource, Sperrylite, 100, ***
+Resource, Sperrylite, 100,  - Platinum
 Resource, Stick Solid, 100,  - Stone Axe - Cooking Station
 Resource, Stick Weak, 100, ***
-Resource, Stone, 100,  - Stone Axe - Stone Pick Axe
+Resource, Stone, 100,  - Stone Pick Axe
 Resource, Sunflower Oil, 100, ***
-Resource, Twine, 100,  - Loom
-Resource, Wheat, 100, ***
+Resource, Tumeric, 100, ***
+Resource, Twine, 100,  - Loom - Burlap - Rope
+Resource, Wheat, 100,  - Wheat Flour
 Resource, Wheat Flour, 100, ***
-Resource, Hard Wood, 100, ***
-Resource, Medium Wood, 100, ***
-Resource, Soft Wood, 100,  - Campfire - Chest Recipe
+Resource, Hard Wood, 100,  - 10 Charcoal
+Resource, Medium Wood, 100,  - 5 Charcoal
+Resource, Soft Wood, 100,  - Campfire - Chest Recipe - 1 Charcoal
 Consumable, Brown Mushroom, 10, ***
 Consumable, Carrot, 0, ***
 Consumable, Chili, 0, ***
-Consumable, Corn, 0, ***
+Consumable, Corn, 0,  - Corn Meal - Popcorn
+Consumable, Ginger, 0, ***
 Consumable, Mushroom Soup, 0, ***
 Consumable, Onion, 0, ***
+Consumable, Pinon, 0, ***
 Consumable, Popcorn, 0, ***
 Consumable, Potato, 0, ***
 Consumable, Potato Soup, 0, ***
@@ -101,6 +108,7 @@ FarmStuffs, Wheat seed, 0, ***
 Reading, Agency Guide, 0, ***
 Reading, Axe's Guide, 0, ***
 Reading, Movement Guide, 0, ***
+Reading, Compass Guide, 0, ***
 Reading, Compendiums Guide, 0, ***
 Reading, Crafting Station Guide, 0, ***
 Reading, Farming Guide, 0, ***
@@ -110,9 +118,8 @@ Reading, Undertakings Guide, 0, ***
 Reading, The <sprite anim="0,1,12">, 0, ***
 Reading, Fissures, 0, ***
 Reading, Manuela and Ramiro's house, 0, ***
-Reading, Ruins, 0, ***
 Reading, Town Hall, 0, ***
-Utility, Broken Staircase, 0, ***
+Reading, Welcome, 0, ***
 Utility, Campfire, 1, ***
 Utility, Charcoal Kiln, 1, ***
 Utility, Chest, 1, ***
@@ -127,7 +134,6 @@ Utility, Grain Mill, 1, ***
 Utility, Loom, 1, ***
 Utility, Research Post, 0, ***
 Utility, Broken Research Post, 0, ***
-Utility, River Net, 1, ***
 Utility, Seed Box, 1, ***
 Utility, Seed Finding Robot, 1, ***
 Utility, Sheltered Bed, 1, ***
@@ -144,17 +150,32 @@ Decoration, Ball, 10, ***
 Decoration, Bookcase Basic, 0, ***
 Decoration, Basic Chair, 0, ***
 Decoration, Crate, 0, ***
-Decoration, Orange Fall Leaf, 100, ***
-Decoration, Orange Fall Leaf Debris, 0, ***
-Decoration, Paper Boat, 100, ***
-Decoration, Paper Boat Debris, 0, ***
 Decoration, Planter, 0, ***
-Decoration, Red Fall Leaf, 100, ***
-Decoration, Red Fall Leaf Debris, 0, ***
 Decoration, Stool, 0, ***
 Decoration, Basic Table, 0, ***
 Decoration, Small Vase, 0, ***
 Decoration, Wheel, 0, ***
-Decoration, Yellow Fall Leaf, 100, ***
-Decoration, Yellow Fall Leaf Debris, 0, ***
-Resource, Maze Ticket, 100, ***
+Smells, Smell Flower Bloop, 0, ***
+Smells, Smell Flower Bluebell, 0, ***
+Smells, Smell Flower Capucine, 0, ***
+Smells, Smell Flower Classic, 0, ***
+Smells, Smell Flower Daisy, 0, ***
+Smells, Smell Flower Dancer, 0, ***
+Smells, Smell Flower Floopy, 0, ***
+Smells, Smell Flower Floppy, 0, ***
+Smells, Smell Flower Four Petals, 0, ***
+Smells, Smell Flower GlowyRedLeaf, 0, ***
+Smells, Smell Flower Hello, 0, ***
+Smells, Smell Flower Horn, 0, ***
+Smells, Smell Flower Kissy, 0, ***
+Smells, Smell Flower Moon, 0, ***
+Smells, Smell Flower PurpleBerry, 0, ***
+Smells, Smell Flower RedBloobs, 0, ***
+Smells, Smell Flower Small, 0, ***
+Smells, Smell Flower Spikey, 0, ***
+Smells, Smell Flower Spiral, 0, ***
+Smells, Smell Flower SwedishBell, 0, ***
+Smells, Smell Flower Swirl, 0, ***
+Smells, Smell Flower Thin, 0, ***
+Smells, Smell Flower TinyWhites, 0, ***
+Smells, Smell Flower Triplet, 0, ***

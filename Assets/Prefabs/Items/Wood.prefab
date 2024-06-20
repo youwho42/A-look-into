@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8645996153089970369}
   - component: {fileID: 5768035969076710107}
   - component: {fileID: 2827569493296489943}
-  - component: {fileID: -3873608255683334821}
   - component: {fileID: 2165840084324949489}
   - component: {fileID: 4151514074169109657}
+  - component: {fileID: -4271951979959422603}
+  - component: {fileID: -3873608255683334821}
   m_Layer: 13
   m_Name: Wood
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &2827569493296489943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,23 +129,12 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: -3873608255683334821}
   canPlaceOnOther: 1
   visualItem: {fileID: 8035231410555554573}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
     RefIds: []
---- !u!114 &-3873608255683334821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4806734095490554465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grassObjects: []
 --- !u!114 &2165840084324949489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &4151514074169109657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +162,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4271951979959422603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 2827569493296489943}
+--- !u!114 &-3873608255683334821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!1 &7359739039555132280
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -3408826983127947495}
   - component: {fileID: 269489782608738649}
   - component: {fileID: -2753123647903799989}
+  - component: {fileID: 6859876809608752020}
   m_Layer: 13
   m_Name: Fiber
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
+  itemVariantIndex: 0
 --- !u!58 &3340633912972864975
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: -3408826983127947495}
   canPlaceOnOther: 1
   visualItem: {fileID: 7851865409128479045}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -157,6 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-2753123647903799989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +175,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6859876809608752020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5591675364925599087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 3205467184418445630}
 --- !u!1 &5751360719902235776
 GameObject:
   m_ObjectHideFlags: 0

@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 6704786705930763455}
   - component: {fileID: 650217486188983954}
   - component: {fileID: 6135434081488674208}
+  - component: {fileID: 6618601270173231855}
   m_Layer: 13
   m_Name: AxeIron
   m_TagString: Untagged
@@ -170,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: b3332c1dc2faf5546ab1a8ed79eb8745, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &1644589846858681769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +213,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 6704786705930763455}
   canPlaceOnOther: 1
   visualItem: {fileID: 8618806166444399312}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -241,6 +245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &6135434081488674208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,3 +259,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6618601270173231855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 1644589846858681769}

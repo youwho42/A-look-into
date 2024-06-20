@@ -32,7 +32,7 @@ namespace Klaxon.Interactable
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if(DemoManager.instance.IsDemoVersion())
+            if(DemoManager.instance.IsDemoVersion() && instruction != null)
             {
                 HasReadHowTo();
                 return;

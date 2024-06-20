@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 4169175394159801238}
   - component: {fileID: -8489922534359793243}
   - component: {fileID: -7358030287148332892}
+  - component: {fileID: 3502148497583816312}
   m_Layer: 13
   m_Name: Clay
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 8fd5f772e506873458a56d495adbecbc, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &2827569493296489943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +214,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 4169175394159801238}
   canPlaceOnOther: 1
   visualItem: {fileID: 3200248985601155866}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -232,11 +236,8 @@ MonoBehaviour:
   mainShadow: {fileID: 0}
   itemSpritesList:
   - item: {fileID: 21300000, guid: 9f31d4c7f44ce314f8ec9e91edfc3be8, type: 3}
-    shadow: {fileID: 0}
   - item: {fileID: 21300000, guid: 39148de935da368489623438fc8b24f7, type: 3}
-    shadow: {fileID: 0}
   - item: {fileID: 21300000, guid: d0a9e19810dd9c243941aabe616bcf41, type: 3}
-    shadow: {fileID: 0}
 --- !u!114 &4169175394159801238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-7358030287148332892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,3 +278,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3502148497583816312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 2827569493296489943}

@@ -37,15 +37,16 @@ MonoBehaviour:
   Price: 10
   spawnWeight: 5
   Icon: {fileID: 21300000, guid: 71dedeae602807449862668a6bf8c4f3, type: 3}
-  ItemPrefab: {fileID: 2997377886582240980, guid: 8c9da643de3365a45b13544db783650a,
-    type: 3}
   ItemPrefabVariants:
   - {fileID: 2997377886582240980, guid: 8c9da643de3365a45b13544db783650a, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 100
   compendiumGuide: {fileID: 0}
-  ResearchRecipes: []
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: ec02c52dcd154c6448c1acd7b02f9645, type: 2}
+    RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 0}
   GameDificulty: 0
   placementGumption: {fileID: 0}
   references:

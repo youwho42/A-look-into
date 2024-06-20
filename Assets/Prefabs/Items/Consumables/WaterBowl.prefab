@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 98811696379014608}
   - component: {fileID: 8646525146799694233}
   - component: {fileID: -2692007534422712274}
+  - component: {fileID: 7797750076827522834}
   m_Layer: 13
   m_Name: WaterBowl
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 4f52864ce589299498fb263530172d2b, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &835383707523805093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 98811696379014608}
   canPlaceOnOther: 1
   visualItem: {fileID: 2388475760229620012}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   pickupQuantity: 1
   references:
     version: 2
@@ -157,6 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-2692007534422712274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +175,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7797750076827522834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835383707523805090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfa4bee86673e9479f1c18b6a135ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp: {fileID: 835383707523805093}
 --- !u!1 &3327689731598008357
 GameObject:
   m_ObjectHideFlags: 0

@@ -545,12 +545,14 @@ public class CompendiumDisplayUI : MonoBehaviour
         string text = "";
         foreach (var mod in item.statChangers)
         {
-            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.Amount * 100}%" : $"{mod.Amount}";
+            string sign = mod.Amount > 0 ? "+" : "";
+            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.Amount * 100}%" : $"{sign}{mod.Amount}";
             text += $"{mod.StatToModify.Name} {mod.Amount} \n";
         }
         foreach (var mod in item.statModifiers)
         {
-            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.ModifierAmount * 100}%" : $"{mod.ModifierAmount}";
+            string sign = mod.ModifierAmount > 0 ? "+" : "";
+            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.ModifierAmount * 100}%" : $"{sign}{mod.ModifierAmount}";
             text += $"{mod.StatToModify.Name} {amount} \n";
         }
         return text;
