@@ -30,7 +30,7 @@ public class CraftingRecipeButton : MonoBehaviour
 
     private void SetTutorial()
     {
-        craftingStation.tutorial.SetNextTutorialIndex(0);
+        craftingStation.tutorial.SetNextTutorialIndex(1);
     }
 
     public void AddItem(QI_CraftingRecipe newItem)

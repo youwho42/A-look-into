@@ -25,10 +25,11 @@ public class CharacterChoiceUI : MonoBehaviour
     int index = 0;
 
     public TMP_InputField playerNameInputField;
+    
     public Button acceptButton;
     string spriteName;
     // public SetButtonSelected setButtonSelected;
-
+    public Color selectedColor;
     UIScreen screen;
 
     private void Start()
@@ -44,6 +45,7 @@ public class CharacterChoiceUI : MonoBehaviour
         CheckPlayerNameValid();
         characterChoiceCameraObject.SetActive(false);
         gameObject.SetActive(false);
+       
     }
     private void OnEnable()
     {
@@ -102,11 +104,13 @@ public class CharacterChoiceUI : MonoBehaviour
     public void CheckPlayerNameValid()
     {
         bool valid = playerNameInputField.text.All(c => char.IsLetterOrDigit(c));
-        if (string.IsNullOrWhiteSpace(playerNameInputField.text) || !valid)
+        if (string.IsNullOrEmpty(playerNameInputField.text) || !valid)
             acceptButton.interactable = false;
         else
             acceptButton.interactable = true;
-        
+        ColorBlock block = playerNameInputField.colors;
+        block.selectedColor = valid ? selectedColor : Color.red;
+        playerNameInputField.colors = block;
     }
 
     //public void CharacterNameEnter()

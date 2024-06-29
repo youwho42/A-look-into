@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using QuantumTek.QuantumInventory;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Rendering;
 
 namespace Klaxon.Interactable
 {
@@ -61,8 +62,6 @@ namespace Klaxon.Interactable
 
 
         }
-
-
 
 
         void PlayInteractSound()

@@ -39,9 +39,8 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     float dragTimer;
 
-    Vector3 dropLocation;
     DropAmountUI dropAmountUI;
-
+    Vector3 dropPosition;
 
     [Serializable]
     public struct ItemTypeNames
@@ -164,13 +163,10 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         int quantity = inventory.GetStock(item.Name);
         if (quantity > 1)
-        {
-            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity);
-        }
+            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity, Mouse.current.position.ReadValue());
         else
-        {
             DropItem(1);
-        }
+        
     }
     public void SetDropAmount()
     {
@@ -182,7 +178,14 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (item == null)
             return;
 
-        
+        if(quantity == 0)
+        {
+            Destroy(itemToDrop);
+            ResetDragging();
+            return;
+        }
+
+        itemToDrop.transform.position = dropPosition;
 
         if (itemToDrop.TryGetComponent(out SaveableItemEntity itemDrop))
             itemDrop.GenerateId();
@@ -213,7 +216,10 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
             return;
+        if (PlayerInformation.instance.inventorySlot != null && PlayerInformation.instance.inventorySlot != this)
+            return;
 
+        PlayerInformation.instance.inventorySlot = this;
         PlayerInformation.instance.isDragging = true;
 
         dragTimer += Time.deltaTime;
@@ -288,7 +294,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             return;
         }
 
-        dropLocation = itemToDrop.transform.position;
+        dropPosition = itemToDrop.transform.position;
         OpenDropAmountUI();
         
 
@@ -296,6 +302,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     void ResetDragging()
     {
+        PlayerInformation.instance.inventorySlot = null;
         PlayerInformation.instance.isDragging = false;
         isDragged = false;
         itemToDrop = null;

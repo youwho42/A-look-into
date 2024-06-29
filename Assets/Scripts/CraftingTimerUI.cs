@@ -9,6 +9,8 @@ public class CraftingTimerUI : MonoBehaviour
    
     public Image timerImage;
     public Canvas timerCanvas;
+    public Color activeColor;
+    public Color inactiveColor;
 
     private void Start()
     {
@@ -29,4 +31,9 @@ public class CraftingTimerUI : MonoBehaviour
     {
         timerImage.fillAmount = MapNumber.Remap(time-1, 0, maxTime, 0, 1);
     }
+    public void SetTimerColorActive(bool active)
+    {
+        timerImage.color = active ? activeColor : inactiveColor;
+    }
+
 }

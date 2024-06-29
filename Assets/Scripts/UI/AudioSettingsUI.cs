@@ -73,6 +73,7 @@ public class AudioSettingsUI : MonoBehaviour
         musicSlider.value = music;
         fxSlider.value = effects;
         animalsSlider.value = animals;
+        
     }
 
     public void SetFromSave(float master, float music, float effects, float animals)

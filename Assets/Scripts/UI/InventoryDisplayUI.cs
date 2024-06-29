@@ -33,8 +33,8 @@ public class InventoryDisplayUI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         if (inventorySlots.Count > 0)
             EventSystem.current.SetSelectedGameObject(inventorySlots[0].GetComponentInChildren<Button>().gameObject);
-
-        
+        if(UIScreenManager.instance!=null)
+            UIScreenManager.instance.CloseDropAmountUI();
     }
     private void OnDestroy()
     {

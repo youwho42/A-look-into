@@ -45,7 +45,7 @@ public class PlayerInformation : MonoBehaviour
     public SpriteResolver playerSpriteResolver;
     public StatHandler statHandler;
     public bool isDragging;
-
+    public InventoryDisplaySlot inventorySlot;
     public bool inMaze;
 
     private void Awake()

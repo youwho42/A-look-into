@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DropAmountUI : MonoBehaviour
@@ -10,13 +11,26 @@ public class DropAmountUI : MonoBehaviour
     int maxAmount;
     int currentAmount;
     public TextMeshProUGUI amountText;
-
+    public RectTransform canvasRectTransform;
     public int CurrentAmount { get { return currentAmount; } }
-    public void SetupUI(int max)
+    public void SetupUI(int max, Vector3 position)
     {
         maxAmount = max;
         currentAmount = max;
         amountText.text = max.ToString();
+
+        // Convert the screen point to a position in the canvas
+        
+        Vector2 anchoredPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, position, null, out anchoredPosition);
+
+        // Apply the anchored position to the UI element
+        GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
+
+        //GetComponent<RectTransform>().anchoredPosition = position;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(okButton.gameObject);
     }
     public void ResetUI()
     {

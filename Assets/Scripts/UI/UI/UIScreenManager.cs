@@ -254,16 +254,18 @@ public class UIScreenManager : MonoBehaviour
     }
 
 
-    public DropAmountUI DisplayDropAmountUI(InventoryDisplaySlot inventoryDisplaySlot, int maxAmount)
+    public DropAmountUI DisplayDropAmountUI(InventoryDisplaySlot inventoryDisplaySlot, int maxAmount, Vector3 position)
     {
         dropAmountUI.gameObject.SetActive(true);
         dropAmountUI.okButton.onClick.AddListener(inventoryDisplaySlot.SetDropAmount);
         dropAmountUI.SetAmount(maxAmount);
-        dropAmountUI.SetupUI(maxAmount);
+        dropAmountUI.SetupUI(maxAmount, position);
         return dropAmountUI;
     }
     public void CloseDropAmountUI()
     {
+        if (!dropAmountUI.isActiveAndEnabled)
+            return;
         dropAmountUI.okButton.onClick.RemoveAllListeners();
         dropAmountUI.ResetUI();
         dropAmountUI.gameObject.SetActive(false);
@@ -298,12 +300,12 @@ public class UIScreenManager : MonoBehaviour
         PlayerInformation.instance.TogglePlayerInput(!state);
     }
 
-#if UNITY_STANDALONE && !UNITY_EDITOR
-        void OnApplicationFocus(bool hasFocus)
-        {
-            if (!hasFocus && !inMainMenu)
-                SetPauseScreen(true);
-        }
-#endif
+//#if UNITY_STANDALONE && !UNITY_EDITOR
+//        void OnApplicationFocus(bool hasFocus)
+//        {
+//            if (!hasFocus && !inMainMenu)
+//                SetPauseScreen(true);
+//        }
+//#endif
 
 }

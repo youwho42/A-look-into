@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Klaxon.ConversationSystem
@@ -16,6 +17,12 @@ namespace Klaxon.ConversationSystem
             {
                 conversationObjects[i].ResetConversation();
             }
+        }
+
+        public void SetAllCoversations()
+        {
+            conversationObjects = Resources.LoadAll<ConversationObject>("Dialogues/").ToList();
+            conversationObjects = conversationObjects.OrderBy(x => x.name).ToList();
         }
     }
 

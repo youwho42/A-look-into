@@ -21,6 +21,12 @@ public class GameplayUI : MonoBehaviour
     public int HUDBinary = 1;
     [SerializeField]
     private TextMeshProUGUI HUDText;
+    [SerializeField]
+    private Slider RIBDisplay;
+    [HideInInspector]
+    public int RIBBinary = 0;
+    [SerializeField]
+    private TextMeshProUGUI RIBText;
     public int languageSelected;
 
     void Start()
@@ -43,6 +49,7 @@ public class GameplayUI : MonoBehaviour
         localeDropdown.onValueChanged.AddListener(LocaleSelected);
         SetDisplayHUD(HUDBinary);
         SetAutoZoomReset(autoZoomBinary);
+        SetRIB(RIBBinary);
     }
 
     void LocaleSelected(int index)
@@ -76,6 +83,17 @@ public class GameplayUI : MonoBehaviour
         HUDDisplay.value = displayHUD;
         SetHUDText();
     }
+    public void ToggleRIB()
+    {
+        RIBBinary = (int)RIBDisplay.value;
+        SetRIBData();
+    }
+    public void SetRIB(int RIBBin)
+    {
+        RIBBinary = RIBBin;
+        RIBDisplay.value = RIBBin;
+        SetRIBData();
+    }
 
     void SetAutoZoomText()
     {
@@ -91,11 +109,21 @@ public class GameplayUI : MonoBehaviour
             LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "HUD Display off");
     }
 
-    public void SetFromSave(int locale, int autoZoom, int hud)
+    void SetRIBData()
+    {
+        RIBText.text = RIBBinary == 1 ?
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "RIB Display on") :
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "RIB Display off");
+        Application.runInBackground = RIBBinary == 1;
+    }
+
+    public void SetFromSave(int locale, int autoZoom, int hud, int rib)
     {
         LocaleSelected(locale);
         SetAutoZoomReset(autoZoom);
         SetDisplayHUD(hud);
+        SetRIB(rib);
+
     }
 
 

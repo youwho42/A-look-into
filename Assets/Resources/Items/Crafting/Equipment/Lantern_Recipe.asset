@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
-  m_Name: StonePickAxe_Recipe
+  m_Name: Lantern_Recipe
   m_EditorClassIdentifier: 
-  Name: Stone Pick Axe
+  Name: Lantern
+  ProductType: 0
   Ingredients:
-  - Item: {fileID: 11400000, guid: 56f41e83d67f1bb4f8e8c85cff39c986, type: 2}
-    Amount: 3
-  - Item: {fileID: 11400000, guid: 2f1bddb4f4bba0f4cbc6de1a56330c02, type: 2}
+  - Item: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}
+    Amount: 50
+  - Item: {fileID: 11400000, guid: 586af1972ce0ab04689aa67fe8ffe5a7, type: 2}
     Amount: 1
-  - Item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
+  - Item: {fileID: 11400000, guid: 73879aa94f4bad94d8f653cba268548e, type: 2}
     Amount: 1
   Product:
-    Item: {fileID: 11400000, guid: f166cc966da17d345885727c4255cb44, type: 2}
+    Item: {fileID: 11400000, guid: 0432e70505ae2c747aa1845e01eb4729, type: 2}
     Amount: 1
   CraftingTime: 30
-  AgencyCost: 50
+  AgencyCost: 0

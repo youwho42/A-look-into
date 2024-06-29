@@ -16,14 +16,15 @@ namespace Klaxon.SaveSystem
             {
                 localizationIndex = gameplayUI.localeDropdown.value,
                 autoZoomBinary = gameplayUI.autoZoomBinary,
-                HUDBinary = gameplayUI.HUDBinary
+                HUDBinary = gameplayUI.HUDBinary,
+                RIBBinary = gameplayUI.RIBBinary,
             };
         }
 
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            gameplayUI.SetFromSave(saveData.localizationIndex, saveData.autoZoomBinary, saveData.HUDBinary);
+            gameplayUI.SetFromSave(saveData.localizationIndex, saveData.autoZoomBinary, saveData.HUDBinary, saveData.RIBBinary);
         }
 
         [Serializable]
@@ -32,6 +33,7 @@ namespace Klaxon.SaveSystem
             public int localizationIndex;
             public int autoZoomBinary;
             public int HUDBinary;
+            public int RIBBinary;
         }
     }
 }

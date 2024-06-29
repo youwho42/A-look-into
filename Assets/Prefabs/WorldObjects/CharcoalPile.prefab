@@ -332,6 +332,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.001
       objectReference: {fileID: 0}
+    - target: {fileID: 7513994828343454792, guid: f9a1c65aadf1349488afa4e0765f22b6,
+        type: 3}
+      propertyPath: craftingFuels.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7513994828343454800, guid: f9a1c65aadf1349488afa4e0765f22b6,
         type: 3}
       propertyPath: m_Name
@@ -458,7 +463,8 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.07521665
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3005847033984975642, guid: f9a1c65aadf1349488afa4e0765f22b6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

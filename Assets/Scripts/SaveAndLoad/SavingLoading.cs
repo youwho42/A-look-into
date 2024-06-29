@@ -99,6 +99,10 @@ namespace Klaxon.SaveSystem
 
         public void LoadOptions()
         {
+            var optionsPath = $"{Application.persistentDataPath}/Options_save.alio";
+            if (!File.Exists(optionsPath))
+                SaveOptions();
+
             var state = LoadFile("Options","alio");
             RestoreOptions(state);
         }

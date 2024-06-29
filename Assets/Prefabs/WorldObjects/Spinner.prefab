@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.007843138, g: 0.7529412, b: 0.18431373, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0.632
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 5768976825326424872}
   - component: {fileID: 4315427256376569077}
   - component: {fileID: 4711255726135751576}
+  - component: {fileID: 3005847033984975642}
   m_Layer: 13
   m_Name: Spinner
   m_TagString: Untagged
@@ -643,6 +644,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  craftingFuels:
+  - item: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}
+    maxTickDuration: 120
+  currentFuel: {fileID: 0}
+  currentFuelAmount: 0
+  currentFuelTick: 0
+  currentMaxTick: 0
 --- !u!114 &4486531484961629891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,6 +931,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerImage: {fileID: 891530745849966407}
   timerCanvas: {fileID: 1371545499751643037}
+  activeColor: {r: 0.007843138, g: 0.7529412, b: 0.18431373, a: 1}
+  inactiveColor: {r: 0.8018868, g: 0, b: 0, a: 1}
+--- !u!114 &3005847033984975642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7513994828343454800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8308610ea09efe43b9eddb7b0af5f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingHandler: {fileID: 7513994828343454792}
 --- !u!1 &8479986803522532412
 GameObject:
   m_ObjectHideFlags: 0

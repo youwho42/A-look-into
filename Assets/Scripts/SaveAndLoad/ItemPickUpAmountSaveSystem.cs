@@ -1,13 +1,12 @@
 using Klaxon.Interactable;
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Klaxon.SaveSystem
 {
-	public class ItemPickUpAmountSaveSystem : MonoBehaviour
-	{
+	public class ItemPickUpAmountSaveSystem : MonoBehaviour, ISaveable
+    {
         public InteractablePickUp pickUp;
 
         

@@ -13,6 +13,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
     
     List<Transform> spawnPoints = new List<Transform>();
 
+    public float minDistanceToSpawn = 0.05f;
+
     private void Start()
     {
         
@@ -49,7 +51,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             if (Random.Range(0.0f, 1.0f) > 0.5f)
             {
 
-                var hit = Physics2D.OverlapCircle(point.position, .05f);
+                var hit = Physics2D.OverlapCircle(point.position, minDistanceToSpawn);
                 if (hit == null || hit.CompareTag("Grass"))
                 {
                     

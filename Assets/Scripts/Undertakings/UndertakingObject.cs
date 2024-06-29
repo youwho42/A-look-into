@@ -41,9 +41,6 @@ namespace Klaxon.UndertakingSystem
             {
                 CurrentState = UndertakingState.Active;
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(this);
-                
-                Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingStart);
-                GameEventManager.onUndertakingsUpdateEvent.Invoke();
             }
         }
 
@@ -113,6 +110,8 @@ namespace Klaxon.UndertakingSystem
             CurrentState = UndertakingState.Inactive;
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
+
+        
     }
 }
 

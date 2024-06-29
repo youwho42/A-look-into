@@ -63,6 +63,14 @@ namespace Klaxon.UndertakingSystem
                 allUndertakingObjects[i].ResetUndertaking();
             }
         }
+
+        public void SetAllUndertakings()
+        {
+            allUndertakingObjects = Resources.LoadAll<UndertakingObject>("Undertakings/").ToList();
+            allUndertakingObjects = allUndertakingObjects.OrderBy(x => x.name).ToList();
+        }
+
+
     }
 }
 

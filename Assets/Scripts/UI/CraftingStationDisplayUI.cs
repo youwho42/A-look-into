@@ -1,4 +1,5 @@
 using QuantumTek.QuantumInventory;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -66,6 +67,16 @@ public class CraftingStationDisplayUI : MonoBehaviour
     [HideInInspector]
     public TutorialUI tutorial;
 
+    [Space]
+    [Header("Energy")]
+    public GameObject energyContainer;
+    public GameObject inventoryEnergy;
+    public Image energyImage;
+    public TextMeshProUGUI energyAmountText;
+    public Image energyUseImage;
+    public CraftingStationFuelInventorySlot craftingStationFuelInventorySlot;
+    public Sprite emptySprite;
+
     private void Start()
     {
         tutorial = GetComponent<TutorialUI>();
@@ -77,10 +88,12 @@ public class CraftingStationDisplayUI : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(SetContainerUI);
+        GameEventManager.onTimeTickEvent.AddListener(SetEnergyPercent);
     }
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(SetContainerUI);
+        GameEventManager.onTimeTickEvent.RemoveListener(SetEnergyPercent);
     }
 
 
@@ -93,7 +106,10 @@ public class CraftingStationDisplayUI : MonoBehaviour
         quantityToCraftSlider.maxValue = 0;
         quantityToCraftSlider.value = 0;
         SetQuantityText();
+        inventoryEnergy.SetActive(false);
+        SetEnergyItems();
         
+        energyContainer.SetActive(craftingHandler.craftingFuels.Count > 0);
 
         finalContainer.SetActive(false);
         craftingQueueObject.SetActive(false);
@@ -110,10 +126,66 @@ public class CraftingStationDisplayUI : MonoBehaviour
         
     }
 
+    private void SetEnergyItems()
+    {
+        
+        energyImage.sprite = emptySprite;
+        energyAmountText.text = "0";
+        energyUseImage.fillAmount = 0;
+        if (craftingHandler.currentFuel != null)
+        {
+            energyImage.sprite = craftingHandler.currentFuel.Icon;
+            energyAmountText.text = craftingHandler.currentFuelAmount.ToString();
+        }
+        
+        SetEnergyPercent(0);
+    }
+    public void SetEnergyPercent(int tick)
+    {
+        if (craftingHandler.currentFuelAmount > 0)
+            energyUseImage.fillAmount = craftingHandler.GetCurrentFuelPercent();
+        
+
+    }
+
     public void HideUI()
     {
         craftingHandler = null;
     }
+
+    public void ToggleInventoryEnergy()
+    {
+        if (inventoryEnergy.activeInHierarchy)
+        {
+            inventoryEnergy.SetActive(false);
+            return;
+        }
+        
+        tutorial.SetNextTutorialIndex(0);
+        SetFuelSlots();
+        inventoryEnergy.SetActive(true);
+    }
+
+    private void SetFuelSlots()
+    {
+        ClearFuelSlots();
+        foreach (var fuelType in craftingHandler.craftingFuels)
+        {
+            var slot = Instantiate(craftingStationFuelInventorySlot, inventoryEnergy.gameObject.transform);
+            slot.SetFuelInventorySlot(fuelType.item, PlayerInformation.instance.playerInventory.GetStock(fuelType.item.Name), craftingHandler);
+
+        }
+    }
+
+    public void ClearFuelSlots()
+    {
+        foreach (Transform child in inventoryEnergy.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+    }
+
     void SetContainerUI()
     {
         if (finalInventory == null)
@@ -130,6 +202,8 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
         }
         UpdateContainerInventoryUI();
+        SetEnergyItems();
+        SetFuelSlots();
     }
 
     public void ClearSlots()
@@ -259,7 +333,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public void SetQuantityText()
     {
         if(sliderSelectHandler.IsSelected)
-            tutorial.SetNextTutorialIndex(1);
+            tutorial.SetNextTutorialIndex(2);
         quantitySelectedText.text = $"{quantityToCraftSlider.value}/{quantityToCraftSlider.maxValue}";
         craftButton.interactable = quantityToCraftSlider.value > 0;
         quantityToCraftSlider.interactable = quantityToCraftSlider.maxValue > 0;

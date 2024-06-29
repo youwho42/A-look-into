@@ -16,7 +16,7 @@ public class Sound
     [Range(0.0f, 1.0f)]
     public float volume = 0.7f;
 
-    [Range(0.5f,1.5f)]
+    [Range(0.5f, 5.0f)]
     public float pitch = 1.0f;
 
     [Range(0.0f, 0.5f)]
@@ -158,5 +158,38 @@ public class AudioManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void StartAquiredAudio()
+    {
+        int num = Random.Range(1, 7);
+        PlaySound($"UndertakingAdd{num}");
+        //StartCoroutine("AquiredAudioCo");
+    }
+    IEnumerator AquiredAudioCo()
+    {
+        int t = 0;
+        int last = 0;
+        while (t < 2)
+        {
+            int num = Random.Range(1, 5);
+            if(num != last)
+            {
+                last = num;
+                PlaySound($"UndertakingAdd{num}");
+                t++;
+                yield return new WaitForSeconds(0.2f);
+            }
+            yield return null;
+        }
+        yield return null;
+    }
+    IEnumerator TaskAudioCo()
+    {
+        yield return null;
+    }
+    IEnumerator CompleteAudioCo()
+    {
+        yield return null;
     }
 }
