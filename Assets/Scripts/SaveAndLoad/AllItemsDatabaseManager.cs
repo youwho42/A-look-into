@@ -4,6 +4,7 @@ using UnityEngine;
 using QuantumTek.QuantumInventory;
 using Klaxon.UndertakingSystem;
 using Klaxon.ConversationSystem;
+using Klaxon.StatSystem;
 
 public class AllItemsDatabaseManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class AllItemsDatabaseManager : MonoBehaviour
     public QI_CraftingRecipeDatabase allRecipesDatabase;
     public UndertakingDatabase allUndertakingsDatabase;
     public ConversationDatabase allConversationsDatabase;
+    public StatModifierDatabase allModifiers;
 
     public void ResetItemsDatabase()
     {
@@ -29,5 +31,6 @@ public class AllItemsDatabaseManager : MonoBehaviour
         allRecipesDatabase.SetAllRecipes();
         allUndertakingsDatabase.SetAllUndertakings();
         allConversationsDatabase.SetAllCoversations();
+        allModifiers.SetAllModifiers();
     }
 }

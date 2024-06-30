@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -21,6 +22,12 @@ namespace Klaxon.StatSystem
 			return null;
 		}
 
-	}
+        public void SetAllModifiers()
+        {
+            modifiers = Resources.LoadAll<StatModifier>("Stats/").ToList();
+            modifiers = modifiers.OrderBy(x => x.name).ToList();
+        }
+
+    }
 
 }
