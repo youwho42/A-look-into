@@ -61,7 +61,7 @@ public class WindManager : MonoBehaviour
         float offset = 5000;
         float scale = 10.0f;
 
-        float a = (float)openSimplexNoise.Evaluate(position.x / scale + offset, position.y / scale + offset, currentZ + (position.z / scale + offset)) * (2 * Mathf.PI);
+        float a = (float)openSimplexNoise.Evaluate(position.x / scale + offset, position.y / scale + offset, (currentZ + position.z) / (scale + offset)) * (2 * Mathf.PI);
 
         var dir = new Vector2(Mathf.Sin(a), Mathf.Cos(a));
         return dir;

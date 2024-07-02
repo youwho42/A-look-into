@@ -54,6 +54,9 @@ namespace Klaxon.SAP
         [HideInInspector]
         public CompleteTaskObject task;
 
+        [HideInInspector]
+        public UIScreenManager sleep;
+
         public enum BP_Type
         {
             Messenger,
@@ -118,6 +121,7 @@ namespace Klaxon.SAP
         }
         public void Start()
         {
+            sleep = UIScreenManager.instance;
             walker = GetComponent<GravityItemWalk>();
             walker.currentDirection = Vector2.zero;
             allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
@@ -411,6 +415,50 @@ namespace Klaxon.SAP
                 
 
         }
+
+        public void HandleOffScreen(SAP_Action action)
+        {
+            //walker.currentDirection = Vector2.zero;
+            //if (offScreenPosMoved && action.currentPathIndex < action.path.Count)
+            //{
+            //    timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, action.path[action.currentPathIndex].transform.position) / walker.walkSpeed);
+            //    timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+            //    if (transform.position.x < action.path[action.currentPathIndex].transform.position.x && !walker.facingRight)
+            //        walker.Flip();
+            //    else if (transform.position.x > action.path[action.currentPathIndex].transform.position.x && walker.facingRight)
+            //        walker.Flip();
+            //    offScreenPosMoved = false;
+            //}
+
+
+            //if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
+            //{
+
+            //    offScreenPosMoved = true;
+            //    walker.transform.position = action.path[action.currentPathIndex].transform.position;
+            //    walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+            //    walker.currentLevel = walker.currentTilePosition.position.z;
+            //    if (action.currentPathIndex < action.path.Count)
+            //    {
+            //        lastValidNode = action.currentNode;
+            //        action.currentPathIndex++;
+
+            //    }
+            //    if (action.currentPathIndex >= action.path.Count)
+            //    {
+
+            //        lastValidNode = action.currentNode;
+            //        action.ReachFinalDestination(this);
+            //    }
+            //    else
+            //    {
+            //        action.currentNode = action.path[action.currentPathIndex];
+            //    }
+
+            //}
+        }
+
+
 
         void ResetCurrentGoal()
         {

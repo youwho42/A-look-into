@@ -46,6 +46,11 @@ namespace Klaxon.SAP
                 return;
             }
 
+            if (agent.offScreen || agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this);
+                return;
+            }
 
 
             if (agent.walker.isStuck || agent.isDeviating)

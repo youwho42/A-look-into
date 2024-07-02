@@ -81,6 +81,8 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 3160804418752735725}
   canPlaceOnOther: 1
   visualItem: {fileID: 7247380090236570064}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   isOpen: 0
   isSquirrelBox: 0
   references:
@@ -99,7 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Seed Box
-  MaxStacks: 4
+  MaxStacks: 8
+  PlayerCanAddToInventory: 1
 --- !u!58 &59904566073726980
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,6 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &7865255940961421955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 7eea41ad4ab96624ba102fd2a4ef9f25, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &4070714058635282194
 MonoBehaviour:
   m_ObjectHideFlags: 0

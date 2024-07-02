@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
   m_Name: GuntherShard
   m_EditorClassIdentifier: 
-  Name: Gunther Shard
+  Name: Gunther Crystal Shard
   localizedName:
     m_TableReference:
       m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
@@ -46,6 +46,10 @@ MonoBehaviour:
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 9d9c9b3288ab3b1418c5433d08659e4c, type: 2}
     RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
+  - recipe: {fileID: 11400000, guid: 1d5566312be1c8d4b95c3c013c95800c, type: 2}
+    RecipeRevealAmount: 20
     agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
       type: 2}
   GameDificulty: 0
