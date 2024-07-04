@@ -56,6 +56,8 @@ namespace Klaxon.SAP
 
         [HideInInspector]
         public UIScreenManager sleep;
+        bool hasMovedOffScreen;
+        float offScreenMoveTime;
 
         public enum BP_Type
         {
@@ -416,46 +418,35 @@ namespace Klaxon.SAP
 
         }
 
-        public void HandleOffScreen(SAP_Action action)
+        public void HandleOffScreen(SAP_Action action, Vector3 currentDestination)
         {
-            //walker.currentDirection = Vector2.zero;
-            //if (offScreenPosMoved && action.currentPathIndex < action.path.Count)
-            //{
-            //    timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, action.path[action.currentPathIndex].transform.position) / walker.walkSpeed);
-            //    timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
-            //    if (transform.position.x < action.path[action.currentPathIndex].transform.position.x && !walker.facingRight)
-            //        walker.Flip();
-            //    else if (transform.position.x > action.path[action.currentPathIndex].transform.position.x && walker.facingRight)
-            //        walker.Flip();
-            //    offScreenPosMoved = false;
-            //}
+            walker.currentDirection = Vector2.zero;
 
+            if (hasMovedOffScreen)
+            {
+                offScreenMoveTime = Mathf.RoundToInt(Vector2.Distance(transform.position, currentDestination) / walker.walkSpeed);
+                offScreenMoveTime = (offScreenMoveTime + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
 
-            //if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
-            //{
+                if (transform.position.x < currentDestination.x && !walker.facingRight)
+                    walker.Flip();
+                else if (transform.position.x > currentDestination.x && walker.facingRight)
+                    walker.Flip();
 
-            //    offScreenPosMoved = true;
-            //    walker.transform.position = action.path[action.currentPathIndex].transform.position;
-            //    walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
-            //    walker.currentLevel = walker.currentTilePosition.position.z;
-            //    if (action.currentPathIndex < action.path.Count)
-            //    {
-            //        lastValidNode = action.currentNode;
-            //        action.currentPathIndex++;
+                hasMovedOffScreen = false;
+            }
 
-            //    }
-            //    if (action.currentPathIndex >= action.path.Count)
-            //    {
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= offScreenMoveTime && !hasMovedOffScreen)
+            {
 
-            //        lastValidNode = action.currentNode;
-            //        action.ReachFinalDestination(this);
-            //    }
-            //    else
-            //    {
-            //        action.currentNode = action.path[action.currentPathIndex];
-            //    }
+                hasMovedOffScreen = true;
+                walker.transform.position = currentDestination;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                walker.currentLevel = walker.currentTilePosition.position.z;
 
-            //}
+                action.ReachFinalDestination(this);
+
+                walker.SetLastPosition();
+            }
         }
 
 

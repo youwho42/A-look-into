@@ -32,6 +32,19 @@ namespace Klaxon.SAP
                     hasLicked = true;
                 }
 
+                if (agent.sleep.isSleeping)
+                {
+                    foreach (var item in agent.plantingArea.seedItem.plantedObject.harvestedItems)
+                    {
+                        var amount = item.minMaxAmount.x == 0 ? 1 : item.minMaxAmount.x;
+                        agent.seedBoxInventory.AddItem(item.harvestedItem, amount, false);
+                    }
+
+                    agent.SetBeliefState("HasPlant", false);
+                    agent.currentGoalComplete = true;
+                    return;
+                }
+
                 if (timer < 1f)
                     timer += Time.deltaTime;
                 else
@@ -47,6 +60,14 @@ namespace Klaxon.SAP
                 }
                 return;
             }
+
+            if (agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this, boxPosition);
+                return;
+            }
+
+
 
             if (agent.walker.isStuck || agent.isDeviating)
             {
@@ -90,6 +111,10 @@ namespace Klaxon.SAP
             }
 
             return pos + (Vector3)dir;
+        }
+        public override void ReachFinalDestination(SAP_Scheduler_BP agent)
+        {
+            atBox = true;
         }
     }
 }

@@ -30,9 +30,19 @@ namespace Klaxon.SAP
                     agent.animator.SetTrigger(agent.lick_hash);
                     hasLicked = true;
                 }
+                if (agent.sleep.isSleeping)
+                {
+                    agent.plantingArea.plantFreeLocations.Add(agent.currentPlantDestination);
+                    agent.plantingArea.plantUsedLocations.Remove(agent.currentPlantDestination);
+                    agent.plantingArea.harvestablePlants.Remove(agent.currentHarvestable);
+                    Destroy(agent.currentHarvestable.gameObject);
+                    agent.SetBeliefState("HasPlant", true);
+                    agent.SetBeliefState("PlantAvailable", false);
+                    agent.currentGoalComplete = true;
+                    return;
+                }
 
-
-                if (timer < 0.6f)
+                if (timer < 0.6f && (!agent.offScreen || !agent.sleep.isSleeping))
                     timer += Time.deltaTime;
                 else
                 {
@@ -44,6 +54,12 @@ namespace Klaxon.SAP
                     agent.SetBeliefState("PlantAvailable", false);
                     agent.currentGoalComplete = true;
                 }
+                return;
+            }
+
+            if (agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this, agent.currentPlantDestination);
                 return;
             }
 
@@ -81,6 +97,11 @@ namespace Klaxon.SAP
             agent.currentHarvestable = agent.plantingArea.harvestablePlants[0];
             agent.plantingArea.harvestablePlants.RemoveAt(0);
             return pos;
+        }
+
+        public override void ReachFinalDestination(SAP_Scheduler_BP agent)
+        {
+            atPlant = true;
         }
     }
 }

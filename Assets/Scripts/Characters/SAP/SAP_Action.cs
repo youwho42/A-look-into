@@ -35,7 +35,6 @@ namespace Klaxon.SAP
         }
         public virtual void ReachFinalDestination(SAP_Scheduler_NPC agent)
         {
-
         }
 
         /// <summary>
@@ -51,6 +50,9 @@ namespace Klaxon.SAP
         {
         }
         public virtual void EndPerformAction(SAP_Scheduler_BP agent)
+        {
+        }
+        public virtual void ReachFinalDestination(SAP_Scheduler_BP agent)
         {
         }
 

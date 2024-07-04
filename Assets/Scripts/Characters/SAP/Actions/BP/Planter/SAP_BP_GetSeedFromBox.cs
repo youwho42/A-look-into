@@ -31,7 +31,14 @@ namespace Klaxon.SAP
                     hasLicked = true;
                 }
 
-
+                if (agent.sleep.isSleeping)
+                {
+                    agent.seedBoxInventory.RemoveItem(agent.plantingArea.seedItem, 1);
+                    agent.SetBeliefState("HasSeed", true);
+                    agent.SetBeliefState("SeedAvailable", false);
+                    agent.currentGoalComplete = true;
+                    return;
+                }
                 if (timer < 1f)
                     timer += Time.deltaTime;
                 else
@@ -41,6 +48,12 @@ namespace Klaxon.SAP
                     agent.SetBeliefState("SeedAvailable", false);
                     agent.currentGoalComplete = true;
                 }
+                return;
+            }
+
+            if (agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreen(this, boxPosition);
                 return;
             }
 
@@ -99,7 +112,12 @@ namespace Klaxon.SAP
         }
 
 
-        
+        public override void ReachFinalDestination(SAP_Scheduler_BP agent)
+        {
+            atBox = true;
+        }
+
+
     }
 }
 

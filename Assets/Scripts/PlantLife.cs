@@ -63,6 +63,7 @@ public class PlantLife : MonoBehaviour
         RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
         if (tick >= cycle.tick && dayNightCycle.currentDayRaw == cycle.day)
         {
+            
             currentCycle++;
             SetSprites();
             SetNextCycleTime();
@@ -72,6 +73,7 @@ public class PlantLife : MonoBehaviour
     public void SetNextCycleTime()
     {
         cycle = RealTimeDayNightCycle.instance.GetCycleTime(ticksPerCycle);
+        
     }
 
     public void SetSprites()

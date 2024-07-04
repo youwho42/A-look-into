@@ -34,7 +34,13 @@ namespace Klaxon.SAP
                     hasLicked = true;
                 }
 
-
+                if(agent.sleep.isSleeping)
+                {
+                    PlantSeed(agent);
+                    agent.SetBeliefState("HasSeed", false);
+                    agent.currentGoalComplete = true;
+                    return;
+                }
                 if (timer < 0.6f)
                     timer += Time.deltaTime;
                 else
@@ -46,9 +52,9 @@ namespace Klaxon.SAP
                 return;
             }
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.sleep.isSleeping)
             {
-                agent.HandleOffScreen(this);
+                agent.HandleOffScreen(this, agent.currentPlantDestination);
                 return;
             }
 
@@ -90,6 +96,11 @@ namespace Klaxon.SAP
             PlantLife plant = go.GetComponent<PlantLife>();
             plant.SetSprites();
             plant.SetNextCycleTime();
+        }
+
+        public override void ReachFinalDestination(SAP_Scheduler_BP agent)
+        {
+            isPlanting = true;
         }
     }
 

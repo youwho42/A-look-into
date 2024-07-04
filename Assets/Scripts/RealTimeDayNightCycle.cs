@@ -82,11 +82,17 @@ public class RealTimeDayNightCycle : MonoBehaviour
     public CycleTicks GetCycleTime(int ticks)
     {
         var cycle = new CycleTicks();
-        int time = currentTimeRaw;
-        int d = ticks / 1440;
-        cycle.day = currentDayRaw + d;
-        int t = ticks % 1440;
-        cycle.tick = time + t;
+
+        // Add the given ticks to the current time
+        int totalTicks = currentTimeRaw + ticks;
+
+        // Calculate the total number of days and the remaining ticks
+        int totalDays = currentDayRaw + (totalTicks / 1440);
+        int remainingTicks = totalTicks % 1440;
+
+        cycle.day = totalDays;
+        cycle.tick = remainingTicks;
+
         return cycle;
     }
 
