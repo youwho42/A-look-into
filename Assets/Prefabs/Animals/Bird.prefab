@@ -413,6 +413,7 @@ MonoBehaviour:
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
+  isOverWater: 0
   checkTileDistance: 0.05
   groundLayer:
     serializedVersion: 2
@@ -475,6 +476,7 @@ MonoBehaviour:
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
+  isOverWater: 0
   checkTileDistance: 0.05
   groundLayer:
     serializedVersion: 2
@@ -495,7 +497,6 @@ MonoBehaviour:
   isLanding: 0
   waterMap: {fileID: 0}
   characterRenderer: {fileID: 0}
-  isOverWater: 0
   useBoids: 0
   boid: {fileID: 7510586649099672996}
   canReachNextTile: 0
@@ -533,6 +534,8 @@ MonoBehaviour:
     Conditions:
     - Condition: Land
       State: 1
+    - Condition: OverWater
+      State: 0
     Action: {fileID: 8372402349997794142}
     IsRunning: 0
     TimeLimit: 0
@@ -717,6 +720,8 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   finalDestination: 0
   target: {fileID: 0}
+  hiddenWhenSleeping: 0
+  gatherableItem: {fileID: 0}
 --- !u!1 &1186113324396075657
 GameObject:
   m_ObjectHideFlags: 0

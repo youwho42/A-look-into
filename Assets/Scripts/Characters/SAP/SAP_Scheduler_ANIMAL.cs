@@ -163,7 +163,8 @@ namespace Klaxon.SAP
                 return;
             }
 
-
+            if(flier != null) 
+                SetBeliefState("OverWater", flier.isOverWater);
 
 
             if (currentGoal == -1)

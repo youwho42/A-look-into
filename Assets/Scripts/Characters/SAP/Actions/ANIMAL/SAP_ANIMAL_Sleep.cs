@@ -8,8 +8,16 @@ namespace Klaxon.SAP
 	{
 
         SAP_WorldBeliefStates worldStates;
+        public bool hiddenWhenSleeping;
+        [ConditionalHide("hiddenWhenSleeping", true)]
+        public GatherableItem gatherableItem;
+
         public override void StartPerformAction(SAP_Scheduler_ANIMAL agent)
         {
+            if (hiddenWhenSleeping)
+            {
+                gatherableItem.hasBeenHarvested = true;
+            }
 
             if (agent.removeFromMusicAtHome)
             {
@@ -66,6 +74,11 @@ namespace Klaxon.SAP
             if (agent.flier != null)
                 agent.flier.enabled = true;
             agent.SetBeliefState("AtHome", false);
+
+            if (hiddenWhenSleeping)
+            {
+                gatherableItem.hasBeenHarvested = false;
+            }
         }
 
        

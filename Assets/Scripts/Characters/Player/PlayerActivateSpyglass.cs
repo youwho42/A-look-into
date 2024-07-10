@@ -88,7 +88,7 @@ public class PlayerActivateSpyglass : MonoBehaviour
                 if (all[i].GetComponentInParent<IAnimal>() != null) 
                 { 
                     var animal = all[i].GetComponent<GatherableItem>();
-                    if (animal == null)
+                    if (animal == null || animal.hasBeenHarvested)
                         continue;
                     if(!allAnimals.ContainsKey(animal))
                     {

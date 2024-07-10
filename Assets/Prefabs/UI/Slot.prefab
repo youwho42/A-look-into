@@ -162,6 +162,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 4802785787896109911}
+          m_TargetAssemblyTypeName: InventoryDisplaySlot, Assembly-CSharp
+          m_MethodName: ShowInformation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -170,6 +182,18 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: InventoryDisplaySlot, Assembly-CSharp
           m_MethodName: ShowItemUse
           m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4802785787896109911}
+          m_TargetAssemblyTypeName: InventoryDisplaySlot, Assembly-CSharp
+          m_MethodName: HideInformation
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -572,10 +596,6 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  allAreas: []
-  baseBounds:
-    m_Center: {x: 13, y: -10, z: 0}
-    m_Extent: {x: 64, y: 64, z: 10}
   references:
     version: 2
     RefIds: []

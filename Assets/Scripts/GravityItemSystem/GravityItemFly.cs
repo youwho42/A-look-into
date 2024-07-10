@@ -31,8 +31,7 @@ namespace Klaxon.GravitySystem
         public SpriteRenderer characterRenderer;
 
         //const float spriteDisplacementY = 0.2790625f;
-        [HideInInspector]
-        public bool isOverWater;
+        
         [HideInInspector]
         public bool useBoids;
         public Boid boid;
@@ -103,7 +102,11 @@ namespace Klaxon.GravitySystem
                     
             }
             else
-                currentDestinationZ = mainDestinationZ;
+            {
+                if(!isOverWater)
+                    currentDestinationZ = mainDestinationZ;
+            }
+                
 
         }
 

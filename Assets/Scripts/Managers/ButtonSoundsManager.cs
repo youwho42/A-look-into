@@ -11,20 +11,24 @@ public class ButtonSoundsManager : MonoBehaviour
         Button[] buttons = FindObjectsOfType<Button>(true); // parameter makes it include inactive UI elements with buttons
         foreach (Button b in buttons)
         {
-            //b.onClick.AddListener(ButtonClickSound);
-            EventTrigger t = b.gameObject.AddComponent<EventTrigger>();
+            EventTrigger trigger = null;
+            if (b.gameObject.TryGetComponent(out EventTrigger t))
+                trigger = t;
+            else
+                trigger = b.gameObject.AddComponent<EventTrigger>();
+
             EventTrigger.Entry clickEvent = new EventTrigger.Entry()
             {
                 eventID = EventTriggerType.PointerDown
             };
             clickEvent.callback.AddListener(ButtonClickSound);
-            t.triggers.Add(clickEvent);
+            trigger.triggers.Add(clickEvent);
             EventTrigger.Entry releaseEvent = new EventTrigger.Entry()
             {
                 eventID = EventTriggerType.PointerUp
             };
             releaseEvent.callback.AddListener(ButtonClickSound);
-            t.triggers.Add(releaseEvent);
+            trigger.triggers.Add(releaseEvent);
         }
     }
     

@@ -166,6 +166,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488,
         type: 2}
+    - target: {fileID: 2070390912640740298, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: gatherableItem
+      value: 
+      objectReference: {fileID: 6147159429779618543}
+    - target: {fileID: 2070390912640740298, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: hiddenWhenSleeping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2302526306177949363, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: useBoids
@@ -717,6 +727,18 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 5151695563370460129}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6147159429779618543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1310942487897049358, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5151695563370460129}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598467851326548338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6272269743052568361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,

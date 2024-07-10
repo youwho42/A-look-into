@@ -41,7 +41,8 @@ namespace Klaxon.SAP
                         agent.task.undertaking.TryCompleteTask(agent.task.task);
                         agent.hasInteracted = false;
                     }
-                    agent.seekItemsFound.Add(agent.currentSeekItem.transform.position);
+                    if(agent.currentSeekItem != null)
+                        agent.seekItemsFound.Add(agent.currentSeekItem.transform.position);
                     agent.currentSeekItem = null;
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("SeekItemFound", false);

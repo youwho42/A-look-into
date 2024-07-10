@@ -69,6 +69,9 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public Vector2 slopeDirection;
 
+        [HideInInspector]
+        public bool isOverWater;
+
         [Header("Slope Detection")]
         [Range(0.0f, 0.1f)]
         public float checkTileDistance = 0.08f;
@@ -274,7 +277,9 @@ namespace Klaxon.GravitySystem
             itemObject.localPosition = currentPosition;
 
             Vector3 screenPos = Camera.main.WorldToScreenPoint(_transform.position).normalized;
-            var totalZ = (itemObject.localPosition.z - screenPos.y) / 10;
+            var currentZ = isOverWater ? itemObject.localPosition.z - 3 : itemObject.localPosition.z;
+            
+            var totalZ = (currentZ - screenPos.y) / 10;
             itemObject.localScale = new Vector3(1 + totalZ, 1 + totalZ, 1);
 
         }

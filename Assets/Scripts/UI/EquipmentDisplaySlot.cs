@@ -31,6 +31,16 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
 
     }
 
+    public void ShowInformation()
+    {
+        if (item == null)
+            return;
+        ItemInformationDisplayUI.instance.ShowItemName(item, this.GetComponent<RectTransform>());
+    }
+    public void HideInformation()
+    {
+        ItemInformationDisplayUI.instance.HideItemName();
+    }
 
     public void TransferItem()
     {

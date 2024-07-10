@@ -1,16 +1,12 @@
 using QuantumTek.QuantumInventory;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class ItemInformationDisplayUI : MonoBehaviour
 {
     public static ItemInformationDisplayUI instance;
-    public GameObject informationDisplay;
-    public TextMeshProUGUI itemName;
-    public TextMeshProUGUI itemDescription;
-    public Vector2 offset;
+    
     private void Awake()
     {
         if (instance == null)
@@ -19,27 +15,68 @@ public class ItemInformationDisplayUI : MonoBehaviour
             Destroy(this);
     }
 
+    public GameObject informationDisplay;
+    public TextMeshProUGUI itemName;
+    public Vector2 offset;
+    public RectTransform canvasRectTransform;
+    QI_ItemData currentItem;
+    RectTransform otherAnchor;
+    bool isShowing;
+
     private void Start()
     {
-        informationDisplay.SetActive(false);
-    }
-    public void ShowInformationDisplay(QI_ItemData item)
-    {
-        itemName.text = item.Name;
-        //itemDescription.text = item.Description;
+        GameEventManager.onInventoryUpdateEvent.AddListener(HideItemName);
         
-        Vector2 movePos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        transform as RectTransform,
-        Input.mousePosition, Camera.current,
-        out movePos);
-        movePos += offset;
-        informationDisplay.transform.localPosition = movePos;
-        informationDisplay.SetActive(true);
-    }
-    public void HideInformationDisplay()
-    {
         informationDisplay.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(HideItemName);
+    }
+
+    public void ShowItemName(QI_ItemData item, RectTransform anchor)
+    {
+        currentItem = item;
+        otherAnchor = anchor;
+        if (isShowing)
+        {
+            StopCoroutine("HideItemCo");
+            ShowItem();
+        }
+        else
+            Invoke("ShowItem", 1.3f);
+
+    }
+
+
+    public void HideItemName()
+    {
+
+        StartCoroutine("HideItemCo");
+        informationDisplay.SetActive(false);
+        CancelInvoke("ShowItem");
+    }
+
+    void ShowItem()
+    {
+        isShowing = true;
+        itemName.text = currentItem.Name;
+
+        // Convert the screen point to a position in the canvas
+
+        Vector2 anchoredPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, otherAnchor.position + (Vector3)offset, null, out anchoredPosition);
+
+        // Apply the anchored position to the UI element
+        informationDisplay.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
+
+        informationDisplay.SetActive(true);
+    }
+
+    IEnumerator HideItemCo()
+    {
+        yield return new WaitForSeconds(0.4f);
+        isShowing = false;
+    }
 }

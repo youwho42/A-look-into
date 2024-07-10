@@ -22,12 +22,12 @@ public class MiniGameManager : MonoBehaviour
     {
         public GameObject miniGame;
         public MiniGameType miniGameType;
-
     }
 
     public List<MiniGame> miniGames = new List<MiniGame>();
     public bool gameStarted;
 
+    
 
     public void StartMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
     {

@@ -16,7 +16,8 @@ public enum NeighborObjectType{
     Hematite,
     Sperrylite,
     Clay, 
-    DeadTree
+    DeadTree,
+    CrimsonKing
 }
 
 public class NeighboringObject : MonoBehaviour

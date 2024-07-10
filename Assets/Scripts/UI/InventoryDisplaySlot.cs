@@ -80,11 +80,11 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         if (item == null)
             return;
-        ItemInformationDisplayUI.instance.ShowInformationDisplay(item);
+        ItemInformationDisplayUI.instance.ShowItemName(item, this.GetComponent<RectTransform>());
     }
     public void HideInformation()
     {
-        ItemInformationDisplayUI.instance.HideInformationDisplay();
+        ItemInformationDisplayUI.instance.HideItemName();
     }
     
     public void UseItem()
