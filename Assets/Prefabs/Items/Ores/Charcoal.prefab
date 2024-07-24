@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 2778997730357530324}
   - component: {fileID: -5289354120689794383}
   - component: {fileID: 4044831893372279445}
+  - component: {fileID: -9017286712602773251}
   m_Layer: 13
   m_Name: Charcoal
   m_TagString: Untagged
@@ -272,3 +273,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUp: {fileID: 319447175}
+--- !u!114 &-9017286712602773251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d18a0a7256f144e8d9e45b926cbf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameDificulty: 2
+  nudgeDistance: 0.1

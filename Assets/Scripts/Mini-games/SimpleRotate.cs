@@ -17,8 +17,10 @@ public class SimpleRotate : MonoBehaviour
 
     void Update()
     {
-        if(rotateOnUpdate)
+        if (rotateOnUpdate)
             transform.Rotate(0, 0, speed * direction * Time.deltaTime);
+        
+            
     }
     
     public void RandomizeDirection()

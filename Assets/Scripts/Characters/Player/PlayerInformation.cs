@@ -17,6 +17,8 @@ public class PlayerInformation : MonoBehaviour
     public GameObject playerShadow;
     public GravityItemMovementControllerNew playerController;
     public AnimatePlayer animatePlayerScript;
+    public Transform playerPokableSpot;
+    public PlayerPoke playerPoke;
 
     public QI_Inventory playerInventory;
     public EquipmentManager equipmentManager;

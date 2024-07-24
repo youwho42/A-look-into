@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: PokingStick I_Recipe
+  m_EditorClassIdentifier: 
+  Name: PokingStick I
+  ProductType: 0
+  Ingredients:
+  - Item: {fileID: 11400000, guid: b581bbd250a074af0a3f75e68accf984, type: 2}
+    Amount: 10
+  - Item: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
+    Amount: 5
+  Product:
+    Item: {fileID: 11400000, guid: a65e3508da337594186bdf3c8d7ebb74, type: 2}
+    Amount: 1
+  CraftingTime: 45
+  AgencyCost: 50

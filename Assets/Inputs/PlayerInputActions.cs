@@ -136,15 +136,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""StackTransferToggle"",
-                    ""type"": ""Button"",
-                    ""id"": ""8513298a-1ced-4c70-b193-88914c005d89"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""StackTransferGamepad"",
                     ""type"": ""Button"",
                     ""id"": ""93b366d9-07b2-4af1-9ab5-349202cacd97"",
@@ -548,17 +539,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Map"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7846ab05-97fe-4ef6-8c94-39f51367e73d"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""StackTransferToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1340,7 +1320,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_MenuOpen = m_Player.FindAction("MenuOpen", throwIfNotFound: true);
         m_Player_MenuClose = m_Player.FindAction("MenuClose", throwIfNotFound: true);
         m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
-        m_Player_StackTransferToggle = m_Player.FindAction("StackTransferToggle", throwIfNotFound: true);
         m_Player_StackTransferGamepad = m_Player.FindAction("StackTransferGamepad", throwIfNotFound: true);
         m_Player_SpyglassAim = m_Player.FindAction("SpyglassAim", throwIfNotFound: true);
         m_Player_SpyglassChangeSelected = m_Player.FindAction("SpyglassChangeSelected", throwIfNotFound: true);
@@ -1435,7 +1414,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MenuOpen;
     private readonly InputAction m_Player_MenuClose;
     private readonly InputAction m_Player_Map;
-    private readonly InputAction m_Player_StackTransferToggle;
     private readonly InputAction m_Player_StackTransferGamepad;
     private readonly InputAction m_Player_SpyglassAim;
     private readonly InputAction m_Player_SpyglassChangeSelected;
@@ -1464,7 +1442,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @MenuOpen => m_Wrapper.m_Player_MenuOpen;
         public InputAction @MenuClose => m_Wrapper.m_Player_MenuClose;
         public InputAction @Map => m_Wrapper.m_Player_Map;
-        public InputAction @StackTransferToggle => m_Wrapper.m_Player_StackTransferToggle;
         public InputAction @StackTransferGamepad => m_Wrapper.m_Player_StackTransferGamepad;
         public InputAction @SpyglassAim => m_Wrapper.m_Player_SpyglassAim;
         public InputAction @SpyglassChangeSelected => m_Wrapper.m_Player_SpyglassChangeSelected;
@@ -1522,9 +1499,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Map.started += instance.OnMap;
             @Map.performed += instance.OnMap;
             @Map.canceled += instance.OnMap;
-            @StackTransferToggle.started += instance.OnStackTransferToggle;
-            @StackTransferToggle.performed += instance.OnStackTransferToggle;
-            @StackTransferToggle.canceled += instance.OnStackTransferToggle;
             @StackTransferGamepad.started += instance.OnStackTransferGamepad;
             @StackTransferGamepad.performed += instance.OnStackTransferGamepad;
             @StackTransferGamepad.canceled += instance.OnStackTransferGamepad;
@@ -1601,9 +1575,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Map.started -= instance.OnMap;
             @Map.performed -= instance.OnMap;
             @Map.canceled -= instance.OnMap;
-            @StackTransferToggle.started -= instance.OnStackTransferToggle;
-            @StackTransferToggle.performed -= instance.OnStackTransferToggle;
-            @StackTransferToggle.canceled -= instance.OnStackTransferToggle;
             @StackTransferGamepad.started -= instance.OnStackTransferGamepad;
             @StackTransferGamepad.performed -= instance.OnStackTransferGamepad;
             @StackTransferGamepad.canceled -= instance.OnStackTransferGamepad;
@@ -1810,7 +1781,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMenuOpen(InputAction.CallbackContext context);
         void OnMenuClose(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
-        void OnStackTransferToggle(InputAction.CallbackContext context);
         void OnStackTransferGamepad(InputAction.CallbackContext context);
         void OnSpyglassAim(InputAction.CallbackContext context);
         void OnSpyglassChangeSelected(InputAction.CallbackContext context);

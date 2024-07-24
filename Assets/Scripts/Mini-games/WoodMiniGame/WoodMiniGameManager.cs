@@ -199,7 +199,10 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         minigameIsActive = true;
         ResetBalls(0);
     }
-    void SetDificulty(MiniGameDificulty dificulty)
+    public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty){ }
+
+
+        void SetDificulty(MiniGameDificulty dificulty)
     {
         currentDificulty = dificulty;
         foreach (var dif in dificultyAreas)
@@ -237,6 +240,5 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         currentAttempts = 0;
         currentIndex = 0;
         currentGameObject = null;
-        transform.parent.gameObject.SetActive(false);
     }
 }

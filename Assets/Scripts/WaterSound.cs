@@ -64,7 +64,7 @@ public class WaterSound : MonoBehaviour
             
             if (closestTileDistance < minDist)
             {
-                audioSource.volume = 0.4f;
+                audioSource.volume = 0.2f;
             }
             else if (closestTileDistance > maxDist)
             {
@@ -72,7 +72,7 @@ public class WaterSound : MonoBehaviour
             }
             else
             {
-                audioSource.volume = 0.4f - ((closestTileDistance - minDist) / (maxDist - minDist));
+                audioSource.volume = 0.2f - ((closestTileDistance - minDist) / (maxDist - minDist));
             }
         }
         

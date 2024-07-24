@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8874645028297543621}
   - component: {fileID: 8146652792891632785}
   - component: {fileID: 5712886937121997237}
+  - component: {fileID: 4775007235770925015}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -124,14 +125,14 @@ MonoBehaviour:
       - m_Target: {fileID: 7848727017824086422}
         m_TargetAssemblyTypeName: ContainerDisplaySlot, Assembly-CSharp
         m_MethodName: TransferItem
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &5712886937121997237
 MonoBehaviour:
@@ -178,6 +179,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4775007235770925015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248362781621393657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0222cb63383d02b49b63f7d09b0efda5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  containerDisplaySlot: {fileID: 7848727017824086422}
 --- !u!1 &6912711599870538858
 GameObject:
   m_ObjectHideFlags: 0

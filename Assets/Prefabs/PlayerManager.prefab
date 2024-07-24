@@ -114,6 +114,9 @@ GameObject:
   - component: {fileID: 1698792034990139457}
   - component: {fileID: 6235873277994820259}
   - component: {fileID: 6133568523072871628}
+  - component: {fileID: 818242286218686184}
+  - component: {fileID: 9117594588704422361}
+  - component: {fileID: 6508041560538065312}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -169,6 +172,8 @@ MonoBehaviour:
   playerShadow: {fileID: 0}
   playerController: {fileID: 0}
   animatePlayerScript: {fileID: 0}
+  playerPokableSpot: {fileID: 0}
+  playerPoke: {fileID: 0}
   playerInventory: {fileID: 5769325092054554960}
   equipmentManager: {fileID: 5769325092054554963}
   playerRecipeDatabase: {fileID: 11400000, guid: d0aefd46193a58d49982ad6dc18b2bd5,
@@ -194,6 +199,7 @@ MonoBehaviour:
   playerSpriteResolver: {fileID: 0}
   statHandler: {fileID: 5065497808497423020}
   isDragging: 0
+  inventorySlot: {fileID: 0}
   inMaze: 0
 --- !u!114 &5769325092054554960
 MonoBehaviour:
@@ -471,6 +477,14 @@ MonoBehaviour:
     mapImage: {fileID: 21300000, guid: 0a7cd2f9ac3480d429f06aff92b9b3c5, type: 3}
     active: 0
     hasAnimated: 1
+  - mapName: Chester's Forest
+    mapImage: {fileID: 21300000, guid: 9127fe1a00a5aad4b93de1cc8d0759ed, type: 3}
+    active: 0
+    hasAnimated: 1
+  - mapName: Overlook Plateau
+    mapImage: {fileID: 21300000, guid: c3d59236f860f4940a6ca773f441f61a, type: 3}
+    active: 0
+    hasAnimated: 1
 --- !u!114 &6133568523072871628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,3 +498,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapManager: {fileID: 6235873277994820259}
+--- !u!114 &818242286218686184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5bf735b9b97ad4c8dd4b0ec1f56862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdButton: {fileID: -6292699553245686954, guid: 787c96e1f7d4244419c1b34fcecef50e,
+    type: 3}
+  noseKnowsObject: {fileID: 617920662833734938, guid: a472ec0e124243a4ab6055b9b8efc4cb,
+    type: 3}
+--- !u!114 &9117594588704422361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85f46951c969ff4ea11974c4b3e72b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokableLayer:
+    serializedVersion: 2
+    m_Bits: 16801792
+  detectionRadius: 0.5
+  pokingStickData:
+  - {fileID: 11400000, guid: a65e3508da337594186bdf3c8d7ebb74, type: 2}
+  - {fileID: 11400000, guid: ca9da9797ebbe4c45a20c89c8533cff0, type: 2}
+  - {fileID: 11400000, guid: 1c9fc48caf303d6419c3188351200aad, type: 2}
+  pokeReticle: {fileID: 0}
+  canPoke: 0
+--- !u!114 &6508041560538065312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87568283368e54a4284edbfe151d8e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolAmount: 5
+  treeDroppingPrefab: {fileID: 5141383258962760151, guid: ed11e04b7d93e664f8b73812d63e5533,
+    type: 3}

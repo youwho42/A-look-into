@@ -120,6 +120,7 @@ public class UIScreenManager : MonoBehaviour
             currentUI = UIScreenType.None;
             DisplayPlayerHUD(gameplay.HUDBinary == 1);
             CloseTipPanel();
+            ItemInformationDisplayUI.instance.HideItemName();
             pauseMenu.SetPause(false);
         }
         PreventPlayerInputs(state);

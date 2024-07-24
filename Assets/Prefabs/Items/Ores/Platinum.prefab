@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -8489922534359793243}
   - component: {fileID: -7358030287148332892}
   - component: {fileID: 5739449052102608020}
+  - component: {fileID: 9097275284024371179}
   m_Layer: 13
   m_Name: Platinum
   m_TagString: Untagged
@@ -188,6 +189,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUp: {fileID: 2827569493296489943}
+--- !u!114 &9097275284024371179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d18a0a7256f144e8d9e45b926cbf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameDificulty: 2
+  nudgeDistance: 0.1
 --- !u!1 &6927919100260615639
 GameObject:
   m_ObjectHideFlags: 0

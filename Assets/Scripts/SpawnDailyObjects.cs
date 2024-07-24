@@ -52,7 +52,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             {
 
                 var hit = Physics2D.OverlapCircle(point.position, minDistanceToSpawn);
-                if (hit == null || hit.CompareTag("Grass"))
+                if (hit == null || hit.CompareTag("Grass") || hit.CompareTag("Animal") || hit.CompareTag("Path"))
                 {
                     
                     var item = itemDatabase.GetRandomWeightedItem();
@@ -75,6 +75,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
     public void ResetAtDawn()
     {
         SpawnObjects();
+        if (TryGetComponent(out PokableItem pokable))
+            pokable.SetTimesPoked(0);
     }
 
     //public void SetToManager()

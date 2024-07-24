@@ -6,6 +6,7 @@ using UnityEngine;
 public interface IMinigame
 {
     void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty);
+    void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty);
     void ResetMiniGame();
 }
 public enum MiniGameType
@@ -14,7 +15,7 @@ public enum MiniGameType
     Wood,
     Animal,
     Ore,
-    Fixing
+    Poking
 }
 
 public enum MiniGameDificulty

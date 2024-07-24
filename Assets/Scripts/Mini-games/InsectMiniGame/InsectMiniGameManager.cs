@@ -41,9 +41,10 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     public QI_ItemData animal;
     public SpriteRenderer animalHolder;
     Material animalFocusMaterial;
-    
-    
-    
+
+    bool minigameIsActive;
+
+
     GameObject animalGameObject;
 
     public int maxAttempts;
@@ -86,6 +87,9 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
 
     void OnMouseClick()
     {
+        if (!minigameIsActive)
+            return;
+
         if (!transitioning)
         {
             if (currentIndex != maxAttempts)
@@ -239,8 +243,11 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         return false;
     }
 
+    public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
+
     public void SetupMiniGame(QI_ItemData item, GameObject animalObject, MiniGameDificulty gameDificulty)
     {
+        minigameIsActive = true;
         animal = item;
         animalHolder.sprite = animalObject.GetComponent<SpriteRenderer>().sprite;
         animalGameObject = animalObject;
@@ -287,7 +294,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     {
         currentIndex = 0;
         successfullHits = 0;
-        transform.parent.gameObject.SetActive(false);
+        minigameIsActive = false;
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
         SetAnimalState(true);
     }

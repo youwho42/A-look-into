@@ -75,7 +75,6 @@ public static class GameEventManager
     public static readonly GameEvent onMenuDisplayEvent = new GameEvent();
     public static readonly GameEvent onMenuHideEvent = new GameEvent();
     public static readonly GameEvent onMapDisplayEvent = new GameEvent();
-    public static readonly GameEvent<bool> onStackTransferToggleEvent = new GameEvent<bool>();
     public static readonly GameEvent onStackTransferGamepadEvent = new GameEvent();
     public static readonly GameEvent<int> onGamepadBumpersButtonEvent = new GameEvent<int>();
     public static readonly GameEvent<int> onGamepadTriggersButtonEvent = new GameEvent<int>();

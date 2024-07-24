@@ -79,6 +79,8 @@ GameObject:
   - component: {fileID: 73192618159429790}
   - component: {fileID: -5541375079570609281}
   - component: {fileID: 8516338839154165077}
+  - component: {fileID: 8082090712874692807}
+  - component: {fileID: -4487082606735026467}
   m_Layer: 14
   m_Name: Rock
   m_TagString: Untagged
@@ -251,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: 884e23646c535154ca07c89c67d94a15, type: 2}
   hideOnStart: 0
+  minDistanceToSpawn: 0.05
 --- !u!114 &-5541375079570609281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +282,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NeighborObjectType: 6
+--- !u!114 &8082090712874692807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218531380119633548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6818912bbcbee4da62d3ab0c11102b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameDificulty: 1
+--- !u!114 &-4487082606735026467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218531380119633548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2435760896703014091ca99c7f2f18ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokable: {fileID: 8082090712874692807}
 --- !u!1001 &3906944976185925474
 PrefabInstance:
   m_ObjectHideFlags: 0

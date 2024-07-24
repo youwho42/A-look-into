@@ -95,4 +95,9 @@ public class EquipmentManager : MonoBehaviour
     {
         return currentEquipment[(int)slot].equipmentTier;
     }
+
+    public bool HasCurrentHandEquipment(EquipmentData equipment)
+    {
+       return currentEquipment[(int)EquipmentSlot.Hands] == equipment;
+    }
 }

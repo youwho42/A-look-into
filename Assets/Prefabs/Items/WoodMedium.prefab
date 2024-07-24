@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: 4151514074169109657}
   - component: {fileID: -4271951979959422603}
   - component: {fileID: -3873608255683334821}
+  - component: {fileID: -935780027703731046}
   m_Layer: 13
-  m_Name: Wood
+  m_Name: WoodMedium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,6 +189,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+--- !u!114 &-935780027703731046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806734095490554465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d18a0a7256f144e8d9e45b926cbf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameDificulty: 2
+  nudgeDistance: 0.1
 --- !u!1 &7359739039555132280
 GameObject:
   m_ObjectHideFlags: 0

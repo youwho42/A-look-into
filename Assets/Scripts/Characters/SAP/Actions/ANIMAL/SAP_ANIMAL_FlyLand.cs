@@ -57,12 +57,12 @@ namespace Klaxon.SAP
 
             if (agent.flier.isStuck || agent.isDeviating || !agent.flier.canReachNextTile)
             {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
-                {
-                    agent.currentGoalComplete = true;
-                    agent.SetBeliefState("Landed", true);
-                    return;
-                }
+                //if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+                //{
+                //    agent.currentGoalComplete = true;
+                //    agent.SetBeliefState("Landed", true);
+                //    return;
+                //}
                 agent.DeviateFly();
                 return;
             }
@@ -79,7 +79,7 @@ namespace Klaxon.SAP
             agent.flier.SetDestination(agent.currentDisplacementSpot);
             if(agent.currentDisplacementSpot.positionZ == 0)
             {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f)
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.02f)
                 {
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("Landed", true);
@@ -87,7 +87,7 @@ namespace Klaxon.SAP
             }
             else
             {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
                 {
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("Landed", true);

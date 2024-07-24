@@ -41,7 +41,6 @@ public class PlayerInputController : MonoBehaviour
     InputAction menuOpen;
     InputAction menuClose;
     InputAction map;
-    InputAction stackTransferToggle;
     InputAction stackTransferGamepad;
     InputAction spyglassAim;
     InputAction spyglassChangeSelected;
@@ -135,11 +134,6 @@ public class PlayerInputController : MonoBehaviour
         map.Enable();
         map.performed += MapAction;
 
-        stackTransferToggle = inputActions.Player.StackTransferToggle;
-        stackTransferToggle.Enable();
-        stackTransferToggle.performed += StackTransferOnAction;
-        stackTransferToggle.canceled += StackTransferOffAction;
-
         stackTransferGamepad = inputActions.Player.StackTransferGamepad;
         stackTransferGamepad.Enable();
         stackTransferGamepad.canceled += StackTransferAction;
@@ -202,7 +196,6 @@ public class PlayerInputController : MonoBehaviour
         menuOpen.Disable();
         menuClose.Disable();
         map.Disable();
-        stackTransferToggle.Disable();
         stackTransferGamepad.Disable();
         spyglassAim.Disable();
         spyglassChangeSelected.Disable();
@@ -375,8 +368,6 @@ public class PlayerInputController : MonoBehaviour
     public void SpyglassChangeSelected(InputAction.CallbackContext context) => GameEventManager.onSpyglassAimChageSelectedEvent.Invoke((int)spyglassChangeSelected.ReadValue<float>());
     
     public void StackTransferAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferGamepadEvent.Invoke();
-    public void StackTransferOnAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferToggleEvent.Invoke(true);
-    public void StackTransferOffAction(InputAction.CallbackContext context) => GameEventManager.onStackTransferToggleEvent.Invoke(false);
     
     public void GamepadBumperAction(InputAction.CallbackContext context) => GameEventManager.onGamepadBumpersButtonEvent.Invoke((int)playerMenuBumper.ReadValue<float>());
     public void GamepadTriggerAction(InputAction.CallbackContext context) => GameEventManager.onGamepadTriggersButtonEvent.Invoke(Mathf.RoundToInt(compendiumMenuTrigger.ReadValue<float>()));

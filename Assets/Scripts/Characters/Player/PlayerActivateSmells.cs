@@ -171,7 +171,7 @@ public class PlayerActivateSmells : MonoBehaviour
         var wind = WindManager.instance;
         var player = PlayerInformation.instance;
         List<SmellGenerator> smells = new List<SmellGenerator>();
-        var hits = Physics2D.OverlapCircleAll(player.player.position, 0.75f);
+        var hits = Physics2D.OverlapCircleAll(player.player.position, 0.3336f);
         if(hits.Length > 0)
         {
             foreach (var item in hits)

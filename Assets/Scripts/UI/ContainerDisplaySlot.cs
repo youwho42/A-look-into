@@ -18,34 +18,33 @@ public class ContainerDisplaySlot : MonoBehaviour
     
     public bool isContainerSlot;
 
-    bool leftCtrl;
 
     public bool canTransfer;
 
     private void Start()
     {
-        GameEventManager.onStackTransferToggleEvent.AddListener(ToggleLeftCtrl);
         GameEventManager.onStackTransferGamepadEvent.AddListener(TransferStack);
     }
     private void OnDisable()
     {
-        GameEventManager.onStackTransferToggleEvent.RemoveListener(ToggleLeftCtrl);
         GameEventManager.onStackTransferGamepadEvent.RemoveListener(TransferStack);
-
     }
-    public void TransferItem()
+
+    
+
+    public void TransferItem(bool isLeftButton)
     {
         if (item == null || !canTransfer)
             return;
         
         if (isContainerSlot)
         {
-            int amount = leftCtrl ? containerInventory.GetStock(item.Name) : 1;
+            int amount = !isLeftButton ? containerInventory.GetStock(item.Name) : 1;
             Transfer(item, amount, containerInventory, PlayerInformation.instance.playerInventory);
         }
         else
         {
-            int amount = leftCtrl ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
+            int amount = !isLeftButton ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
             Transfer(item, amount, PlayerInformation.instance.playerInventory, containerInventory);
         }
 
@@ -71,12 +70,7 @@ public class ContainerDisplaySlot : MonoBehaviour
         int finalAmount = amount < space ? amount : space;
         if(toInventory.AddItem(item, finalAmount, false))
             fromInventory.RemoveItem(item, finalAmount);
-        //else
-        //    Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory full"), null, 0, NotificationsType.Warning);
-        //if (toInventory.AddItem(item, amount, false))
-        //    fromInventory.RemoveItem(item, amount);
-        // ContainerInventoryDisplayUI.instance.UpdateContainerInventoryUI();
-
+        
     }
 
     public void AddItem(QI_ItemData newItem, int amount)
@@ -97,10 +91,6 @@ public class ContainerDisplaySlot : MonoBehaviour
         icon.enabled = false;
     }
     
-    void ToggleLeftCtrl(bool active)
-    {
-        leftCtrl = active;
-    }
 
     public void ShowInformation()
     {

@@ -27,7 +27,10 @@ public class MiniGameManager : MonoBehaviour
     public List<MiniGame> miniGames = new List<MiniGame>();
     public bool gameStarted;
 
-    
+    public void StartMiniGame(MiniGameType miniGameType, PokableItem pokable)
+    {
+        StartCoroutine(ExecuteMiniGame(miniGameType, pokable));
+    }
 
     public void StartMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
     {
@@ -45,7 +48,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     UIScreenManager.instance.SetMiniGameUI(true);
                     yield return new WaitForSeconds(1.5f);
-                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(/*1.5f*/ 0, 0, 100);
+                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
                     
@@ -57,6 +60,31 @@ public class MiniGameManager : MonoBehaviour
         }
         yield return null;
     }
+
+    public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, PokableItem pokable)
+    {
+
+        if (!gameStarted && UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
+        {
+            foreach (var game in miniGames)
+            {
+                if (game.miniGameType == miniGameType)
+                {
+                    UIScreenManager.instance.SetMiniGameUI(true);
+                    yield return new WaitForSeconds(1.5f);
+                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
+                    game.miniGame.SetActive(true);
+                    game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(pokable, pokable.GameDificulty);
+
+                }
+            }
+
+
+            gameStarted = true;
+        }
+        yield return null;
+    }
+
     public void EndMiniGame(MiniGameType miniGameType)
     {
         foreach (var game in miniGames)
@@ -64,7 +92,7 @@ public class MiniGameManager : MonoBehaviour
             if (game.miniGameType == miniGameType)
             {
                 game.miniGame.GetComponentInChildren<IMinigame>().ResetMiniGame();
-               
+                game.miniGame.SetActive(false);
             }
         }
         UIScreenManager.instance.SetMiniGameUI(false);

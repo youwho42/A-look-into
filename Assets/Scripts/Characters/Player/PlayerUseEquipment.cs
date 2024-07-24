@@ -36,6 +36,11 @@ public class PlayerUseEquipment : MonoBehaviour
             equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
             
         }
+        else if (equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName == "Poke")
+        {
+            equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
+            animator.SetTrigger(equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName);
+        }
         else
         {
             animator.SetBool("UseEquipement", false);

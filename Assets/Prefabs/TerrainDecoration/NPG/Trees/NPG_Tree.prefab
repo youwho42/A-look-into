@@ -263,6 +263,8 @@ GameObject:
   - component: {fileID: 87908482278756822}
   - component: {fileID: 3250532703386214230}
   - component: {fileID: 4725258295000800131}
+  - component: {fileID: 8985654071637641623}
+  - component: {fileID: -30152734269743292}
   m_Layer: 14
   m_Name: NPG_Tree
   m_TagString: GrowingItem
@@ -380,6 +382,10 @@ MonoBehaviour:
     randomPitch: 0.25
     source: {fileID: 0}
     overlap: 1
+  treeCollision: {fileID: 3481256951840279566}
+  treeDropppingSprite: {fileID: 21300000, guid: a2a0d212056779d4fa43a3c7b3932cce,
+    type: 3}
+  dropRadius: 0.2
 --- !u!82 &4119440924775301619
 AudioSource:
   m_ObjectHideFlags: 0
@@ -534,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDatabase: {fileID: 11400000, guid: 4f473bf34c0d9a84a94f60e4f12f6e0f, type: 2}
   hideOnStart: 0
+  minDistanceToSpawn: 0.05
 --- !u!114 &4725258295000800131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +554,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NeighborObjectType: 1
+--- !u!114 &8985654071637641623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689ee3393769435458112849f8da147d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameDificulty: 1
+--- !u!114 &-30152734269743292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2435760896703014091ca99c7f2f18ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokable: {fileID: 8985654071637641623}
 --- !u!1 &5518729532945011621
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +820,7 @@ MonoBehaviour:
   - {x: 0.03224373, y: -0.03504181, z: 0}
   m_ShapePathHash: -1176579523
   m_Mesh: {fileID: 0}
-  m_InstanceId: 2868832
+  m_InstanceId: 3669488
   m_LocalBounds:
     m_Center: {x: 0.004122734, y: 0.0008029938, z: 0}
     m_Extent: {x: 0.060807228, y: 0.037240982, z: 0}
@@ -1411,6 +1444,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c513a78c5f31da49bb32729516a1e4f, type: 3}
+--- !u!114 &3481256951840279566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8567683575678473893, guid: 8c513a78c5f31da49bb32729516a1e4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5091721874590603947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3530c8aa8666e7498cc22eabd4bac95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4378039095090030663 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

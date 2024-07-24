@@ -251,7 +251,8 @@ GameObject:
   - component: {fileID: 140474248822717978}
   - component: {fileID: 3918326343213773838}
   - component: {fileID: 2102037779340491033}
-  m_Layer: 0
+  - component: {fileID: 4797862346246737360}
+  m_Layer: 13
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +324,8 @@ MonoBehaviour:
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
-  checkTileDistance: 0.05
+  isOverWater: 0
+  checkTileDistance: 0.08
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -331,6 +333,7 @@ MonoBehaviour:
   tileBlockInfo: []
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
+  facingRight: 0
   itemDrag: 0.1
   itemBounceFriction: 0.95
   canCollideWithGravityItems: 1
@@ -421,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 19e7f25a168bb2f4ea44465ef152a79f, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &140474248822717978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +441,7 @@ MonoBehaviour:
   positionZ: 0.3
   displacedPosition: {x: 0, y: 0, z: 0}
   isInUse: 0
+  isDecorationSurface: 0
 --- !u!114 &3918326343213773838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   groundMap: {fileID: 0}
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 0, y: 0, z: 1}
 --- !u!114 &2102037779340491033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,4 +469,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: 3c2bd5c4-e9c2-4ba1-bc4c-b8bce10cd129
+  version: 0.04.05
+  intVersion: 000000000400000005000000
+--- !u!114 &4797862346246737360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924754858217846129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f4e70e6b4b4a74b826c56d4a582012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameDificulty: 1

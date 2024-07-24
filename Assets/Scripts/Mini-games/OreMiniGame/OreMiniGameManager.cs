@@ -37,9 +37,10 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     bool transitioning;
     int currentSection;
 
-    
-    
-    
+    bool minigameIsActive;
+
+
+
     public bool hasCompletedMiniGame;
     Material material;
     Color initialIntensity;
@@ -71,6 +72,9 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
 
     void OnMouseClick()
     {
+        if (!minigameIsActive)
+            return;
+
         if (currentSection != playerControlSections.Count && !transitioning)
             StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreaHit.isInArea));
     }
@@ -83,9 +87,11 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
 
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty)
     {
+        minigameIsActive = true;
         this.item = item;
         SetDificulty(gameDificulty);
     }
+    public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
 
     void SetDificulty(MiniGameDificulty dificulty)
     {
@@ -112,6 +118,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
 
     public void ResetMiniGame()
     {
+        minigameIsActive = false;
         currentSection = 0;
         int rand = UnityEngine.Random.Range(0, 360);
         foreach (var section in playerControlSections)
@@ -119,7 +126,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             section.controlAreaSprite.material.SetColor("_EmissionColor", initialIntensity);
             section.rotateControlArea.SetRotation(rand);
         }
-        transform.parent.gameObject.SetActive(false);
+        
     }
    
     public void ResetPlayerAreaRotations()

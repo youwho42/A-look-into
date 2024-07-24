@@ -47,17 +47,13 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateContainerInventoryUI);
-
-        EventSystem.current.SetSelectedGameObject(null);
-        if (containerSlots.Count > 0)
-            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
-
-
     }
+
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
     }
+
     void ChangeControlText(string text)
     {
         
@@ -67,13 +63,13 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         if (text == "Gamepad")
         {
             t1 = "A";
-            t2 = "R2 + RS";
+            t2 = "Y";
             t3 = "X";
         }
         else
         {
             t1 = "LMB";
-            t2 = "CTRL+LMB";
+            t2 = "RMB";
             t3 = "E";
         }
 
@@ -124,7 +120,9 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             
             
         }
-        
+        EventSystem.current.SetSelectedGameObject(null);
+        if (containerSlots.Count > 0)
+            EventSystem.current.SetSelectedGameObject(containerSlots[0].GetComponentInChildren<Button>().gameObject);
         UpdateContainerInventoryUI();
     }
 

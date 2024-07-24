@@ -216,7 +216,7 @@ namespace Klaxon.GravitySystem {
     
 
 
-        void AddMovement(Vector2 newDirection, float _velocity)
+        public void AddMovement(Vector2 newDirection, float _velocity)
         {
             mainDirection = newDirection.normalized;
             velocity = _velocity;

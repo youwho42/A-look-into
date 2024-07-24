@@ -6,7 +6,14 @@ public class TreeRustling : MonoBehaviour, IWindEffect
 {
     public SoundSet soundSet;
     AudioSource source;
-    
+    public DrawZasYDisplacement treeCollision;
+
+    public Sprite treeDropppingSprite;
+
+    public float dropRadius;
+
+
+
     void Start()
     {
         source = GetComponent<AudioSource>();
@@ -19,7 +26,19 @@ public class TreeRustling : MonoBehaviour, IWindEffect
         soundSet.SetSource(source, t);
         source.volume = soundSet.volume;
         soundSet.Play();
+        DropDropping();
     }
 
+    void DropDropping()
+    {
+        int r = Random.Range(1, 6);
+        for (int i = 0; i < r; i++)
+        {
+            var pos = Random.insideUnitCircle * dropRadius;
+            var t = TreeDroppingManager.instance.treeDroppingPool.Get();
+            t.SetDropping(transform.position + (Vector3)pos, treeCollision.positionZ, treeDropppingSprite);
+        }
+
+    }
     
 }
