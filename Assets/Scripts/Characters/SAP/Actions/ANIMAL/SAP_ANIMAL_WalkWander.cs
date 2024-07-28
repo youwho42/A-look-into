@@ -122,7 +122,8 @@ namespace Klaxon.SAP
             timer = 0;
             headTimer = 0;
             agent.walker.currentDirection = Vector2.zero;
-
+            if (agent.flier != null)
+                agent.SetBeliefState("Landed", false);
             if (agent.currentDisplacementSpot != null) 
             { 
                 agent.currentDisplacementSpot.isInUse = false;
@@ -139,5 +140,6 @@ namespace Klaxon.SAP
             agent.animator.SetTrigger(agent.idle_hash);
             
         }
+        
     } 
 }

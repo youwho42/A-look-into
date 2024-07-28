@@ -5,8 +5,7 @@ using Klaxon.Interactable;
 
 namespace Klaxon.GravitySystem
 {
-    [RequireComponent(typeof(DetectVisibility))]
-
+    
     public class GravityItemNew : MonoBehaviour
     {
         // Gravity
@@ -69,7 +68,7 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public Vector2 slopeDirection;
 
-        [HideInInspector]
+        //[HideInInspector]
         public bool isOverWater;
 
         [Header("Slope Detection")]

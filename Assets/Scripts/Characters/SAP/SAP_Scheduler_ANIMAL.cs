@@ -19,6 +19,7 @@ namespace Klaxon.SAP
         public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
         public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
         public readonly int isEating_hash = Animator.StringToHash("IsEating");
+        public readonly int isScritching_hash = Animator.StringToHash("IsScritching");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
         public readonly int idle_hash = Animator.StringToHash("Idle");
         public readonly int climbing_hash = Animator.StringToHash("IsClimbing");
@@ -62,6 +63,7 @@ namespace Klaxon.SAP
         public bool glide;
 
         
+        
         public DrawZasYDisplacement currentDisplacementSpot;
 
         public MusicGeneratorItem musicGeneratorItem;
@@ -91,6 +93,7 @@ namespace Klaxon.SAP
         [HideInInspector]
         public UIScreenManager sleep;
 
+        [Header("Eating")]
         public bool canEat;
         [ConditionalHide("canEat", true)]
         public Transform eatPoint;
@@ -100,6 +103,23 @@ namespace Klaxon.SAP
         [HideInInspector]
         public bool isEating;
         public GameObject currentEdible;
+
+        [Header("Scritching")]
+        public bool canScritch;
+        [HideInInspector]
+        public bool isScritching;
+        [ConditionalHide("canScritch", true)]
+        public LayerMask scritchableLayer;
+        [ConditionalHide("canScritch", true)]
+        public SpotType animalSpotType;
+        [HideInInspector]
+        public Transform currentScritchableItem;
+        [HideInInspector]
+        public Transform currentScritchablePosition;
+        [HideInInspector]
+        public float scritchCoolDown = 30f;
+        [HideInInspector]
+        public float scritchTimer;
 
         void OnEnable()
         {
@@ -115,7 +135,8 @@ namespace Klaxon.SAP
         {
             dialogueManager = DialogueManagerUI.instance;
             sleep = UIScreenManager.instance;
-
+            scritchTimer = scritchCoolDown;
+            isScritching = false;
             walker = GetComponent<GravityItemWalk>();
             if (walker != null)
             {
@@ -157,6 +178,9 @@ namespace Klaxon.SAP
 
         public void Update()
         {
+            
+
+
             if (inTalkRange && hasDialogue)
             {
                 TalkRangeTimer();
@@ -191,7 +215,7 @@ namespace Klaxon.SAP
                 }
             }
 
-            if (FoundFood())
+            if (FoundFood() || ScritchableFound())
                 ResetCurrentGoal();
             
             if(GetBeliefState("Flee"))
@@ -395,7 +419,7 @@ namespace Klaxon.SAP
             Vector2 currentPosition = transform.position;
             foreach (var item in closestSpots)
             {
-                if (item == null || item.isInUse)
+                if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position))
                     continue;
                 var dist = Vector2.Distance(currentPosition, item.transform.position);
 
@@ -486,6 +510,50 @@ namespace Klaxon.SAP
             return false;
         }
 
+        bool ScritchableFound()
+        {
+
+            if (!canScritch || isScritching)
+                return false;
+
+            scritchTimer -= Time.deltaTime;
+            if (scritchTimer > 0)
+                return false;
+
+            currentScritchableItem = null;
+            var hit = Physics2D.OverlapCircle(transform.position, 0.2f, scritchableLayer, transform.position.z, transform.position.z);
+            if(hit != null)
+            {
+                var c = hit.gameObject.GetComponentsInChildren<DrawZasYDisplacement>();
+                List<DrawZasYDisplacement> spots = new List<DrawZasYDisplacement>();
+                foreach (var spot in c)
+                {
+                    if (spot.spotType == animalSpotType)
+                        spots.Add(spot);
+                }
+                currentScritchablePosition = null;
+                float dist = 100;
+                for (int i = 0; i < spots.Count; i++)
+                {
+                    var d = Vector2.Distance(transform.position, spots[i].transform.position);
+                    if (d < dist)
+                    {
+                        dist = d;
+                        currentScritchableItem = hit.transform;
+                        currentScritchablePosition = spots[i].transform;
+                    }
+                }
+                if (currentScritchablePosition != null)
+                {
+                    isScritching = true;
+                    SetBeliefState("Scritching", true);
+                    return true;
+                }
+                    
+            }
+            return false;
+        }
+
         public void FleePlayer(Transform playerTransform)
         {
             if(flier != null)
@@ -500,6 +568,8 @@ namespace Klaxon.SAP
         public void SetActiveState(bool active)
         {
             
+                
+
         }
 
         void TalkRangeTimer()

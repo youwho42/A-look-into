@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
+  m_Name: Bear
+  m_EditorClassIdentifier: 
+  Name: Bear
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:f472391570da1124a875b2ac5db53485
+    m_TableEntryReference:
+      m_KeyId: 104807249105969152
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:f472391570da1124a875b2ac5db53485
+    m_TableEntryReference:
+      m_KeyId: 104807267669958656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 1
+  AnimationName: 
+  Weight: 0.1
+  Price: 5
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 35225cc8e39b5064dadaf6fc6f82d399, type: 3}
+  ItemPrefabVariants: []
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  MaxStack: 0
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 26f7a3d75e8ae1a40a85e8470c0d14c6, type: 2}
+    RecipeRevealAmount: 3
+    agencyStatChanger: {fileID: 11400000, guid: fba1e26a2d9c7bd4082d30c226d21574,
+      type: 2}
+  GameDificulty: 1
+  placementGumption: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

@@ -78,17 +78,17 @@ PrefabInstance:
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.21629
+      value: -9.136
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -25.818497
+      value: 28.753
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -130,6 +130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bear
       objectReference: {fileID: 0}
+    - target: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 1186113324396075655, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_Sprite
@@ -165,7 +170,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dataList.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 02296163665c90a46bd4a2132a7af116,
+      objectReference: {fileID: 11400000, guid: 424d402123afdfd4c9a470f6c938b7ab,
         type: 2}
     - target: {fileID: 3980435461219289164, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -400,7 +405,7 @@ PrefabInstance:
     - target: {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: jumpHeight
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -425,13 +430,18 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: canEat
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: eatPoint
       value: 
       objectReference: {fileID: 3233863256327339499}
+    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: canScritch
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: minMaxFlap.x
@@ -454,13 +464,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: animalSpotType
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: goals.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: edibleItems.Array.size
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: scritchableLayer.m_Bits
+      value: 16384
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -493,12 +513,12 @@ PrefabInstance:
         type: 3}
       propertyPath: goals.Array.data[2].Action
       value: 
-      objectReference: {fileID: 7849212215251888979}
+      objectReference: {fileID: 5168752821236556794}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[3].Action
       value: 
-      objectReference: {fileID: 7791511663137692369}
+      objectReference: {fileID: 7849212215251888979}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[4].Action
@@ -527,22 +547,22 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].GoalName
-      value: WalkHome
+      value: Scritch
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].Priority
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[3].GoalName
-      value: Flee
+      value: WalkHome
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[3].Priority
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -567,22 +587,27 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[1].TimeLimitRange.x
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[1].TimeLimitRange.y
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].TimeLimitRange.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].TimeLimitRange.y
-      value: 0
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: goals.Array.data[1].Conditions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -612,7 +637,7 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].TimeLimitCondition.Condition
-      value: 
+      value: Scritching
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -622,12 +647,12 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].Conditions.Array.data[0].State
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[3].Conditions.Array.data[0].State
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -647,12 +672,12 @@ PrefabInstance:
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[2].Conditions.Array.data[0].Condition
-      value: AnimalDay
+      value: Scritching
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[3].Conditions.Array.data[0].Condition
-      value: Flee
+      value: AnimalDay
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -690,6 +715,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5462534296695647477}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5168752821236556794}
     - targetCorrespondingSourceObject: {fileID: 5859352282203003539, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
@@ -775,7 +804,7 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   finalDestination: 0
   target: {fileID: 0}
-  hasFixedHome: 0
+  hasFixedHome: 1
   home: {fileID: 0}
 --- !u!114 &7791511663137692369
 MonoBehaviour:
@@ -831,3 +860,20 @@ MonoBehaviour:
   finalDestination: 0
   target: {fileID: 0}
   minMaxEatTime: {x: 2, y: 5}
+--- !u!114 &5168752821236556794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbcf5e962c4baae498585fe378a9e129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: []
+  currentPathIndex: 0
+  currentNode: {fileID: 0}
+  finalDestination: 0
+  target: {fileID: 0}

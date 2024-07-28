@@ -242,7 +242,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7924754858217846132}
-  - component: {fileID: 7924754858217846133}
   - component: {fileID: 7924754858217846130}
   - component: {fileID: 7924754858217846134}
   - component: {fileID: 7924754858217846135}
@@ -252,6 +251,7 @@ GameObject:
   - component: {fileID: 3918326343213773838}
   - component: {fileID: 2102037779340491033}
   - component: {fileID: 4797862346246737360}
+  - component: {fileID: 3006377091520276690}
   m_Layer: 13
   m_Name: Ball
   m_TagString: Untagged
@@ -275,20 +275,6 @@ Transform:
   - {fileID: 7924754857800506253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7924754858217846133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924754858217846129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectCorrectionZ: {fileID: 7924754857800506253}
-  isHidden: 0
 --- !u!114 &7924754858217846130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,3 +471,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameDificulty: 1
+--- !u!114 &3006377091520276690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924754858217846129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e571e01b75a749409ae9ec59ff407e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCorrectionZ: {fileID: 7924754857800506253}

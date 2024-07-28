@@ -44,4 +44,15 @@ public class GridManager : MonoBehaviour
             return true;
         return false;
     }
+
+    public bool GetTileExisting(Vector3 position)
+    {
+        if (grid == null || groundMap == null)
+            SetGrid();
+        var tile = groundMap.WorldToCell(position - Vector3Int.forward);
+        var tileAbove = tile + Vector3Int.forward;
+        if (groundMap.GetTile(tile) != null)
+            return true;
+        return false;
+    }
 }

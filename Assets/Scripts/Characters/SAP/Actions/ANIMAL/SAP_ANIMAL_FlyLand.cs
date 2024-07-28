@@ -52,20 +52,23 @@ namespace Klaxon.SAP
                 return;
             }
 
+            
 
-
-
-            if (agent.flier.isStuck || agent.isDeviating || !agent.flier.canReachNextTile)
+            if (agent.flier.isStuck || agent.isDeviating || !agent.flier.canReachNextTile )
             {
-                //if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
-                //{
-                //    agent.currentGoalComplete = true;
-                //    agent.SetBeliefState("Landed", true);
-                //    return;
-                //}
+
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.03f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.03f)
+                {
+                    agent.currentGoalComplete = true;
+                    agent.SetBeliefState("Landed", true);
+                    agent.flier.SetLastPosition();
+                    return;
+                }
                 agent.DeviateFly();
                 return;
             }
+            
+
 
             timer -= Time.deltaTime;
             if (timer <= 0)
@@ -75,11 +78,18 @@ namespace Klaxon.SAP
 
                 agent.animator.SetBool(agent.gliding_hash, agent.glide);
             }
-
+            
             agent.flier.SetDestination(agent.currentDisplacementSpot);
-            if(agent.currentDisplacementSpot.positionZ == 0)
+
+
+            //if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+            //{
+            //    agent.currentGoalComplete = true;
+            //    agent.SetBeliefState("Landed", true);
+            //}
+            if (agent.currentDisplacementSpot.positionZ == 0)
             {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.02f)
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.03f)
                 {
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("Landed", true);
@@ -87,13 +97,13 @@ namespace Klaxon.SAP
             }
             else
             {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.02f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.02f)
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.03f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.03f)
                 {
                     agent.currentGoalComplete = true;
                     agent.SetBeliefState("Landed", true);
                 }
             }
-            
+
             agent.flier.SetLastPosition();
 
         }

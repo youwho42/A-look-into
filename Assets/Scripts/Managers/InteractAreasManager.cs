@@ -115,7 +115,7 @@ public class InteractAreasManager : MonoBehaviour
         var all = FindObjectsOfType<DrawZasYDisplacement>();
         foreach (var item in all)
         {
-            if (item.spotType == spotType)
+            if (item.spotType == spotType && GridManager.instance.GetTileValid(item.transform.position))
             {
                 allAreas.Add(item);
             }

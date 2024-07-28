@@ -47,6 +47,8 @@ public class GenerateMapFog : MonoBehaviour
 
     private void OnDisable()
     {
+        
+        animatingReveal = false;
         mapImage.texture = null;
         mapRevealImage.texture = null;
         CancelInvoke("Boop");

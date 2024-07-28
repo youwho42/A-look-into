@@ -42,6 +42,8 @@ public class InventoryDisplaySlot : MonoBehaviour
     DropAmountUI dropAmountUI;
     Vector3 dropPosition;
 
+    
+
     [Serializable]
     public struct ItemTypeNames
     {

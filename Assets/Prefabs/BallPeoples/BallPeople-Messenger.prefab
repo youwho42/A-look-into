@@ -1050,7 +1050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3669067540778324319}
   - component: {fileID: 3669067540778324312}
-  - component: {fileID: 3669067540778324317}
+  - component: {fileID: 361162392669223919}
   - component: {fileID: 1493361837548264963}
   - component: {fileID: 3956533460090921529}
   - component: {fileID: 5838656872110206609}
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
---- !u!114 &3669067540778324317
+--- !u!114 &361162392669223919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1113,11 +1113,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e571e01b75a749409ae9ec59ff407e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 3669067540651531075}
-  isHidden: 0
 --- !u!58 &1493361837548264963
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1260,6 +1259,7 @@ MonoBehaviour:
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
+  isOverWater: 0
   checkTileDistance: 0.04
   groundLayer:
     serializedVersion: 2
@@ -1417,6 +1417,7 @@ MonoBehaviour:
   task:
     undertaking: {fileID: 0}
     task: {fileID: 0}
+  sleep: {fileID: 0}
   type: 0
   isSeeking: 0
   seekItem: {fileID: 0}

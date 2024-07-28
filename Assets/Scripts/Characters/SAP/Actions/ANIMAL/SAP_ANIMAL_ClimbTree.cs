@@ -107,7 +107,7 @@ namespace Klaxon.SAP
                         
                         agent.animator.SetBool(agent.climbIdle_hash, true);
                         agent.walker.isClimbing = false;
-                        currentClimable.Affect();
+                        currentClimable.Affect(false);
                         
                     }
 

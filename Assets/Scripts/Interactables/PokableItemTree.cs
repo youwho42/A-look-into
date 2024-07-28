@@ -13,7 +13,7 @@ public class PokableItemTree : PokableItem
     {
         base.PokeItemSuccess();
         if (TryGetComponent(out TreeRustling rustling))
-            rustling.Affect();
+            rustling.Affect(true);
         if (TryGetComponent(out SpawnDailyObjects spawner) && TimesPoked <= 5)
             spawner.SpawnObjects();
     }
@@ -21,6 +21,6 @@ public class PokableItemTree : PokableItem
     {
         base.PokeItemFail();
         if (TryGetComponent(out TreeRustling rustling))
-            rustling.Affect();
+            rustling.Affect(false);
     }
 }

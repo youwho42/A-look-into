@@ -20,13 +20,14 @@ public class TreeRustling : MonoBehaviour, IWindEffect
         
     }
 
-    public void Affect()
+    public void Affect(bool canDropItem)
     {
         int t = Random.Range(0, soundSet.clips.Length);
         soundSet.SetSource(source, t);
         source.volume = soundSet.volume;
         soundSet.Play();
-        DropDropping();
+        if(canDropItem)
+            DropDropping();
     }
 
     void DropDropping()

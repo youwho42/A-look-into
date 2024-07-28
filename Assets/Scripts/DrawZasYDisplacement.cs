@@ -17,7 +17,8 @@ public enum SpotType
     Bat, 
     Dragonfly,
     Pigeon,
-    Deer
+    Deer,
+    Bear
 
 }
 
@@ -31,7 +32,10 @@ public class DrawZasYDisplacement : MonoBehaviour
 
     public bool isInUse;
     public bool isDecorationSurface;
-    
+
+    public bool showArea;
+    [ConditionalHide("showArea", true)]
+    public float size;
 
     private void Start()
     {
@@ -43,6 +47,9 @@ public class DrawZasYDisplacement : MonoBehaviour
         var pos = new Vector3(0, spriteDisplacementY * positionZ, positionZ) + transform.position;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(pos, 0.1f);
+        Gizmos.color = Color.cyan;
+        if (showArea)
+            Gizmos.DrawWireSphere(transform.position, size);
     }
 
     

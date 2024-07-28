@@ -92,7 +92,7 @@ public class WindSpawner : MonoBehaviour
             {
                 if(hit[i].TryGetComponent(out IWindEffect affected))
                 {
-                    affected.Affect();
+                    affected.Affect(false);
                     yield return new WaitForSeconds(.1f);
                 }
             }

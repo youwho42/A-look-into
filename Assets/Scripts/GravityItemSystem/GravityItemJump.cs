@@ -64,6 +64,9 @@ namespace Klaxon.GravitySystem
         [Range(0f, 1f)]
         public float groundedTimeBeforeJump;
         float groundedTimer;
+
+        
+
         public override void Start()
         {
             base.Start();
@@ -78,6 +81,8 @@ namespace Klaxon.GravitySystem
 
         public override void Update()
         {
+            
+
             base.Update();
             if (isInInteractAction || currentDirection == Vector2.zero)
                 return;

@@ -13,7 +13,7 @@ namespace Klaxon.GravitySystem
         public float flyRoamingDistance;
         public Vector2 minMaxFlyZ;
         [HideInInspector]
-        public Vector2 currentDestination;
+        public Vector3 currentDestination;
         [HideInInspector]
         public Vector3 mainDestinationZ;
         [HideInInspector]
@@ -47,7 +47,7 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public bool hasDeviatePosition;
         public bool shitSpot;
-
+        
         public override void Start()
         {
             base.Start();
@@ -61,6 +61,7 @@ namespace Klaxon.GravitySystem
 
         public override void Update()
         {
+            
             base.Update();
 
             CheckOverWater();
@@ -71,7 +72,6 @@ namespace Klaxon.GravitySystem
                 canReachNextTile = true;
 
                 SetDirectionZ();
-
 
                 if (!useBoids)
                     SetDirection();
@@ -124,15 +124,16 @@ namespace Klaxon.GravitySystem
             Vector3 displace = mainDestinationZ;
             var d = currentTilePosition.position;
             isOverWater = false;
-            d.z = 0;
+            d.z += 3;
             var tile = waterMap.GetTile(d);
             if (tile != null)
             {
                 displace = new Vector3(0, mainDestinationZ.y + (spriteDisplacementY * 4), mainDestinationZ.z + 4);
                 isOverWater = true;
             }
-
+            
             currentDestinationZ = displace;
+            SetDirectionZ();
         }
 
 
@@ -345,7 +346,7 @@ namespace Klaxon.GravitySystem
                     //var p = currentTilePosition.groundMap.GetCellCenterWorld(d);
                     possiblePos.z = z+1;
                     var hit = Physics2D.OverlapPoint(possiblePos, obstacleLayer, z, z);
-                    if (!hit)
+                    if (!hit && GridManager.instance.GetTileValid(possiblePos))
                     {
                         currentDestination = possiblePos;
                         break;
@@ -365,14 +366,23 @@ namespace Klaxon.GravitySystem
 
         public void SetDirection()
         {
-            var dir = currentDestination - (Vector2)_transform.position;
+            Vector3 flierPos = _transform.position;
+            if (isOverWater && flierPos.z != currentDestination.z)
+            {
+                float zOff = currentDestination.z - flierPos.z;
+                zOff = spriteDisplacementY * zOff;
+                flierPos.y += zOff;
+            }
+                
+            var dir = (Vector2)currentDestination - (Vector2)flierPos;
             dir = dir.normalized;
             currentDirection = dir;
-
+            
         }
         public void SetDirectionZ()
         {
             currentDirectionZ = currentDestinationZ - itemObject.localPosition;
+            currentDirectionZ = currentDirectionZ.normalized;
         }
 
 
@@ -391,6 +401,7 @@ namespace Klaxon.GravitySystem
 
             if (!LevelManager.instance.inPauseMenu)
             {
+                
                 if (lastPosition != _transform.position)
                 {
                     ResetLastPosition();
@@ -402,6 +413,7 @@ namespace Klaxon.GravitySystem
                     if (framesStuck >= 4)
                         isStuck = true;
                 }
+                
             }
         }
 

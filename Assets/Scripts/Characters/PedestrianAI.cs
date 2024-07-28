@@ -129,7 +129,7 @@ namespace Klaxon.GravitySystem
                         {
                             walk.ResetDestinationZ();
                             SetDirectionZ();
-                            currentClimable.Affect();
+                            currentClimable.Affect(false);
                             animator.SetBool(climbIdle_hash, false);
 
                             currentState = PedestrianState.isClimbing;
@@ -207,7 +207,7 @@ namespace Klaxon.GravitySystem
                         {
                             animator.SetBool(climbIdle_hash, true);
                             timeToStayAtDestination = SetRandomRange(new Vector2(5.0f, 30.0f));
-                            currentClimable.Affect();
+                            currentClimable.Affect(false);
                         }
 
 
@@ -304,7 +304,7 @@ namespace Klaxon.GravitySystem
             {
                 walk.ResetDestinationZ();
                 SetDirectionZ();
-                currentClimable.Affect();
+                currentClimable.Affect(false);
                 animator.SetBool(climbIdle_hash, false);
 
                 currentState = PedestrianState.isClimbing;

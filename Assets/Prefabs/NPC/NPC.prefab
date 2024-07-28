@@ -175,11 +175,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6902144603053421255}
   - component: {fileID: 6902144603053421248}
+  - component: {fileID: 7342609423841813570}
   - component: {fileID: 6902144603053421259}
   - component: {fileID: 4679355543035452280}
   - component: {fileID: 6902144603053421261}
   - component: {fileID: 6902144603053421266}
-  - component: {fileID: 3430741014648153331}
   - component: {fileID: 1781550424958762}
   - component: {fileID: 3968540688165807639}
   - component: {fileID: 282983651390883466}
@@ -231,6 +231,19 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
+--- !u!114 &7342609423841813570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e571e01b75a749409ae9ec59ff407e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCorrectionZ: {fileID: 6902144605068868309}
 --- !u!58 &6902144603053421259
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -320,20 +333,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTilePosition: {fileID: 6902144603053421248}
   scheduler_NPC: {fileID: 1461937677}
---- !u!114 &3430741014648153331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectCorrectionZ: {fileID: 6902144605068868309}
-  isHidden: 0
 --- !u!114 &1781550424958762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +368,7 @@ MonoBehaviour:
   slopeCollisionPoint: {x: 0, y: 0}
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
+  isOverWater: 0
   checkTileDistance: 0.05
   groundLayer:
     serializedVersion: 2
@@ -377,11 +377,11 @@ MonoBehaviour:
   tileBlockInfo: []
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
+  facingRight: 1
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.5
   runSpeed: 0
   jumpHeight: 8
-  facingRight: 1
   isInInteractAction: 0
   moveSpeed: 0
   currentDestination: {x: 0, y: 0}
@@ -410,6 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   MaxStacks: 12
+  PlayerCanAddToInventory: 1
 --- !u!114 &282983651390883466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,6 +575,7 @@ MonoBehaviour:
   wanderDistance: 0.5
   gatherAnimTime: 3
   findablesDatabase: {fileID: 11400000, guid: cdb51a948aed7e54384caeb7492a2923, type: 2}
+  gatherChance: 1
 --- !u!114 &2024037668861961693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +636,7 @@ MonoBehaviour:
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   references:
     version: 2
     RefIds: []

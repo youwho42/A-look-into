@@ -80,6 +80,7 @@ namespace Klaxon.SAP
                 return;
                 
             }
+            
             SetBoidsState(agent, useBoids);
 
             if (Vector2.Distance(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.02f || agent.flier.CheckDistanceToDestination() <= 0.02f)

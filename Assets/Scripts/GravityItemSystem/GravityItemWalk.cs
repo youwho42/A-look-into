@@ -66,22 +66,23 @@ namespace Klaxon.GravitySystem
         public Vector3 currentDirectionZ;
         public SpriteRenderer characterRenderer;
 
-        public bool shitSpot;   
+        public bool shitSpot;
+
+       
 
         public override void Start()
         {
             base.Start();
 
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
-
             isGrounded = true;
         }
         
-
-
+        
 
         public override void Update()
         {
+            
             base.Update();
 
             if (Mathf.Approximately(currentDirection.x, 0))
@@ -507,6 +508,8 @@ namespace Klaxon.GravitySystem
             currentDirectionZ = currentDestinationZ - itemObject.localPosition;
 
         }
+        
 
     }
+    
 }

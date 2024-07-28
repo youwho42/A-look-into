@@ -42,15 +42,19 @@ HORSE PHIL
 		"I'd love to catch up but I'm way too far ahead."
 		"I used to run everywhere, but I kept running into trees..."
 
+MAP REVEALS
+									
 	Cloud of concealement - Gunther cove
-						?Fog of friendship
 	Mist of mystery - Overlook Plateau
 	Veil of Vagueness - Blu valley
-				Fog of forgetfulness
-				the myopic miasma
 	surface of sublimation - Chester's Forest
-				Ozone of Obfuscation
-				Atmosphere of Amnesia
+							Fog of forgetfulness
+							the myopic miasma
+							Ozone of Obfuscation
+							Atmosphere of Amnesia
+										?Fog of friendship
+
+
 
 (ADDED, BUT WILL NEED REFINING)
 Items to add:
@@ -73,25 +77,9 @@ AXE A = Easy/StoneAxe, B = Normal/CopperAxe, C = Hard/IronAxe
 	WOODS
 		A,B,C- SoftWood
 		B,C- MediumWood
-		C- HardWood
+		C- HardWood, Ironwood
 
-							{{
-								SPYGLASS : 
-
-									BIOM POINTS:
-										a point gathered from each animal you observe in the biome it is found in.
-											- forest point
-											- desert point
-											...
-
-									TIERS:
-										 get a BIOM point from each animal each time you observe it
-										 you make that and with that then you can do the 10-time animal point,
-										 and once you do each animal for 10 points, 
-										 you get another "improved" spyglass for getting the 20-time collection...
-
-										  you unlock a recipe for an "improved" spyglass,
-							}}
+							
 
 Compendiums : 
 	
@@ -151,12 +139,17 @@ TO DO:
 
 		NPC ACTIVITIES:
 			
-							- Phil the horse...
+							
 			- G-Ma sells foods
 			- Slick fixes areas
 			- Roger is the mayor
 			- Alice sells cloths, silk, guises, strings, etc...
-			- Woody sells decoration items
+			- Demitrius sells decoration items
+			- Veteris sells things gathered from the forrest (ginger, pinon...)
+			- Phil does nothing yet
+			- Asterion manages the maze
+
+			- Manuela and Ramiro do nothing other than gather seeds for their seedbox.
 
 			Shops:
 					
@@ -164,6 +157,13 @@ TO DO:
 						elixirs and potions
 						farming stuff
 					
+		AREAS TO ADD:
+
+					Cemetary?
+					Campground
+
+
+
 
 		ITEMS TO ADD:
 
@@ -419,9 +419,10 @@ CHANGELOG:
 		Fixed:			Farm plants now grow at the appropriate time and day.
 		Fixed:			Observing animals now makes them unobservable until the next day, as expected.
 		Fixed:			Flying animals freak out much less when exiting a water surface.
+		Fixed:			When exiting the map during a section reveal animation would prevent all subsequent maps sections from revealing themselves.
 
 		Added:			A little pop-up now appears over items in inventories to show display the name of the item;
-		Added:			New equipment and minigame, the Poking Stick.
+		Added:			New equipment and minigame, the Poking Stick (only available out of the demo area).
 
 		Changed:		Transfering stacks of items to/from a container is done with Right Click instead of CTRL+Left Click.
 

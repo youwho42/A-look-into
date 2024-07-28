@@ -77,8 +77,8 @@ GameObject:
   - component: {fileID: 1186113323787273413}
   - component: {fileID: 536565924102336754}
   - component: {fileID: 3980435461219289164}
-  - component: {fileID: 3980435461219289152}
   - component: {fileID: 7510586649099672996}
+  - component: {fileID: 1123761197118074933}
   - component: {fileID: 2910552320548766059}
   - component: {fileID: 6337084432757913328}
   - component: {fileID: 7442178345146074088}
@@ -297,20 +297,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animator: {fileID: 6225581241868902536}
---- !u!114 &3980435461219289152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b7fc211e02546fcaf841ba48fe5d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectCorrectionZ: {fileID: 304862212094775487}
-  isHidden: 0
 --- !u!114 &7510586649099672996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +314,19 @@ MonoBehaviour:
   neighborDistanceClosest: 0.2
   currentDirection: {x: 0, y: 0}
   inBoidPool: 0
+--- !u!114 &1123761197118074933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e571e01b75a749409ae9ec59ff407e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCorrectionZ: {fileID: 304862212094775487}
 --- !u!114 &2910552320548766059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +627,16 @@ MonoBehaviour:
   edibleItems: []
   isEating: 0
   currentEdible: {fileID: 0}
+  canScritch: 0
+  isScritching: 0
+  scritchableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  animalSpotType: 0
+  currentScritchableItem: {fileID: 0}
+  currentScritchablePosition: {fileID: 0}
+  scritchCoolDown: 15
+  scritchTimer: 0
 --- !u!114 &2302526306177949363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,7 +917,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f06fccd63d79b8f42a0a5223765f7478, type: 2}
-  m_CullingMode: 2
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

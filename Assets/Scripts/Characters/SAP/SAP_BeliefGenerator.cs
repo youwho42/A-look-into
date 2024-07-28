@@ -18,6 +18,7 @@ namespace Klaxon.SAP
         public List<Conditions> conditions = new List<Conditions>();
         public SAP_Scheduler_NPC schedulerNPC;
         public SAP_Scheduler_BP schedulerBP;
+        public SAP_Scheduler_ANIMAL schedulerAnimal;
         private void Start()
         {
             foreach (var item in conditions)
@@ -28,6 +29,8 @@ namespace Klaxon.SAP
                         schedulerNPC.SetBeliefState(item.condition.Condition, item.condition.State);
                     if (schedulerBP != null)
                         schedulerBP.SetBeliefState(item.condition.Condition, item.condition.State);
+                    if (schedulerAnimal != null)
+                        schedulerAnimal.SetBeliefState(item.condition.Condition, item.condition.State);
                 }
 
             }
@@ -51,6 +54,8 @@ namespace Klaxon.SAP
                             schedulerNPC.SetBeliefState(item.condition.Condition, item.condition.State);
                         if (schedulerBP != null)
                             schedulerBP.SetBeliefState(item.condition.Condition, item.condition.State);
+                        if (schedulerAnimal != null)
+                            schedulerAnimal.SetBeliefState(item.condition.Condition, item.condition.State);
                     }
                     
                 }

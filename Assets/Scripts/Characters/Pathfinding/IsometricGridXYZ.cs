@@ -12,6 +12,8 @@ public class IsometricGridXYZ : MonoBehaviour
 
     [HideInInspector]
     public List<IsometricNodeXYZ> isometricNodes = new List<IsometricNodeXYZ>();
+    Dictionary<Vector3Int, IsometricNodeXYZ> nodeLookup = new Dictionary<Vector3Int, IsometricNodeXYZ>();
+
 
     public TerrainType[] terrainTypes;
     LayerMask walkableMask;
@@ -31,6 +33,7 @@ public class IsometricGridXYZ : MonoBehaviour
             terrainDictionary.Add((int)Mathf.Log(terrain.terrainMask.value, 2), terrain.terrainPenalty);
 
         }
+        
     }
     public int MaxSize
     {
@@ -39,6 +42,7 @@ public class IsometricGridXYZ : MonoBehaviour
 
     public List<IsometricNodeXYZ> GetNeighbours(IsometricNodeXYZ node)
     {
+
         // Here somewhere I check the z level
         // if z level is lower by one, is it a slope?
         // if z level is higher by one, am I on a slope?
@@ -66,22 +70,53 @@ public class IsometricGridXYZ : MonoBehaviour
                         neighbours.Add(GetIsometricNode(new Vector3Int(checkX, checkY, checkZ)));
                     }
                 }
-                    
+
             }
         }
 
         return neighbours;
+
+
+        //    // Here somewhere I check the z level
+        //    // if z level is lower by one, is it a slope?
+        //    // if z level is higher by one, am I on a slope?
+
+        //    List<IsometricNodeXYZ> neighbours = new List<IsometricNodeXYZ>();
+        //    Vector3Int[] directions = {
+        //    new Vector3Int(1, 0, 0), new Vector3Int(-1, 0, 0),
+        //    new Vector3Int(0, 1, 0), new Vector3Int(0, -1, 0),
+        //    new Vector3Int(0, 0, 1), new Vector3Int(0, 0, -1)
+        //};
+
+        //    foreach (var dir in directions)
+        //    {
+        //        Vector3Int checkPosition = node.worldPosition + dir;
+        //        if (groundBounds.Contains((Vector3Int)checkPosition))
+        //        {
+        //            IsometricNodeXYZ neighborNode = GetIsometricNode(checkPosition);
+        //            if (neighborNode != null)
+        //            {
+        //                neighbours.Add(neighborNode);
+        //            }
+        //        }
+        //    }
+
+        //    return neighbours;
     }
 
     public IsometricNodeXYZ GetIsometricNode(Vector3Int position)
     {
-
-        foreach (var n in isometricNodes)
+        if (nodeLookup.TryGetValue(position, out IsometricNodeXYZ node))
         {
-            if (n.worldPosition == position)
-                return n;
+            return node;
         }
         return null;
+        //foreach (var n in isometricNodes)
+        //{
+        //    if (n.worldPosition == position)
+        //        return n;
+        //}
+        //return null;
     }
 
     void SetNodes()
@@ -92,57 +127,61 @@ public class IsometricGridXYZ : MonoBehaviour
             {
                 for (int y = groundMap.cellBounds.yMin; y <= groundMap.cellBounds.yMax; y++)
                 {
-                
-                    bool walkable = true;
-                    bool isSlope = false;
+
                     var currentPosition = new Vector3Int(x, y, z);
-                    string slopeName = "";
                     TileBase tile = groundMap.GetTile(currentPosition);
 
                     if (tile == null)
                     {
-                        // there is no tile here
-                        walkable = false;
+                        // There is no tile here
                         continue;
                     }
-                    else if (tile != null)
+
+                    bool walkable = true;
+                    bool isSlope = false;
+                    string slopeName = "";
+                    if (tile.name.Contains("Slope"))
                     {
-                        if (tile.name.Contains("Slope"))
-                        {
-                            isSlope = true;
-                            slopeName = tile.name;
-                        }
-                            
-                        //there is a tile, but is there one above it?
-                        TileBase tileAbove = groundMap.GetTile(currentPosition + Vector3Int.forward);
-                        if (tileAbove != null)
-                            walkable = false;
+                        isSlope = true;
+                        slopeName = tile.name;
+                    }
+
+                    // Check for tile above
+                    TileBase tileAbove = groundMap.GetTile(currentPosition + Vector3Int.forward);
+                    if (tileAbove != null)
+                    {
+                        walkable = false;
                     }
 
                     int movementPenalty = 1000;
-
                     if (walkable)
                     {
-                        for (int i = 0; i < terrainTypes.Length; i++)
-                        {
-                            Collider2D hit = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.3f, terrainTypes[i].terrainMask);
-                            if (hit != null)
-                            {
-                                movementPenalty = terrainTypes[i].terrainPenalty;
-                            }
-                        }
-                        Collider2D obstacleCheck = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.03f, obstacleMask);
+                        movementPenalty = GetMovementPenalty(currentPosition);
+                        
+                        Collider2D obstacleCheck = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.05f, obstacleMask, currentPosition.z+1, currentPosition.z+1);
                         if (obstacleCheck != null)
                         {
                             walkable = false;
                         }
-
                     }
-                    
-                    isometricNodes.Add(new IsometricNodeXYZ(walkable, new Vector3Int(x, y, z), Mathf.Abs(groundMap.cellBounds.xMin - x), Mathf.Abs(groundMap.cellBounds.yMin - y), Mathf.Abs(groundMap.cellBounds.zMin - z), movementPenalty, isSlope, slopeName));
+                    nodeLookup[currentPosition] = new IsometricNodeXYZ(walkable, currentPosition, x, y, z, movementPenalty, isSlope, slopeName);
+
+                    //isometricNodes.Add(new IsometricNodeXYZ(walkable, currentPosition, x, y, z, movementPenalty, isSlope, slopeName));
                 }
             }
         }
+    }
+    int GetMovementPenalty(Vector3Int position)
+    {
+        foreach (var terrain in terrainTypes)
+        {
+            Collider2D hit = Physics2D.OverlapCircle(GetTileWorldPosition(position), 0.3f, terrain.terrainMask);
+            if (hit != null)
+            {
+                return terrain.terrainPenalty;
+            }
+        }
+        return 1000;
     }
 
     public Vector3 GetTileWorldPosition(Vector3Int tile)

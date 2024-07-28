@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IWindEffect
 {
-    void Affect();
+    void Affect(bool canDropItem);
 }
