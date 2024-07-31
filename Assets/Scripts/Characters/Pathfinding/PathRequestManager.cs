@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-using static UnityEngine.Networking.UnityWebRequest;
 
 
 public class PathRequestManager : MonoBehaviour
@@ -25,7 +24,8 @@ public class PathRequestManager : MonoBehaviour
     Queue<PathResult> results = new Queue<PathResult>();
     Queue<PathRequest> requests = new Queue<PathRequest>();
 
-    IsometricPathfindingXYZ pathfinding;
+    [HideInInspector]
+    public IsometricPathfindingXYZ pathfinding;
     static List<IsometricNodeXYZ> walkableNodes = new List<IsometricNodeXYZ>();
 
     private void Start()

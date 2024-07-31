@@ -19,7 +19,7 @@ public class GridManager : MonoBehaviour
 
     Grid SetGrid()
     {
-        if (grid != null)
+        if (grid != null && groundMap != null)
             return grid;
 
         grid = FindObjectOfType<Grid>();
@@ -36,9 +36,18 @@ public class GridManager : MonoBehaviour
 
     public bool GetTileValid(Vector3 position)
     {
-        if (grid == null || groundMap == null)
-            SetGrid();
+        SetGrid();
+
         var tile = groundMap.WorldToCell(position - Vector3Int.forward);
+        var tileAbove = tile + Vector3Int.forward;
+        if (groundMap.GetTile(tile) != null && groundMap.GetTile(tileAbove) == null)
+            return true;
+        return false;
+    }
+
+    public bool GetTileValid(Vector3Int tile)
+    {
+        SetGrid();
         var tileAbove = tile + Vector3Int.forward;
         if (groundMap.GetTile(tile) != null && groundMap.GetTile(tileAbove) == null)
             return true;
@@ -47,12 +56,28 @@ public class GridManager : MonoBehaviour
 
     public bool GetTileExisting(Vector3 position)
     {
-        if (grid == null || groundMap == null)
-            SetGrid();
+        SetGrid();
+
         var tile = groundMap.WorldToCell(position - Vector3Int.forward);
         var tileAbove = tile + Vector3Int.forward;
         if (groundMap.GetTile(tile) != null)
             return true;
         return false;
+    }
+
+    public Vector3 GetRandomTileWorldPosition(Vector3 origin, float maxDistance)
+    {
+        SetGrid();
+        Vector2 randPos = Random.insideUnitCircle * maxDistance;
+        Vector3 offsetPos = origin + (Vector3)randPos;
+        
+        Vector3Int destinationTile = groundMap.WorldToCell(offsetPos - Vector3Int.forward);
+        for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
+        {
+            destinationTile.z = z;
+            if (GetTileValid(destinationTile))
+                return groundMap.GetCellCenterWorld(destinationTile) + Vector3.forward;
+        }
+        return origin;
     }
 }

@@ -62,30 +62,28 @@ public class IsometricPathfindingXYZ : MonoBehaviour
                             {
                                 continue;
                             }
-                            //if (diff < -1|| diff > 1)
-                            //{
-                            //    continue;
-                            //}
-                            // If I am approaching a slope, am i approaching the slope in a valid direction?
-                            if (neighbour.slope)
-                            {
-                                if (neighbour.tileName.Contains("X") && currentNode.gridX == neighbour.gridX 
-                                    || neighbour.tileName.Contains("Y") && currentNode.gridY == neighbour.gridY)
-                                {
-                                    continue; 
-                                }
-                            }
-                            // I am on a slope
-                            if (currentNode.slope)
-                            {
-                                //am i walking 'off' the slope on the upper part in the right direction?
-                                if (currentNode.tileName.Contains("X") && currentNode.gridY != neighbour.gridY 
-                                    || currentNode.tileName.Contains("Y") && currentNode.gridX != neighbour.gridX)
-                                {
-                                    continue;
-                                }
                             
+                        }
+                        // I am approaching a slope
+                        if (neighbour.slope)
+                        {
+                            // am i approaching the slope in a valid direction?
+                            if (neighbour.tileName.Contains("X") && currentNode.gridX == neighbour.gridX
+                                || neighbour.tileName.Contains("Y") && currentNode.gridY == neighbour.gridY)
+                            {
+                                continue;
                             }
+                        }
+                        // I am on a slope
+                        if (currentNode.slope)
+                        {
+                            //am i walking 'off' the slope on the upper part in the right direction?
+                            if (currentNode.tileName.Contains("X") && currentNode.gridY != neighbour.gridY
+                                || currentNode.tileName.Contains("Y") && currentNode.gridX != neighbour.gridX)
+                            {
+                                continue;
+                            }
+
                         }
                         // if neighbor z is one up and  currentNode is a slope
                         // all good
@@ -140,7 +138,33 @@ public class IsometricPathfindingXYZ : MonoBehaviour
 
         for (int i = 0; i < path.Count; i++)
         {
-            waypoints.Add(isometricGrid.GetTileWorldPosition(path[i].worldPosition));
+            Vector3 offset = Vector3.zero;
+            if (path[i].parent.slope)
+            {
+                if (path[i].parent.worldPosition.z < path[i].worldPosition.z)
+                {
+                    int dir = path[i].parent.worldPosition.x < path[i].worldPosition.x
+                                && path[i].parent.worldPosition.y == path[i].worldPosition.y
+                                || path[i].parent.worldPosition.y < path[i].worldPosition.y
+                                && path[i].parent.worldPosition.x == path[i].worldPosition.x
+                                ? 1 : -1;
+                    offset = new Vector3(0, 0.1f * dir, 0);
+                }
+            }
+            if (path[i].slope)
+            {
+                if (path[i].parent.worldPosition.z > path[i].worldPosition.z)
+                {
+                    int dir = path[i].parent.worldPosition.x < path[i].worldPosition.x
+                                && path[i].parent.worldPosition.y == path[i].worldPosition.y
+                                || path[i].parent.worldPosition.y < path[i].worldPosition.y
+                                && path[i].parent.worldPosition.x == path[i].worldPosition.x
+                                ? 1 : -1;
+                    offset = new Vector3(0, 0.1f * dir, 0);
+                }
+            }
+
+                waypoints.Add(isometricGrid.GetTileWorldPosition(path[i].worldPosition) + offset);
         }
         return waypoints;
     }

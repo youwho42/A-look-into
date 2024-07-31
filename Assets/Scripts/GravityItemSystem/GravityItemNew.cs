@@ -226,7 +226,7 @@ namespace Klaxon.GravitySystem
                 slopeCollisionPoint = hitA.point;
                 float distA = Vector2.Distance(hitA.point, _transform.position);
                 slopeDisplacement = distA / tileSize;
-
+                slopeDisplacement = Mathf.Clamp(slopeDisplacement, 0.0f, 1.0f);
             }
 
             float displacementY = slopeDisplacement * spriteDisplacementY;

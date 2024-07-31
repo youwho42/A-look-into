@@ -96,7 +96,7 @@ public class SAP_Action_SetMaze : SAP_Action
 
         if (agent.offScreen || agent.sleep.isSleeping)
         {
-            agent.HandleOffScreen(this);
+            agent.HandleOffScreenNodes(this);
             return;
         }
 

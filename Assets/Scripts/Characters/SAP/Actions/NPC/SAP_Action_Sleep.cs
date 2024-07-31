@@ -15,7 +15,7 @@ namespace Klaxon.SAP
         public InteractableDialogue interactableDialogue;
         public NPC_UndertakingAvailable undertakingAvailable;
 
-        bool destinationReached;
+       
         bool sleeping;
 
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
@@ -23,22 +23,7 @@ namespace Klaxon.SAP
             worldStates = SAP_WorldBeliefStates.instance;
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
-            if (target != null)
-            {
-
-                // Set the destination (currentAction.target) and direction here using currentAction.walker
-                if (currentNode == null && path.Count <= 0)
-                {
-                    path.Clear();
-                    currentPathIndex = 0;
-                    if (agent.lastValidNode != null)
-                        currentNode = agent.lastValidNode;
-                    else
-                        currentNode = NavigationNodesManager.instance.GetClosestNavigationNode(transform.position, agent.currentNavigationNodeType, agent.pathType);
-                    path = currentNode.FindPath(target);
-                    agent.walker.currentDestination = path[currentPathIndex].transform.position;
-                }
-            }
+            
         }
 
         public override void PerformAction(SAP_Scheduler_NPC agent)
@@ -50,11 +35,12 @@ namespace Klaxon.SAP
 
             if (sleeping)
                 return;
-            if (destinationReached && !sleeping)
+            if (!sleeping)
             {
                 sleeping = true;
                 interactableDialogue.canInteract = false;
                 undertakingAvailable.isInactive = true;
+                undertakingAvailable.SetUndertakingIcon();
                 agent.animator.SetBool(agent.isSleeping_hash, true);
                 agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
                 agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
@@ -65,67 +51,17 @@ namespace Klaxon.SAP
                 return;
             }
 
-            agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
-            agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
-            // this is where we need to make the npc GO TO the destination.
-            // use currentAction.walker here
-
-
-            agent.animator.SetFloat(agent.velocityX_hash, 1);
-
-            if (agent.offScreen || agent.sleep.isSleeping)
-            {
-                agent.HandleOffScreen(this);
-                return;
-            }
-
-            if (agent.walker.isStuck || agent.isDeviating)
-            {
-                if (!agent.walker.jumpAhead)
-                {
-                    agent.Deviate();
-                    return;
-                }
-            }
-
-            if (path.Count > 0)
-            {
-                agent.walker.currentDestination = path[currentPathIndex].transform.position;
-            }
             
-            if (!agent.walker.onSlope)
-                agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.01f)
-            {
-                if (currentPathIndex < path.Count - 1)
-                {
-                    currentPathIndex++;
-                    currentNode = path[currentPathIndex];
-                    agent.walker.currentDestination = path[currentPathIndex].transform.position;
-                }
-                else if (currentPathIndex >= path.Count - 1)
-                {
-                    agent.lastValidNode = currentNode;
-
-                    ReachFinalDestination(agent);
-                    agent.animator.SetFloat(agent.velocityX_hash, 0);
-                    agent.walker.currentDirection = Vector2.zero;
-                }
-            }
-
-            agent.walker.SetLastPosition();
-
 
 
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
-            agent.offScreenPosMoved = true;
-            agent.lastValidNode = currentNode;
-            currentNode = null;
-            path.Clear();
+            
+            
+            
             sleeping = false;
-            destinationReached = false;
+            
             interactableDialogue.canInteract = true;
             undertakingAvailable.isInactive = false;
             undertakingAvailable.SetUndertakingIcon();
@@ -133,14 +69,6 @@ namespace Klaxon.SAP
 
         
         
-        public override void ReachFinalDestination(SAP_Scheduler_NPC agent)
-        {
-            agent.offScreenPosMoved = true;
-            agent.isDeviating = false;
-            destinationReached = true;
-            
-            agent.animator.SetFloat(agent.velocityX_hash, 0);
-            agent.walker.currentDirection = Vector2.zero;
-        }
+        
     }
 }

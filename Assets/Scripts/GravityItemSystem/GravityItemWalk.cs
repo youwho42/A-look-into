@@ -338,6 +338,8 @@ namespace Klaxon.GravitySystem
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, dir, 0.5f, obstacleLayer);
                 if (hit.collider == null)
                 {
+                    var d = _transform.position + ((Vector3)dir * .3f);
+                    
                     if (dir != currentDirection)
                     {
                         dir = dir.normalized;
@@ -347,14 +349,21 @@ namespace Klaxon.GravitySystem
             }
             if (directions.Count == 0)
             {
-                int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
+                do
+                {
+                    int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+                    int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+                    currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
+                    
+                } while (!GridManager.instance.GetTileValid(new Vector3(currentDestination.x, currentDestination.y,_transform.position.z)));
+                //int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+                //int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+                //currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
                 SetDirection();
                 return;
             }
 
-            if (framesStuck >= 12)
+            if (framesStuck >= 30)
             {
                 
                 jumpAhead = true;

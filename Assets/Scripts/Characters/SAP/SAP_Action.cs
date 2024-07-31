@@ -8,6 +8,7 @@ namespace Klaxon.SAP
 {
     public class SAP_Action : MonoBehaviour
     {
+        
         [HideInInspector]
         public List<NavigationNode> path = new List<NavigationNode>();
         [HideInInspector]
@@ -17,10 +18,14 @@ namespace Klaxon.SAP
         [HideInInspector]
         public bool finalDestination;
 
+        
         /// <summary>
         /// NPC Actions
         /// </summary>
         public NavigationNode target;
+        public bool setConditionOnComplete;
+        [ConditionalHide("setConditionOnComplete", true)]
+        public SAP_Condition conditionToSet;
         public virtual void InitialCheckPerformAction(SAP_Scheduler_NPC agent)
         {
         }

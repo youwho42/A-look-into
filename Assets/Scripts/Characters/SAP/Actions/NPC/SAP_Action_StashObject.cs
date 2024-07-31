@@ -94,7 +94,7 @@ namespace Klaxon.SAP
 
             if (agent.offScreen || agent.sleep.isSleeping)
             {
-                agent.HandleOffScreen(this);
+                agent.HandleOffScreenNodes(this);
                 return;
             }
 

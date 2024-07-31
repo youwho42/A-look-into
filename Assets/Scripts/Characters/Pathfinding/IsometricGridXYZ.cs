@@ -12,7 +12,7 @@ public class IsometricGridXYZ : MonoBehaviour
 
     [HideInInspector]
     public List<IsometricNodeXYZ> isometricNodes = new List<IsometricNodeXYZ>();
-    Dictionary<Vector3Int, IsometricNodeXYZ> nodeLookup = new Dictionary<Vector3Int, IsometricNodeXYZ>();
+    public Dictionary<Vector3Int, IsometricNodeXYZ> nodeLookup = new Dictionary<Vector3Int, IsometricNodeXYZ>();
 
 
     public TerrainType[] terrainTypes;

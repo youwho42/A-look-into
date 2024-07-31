@@ -53,12 +53,26 @@ namespace Klaxon.SAP
         public int timeTo;
         [HideInInspector]
         public bool isDeviating;
+
+        [Header("A* Pathfinding")]
+        // A* Pathfinding
+        [HideInInspector]
+        public List<Vector3> aStarPath = new List<Vector3>();
+        public bool useAStar;
+        [HideInInspector]
+        public bool gettingPath;
+        [HideInInspector]
+        public Vector3 currentFinalDestination;
+        [HideInInspector]
+        public Vector3 lastValidTileLocation;
+
         public void Start()
         {
             walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
             sleep = UIScreenManager.instance;
             dialogueManager = DialogueManagerUI.instance;
+            lastValidTileLocation = transform.position;
         }
 
         public void Update()
@@ -222,7 +236,7 @@ namespace Klaxon.SAP
         }
 
 
-        public void HandleOffScreen(SAP_Action action)
+        public void HandleOffScreenNodes(SAP_Action action)
         {
             walker.currentDirection = Vector2.zero;
             if (offScreenPosMoved && action.currentPathIndex < action.path.Count)
@@ -264,6 +278,44 @@ namespace Klaxon.SAP
             }
         }
 
+        public void HandleOffScreenAStar(SAP_Action action)
+        {
+            walker.currentDirection = Vector2.zero;
+
+            if (action.currentPathIndex >= aStarPath.Count)
+            {
+                action.ReachFinalDestination(this);
+                return;
+            }
+
+            if (offScreenPosMoved && action.currentPathIndex < aStarPath.Count)
+            {
+                timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, aStarPath[action.currentPathIndex]) / walker.walkSpeed);
+                timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+
+                if (transform.position.x < aStarPath[action.currentPathIndex].x && !walker.facingRight)
+                    walker.Flip();
+                else if (transform.position.x > aStarPath[action.currentPathIndex].x && walker.facingRight)
+                    walker.Flip();
+
+                offScreenPosMoved = false;
+            }
+            
+
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
+            {
+
+                offScreenPosMoved = true;
+                walker.transform.position = aStarPath[action.currentPathIndex];
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                walker.currentLevel = walker.currentTilePosition.position.z;
+
+                if (action.currentPathIndex < aStarPath.Count)
+                    action.currentPathIndex++;
+                
+            }
+        }
+
         public void Deviate()
         {
             isDeviating = true;
@@ -277,10 +329,90 @@ namespace Klaxon.SAP
             walker.SetDirection();
 
             if (walker.CheckDistanceToDestination() <= 0.02f)
+            {
                 isDeviating = false;
+                //SetAStarDestination(currentFinalDestination);
+            }
+                
 
             walker.SetLastPosition();
         }
+        public void Deviate(SAP_Action action)
+        {
+            isDeviating = true;
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+            animator.SetFloat(velocityX_hash, 1);
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+            {
+                isDeviating = false;
+                action.currentPathIndex = 0;
+                aStarPath.Clear();
+                if (StartPositionValid())
+                    SetAStarDestination(currentFinalDestination);
+                else
+                {
+                    Debug.Log("start position not valid after deviate");
+                    aStarPath.Add(lastValidTileLocation);
+                }
+                
+            }
+
+
+            walker.SetLastPosition();
+        }
+
+        public bool StartPositionValid()
+        {
+            
+            if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(walker.currentTilePosition.position, out IsometricNodeXYZ node))
+                return node.walkable;
+            return false;
+        }
+        public void GetRandomTilePosition(float distance)
+        {
+            
+
+            var currentPos = transform.position;
+            Vector3 destination = currentPos;
+            while (destination == currentPos)
+            {
+                destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance);
+            }
+            currentFinalDestination = destination;
+            SetAStarDestination(destination);
+        }
+
+        public void SetAStarDestination(Vector3 destination)
+        {
+            Vector3 destPos = destination;
+            destPos.z -= 1;
+            Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
+            gettingPath = true;
+            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
+        }
+
+
+        public void OnPathFound(List<Vector3> newPath, bool success)
+        {
+            if (success)
+            {
+                aStarPath = newPath;
+            }
+            else
+            {
+                Debug.LogWarning("Path not found");
+            }
+            gettingPath = false;
+        }
+
+
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
@@ -330,6 +462,7 @@ namespace Klaxon.SAP
             }
         }
 
+        
 
 
     }
