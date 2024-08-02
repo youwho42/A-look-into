@@ -17,6 +17,10 @@ public class GridManager : MonoBehaviour
     public Tilemap groundMap;
     public Grid Grid { get { return grid == null ?SetGrid() : grid; } }
 
+    //Tilemap decorationOne;
+    //Tilemap decorationTwo;
+
+
     Grid SetGrid()
     {
         if (grid != null && groundMap != null)
@@ -27,12 +31,42 @@ public class GridManager : MonoBehaviour
         foreach (var map in maps)
         {
             if (map.gameObject.name == "GroundTiles")
-            {
                 groundMap = map;
-            }
+            //if (map.gameObject.name == "GroundTileDetails")
+            //    decorationOne = map;
+            //if (map.gameObject.name == "GroundTileDetails2")
+            //    decorationTwo = map;
         }
         return grid;
     }
+    //private void Start()
+    //{
+    //    SetGradient();
+    //}
+
+    //void SetGradient()
+    //{
+    //    SetGrid();
+    //    for (int x = groundMap.cellBounds.xMin; x < groundMap.cellBounds.xMax; x++)
+    //    {
+    //        for (int y = groundMap.cellBounds.yMin; y < groundMap.cellBounds.yMax; y++)
+    //        {
+    //            for (int z = 0; z < groundMap.cellBounds.zMax; z++)
+    //            {
+    //                Vector3Int pos = new Vector3Int(x, y, z);
+    //                if (groundMap.GetTile(pos) != null)
+    //                {
+    //                    float c = MapNumber.Remap(z, 0, groundMap.cellBounds.zMax, 0.25f, 0.0f);
+    //                    Color levelcolor = Color.Lerp(Color.white, Color.black, c);
+    //                    groundMap.SetColor(pos, levelcolor);
+    //                    decorationOne.SetColor(pos, levelcolor);
+    //                    decorationTwo.SetColor(pos, levelcolor);
+                        
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public bool GetTileValid(Vector3 position)
     {
@@ -59,7 +93,7 @@ public class GridManager : MonoBehaviour
         SetGrid();
 
         var tile = groundMap.WorldToCell(position - Vector3Int.forward);
-        var tileAbove = tile + Vector3Int.forward;
+        //var tileAbove = tile + Vector3Int.forward;
         if (groundMap.GetTile(tile) != null)
             return true;
         return false;

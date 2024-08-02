@@ -66,6 +66,9 @@ namespace Klaxon.SAP
         [HideInInspector]
         public Vector3 lastValidTileLocation;
 
+        [HideInInspector]
+        public bool isInside;
+
         public void Start()
         {
             walker = GetComponent<GravityItemWalk>();
@@ -82,8 +85,8 @@ namespace Klaxon.SAP
                 TalkRangeTimer();
                 return;
             }
-                
 
+            
             
             if (currentGoal == -1)
             {
@@ -223,6 +226,8 @@ namespace Klaxon.SAP
                 beliefs.Add(condition, state);
             else
                 beliefs[condition] = state;
+
+            
         }
 
         public bool HasBelief(string condition, bool state)
@@ -282,11 +287,7 @@ namespace Klaxon.SAP
         {
             walker.currentDirection = Vector2.zero;
 
-            if (action.currentPathIndex >= aStarPath.Count)
-            {
-                action.ReachFinalDestination(this);
-                return;
-            }
+            
 
             if (offScreenPosMoved && action.currentPathIndex < aStarPath.Count)
             {
@@ -310,9 +311,14 @@ namespace Klaxon.SAP
                 walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
                 walker.currentLevel = walker.currentTilePosition.position.z;
 
-                if (action.currentPathIndex < aStarPath.Count)
+                if (action.currentPathIndex <= aStarPath.Count-1)
                     action.currentPathIndex++;
-                
+
+                if (action.currentPathIndex >= aStarPath.Count)
+                {
+                    action.ReachFinalDestination(this);
+                    return;
+                }
             }
         }
 
@@ -417,18 +423,21 @@ namespace Klaxon.SAP
         public void OnTriggerEnter2D(Collider2D collision)
         {
 
-            if (collision.transform.position.z != transform.position.z)
-                return;
+            
 
             if (collision.CompareTag("House"))
             {
                 if (collision.OverlapPoint(transform.position))
+                {
+                    isInside = true;
                     currentNavigationNodeType = NavigationNodeType.Inside;
+                }
+                    
             }
 
 
 
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
             {
                 inTalkRange = true;
                 animator.SetFloat(velocityX_hash, 0);
@@ -452,10 +461,14 @@ namespace Klaxon.SAP
 
 
             if (collision.CompareTag("House"))
+            {
+                isInside = false;
                 currentNavigationNodeType = NavigationNodeType.Outside;
+            }
+                
 
 
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
             {
                 
                 inTalkRange = false;

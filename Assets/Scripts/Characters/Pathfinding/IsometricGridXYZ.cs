@@ -188,7 +188,7 @@ public class IsometricGridXYZ : MonoBehaviour
     {
 
         var tileworldpos = groundMap.GetCellCenterWorld(tile);
-        return tileworldpos;
+        return tileworldpos + Vector3.forward;
     }
 
     void SetGrid()
@@ -204,6 +204,19 @@ public class IsometricGridXYZ : MonoBehaviour
             {
                 groundMap = map;
             }
+        }
+
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+
+        foreach (var tile in nodeLookup)
+        {
+            if (!tile.Value.walkable)
+                continue;
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(GetTileWorldPosition(tile.Value.worldPosition), 0.1f);
         }
 
     }

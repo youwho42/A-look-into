@@ -44,9 +44,9 @@ namespace Klaxon.SAP
             var a = FindObjectsOfType<InteractableChair>().ToList();
             foreach (var seat in a)
             {
-                if(seat.navigationNode != null)
+                if(seat.sitNode != null)
                 {
-                    if (seat.navigationNode.nodeType == NavigationNodeType.Outside)
+                    if (seat.sitNode.nodeType == NavigationNodeType.Outside)
                         allSeats.Add(seat);
                 }
                     
@@ -153,7 +153,7 @@ namespace Klaxon.SAP
             foreach (var seat in allSeats)
             {
                 var d = Vector2.Distance(seat.transform.position, position);
-                if(d < closest && seat.canInteract && seat.navigationNode.active)
+                if(d < closest && seat.canInteract && seat.findNode.active)
                 {
                     closest = d;
                     best = seat;

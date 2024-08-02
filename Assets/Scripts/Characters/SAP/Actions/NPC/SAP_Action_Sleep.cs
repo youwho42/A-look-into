@@ -31,7 +31,9 @@ namespace Klaxon.SAP
             if(worldStates.worldStates.TryGetValue("Day", out bool isDay))
             {
                 agent.currentGoalComplete = isDay;
+                
             }
+            
 
             if (sleeping)
                 return;
@@ -57,9 +59,10 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
-            
-            
-            
+
+            if (setConditionOnComplete)
+                agent.SetBeliefState(conditionToSet.Condition, conditionToSet.State);
+
             sleeping = false;
             
             interactableDialogue.canInteract = true;

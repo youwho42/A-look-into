@@ -18,10 +18,11 @@ namespace Klaxon.SAP
         [HideInInspector]
         public bool finalDestination;
 
-        
+
         /// <summary>
         /// NPC Actions
         /// </summary>
+        public string attachedGoal = "Please set this for clarity";
         public NavigationNode target;
         public bool setConditionOnComplete;
         [ConditionalHide("setConditionOnComplete", true)]

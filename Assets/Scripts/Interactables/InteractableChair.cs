@@ -12,7 +12,8 @@ namespace Klaxon.Interactable
         bool isSitting;
         PlayerInformation player;
         public bool facingRight;
-        public NavigationNode navigationNode;
+        public NavigationNode sitNode;
+        public NavigationNode findNode;
         public StatChanger gumptionChanger;
         public override void Start()
         {
@@ -76,7 +77,7 @@ namespace Klaxon.Interactable
             if (player.playerInput.movement != Vector2.zero)
             {
                 //Vector3 exitPos = player.player.position + ((Vector3)player.playerInput.movement * .09f);
-                StartCoroutine(PlacePlayer(navigationNode.transform.position));
+                StartCoroutine(PlacePlayer(sitNode.transform.position));
                 player.playerAnimator.SetBool("IsSitting", false);
                 playerInformation.isSitting = false;
                 isSitting = false;

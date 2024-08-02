@@ -87,8 +87,7 @@ namespace Klaxon.SAP
             agent.lastValidNode = currentNode;
             currentNode = null;
             path.Clear();
-            if (setConditionOnComplete)
-                agent.SetBeliefState(conditionToSet.Condition, conditionToSet.State);
+            
         }
 
 
@@ -102,7 +101,9 @@ namespace Klaxon.SAP
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             
             agent.walker.currentDirection = Vector2.zero;
-
+            if (setConditionOnComplete)
+                agent.SetBeliefState(conditionToSet.Condition, conditionToSet.State);
+                
             agent.currentGoalComplete = true;
         }
     }

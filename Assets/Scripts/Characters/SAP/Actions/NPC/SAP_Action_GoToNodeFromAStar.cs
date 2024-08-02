@@ -7,8 +7,7 @@ namespace Klaxon.SAP
 {
     public class SAP_Action_GoToNodeFromAStar : SAP_Action
     {
-        
-
+        bool lastPositionReset;
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
         {
             agent.animator.SetBool(agent.isSitting_hash, false);
@@ -21,12 +20,10 @@ namespace Klaxon.SAP
                 agent.aStarPath.Clear();
                 if (agent.StartPositionValid())
                     agent.SetAStarDestination(target.transform.position);
-                //else
-                //{
-                //    Debug.Log("start position not valid from start");
-                //    agent.aStarPath.Add(agent.lastValidTileLocation);
-                //}
-                
+
+                agent.currentFinalDestination = target.transform.position;
+
+
             }
         }
 
@@ -35,7 +32,17 @@ namespace Klaxon.SAP
             agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
             agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
             agent.animator.SetFloat(agent.velocityX_hash, 1);
+            if (agent.gettingPath)
+                return;
+            if (!lastPositionReset)
+            {
+                agent.aStarPath[agent.aStarPath.Count - 1] = target.transform.position;
+                lastPositionReset = true;
+            }
+                
 
+            if (agent.aStarPath.Count > 0)
+                agent.walker.currentDestination = agent.aStarPath[currentPathIndex];
 
             if (agent.offScreen || agent.sleep.isSleeping)
             {
@@ -51,18 +58,11 @@ namespace Klaxon.SAP
                 
             }
 
-
-
-            if (agent.aStarPath.Count > 0)
-            {
-                agent.walker.currentDestination = agent.aStarPath[currentPathIndex];
-            }
-
             agent.walker.SetDirection();
 
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.01f)
+            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.03f)
             {
-                agent.lastValidTileLocation = agent.aStarPath[currentPathIndex];
+                
                 if (currentPathIndex < agent.aStarPath.Count - 1)
                 {
                     currentPathIndex++;
@@ -74,7 +74,8 @@ namespace Klaxon.SAP
                     ReachFinalDestination(agent);
                     
                 }
-
+                if(currentPathIndex <= agent.aStarPath.Count - 1)
+                    agent.lastValidTileLocation = agent.aStarPath[currentPathIndex];
 
             }
         
@@ -85,7 +86,7 @@ namespace Klaxon.SAP
         }
         public override void EndPerformAction(SAP_Scheduler_NPC agent)
         {
-            
+            lastPositionReset = false;
             agent.offScreenPosMoved = true;
             agent.lastValidNode = currentNode;
             currentNode = null;
@@ -106,5 +107,7 @@ namespace Klaxon.SAP
                 agent.SetBeliefState(conditionToSet.Condition, conditionToSet.State);
             agent.currentGoalComplete = true;
         }
+
+        
     } 
 }
