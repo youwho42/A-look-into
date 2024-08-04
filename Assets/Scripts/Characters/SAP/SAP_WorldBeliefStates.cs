@@ -46,7 +46,7 @@ namespace Klaxon.SAP
             {
                 if(seat.sitNode != null)
                 {
-                    if (seat.sitNode.nodeType == NavigationNodeType.Outside)
+                    if (!seat.isPrivateSeat)
                         allSeats.Add(seat);
                 }
                     

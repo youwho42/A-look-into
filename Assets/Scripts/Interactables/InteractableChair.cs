@@ -15,6 +15,8 @@ namespace Klaxon.Interactable
         public NavigationNode sitNode;
         public NavigationNode findNode;
         public StatChanger gumptionChanger;
+        public bool isPrivateSeat;
+
         public override void Start()
         {
             base.Start();
@@ -26,7 +28,7 @@ namespace Klaxon.Interactable
         {
             base.Interact(interactor);
             player = PlayerInformation.instance;
-            if (!isSitting)
+            if (!isSitting && !isPrivateSeat)
             {
                 StartCoroutine(PlacePlayer(transform.position));
                 if (player.playerController.facingRight && !facingRight || !player.playerController.facingRight && facingRight)

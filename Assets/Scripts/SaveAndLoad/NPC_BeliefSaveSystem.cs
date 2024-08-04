@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace Klaxon.SaveSystem
 {
     public class NPC_BeliefSaveSystem : MonoBehaviour, ISaveable
     {
-        public SAP_Scheduler_NPC scheduler_NPC;
+        public GOAD_Scheduler_NPC scheduler_NPC;
 
         public object CaptureState()
         {

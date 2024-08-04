@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.SAP;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ public class PlayerDistanceToggle : MonoBehaviour
     float maxDistance = 6;
     public List<GameObject> animals;
     public List<SAP_Scheduler_NPC> agents;
+
+    public List<GOAD_Scheduler_NPC> GOADagents;
 
     private void Start()
     {
@@ -44,7 +47,12 @@ public class PlayerDistanceToggle : MonoBehaviour
         {
             agents.Add(agent);
         }
-        
+        GOADagents.Clear();
+        var c = FindObjectsOfType<GOAD_Scheduler_NPC>().ToList();
+        foreach (var agent in c)
+        {
+            GOADagents.Add(agent);
+        }
 
     }
 
@@ -77,7 +85,12 @@ public class PlayerDistanceToggle : MonoBehaviour
                 SetAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
             }
 
-            
+            foreach (var agent in GOADagents)
+            {
+                SetGOADAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
+            }
+
+
 
         }
     }
@@ -99,7 +112,17 @@ public class PlayerDistanceToggle : MonoBehaviour
         agent.offScreen = !state;
     }
 
-    
+
+    void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
+    {
+        if (agent == null)
+            return;
+        bool state = GetPlayerDistance(agent.transform, playerPos) <= maxDist;
+        agent.animator.enabled = state;
+        agent.offScreen = !state;
+    }
+
+
 
     public float GetPlayerDistance(Transform objTransform, Vector3 playerPos)
     {

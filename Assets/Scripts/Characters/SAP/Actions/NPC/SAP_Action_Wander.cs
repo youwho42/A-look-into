@@ -11,10 +11,7 @@ namespace Klaxon.SAP
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
         {
             agent.offScreenPosMoved = true;
-            if (target == null)
-                target = NavigationNodesManager.instance.GetRandomNode(NavigationNodeType.Outside, agent.pathType, transform.position, 3f);
-
-
+            
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
 
@@ -25,10 +22,8 @@ namespace Klaxon.SAP
             if (agent.StartPositionValid())
                 agent.GetRandomTilePosition(wanderDistance);
             else
-            {
-                Debug.Log("start position not valid from start");
                 agent.aStarPath.Add(agent.lastValidTileLocation);
-            }
+            
 
             
         }

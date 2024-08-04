@@ -10,14 +10,25 @@ namespace Klaxon.SAP
 
         InteractableChair chair;
         bool lastPositionReset;
+        public bool hasPermanentSeat;
+        [ConditionalHide("hasPermanentSeat", true)]
+        public InteractableChair permanentSeat;
 
         public override void StartPerformAction(SAP_Scheduler_NPC agent)
         {
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
 
-            chair = SAP_WorldBeliefStates.instance.FindNearestSeat(transform.position);
-            target = chair.findNode;
+            if (!hasPermanentSeat)
+            {
+                chair = SAP_WorldBeliefStates.instance.FindNearestSeat(transform.position);
+                target = chair.findNode;
+            }
+            else
+            {
+                chair = permanentSeat;
+                target = chair.findNode;
+            }
 
             if (target != null)
             {

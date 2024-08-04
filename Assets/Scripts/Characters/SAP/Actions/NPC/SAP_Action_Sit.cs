@@ -35,7 +35,7 @@ namespace Klaxon.SAP
                 chair = SAP_WorldBeliefStates.instance.FindNearestSeat(transform.position);
                 target = chair.sitNode;
                 currentNode = chair.findNode;
-
+                chair.canInteract = false;
                 path.Clear();
                 currentPathIndex = 0;
                 
@@ -49,19 +49,7 @@ namespace Klaxon.SAP
         {
 
 
-            //if (!chair.canInteract && !sitting && !agent.isInside && isGettingUp)
-            //{
-            //    Debug.Log("is not inside and getting up");
-            //    agent.currentGoalComplete = true;
-            //    return;
-            //}
-            //if (isGettingUp && agent.isInside && !destinationReached)
-            //{
-
-            //    Debug.Log("is inside and getting up");
-            //    return;
-            //}
-
+           
             if (sitting)
             {
                 
@@ -94,7 +82,7 @@ namespace Klaxon.SAP
                 StartCoroutine(PlaceNPC(agent, chair.transform.position, false));
                 if (agent.walker.facingRight && !chair.facingRight || !agent.walker.facingRight && chair.facingRight)
                     agent.walker.Flip();
-                chair.canInteract = false;
+                
                 return;
             }
 

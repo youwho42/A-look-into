@@ -103,6 +103,8 @@ public class NavigationNodeEditor : Editor
                 }
             }
         }
+        EditorUtility.SetDirty(navNode);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(navNode);
     }
 
 

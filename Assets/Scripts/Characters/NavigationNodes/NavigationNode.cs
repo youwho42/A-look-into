@@ -99,6 +99,108 @@ public class NavigationNode : MonoBehaviour
     }
 
 
+    public List<NavigationNode> FindPath(Vector3 targetPosition)
+    {
+        List<NavigationNode> path = new List<NavigationNode>();
+
+        // Find the closest reachable node to the target position
+        NavigationNode targetNode = FindClosestReachableNode(targetPosition);
+
+        if (targetNode == null)
+        {
+            // No reachable node found, return an empty path
+            return path;
+        }
+
+        if (this == targetNode)
+        {
+            // The target node is the same as the starting node,
+            // return a path with just the starting node.
+            path.Add(targetNode);
+            return path;
+        }
+
+        Queue<NavigationNode> queue = new Queue<NavigationNode>();
+        Dictionary<NavigationNode, NavigationNode> visitedFrom = new Dictionary<NavigationNode, NavigationNode>();
+        HashSet<NavigationNode> visitedNodes = new HashSet<NavigationNode>();
+
+        queue.Enqueue(this);
+        visitedFrom[this] = null;
+        visitedNodes.Add(this);
+
+        while (queue.Count > 0)
+        {
+            NavigationNode currentNode = queue.Dequeue();
+            List<NavigationNode> nearestNodes = currentNode.children;
+            nearestNodes = nearestNodes.OrderBy(
+               x => Vector3.Distance(targetPosition, x.transform.position)
+               ).ToList();
+
+            for (int i = 0; i < nearestNodes.Count; i++)
+            {
+                NavigationNode childNode = nearestNodes[i];
+
+                if (!visitedNodes.Contains(childNode))
+                {
+                    queue.Enqueue(childNode);
+                    visitedFrom[childNode] = currentNode;
+                    visitedNodes.Add(childNode);
+
+                    if (childNode == targetNode)
+                    {
+                        // We found the target node, so construct and return the path
+                        while (childNode != null)
+                        {
+                            path.Add(childNode);
+                            childNode = visitedFrom[childNode];
+                        }
+                        path.Reverse();
+                        return path;
+                    }
+                }
+            }
+        }
+
+        // If we reach here, there is no path to the target node
+        return path;
+    }
+
+    private NavigationNode FindClosestReachableNode(Vector3 targetPosition)
+    {
+        Queue<NavigationNode> queue = new Queue<NavigationNode>();
+        HashSet<NavigationNode> visitedNodes = new HashSet<NavigationNode>();
+        queue.Enqueue(this);
+        visitedNodes.Add(this);
+
+        NavigationNode closestNode = null;
+        float closestDistance = float.MaxValue;
+
+        while (queue.Count > 0)
+        {
+            NavigationNode currentNode = queue.Dequeue();
+            float distanceToTarget = Vector3.Distance(targetPosition, currentNode.transform.position);
+
+            if (distanceToTarget < closestDistance)
+            {
+                closestDistance = distanceToTarget;
+                closestNode = currentNode;
+            }
+
+            foreach (var childNode in currentNode.children)
+            {
+                if (!visitedNodes.Contains(childNode))
+                {
+                    queue.Enqueue(childNode);
+                    visitedNodes.Add(childNode);
+                }
+            }
+        }
+
+        return closestNode;
+    }
+
+
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, 0.02f);
