@@ -1,5 +1,7 @@
+using Klaxon.ConversationSystem;
 using Klaxon.GravitySystem;
 using Klaxon.Interactable;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +32,8 @@ namespace Klaxon.GOAD
 
         [HideInInspector]
         public int currentPathIndex;
+        [HideInInspector]
+        public QI_Inventory agentInventory;
 
         [Header("A* Pathfinding")]
         // A* Pathfinding
@@ -53,7 +57,7 @@ namespace Klaxon.GOAD
         public NavigationNode currentNode;
         [HideInInspector]
         public NavigationNode lastValidNode;
-
+        
 
         [HideInInspector]
         public bool isInside;
@@ -67,13 +71,17 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public InteractableChair currentRestSeat;
 
+        bool inTalkRange;
+        float inTalkRangeTimer;
+        DialogueManagerUI dialogueManager;
+
         public override void Start()
         {
             base.Start();
             walker = GetComponent<GravityItemWalk>();
-            //agentInventory = GetComponent<QI_Inventory>();
+            agentInventory = GetComponent<QI_Inventory>();
             sleep = UIScreenManager.instance;
-            //dialogueManager = DialogueManagerUI.instance;
+            dialogueManager = DialogueManagerUI.instance;
             lastValidTileLocation = transform.position;
         }
 
@@ -81,6 +89,14 @@ namespace Klaxon.GOAD
 
         private void Update()
         {
+
+            if (inTalkRange)
+            {
+                TalkRangeTimer();
+                return;
+            }
+
+
             if (currentGoalIndex < 0 && availableActions.Count > 0)
             {
                 GetCurrentGoal();
@@ -161,7 +177,7 @@ namespace Klaxon.GOAD
             gettingPath = false;
         }
 
-        public void NodeDeviate()
+        public void NodeDeviate(GOAD_Action action)
         {
             isDeviating = true;
             if (walker.isStuck)
@@ -174,8 +190,11 @@ namespace Klaxon.GOAD
             walker.SetDirection();
 
             if (walker.CheckDistanceToDestination() <= 0.02f)
+            {
                 isDeviating = false;
-                
+
+            }
+
             walker.SetLastPosition();
         }
 
@@ -293,6 +312,73 @@ namespace Klaxon.GOAD
 
             }
         }
+
+        void TalkRangeTimer()
+        {
+            if (!dialogueManager.isSpeaking)
+            {
+                inTalkRangeTimer += Time.deltaTime;
+                if (inTalkRangeTimer >= 5f)
+                {
+                    inTalkRange = false;
+                    inTalkRangeTimer = 0;
+                }
+            }
+            else
+            {
+                if (dialogueManager.currentInteractable.gameObject != gameObject)
+                    inTalkRange = false;
+                inTalkRangeTimer = 0;
+            }
+
+            if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
+            {
+                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
+
+        }
+
+
+
+
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+
+
+
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+            {
+                inTalkRange = true;
+                animator.SetFloat(velocityX_hash, 0);
+                walker.currentDirection = Vector2.zero;
+                if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
+                {
+                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
+                    collision.transform.position.x > transform.position.x && !walker.facingRight)
+                        walker.Flip();
+                }
+
+
+            }
+        }
+
+
+
+        public void OnTriggerExit2D(Collider2D collision)
+        {
+
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+            {
+
+                inTalkRange = false;
+            }
+        }
+
+
+
 
     }
 

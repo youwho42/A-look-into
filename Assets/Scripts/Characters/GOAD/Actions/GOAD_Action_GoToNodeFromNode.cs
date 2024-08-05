@@ -51,7 +51,7 @@ namespace Klaxon.GOAD
             {
                 if (!agent.walker.jumpAhead)
                 {
-                    agent.NodeDeviate();
+                    agent.NodeDeviate(this);
                     return;
                 }
             }
@@ -98,5 +98,7 @@ namespace Klaxon.GOAD
             agent.nodePath.Clear();
             agent.currentPathIndex = 0;
         }
+
+        
     } 
 }

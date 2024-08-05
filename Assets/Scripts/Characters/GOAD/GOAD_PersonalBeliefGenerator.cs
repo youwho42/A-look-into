@@ -12,10 +12,10 @@ namespace Klaxon.GOAD
         {
             public GOAD_Condition condition;
             public bool setOnStart;
-            public int setOnTimeTick;
-            public bool hasPrecondition;
-            [ConditionalHide("hasPrecondition", true)]
-            public GOAD_Condition precondition;
+            public bool setBetweenTimes;
+            [ConditionalHide("setBetweenTimes", true)]
+            public Vector2 setFromToTimeTick;
+            
         }
 
         [Serializable]
@@ -62,24 +62,18 @@ namespace Klaxon.GOAD
 
         void SetConditions(int tick)
         {
+            if (scheduler == null)
+                return;
             foreach (var item in conditions)
             {
-                if (item.setOnTimeTick != 0)
-                {
-                    if (tick == item.setOnTimeTick)
-                    {
-                        //if (item.hasPrecondition && GOAD_WorldBeliefStates.instance.HasState(item.precondition.Condition, item.precondition.State))
-                        //{
-                        //    if (scheduler != null)
-                        //        scheduler.SetBeliefState(item.condition.Condition, item.condition.State);
-                        //    continue;
-                        //}
-                        
-                        if (scheduler != null)
-                            scheduler.SetBeliefState(item.condition.Condition, item.condition.State);
-                    }
+                if (!item.setBetweenTimes)
+                    continue;
 
-                }
+                if (tick >= item.setFromToTimeTick.x && tick < item.setFromToTimeTick.y)
+                    scheduler.SetBeliefState(item.condition.Condition, item.condition.State);
+                else
+                    scheduler.SetBeliefState(item.condition.Condition, !item.condition.State);
+
             }
         }
 

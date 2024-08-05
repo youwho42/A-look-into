@@ -31,7 +31,13 @@ namespace Klaxon.GOAD
             {
 
                 chair = GOAD_WorldBeliefStates.instance.FindNearestSeat(transform.position);
-                if(chair != agent.currentRestSeat)
+                if (chair == null)
+                {
+                    success = false;
+                    agent.SetActionComplete(true);
+                    return;
+                }
+                if (chair != agent.currentRestSeat)
                 {
                     success = false;
                     agent.SetActionComplete(true);
@@ -110,7 +116,7 @@ namespace Klaxon.GOAD
             {
                 if (!agent.walker.jumpAhead)
                 {
-                    agent.NodeDeviate();
+                    agent.NodeDeviate(this);
                     return;
                 }
             }
@@ -159,6 +165,7 @@ namespace Klaxon.GOAD
         public override void FailAction(GOAD_Scheduler_NPC agent)
         {
             base.FailAction(agent);
+            Debug.Log("Failed to rest");
             agent.SetBeliefState("AtRestSeat", false);
             agent.SetBeliefState("Tired", true);
         }
@@ -216,6 +223,6 @@ namespace Klaxon.GOAD
             yield return null;
         }
 
-
+        
     } 
 }

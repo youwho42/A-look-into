@@ -20,19 +20,13 @@ namespace Klaxon.GOAD
                 {
                     agent.nodePath.Clear();
                     agent.currentPathIndex = 0;
-                    if (agent.lastValidNode != null)
-                        agent.currentNode = agent.lastValidNode;
-                    //else
-                    //    agent.currentNode = startNode;
                     agent.nodePath = endNode.FindPath(transform.position);
                     agent.nodePath.Reverse();
                     agent.currentNode = agent.nodePath[agent.currentPathIndex];
                     agent.walker.currentDestination = agent.nodePath[agent.currentPathIndex].transform.position;
-                    
+
                 }
-
             }
-
 
         }
         public override void PerformAction(GOAD_Scheduler_NPC agent)
@@ -51,11 +45,10 @@ namespace Klaxon.GOAD
 
             if (agent.walker.isStuck || agent.isDeviating)
             {
-                if (!agent.walker.jumpAhead)
-                {
-                    agent.NodeDeviate();
-                    return;
-                }
+
+                agent.NodeDeviate(this);
+                return;
+
             }
 
             if (agent.nodePath.Count > 0)
@@ -100,5 +93,7 @@ namespace Klaxon.GOAD
             agent.nodePath.Clear();
             agent.currentPathIndex = 0;
         }
+
+        
     } 
 }

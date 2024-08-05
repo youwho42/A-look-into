@@ -1,4 +1,5 @@
 using Klaxon.Interactable;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,12 @@ namespace Klaxon.GOAD
         bool closeShop;
         bool sitting;
         bool gettingUp;
+        bool shopOpen;
+        public List<InteractableMerchantTable> merchantTables = new List<InteractableMerchantTable>();
+        GOAD_Scheduler_NPC currentAgent;
         public override void StartAction(GOAD_Scheduler_NPC agent)
         {
+            currentAgent = agent;
             sitting = true;
             closeShop = false;
             gettingUp = false;
@@ -39,12 +44,27 @@ namespace Klaxon.GOAD
 
             if (closeShop)
             {
+                if(shopOpen)
+                {
+                    CloseShop(agent);
+                }
                 GetUpAndLeave(agent);
                 return;
             }
 
-            // open shop
+            if(!shopOpen)
+            {
+                CheckTableInventory(agent);
+                shopOpen= true;
+                InvokeRepeating("CheckTables", 30, 30);
+            }
+            
 
+        }
+
+        void CheckTables()
+        {
+            CheckTableInventory(currentAgent);
         }
 
         private void GetUpAndLeave(GOAD_Scheduler_NPC agent)
@@ -125,6 +145,59 @@ namespace Klaxon.GOAD
             yield return null;
         }
 
+        //void OpenShop(GOAD_Scheduler_NPC agent)
+        //{
+            
+            
+        //    for (int i = 0; i < agent.agentInventory.Stacks.Count; i++)
+        //    {
+        //        if (i >= merchantTables.Count)
+        //            break;
+        //        if (agent.agentInventory.Stacks[i].Item != null)
+        //        {
+        //            var item = agent.agentInventory.Stacks[i].Item;
+        //            var amount = agent.agentInventory.Stacks[i].Amount;
+        //            merchantTables[i].SetUpTable(item, amount, agent);
+        //            agent.agentInventory.RemoveItem(item, amount);
+        //        }
+        //    }
 
-    } 
+        //}
+
+        void CloseShop(GOAD_Scheduler_NPC agent)
+        {
+            for (int i = 0; i < merchantTables.Count; i++)
+            {
+                merchantTables[i].ClearTable();
+            }
+            agent.agentInventory.RemoveAllItems();
+        }
+
+        void CheckTableInventory(GOAD_Scheduler_NPC agent)
+        {
+            
+
+            for (int i = 0; i < merchantTables.Count; i++)
+            {
+                if (merchantTables[i].amount > 0)
+                    continue;
+
+                if (agent.agentInventory.Stacks.Count <= 0)
+                    break;
+
+                if (agent.agentInventory.Stacks[0].Item != null)
+                {
+                    var item = agent.agentInventory.Stacks[0].Item;
+                    var amount = agent.agentInventory.Stacks[0].Amount;
+                    merchantTables[i].SetUpTable(item, amount, agent);
+                    agent.agentInventory.RemoveItem(item, amount);
+                }
+
+
+            }
+            
+        }
+
+
+    }
 }

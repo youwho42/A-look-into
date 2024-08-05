@@ -1,8 +1,5 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using QuantumTek.QuantumInventory;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Klaxon.Interactable
@@ -17,7 +14,7 @@ namespace Klaxon.Interactable
         public int amount;
 
         MerchantTableUI merchantTable;
-        SAP_Scheduler_NPC scheduler_NPC;
+        GOAD_Scheduler_NPC scheduler_NPC;
 
         public override void Start()
         {
@@ -66,7 +63,7 @@ namespace Klaxon.Interactable
         }
 
 
-        public void SetUpTable(QI_ItemData itemData, int _amount, SAP_Scheduler_NPC npc)
+        public void SetUpTable(QI_ItemData itemData, int _amount, GOAD_Scheduler_NPC npc)
         {
             scheduler_NPC = npc;
             item = itemData;

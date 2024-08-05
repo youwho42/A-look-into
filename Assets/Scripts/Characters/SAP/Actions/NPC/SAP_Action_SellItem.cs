@@ -156,7 +156,7 @@ namespace Klaxon.SAP
             for (int i = 0; i < allItems.Count; i++)
             {
                 
-                merchantTables[i].SetUpTable(allItems[i], itemAmount[i], agent);
+                //merchantTables[i].SetUpTable(allItems[i], itemAmount[i], agent);
             }
             
         }

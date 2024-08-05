@@ -18,13 +18,12 @@ namespace Klaxon.GOAD
         {
             base.StartAction(agent);
 
-            
+
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
+
             if (target == null)
             {
-
-                
                 target = workSeat.sitNode;
                 agent.currentNode = workSeat.findNode;
                 workSeat.canInteract = false;
@@ -34,8 +33,9 @@ namespace Klaxon.GOAD
                 agent.nodePath = agent.currentNode.FindPath(target);
 
                 agent.walker.currentDestination = agent.nodePath[agent.currentPathIndex].transform.position;
-            }
 
+
+            }
         }
 
         public override void PerformAction(GOAD_Scheduler_NPC agent)
@@ -91,7 +91,7 @@ namespace Klaxon.GOAD
             {
                 if (!agent.walker.jumpAhead)
                 {
-                    agent.NodeDeviate();
+                    agent.NodeDeviate(this);
                     return;
                 }
             }
@@ -176,5 +176,6 @@ namespace Klaxon.GOAD
 
             yield return null;
         }
+        
     } 
 }

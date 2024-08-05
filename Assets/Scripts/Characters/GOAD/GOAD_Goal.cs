@@ -12,6 +12,17 @@ namespace Klaxon.GOAD
 		public GOAD_Condition ResultCondition;
         [Header("Pre-Conditions")]
         public GOAD_Condition PreCondition;
-	}
+		
+    }
+
+    [Serializable]
+    public class GOAD_MainGoal
+    {
+        [Header("Desired Result")]
+        public GOAD_Condition ResultCondition;
+        [Header("Pre-Conditions")]
+        public List<GOAD_Condition> PreConditions = new List<GOAD_Condition>();
+
+    }
 
 }

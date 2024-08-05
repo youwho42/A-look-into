@@ -1,11 +1,9 @@
 using Klaxon.Interactable;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Klaxon.GOAD
 {
-	public class GOAD_Action_GoToNearestSeat : GOAD_Action
+    public class GOAD_Action_GoToNearestSeat : GOAD_Action
 	{
 
         InteractableChair chair;
@@ -21,6 +19,14 @@ namespace Klaxon.GOAD
 
             
             chair = GOAD_WorldBeliefStates.instance.FindNearestSeat(transform.position);
+            
+            if(chair == null)
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+
             target = chair.findNode;
             agent.currentRestSeat = chair;
 

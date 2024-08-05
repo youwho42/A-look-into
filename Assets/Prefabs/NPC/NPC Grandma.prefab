@@ -544,36 +544,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4727331539275905923}
-    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7597044098730154291}
   m_SourcePrefab: {fileID: 100100000, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
---- !u!114 &217480155936212698 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3968540688165807639, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3753666410757808333}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76283022cb7ce44a690f2b9bc3e794c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3753666409468233408 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3753666410757808333}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b599c1df5991d34f84033ad41d56054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4033799851453802055 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 282983651390883466, guid: 0dae89472a3e25645aa923afe5a9fb0f,
@@ -620,7 +592,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   chair: {fileID: 0}
   merchantTables:
   - {fileID: 0}
@@ -654,22 +631,9 @@ MonoBehaviour:
       State: 0
     setOnStart: 0
     setOnTimeTick: 900
-  schedulerNPC: {fileID: 3753666409468233408}
+  schedulerNPC: {fileID: 0}
   schedulerBP: {fileID: 0}
---- !u!114 &4727331539275905923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50099efb614781844bd07a12855ff0de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 217480155936212698}
-  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
+  schedulerAnimal: {fileID: 0}
 --- !u!114 &7597044098730154291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,7 +650,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   craftingTime: 120
   itemsToCraft: {fileID: 11400000, guid: 401b7b545a342474a85c72ec5b441da8, type: 2}
   craftingTypesAmount: 3

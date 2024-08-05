@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 6902144603053421266}
   - component: {fileID: 1781550424958762}
   - component: {fileID: 3968540688165807639}
+  - component: {fileID: 7451026495035940893}
   - component: {fileID: 9099265967096594157}
   - component: {fileID: 7803679775236702586}
   - component: {fileID: 282983651390883466}
@@ -414,6 +415,20 @@ MonoBehaviour:
   Name: 
   MaxStacks: 12
   PlayerCanAddToInventory: 1
+--- !u!114 &7451026495035940893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50099efb614781844bd07a12855ff0de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 3968540688165807639}
+  itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!114 &9099265967096594157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +557,8 @@ MonoBehaviour:
       Condition: AtHome
       State: 0
     setOnStart: 1
-    setOnTimeTick: 0
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
   specialConditions:
   - condition:
       Condition: Tired
@@ -570,8 +586,8 @@ MonoBehaviour:
       ResultCondition:
         Condition: Sleep
         State: 1
-      PreCondition:
-        Condition: Day
+      PreConditions:
+      - Condition: Day
         State: 0
     Priority: 3
   - Name: Wander
@@ -579,8 +595,8 @@ MonoBehaviour:
       ResultCondition:
         Condition: Wander
         State: 1
-      PreCondition:
-        Condition: Day
+      PreConditions:
+      - Condition: Day
         State: 1
     Priority: 1
   - Name: Rest
@@ -588,8 +604,8 @@ MonoBehaviour:
       ResultCondition:
         Condition: Rest
         State: 1
-      PreCondition:
-        Condition: Tired
+      PreConditions:
+      - Condition: Tired
         State: 1
     Priority: 2
   currentActionName: 
@@ -598,6 +614,7 @@ MonoBehaviour:
   offScreen: 0
   walker: {fileID: 0}
   currentPathIndex: 0
+  agentInventory: {fileID: 0}
   aStarPath: []
   gettingPath: 0
   currentFinalDestination: {x: 0, y: 0, z: 0}
@@ -608,6 +625,7 @@ MonoBehaviour:
   isInside: 0
   offScreenPosMoved: 1
   sleep: {fileID: 0}
+  currentRestSeat: {fileID: 0}
 --- !u!114 &391497059651357732
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -42,6 +42,8 @@ namespace Klaxon.GOAD
             var a = FindObjectsOfType<InteractableChair>().ToList();
             foreach (var seat in a)
             {
+                if (seat == null)
+                    continue;
                 if (seat.sitNode != null)
                 {
                     if (!seat.isPrivateSeat)
@@ -114,9 +116,9 @@ namespace Klaxon.GOAD
 
         public bool HasState(string condition, bool state)
         {
-            if (worldStates.ContainsKey(condition))
+            if (worldStates.TryGetValue(condition, out bool State))
             {
-                return worldStates[condition] == state;
+                return State == state;
             }
             return false;
         }
@@ -127,13 +129,14 @@ namespace Klaxon.GOAD
             InteractableChair best = null;
             foreach (var seat in allSeats)
             {
-                var d = Vector2.Distance(seat.transform.position, position);
-                if (d < closest && seat.canInteract && seat.findNode.active)
+                float d = Vector3.Distance(seat.transform.position, position);
+                if (d < closest && seat.canInteract)
                 {
                     closest = d;
                     best = seat;
                 }
             }
+            
             return best;
         }
 

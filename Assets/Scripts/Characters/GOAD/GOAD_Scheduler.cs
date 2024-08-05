@@ -11,7 +11,7 @@ namespace Klaxon.GOAD
         public struct PossibleGoal
         {
             public string Name;
-            public GOAD_Goal DesiredGoal;
+            public GOAD_MainGoal DesiredGoal;
             public int Priority;
         }
 
@@ -45,7 +45,7 @@ namespace Klaxon.GOAD
             // Loop through all possible goals
             for (int i = 0; i < possibleGoals.Count; i++)
             {
-                if (IsConditionMet(possibleGoals[i].DesiredGoal.PreCondition))
+                if (AreConditionsMet(possibleGoals[i].DesiredGoal.PreConditions))
                 {
                     if (possibleGoals[i].Priority > currentPriority)
                     {
@@ -129,6 +129,37 @@ namespace Klaxon.GOAD
             }
 
             return false;
+        }
+
+        bool AreConditionsMet(List<GOAD_Condition> conditions)
+        {
+            Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
+
+            // Combine the two dictionaries without modifying the original dictionaries
+            foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
+            {
+                temp[kvp.Key] = kvp.Value;
+            }
+
+            // Check if the condition's key exists in the combined dictionary and compare the state
+            bool allMet = true;
+            foreach (var condition in conditions)
+            {
+                if (temp.TryGetValue(condition.Condition, out bool state))
+                    if (condition.State == state)
+                        continue;
+                    else
+                    {
+                        allMet = false;
+                        break;
+                    }
+
+                allMet = false;
+                break;
+            }
+            
+
+            return allMet;
         }
 
         bool CompareConditions(GOAD_Condition conditionA, GOAD_Condition conditionB)
