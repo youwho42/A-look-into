@@ -1,5 +1,5 @@
-using JetBrains.Annotations;
 using Klaxon.ConversationSystem;
+using Klaxon.GOAD;
 using Klaxon.GravitySystem;
 using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
@@ -325,7 +325,7 @@ namespace Klaxon.SAP
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
 
             // Combine the two dictionaries without modifying the original dictionaries
-            foreach (var kvp in SAP_WorldBeliefStates.instance.worldStates)
+            foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
             {
                 temp[kvp.Key] = kvp.Value;
             }

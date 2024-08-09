@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Klaxon.Interactable;
-
+using Klaxon.GOAD;
 
 namespace Klaxon.SAP
 {
@@ -42,7 +42,7 @@ namespace Klaxon.SAP
                     agent.walker.currentDirection = Vector2.zero;
                     agent.animator.SetTrigger(agent.lick_hash);
                     hasLicked = true;
-                    fires[lightIndex].ToggleFire(!SAP_WorldBeliefStates.instance.GetConditionState("Day"));
+                    fires[lightIndex].ToggleFire(GOAD_WorldBeliefStates.instance.HasState("Day", false));
                 }
 
 

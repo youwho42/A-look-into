@@ -102,7 +102,7 @@ namespace Klaxon.GOAD
             return actionList;
         }
 
-        GOAD_Action GetPossibleAction(GOAD_Condition desiredCondition)
+        GOAD_Action GetPossibleAction(GOAD_ScriptableCondition desiredCondition)
         {
             foreach (var action in availableActions)
             {
@@ -112,14 +112,15 @@ namespace Klaxon.GOAD
             return null;
         }
 
-        bool IsConditionMet(GOAD_Condition condition)
+        public bool IsConditionMet(GOAD_ScriptableCondition condition)
         {
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
 
             // Combine the two dictionaries without modifying the original dictionaries
             foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
             {
-                temp[kvp.Key] = kvp.Value;
+                //if (!temp.ContainsKey(kvp.Key))
+                    temp[kvp.Key] = kvp.Value;
             }
 
             // Check if the condition's key exists in the combined dictionary and compare the state
@@ -131,14 +132,15 @@ namespace Klaxon.GOAD
             return false;
         }
 
-        bool AreConditionsMet(List<GOAD_Condition> conditions)
+        public bool AreConditionsMet(List<GOAD_ScriptableCondition> conditions)
         {
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
 
             // Combine the two dictionaries without modifying the original dictionaries
             foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
             {
-                temp[kvp.Key] = kvp.Value;
+                //if(!temp.ContainsKey(kvp.Key))
+                    temp[kvp.Key] = kvp.Value;
             }
 
             // Check if the condition's key exists in the combined dictionary and compare the state
@@ -162,7 +164,7 @@ namespace Klaxon.GOAD
             return allMet;
         }
 
-        bool CompareConditions(GOAD_Condition conditionA, GOAD_Condition conditionB)
+        bool CompareConditions(GOAD_ScriptableCondition conditionA, GOAD_ScriptableCondition conditionB)
         {
             return conditionA.Condition == conditionB.Condition && conditionA.State == conditionB.State;
         }

@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.SAP;
 using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
@@ -94,7 +95,7 @@ namespace Klaxon.UndertakingSystem
                 player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
             
             CurrentState = UndertakingState.Complete;
-            SAP_WorldBeliefStates.instance.SetWorldState(Name, true);
+            GOAD_WorldBeliefStates.instance.SetWorldState(Name, true);
             Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingComplete);
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }

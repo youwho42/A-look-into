@@ -74,7 +74,7 @@ namespace Klaxon.SAP
 
                 if (currentArea.fixTimer >= currentArea.ticksToFix)
                 {
-                    SAP_WorldBeliefStates.instance.SetWorldState(currentArea.SAP_CompletedCondition.Condition, currentArea.SAP_CompletedCondition.State);
+                    SAP_WorldBeliefStates.instance.SetWorldState(currentArea.GOAD_CompletedCondition.Condition, currentArea.GOAD_CompletedCondition.State);
                     SAP_WorldBeliefStates.instance.SetWorldState("FixingAreaAvailable", false);
                     
                     currentArea.activeArea.SetActive(true);
@@ -82,7 +82,7 @@ namespace Klaxon.SAP
                     currentArea.isActive = true;
                     currentArea.isFixing = false;
                     currentArea.undertakingObject.TryCompleteTask(currentArea.taskObject);
-                    SAP_WorldBeliefStates.instance.SetWorldState(currentArea.SAP_CompletedCondition.Condition, currentArea.SAP_CompletedCondition.State);
+                    SAP_WorldBeliefStates.instance.SetWorldState(currentArea.GOAD_CompletedCondition.Condition, currentArea.GOAD_CompletedCondition.State);
                     foreach (var node in currentArea.navigationNodes)
                     {
                         node.active = true;

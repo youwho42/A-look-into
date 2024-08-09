@@ -143,7 +143,7 @@ namespace Klaxon.GOAD
             return false;
         }
 
-        public void GetRandomTilePosition(float distance)
+        public void GetRandomTilePosition(float distance, GOAD_Action action)
         {
             var currentPos = transform.position;
             Vector3 destination = currentPos;
@@ -152,11 +152,19 @@ namespace Klaxon.GOAD
                 destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance);
             }
             currentFinalDestination = destination;
-            SetAStarDestination(destination);
+            SetAStarDestination(destination, action);
         }
 
-        public void SetAStarDestination(Vector3 destination)
+        public void SetAStarDestination(Vector3 destination, GOAD_Action action)
         {
+
+            var start = GridManager.instance.GetTilePosition(transform.position);
+            var end = GridManager.instance.GetTilePosition(destination);
+            if(start == end)
+            {
+                action.AStarDestinationIsCurrentPosition(this);
+                return;
+            }
             Vector3 destPos = destination;
             destPos.z -= 1;
             Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
@@ -216,7 +224,7 @@ namespace Klaxon.GOAD
                 currentPathIndex = 0;
                 aStarPath.Clear();
                 if (StartPositionValid())
-                    SetAStarDestination(currentFinalDestination);
+                    SetAStarDestination(currentFinalDestination, action);
                 else
                 {
                     Debug.Log("start position not valid after deviate");
@@ -302,8 +310,7 @@ namespace Klaxon.GOAD
                 {
 
                     lastValidNode = currentNode;
-                    action.success = true;
-                    SetActionComplete(true);
+                    action.OffscreenNodeHandleComplete(this);
                 }
                 else
                 {
@@ -351,6 +358,10 @@ namespace Klaxon.GOAD
 
             if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
             {
+                
+                if (PlayerInformation.instance.playerAnimator.GetBool("IsSitting") || PlayerInformation.instance.playerAnimator.GetBool("IsSleeping"))
+                    return;
+                
                 inTalkRange = true;
                 animator.SetFloat(velocityX_hash, 0);
                 walker.currentDirection = Vector2.zero;

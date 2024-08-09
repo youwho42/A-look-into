@@ -31,16 +31,12 @@ namespace Klaxon.GOAD
             {
 
                 chair = GOAD_WorldBeliefStates.instance.FindNearestSeat(transform.position);
-                if (chair == null)
-                {
-                    success = false;
-                    agent.SetActionComplete(true);
-                    return;
-                }
+                
                 if (chair != agent.currentRestSeat)
                 {
                     success = false;
                     agent.SetActionComplete(true);
+                    return;
                 }
                 target = chair.sitNode;
                 agent.currentNode = chair.findNode;
@@ -60,9 +56,9 @@ namespace Klaxon.GOAD
             base.PerformAction(agent);
 
 
-            if (sitting)
+            if (sitting && !isGettingUp)
             {
-
+                
                 if (!isGettingUp && RealTimeDayNightCycle.instance.currentTimeRaw >= sitCycle.tick && RealTimeDayNightCycle.instance.currentDayRaw == sitCycle.day)
                 {
                     agent.animator.SetBool(agent.isSitting_hash, false);
@@ -160,12 +156,12 @@ namespace Klaxon.GOAD
         public override void SucceedAction(GOAD_Scheduler_NPC agent)
         {
             base.SucceedAction(agent);
+            chair.canInteract = true;
         }
 
         public override void FailAction(GOAD_Scheduler_NPC agent)
         {
             base.FailAction(agent);
-            Debug.Log("Failed to rest");
             agent.SetBeliefState("AtRestSeat", false);
             agent.SetBeliefState("Tired", true);
         }
@@ -175,13 +171,11 @@ namespace Klaxon.GOAD
             base.EndAction(agent);
 
             agent.offScreenPosMoved = true;
-            //agent.lastValidNode = currentNode;
-            agent.SetBeliefState("Tired", false);
-            agent.SetBeliefState("AtRestSeat", false);
             sitCycle = null;
             sitting = false;
             destinationReached = false;
             isGettingUp = false;
+            
             chair = null;
             agent.nodePath.Clear();
             agent.currentNode = null;
@@ -215,14 +209,25 @@ namespace Klaxon.GOAD
             }
             if (standingUp)
             {
-
-                chair.canInteract = true;
+                if (chair != null)
+                    chair.canInteract = true;
                 sitting = false;
             }
 
             yield return null;
         }
 
-        
+        public override void OffscreenNodeHandleComplete(GOAD_Scheduler_NPC agent)
+        {
+            if(!isGettingUp)
+                ReachSeat(agent);
+            else
+            {
+                chair.canInteract = true;
+                success = true;
+                agent.SetActionComplete(true);
+            }
+        }
+
     } 
 }

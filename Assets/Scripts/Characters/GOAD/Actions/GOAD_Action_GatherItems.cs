@@ -9,10 +9,11 @@ namespace Klaxon.GOAD
 	{
         public float wanderDistance = 1f;
 
-        public QI_ItemDatabase findablesDatabase;
-        [Range(0.0f, 1.0f)]
-        public float gatherChance = 1;
-        public int maxAmountPerGather;
+        //public QI_ItemDatabase findablesDatabase;
+        //[Range(0.01f, 1.0f)]
+        //public float gatherChance = 1;
+        //[Min(1)]
+        //public int maxAmountPerGather;
         bool isGathering;
         bool canGather;
         float gatherTimer;
@@ -30,7 +31,7 @@ namespace Klaxon.GOAD
             agent.currentPathIndex = 0;
             agent.aStarPath.Clear();
             if (agent.StartPositionValid())
-                agent.GetRandomTilePosition(wanderDistance);
+                agent.GetRandomTilePosition(wanderDistance, this);
             else
                 agent.aStarPath.Add(agent.lastValidTileLocation);
         }
@@ -129,21 +130,26 @@ namespace Klaxon.GOAD
             agent.walker.SetLastPosition();
         }
 
-        private void GatherItem(GOAD_Scheduler_NPC agent)
-        {
-            float gathered = Random.Range(0.0f, 1.0f);
-            int amount = Random.Range(3, maxAmountPerGather);
+        //private void GatherItem(GOAD_Scheduler_NPC agent)
+        //{
+        //    float gathered = Random.Range(0.0f, 1.0f);
+        //    int amount = Random.Range(1, maxAmountPerGather);
 
-            if (gathered < gatherChance)
-                agent.agentInventory.AddItem(findablesDatabase.GetRandomWeightedItem(), amount, false);
+        //    if (gathered < gatherChance)
+        //    {
+        //        agent.agentInventory.AddItem(findablesDatabase.GetRandomWeightedItem(), amount, false);
+                
+        //    }
+                
 
             
-        }
+        //}
 
         public override void SucceedAction(GOAD_Scheduler_NPC agent)
         {
             base.SucceedAction(agent);
-            GatherItem(agent);
+            //GatherItem(agent);
+            
         }
 
 
@@ -163,6 +169,12 @@ namespace Klaxon.GOAD
             isGathering = false;
             animPlayed = false;
             gatherTimer = 0;
+        }
+
+        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_NPC agent)
+        {
+            success = true;
+            agent.SetActionComplete(true);
         }
     }
 

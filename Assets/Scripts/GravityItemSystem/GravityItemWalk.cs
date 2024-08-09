@@ -336,8 +336,18 @@ namespace Klaxon.GravitySystem
                 Vector2 dir = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDirection;
                 
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, dir, 0.5f, obstacleLayer);
-                if (hit.collider == null)
+                bool ignoreCollider = false;
+                if (hit.collider!=null)
                 {
+                    if (hit.collider.TryGetComponent(out DrawZasYDisplacement displacement))
+                    {
+                        if (displacement.positionZ <= 0)
+                            ignoreCollider = true;
+                    } 
+                }
+                if (hit.collider == null || ignoreCollider)
+                {
+                    
                     var d = _transform.position + ((Vector3)dir * .3f);
                     
                     if (dir != currentDirection)

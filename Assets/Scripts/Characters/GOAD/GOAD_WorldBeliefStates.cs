@@ -23,7 +23,7 @@ namespace Klaxon.GOAD
         public struct Conditions
         {
             public string conditionName;
-            public GOAD_Condition condition;
+            public GOAD_ScriptableCondition condition;
             public bool setOnStart;
             public int setOnTimeTick;
             public Vector2 setFromToTimeTick;
@@ -136,6 +136,7 @@ namespace Klaxon.GOAD
                     best = seat;
                 }
             }
+            
             
             return best;
         }

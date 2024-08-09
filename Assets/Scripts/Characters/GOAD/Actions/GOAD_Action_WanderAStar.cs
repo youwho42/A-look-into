@@ -21,7 +21,7 @@ namespace Klaxon.GOAD
             agent.currentPathIndex = 0;
             agent.aStarPath.Clear();
             if (agent.StartPositionValid())
-                agent.GetRandomTilePosition(wanderDistance);
+                agent.GetRandomTilePosition(wanderDistance, this);
             else
                 agent.aStarPath.Add(agent.lastValidTileLocation);
         }
@@ -112,6 +112,12 @@ namespace Klaxon.GOAD
             agent.walker.currentDirection = Vector2.zero;
             agent.aStarPath.Clear();
             agent.currentPathIndex = 0;
+        }
+
+        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_NPC agent)
+        {
+            success = true;
+            agent.SetActionComplete(true);
         }
     } 
 }

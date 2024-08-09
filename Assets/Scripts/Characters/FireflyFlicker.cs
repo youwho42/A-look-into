@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.SAP;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ public class FireflyFlicker : MonoBehaviour
     bool flickering;
     Color initialColor;
     bool isOn;
-    SAP_WorldBeliefStates worldState;
+    GOAD_WorldBeliefStates worldState;
 
     private void Start()
     {
-        worldState = SAP_WorldBeliefStates.instance;
+        worldState = GOAD_WorldBeliefStates.instance;
         fireflyMaterial = firefly.material;
         initialColor = fireflyMaterial.GetColor("_EmissionColor");
         fireflyMaterial.SetColor("_EmissionColor", initialColor * minBrightness);
@@ -38,7 +39,7 @@ public class FireflyFlicker : MonoBehaviour
     void Flick()
     {
         
-        if (worldState.HasWorldState("AnimalDay", false))
+        if (worldState.HasState("AnimalDay", false))
         {
             isOn = true;
             if (!flickering)

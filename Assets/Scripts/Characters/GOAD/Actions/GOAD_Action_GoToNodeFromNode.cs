@@ -99,6 +99,11 @@ namespace Klaxon.GOAD
             agent.currentPathIndex = 0;
         }
 
-        
+        public override void OffscreenNodeHandleComplete(GOAD_Scheduler_NPC agent)
+        {
+            agent.lastValidNode = agent.currentNode;
+            success = true;
+            agent.SetActionComplete(true);
+        }
     } 
 }

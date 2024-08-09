@@ -59,13 +59,13 @@ namespace Klaxon.Interactable
                     GameEventManager.onGuideCompediumUpdateEvent.Invoke();
                 }
             }
-            else if (undertaking != null)
+            if (undertaking != null)
             {
                 BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, undertaking.localizedName.GetLocalizedString(), undertaking.localizedDescription.GetLocalizedString());
 
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
             }
-            else if (craftingRecipe != null)
+            if (craftingRecipe != null)
             {
                 string desc = "";
                 for (int i = 0; i < craftingRecipe.Ingredients.Count; i++)

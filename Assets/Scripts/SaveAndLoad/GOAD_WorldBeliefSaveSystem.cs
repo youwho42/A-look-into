@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using SerializableTypes;
 using System;
 using System.Collections;
@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Klaxon.SaveSystem
 {
-    public class SAP_WorldBeliefSaveSystem : MonoBehaviour, ISaveable
+    public class GOAD_WorldBeliefSaveSystem : MonoBehaviour, ISaveable
     {
-        public SAP_WorldBeliefStates world;
+        public GOAD_WorldBeliefStates world;
         public object CaptureState()
         {
             List<string> _states = new List<string>();

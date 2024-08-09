@@ -4,10 +4,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Klaxon.SAP;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.Localization.SmartFormat.Extensions;
+using Klaxon.GOAD;
 
 public class VillageDeskDisplayUI : MonoBehaviour
 {
@@ -231,7 +231,7 @@ public class VillageDeskDisplayUI : MonoBehaviour
         currentArea.isFixing = true;
         SetPurchaseButton(currentArea);
         RemovePlayerRequirements();
-        SAP_WorldBeliefStates.instance.SetWorldState("FixingAreaAvailable", true);
+        GOAD_WorldBeliefStates.instance.SetWorldState("FixAreaAvailable", true);
         SetCurrentVillageArea(currentArea);
     }
 }

@@ -16,16 +16,16 @@ namespace Klaxon.GOAD
             agent.animator.SetBool(agent.isSleeping_hash, false);
             if (endNode != null)
             {
-                if (agent.currentNode == null && agent.nodePath.Count <= 0)
-                {
-                    agent.nodePath.Clear();
-                    agent.currentPathIndex = 0;
-                    agent.nodePath = endNode.FindPath(transform.position);
-                    agent.nodePath.Reverse();
-                    agent.currentNode = agent.nodePath[agent.currentPathIndex];
-                    agent.walker.currentDestination = agent.nodePath[agent.currentPathIndex].transform.position;
-
-                }
+                 
+                agent.nodePath.Clear();
+                agent.currentPathIndex = 0;
+                agent.nodePath = endNode.FindPath(transform.position);
+                agent.nodePath.Reverse();
+                agent.currentNode = agent.nodePath[agent.currentPathIndex];
+                transform.position = agent.currentNode.transform.position;
+                agent.walker.currentDestination = agent.nodePath[agent.currentPathIndex].transform.position;
+                agent.lastValidNode = agent.currentNode;
+                
             }
 
         }
@@ -94,6 +94,11 @@ namespace Klaxon.GOAD
             agent.currentPathIndex = 0;
         }
 
-        
+        public override void OffscreenNodeHandleComplete(GOAD_Scheduler_NPC agent)
+        {
+            agent.lastValidNode = agent.currentNode;
+            success = true;
+            agent.SetActionComplete(true);
+        }
     } 
 }

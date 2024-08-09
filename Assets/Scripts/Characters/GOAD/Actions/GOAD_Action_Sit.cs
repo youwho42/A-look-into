@@ -176,6 +176,10 @@ namespace Klaxon.GOAD
 
             yield return null;
         }
-        
+
+        public override void OffscreenNodeHandleComplete(GOAD_Scheduler_NPC agent)
+        {
+            ReachSeat(agent);
+        }
     } 
 }

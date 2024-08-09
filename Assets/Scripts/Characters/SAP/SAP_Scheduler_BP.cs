@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Klaxon.Interactable;
+using Klaxon.GOAD;
 
 
 namespace Klaxon.SAP
@@ -270,7 +271,7 @@ namespace Klaxon.SAP
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
 
             // Combine the two dictionaries without modifying the original dictionaries
-            foreach (var kvp in SAP_WorldBeliefStates.instance.worldStates)
+            foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
             {
                 temp[kvp.Key] = kvp.Value;
             }

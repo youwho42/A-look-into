@@ -20,12 +20,7 @@ namespace Klaxon.GOAD
             
             chair = GOAD_WorldBeliefStates.instance.FindNearestSeat(transform.position);
             
-            if(chair == null)
-            {
-                success = false;
-                agent.SetActionComplete(true);
-                return;
-            }
+            
 
             target = chair.findNode;
             agent.currentRestSeat = chair;
@@ -35,7 +30,7 @@ namespace Klaxon.GOAD
                 agent.currentPathIndex = 0;
                 agent.aStarPath.Clear();
                 if (agent.StartPositionValid())
-                    agent.SetAStarDestination(target.transform.position);
+                    agent.SetAStarDestination(target.transform.position, this);
                 
                 agent.currentFinalDestination = target.transform.position;
             }
@@ -141,5 +136,10 @@ namespace Klaxon.GOAD
             target = null;
         }
 
+        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_NPC agent)
+        {
+            success = true;
+            agent.SetActionComplete(true);
+        }
     } 
 }

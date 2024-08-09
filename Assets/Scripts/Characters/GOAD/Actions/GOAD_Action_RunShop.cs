@@ -14,8 +14,16 @@ namespace Klaxon.GOAD
         bool sitting;
         bool gettingUp;
         bool shopOpen;
+        
         public List<InteractableMerchantTable> merchantTables = new List<InteractableMerchantTable>();
+
+        public bool useDatabaseForTables;
+        [ConditionalHide("useDatabaseForTables", true)]
+        public QI_ItemDatabase merchantDatabase;
+        [Min(1)]
+        public int maxItems = 1;
         GOAD_Scheduler_NPC currentAgent;
+        
         public override void StartAction(GOAD_Scheduler_NPC agent)
         {
             currentAgent = agent;
@@ -54,7 +62,7 @@ namespace Klaxon.GOAD
 
             if(!shopOpen)
             {
-                CheckTableInventory(agent);
+                CheckTables();
                 shopOpen= true;
                 InvokeRepeating("CheckTables", 30, 30);
             }
@@ -64,7 +72,10 @@ namespace Klaxon.GOAD
 
         void CheckTables()
         {
-            CheckTableInventory(currentAgent);
+            //if(!useDatabaseForTables)
+            //    CheckTableInventory(currentAgent);
+            //else
+                CheckTableDatabase(currentAgent);
         }
 
         private void GetUpAndLeave(GOAD_Scheduler_NPC agent)
@@ -124,7 +135,6 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_NPC agent)
         {
             base.EndAction(agent);
-
             
         }
 
@@ -145,58 +155,67 @@ namespace Klaxon.GOAD
             yield return null;
         }
 
-        //void OpenShop(GOAD_Scheduler_NPC agent)
-        //{
-            
-            
-        //    for (int i = 0; i < agent.agentInventory.Stacks.Count; i++)
-        //    {
-        //        if (i >= merchantTables.Count)
-        //            break;
-        //        if (agent.agentInventory.Stacks[i].Item != null)
-        //        {
-        //            var item = agent.agentInventory.Stacks[i].Item;
-        //            var amount = agent.agentInventory.Stacks[i].Amount;
-        //            merchantTables[i].SetUpTable(item, amount, agent);
-        //            agent.agentInventory.RemoveItem(item, amount);
-        //        }
-        //    }
-
-        //}
-
+        
         void CloseShop(GOAD_Scheduler_NPC agent)
         {
             for (int i = 0; i < merchantTables.Count; i++)
             {
                 merchantTables[i].ClearTable();
             }
-            agent.agentInventory.RemoveAllItems();
+            
+            
         }
 
-        void CheckTableInventory(GOAD_Scheduler_NPC agent)
-        {
+        //void CheckTableInventory(GOAD_Scheduler_NPC agent)
+        //{
             
 
+        //    for (int i = 0; i < merchantTables.Count; i++)
+        //    {
+        //        if (merchantTables[i].amount > 0)
+        //            continue;
+
+        //        if (agent.agentInventory.Stacks.Count <= 0)
+        //            break;
+
+        //        if (agent.agentInventory.Stacks[0].Item != null)
+        //        {
+                    
+        //            var item = agent.agentInventory.Stacks[0].Item;
+        //            var amount = agent.agentInventory.Stacks[0].Amount;
+        //            merchantTables[i].SetUpTable(item, amount, agent);
+        //            agent.agentInventory.RemoveItem(item, amount);
+        //        }
+
+
+        //    }
+            
+        //}
+
+
+        void CheckTableDatabase(GOAD_Scheduler_NPC agent)
+        {
+            List<QI_ItemData> currentItems = new List<QI_ItemData>();
+            foreach (var table in merchantTables)
+            {
+                currentItems.Add(table.item);
+            }
             for (int i = 0; i < merchantTables.Count; i++)
             {
                 if (merchantTables[i].amount > 0)
                     continue;
-
-                if (agent.agentInventory.Stacks.Count <= 0)
-                    break;
-
-                if (agent.agentInventory.Stacks[0].Item != null)
+                QI_ItemData newitem = null;
+                do
                 {
-                    var item = agent.agentInventory.Stacks[0].Item;
-                    var amount = agent.agentInventory.Stacks[0].Amount;
-                    merchantTables[i].SetUpTable(item, amount, agent);
-                    agent.agentInventory.RemoveItem(item, amount);
-                }
+                    newitem = merchantDatabase.GetRandomWeightedItem();
+                } while (currentItems.Contains(newitem));
 
-
+                int r = Random.Range(1, maxItems);
+                merchantTables[i].SetUpTable(newitem, r, agent);
+                
             }
-            
         }
+
 
 
     }

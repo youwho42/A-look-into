@@ -1,4 +1,3 @@
-using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System;
@@ -7,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
 using Klaxon.Interactable;
-
+using Klaxon.GOAD;
 
 [Serializable]
 public class FixVillageArea
@@ -27,8 +26,9 @@ public class FixVillageArea
     public int sparksRequired;
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
     public List<NavigationNode> navigationNodes = new List<NavigationNode>();
+    public NavigationNode reachNode;
     public NavigationNode fixingNode;
-    public SAP_Condition SAP_CompletedCondition;
+    public GOAD_ScriptableCondition GOAD_CompletedCondition;
     public UndertakingObject undertakingObject;
     public UndertakingTaskObject taskObject;
     [HideInInspector]

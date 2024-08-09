@@ -20,7 +20,7 @@ namespace Klaxon.GOAD
                 agent.currentPathIndex = 0;
                 agent.aStarPath.Clear();
                 if (agent.StartPositionValid())
-                    agent.SetAStarDestination(targetNode.transform.position);
+                    agent.SetAStarDestination(targetNode.transform.position, this);
 
                 agent.currentFinalDestination = targetNode.transform.position;
             }
@@ -56,7 +56,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetDirection();
 
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.03f)
+            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.02f)
             {
 
                 if (agent.currentPathIndex < agent.aStarPath.Count - 1)
@@ -95,6 +95,11 @@ namespace Klaxon.GOAD
             agent.walker.currentDirection = Vector2.zero;
             agent.aStarPath.Clear();
             agent.currentPathIndex = 0;
+        }
+        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_NPC agent)
+        {
+            success = true;
+            agent.SetActionComplete(true);
         }
     }
 

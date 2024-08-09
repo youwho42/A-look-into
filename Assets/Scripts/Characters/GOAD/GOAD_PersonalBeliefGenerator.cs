@@ -10,7 +10,7 @@ namespace Klaxon.GOAD
         [Serializable]
         public struct Conditions
         {
-            public GOAD_Condition condition;
+            public GOAD_ScriptableCondition condition;
             public bool setOnStart;
             public bool setBetweenTimes;
             [ConditionalHide("setBetweenTimes", true)]
@@ -21,7 +21,7 @@ namespace Klaxon.GOAD
         [Serializable]
         public class SpecialCondition
         {
-            public GOAD_Condition condition;
+            public GOAD_ScriptableCondition condition;
             public string currentActionName;
             public Vector2Int minMaxTimeToSet;
             public CycleTicks cycle;
@@ -86,6 +86,12 @@ namespace Klaxon.GOAD
                     item.isSet = false;
                     continue;
                 }
+                if(item.minMaxTimeToSet == Vector2.zero)
+                {
+                    scheduler.SetBeliefState(item.condition.Condition, item.condition.State);
+                    return;
+                }
+
                     
                 if (!item.isSet)
                 {

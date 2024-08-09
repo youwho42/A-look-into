@@ -25,14 +25,6 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
-      propertyPath: goals.Array.data[3].Action
-      value: 
-      objectReference: {fileID: 7597044098730154291}
-    - target: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
-      propertyPath: goals.Array.data[4].Action
-      value: 
-      objectReference: {fileID: 406290642}
-    - target: {fileID: 1461937677, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
       propertyPath: goals.Array.data[0].Priority
       value: 12
       objectReference: {fileID: 0}
@@ -532,19 +524,7 @@ PrefabInstance:
     - {fileID: 2024037668861961693, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 406290642}
-    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2766215837224964746}
-    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7597044098730154291}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
 --- !u!114 &4033799851453802055 stripped
 MonoBehaviour:
@@ -552,7 +532,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3753666410757808333}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35f8e6ceca5e35a48aa80f88a141596c, type: 3}
@@ -564,100 +544,9 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3753666410757808333}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 318ac260c4d67be48a9a50a801fe091f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7772900991890362928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3753666410757808333}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &406290642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d970d24c5c426044798c06595ac57d53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  chair: {fileID: 0}
-  merchantTables:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &2766215837224964746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30b66368c3a9a9942a4a979c52d788b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conditions:
-  - condition:
-      Condition: CanCraft
-      State: 1
-    setOnStart: 0
-    setOnTimeTick: 570
-  - condition:
-      Condition: CanSell
-      State: 0
-    setOnStart: 0
-    setOnTimeTick: 1140
-  - condition:
-      Condition: CanCraft
-      State: 0
-    setOnStart: 0
-    setOnTimeTick: 900
-  schedulerNPC: {fileID: 0}
-  schedulerBP: {fileID: 0}
-  schedulerAnimal: {fileID: 0}
---- !u!114 &7597044098730154291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772900991890362928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ff916315c43184497a8215315bfd04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  craftingTime: 120
-  itemsToCraft: {fileID: 11400000, guid: 401b7b545a342474a85c72ec5b441da8, type: 2}
-  craftingTypesAmount: 3
-  individualItemsAmount: 10
-  craftingStation: {fileID: 0}

@@ -25,8 +25,10 @@ public class IsometricPathfindingXYZ : MonoBehaviour
 
         IsometricNodeXYZ startNode = isometricGrid.GetIsometricNode(request.pathStart);
         IsometricNodeXYZ targetNode = isometricGrid.GetIsometricNode(request.pathEnd);
+        
         if(startNode != null && targetNode != null) 
-        { 
+        {
+
             if (startNode.walkable && targetNode.walkable && request.pathStart != request.pathEnd)
             {
                 Heap<IsometricNodeXYZ> openSet = new Heap<IsometricNodeXYZ>(isometricGrid.maxSize);
@@ -120,7 +122,7 @@ public class IsometricPathfindingXYZ : MonoBehaviour
     {
         List<IsometricNodeXYZ> path = new List<IsometricNodeXYZ>();
         IsometricNodeXYZ currentNode = endNode;
-
+        
         while (currentNode != startNode)
         {
             path.Add(currentNode);

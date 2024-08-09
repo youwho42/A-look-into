@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,15 +10,15 @@ public class ConditionallyEnabledWorldItem : MonoBehaviour
     public struct ConditionalItem
     {
         public GameObject worldItem;
-        public SAP_Condition worldCondition;
+        public GOAD_Condition worldCondition;
     }
 
     public List<ConditionalItem> conditionalItems = new List<ConditionalItem>();
-    SAP_WorldBeliefStates worldBeliefStates;
+    GOAD_WorldBeliefStates worldBeliefStates;
 
     private void Start()
     {
-        worldBeliefStates = SAP_WorldBeliefStates.instance;
+        worldBeliefStates = GOAD_WorldBeliefStates.instance;
         GameEventManager.onWorldStateUpdateEvent.AddListener(ActivateWorldItem);
     }
 
@@ -31,7 +31,7 @@ public class ConditionallyEnabledWorldItem : MonoBehaviour
     {
         foreach (var item in conditionalItems)
         {
-            if(worldBeliefStates.HasWorldState(item.worldCondition.Condition, item.worldCondition.State))
+            if(worldBeliefStates.HasState(item.worldCondition.Condition, item.worldCondition.State))
                 item.worldItem.SetActive(true);
 
         }

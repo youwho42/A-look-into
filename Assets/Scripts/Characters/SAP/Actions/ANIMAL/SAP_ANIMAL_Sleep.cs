@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Klaxon.SAP
 	public class SAP_ANIMAL_Sleep : SAP_Action
 	{
 
-        SAP_WorldBeliefStates worldStates;
+        GOAD_WorldBeliefStates worldStates;
         public bool hiddenWhenSleeping;
         [ConditionalHide("hiddenWhenSleeping", true)]
         public GatherableItem gatherableItem;
@@ -25,7 +26,7 @@ namespace Klaxon.SAP
                 agent.musicGeneratorItem.isActive = false;
             }
 
-            worldStates = SAP_WorldBeliefStates.instance;
+            worldStates = GOAD_WorldBeliefStates.instance;
             
             agent.animator.SetBool(agent.landed_hash, true);
             agent.animator.SetBool(agent.walking_hash, false);

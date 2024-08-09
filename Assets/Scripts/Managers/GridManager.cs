@@ -99,6 +99,12 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
+    public Vector3Int GetTilePosition(Vector3 position)
+    {
+        SetGrid();
+        return groundMap.WorldToCell(position - Vector3Int.forward);
+    }
+
     public Vector3 GetRandomTileWorldPosition(Vector3 origin, float maxDistance)
     {
         SetGrid();

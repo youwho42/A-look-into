@@ -29,7 +29,15 @@ namespace Klaxon.GOAD
             base.PerformAction(agent);
 
             if (worldStates.worldStates.TryGetValue("Day", out bool isDay))
-                agent.SetActionComplete(isDay);
+            {
+                if (isDay)
+                {
+                    success = true;
+                    agent.SetActionComplete(true);
+                    return;
+                }
+            }
+                
 
             if (sleeping)
                 return;
@@ -65,7 +73,6 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_NPC agent)
         {
             base.EndAction(agent);
-            agent.SetBeliefState(Goal.PreCondition.Condition, !Goal.PreCondition.State);
             sleeping = false;
             interactableDialogue.canInteract = true;
             undertakingAvailable.isInactive = false;

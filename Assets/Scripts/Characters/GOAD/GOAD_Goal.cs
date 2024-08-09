@@ -9,9 +9,9 @@ namespace Klaxon.GOAD
 	public class GOAD_Goal
 	{
 		[Header("Desired Result")]
-		public GOAD_Condition ResultCondition;
+		public GOAD_ScriptableCondition ResultCondition;
         [Header("Pre-Conditions")]
-        public GOAD_Condition PreCondition;
+        public GOAD_ScriptableCondition PreCondition;
 		
     }
 
@@ -19,9 +19,9 @@ namespace Klaxon.GOAD
     public class GOAD_MainGoal
     {
         [Header("Desired Result")]
-        public GOAD_Condition ResultCondition;
+        public GOAD_ScriptableCondition ResultCondition;
         [Header("Pre-Conditions")]
-        public List<GOAD_Condition> PreConditions = new List<GOAD_Condition>();
+        public List<GOAD_ScriptableCondition> PreConditions = new List<GOAD_ScriptableCondition>();
 
     }
 

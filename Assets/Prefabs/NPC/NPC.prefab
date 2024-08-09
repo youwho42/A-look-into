@@ -553,16 +553,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions:
-  - condition:
-      Condition: AtHome
-      State: 0
+  - condition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
     setOnStart: 1
     setBetweenTimes: 0
     setFromToTimeTick: {x: 0, y: 0}
   specialConditions:
-  - condition:
-      Condition: Tired
-      State: 1
+  - condition: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
     currentActionName: Wander
     minMaxTimeToSet: {x: 10, y: 20}
     canSet: 0
@@ -583,30 +579,24 @@ MonoBehaviour:
   possibleGoals:
   - Name: Sleep
     DesiredGoal:
-      ResultCondition:
-        Condition: Sleep
-        State: 1
+      ResultCondition: {fileID: 11400000, guid: 5cc2ce639d6b6dc4daed9ec4f3918c03,
+        type: 2}
       PreConditions:
-      - Condition: Day
-        State: 0
+      - {fileID: 11400000, guid: 8521b5f29a27efb43a0a6297c56bc570, type: 2}
     Priority: 3
   - Name: Wander
     DesiredGoal:
-      ResultCondition:
-        Condition: Wander
-        State: 1
+      ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21,
+        type: 2}
       PreConditions:
-      - Condition: Day
-        State: 1
+      - {fileID: 11400000, guid: 290a149854f1ed147b043d823be80984, type: 2}
     Priority: 1
   - Name: Rest
     DesiredGoal:
-      ResultCondition:
-        Condition: Rest
-        State: 1
+      ResultCondition: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087,
+        type: 2}
       PreConditions:
-      - Condition: Tired
-        State: 1
+      - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
     Priority: 2
   currentActionName: 
   animator: {fileID: 6902144603035044640}
@@ -640,14 +630,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: GoHome
   Goal:
-    ResultCondition:
-      Condition: AtHome
-      State: 1
-    PreCondition:
-      Condition: AtHome
-      State: 0
+    ResultCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
   targetNode: {fileID: 0}
 --- !u!114 &3519918299488072403
 MonoBehaviour:
@@ -663,14 +651,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: GoToBed
   Goal:
-    ResultCondition:
-      Condition: InBed
-      State: 1
-    PreCondition:
-      Condition: AtHome
-      State: 1
+    ResultCondition: {fileID: 11400000, guid: 6a59cd7e5d21bf54980da87272684033, type: 2}
+    PreCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
   endNode: {fileID: 0}
 --- !u!114 &2277972646265590774
 MonoBehaviour:
@@ -686,14 +672,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Sleep
   Goal:
-    ResultCondition:
-      Condition: Sleep
-      State: 1
-    PreCondition:
-      Condition: InBed
-      State: 1
+    ResultCondition: {fileID: 11400000, guid: 5cc2ce639d6b6dc4daed9ec4f3918c03, type: 2}
+    PreCondition: {fileID: 11400000, guid: 6a59cd7e5d21bf54980da87272684033, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: f56edb61aef5c3b4ab0cba2d20872ccf, type: 2}
+  - {fileID: 11400000, guid: 5f5a5f837df9d4a4fb94862c4746c78b, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
   interactableDialogue: {fileID: 9099265967096594157}
   undertakingAvailable: {fileID: 282983651390883466}
 --- !u!114 &1911081167605583020
@@ -710,14 +697,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Wander
   Goal:
-    ResultCondition:
-      Condition: Wander
-      State: 1
-    PreCondition:
-      Condition: AtHome
-      State: 0
+    ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
   wanderDistance: 2
 --- !u!114 &953684700885641417
 MonoBehaviour:
@@ -733,14 +718,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: LeaveHome
   Goal:
-    ResultCondition:
-      Condition: AtHome
-      State: 0
-    PreCondition:
-      Condition: AtHome
-      State: 1
+    ResultCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+    PreCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
   endNode: {fileID: 0}
 --- !u!114 &3380158080016935912
 MonoBehaviour:
@@ -756,14 +739,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Rest
   Goal:
-    ResultCondition:
-      Condition: Rest
-      State: 1
-    PreCondition:
-      Condition: AtRestSeat
-      State: 1
+    ResultCondition: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087, type: 2}
+    PreCondition: {fileID: 11400000, guid: 745e9b33eab113a4ba8f328bcb3f9433, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  - {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
+  conditionsOnFail: []
   minMaxSittingTime: {x: 5, y: 15}
 --- !u!114 &43444038107672037
 MonoBehaviour:
@@ -779,14 +762,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: FindSeat
   Goal:
-    ResultCondition:
-      Condition: AtRestSeat
-      State: 1
-    PreCondition:
-      Condition: AtRestSeat
-      State: 0
+    ResultCondition: {fileID: 11400000, guid: 745e9b33eab113a4ba8f328bcb3f9433, type: 2}
+    PreCondition: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
   IsRunning: 0
   success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0
