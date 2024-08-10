@@ -103,18 +103,18 @@ public class NavigationNodesManager : MonoBehaviour
         else
             Destroy(this);
     }
-    [Serializable]
-    public struct NavigationPath
-    {
-        public NavigationPathType pathType;
-        public List<NavigationNode> allNavigationNodes;
-        public List<NavigationNode> outsideNavigationNodes;
-        public List<NavigationNode> insideNavigationNodes;
+    //[Serializable]
+    //public struct NavigationPath
+    //{
+    //    public NavigationPathType pathType;
+    //    public List<NavigationNode> allNavigationNodes;
+    //    public List<NavigationNode> outsideNavigationNodes;
+    //    public List<NavigationNode> insideNavigationNodes;
 
         
-    }
+    //}
    
-    public List<NavigationPath> paths = new List<NavigationPath>();
+    //public List<NavigationPath> paths = new List<NavigationPath>();
 
 
     public List<NavigationNode> allAreas = new List<NavigationNode>();
@@ -126,22 +126,22 @@ public class NavigationNodesManager : MonoBehaviour
 
     private void Start()
     {
-        var allNavigationNodes = GetComponentsInChildren<NavigationNode>().ToList();
-        foreach (var path in paths)
-        {
-            foreach (var node in allNavigationNodes)
-            {
-                if(node.pathType == path.pathType)
-                {
-                    path.allNavigationNodes.Add(node);
-                    if (node.nodeType == NavigationNodeType.Outside)
-                        path.outsideNavigationNodes.Add(node);
-                    else
-                        path.insideNavigationNodes.Add(node);
-                }
+        //var allNavigationNodes = GetComponentsInChildren<NavigationNode>().ToList();
+        //foreach (var path in paths)
+        //{
+        //    foreach (var node in allNavigationNodes)
+        //    {
+        //        if(node.pathType == path.pathType)
+        //        {
+        //            path.allNavigationNodes.Add(node);
+        //            if (node.nodeType == NavigationNodeType.Outside)
+        //                path.outsideNavigationNodes.Add(node);
+        //            else
+        //                path.insideNavigationNodes.Add(node);
+        //        }
                 
-            }
-        }
+        //    }
+        //}
 
         allAreas.Clear();
         allAreas = FindObjectsOfType<NavigationNode>().ToList();
@@ -166,78 +166,78 @@ public class NavigationNodesManager : MonoBehaviour
 
 
 
-    public NavigationNode GetRandomNode(NavigationNodeType nodeType, NavigationPathType pathType)
-    {
-        List<NavigationNode> nodes =  new List<NavigationNode>();
-        foreach  (var path in paths)
-        {
-            if (path.pathType != pathType)
-                continue;
-            nodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
+    //public NavigationNode GetRandomNode(NavigationNodeType nodeType, NavigationPathType pathType)
+    //{
+    //    List<NavigationNode> nodes =  new List<NavigationNode>();
+    //    foreach  (var path in paths)
+    //    {
+    //        if (path.pathType != pathType)
+    //            continue;
+    //        nodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
             
-        }
+    //    }
 
-        int r = -1;
-        while(r == -1)
-        {
-            int n = UnityEngine.Random.Range(0, nodes.Count);
-            if (nodes[n].active)
-                r = n;
-        }
+    //    int r = -1;
+    //    while(r == -1)
+    //    {
+    //        int n = UnityEngine.Random.Range(0, nodes.Count);
+    //        if (nodes[n].active)
+    //            r = n;
+    //    }
         
-        return nodes[r];
-    }
-    public NavigationNode GetRandomNode(NavigationNodeType nodeType, NavigationPathType pathType, Vector3 position, float maxDistance)
-    {
-        List<NavigationNode> nodes = new List<NavigationNode>();
-        List<NavigationNode> nodesInArea = new List<NavigationNode>();
-        foreach (var path in paths)
-        {
-            if (path.pathType != pathType)
-                continue;
-            nodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
-            foreach (var node in nodes)
-            {
-                var dist = Vector3.Distance(position, node.transform.position);
-                if (dist <= maxDistance)
-                    nodesInArea.Add(node);
-            }
-        }
+    //    return nodes[r];
+    //}
+    //public NavigationNode GetRandomNode(NavigationNodeType nodeType, NavigationPathType pathType, Vector3 position, float maxDistance)
+    //{
+    //    List<NavigationNode> nodes = new List<NavigationNode>();
+    //    List<NavigationNode> nodesInArea = new List<NavigationNode>();
+    //    foreach (var path in paths)
+    //    {
+    //        if (path.pathType != pathType)
+    //            continue;
+    //        nodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
+    //        foreach (var node in nodes)
+    //        {
+    //            var dist = Vector3.Distance(position, node.transform.position);
+    //            if (dist <= maxDistance)
+    //                nodesInArea.Add(node);
+    //        }
+    //    }
 
-        int r = -1;
-        while (r == -1)
-        {
-            int n = UnityEngine.Random.Range(0, nodesInArea.Count);
-            if (nodesInArea[n].active)
-                r = n;
-        }
-        return nodesInArea[r];
-    }
-    public NavigationNode GetClosestNavigationNode(Vector3 position, NavigationNodeType nodeType, NavigationPathType pathType)
-    {
-        NavigationNode bestNode = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        foreach (var path in paths)
-        {
-            if (path.pathType != pathType)
-                continue;
+    //    int r = -1;
+    //    while (r == -1)
+    //    {
+    //        int n = UnityEngine.Random.Range(0, nodesInArea.Count);
+    //        if (nodesInArea[n].active)
+    //            r = n;
+    //    }
+    //    return nodesInArea[r];
+    //}
+    //public NavigationNode GetClosestNavigationNode(Vector3 position, NavigationNodeType nodeType, NavigationPathType pathType)
+    //{
+    //    NavigationNode bestNode = null;
+    //    float closestDistanceSqr = Mathf.Infinity;
+    //    foreach (var path in paths)
+    //    {
+    //        if (path.pathType != pathType)
+    //            continue;
 
-            var searchNodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
-            foreach (NavigationNode node in searchNodes)
-            {
-                if(!node.active)
-                    continue;
-                Vector3 directionToNode = node.transform.position - position;
-                float dSqrToNode = directionToNode.sqrMagnitude;
-                if (dSqrToNode < closestDistanceSqr)
-                {
-                    closestDistanceSqr = dSqrToNode;
-                    bestNode = node;
-                }
-            }
-        }
+    //        var searchNodes = nodeType == NavigationNodeType.Outside ? path.outsideNavigationNodes : path.insideNavigationNodes;
+    //        foreach (NavigationNode node in searchNodes)
+    //        {
+    //            if(!node.active)
+    //                continue;
+    //            Vector3 directionToNode = node.transform.position - position;
+    //            float dSqrToNode = directionToNode.sqrMagnitude;
+    //            if (dSqrToNode < closestDistanceSqr)
+    //            {
+    //                closestDistanceSqr = dSqrToNode;
+    //                bestNode = node;
+    //            }
+    //        }
+    //    }
 
         
-        return bestNode;
-    }
+    //    return bestNode;
+    //}
 }

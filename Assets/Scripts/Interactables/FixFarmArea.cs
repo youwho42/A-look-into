@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
@@ -14,8 +14,8 @@ public class FixFarmArea : MonoBehaviour, IFixArea
     bool isFixing;
     public ParticleSystem fixingEffect;
     public CompleteTaskObject undertakingObject;
-    public SAP_Condition worldStateEffect;
-    SAP_WorldBeliefStates worldState;
+    public GOAD_ScriptableCondition worldStateEffect;
+    GOAD_WorldBeliefStates worldState;
 
     public bool Fix(List<FixableAreaIngredient> ingredients)
     {
@@ -36,7 +36,7 @@ public class FixFarmArea : MonoBehaviour, IFixArea
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)
     {
-        worldState = SAP_WorldBeliefStates.instance;
+        worldState = GOAD_WorldBeliefStates.instance;
         isFixing = true;
         RemoveItemsFromInventory(ingredients);
         fixingEffect.Play();

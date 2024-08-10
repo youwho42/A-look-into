@@ -1,6 +1,6 @@
 using Klaxon.UndertakingSystem;
 using System;
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -36,7 +36,7 @@ namespace Klaxon.ConversationSystem
 
         public bool hasCondition;
         [ConditionalHide("hasCondition", true)]
-        public SAP_Condition DialogueCondition;
+        public GOAD_ScriptableCondition DialogueCondition;
 
         public bool ActivateAtStart;
         public UndertakingObject ActivateUndertakingObject;

@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +16,11 @@ namespace Klaxon.ConversationSystem
         public List<ConversationObject> conversations = new List<ConversationObject>();
         List<ConversationObject> B_Conversations = new List<ConversationObject>();
         List<ConversationObject> U_Conversations = new List<ConversationObject>();
-        SAP_Scheduler_NPC scheduler_NPC;
+        GOAD_Scheduler_NPC scheduler_NPC;
 
         private void Start()
         {
-            scheduler_NPC = GetComponent<SAP_Scheduler_NPC>();
+            scheduler_NPC = GetComponent<GOAD_Scheduler_NPC>();
 
             foreach (var convo in conversations)
             {
@@ -40,8 +40,14 @@ namespace Klaxon.ConversationSystem
             DialogueBranch dialogue = null;
             foreach (var convo in U_Conversations)
             {
-                if (convo.Completed || !ConditionalDialogueCheck(convo))
+                if (convo.Completed)
                     continue;
+
+                if(convo.DialogueCondition != null)
+                {
+                    if (!scheduler_NPC.IsConditionMet(convo.DialogueCondition))
+                        continue;
+                }
 
                 if (convo.ActivateUndertakingObject && convo.ActivateAtStart)
                     ActivateUndertaking(convo.ActivateUndertakingObject);
@@ -105,29 +111,29 @@ namespace Klaxon.ConversationSystem
             undertaking.ActivateUndertaking();
         }
 
-        bool ConditionalDialogueCheck(ConversationObject conversation)
-        {
+        //bool ConditionalDialogueCheck(ConversationObject conversation)
+        //{
 
-            if(conversation.DialogueCondition.Condition == "" || !conversation.hasCondition)
-                return true;
+        //    if(conversation.DialogueCondition.Condition == "" || !conversation.hasCondition)
+        //        return true;
 
 
-            Dictionary<string, bool> temp = new Dictionary<string, bool>(scheduler_NPC.beliefs);
-            // Combine the two dictionaries without modifying either original dictionary
-            foreach (var kvp in SAP_WorldBeliefStates.instance.worldStates)
-            {
-                temp[kvp.Key] = kvp.Value;
-            }
+        //    Dictionary<string, bool> temp = new Dictionary<string, bool>(scheduler_NPC.beliefs);
+        //    // Combine the two dictionaries without modifying either original dictionary
+        //    foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
+        //    {
+        //        temp[kvp.Key] = kvp.Value;
+        //    }
             
-            bool state;
-            if (temp.TryGetValue(conversation.DialogueCondition.Condition, out state))
-            {
-                if (conversation.DialogueCondition.State == state)
-                    return true;
-            }
+        //    bool state;
+        //    if (temp.TryGetValue(conversation.DialogueCondition.Condition, out state))
+        //    {
+        //        if (conversation.DialogueCondition.State == state)
+        //            return true;
+        //    }
             
-            return false;
-        }
+        //    return false;
+        //}
 
     }
 
