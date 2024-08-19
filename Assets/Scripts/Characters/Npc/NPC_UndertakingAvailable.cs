@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,12 +34,23 @@ public class NPC_UndertakingAvailable : MonoBehaviour
             return;
         foreach (var item in undertakingHolder.undertakings)
         {
-            if (item.CurrentState == UndertakingState.Active)
+            if (item.Undertaking.CurrentState == UndertakingState.Active)
             {
                 break;
             }
-            if (item.CurrentState == UndertakingState.Inactive)
+            if (item.Undertaking.CurrentState == UndertakingState.Inactive)
             {
+                if (item.hasCondition)
+                {
+                    if(GOAD_WorldBeliefStates.instance.HasState(item.UndertakingAvailableCondition.Condition, item.UndertakingAvailableCondition.State))
+                    {
+                        undertakingAvailableIcon.gameObject.SetActive(true);
+                        break;
+                    }
+                    else
+                        break;
+                        
+                }
                 undertakingAvailableIcon.gameObject.SetActive(true);
                 break;
             }

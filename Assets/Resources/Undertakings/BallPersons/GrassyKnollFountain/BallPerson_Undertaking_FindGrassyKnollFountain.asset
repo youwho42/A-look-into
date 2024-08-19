@@ -40,18 +40,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description: Help me find my special place in the world. I know it's somewhere,
-    but I can't find it! I'm sure it exists though, like maybe on a knoll?
-  CompletedDescription: You found my special place!! This place seems just like a
-    perfect place for me, I shall stay here, FOREVER!!!!
   Tasks:
-  - {fileID: 11400000, guid: 89f57e6f944ef6247beff3ed0989e4ac, type: 2}
   - {fileID: 11400000, guid: 09b0d8cd856c65c4c95c3188a7030241, type: 2}
   - {fileID: 11400000, guid: 90d2b2d39b32be14e9eaf9d649d9b167, type: 2}
-  CurrentState: 0
+  - {fileID: 11400000, guid: 89f57e6f944ef6247beff3ed0989e4ac, type: 2}
+  CurrentState: 1
+  QuestCompleteCondition: {fileID: 0}
   SparksReward: 50
-  GumptionReward: 0
-  AgencyReward: 10
+  GumptionReward: {fileID: 0}
+  AgencyReward: {fileID: 0}
   ItemReward: {fileID: 0}
   ItemQuantity: 0
   RecipeReward: {fileID: 0}

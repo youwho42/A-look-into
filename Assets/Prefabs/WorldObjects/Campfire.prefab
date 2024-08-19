@@ -5213,7 +5213,6 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -5222,6 +5221,7 @@ MonoBehaviour:
   canPlaceOnOther: 0
   visualItem: {fileID: 3060943033660772734}
   instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   fireAnimation: {fileID: 728350270}
   lightFlicker: {fileID: 1300091588}
   fireFlicker: {fileID: 4012312534734668365}
@@ -5254,6 +5254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   version: 
+  intVersion: 
 --- !u!114 &3393916304729849210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5303,7 +5304,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 0.28
+  MinDistance: 0.33
   MaxDistance: 1
   Pan2D: 0
   rolloffMode: 1

@@ -16,13 +16,12 @@ MonoBehaviour:
   type: 1
   hasCondition: 1
   DialogueCondition: {fileID: 11400000, guid: 3dd2b810164750f4284904a4cd86a94a, type: 2}
-  ActivateAtStart: 0
+  ActivateUndertakingAtStart: 0
   ActivateUndertakingObject: {fileID: 11400000, guid: 8c734b4b5ff7e79498c960ba0d961959,
     type: 2}
-  UndertakingObject: {fileID: 0}
-  UndertakingTask: {fileID: 0}
   DialogueBranches:
   - DialogueType: 1
+    UndertakingTask: {fileID: 0}
     localizedSentences:
     - m_TableReference:
         m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b
@@ -41,6 +40,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - DialogueType: 2
+    UndertakingTask: {fileID: 0}
     localizedSentences:
     - m_TableReference:
         m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b
@@ -51,6 +51,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
   - DialogueType: 3
+    UndertakingTask: {fileID: 0}
     localizedSentences:
     - m_TableReference:
         m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b

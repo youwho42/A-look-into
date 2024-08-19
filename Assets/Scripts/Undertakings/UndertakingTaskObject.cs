@@ -3,6 +3,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Klaxon.UndertakingSystem
 {
@@ -10,6 +11,9 @@ namespace Klaxon.UndertakingSystem
     public class UndertakingTaskObject : ScriptableObject
     {
         public string Name;
+
+        public LocalizedString localizedDescription;
+
         public bool IsComplete;
 
 
@@ -26,6 +30,7 @@ namespace Klaxon.UndertakingSystem
         {
             IsComplete = true;
             RewardTask();
+            GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
 
         public void ResetTask()

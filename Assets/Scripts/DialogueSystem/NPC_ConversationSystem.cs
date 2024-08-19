@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
+using Klaxon.StatSystem;
+
 
 namespace Klaxon.ConversationSystem
 {
@@ -12,7 +14,7 @@ namespace Klaxon.ConversationSystem
     {
 
         public LocalizedString NPC_Name;
-        
+        public StatChanger gumptionCost;
         public List<ConversationObject> conversations = new List<ConversationObject>();
         List<ConversationObject> B_Conversations = new List<ConversationObject>();
         List<ConversationObject> U_Conversations = new List<ConversationObject>();
@@ -49,37 +51,38 @@ namespace Klaxon.ConversationSystem
                         continue;
                 }
 
-                if (convo.ActivateUndertakingObject && convo.ActivateAtStart)
+                if (convo.ActivateUndertakingAtStart)
                     ActivateUndertaking(convo.ActivateUndertakingObject);
 
-                //if (convo.UndertakingTask)
-                //    convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
-
-                var currObject = convo.ActivateUndertakingObject == null ? convo.UndertakingObject : convo.ActivateUndertakingObject;
+                var currentUndertaking = convo.ActivateUndertakingObject;
                 
-                switch (currObject.CurrentState)
+                switch (currentUndertaking.CurrentState)
                 {
                     case UndertakingState.Inactive:
                         if (convo.ActivateUndertakingObject)
                             ActivateUndertaking(convo.ActivateUndertakingObject);
                         dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Inactive);
-                        if (convo.UndertakingTask)
-                             convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
+                        
+                        if (dialogue.UndertakingTask)
+                            convo.ActivateUndertakingObject.TryCompleteTask(dialogue.UndertakingTask); 
+                        
                         break;
 
                     case UndertakingState.Active:
-                        if (convo.UndertakingTask)
-                        {
-                            if (!convo.UndertakingTask.IsComplete)
-                            {
-                                convo.UndertakingObject.TryCompleteTask(convo.UndertakingTask);
-                                dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
-                            }
-                                
-                        }
-                        else
-                            dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
 
+                        dialogue = convo.DialogueBranches.FirstOrDefault(o => o.DialogueType == DialogueType.U_Active);
+                        if (dialogue.UndertakingTask)
+                        {
+                            if (!dialogue.UndertakingTask.IsComplete)
+                                convo.ActivateUndertakingObject.TryCompleteTask(dialogue.UndertakingTask); 
+                        }
+                        bool hasCompleteDialogue = false;
+                        foreach (var d in convo.DialogueBranches)
+                        {
+                            if (d.DialogueType == DialogueType.U_Complete)
+                                hasCompleteDialogue = true;
+                        }
+                        convo.Completed = !hasCompleteDialogue;
                         break;
 
                     case UndertakingState.Complete:
@@ -88,7 +91,9 @@ namespace Klaxon.ConversationSystem
                         break;
                     
                 }
-                
+                if(gumptionCost != null)
+                    PlayerInformation.instance.statHandler.ChangeStat(gumptionCost);
+
                 if (dialogue != null)
                     break;
             }

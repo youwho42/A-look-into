@@ -12,18 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc096afc96689a4aa2ff1d38daf3ed1, type: 3}
   m_Name: Chicken boc
   m_EditorClassIdentifier: 
-  DialogueName: 
+  DialogueName: Boc
   type: 0
   hasCondition: 0
-  DialogueCondition:
-    Condition: 
-    State: 0
-  ActivateAtStart: 0
+  DialogueCondition: {fileID: 0}
+  ActivateUndertakingAtStart: 0
   ActivateUndertakingObject: {fileID: 0}
-  UndertakingObject: {fileID: 0}
-  UndertakingTask: {fileID: 0}
   DialogueBranches:
   - DialogueType: 0
+    UndertakingTask: {fileID: 0}
     localizedSentences:
     - m_TableReference:
         m_TableCollectionName: GUID:2e03bc7ed945ceb48a1d20fd7f1aa940

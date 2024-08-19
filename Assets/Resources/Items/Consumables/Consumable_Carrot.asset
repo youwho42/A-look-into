@@ -43,10 +43,15 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
-  ResearchRecipes: []
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 4a8299eee82efa14188f131664609841, type: 2}
+    RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 0
   placementGumption: {fileID: 0}
-  statChangers: []
+  statChangers:
+  - {fileID: 11400000, guid: 6166d8d6cf8631a488a79a7829236492, type: 2}
   statModifiers:
   - {fileID: 11400000, guid: ab0c9eaa77160a344b2a421891184fda, type: 2}
   itemToBecome: {fileID: 0}

@@ -335,6 +335,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         ContactFilter2D filter = new ContactFilter2D();
         filter.layerMask = LayerMask.NameToLayer("Obstacle");
+        
         List<Collider2D> results = new List<Collider2D>();
         coll.OverlapCollider(filter, results);
         
@@ -371,17 +372,17 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     bool PlacedOnNavigationNodes(Collider2D coll)
     {
-        bounds = new Bounds(itemToDrop.transform.position, new Vector3(1, 1, 1));
-        List<NavigationNode> closestSpots = NavigationNodesManager.instance.QueryQuadTree(bounds);
-        foreach (var spot in closestSpots)
-        {
-            if (coll.OverlapPoint(spot.transform.position))
-                return true;
-        }
-        return false;
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("NavNode"));
+        filter.useTriggers = true;
+        filter.useDepth = true;
+        filter.minDepth = coll.transform.position.z;
+        filter.maxDepth = coll.transform.position.z;
+        List <Collider2D> results = new List<Collider2D>();
+        coll.OverlapCollider(filter, results);
+        
+        return results.Count > 0;
     }
-
-
 
     bool CheckTileValid()
     {

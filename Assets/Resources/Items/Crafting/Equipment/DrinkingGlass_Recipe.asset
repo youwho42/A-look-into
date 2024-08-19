@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: DrinkingGlass_Recipe
+  m_EditorClassIdentifier: 
+  Name: Drinking Glass
+  ProductType: 0
+  Ingredients:
+  - Item: {fileID: 11400000, guid: 41e43aff0d4014a45affe024ce71b683, type: 2}
+    Amount: 5
+  Product:
+    Item: {fileID: 11400000, guid: 8d4c3eaca7886d84b9da93bcbd65c9d0, type: 2}
+    Amount: 1
+  CraftingTime: 45
+  AgencyCost: 50

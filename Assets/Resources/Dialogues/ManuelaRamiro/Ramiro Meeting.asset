@@ -15,42 +15,13 @@ MonoBehaviour:
   DialogueName: Meet Ramiro
   type: 1
   hasCondition: 0
-  DialogueCondition:
-    Condition: 
-    State: 0
-  ActivateAtStart: 1
+  DialogueCondition: {fileID: 0}
+  ActivateUndertakingAtStart: 1
   ActivateUndertakingObject: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938,
     type: 2}
-  UndertakingObject: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
-  UndertakingTask: {fileID: 11400000, guid: e0d0a34fc9e7b5243b1d8c4467f269fe, type: 2}
   DialogueBranches:
   - DialogueType: 2
-    localizedSentences:
-    - m_TableReference:
-        m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b
-      m_TableEntryReference:
-        m_KeyId: 4204736864256
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-    - m_TableReference:
-        m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b
-      m_TableEntryReference:
-        m_KeyId: 4297217073152
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-    - m_TableReference:
-        m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b
-      m_TableEntryReference:
-        m_KeyId: 4321678254080
-        m_Key: 
-      m_FallbackState: 0
-      m_WaitForCompletion: 0
-      m_LocalVariables: []
-  - DialogueType: 3
+    UndertakingTask: {fileID: 11400000, guid: 9c6c7a9a5745e3f4cae68c51883d096b, type: 2}
     localizedSentences:
     - m_TableReference:
         m_TableCollectionName: GUID:ac70bab3bf316c34393bbdb54d1e179b

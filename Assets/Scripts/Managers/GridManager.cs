@@ -105,6 +105,15 @@ public class GridManager : MonoBehaviour
         return groundMap.WorldToCell(position - Vector3Int.forward);
     }
 
+    public Vector3 GetTileWorldPosition(Vector3Int position)
+    {
+        SetGrid();
+        return groundMap.GetCellCenterWorld(position);
+    }
+
+
+
+
     public Vector3 GetRandomTileWorldPosition(Vector3 origin, float maxDistance)
     {
         SetGrid();
@@ -120,4 +129,26 @@ public class GridManager : MonoBehaviour
         }
         return origin;
     }
+
+    public Vector3Int GetRandomNodeInArea(Vector3Int startPos, int maxDistance)
+    {
+        SetGrid();
+        int x = Random.Range(-maxDistance, maxDistance);
+        int y = Random.Range(-maxDistance, maxDistance);
+        if (x == 0 && y == 0)
+            x = 1;
+        var endPosition = new Vector3Int(startPos.x + x, startPos.y + y, startPos.z);
+        for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
+        {
+            endPosition.z = z;
+            if(PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(endPosition, out IsometricNodeXYZ nodeXYZ))
+            {
+                if (nodeXYZ.walkable)
+                    return endPosition;
+            }
+        }
+        return startPos;
+    }
+
+
 }

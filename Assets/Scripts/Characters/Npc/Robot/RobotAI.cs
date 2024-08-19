@@ -361,7 +361,7 @@ public class RobotAI : MonoBehaviour
 
     void SetDeviatePath(int distance)
     {
-        Vector3Int dest = PathRequestManager.GetRandomDistancedTile(currentGridLocation.lastTilePosition, distance);
+        //Vector3Int dest = PathRequestManager.GetRandomDistancedTile(currentGridLocation.lastTilePosition, distance);
 
         //PathRequestManager.RequestPath(currentGridLocation.lastTilePosition, dest, OnDeviatePathFound);
     }
@@ -373,7 +373,7 @@ public class RobotAI : MonoBehaviour
 
     void SetRandomDestination(int distance)
     {
-        Vector3Int dest = PathRequestManager.GetRandomDistancedTile(homeBaseTilePosition, distance);
+        //Vector3Int dest = PathRequestManager.GetRandomDistancedTile(homeBaseTilePosition, distance);
 
         //PathRequestManager.RequestPath(currentGridLocation.lastTilePosition, dest, OnPathFound);
     }

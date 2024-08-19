@@ -380,7 +380,7 @@ public class NPG_RobotAI : MonoBehaviour
 
     void SetDeviatePath(int distance)
     {
-        Vector3Int dest = PathRequestManager.GetRandomDistancedTile(gravityItem.currentTilePosition.position, distance);
+        //Vector3Int dest = PathRequestManager.GetRandomDistancedTile(gravityItem.currentTilePosition.position, distance);
 
         //PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnDeviatePathFound);
     }
@@ -392,7 +392,7 @@ public class NPG_RobotAI : MonoBehaviour
 
     void SetRandomDestination(int distance)
     {
-        Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
+        //Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
 
         //PathRequestManager.RequestPath(gravityItem.surroundingTiles.currentTilePosition, dest, OnPathFound);
     }

@@ -7,7 +7,7 @@ namespace Klaxon.GOAD
 {
 	public class GOAD_Action_GatherItems : GOAD_Action
 	{
-        public float wanderDistance = 1f;
+        public int wanderDistance = 1;
 
         //public QI_ItemDatabase findablesDatabase;
         //[Range(0.01f, 1.0f)]

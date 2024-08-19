@@ -143,14 +143,18 @@ namespace Klaxon.GOAD
             return false;
         }
 
-        public void GetRandomTilePosition(float distance, GOAD_Action action)
+        public void GetRandomTilePosition(int distance, GOAD_Action action)
         {
+            //var currentPos = walker.currentTilePosition.position;
+            //Vector3Int destination = GridManager.instance.GetRandomNodeInArea(currentPos, distance);
+            //Vector3 endPos = GridManager.instance.GetTileWorldPosition(destination);
             var currentPos = transform.position;
             Vector3 destination = currentPos;
-            while (destination == currentPos)
-            {
-                destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance);
-            }
+            //while (destination == currentPos)
+            //{
+            //    destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance*.5f);
+            //}
+            destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
             currentFinalDestination = destination;
             SetAStarDestination(destination, action);
         }

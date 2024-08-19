@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
+  m_Name: Equipment_GathererDrinkingGlass
+  m_EditorClassIdentifier: 
+  Name: Drinking Glass
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 113425621485936640
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:3ceaecf76a95f6844a2f33f8f87ba0f1
+    m_TableEntryReference:
+      m_KeyId: 113426094330798080
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 0
+  AnimationName: Bowl
+  Weight: 1
+  Price: 2
+  spawnWeight: 1
+  Icon: {fileID: 21300000, guid: 6d3f4f1dfff0f9046a6416a902ceee12, type: 3}
+  ItemPrefabVariants:
+  - {fileID: 5499458227284682821, guid: e46e9926992cb1743a852ad9ed784c06, type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 249755112104138812, guid: cf5cca793bbdf544b8e7b716180e696d,
+    type: 3}
+  MaxStack: 10
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes: []
+  GameDificulty: 0
+  placementGumption: {fileID: 0}
+  equipmentSlot: 0
+  equipmentTier: 0
+  gatherItemData:
+  - {fileID: 11400000, guid: 339c4b1f5fe29bd46a141500657091d7, type: 2}
+  miniGameType: 0
+  gathererLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  detectionRadius: 0.1
+  takeSample: 1
+  oneUse: 1
+  statChanger: {fileID: 11400000, guid: 8a1bd1e3d59385e40bd636e9ad68938c, type: 2}
+  references:
+    version: 2
+    RefIds: []

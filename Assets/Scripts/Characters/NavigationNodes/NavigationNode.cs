@@ -29,6 +29,11 @@ public class NavigationNode : MonoBehaviour
     {
         GameObject go = new GameObject("NavNode");
         var node = go.AddComponent<NavigationNode>();
+        var coll = go.AddComponent<CircleCollider2D>();
+        coll.radius = 0.01f;
+        coll.isTrigger = true;
+        int Layer = LayerMask.NameToLayer("NavNode");
+        go.layer = Layer;
         go.transform.parent = gameObject.transform.parent;
         go.transform.position = transform.position;
         children.Add(node);

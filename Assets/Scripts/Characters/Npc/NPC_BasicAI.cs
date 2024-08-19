@@ -84,8 +84,8 @@ public class NPC_BasicAI : MonoBehaviour
             case NPCStates.Wandering:
                 atActivity = false;
                 atHome = false;
-                if(!gettingPath && !moveToNode.hasPath)
-                    SetDestination(PathRequestManager.GetRandomDistancedTile(moveToNode.currentTilePosition.position, wanderDistance));
+                //if(!gettingPath && !moveToNode.hasPath)
+                //    SetDestination(PathRequestManager.GetRandomDistancedTile(moveToNode.currentTilePosition.position, wanderDistance));
 
                 if (moveToNode.hasPath)
                     moveToNode.Move();

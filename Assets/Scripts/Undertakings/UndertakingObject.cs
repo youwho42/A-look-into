@@ -28,6 +28,8 @@ namespace Klaxon.UndertakingSystem
         public List<UndertakingTaskObject> Tasks;
         public UndertakingState CurrentState;
 
+        public GOAD_ScriptableCondition QuestCompleteCondition;
+        [Header("Rewards")]
         public int SparksReward;
         public StatChanger GumptionReward;
         public StatChanger AgencyReward;
@@ -56,7 +58,7 @@ namespace Klaxon.UndertakingSystem
                 {
                     task.CompleteTask();
                     TryCompleteQuest();
-                    GameEventManager.onUndertakingsUpdateEvent.Invoke();
+                    
                 }
             }
         }
@@ -74,14 +76,15 @@ namespace Klaxon.UndertakingSystem
             if (complete)
             {
                 CompleteUndertaking();
+                GameEventManager.onUndertakingsUpdateEvent.Invoke();
             }
                 
             
         }
         public void CompleteUndertaking()
         {
-            
 
+            bool addedToLostAndFound = false; ;
             var player = PlayerInformation.instance;
             if (GumptionReward != null)
                 player.statHandler.ChangeStat(GumptionReward);
@@ -89,15 +92,27 @@ namespace Klaxon.UndertakingSystem
                 player.statHandler.ChangeStat(AgencyReward);
             if (SparksReward > 0)
                 player.purse.AddToPurse(SparksReward);
-            if (ItemReward != null)
-                player.playerInventory.AddItem(ItemReward, ItemQuantity, false);
+            if (ItemReward != null) 
+            {
+                if (!player.playerInventory.AddItem(ItemReward, ItemQuantity, false))
+                {
+                    LostAndFoundManager.instance.inventory.AddItem(ItemReward, ItemQuantity, false);
+                    addedToLostAndFound = true; 
+                }
+                    
+            }
+                
             if(RecipeReward != null)
                 player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
             
             CurrentState = UndertakingState.Complete;
-            GOAD_WorldBeliefStates.instance.SetWorldState(Name, true);
+            if(QuestCompleteCondition != null)
+                GOAD_WorldBeliefStates.instance.SetWorldState(QuestCompleteCondition.Condition, QuestCompleteCondition.State);
+
             Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingComplete);
-            GameEventManager.onUndertakingsUpdateEvent.Invoke();
+            if(addedToLostAndFound)
+                Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()} sent to lost and found", null, 0, NotificationsType.Warning);
+            
         }
 
         

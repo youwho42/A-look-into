@@ -496,6 +496,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  gumptionCost: {fileID: 11400000, guid: 2dcf33813fba4754c877988660dac881, type: 2}
   conversations: []
   references:
     version: 2
@@ -560,7 +561,7 @@ MonoBehaviour:
   specialConditions:
   - condition: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
     currentActionName: Wander
-    minMaxTimeToSet: {x: 10, y: 20}
+    minMaxTimeToSet: {x: 20, y: 45}
     canSet: 0
     isSet: 0
   scheduler: {fileID: 6362118105225639249}
@@ -703,7 +704,7 @@ MonoBehaviour:
   success: 0
   conditionsOnSucceed: []
   conditionsOnFail: []
-  wanderDistance: 2
+  wanderDistance: 10
 --- !u!114 &953684700885641417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,7 +748,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
   - {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
   conditionsOnFail: []
-  minMaxSittingTime: {x: 5, y: 15}
+  minMaxSittingTime: {x: 10, y: 30}
 --- !u!114 &43444038107672037
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,9 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
     {
         Collider2D coll = GetComponent<Collider2D>();
         ContactFilter2D filter = new ContactFilter2D().NoFilter();
-        
+        filter.useDepth = true;
+        filter.minDepth = coll.transform.position.z;
+        filter.maxDepth = coll.transform.position.z;
         List<Collider2D> results = new List<Collider2D>();
         coll.OverlapCollider(filter, results);
 

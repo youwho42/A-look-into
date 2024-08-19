@@ -14,7 +14,7 @@ namespace Klaxon.Interactable
         ContainerInventoryDisplayUI containerUI;
         QI_Inventory inventory;
         public bool isSquirrelBox;
-        
+        public bool isLostAndFound;
         public override void Start()
         {
             base.Start();
@@ -22,6 +22,10 @@ namespace Klaxon.Interactable
             if (isSquirrelBox)
             {
                 inventory = SquirrelBoxManager.instance.inventory;
+            }
+            else if (isLostAndFound)
+            {
+                inventory = LostAndFoundManager.instance.inventory;
             }
             else
             {

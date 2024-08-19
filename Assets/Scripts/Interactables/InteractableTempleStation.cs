@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace Klaxon.Interactable
         public List<Vector3Int> fissurePositions = new List<Vector3Int>();
 
         CompleteTaskOnInteraction taskOnInteraction;
-       
 
+        public GOAD_ScriptableCondition completedCondition;
 
 
 
@@ -75,7 +76,7 @@ namespace Klaxon.Interactable
             for (int i = 0; i < fissurePositions.Count; i++)
             {
                 fissureMap.SetTile(fissurePositions[i], null);
-
+                PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[fissurePositions[i]].walkable = true;
             }
 
             // light flames
@@ -85,9 +86,12 @@ namespace Klaxon.Interactable
             }
 
             // Complete task/undertaking if there is one
+            
             if (taskOnInteraction != null)
                 taskOnInteraction.CompleteTask();
-
+            // and set world condition
+            if (completedCondition != null)
+                GOAD_WorldBeliefStates.instance.SetWorldState(completedCondition.Condition, completedCondition.State);
             
         }
 
@@ -104,6 +108,7 @@ namespace Klaxon.Interactable
                 for (int i = 0; i < fissurePositions.Count; i++)
                 {
                     fissureMap.SetTile(fissurePositions[i], null);
+                    PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[fissurePositions[i]].walkable = true;
                 }
                 Destroy(purpleRain);
             }

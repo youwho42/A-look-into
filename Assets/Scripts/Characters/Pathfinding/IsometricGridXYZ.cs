@@ -10,8 +10,7 @@ public class IsometricGridXYZ : MonoBehaviour
     [HideInInspector]
     public Tilemap groundMap;
 
-    [HideInInspector]
-    public List<IsometricNodeXYZ> isometricNodes = new List<IsometricNodeXYZ>();
+    
     public Dictionary<Vector3Int, IsometricNodeXYZ> nodeLookup = new Dictionary<Vector3Int, IsometricNodeXYZ>();
 
 

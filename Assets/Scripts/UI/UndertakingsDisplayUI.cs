@@ -63,6 +63,8 @@ public class UndertakingsDisplayUI : MonoBehaviour
                 CreateUndertakingButton(undertaking);
         }
 
+        if (currentUndertaking != null)
+            SetCurrentUndertaking(currentUndertaking);
         //ClearCurrentUndertaking();
     }
 
@@ -81,8 +83,13 @@ public class UndertakingsDisplayUI : MonoBehaviour
         
 
         string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.localizedCompleteDescription.GetLocalizedString() : currentUndertaking.localizedDescription.GetLocalizedString();
+        string tasks = "";
+        foreach (var task in undertaking.Tasks)
+        {
+            tasks += task.IsComplete ? "" : $"- {task.localizedDescription.GetLocalizedString()}\n";
+        }
         //undertakingDescription.text = $"{desc}<br>{tasks}";
-        undertakingDescription.text = $"\n<style=\"H1\">{currentUndertaking.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n";
+        undertakingDescription.text = $"\n<style=\"H1\">{currentUndertaking.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n{tasks}";
     }
 
     public void ClearCurrentUndertaking()

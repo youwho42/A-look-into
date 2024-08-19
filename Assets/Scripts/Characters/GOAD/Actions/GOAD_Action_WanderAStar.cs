@@ -6,7 +6,7 @@ namespace Klaxon.GOAD
 {
 	public class GOAD_Action_WanderAStar : GOAD_Action
 	{
-        public float wanderDistance = 1f;
+        public int wanderDistance = 1;
 
 
         public override void StartAction(GOAD_Scheduler_NPC agent)
@@ -118,6 +118,7 @@ namespace Klaxon.GOAD
         {
             success = true;
             agent.SetActionComplete(true);
+            
         }
     } 
 }

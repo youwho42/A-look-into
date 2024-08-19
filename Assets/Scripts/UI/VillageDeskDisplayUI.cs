@@ -191,6 +191,11 @@ public class VillageDeskDisplayUI : MonoBehaviour
 
     bool CanFixArea()
     {
+        if (currentArea.GOAD_AvailableCondition != null)
+        {
+            if (!GOAD_WorldBeliefStates.instance.HasState(currentArea.GOAD_AvailableCondition.Condition, currentArea.GOAD_AvailableCondition.State))
+                return false;
+        }
         if (PlayerInformation.instance.purse.GetPurseAmount() < currentArea.sparksRequired)
             return false;
         foreach (var ingredient in currentArea.ingredients)

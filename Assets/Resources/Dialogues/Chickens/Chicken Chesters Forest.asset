@@ -15,16 +15,13 @@ MonoBehaviour:
   DialogueName: Chester's Forest
   type: 1
   hasCondition: 0
-  DialogueCondition:
-    Condition: 
-    State: 0
-  ActivateAtStart: 1
+  DialogueCondition: {fileID: 0}
+  ActivateUndertakingAtStart: 1
   ActivateUndertakingObject: {fileID: 11400000, guid: c1ae8c1cbf270b04ba7f45dfcaab11fc,
     type: 2}
-  UndertakingObject: {fileID: 11400000, guid: c1ae8c1cbf270b04ba7f45dfcaab11fc, type: 2}
-  UndertakingTask: {fileID: 11400000, guid: f4d5170e0f2268841a0e4b321b993b51, type: 2}
   DialogueBranches:
   - DialogueType: 2
+    UndertakingTask: {fileID: 11400000, guid: f4d5170e0f2268841a0e4b321b993b51, type: 2}
     localizedSentences:
     - m_TableReference:
         m_TableCollectionName: GUID:2e03bc7ed945ceb48a1d20fd7f1aa940

@@ -357,23 +357,23 @@ namespace Klaxon.GravitySystem
                     }
                 }
             }
-            if (directions.Count == 0)
-            {
-                do
-                {
-                    int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                    int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                    currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
+            //if (directions.Count == 0)
+            //{
+            //    do
+            //    {
+            //        int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+            //        int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+            //        currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
                     
-                } while (!GridManager.instance.GetTileValid(new Vector3(currentDestination.x, currentDestination.y,_transform.position.z)));
-                //int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                //int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
-                //currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
-                SetDirection();
-                return;
-            }
+            //    } while (!GridManager.instance.GetTileValid(new Vector3(currentDestination.x, currentDestination.y, _transform.position.z)));
+            //    //int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+            //    //int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
+            //    //currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
+            //    SetDirection();
+            //    return;
+            //}
 
-            if (framesStuck >= 30)
+            if (framesStuck >= 30 || directions.Count == 0)
             {
                 
                 jumpAhead = true;

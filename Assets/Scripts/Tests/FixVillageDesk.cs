@@ -25,9 +25,9 @@ public class FixVillageArea
     public int fixTimer;
     public int sparksRequired;
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
-    public List<NavigationNode> navigationNodes = new List<NavigationNode>();
     public NavigationNode reachNode;
     public NavigationNode fixingNode;
+    public GOAD_ScriptableCondition GOAD_AvailableCondition;
     public GOAD_ScriptableCondition GOAD_CompletedCondition;
     public UndertakingObject undertakingObject;
     public UndertakingTaskObject taskObject;

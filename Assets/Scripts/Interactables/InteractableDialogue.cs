@@ -42,17 +42,15 @@ namespace Klaxon.Interactable
         bool GumptionCost()
         {
 
-            if (gumptionCost == null)
+            if (dialogueSystem.gumptionCost == null)
                 return true;
 
 
             float gumption = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Gumption");
-            if (gumption >= Mathf.Abs(gumptionCost.Amount))
-            {
-                PlayerInformation.instance.statHandler.ChangeStat(gumptionCost);
+            if (gumption >= Mathf.Abs(dialogueSystem.gumptionCost.Amount))
                 return true;
-            }
-            Notifications.instance.SetNewNotification($"{Mathf.Abs(gumptionCost.Amount - gumption)} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
+            
+            Notifications.instance.SetNewNotification($"{Mathf.Abs(dialogueSystem.gumptionCost.Amount - gumption)} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
             return false;
         }
 

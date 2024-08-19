@@ -65,8 +65,6 @@ namespace Klaxon.GOAD
                 }
             }
             
-           
-            
         }
 
         

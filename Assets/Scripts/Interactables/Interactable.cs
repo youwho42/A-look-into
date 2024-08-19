@@ -18,7 +18,7 @@ namespace Klaxon.Interactable
         public LocalizedString longInteractVerb;
 
         public StatChanger bounceCost;
-        public StatChanger gumptionCost;
+        
         public float agencyReward;
         public float agencyCost;
         public bool canInteract = true;

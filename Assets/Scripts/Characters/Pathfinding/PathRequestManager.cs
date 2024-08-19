@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-
+using System.Linq;
 
 public class PathRequestManager : MonoBehaviour
 {
@@ -26,13 +26,7 @@ public class PathRequestManager : MonoBehaviour
 
     [HideInInspector]
     public IsometricPathfindingXYZ pathfinding;
-    static List<IsometricNodeXYZ> walkableNodes = new List<IsometricNodeXYZ>();
-
-    private void Start()
-    {
-        Invoke("GetWalkableNodes", 2f);
-    }
-
+    
 
     private void Update()
     {
@@ -61,15 +55,6 @@ public class PathRequestManager : MonoBehaviour
     }
 
 
-    public void GetWalkableNodes()
-    {
-        List<IsometricNodeXYZ> tempNodes = pathfinding.isometricGrid.isometricNodes;
-        for (int i = 0; i < tempNodes.Count; i++)
-        {
-            if (tempNodes[i].walkable)
-                walkableNodes.Add(tempNodes[i]);
-        }
-    }
 
     public static void RequestPath(PathRequest request)
     {
@@ -84,12 +69,7 @@ public class PathRequestManager : MonoBehaviour
             }
         }
         
-        //ThreadStart threadStart = delegate
-        //{
-        //    instance.pathfinding.FindPath(request, instance.FinishedProcessingPath);
-        //};
-        //Thread thread = new Thread(threadStart);
-        //thread.Start();
+       
 
         thread = new Thread(delegate()
         {
@@ -109,68 +89,10 @@ public class PathRequestManager : MonoBehaviour
         }
     }
 
+
     
-    public static Vector3Int GetRandomWalkableNode()
-    {
-        if (walkableNodes.Count == 0)
-            instance.GetWalkableNodes();
-        int r = UnityEngine.Random.Range(0, walkableNodes.Count-1);
-        return walkableNodes[r].worldPosition;
-    }
     
-    public static Vector3Int GetRandomNeighbourTile(Vector3Int currentPosition)
-    {
-        int x = UnityEngine.Random.Range(-1, 2);
-        int y = UnityEngine.Random.Range(-1, 2);
-        if (x == 0 && y == 0)
-        {
-            int r = UnityEngine.Random.Range(0, 2);
-            x = r == 0 ? 1 : 0;
-            y = r == 1 ? 1 : 0;
-        }
-        Vector3Int newTile = new Vector3Int(currentPosition.x + x, currentPosition.y + y, 0);
-        foreach (var node in walkableNodes)
-        {
-            if (node.worldPosition == newTile && !node.walkable)
-            {
-                GetRandomNeighbourTile(currentPosition);
 
-            }
-               
-
-        }
-        return newTile;
-
-    }
-
-    public static Vector3Int GetRandomDistancedTile(Vector3Int currentPosition, int distanceRadius, int diffZ = 0)
-    {
-        
-        int x = UnityEngine.Random.Range(-distanceRadius, distanceRadius);
-        int y = UnityEngine.Random.Range(-distanceRadius, distanceRadius);
-        if(x == 0 && y == 0)
-        {
-            int r = UnityEngine.Random.Range(0, 2);
-            x = r == 0 ? 1 : 0;
-            y = r == 1 ? 1 : 0;
-        }
-        Vector3Int newTile = new Vector3Int(currentPosition.x + x, currentPosition.y + y, currentPosition.z + diffZ);
-
-        
-        foreach (var node in walkableNodes)
-        {
-            if (node.worldPosition == newTile && !node.walkable)
-            {
-                diffZ = diffZ == 0 ? -1 : diffZ == -1 ? 1 : 0;
-                GetRandomDistancedTile(currentPosition, distanceRadius, diffZ);
-
-            }
-
-
-        }
-        return newTile;
-
-    }
 }
 
 public struct PathResult

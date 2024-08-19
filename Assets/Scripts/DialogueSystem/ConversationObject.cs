@@ -10,7 +10,10 @@ namespace Klaxon.ConversationSystem
     public class DialogueBranch
     {
         public DialogueType DialogueType;
-        
+
+        //public UndertakingObject UndertakingObject;
+        public UndertakingTaskObject UndertakingTask;
+
         public LocalizedString[] localizedSentences;
     }
     public enum ConversationType
@@ -38,11 +41,11 @@ namespace Klaxon.ConversationSystem
         [ConditionalHide("hasCondition", true)]
         public GOAD_ScriptableCondition DialogueCondition;
 
-        public bool ActivateAtStart;
+        public bool ActivateUndertakingAtStart;
         public UndertakingObject ActivateUndertakingObject;
 
-        public UndertakingObject UndertakingObject;
-        public UndertakingTaskObject UndertakingTask;
+        //public UndertakingObject UndertakingObject;
+        //public UndertakingTaskObject UndertakingTask;
 
         public DialogueBranch[] DialogueBranches;
         //[HideInInspector]

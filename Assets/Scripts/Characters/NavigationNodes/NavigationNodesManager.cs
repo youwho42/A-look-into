@@ -23,10 +23,11 @@ public class NavNodeQuadTree
 
     public void Insert(NavigationNode spot)
     {
+
         if (!bounds.Contains(spot.transform.position))
             return;
 
-        if (allSpots.Count < capacity)
+        if (allSpots.Count < capacity && !divided)
             allSpots.Add(spot);
         else
         {
@@ -118,7 +119,7 @@ public class NavigationNodesManager : MonoBehaviour
 
 
     public List<NavigationNode> allAreas = new List<NavigationNode>();
-    public Bounds baseBounds = new Bounds(new Vector3(13, -10, 0), new Vector3(128, 128, 20));
+    public Bounds baseBounds = new Bounds(new Vector3(13, -10, 0), new Vector3(256, 256, 40));
     NavNodeQuadTree quadTree;
 
 
@@ -154,13 +155,11 @@ public class NavigationNodesManager : MonoBehaviour
             quadTree.Insert(spot);
         }
 
-
-
-
     }
 
     public List<NavigationNode> QueryQuadTree(Bounds boundry)
     {
+        
         return quadTree.QueryTree(boundry);
     }
 
