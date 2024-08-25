@@ -27,6 +27,7 @@ public class AnimatePlayer : MonoBehaviour
     public readonly int isCrafting_hash = Animator.StringToHash("IsCrafting");
     public readonly int isBreathing_hash = Animator.StringToHash("Breathing");
     public readonly int BreathingState_hash = Animator.StringToHash("BreatheState");
+    public readonly int ExhaustedState_hash = Animator.StringToHash("Exhausted");
 
 
 
@@ -38,12 +39,14 @@ public class AnimatePlayer : MonoBehaviour
         GameEventManager.onTimeTickEvent.AddListener(CheckAddGumption);
         GameEventManager.onTimeTickEvent.AddListener(CheckCanSit);
         GameEventManager.onSitEvent.AddListener(Sit);
+        GameEventManager.onExhaustedEvent.AddListener(SetExhausted);
     }
     private void OnDisable()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(CheckAddGumption);
         GameEventManager.onTimeTickEvent.RemoveListener(CheckCanSit);
         GameEventManager.onSitEvent.RemoveListener(Sit);
+        GameEventManager.onExhaustedEvent.RemoveListener(SetExhausted);
 
     }
     void CheckAddGumption(int tick)
@@ -97,6 +100,12 @@ public class AnimatePlayer : MonoBehaviour
         
             
     }
+
+    void SetExhausted(bool state)
+    {
+        animator.SetBool(ExhaustedState_hash, state);
+    }
+
     void Sit()
     {
         PlayerSit(true);

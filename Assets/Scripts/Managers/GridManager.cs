@@ -15,7 +15,8 @@ public class GridManager : MonoBehaviour
 
     Grid grid;
     public Tilemap groundMap;
-    public Grid Grid { get { return grid == null ?SetGrid() : grid; } }
+    public Tilemap waterMap;
+    public Grid Grid { get { return grid == null ? SetGrid() : grid; } }
 
     //Tilemap decorationOne;
     //Tilemap decorationTwo;
@@ -32,6 +33,8 @@ public class GridManager : MonoBehaviour
         {
             if (map.gameObject.name == "GroundTiles")
                 groundMap = map;
+            if (map.gameObject.name == "WaterTiles")
+                waterMap = map;
             //if (map.gameObject.name == "GroundTileDetails")
             //    decorationOne = map;
             //if (map.gameObject.name == "GroundTileDetails2")
@@ -150,5 +153,13 @@ public class GridManager : MonoBehaviour
         return startPos;
     }
 
+    public bool HasWaterTile(Vector3Int tile)
+    {
+        SetGrid();
+        
+        if (waterMap.GetTile(tile) != null)
+            return true;
+        return false;
+    }
 
 }

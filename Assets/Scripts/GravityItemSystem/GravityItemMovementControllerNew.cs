@@ -40,8 +40,13 @@ namespace Klaxon.GravitySystem
 
         Vector3 lastValidPosition;
 
-       //Vector2 avoidanceDirection;
-
+        bool canMove;
+        //Vector2 avoidanceDirection;
+        public override void Awake()
+        {
+            base.Awake();
+            GameEventManager.onJumpEvent.AddListener(Jump);
+        }
         private new IEnumerator Start()
         {
             base.Start();
@@ -52,7 +57,7 @@ namespace Klaxon.GravitySystem
 
             yield return new WaitForSeconds(0.25f);
 
-            GameEventManager.onJumpEvent.AddListener(Jump);
+            //GameEventManager.onJumpEvent.AddListener(Jump);
             
             isGrounded = true;
 
@@ -64,7 +69,7 @@ namespace Klaxon.GravitySystem
 
 
 
-        private new void Update()
+        public override void Update()
         {
             base.Update();
 
@@ -82,19 +87,19 @@ namespace Klaxon.GravitySystem
             moveSpeed = playerInput.movement.x + playerInput.movement.y;
 
 
-
+            canMove = CanReachNextTile(playerInput.movement);
 
         }
 
 
-        public new void FixedUpdate()
+        public override void FixedUpdate()
         {
             base.FixedUpdate();
             
             if (isInInteractAction)
                 return;
             
-            if (CanReachNextTile(playerInput.movement))
+            if (canMove)
             {
                 finalSpeed = playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : walkSpeed * speedStat.GetModifiedMax();
                 Move(playerInput.movement, finalSpeed);
@@ -105,20 +110,14 @@ namespace Klaxon.GravitySystem
 
         void Jump()
         {
-            if (!canJump || isInInteractAction || UIScreenManager.instance.inMainMenu)
+            if (!canJump || isInInteractAction || UIScreenManager.instance.inMainMenu || PlayerInformation.instance.runningManager.shattered)
                 return;
 
             if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)
                 Bounce(jumpHeight * jumpStat.GetModifiedMax());
         }
 
-        //void TileFound(List<TileDirectionInfo> tileBlock, bool success)
-        //{
-        //    if (success)
-        //        tileBlockInfo = tileBlock;
-        //    else
-        //        Debug.LogError("Tile not found in tile dictionary!");
-        //}
+        
 
         bool CanReachNextTile(Vector2 direction)
         {
@@ -139,6 +138,7 @@ namespace Klaxon.GravitySystem
                 return false;
             //avoidanceDirection = CollisionAvoidanceDirection(direction);
 
+            
 
             int level = 0;
 
@@ -186,22 +186,28 @@ namespace Klaxon.GravitySystem
 
                 // JUMPING! ----------------------------------------------------------------------------------------------------
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
-                if (tile.direction == nextTileKey)
+                if (tile.direction == nextTileKey && !tile.isValid)
                 {
                     // this prevents the player from jumping off too high of a cliff
-                    if (tile.levelZ < -2)
-                    {
-                        onCliffEdge = true;
-                        return false;
-                    }
+                    //if (tile.levelZ < -2)
+                    //{
+                    //    onCliffEdge = true;
+                    //    return false;
+                    //}
 
                     if (!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                     {
+                        var newPos = new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                        var waterCheck = currentTilePosition.position + newPos;
+                        if (CheckForWaterAbove(waterCheck))
+                        {
+                            onCliffEdge = true;
+                            return false;
+                        }
+                            
                         ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
-
                         if (tile.tileName.Contains("Slope"))
                             onSlope = true;
-
                         return true;
                     }
                 }
@@ -294,10 +300,10 @@ namespace Klaxon.GravitySystem
         public override void JustLanded()
         {
             audioManager.PlayFootstepSound();
-            
+            GameEventManager.onLandEvent.Invoke(lastHighestZ);
         }
 
-
+        
         void ChangePlayerLocation(int x, int y, int z)
         {
 

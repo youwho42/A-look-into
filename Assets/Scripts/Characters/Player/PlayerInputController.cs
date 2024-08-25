@@ -16,6 +16,10 @@ public class PlayerInputController : MonoBehaviour
     [HideInInspector]
     public bool isRunning;
     [HideInInspector]
+    public bool runToggle;
+    [HideInInspector]
+    public bool canRun = true;
+    [HideInInspector]
     public bool isPaused;
     [HideInInspector]
     public bool isInUI;
@@ -75,7 +79,7 @@ public class PlayerInputController : MonoBehaviour
         //PlayerSettings.resizableWindow = true;
         interactable = GetComponent<InteractWithInteractable>();
         playerSmells = GetComponent<PlayerActivateSmells>();
-        
+        canRun = true;
     }
 
     private void OnEnable()
@@ -235,6 +239,8 @@ public class PlayerInputController : MonoBehaviour
             movement = move.ReadValue<Vector2>();
             movement.y = Mathf.Clamp(movement.y, -0.578125f, 0.578125f);
             movement = movement.normalized;
+
+            isRunning = runToggle && movement != Vector2.zero && canRun;
             //if (movement == Vector2.zero)
             //{
             //    runningTimer += Time.deltaTime;
@@ -248,7 +254,7 @@ public class PlayerInputController : MonoBehaviour
             //{
             //    runningTimer = 0;
             //}
-                
+
 
             if (scrollY != 0)
                 GameEventManager.onMouseScrollEvent.Invoke(scrollY);
@@ -298,7 +304,15 @@ public class PlayerInputController : MonoBehaviour
         usingEquippedItem = false;
     }
 
-    public void RunAction(InputAction.CallbackContext context) => isRunning = !isRunning;
+    //public void RunAction(InputAction.CallbackContext context) => isRunning = !isRunning;
+
+    public void RunAction(InputAction.CallbackContext context) 
+    { 
+        if(canRun)
+            runToggle = !runToggle; 
+    }
+        
+    
 
     public void JumpAction(InputAction.CallbackContext context) => GameEventManager.onJumpEvent.Invoke();
 

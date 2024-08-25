@@ -87,9 +87,10 @@ public static class GameEventManager
     public static readonly GameEvent onMapClickEvent = new GameEvent();
 
     /// <summary>
-    /// Player Controls
+    /// Player Controls and animations
     /// </summary>
     public static readonly GameEvent onJumpEvent = new GameEvent();
+    public static readonly GameEvent<float> onLandEvent = new GameEvent<float>();
     public static readonly GameEvent onUseEquipmentEvent = new GameEvent();
     public static readonly GameEvent<bool> onSpyglassAimEvent = new GameEvent<bool>();
     public static readonly GameEvent<int> onSpyglassAimChageSelectedEvent = new GameEvent<int>();
@@ -97,4 +98,5 @@ public static class GameEventManager
     public static readonly GameEvent onSurroundingItemsEvent = new GameEvent();
     public static readonly GameEvent onSmellEvent = new GameEvent();
     public static readonly GameEvent onSitEvent = new GameEvent();
+    public static readonly GameEvent<bool> onExhaustedEvent = new GameEvent<bool>();
 }

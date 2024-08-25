@@ -22,6 +22,8 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public Vector3 displacedPosition;
         [HideInInspector]
+        public float lastHighestZ;
+        [HideInInspector]
         public bool isGrounded;
         protected Transform _transform;
 
@@ -92,7 +94,7 @@ namespace Klaxon.GravitySystem
         public bool facingRight;
 
 
-        private void Awake()
+        public virtual void Awake()
         {
             currentTilePosition = GetComponent<CurrentTilePosition>();
             _transform = GetComponent<Transform>();
@@ -132,13 +134,13 @@ namespace Klaxon.GravitySystem
                 ChangeLevelOnSlope();
             if (getOffSlope)
                 ChangeLevelOffSlope();
-
             int dif = Mathf.Abs(currentTilePosition.position.z - currentLevel);
-            if (dif != 0 && !onSlope && !getOnSlope && ! getOffSlope)
+            if (dif != 0 && !onSlope && !getOnSlope && !getOffSlope)
                 ChangeLevel(dif);
 
-        }
 
+        }
+        
         public virtual void FixedUpdate()
         {
             if (!isGrounded && !isWeightless)
@@ -188,7 +190,7 @@ namespace Klaxon.GravitySystem
 
         public void ChangeLevel(int dif)
         {
-
+            
             bounceFactor = 1;
             float displacement = dif * spriteDisplacementY;
             Vector3 currentPosition = _transform.position;
@@ -197,7 +199,7 @@ namespace Klaxon.GravitySystem
             {
                 currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, currentTilePosition.position.z + 1);
                 _transform.position = currentPosition;
-                positionZ += dif;
+                //positionZ += dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y - displacement, displacedPosition.z - dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y - displacement, itemObject.localPosition.z - dif);
 
@@ -206,7 +208,7 @@ namespace Klaxon.GravitySystem
             {
                 currentPosition = new Vector3(currentPosition.x, currentPosition.y - displacement, currentTilePosition.position.z + 1);
                 _transform.position = currentPosition;
-                positionZ -= dif;
+                //positionZ -= dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y + displacement, displacedPosition.z + dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y + displacement, itemObject.localPosition.z + dif);
 
@@ -292,20 +294,20 @@ namespace Klaxon.GravitySystem
 
             _transform.position = currentPosition;
         }
-        
+
         //public Vector2 CollisionAvoidanceDirection(Vector2 direction)
         //{
         //    Vector2 dir = direction;
         //    List<Vector2> directions = new List<Vector2>();
-            
+
         //    for (int i = -1; i < 2; i++)
         //    {
-                
+
         //        var offset = (Vector3)Vector2.Perpendicular(direction) * (i * 0.03f);
         //        var h = Physics2D.Raycast(transform.position + offset, direction, checkTileDistance * 2, obstacleLayer, _transform.position.z, _transform.position.z);
         //        if (h.collider != null)
         //        {
-                    
+
         //            if (h.collider.TryGetComponent(out DrawZasYDisplacement obs))
         //            {
         //                directions.Add((h.normal + direction).normalized);
@@ -323,12 +325,27 @@ namespace Klaxon.GravitySystem
         //            closest = c;
         //            dir = item;
         //        } 
-                    
+
         //    }
         //    if (directions.Count > 0 && closest < -0.1)
         //        dir = Vector2.zero;
         //    return dir;
         //}
+
+        public bool CheckForWaterAbove(Vector3Int tilePosition)
+        {
+            for (int i = tilePosition.z; i < 10; i++)
+            {
+                var pos = new Vector3Int(tilePosition.x, tilePosition.y, i);
+                if (GridManager.instance.HasWaterTile(pos))
+                    return true;
+                
+            }
+            
+            return false;
+        }
+
+
 
         public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey)
         {
@@ -394,17 +411,23 @@ namespace Klaxon.GravitySystem
             float gravityMultiplier = canJump ? 1 : 2;
             positionZ -= gravity * gravityMultiplier * Time.fixedDeltaTime;
 
+            
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
+            float dispZ = itemObject.localPosition.z - obstacleDisplacement.z;
+            if(dispZ > lastHighestZ)
+                lastHighestZ = dispZ;
             
             itemObject.Translate(displacedPosition * Time.fixedDeltaTime);
             SetIsGrounded();
 
             if (itemObject.localPosition.y <= obstacleDisplacement.y)
             {
+                
                 positionZ = obstacleDisplacement.z;
                 displacedPosition = obstacleDisplacement;
                 itemObject.localPosition = obstacleDisplacement;
                 JustLanded();
+                lastHighestZ = 0;
                 if (bounceFactor >= .001f)
                     Bounce(bounciness * bounceFactor);
 

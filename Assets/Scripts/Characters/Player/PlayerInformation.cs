@@ -19,6 +19,8 @@ public class PlayerInformation : MonoBehaviour
     public AnimatePlayer animatePlayerScript;
     public Transform playerPokableSpot;
     public PlayerPoke playerPoke;
+    public PlayerRunningManager runningManager;
+
 
     public QI_Inventory playerInventory;
     public EquipmentManager equipmentManager;

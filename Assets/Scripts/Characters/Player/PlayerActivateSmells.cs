@@ -43,6 +43,7 @@ public class PlayerActivateSmells : MonoBehaviour
 
     private void OnEnable()
     {
+        
         holdButton.action.started += OnHoldButtonPerformed;
         
         player = PlayerInformation.instance;
