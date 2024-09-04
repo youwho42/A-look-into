@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f71ba3398ab7b642812d8a55b7065f1, type: 3}
+  m_Name: RunningGauge+5%
+  m_EditorClassIdentifier: 
+  ModifierName: Running Energy
+  StatToModify: {fileID: 11400000, guid: 575daed770c3a3943a106240601a9f41, type: 2}
+  ModifierType: 1
+  ModifierDestination: 1
+  ModifierAmount: 0.95
+  finalModifierAmount: 0.95
+  TimedModifier: 1
+  ModifierDuration: 60
+  modIcon: {fileID: 21300000, guid: bccd93fe80784f842bce6ebd9a19cfba, type: 3}
+  modIconGrey: {fileID: 21300000, guid: 8015c28b499c784499a56a625631afbe, type: 3}

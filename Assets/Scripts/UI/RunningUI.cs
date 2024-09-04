@@ -45,6 +45,7 @@ public class RunningUI : MonoBehaviour
     public void SetColor(float t)
     {
         Color c = Color.Lerp(startColor, endColor, t);
+        colorSprite.fillAmount = t;
         colorSprite.color = c;
     }
 

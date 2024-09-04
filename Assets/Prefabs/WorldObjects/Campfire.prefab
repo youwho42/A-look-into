@@ -5141,6 +5141,7 @@ GameObject:
   - component: {fileID: 4012312534734668365}
   - component: {fileID: 8486405971027014824}
   - component: {fileID: 5571283603999320811}
+  - component: {fileID: 6376618417230611515}
   m_Layer: 13
   m_Name: Campfire
   m_TagString: Untagged
@@ -5443,6 +5444,41 @@ PolygonCollider2D:
       - {x: -0.052402496, y: 0.046696175}
       - {x: -0.07364535, y: 0.037043497}
   m_UseDelaunayMesh: 0
+--- !u!58 &6376618417230611515
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201185386304742779}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &7370642073947046025
 PrefabInstance:
   m_ObjectHideFlags: 0

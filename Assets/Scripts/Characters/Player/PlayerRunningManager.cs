@@ -50,7 +50,7 @@ public class PlayerRunningManager : MonoBehaviour
             return;
 
         ActivateUI();
-        currentGaugeAmount += 0.1f;
+        currentGaugeAmount += 0.05f;
         if (currentGaugeAmount >= 1)
             ShatterGlass();
                 
@@ -61,13 +61,15 @@ public class PlayerRunningManager : MonoBehaviour
             return;
 
         ActivateUI();
-        currentGaugeAmount += MapNumber.Remap(lastZ, 1.0f, 6.0f, 0.0f, 1.0f);
+        var amount = MapNumber.Remap(lastZ, 1.0f, 10.0f, 0.0f, 1.0f);
+        amount = Mathf.Clamp01(amount);
+        currentGaugeAmount += amount;
         if (currentGaugeAmount >= 1)
             ShatterGlass();
     }
     private void Update()
     {
-        if (UIScreenManager.instance.inMainMenu || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
+        if (UIScreenManager.instance.inMainMenu)
             return;
         if (runningUIVisible)
         {

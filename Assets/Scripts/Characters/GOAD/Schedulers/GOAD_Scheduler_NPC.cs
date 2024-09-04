@@ -112,9 +112,7 @@ namespace Klaxon.GOAD
                     currentActionComplete = false;
                     currentAction.EndAction(this);
                     if (currentAction.success)
-                    {
                         SetNextAction();
-                    }
                     else
                         ResetGoal();
 
@@ -145,15 +143,8 @@ namespace Klaxon.GOAD
 
         public void GetRandomTilePosition(int distance, GOAD_Action action)
         {
-            //var currentPos = walker.currentTilePosition.position;
-            //Vector3Int destination = GridManager.instance.GetRandomNodeInArea(currentPos, distance);
-            //Vector3 endPos = GridManager.instance.GetTileWorldPosition(destination);
             var currentPos = transform.position;
             Vector3 destination = currentPos;
-            //while (destination == currentPos)
-            //{
-            //    destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance*.5f);
-            //}
             destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
             currentFinalDestination = destination;
             SetAStarDestination(destination, action);
@@ -179,13 +170,10 @@ namespace Klaxon.GOAD
         public void OnPathFound(List<Vector3> newPath, bool success)
         {
             if (success)
-            {
                 aStarPath = newPath;
-            }
             else
-            {
                 Debug.LogWarning("Path not found");
-            }
+
             gettingPath = false;
         }
 
@@ -202,10 +190,7 @@ namespace Klaxon.GOAD
             walker.SetDirection();
 
             if (walker.CheckDistanceToDestination() <= 0.02f)
-            {
                 isDeviating = false;
-
-            }
 
             walker.SetLastPosition();
         }
@@ -308,11 +293,9 @@ namespace Klaxon.GOAD
                 {
                     lastValidNode = currentNode;
                     currentPathIndex++;
-
                 }
                 if (currentPathIndex >= nodePath.Count)
                 {
-
                     lastValidNode = currentNode;
                     action.OffscreenNodeHandleComplete(this);
                 }
@@ -386,10 +369,8 @@ namespace Klaxon.GOAD
         {
 
             if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
-            {
-
                 inTalkRange = false;
-            }
+
         }
 
 

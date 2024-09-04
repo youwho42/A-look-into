@@ -1051,6 +1051,7 @@ GameObject:
   - component: {fileID: 3669067540778324319}
   - component: {fileID: 3669067540778324312}
   - component: {fileID: 361162392669223919}
+  - component: {fileID: 4888881922232833843}
   - component: {fileID: 1493361837548264963}
   - component: {fileID: 3956533460090921529}
   - component: {fileID: 5838656872110206609}
@@ -1059,13 +1060,15 @@ GameObject:
   - component: {fileID: -3627213249282871714}
   - component: {fileID: 7959522142015012436}
   - component: {fileID: 7060560830674837553}
-  - component: {fileID: 4424931104086339238}
-  - component: {fileID: 8547347894382832573}
-  - component: {fileID: 3173488235266787408}
-  - component: {fileID: 1543468683215604249}
-  - component: {fileID: 74892919846292982}
+  - component: {fileID: 7426438665716282705}
+  - component: {fileID: 8499368949775457994}
+  - component: {fileID: 6753763289106455862}
+  - component: {fileID: 6612141677427040750}
+  - component: {fileID: 2545016161793680838}
+  - component: {fileID: 1842828708966160466}
   - component: {fileID: 3199593422043033621}
   - component: {fileID: 3173751491398442154}
+  - component: {fileID: -1689180154150462720}
   m_Layer: 13
   m_Name: BallPeople-Messenger
   m_TagString: NPC
@@ -1117,6 +1120,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 3669067540651531075}
+--- !u!50 &4888881922232833843
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &1493361837548264963
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1241,6 +1271,7 @@ MonoBehaviour:
   slopeObject: {fileID: 3669067541791994077}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -1320,7 +1351,6 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -1337,7 +1367,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &4424931104086339238
+--- !u!114 &7426438665716282705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1346,95 +1376,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a4e95a335a967249bf08ba1dcc06d12, type: 3}
+  m_Script: {fileID: 11500000, guid: 97c06cb893073a84a8aeba9766c50fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleGoals:
+  - Name: ChillNearPlayer
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 5019fdb6c79e8ed4385c6fd672a4b307,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: 429efae1cd869bc43ac6107ffdbdaa09, type: 2}
+    Priority: 3
+  - Name: TeleportToPlayer
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 42ffd9db415d2dc4c8ee3a6562d029c1,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}
+    Priority: 4
+  - Name: Vanish
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: e2b6020191fc0df41ba4036746a6cb8e,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597, type: 2}
+    Priority: 10
+  - Name: Set Fire
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: f5cb52d0e962b304bb575f7dfe69b372, type: 2}
+    Priority: 10
+  currentActionName: 
   animator: {fileID: 3669067541027879398}
-  goals:
-  - GoalName: Follow Player
-    Priority: 5
-    Conditions:
-    - Condition: Exist
-      State: 1
-    Action: {fileID: 8547347894382832573}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: 
-      State: 0
-  - GoalName: Teleport
-    Priority: 7
-    Conditions:
-    - Condition: PlayerFar
-      State: 1
-    Action: {fileID: 3173488235266787408}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: 
-      State: 0
-  - GoalName: Snooze
-    Priority: 6
-    Conditions:
-    - Condition: PlayerClose
-      State: 1
-    Action: {fileID: 1543468683215604249}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: 
-      State: 0
-  - GoalName: Vanish
-    Priority: 12
-    Conditions:
-    - Condition: QuestOver
-      State: 1
-    Action: {fileID: 74892919846292982}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: 
-      State: 0
-  currentGoalComplete: 0
-  currentGoalName: 
+  isDeviating: 0
   offScreen: 0
   walker: {fileID: 0}
-  isDeviating: 0
+  offScreenPosMoved: 1
+  sleep: {fileID: 0}
   interactor: {fileID: 0}
   hasInteracted: 0
   arms: {fileID: 1864241168330022154}
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 524288
-  indicatorIndex: -1
-  task:
-    undertaking: {fileID: 0}
-    task: {fileID: 0}
-  sleep: {fileID: 0}
+  questComplteCondition: {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597,
+    type: 2}
+  fireInteractCondition: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
+    type: 2}
+  currentFire: {fileID: 0}
   type: 0
-  isSeeking: 0
-  seekItem: {fileID: 0}
-  seekAmount: 0
-  currentSeekItem: {fileID: 0}
-  currentSeekItemLocation: {x: 0, y: 0, z: 0}
-  foundAmount: 0
-  seekItemsFound: []
-  seekRadius: 1.5
   hasFoundDestination: 0
   travellerDestination: {x: 0, y: 0, z: 0}
   justIndicated: 0
-  seedBoxInventory: {fileID: 0}
-  plantingArea: {fileID: 0}
-  currentPlantDestination: {x: 0, y: 0, z: 0}
-  currentHarvestable: {fileID: 0}
---- !u!114 &8547347894382832573
+  travellerAreaFoundCondition: {fileID: 0}
+--- !u!114 &8499368949775457994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1443,15 +1437,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0b4cbf58b4af844dbc3eba3f5f12a64, type: 3}
+  m_Script: {fileID: 11500000, guid: 87ed4144e78db8947aa670b1d7993004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  target: {fileID: 0}
---- !u!114 &3173488235266787408
+  actionName: Chill Near Player
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 5019fdb6c79e8ed4385c6fd672a4b307, type: 2}
+    PreCondition: {fileID: 11400000, guid: 2f7f924d89acdd740a8aa4840eece4ef, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 1670e79e7b7744146855933fd52563a8, type: 2}
+  - {fileID: 11400000, guid: 429efae1cd869bc43ac6107ffdbdaa09, type: 2}
+  conditionsOnFail: []
+--- !u!114 &6753763289106455862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1460,15 +1459,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee6d2f1c73730c24abc0e2410a6fe752, type: 3}
+  m_Script: {fileID: 11500000, guid: 427494ffab96539449bf8ef5afb9a527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  target: {fileID: 0}
---- !u!114 &1543468683215604249
+  actionName: Reach Player
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 2f7f924d89acdd740a8aa4840eece4ef, type: 2}
+    PreCondition: {fileID: 11400000, guid: 1670e79e7b7744146855933fd52563a8, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail:
+  - {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}
+--- !u!114 &6612141677427040750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1477,15 +1480,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e512d4114488e1d40a63a8c495efda40, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fbf33b283814e944bd7c18d980aa834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  target: {fileID: 0}
---- !u!114 &74892919846292982
+  actionName: Teleport
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 42ffd9db415d2dc4c8ee3a6562d029c1, type: 2}
+    PreCondition: {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 896eac7591b94a24f9601c46171f8d19, type: 2}
+  - {fileID: 11400000, guid: 2f7f924d89acdd740a8aa4840eece4ef, type: 2}
+  - {fileID: 11400000, guid: 429efae1cd869bc43ac6107ffdbdaa09, type: 2}
+  conditionsOnFail: []
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+--- !u!114 &2545016161793680838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1494,14 +1506,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 3669067540778324321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f86008660e62f458a8db98d39d3565, type: 3}
+  m_Script: {fileID: 11500000, guid: 791565db792c1be46af4c3a7a262616a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  target: {fileID: 0}
+  actionName: Vanish
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: e2b6020191fc0df41ba4036746a6cb8e, type: 2}
+    PreCondition: {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &1842828708966160466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e635993ea392b649a68cb8a679c4b0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Set Fires
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2, type: 2}
+    PreCondition: {fileID: 11400000, guid: f5cb52d0e962b304bb575f7dfe69b372, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 63730784182032a42a144759bb8fdcc4, type: 2}
+  conditionsOnFail: []
 --- !u!114 &3199593422043033621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,6 +1566,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accessories: {fileID: 5838656872110206609}
   colors: {fileID: 3956533460090921529}
+--- !u!114 &-1689180154150462720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669067540778324321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf8bb0f1744bd943b68536e2f13a14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - condition: {fileID: 11400000, guid: 2f7f924d89acdd740a8aa4840eece4ef, type: 2}
+    setOnStart: 1
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
+  - condition: {fileID: 11400000, guid: 429efae1cd869bc43ac6107ffdbdaa09, type: 2}
+    setOnStart: 1
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
+  specialConditions: []
+  scheduler: {fileID: 7426438665716282705}
 --- !u!1 &3669067540875941393
 GameObject:
   m_ObjectHideFlags: 0

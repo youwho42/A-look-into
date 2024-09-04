@@ -20,9 +20,9 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     float maxDistance = 6;
     public List<GameObject> animals;
-    public List<SAP_Scheduler_NPC> agents;
+    //public List<SAP_Scheduler_NPC> agents;
 
-    public List<GOAD_Scheduler_NPC> GOADagents;
+    public List<GOAD_Scheduler_NPC> GOADAgents;
 
     private void Start()
     {
@@ -41,17 +41,17 @@ public class PlayerDistanceToggle : MonoBehaviour
         {
             animals.Add((animalComponent as MonoBehaviour).gameObject);
         }
-        agents.Clear();
-        var b = FindObjectsOfType<SAP_Scheduler_NPC>().ToList();
-        foreach (var agent in b)
-        {
-            agents.Add(agent);
-        }
-        GOADagents.Clear();
+        //agents.Clear();
+        //var b = FindObjectsOfType<SAP_Scheduler_NPC>().ToList();
+        //foreach (var agent in b)
+        //{
+        //    agents.Add(agent);
+        //}
+        GOADAgents.Clear();
         var c = FindObjectsOfType<GOAD_Scheduler_NPC>().ToList();
         foreach (var agent in c)
         {
-            GOADagents.Add(agent);
+            GOADAgents.Add(agent);
         }
 
     }
@@ -71,7 +71,7 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     private void CheckPlayerDistance()
     {
-        if (animals.Count > 0 || agents.Count > 0)
+        if (animals.Count > 0 || GOADAgents.Count > 0)
         {
             var playerPosition = PlayerInformation.instance.player.position;
 
@@ -80,12 +80,12 @@ public class PlayerDistanceToggle : MonoBehaviour
                 SetAnimalActiveBasedOnDistance(animal, playerPosition, maxDistance);
             }
 
-            foreach (var agent in agents)
-            {
-                SetAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
-            }
+            //foreach (var agent in agents)
+            //{
+            //    SetAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
+            //}
 
-            foreach (var agent in GOADagents)
+            foreach (var agent in GOADAgents)
             {
                 SetGOADAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
             }
@@ -103,14 +103,14 @@ public class PlayerDistanceToggle : MonoBehaviour
         obj.SetActive(state);
     }
 
-    void SetAgentPropertiesBasedOnDistance(SAP_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
-    {
-        if (agent == null)
-            return;
-        bool state = GetPlayerDistance(agent.transform, playerPos) <= maxDist;
-        agent.animator.enabled = state;
-        agent.offScreen = !state;
-    }
+    //void SetAgentPropertiesBasedOnDistance(SAP_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
+    //{
+    //    if (agent == null)
+    //        return;
+    //    bool state = GetPlayerDistance(agent.transform, playerPos) <= maxDist;
+    //    agent.animator.enabled = state;
+    //    agent.offScreen = !state;
+    //}
 
 
     void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_NPC agent, Vector3 playerPos, float maxDist)

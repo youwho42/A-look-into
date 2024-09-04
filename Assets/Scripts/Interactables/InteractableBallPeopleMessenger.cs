@@ -1,4 +1,5 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
+//using Klaxon.SAP;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using System;
@@ -43,7 +44,7 @@ namespace Klaxon.Interactable
         {
 
             PlayInteractSound();
-            var messenger = GetComponent<SAP_Scheduler_BP>();
+            var messenger = GetComponent<GOAD_Scheduler_BP>();
 
             if (messageItem != null)
             {
@@ -80,7 +81,7 @@ namespace Klaxon.Interactable
             // display recipe name and ingredients...
             // add recipe to player recipes
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
-            GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
+            GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
             canInteract = false;
             //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);
             yield return new WaitForSeconds(0.33f);

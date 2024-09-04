@@ -1,0 +1,269 @@
+using Klaxon.GravitySystem;
+using Klaxon.Interactable;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Klaxon.GOAD
+{
+	public class GOAD_Scheduler_BP : GOAD_Scheduler, IBallPerson
+    {
+
+        public readonly int walking_hash = Animator.StringToHash("IsWalking");
+        public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
+        public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
+        public readonly int sleeping_hash = Animator.StringToHash("IsSleeping");
+        public readonly int lick_hash = Animator.StringToHash("Lick");
+        public Animator animator;
+        List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
+
+        [HideInInspector]
+        public bool isDeviating;
+
+        [HideInInspector]
+        public bool offScreen;
+
+        [HideInInspector]
+        public GravityItemWalk walker;
+
+        float timeTo;
+        [HideInInspector]
+        public bool offScreenPosMoved = true;
+        [HideInInspector]
+        public UIScreenManager sleep;
+
+
+        [HideInInspector]
+        public Klaxon.Interactable.Interactable interactor;
+        [HideInInspector]
+        public bool hasInteracted;
+        public GameObject arms;
+        public GOAD_ScriptableCondition questComplteCondition;
+        public GOAD_ScriptableCondition fireInteractCondition;
+        [HideInInspector]
+        public Campfire currentFire;
+
+        public enum BP_Type
+        {
+            Messenger,
+            Seeker,
+            Traveller,
+            TravellerHome,
+            Farmer,
+            Indicator,
+            Villager
+        }
+        public BP_Type type;
+
+
+
+        /// <summary>
+        /// Traveller BP
+        /// </summary>
+
+        [HideInInspector]
+        public bool hasFoundDestination;
+        [HideInInspector]
+        public Vector3 travellerDestination;
+        [HideInInspector]
+        public bool justIndicated;
+        public GOAD_ScriptableCondition travellerAreaFoundCondition;
+
+        
+
+        public override void Start()
+        {
+            base.Start();
+            
+            sleep = UIScreenManager.instance;
+            walker = GetComponent<GravityItemWalk>();
+            walker.currentDirection = Vector2.zero;
+            allSprites = GetComponentsInChildren<SpriteRenderer>().ToList();
+            foreach (var sprite in allSprites)
+            {
+                sprite.material.SetFloat("_Fade", 0);
+            }
+            Disolve(true);
+            walker.ResetLastPosition();
+            interactor = GetComponent<Interactable.Interactable>();
+        }
+
+
+
+
+        private void Update()
+        {
+
+            
+            if (currentGoalIndex < 0 && availableActions.Count > 0)
+            {
+                GetCurrentGoal();
+                SetNextAction();
+            }
+
+            if (currentAction != null)
+            {
+                if (currentAction.IsRunning)
+                    currentAction.PerformAction(this);
+                if (currentActionComplete)
+                {
+                    currentActionComplete = false;
+                    currentAction.EndAction(this);
+                    if (currentAction.success)
+                        SetNextAction();
+                    else
+                        ResetGoal();
+
+                    return;
+                }
+
+            }
+            //if (type == BP_Type.Seeker)
+            //{
+            //    if (seekItem != null && !isSeeking)
+            //        SeekItem();
+            //}
+
+            if (type == BP_Type.Traveller && !justIndicated && !hasFoundDestination/* && !GetBeliefState("QuestOver")*/)
+            {
+                SeekTravellerDestination();
+            }
+        }
+        void LateUpdate()
+        {
+            if (walker == null)
+                return;
+            animator.SetBool(isGrounded_hash, walker.isGrounded);
+            animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
+
+        }
+
+        void SetNextAction()
+        {
+            if (actionQueue.Count > 0)
+            {
+                currentAction = actionQueue.Dequeue();
+                currentAction.StartAction(this);
+            }
+            else
+                ResetGoal();
+            currentActionName = currentAction != null ? currentAction.actionName : "No Current Action";
+        }
+
+
+        public void Disolve(bool disolveIn)
+        {
+            for (int i = 0; i < allSprites.Count; i++)
+            {
+                if (allSprites[i].gameObject.activeSelf)
+                    DissolveEffect.instance.StartDissolve(allSprites[i].material, 1f, disolveIn);
+            }
+            
+        }
+
+
+        public bool CheckNearPlayer(float maxDistance)
+        {
+            float dist = Vector2.Distance(transform.position, PlayerInformation.instance.player.position);
+
+            return dist <= maxDistance;
+        }
+
+
+
+        public void Deviate()
+        {
+            isDeviating = true;
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+                isDeviating = false;
+
+            walker.SetLastPosition();
+
+        }
+
+
+
+        //public void HandleOffScreen(SAP_Action action, Vector3 currentDestination)
+        //{
+        //    walker.currentDirection = Vector2.zero;
+
+        //    if (hasMovedOffScreen)
+        //    {
+        //        offScreenMoveTime = Mathf.RoundToInt(Vector2.Distance(transform.position, currentDestination) / walker.walkSpeed);
+        //        offScreenMoveTime = (offScreenMoveTime + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+
+        //        if (transform.position.x < currentDestination.x && !walker.facingRight)
+        //            walker.Flip();
+        //        else if (transform.position.x > currentDestination.x && walker.facingRight)
+        //            walker.Flip();
+
+        //        hasMovedOffScreen = false;
+        //    }
+
+        //    if (RealTimeDayNightCycle.instance.currentTimeRaw >= offScreenMoveTime && !hasMovedOffScreen)
+        //    {
+
+        //        hasMovedOffScreen = true;
+        //        walker.transform.position = currentDestination;
+        //        walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+        //        walker.currentLevel = walker.currentTilePosition.position.z;
+
+        //        action.ReachFinalDestination(this);
+
+        //        walker.SetLastPosition();
+        //    }
+        //}
+
+        public void SetToRemoveState()
+        {
+            SetBeliefState(questComplteCondition.Condition, questComplteCondition.State);
+            currentAction.success = true;
+            SetActionComplete(true);
+        }
+
+
+        public void InvokeResetJustIndicated()
+        {
+            Invoke("ResetJustIndicated", 5.0f);
+        }
+        void ResetJustIndicated()
+        {
+            justIndicated = false;
+        }
+        void SeekTravellerDestination()
+        {
+            
+            if (hasInteracted && !hasFoundDestination)
+            {
+                var dist = Vector3.Distance(transform.position, travellerDestination);
+                if (dist < 1.8f)
+                {
+                    hasFoundDestination = true;
+                    currentAction.success = true;
+                    SetActionComplete(true);
+                    SetBeliefState(travellerAreaFoundCondition.Condition, travellerAreaFoundCondition.State);
+                }
+            }
+        }
+
+        public void SetFire(Campfire fire)
+        {
+            currentFire = fire;
+            SetBeliefState(fireInteractCondition.Condition, fireInteractCondition.State);
+            currentAction.success = true;
+            SetActionComplete(true);
+
+        }
+
+    }
+}

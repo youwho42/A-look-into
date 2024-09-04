@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class ActivateOnQuestComplete : MonoBehaviour
     }
     public void SetObjectsToActivate()
     {
-        bool active = SAP_WorldBeliefStates.instance.HasWorldState(undertakingName, true);
+        bool active = GOAD_WorldBeliefStates.instance.HasState(undertakingName, true);
         foreach (var item in objectsToActivate)
         {
             item.SetActive(active);

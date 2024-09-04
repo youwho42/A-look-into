@@ -101,7 +101,9 @@ namespace Klaxon.GravitySystem
             
             if (canMove)
             {
-                finalSpeed = playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : walkSpeed * speedStat.GetModifiedMax();
+                float exhausted = PlayerInformation.instance.runningManager.shattered ? 0.4f : 1;
+                finalSpeed = playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : (walkSpeed * exhausted) * speedStat.GetModifiedMax();
+                
                 Move(playerInput.movement, finalSpeed);
             }
 

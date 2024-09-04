@@ -71,7 +71,7 @@ namespace Klaxon.SAP
             atDestination = false;
             agent.hasFoundDestination = false;
         }
-
+        
         bool CheckUndertakingTasks()
         {
             bool tasksComplete = true;

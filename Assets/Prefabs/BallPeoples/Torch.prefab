@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 7700802494829820793}
   - component: {fileID: -3628271839959562428}
   - component: {fileID: -4888024814566974346}
+  - component: {fileID: 5974031787424048254}
   m_Layer: 13
   m_Name: Torch
   m_TagString: Untagged
@@ -289,7 +290,6 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 11400000, guid: 5e97448c22fde1b4b98c7f56efbed763, type: 2}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -298,6 +298,7 @@ MonoBehaviour:
   canPlaceOnOther: 0
   visualItem: {fileID: 8795898393345373517}
   instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   fireAnimation: {fileID: 8795898393242917953}
   lightFlicker: {fileID: 8795898392129181825}
   fireFlicker: {fileID: 8795898393083815943}
@@ -363,6 +364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-3628271839959562428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +392,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &5974031787424048254
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8795898393083815945}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.9
 --- !u!1 &8795898393242917953
 GameObject:
   m_ObjectHideFlags: 0

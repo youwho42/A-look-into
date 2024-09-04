@@ -1,4 +1,5 @@
-﻿using Klaxon.StatSystem;
+﻿using Klaxon.GOAD;
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,11 @@ namespace Klaxon.Interactable
 
         public StatChanger gumptionStatChanger;
         PlayerInformation player;
-        float mainVolume;
+
+        bool hasBP;
+        
+
+
         private void Awake()
         {
             source = GetComponent<AudioSource>();
@@ -39,10 +44,10 @@ namespace Klaxon.Interactable
         }
         private void OnDisable()
         {
-            GameEventManager.onTimeTickEvent.RemoveListener(CheckPlayerDistance);
+            GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPlayerDistance);
         }
 
-        void CheckPlayerDistance(int tick)
+        void CheckPlayerDistance()
         {
             if (isLit)
             {
@@ -71,6 +76,7 @@ namespace Klaxon.Interactable
 
         public void ToggleFire(bool active)
         {
+            hasBP = false;
             isLit = active;
             if (active)
                 SetFire("extinguish", true);
@@ -88,8 +94,6 @@ namespace Klaxon.Interactable
             if (isLit)
             {
                 Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Fire pick up"), null, 0, NotificationsType.Warning);
-
-                //NotificationManager.instance.SetNewNotification("You might want to put that fire out, no?", NotificationManager.NotificationType.Warning);
                 return;
             }
             var item = GetComponent<QI_Item>().Data;
@@ -113,10 +117,9 @@ namespace Klaxon.Interactable
             fireFlicker.canFlicker = active;
             SetInteractVerb();
             if(isLit)
-                GameEventManager.onTimeTickEvent.AddListener(CheckPlayerDistance);
+                GameEventManager.onPlayerPositionUpdateEvent.AddListener(CheckPlayerDistance);
             else
-                GameEventManager.onTimeTickEvent.RemoveListener(CheckPlayerDistance);
-            //interactVerb = _interactVerb;
+                GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPlayerDistance);
             fireFlicker.StartLightFlicker(active);
             if (sound.clips.Length > 0)
             {
@@ -129,7 +132,6 @@ namespace Klaxon.Interactable
         void PlaySound()
         {
             sound.SetSource(source, 0);
-            mainVolume = sound.volume;
             sound.Play();
         }
         void StopSound()
@@ -138,8 +140,28 @@ namespace Klaxon.Interactable
             sound.Stop();
         }
 
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            bool isDay = RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Day;
+            int dif = (int)collision.transform.position.z - (int)transform.position.z;
+            if (!collision.CompareTag("NPC") || Mathf.Abs(dif) >= 2 || hasBP) 
+                return;
 
+            if(collision.TryGetComponent(out GOAD_Scheduler_BP bp))
+            {
+                hasBP = true;
+                if (isLit && !isDay)
+                {
+                    bp.SetFire(this);
+                }
+                else if (!isLit && isDay)
+                {
+                    bp.SetFire(this);
+                }
+                
+            }
 
+        }
 
     } 
 }

@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.GravitySystem;
 using Klaxon.Interactable;
 using Klaxon.SAP;
@@ -76,7 +77,7 @@ public class BallPeopleManager : MonoBehaviour
         var travItem = trav.GetComponent<InteractableBallPeopleTraveller>();
         travItem.undertaking.undertaking = taskObject.undertaking;
         travItem.undertaking.task = taskObject.task;
-        var travelBall = trav.GetComponent<SAP_Scheduler_BP>();
+        var travelBall = trav.GetComponent<GOAD_Scheduler_BP>();
         travelBall.travellerDestination = travelerDestination.transform.position;
     }
 
@@ -85,7 +86,7 @@ public class BallPeopleManager : MonoBehaviour
         GameObject trav = null;
         SpawnBallPeople(travellerHomePrefab, out trav, position);
 
-        var travelBall = trav.GetComponent<SAP_Scheduler_BP>();
+        var travelBall = trav.GetComponent<GOAD_Scheduler_BP>();
         travelBall.travellerDestination = travelerDestination;
 
         var travelAccessory = trav.GetComponent<RandomAccessories>();

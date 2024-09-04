@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using Klaxon.Interactable;
 using QuantumTek.QuantumInventory;
 using SerializableTypes;
@@ -14,7 +14,7 @@ namespace Klaxon.SaveSystem
 
         
         public InteractableBallPeopleTraveller travellerInteractable;
-        public SAP_Scheduler_BP travellerAI;
+        public GOAD_Scheduler_BP travellerAI;
         public QI_ItemDatabase itemDatabase;
         public object CaptureState()
         {

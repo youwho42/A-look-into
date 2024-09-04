@@ -262,7 +262,7 @@ namespace Klaxon.GravitySystem
 
 
             Vector3 currentPosition = _transform.position;
-            currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime* currentVelocity);
+            currentPosition = Vector2.MoveTowards(_transform.position, (Vector2)_transform.position + dir, Time.deltaTime * currentVelocity);
             currentPosition.z = currentTilePosition.position.z + 1;
             _transform.position = currentPosition;
 
@@ -334,7 +334,7 @@ namespace Klaxon.GravitySystem
 
         public bool CheckForWaterAbove(Vector3Int tilePosition)
         {
-            for (int i = tilePosition.z; i < 10; i++)
+            for (int i = tilePosition.z + 1; i < 10; i++)
             {
                 var pos = new Vector3Int(tilePosition.x, tilePosition.y, i);
                 if (GridManager.instance.HasWaterTile(pos))
