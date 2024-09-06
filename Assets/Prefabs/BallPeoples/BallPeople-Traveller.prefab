@@ -257,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -277,12 +277,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: possibleGoals.Array.data[4].Name
+      value: Set Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: possibleGoals.Array.data[2].Priority
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.data[3].Priority
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].Priority
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
@@ -299,7 +309,18 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: d7872e5781151934aa18d84f5868a463,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
@@ -313,6 +334,12 @@ PrefabInstance:
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
         type: 2}
     m_RemovedComponents:
     - {fileID: 3199593422043033621, guid: 52de873582b53f0439b2e676e110821d, type: 3}

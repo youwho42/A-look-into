@@ -31,6 +31,7 @@ namespace Klaxon.GOAD
 
                 if (!hasLicked)
                 {
+                    agent.currentFire.BPSetFire();
                     agent.animator.SetBool(agent.walking_hash, false);
                     agent.walker.currentDirection = Vector2.zero;
                     agent.animator.SetTrigger(agent.lick_hash);
@@ -93,7 +94,7 @@ namespace Klaxon.GOAD
             Vector3 pos = agent.currentFire.transform.position;
             Vector2 dir = transform.position - pos;
             dir = dir.normalized;
-            dir *= 0.12f;
+            dir *= 0.2f;
             var colliders = agent.currentFire.GetComponentsInChildren<Collider2D>();
             foreach (var coll in colliders)
             {

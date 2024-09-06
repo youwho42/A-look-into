@@ -40,17 +40,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description: I am looking for a particular stick, I saw one a while ago and it
-    looked like it would taste really good. I, kind anthropomorphic person, wood
-    like to lick that stick. Maybe you can help me find it!
-  CompletedDescription: You helped find the perfect stick... to lick?
   Tasks:
   - {fileID: 11400000, guid: 0e56084859e3439408b360e31a906d26, type: 2}
   - {fileID: 11400000, guid: 1049afd0a46ba514d9bbbb4f684bb4ab, type: 2}
   CurrentState: 0
+  QuestCompleteCondition: {fileID: 11400000, guid: 3bc0332ea3267f7499d5a147c34b4419,
+    type: 2}
   SparksReward: 50
-  GumptionReward: 0
-  AgencyReward: 10
+  GumptionReward: {fileID: 0}
+  AgencyReward: {fileID: 0}
   ItemReward: {fileID: 11400000, guid: 2f1bddb4f4bba0f4cbc6de1a56330c02, type: 2}
   ItemQuantity: 1
   RecipeReward: {fileID: 0}

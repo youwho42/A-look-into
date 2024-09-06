@@ -25,8 +25,8 @@ namespace Klaxon.Interactable
 
         public StatChanger gumptionStatChanger;
         PlayerInformation player;
-
-        bool hasBP;
+        [HideInInspector]
+        public bool hasBP;
         
 
 
@@ -139,29 +139,14 @@ namespace Klaxon.Interactable
             sound.SetSource(source, 0);
             sound.Stop();
         }
-
-        void OnTriggerEnter2D(Collider2D collision)
+        public void BPSetFire()
         {
             bool isDay = RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Day;
-            int dif = (int)collision.transform.position.z - (int)transform.position.z;
-            if (!collision.CompareTag("NPC") || Mathf.Abs(dif) >= 2 || hasBP) 
-                return;
-
-            if(collision.TryGetComponent(out GOAD_Scheduler_BP bp))
-            {
-                hasBP = true;
-                if (isLit && !isDay)
-                {
-                    bp.SetFire(this);
-                }
-                else if (!isLit && isDay)
-                {
-                    bp.SetFire(this);
-                }
-                
-            }
-
+            if (!isLit && !isDay || isLit && isDay)
+                ToggleFire(!isDay);
         }
+
+        
 
     } 
 }

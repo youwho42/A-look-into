@@ -40,16 +40,14 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description: 'There is a big fissure in Blu Valley blocking everyone from leaving,
-    and coming in for that matter. You should try to fix it! '
-  CompletedDescription: You fixed he big Fissure in Blu Valley! Now everyone can
-    come and go as they please!
   Tasks:
   - {fileID: 11400000, guid: bfb4126895b5de847a94445bd77adf03, type: 2}
   CurrentState: 0
+  QuestCompleteCondition: {fileID: 11400000, guid: f1104fbc2ac87bb4db4683ad48fe6331,
+    type: 2}
   SparksReward: 10
-  GumptionReward: 0
-  AgencyReward: 10
+  GumptionReward: {fileID: 0}
+  AgencyReward: {fileID: 0}
   ItemReward: {fileID: 0}
   ItemQuantity: 0
   RecipeReward: {fileID: 0}

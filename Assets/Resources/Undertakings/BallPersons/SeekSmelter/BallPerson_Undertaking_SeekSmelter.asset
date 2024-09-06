@@ -40,17 +40,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description: I heard tell of an item that can turn rock into shiny blocks. I would
-    very much enjoy licking... I mean seeing one
-  CompletedDescription: You crafted a smelter and showed it to the one that wanted
-    to see it! Way to go!
   Tasks:
   - {fileID: 11400000, guid: ca0921aba076f6144b41734fe15f6400, type: 2}
   - {fileID: 11400000, guid: 293c58cdc015e504e8b85cc664ecf47d, type: 2}
   CurrentState: 0
+  QuestCompleteCondition: {fileID: 11400000, guid: 58cd877b807b52b41ba7f1f6d3e05f89,
+    type: 2}
   SparksReward: 50
-  GumptionReward: 0
-  AgencyReward: 10
+  GumptionReward: {fileID: 0}
+  AgencyReward: {fileID: 0}
   ItemReward: {fileID: 0}
   ItemQuantity: 0
   RecipeReward: {fileID: 0}

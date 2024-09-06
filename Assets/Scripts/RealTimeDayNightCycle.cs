@@ -141,6 +141,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
     void SetDayState()
     {
+        var pastDayState = dayState;
         if (currentTimeRaw >= 0 && currentTimeRaw < dayStart || currentTimeRaw > nightStart + dayNightTransitionTime)
             dayState = DayState.Night;
         else if (currentTimeRaw > dayStart + dayNightTransitionTime && currentTimeRaw < nightStart)
@@ -150,6 +151,8 @@ public class RealTimeDayNightCycle : MonoBehaviour
         else if (currentTimeRaw >= dayStart && currentTimeRaw <= dayStart + dayNightTransitionTime)
             dayState = DayState.Sunrise;
         SetDayOrNightLight();
+        if (pastDayState != dayState)
+            GameEventManager.onDayStateChangeEvent.Invoke();
     }
 
     void SetLight(bool dayToNight)

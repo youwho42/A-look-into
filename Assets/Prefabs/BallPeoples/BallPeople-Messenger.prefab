@@ -1403,10 +1403,10 @@ MonoBehaviour:
     Priority: 10
   - Name: Set Fire
     DesiredGoal:
-      ResultCondition: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
+      ResultCondition: {fileID: 11400000, guid: d7872e5781151934aa18d84f5868a463,
         type: 2}
       PreConditions:
-      - {fileID: 11400000, guid: f5cb52d0e962b304bb575f7dfe69b372, type: 2}
+      - {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2, type: 2}
     Priority: 10
   currentActionName: 
   animator: {fileID: 3669067541027879398}
@@ -1531,12 +1531,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Set Fires
   Goal:
-    ResultCondition: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2, type: 2}
+    ResultCondition: {fileID: 11400000, guid: d7872e5781151934aa18d84f5868a463, type: 2}
     PreCondition: {fileID: 11400000, guid: f5cb52d0e962b304bb575f7dfe69b372, type: 2}
   IsRunning: 0
   success: 0
   conditionsOnSucceed:
   - {fileID: 11400000, guid: 63730784182032a42a144759bb8fdcc4, type: 2}
+  - {fileID: 11400000, guid: f5cb52d0e962b304bb575f7dfe69b372, type: 2}
   conditionsOnFail: []
 --- !u!114 &3199593422043033621
 MonoBehaviour:
