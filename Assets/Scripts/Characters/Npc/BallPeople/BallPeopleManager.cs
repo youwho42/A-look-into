@@ -1,5 +1,4 @@
 using Klaxon.GOAD;
-using Klaxon.GravitySystem;
 using Klaxon.Interactable;
 using Klaxon.SAP;
 using Klaxon.SaveSystem;
@@ -31,7 +30,6 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject harvesterPrefab;
     public GameObject indicatorPrefab;
     public GameObject homeBoundPrefab;
-    public GameObject homeBoundLighterPrefab;
     public GameObject appearFX;
     public float lastColorA;
     public System.Random random = new System.Random();
@@ -50,12 +48,12 @@ public class BallPeopleManager : MonoBehaviour
         messItem.craftingRecipe = craftingRecipe;
     }
 
-    public void SpawnVillager(CompleteTaskObject taskObject, Vector3 position, bool lighter)
+    public void SpawnVillager(CompleteTaskObject taskObject, Vector3 position)
     {
         Vector3 offset = new Vector2(Random.Range(-0.2f, 0.2f), -0.2f);
         GameObject villager = null;
 
-        SpawnBallPeople(lighter ? homeBoundLighterPrefab : homeBoundPrefab, out villager, position + offset);
+        SpawnBallPeople(homeBoundPrefab, out villager, position + offset);
 
         if (taskObject.undertaking != null)
         {
@@ -63,8 +61,8 @@ public class BallPeopleManager : MonoBehaviour
             v.undertaking.undertaking = taskObject.undertaking;
             v.undertaking.task = taskObject.task; 
         }
-        var villagerBall = villager.GetComponent<SAP_Scheduler_BP>();
-        villagerBall.travellerDestination = position;
+        var villagerBall = villager.GetComponent<GOAD_Scheduler_BP>();
+        villagerBall.BPHomeDestination = position;
 
     }
 
@@ -78,7 +76,7 @@ public class BallPeopleManager : MonoBehaviour
         travItem.undertaking.undertaking = taskObject.undertaking;
         travItem.undertaking.task = taskObject.task;
         var travelBall = trav.GetComponent<GOAD_Scheduler_BP>();
-        travelBall.travellerDestination = travelerDestination.transform.position;
+        travelBall.BPHomeDestination = travelerDestination.transform.position;
     }
 
     public void SpawnTravellerHome(Vector3 travelerDestination, Vector3 position, int accessoryIndex, Color color)
@@ -87,7 +85,7 @@ public class BallPeopleManager : MonoBehaviour
         SpawnBallPeople(travellerHomePrefab, out trav, position);
 
         var travelBall = trav.GetComponent<GOAD_Scheduler_BP>();
-        travelBall.travellerDestination = travelerDestination;
+        travelBall.BPHomeDestination = travelerDestination;
 
         var travelAccessory = trav.GetComponent<RandomAccessories>();
         travelAccessory.SetAccessories(accessoryIndex);
@@ -104,7 +102,7 @@ public class BallPeopleManager : MonoBehaviour
         var seekerItem = seek.GetComponent<InteractableBallPeopleSeeker>();
         seekerItem.talkTask.undertaking = talkTask.undertaking;
         seekerItem.talkTask.task = talkTask.task;
-        var seekerBall = seek.GetComponent<SAP_Scheduler_BP>();
+        var seekerBall = seek.GetComponent<GOAD_Scheduler_BP>();
         seekerBall.task = seekTask;
         seekerBall.seekItem = item;
         seekerBall.seekAmount = amount;
@@ -119,7 +117,7 @@ public class BallPeopleManager : MonoBehaviour
         SpawnBallPeople(planterPrefab, out planter, position + offset);
 
         
-        var planterBall = planter.GetComponent<SAP_Scheduler_BP>();
+        var planterBall = planter.GetComponent<GOAD_Scheduler_BP>();
         planterBall.plantingArea = plantingArea;
         planterBall.seedBoxInventory = plantingArea.seedBox;
         
@@ -132,7 +130,7 @@ public class BallPeopleManager : MonoBehaviour
         SpawnBallPeople(harvesterPrefab, out planter, position + offset);
 
 
-        var harvesterBall = planter.GetComponent<SAP_Scheduler_BP>();
+        var harvesterBall = planter.GetComponent<GOAD_Scheduler_BP>();
         harvesterBall.plantingArea = plantingArea;
         harvesterBall.seedBoxInventory = plantingArea.seedBox;
 
@@ -143,8 +141,8 @@ public class BallPeopleManager : MonoBehaviour
         GameObject ind = null;
         SpawnBallPeople(indicatorPrefab, out ind, position);
 
-        ind.GetComponent<SAP_Scheduler_BP>().indicatorIndex = indicatorIndex;
-        ind.GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
+        ind.GetComponent<GOAD_Scheduler_BP>().indicatorIndex = indicatorIndex;
+        ind.GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
         ind.GetComponent<RandomColor>().SetColor(color.r, color.g, color.b);
         
     }

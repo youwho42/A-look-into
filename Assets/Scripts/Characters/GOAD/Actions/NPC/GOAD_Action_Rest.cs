@@ -159,13 +159,7 @@ namespace Klaxon.GOAD
             chair.canInteract = true;
         }
 
-        public override void FailAction(GOAD_Scheduler_NPC agent)
-        {
-            base.FailAction(agent);
-            agent.SetBeliefState("AtRestSeat", false);
-            agent.SetBeliefState("Tired", true);
-        }
-
+        
         public override void EndAction(GOAD_Scheduler_NPC agent)
         {
             base.EndAction(agent);

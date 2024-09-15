@@ -1,9 +1,6 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using Klaxon.Interactable;
-using QuantumTek.QuantumInventory;
-using SerializableTypes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +11,7 @@ namespace Klaxon.SaveSystem
 
 
         public InteractableBallPeopleVillager villagerInteractable;
-        public SAP_Scheduler_BP villagerAI;
+        public GOAD_Scheduler_BP villagerAI;
         
         public object CaptureState()
         {

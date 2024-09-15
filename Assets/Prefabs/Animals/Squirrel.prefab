@@ -82,7 +82,7 @@ PrefabInstance:
     - target: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_Name
-      value: Squirrel New
+      value: Squirrel
       objectReference: {fileID: 0}
     - target: {fileID: 1186113324396075655, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -516,6 +516,11 @@ PrefabInstance:
       propertyPath: goals.Array.data[3].Conditions.Array.data[0].Condition
       value: AtClimbable
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 637667237279358708, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
@@ -524,6 +529,7 @@ PrefabInstance:
     - {fileID: 3895514192025035302, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 536565924102336754, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 3980435461219289164, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 6585509589159697265, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -617,7 +623,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   hasFixedHome: 0
   home: {fileID: 0}
 --- !u!114 &6534746792531897496
@@ -636,7 +647,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
 --- !u!114 &7552059897892504246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,4 +669,9 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0

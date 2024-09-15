@@ -104,7 +104,11 @@ namespace Klaxon.GOAD
             success = false;
         }
 
-        
+        public virtual void ReachFinalDestination(GOAD_Scheduler_BP agent)
+        {
+            
+        }
+
 
 
 
@@ -113,5 +117,42 @@ namespace Klaxon.GOAD
         /// <summary>
         /// ANIMAL GOAD
         /// </summary>
+        /// 
+        public virtual void StartAction(GOAD_Scheduler_Animal agent)
+        {
+            IsRunning = true;
+            success = false;
+        }
+        public virtual void PerformAction(GOAD_Scheduler_Animal agent)
+        {
+        }
+        public virtual void SucceedAction(GOAD_Scheduler_Animal agent)
+        {
+            agent.SetBeliefState(Goal.ResultCondition.Condition, Goal.ResultCondition.State);
+            foreach (var condition in conditionsOnSucceed)
+            {
+                agent.SetBeliefState(condition.Condition, condition.State);
+            }
+        }
+        public virtual void FailAction(GOAD_Scheduler_Animal agent)
+        {
+            agent.SetBeliefState(Goal.ResultCondition.Condition, !Goal.ResultCondition.State);
+            foreach (var condition in conditionsOnFail)
+            {
+                agent.SetBeliefState(condition.Condition, condition.State);
+            }
+        }
+
+        public virtual void EndAction(GOAD_Scheduler_Animal agent)
+        {
+            IsRunning = false;
+            if (success)
+                SucceedAction(agent);
+            else
+                FailAction(agent);
+            success = false;
+        }
+
+
     }
 }

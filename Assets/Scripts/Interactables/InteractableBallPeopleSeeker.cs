@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +46,7 @@ namespace Klaxon.Interactable
 
             BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), talkTask.undertaking, destroyOnClose);
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
-            GetComponent<SAP_Scheduler_BP>().hasInteracted = true;
+            GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
             canInteract = false;
             yield return new WaitForSeconds(0.33f);
         }

@@ -270,6 +270,11 @@ PrefabInstance:
       propertyPath: goals.Array.data[3].Conditions.Array.data[1].Condition
       value: AtHome
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 637667237279358708, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
@@ -278,6 +283,7 @@ PrefabInstance:
     - {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 3895514192025035302, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 2070390912640740298, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 6585509589159697265, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -325,6 +331,7 @@ MonoBehaviour:
   slopeObject: {fileID: 870149536660129517}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -384,7 +391,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   idleTimeRange: {x: 2, y: 10}
   wanderDistance: 2.5
 --- !u!4 &5304590105965294044 stripped

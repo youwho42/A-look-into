@@ -36,7 +36,7 @@ namespace Klaxon.SaveSystem
             return new SaveData
             {
                 
-                travellerDestination = travellerAI.travellerDestination,
+                travellerDestination = travellerAI.BPHomeDestination,
                 undertakingName = q,
                 taskName = t,
                 started = travellerInteractable.started,
@@ -58,7 +58,7 @@ namespace Klaxon.SaveSystem
                 travellerInteractable.undertaking.task = Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.GetTask(saveData.undertakingName, saveData.taskName);
             travellerInteractable.started = saveData.started;
             travellerAI.hasInteracted = saveData.hasInteracted;
-            travellerAI.travellerDestination = saveData.travellerDestination;
+            travellerAI.BPHomeDestination = saveData.travellerDestination;
 
             for (int i = 0; i < saveData.beliefNames.Count; i++)
             {

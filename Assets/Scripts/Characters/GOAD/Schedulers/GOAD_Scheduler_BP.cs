@@ -1,5 +1,7 @@
 using Klaxon.GravitySystem;
 using Klaxon.Interactable;
+using Klaxon.UndertakingSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +46,9 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public Campfire currentFire;
 
+        bool hasMovedOffScreen;
+        float offScreenMoveTime;
+
         public enum BP_Type
         {
             Messenger,
@@ -56,21 +61,71 @@ namespace Klaxon.GOAD
         }
         public BP_Type type;
 
-
+        [HideInInspector]
+        public Vector3 BPHomeDestination;
 
         /// <summary>
         /// Traveller BP
         /// </summary>
-
+        #region Traveller BP
         [HideInInspector]
         public bool hasFoundDestination;
         [HideInInspector]
-        public Vector3 travellerDestination;
-        [HideInInspector]
-        public bool justIndicated;
+        public bool justIndicatedTravellerDestination;
         public GOAD_ScriptableCondition travellerAreaFoundCondition;
 
-        
+        #endregion
+
+
+        /// <summary>
+        /// Seeker BP
+        /// </summary> 
+        #region Seeker BP
+        [HideInInspector]
+        public bool isSeeking;
+        [HideInInspector]
+        public QI_ItemData seekItem;
+        [HideInInspector]
+        public int seekAmount;
+        [HideInInspector]
+        public GameObject currentSeekItem;
+        [HideInInspector]
+        public Vector3 currentSeekItemLocation;
+        [HideInInspector]
+        public int foundAmount;
+        [HideInInspector]
+        public List<Vector3> seekItemsFound = new List<Vector3>();
+        public float seekRadius;
+        [HideInInspector]
+        public CompleteTaskObject task;
+        public GOAD_ScriptableCondition seekCondition;
+
+        #endregion
+
+        /// <summary>
+        /// Indicator BP
+        /// </summary>
+        #region IndicatorBP
+        [HideInInspector]
+        public int indicatorIndex;
+        [HideInInspector]
+        public bool justIndicated;
+        #endregion
+
+        /// <summary>
+        /// Planter BP
+        /// </summary>
+        #region Planter BP
+        [HideInInspector]
+        public QI_Inventory seedBoxInventory;
+        [HideInInspector]
+        public PlantingArea plantingArea;
+        [HideInInspector]
+        public Vector3 currentPlantDestination;
+        [HideInInspector]
+        public PlantLife currentHarvestable; 
+        #endregion
+
 
         public override void Start()
         {
@@ -119,13 +174,12 @@ namespace Klaxon.GOAD
                 }
 
             }
-            //if (type == BP_Type.Seeker)
-            //{
-            //    if (seekItem != null && !isSeeking)
-            //        SeekItem();
-            //}
+            if (type == BP_Type.Seeker && seekItem != null && !isSeeking)
+            {
+                SeekItem();
+            }
 
-            if (type == BP_Type.Traveller && !justIndicated && !hasFoundDestination/* && !GetBeliefState("QuestOver")*/)
+            if (type == BP_Type.Traveller && !justIndicatedTravellerDestination && !hasFoundDestination/* && !GetBeliefState("QuestOver")*/)
             {
                 SeekTravellerDestination();
             }
@@ -193,36 +247,36 @@ namespace Klaxon.GOAD
 
 
 
-        //public void HandleOffScreen(SAP_Action action, Vector3 currentDestination)
-        //{
-        //    walker.currentDirection = Vector2.zero;
+        public void HandleOffScreen(GOAD_Action action, Vector3 currentDestination)
+        {
+            walker.currentDirection = Vector2.zero;
 
-        //    if (hasMovedOffScreen)
-        //    {
-        //        offScreenMoveTime = Mathf.RoundToInt(Vector2.Distance(transform.position, currentDestination) / walker.walkSpeed);
-        //        offScreenMoveTime = (offScreenMoveTime + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+            if (hasMovedOffScreen)
+            {
+                offScreenMoveTime = Mathf.RoundToInt(Vector2.Distance(transform.position, currentDestination) / walker.walkSpeed);
+                offScreenMoveTime = (offScreenMoveTime + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
 
-        //        if (transform.position.x < currentDestination.x && !walker.facingRight)
-        //            walker.Flip();
-        //        else if (transform.position.x > currentDestination.x && walker.facingRight)
-        //            walker.Flip();
+                if (transform.position.x < currentDestination.x && !walker.facingRight)
+                    walker.Flip();
+                else if (transform.position.x > currentDestination.x && walker.facingRight)
+                    walker.Flip();
 
-        //        hasMovedOffScreen = false;
-        //    }
+                hasMovedOffScreen = false;
+            }
 
-        //    if (RealTimeDayNightCycle.instance.currentTimeRaw >= offScreenMoveTime && !hasMovedOffScreen)
-        //    {
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= offScreenMoveTime && !hasMovedOffScreen)
+            {
 
-        //        hasMovedOffScreen = true;
-        //        walker.transform.position = currentDestination;
-        //        walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
-        //        walker.currentLevel = walker.currentTilePosition.position.z;
+                hasMovedOffScreen = true;
+                walker.transform.position = currentDestination;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                walker.currentLevel = walker.currentTilePosition.position.z;
 
-        //        action.ReachFinalDestination(this);
+                action.ReachFinalDestination(this);
 
-        //        walker.SetLastPosition();
-        //    }
-        //}
+                walker.SetLastPosition();
+            }
+        }
 
         public void SetToRemoveState()
         {
@@ -232,20 +286,20 @@ namespace Klaxon.GOAD
         }
 
 
-        public void InvokeResetJustIndicated()
+        public void InvokeResetJustIndicatedTravellerDestination()
         {
-            Invoke("ResetJustIndicated", 5.0f);
+            Invoke("ResetJustIndicatedTravellerDestination", 5.0f);
         }
-        void ResetJustIndicated()
+        void ResetJustIndicatedTravellerDestination()
         {
-            justIndicated = false;
+            justIndicatedTravellerDestination = false;
         }
         void SeekTravellerDestination()
         {
             
             if (hasInteracted && !hasFoundDestination)
             {
-                var dist = Vector3.Distance(transform.position, travellerDestination);
+                var dist = Vector3.Distance(transform.position, BPHomeDestination);
                 if (dist < 1.8f)
                 {
                     hasFoundDestination = true;
@@ -264,6 +318,67 @@ namespace Klaxon.GOAD
             SetActionComplete(true);
 
         }
+
+        void SeekItem()
+        {
+            if (hasInteracted && !task.task.IsComplete)
+            {
+                currentSeekItem = CheckForSeekItem();
+                if (currentSeekItem != null)
+                {
+                    currentSeekItemLocation = GetSeekItemPosition();
+                    isSeeking = true;
+                    SetBeliefState(seekCondition.Condition, true);
+                    currentAction.success = true;
+                    SetActionComplete(true);
+                }
+            }
+        }
+
+        Vector3 GetSeekItemPosition()
+        {
+            Vector3 pos = currentSeekItem.transform.position;
+            Vector2 dir = transform.position - pos;
+            dir = dir.normalized;
+            dir *= 0.055f;
+            var colliders = currentSeekItem.GetComponentsInChildren<Collider2D>();
+            foreach (var coll in colliders)
+            {
+                if (gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+                {
+                    pos = coll.ClosestPoint(transform.position);
+                    break;
+                }
+            }
+
+            return pos + (Vector3)dir;
+        }
+
+        GameObject CheckForSeekItem()
+        {
+            
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, LayerMask.GetMask("Interactable"));
+
+            if (colliders.Length > 0)
+            {
+
+                for (int i = 0; i < colliders.Length; i++)
+                {
+
+                    if (colliders[i].transform.position.z != transform.position.z)
+                        continue;
+
+                    if (colliders[i].gameObject.TryGetComponent(out QI_Item item))
+                    {
+                        if (item.Data == seekItem && !seekItemsFound.Contains(colliders[i].transform.position))
+                            return colliders[i].gameObject;
+                        
+                    }
+                }
+            }
+            return null;
+        }
+
 
     }
 }

@@ -634,6 +634,11 @@ PrefabInstance:
       propertyPath: goals.Array.data[4].Conditions.Array.data[0].Condition
       value: Eating
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 637667237279358708, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
@@ -642,6 +647,7 @@ PrefabInstance:
     - {fileID: 3895514192025035302, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 536565924102336754, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 3980435461219289164, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 6585509589159697265, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 304862213367814950, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
@@ -766,6 +772,7 @@ MonoBehaviour:
   slopeObject: {fileID: 4847396300496087239}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -825,7 +832,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   hasFixedHome: 0
   home: {fileID: 0}
 --- !u!114 &7791511663137692369
@@ -844,7 +856,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   fleeDistance: 4
 --- !u!114 &8769519472565906111
 MonoBehaviour:
@@ -862,7 +879,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   headTimeRange: {x: 2, y: 10}
 --- !u!114 &5462534296695647477
 MonoBehaviour:
@@ -880,5 +902,10 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   minMaxEatTime: {x: 2, y: 5}

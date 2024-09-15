@@ -354,6 +354,7 @@ MonoBehaviour:
   slopeObject: {fileID: 6902144604944210876}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -462,7 +463,6 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 11400000, guid: 2dcf33813fba4754c877988660dac881, type: 2}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -747,7 +747,9 @@ MonoBehaviour:
   conditionsOnSucceed:
   - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
   - {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
-  conditionsOnFail: []
+  conditionsOnFail:
+  - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
+  - {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
   minMaxSittingTime: {x: 10, y: 30}
 --- !u!114 &43444038107672037
 MonoBehaviour:

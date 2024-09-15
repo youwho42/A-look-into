@@ -37,22 +37,12 @@ namespace Klaxon.GOAD
                 
         }
 
-        public override void SucceedAction(GOAD_Scheduler_BP agent)
-        {
-            base.SucceedAction(agent);
-        }
-
-        public override void FailAction(GOAD_Scheduler_BP agent)
-        {
-            base.FailAction(agent);
-        }
-
         public override void EndAction(GOAD_Scheduler_BP agent)
         {
             base.EndAction(agent);
             int index = GetComponent<RandomAccessories>().accessoryIndex;
             Color c = GetComponent<RandomColor>().randomColor;
-            BallPeopleManager.instance.SpawnTravellerHome(agent.travellerDestination, transform.position, index, c);
+            BallPeopleManager.instance.SpawnTravellerHome(agent.BPHomeDestination, transform.position, index, c);
             timer = 0;
             disolved = false;
             Destroy(gameObject);

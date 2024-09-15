@@ -122,22 +122,6 @@ namespace Klaxon.GOAD
 
         }
 
-        public override void SucceedAction(GOAD_Scheduler_NPC agent)
-        {
-            base.SucceedAction(agent);
-        }
-
-        public override void FailAction(GOAD_Scheduler_NPC agent)
-        {
-            base.FailAction(agent);
-        }
-
-        public override void EndAction(GOAD_Scheduler_NPC agent)
-        {
-            base.EndAction(agent);
-            
-        }
-
         IEnumerator PlaceNPC(GOAD_Scheduler_NPC agent, Vector3 position, bool standingUp)
         {
             float timer = 0;

@@ -83,12 +83,17 @@ GameObject:
   - component: {fileID: 6337084432757913328}
   - component: {fileID: 7442178345146074088}
   - component: {fileID: 637667237279358708}
+  - component: {fileID: 8378868691461979021}
+  - component: {fileID: 6585509589159697265}
+  - component: {fileID: 2240002081328395498}
+  - component: {fileID: 4097649243831503232}
+  - component: {fileID: 6887493229926418267}
+  - component: {fileID: 590698739972397137}
   - component: {fileID: 7968763202729641296}
-  - component: {fileID: 2302526306177949363}
-  - component: {fileID: 8372402349997794142}
   - component: {fileID: 5109975621678393886}
   - component: {fileID: 3895514192025035302}
   - component: {fileID: 2070390912640740298}
+  - component: {fileID: 7848326908069796272}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Animal
@@ -310,8 +315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boidManager: {fileID: 0}
-  neighborDistanceFarthest: 2.5
-  neighborDistanceClosest: 0.2
+  neighborDistanceFarthest: 3
+  neighborDistanceClosest: 0.25
   currentDirection: {x: 0, y: 0}
   inBoidPool: 0
 --- !u!114 &1123761197118074933
@@ -394,6 +399,7 @@ MonoBehaviour:
   slopeObject: {fileID: 304862213367814950}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -457,6 +463,7 @@ MonoBehaviour:
   slopeObject: {fileID: 304862213367814950}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -489,7 +496,7 @@ MonoBehaviour:
   flightSpeed: 0.9
   flyRoamingDistance: 4
   minMaxFlyZ: {x: 1.2, y: 6}
-  currentDestination: {x: 0, y: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
@@ -502,7 +509,7 @@ MonoBehaviour:
   isStuck: 0
   hasDeviatePosition: 0
   shitSpot: 0
---- !u!114 &7968763202729641296
+--- !u!114 &8378868691461979021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -510,6 +517,179 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186113323787273416}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78164dbdfa9e614a8c42942fe9d9bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleGoals:
+  - Name: Fly Wander
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 6b379165f6ac83444a9be30ecb469baa,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+      - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+    Priority: 1
+  - Name: Walk Wander
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
+    Priority: 2
+  - Name: Sleep
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 5cc2ce639d6b6dc4daed9ec4f3918c03,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: 0900d2a56b293474c8cbd1445f7094ba, type: 2}
+    Priority: 3
+  currentActionName: 
+  animator: {fileID: 6225581241868902536}
+  sounds: {fileID: 0}
+  musicItem: {fileID: 0}
+  offScreen: 0
+  walker: {fileID: 0}
+  flier: {fileID: 0}
+  jumper: {fileID: 0}
+  isDeviating: 0
+  musicGeneratorItem: {fileID: 6300385493937077386}
+  removeFromMusicAtHome: 1
+  isNocturnal: 0
+  sleep: {fileID: 0}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  closestSpots: []
+  minHomeDistance: 1
+  currentDisplacementSpot: {fileID: 0}
+  homeDestination: {fileID: 0}
+  minMaxFlap: {x: 0.5, y: 10}
+  minMaxGlide: {x: 0.5, y: 5}
+  glide: 0
+--- !u!114 &6585509589159697265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be364c123d3579140ae892c76debf016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Fly Wander
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 6b379165f6ac83444a9be30ecb469baa, type: 2}
+    PreCondition: {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
+  conditionsOnFail: []
+  useBoids: 1
+  minMaxWanderTime: {x: 10, y: 45}
+--- !u!114 &2240002081328395498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08310e60d8e4a024da4ed1ff8688619f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Landing
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 2ede4b02055dc9e43a5b68977a4745f9, type: 2}
+    PreCondition: {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 3c81d758c88ae3c4fa947127ff746e95, type: 2}
+  conditionsOnFail:
+  - {fileID: 11400000, guid: a9128fbf3a25af949926121b20d7315d, type: 2}
+  - {fileID: 11400000, guid: 2ede4b02055dc9e43a5b68977a4745f9, type: 2}
+--- !u!114 &4097649243831503232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ccfa23946196547b4c33a891783b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Walk Wander
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21, type: 2}
+    PreCondition: {fileID: 11400000, guid: 2ede4b02055dc9e43a5b68977a4745f9, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
+  wanderDistance: 1.5
+  headTimeRange: {x: 1, y: 10}
+  idleTimerRange: {x: 2, y: 5}
+  wanderTimerRange: {x: 5, y: 25}
+--- !u!114 &6887493229926418267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255fd736e313fc54f870390dff2ade33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Fly Home
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &590698739972397137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ddc81e8e56841498a45f24cdfcff0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Sleep
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 5cc2ce639d6b6dc4daed9ec4f3918c03, type: 2}
+    PreCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
+  wakeCondition: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+--- !u!114 &7968763202729641296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e686552c6554b54ea35f421ae65f90d, type: 3}
   m_Name: 
@@ -521,7 +701,7 @@ MonoBehaviour:
     Conditions:
     - Condition: AnimalDay
       State: 1
-    Action: {fileID: 2302526306177949363}
+    Action: {fileID: 0}
     IsRunning: 0
     TimeLimit: 0
     TimeLimitRange: {x: 10, y: 60}
@@ -535,7 +715,7 @@ MonoBehaviour:
       State: 1
     - Condition: OverWater
       State: 0
-    Action: {fileID: 8372402349997794142}
+    Action: {fileID: 0}
     IsRunning: 0
     TimeLimit: 0
     TimeLimitRange: {x: 0, y: 0}
@@ -585,7 +765,7 @@ MonoBehaviour:
     Conditions:
     - Condition: Flee
       State: 1
-    Action: {fileID: 2302526306177949363}
+    Action: {fileID: 0}
     IsRunning: 0
     TimeLimit: 1
     TimeLimitRange: {x: 0, y: 0}
@@ -637,42 +817,6 @@ MonoBehaviour:
   currentScritchablePosition: {fileID: 0}
   scritchCoolDown: 15
   scritchTimer: 0
---- !u!114 &2302526306177949363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1601436ceb6fc244d9b46e8cad10e0f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  target: {fileID: 0}
-  useBoids: 1
-  hoverTime: {x: 0, y: 0}
---- !u!114 &8372402349997794142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a374859d3ac5045a8f277a969e544c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  target: {fileID: 0}
 --- !u!114 &5109975621678393886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,7 +833,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   idleTimeRange: {x: 0.5, y: 10}
   headTimeRange: {x: 1, y: 10}
   wanderDistance: 0.6
@@ -709,7 +858,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   hasFixedHome: 1
   home: {fileID: 0}
 --- !u!114 &2070390912640740298
@@ -728,9 +882,33 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   hiddenWhenSleeping: 0
   gatherableItem: {fileID: 0}
+--- !u!114 &7848326908069796272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186113323787273416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf8bb0f1744bd943b68536e2f13a14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - condition: {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+    setOnStart: 1
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
+  specialConditions: []
+  scheduler: {fileID: 8378868691461979021}
 --- !u!1 &1186113324396075657
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,14 +34,7 @@ namespace Klaxon.GOAD
             }
             agent.walker.ResetLastPosition();
         }
-        public override void SucceedAction(GOAD_Scheduler_BP agent)
-        {
-            base.SucceedAction(agent);
-        }
-        public override void FailAction(GOAD_Scheduler_BP agent)
-        {
-            base.FailAction(agent);
-        }
+        
         public override void EndAction(GOAD_Scheduler_BP agent)
         {
             base.EndAction(agent);

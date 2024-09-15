@@ -13,12 +13,16 @@ namespace Klaxon.GOAD
         float timer;
 
         Vector2 lastDestination;
-
+        float deviateTimer = 0;
 
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
-            SetRandomDestinationFrom(agent);
+            if (!SetRandomDestinationFrom(agent))
+            {
+                success = false;
+                agent.SetActionComplete(true);
+            }
             agent.animator.SetBool(agent.sleeping_hash, false);
             agent.animator.SetBool(agent.walking_hash, true);
             agent.arms.SetActive(false);
@@ -56,19 +60,21 @@ namespace Klaxon.GOAD
 
             if (agent.walker.isStuck || agent.isDeviating)
             {
-                //if (lastDestination == agent.walker.currentDestination)
-                //{
-                //    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
-                //}
                 lastDestination = agent.walker.currentDestination;
-
+                deviateTimer += Time.deltaTime;
+                if(deviateTimer >= 3.0f)
+                {
+                    success = false;
+                    agent.SetActionComplete(true);
+                    return;
+                }
                 if (!agent.walker.jumpAhead)
                 {
                     agent.Deviate();
                     return;
                 }
-            }
 
+            }
 
 
             agent.walker.SetWorldDestination(wanderDestination);
@@ -79,40 +85,40 @@ namespace Klaxon.GOAD
             agent.walker.SetLastPosition();
         }
 
-        public override void SucceedAction(GOAD_Scheduler_BP agent)
-        {
-            base.SucceedAction(agent);
-        }
-
-        public override void FailAction(GOAD_Scheduler_BP agent)
-        {
-            base.FailAction(agent);
-        }
-
         public override void EndAction(GOAD_Scheduler_BP agent)
         {
             base.EndAction(agent);
             timer = 0;
             isLicking = false;
             hasLicked = false;
+            deviateTimer = 0;
         }
 
-        public void SetRandomDestinationFrom(GOAD_Scheduler_BP agent)
+        public bool SetRandomDestinationFrom(GOAD_Scheduler_BP agent)
         {
 
             Vector2 rand = Random.insideUnitCircle * wanderDistance;
-            var d = agent.walker.currentTilePosition.groundMap.WorldToCell(new Vector2(agent.travellerDestination.x + rand.x, agent.travellerDestination.y + rand.y));
+            var d = agent.walker.currentTilePosition.groundMap.WorldToCell(new Vector2(agent.BPHomeDestination.x + rand.x, agent.BPHomeDestination.y + rand.y));
             for (int z = agent.walker.currentTilePosition.groundMap.cellBounds.zMax; z > agent.walker.currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
             {
+                
                 d.z = z;
                 if (agent.walker.currentTilePosition.groundMap.GetTile(d) != null)
                 {
 
+                    var dif = agent.walker.currentTilePosition.position.z - z;
+                    if (Mathf.Abs(dif) > 1)
+                        return false;
+
                     wanderDestination = agent.walker.GetTileWorldPosition(d);
-                    wanderDestination += new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
-                    break;
+                    wanderDestination += new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), 1f);
+                    var hits = Physics2D.OverlapCircleAll(wanderDestination, 0.05f, LayerMask.GetMask("Obstacle"), wanderDestination.z, wanderDestination.z);
+                    
+                    return hits.Length <= 0;
+                    
                 }
             }
+            return false;
         }
 
     }

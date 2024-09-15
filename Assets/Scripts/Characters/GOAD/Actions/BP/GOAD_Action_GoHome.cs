@@ -24,7 +24,7 @@ namespace Klaxon.GOAD
             {
                 if (lastDestination == agent.walker.currentDestination)
                 {
-                    offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
+                    offset = new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
                 }
                 lastDestination = agent.walker.currentDestination;
 
@@ -39,7 +39,7 @@ namespace Klaxon.GOAD
 
 
 
-            agent.walker.SetWorldDestination(agent.travellerDestination + (Vector3)offset);
+            agent.walker.SetWorldDestination(agent.BPHomeDestination + (Vector3)offset);
             agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)
             {
@@ -49,20 +49,5 @@ namespace Klaxon.GOAD
             agent.walker.SetLastPosition();
         }
 
-        public override void SucceedAction(GOAD_Scheduler_BP agent)
-        {
-            base.SucceedAction(agent);
-        }
-
-        public override void FailAction(GOAD_Scheduler_BP agent)
-        {
-            base.FailAction(agent);
-        }
-
-        public override void EndAction(GOAD_Scheduler_BP agent)
-        {
-            base.EndAction(agent);
-            
-        }
     }
 }

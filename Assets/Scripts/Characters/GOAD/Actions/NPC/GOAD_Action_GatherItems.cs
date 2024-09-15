@@ -130,34 +130,6 @@ namespace Klaxon.GOAD
             agent.walker.SetLastPosition();
         }
 
-        //private void GatherItem(GOAD_Scheduler_NPC agent)
-        //{
-        //    float gathered = Random.Range(0.0f, 1.0f);
-        //    int amount = Random.Range(1, maxAmountPerGather);
-
-        //    if (gathered < gatherChance)
-        //    {
-        //        agent.agentInventory.AddItem(findablesDatabase.GetRandomWeightedItem(), amount, false);
-                
-        //    }
-                
-
-            
-        //}
-
-        public override void SucceedAction(GOAD_Scheduler_NPC agent)
-        {
-            base.SucceedAction(agent);
-            //GatherItem(agent);
-            
-        }
-
-
-        public override void FailAction(GOAD_Scheduler_NPC agent)
-        {
-            base.FailAction(agent);
-        }
-
         public override void EndAction(GOAD_Scheduler_NPC agent)
         {
             base.EndAction(agent);

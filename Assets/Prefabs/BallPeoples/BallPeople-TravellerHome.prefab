@@ -519,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -538,6 +538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: possibleGoals.Array.data[3].Name
+      value: Sleep
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: possibleGoals.Array.data[0].Priority
       value: 3
       objectReference: {fileID: 0}
@@ -550,6 +555,11 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[2].Priority
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].Priority
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -568,6 +578,12 @@ PrefabInstance:
       propertyPath: possibleGoals.Array.data[2].DesiredGoal.ResultCondition
       value: 
       objectReference: {fileID: 11400000, guid: d7872e5781151934aa18d84f5868a463,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 25d8f289fc2b61e4fbc8e5f210e16c30,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -591,6 +607,12 @@ PrefabInstance:
       propertyPath: possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0900d2a56b293474c8cbd1445f7094ba,
         type: 2}
     m_RemovedComponents:
     - {fileID: 3199593422043033621, guid: 52de873582b53f0439b2e676e110821d, type: 3}
@@ -618,6 +640,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 13
       addedObject: {fileID: 6174740124384368023}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: 14
+      addedObject: {fileID: -7455225112178562507}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
 --- !u!1 &4997007799972478863 stripped
 GameObject:
@@ -686,5 +712,28 @@ MonoBehaviour:
   success: 0
   conditionsOnSucceed:
   - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
   conditionsOnFail: []
   minMaxSittingTime: {x: 10, y: 30}
+--- !u!114 &-7455225112178562507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997007799972478863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9899176620298574980d277212698ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Sleep
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 25d8f289fc2b61e4fbc8e5f210e16c30, type: 2}
+    PreCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  conditionsOnFail: []
+  animalDayCondition: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
