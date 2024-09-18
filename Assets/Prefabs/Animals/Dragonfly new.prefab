@@ -666,13 +666,59 @@ PrefabInstance:
       propertyPath: minDistance
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxFlap.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxFlap.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxGlide.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxGlide.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minHomeDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].Name
+      value: Rest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 6585509589159697265, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 8985712035328762921}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 4933922084145633427}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
@@ -690,6 +736,52 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5151695563370460129}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8985712035328762921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f937eca556614d747a99137787a7b937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Fly Wander
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 6b379165f6ac83444a9be30ecb469baa, type: 2}
+    PreCondition: {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
+  conditionsOnFail: []
+  minMaxWanderTime: {x: 5, y: 30}
+  minMaxHoverTime: {x: 0, y: 2}
+--- !u!114 &4933922084145633427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17aca8ebf1c251e438e13f09a0d2fbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Rest
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087, type: 2}
+    PreCondition: {fileID: 11400000, guid: 2ede4b02055dc9e43a5b68977a4745f9, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  - {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
+  conditionsOnFail: []
+  minMaxRestTime: {x: 2, y: 15}
 --- !u!114 &3025095719655843579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +798,12 @@ MonoBehaviour:
   currentPathIndex: 0
   currentNode: {fileID: 0}
   finalDestination: 0
+  attachedGoal: Please set this for clarity
   target: {fileID: 0}
+  setConditionOnComplete: 0
+  conditionToSet:
+    Condition: 
+    State: 0
   headTimeRange: {x: 0, y: 0}
 --- !u!114 &8174554858813379015 stripped
 MonoBehaviour:

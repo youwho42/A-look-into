@@ -14,7 +14,6 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
     GravityItemNew gravityItem;
     //HashSet<Vector3Int> fadedTilePositions = new HashSet<Vector3Int>();
     bool canHide;
-
     private void Start()
     {
         gravityItem = GetComponent<GravityItemNew>();
@@ -26,9 +25,8 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
 
     void Update()
     {
-        
-        CheckHidden();
-        
+        if(GetTileInfo())
+            CheckHidden();
     }
     
 
@@ -47,6 +45,15 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
         ChangeObjectZ(displacementPos);
     }
 
+    bool GetTileInfo()
+    {
+        foreach (var item in gravityItem.tileBlockInfo)
+        {
+            if (item.levelZ > 0)
+                return true;
+        }
+        return false;
+    }
     //private void CheckHidden()
     //{
     //    displacementPos = 0;

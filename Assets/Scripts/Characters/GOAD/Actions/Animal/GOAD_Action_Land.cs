@@ -59,9 +59,18 @@ namespace Klaxon.GOAD
             //    return;
             //}
 
+            if (agent.currentDisplacementSpot == null)
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+
+
+
             if (agent.currentDisplacementSpot.positionZ == 0)
             {
-                if (agent.flier.itemObject.localPosition.z <= 0.03f)
+                if (agent.flier.itemObject.localPosition.y <= 0.03f)
                 {
                     agent.flier.itemObject.localPosition = Vector3.zero;
                     success = true;
@@ -71,7 +80,7 @@ namespace Klaxon.GOAD
             }
             else
             {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.05f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.05f)
+                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.currentDisplacementSpot.displacedPosition) <= 0.05f && Vector2.Distance(agent.transform.position, agent.currentDisplacementSpot.transform.position) <= 0.05f)
                 {
                     agent.flier.itemObject.localPosition = agent.currentDisplacementSpot.displacedPosition;
                     agent.transform.position = agent.flier.currentDestination;

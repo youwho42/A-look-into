@@ -390,7 +390,9 @@ namespace Klaxon.GravitySystem
         {
             currentDestination = destination.transform.position;
             mainDestinationZ = destination.displacedPosition;
-            currentDestinationZ = mainDestinationZ;
+            var dif = destination.transform.position.z - transform.position.z;
+            var disp = new Vector3(0, spriteDisplacementY * dif, dif);
+            currentDestinationZ = mainDestinationZ + disp;
             SetDirection();
             SetDirectionZ();
         }
@@ -448,7 +450,9 @@ namespace Klaxon.GravitySystem
                 int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
                 int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
                 currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
+                currentDestinationZ = mainDestinationZ * 2;
                 SetDirection();
+                SetDirectionZ();
                 return;
             }
 
@@ -461,7 +465,9 @@ namespace Klaxon.GravitySystem
                 float d = Random.Range(0.05f, 0.25f);
                 currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * d;
                 hasDeviatePosition = true;
+                currentDestinationZ = mainDestinationZ * 2;
                 SetDirection();
+                SetDirectionZ(); 
                 framesStuck = 0;
                 return;
             }
@@ -480,7 +486,9 @@ namespace Klaxon.GravitySystem
             }
 
             currentDestination = (Vector2)_transform.position + directions[secondBestIndex] * .3f;
+            currentDestinationZ = mainDestinationZ * 2;
             SetDirection();
+            SetDirectionZ();
             hasDeviatePosition = true;
         }
 

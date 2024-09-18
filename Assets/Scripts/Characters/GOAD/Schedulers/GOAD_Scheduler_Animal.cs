@@ -44,6 +44,9 @@ namespace Klaxon.GOAD
 
         public MusicGeneratorItem musicGeneratorItem;
         public bool removeFromMusicAtHome;
+        public bool hiddenWhenSleeping;
+        [ConditionalHide("hiddenWhenSleeping", true)]
+        public GatherableItem gatherableItem;
 
         InteractAreasManager interactAreas;
 
@@ -173,13 +176,35 @@ namespace Klaxon.GOAD
 
 
             flier.SetDirection();
-
+            flier.SetDirectionZ();
             if (flier.CheckDistanceToDestination() <= 0.02f)
                 isDeviating = false;
 
             flier.SetLastPosition();
 
         }
+
+        public void DeviateWalk()
+        {
+            isDeviating = true;
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+                isDeviating = false;
+
+            walker.SetLastPosition();
+
+        }
+
+
+
 
         public void HandleOffScreen(GOAD_Action action)
         {
@@ -232,8 +257,30 @@ namespace Klaxon.GOAD
 
         }
 
+        public void SetMusic(bool state)
+        {
+            if (!removeFromMusicAtHome)
+                return;
+            if (!state)
+            {
+                musicGeneratorItem.RemoveFromDictionary();
+                musicGeneratorItem.isActive = false;
+            }
+            else
+            {
+                musicGeneratorItem.isActive = true;
+                musicGeneratorItem.AddToDictionary();
+            }
+            
+        }
 
-
+        public void SetHidden(bool state)
+        {
+            if (!hiddenWhenSleeping)
+                return;
+            gatherableItem.hasBeenHarvested = state;
+            
+        }
         public void FleePlayer(Transform playerTransform)
         {
             

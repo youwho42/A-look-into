@@ -57,27 +57,16 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
-            if (agent.homeDestination.positionZ == 0)
+            
+            if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.homeDestination.displacedPosition) <= 0.05f && Vector2.Distance(agent.transform.position, agent.homeDestination.transform.position) <= 0.05f)
             {
-                if (agent.flier.itemObject.localPosition.z <= 0.03f)
-                {
-                    agent.flier.itemObject.localPosition = Vector3.zero;
-                    success = true;
-                    agent.SetActionComplete(true);
-                    return;
-                }
+                agent.flier.itemObject.localPosition = agent.homeDestination.displacedPosition;
+                agent.transform.position = agent.flier.currentDestination;
+                success = true;
+                agent.SetActionComplete(true);
+                return;
             }
-            else
-            {
-                if (Vector3.Distance(agent.flier.itemObject.localPosition, agent.flier.mainDestinationZ) <= 0.05f && Vector2.Distance(agent.transform.position, agent.flier.currentDestination) <= 0.05f)
-                {
-                    agent.flier.itemObject.localPosition = agent.homeDestination.displacedPosition;
-                    agent.transform.position = agent.flier.currentDestination;
-                    success = true;
-                    agent.SetActionComplete(true);
-                    return;
-                }
-            }
+            
 
 
 

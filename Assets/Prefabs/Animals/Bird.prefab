@@ -555,6 +555,8 @@ MonoBehaviour:
   isDeviating: 0
   musicGeneratorItem: {fileID: 6300385493937077386}
   removeFromMusicAtHome: 1
+  hiddenWhenSleeping: 1
+  gatherableItem: {fileID: 1310942487897049358}
   isNocturnal: 0
   sleep: {fileID: 0}
   bounds:
@@ -589,6 +591,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
   conditionsOnFail: []
   useBoids: 1
+  hasMaxWanderTime: 1
   minMaxWanderTime: {x: 10, y: 45}
 --- !u!114 &2240002081328395498
 MonoBehaviour:
