@@ -8,7 +8,7 @@ namespace Klaxon.GOAD
     {
         public GOAD_ScriptableCondition wakeCondition;
         
-    public override void StartAction(GOAD_Scheduler_Animal agent)
+        public override void StartAction(GOAD_Scheduler_Animal agent)
         {
             base.StartAction(agent);
 

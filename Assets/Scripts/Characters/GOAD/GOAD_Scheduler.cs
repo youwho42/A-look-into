@@ -42,6 +42,7 @@ namespace Klaxon.GOAD
         {
             currentGoalIndex = -1;
             int currentPriority = -1;
+           
             // Loop through all possible goals
             for (int i = 0; i < possibleGoals.Count; i++)
             {
@@ -54,7 +55,7 @@ namespace Klaxon.GOAD
                     }
                 }
             }
-
+            
             if (currentGoalIndex > -1)
             {
                 List<GOAD_Action> allActions = GetActionsNeededToCompleteGoal(GetPossibleAction(possibleGoals[currentGoalIndex].DesiredGoal.ResultCondition));

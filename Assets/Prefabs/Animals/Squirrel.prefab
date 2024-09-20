@@ -32,12 +32,12 @@ PrefabInstance:
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.379
+      value: 6.578
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.519001
+      value: -1.9060004
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -296,6 +296,23 @@ PrefabInstance:
       propertyPath: soundSets.Array.data[1].clips.Array.data[12]
       value: 
       objectReference: {fileID: 8300000, guid: 80d1add7ebeffe745bbfa43c4ae82c8e, type: 3}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: Goal.PreCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17,
+        type: 2}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c,
+        type: 2}
     - target: {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: wanderDistance
@@ -518,8 +535,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      propertyPath: possibleGoals.Array.size
+      propertyPath: minMaxFlap.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxFlap.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxGlide.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxGlide.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minHomeDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].Name
+      value: Walk Wander
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].Name
+      value: Rest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].Priority
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.size
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
@@ -530,9 +604,28 @@ PrefabInstance:
     - {fileID: 536565924102336754, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 3980435461219289164, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 6585509589159697265, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 2240002081328395498, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 6887493229926418267, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 590698739972397137, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 7
+      addedObject: {fileID: 2826338846658919320}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 234255415424236366}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 9
+      addedObject: {fileID: 3704249853981035312}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 4857102800965729962}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
@@ -607,6 +700,92 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5151695563370460129}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2826338846658919320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e6c40f8c8bc07e45a4f9308e6924da5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Sleep
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 5cc2ce639d6b6dc4daed9ec4f3918c03, type: 2}
+    PreCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
+  wakeCondition: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+--- !u!114 &234255415424236366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f53b65a511dff94caa22174ce28e0e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Walk Home
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &3704249853981035312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f369ccec82c0542a11ee6375835523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Walk to Animal Spot
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 745e9b33eab113a4ba8f328bcb3f9433, type: 2}
+    PreCondition: {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &4857102800965729962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24654decda5ea174aa166b73aa48efd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Climb Tree
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087, type: 2}
+    PreCondition: {fileID: 11400000, guid: 745e9b33eab113a4ba8f328bcb3f9433, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
+  minMaxClimbTime: {x: 3, y: 15}
 --- !u!114 &7849212215251888979
 MonoBehaviour:
   m_ObjectHideFlags: 0

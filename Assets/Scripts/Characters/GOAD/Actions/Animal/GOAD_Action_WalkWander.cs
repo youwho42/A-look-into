@@ -52,7 +52,6 @@ namespace Klaxon.GOAD
             idleTimer = agent.SetRandomRange(idleTimerRange);
             wanderTimer = agent.SetRandomRange(wanderTimerRange);
 
-            
 
             agent.walker.SetRandomDestination(wanderDistance);
         }
@@ -113,10 +112,10 @@ namespace Klaxon.GOAD
 
                     if (!agent.walker.jumpAhead)
                     {
-                        agent.walker.SetRandomDestination(wanderDistance);
-
+                        agent.DeviateWalk();
+                        return;
                     }
-                    agent.walker.FindDeviateDestination(5);
+                    //agent.walker.FindDeviateDestination(5);
                 }
 
                 agent.walker.SetWorldDestination(agent.walker.currentDestination);
