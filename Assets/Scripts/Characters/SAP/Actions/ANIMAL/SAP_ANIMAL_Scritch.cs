@@ -44,6 +44,8 @@ namespace Klaxon.SAP
         public override void EndPerformAction(SAP_Scheduler_ANIMAL agent)
         {
             
+            agent.currentDisplacementSpot.isInUse = false;
+            agent.currentDisplacementSpot = null;
             agent.currentScritchableItem = null;
             agent.currentScritchablePosition = null;
             agent.scritchTimer = agent.scritchCoolDown;

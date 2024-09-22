@@ -42,13 +42,13 @@ namespace Klaxon.GOAD
         {
             currentGoalIndex = -1;
             int currentPriority = -1;
-           
+            
             // Loop through all possible goals
             for (int i = 0; i < possibleGoals.Count; i++)
             {
                 if (AreConditionsMet(possibleGoals[i].DesiredGoal.PreConditions))
                 {
-                    if (possibleGoals[i].Priority > currentPriority)
+                    if (possibleGoals[i].Priority >= currentPriority)
                     {
                         currentPriority = possibleGoals[i].Priority;
                         currentGoalIndex = i;

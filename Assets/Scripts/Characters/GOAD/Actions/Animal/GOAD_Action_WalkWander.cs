@@ -8,7 +8,7 @@ namespace Klaxon.GOAD
     {
 
         public float wanderDistance;
-        public Vector2 headTimeRange;
+        
         float headTimer;
         public Vector2 idleTimerRange;
         float idleTimer;
@@ -19,7 +19,7 @@ namespace Klaxon.GOAD
         public override void StartAction(GOAD_Scheduler_Animal agent)
         {
             base.StartAction(agent);
-            atDestination = true;
+            //atDestination = true;
             agent.animator.SetBool(agent.landed_hash, true);
 
             if(agent.walker != null)
@@ -48,7 +48,7 @@ namespace Klaxon.GOAD
                 agent.currentDisplacementSpot = null;
             }
 
-            headTimer = agent.SetRandomRange(headTimeRange);
+            headTimer = agent.SetRandomRange(agent.headTimeRange);
             idleTimer = agent.SetRandomRange(idleTimerRange);
             wanderTimer = agent.SetRandomRange(wanderTimerRange);
 
@@ -71,7 +71,7 @@ namespace Klaxon.GOAD
             {
                 headTimer -= Time.deltaTime;
                 if (headTimer <= 0)
-                    TurnHead(agent);
+                    headTimer = agent.TurnHead();
             }
             else
             {
@@ -83,7 +83,7 @@ namespace Klaxon.GOAD
 
                     headTimer -= Time.deltaTime;
                     if (headTimer <= 0)
-                        TurnHead(agent);
+                        headTimer = agent.TurnHead();
 
 
 
@@ -142,12 +142,6 @@ namespace Klaxon.GOAD
             
         }
 
-        void TurnHead(GOAD_Scheduler_Animal agent)
-        {
-
-            headTimer = agent.SetRandomRange(headTimeRange);
-            agent.animator.SetTrigger(agent.idle_hash);
-
-        }
+        
     }
 }

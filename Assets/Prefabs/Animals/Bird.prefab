@@ -89,10 +89,6 @@ GameObject:
   - component: {fileID: 4097649243831503232}
   - component: {fileID: 6887493229926418267}
   - component: {fileID: 590698739972397137}
-  - component: {fileID: 7968763202729641296}
-  - component: {fileID: 5109975621678393886}
-  - component: {fileID: 3895514192025035302}
-  - component: {fileID: 2070390912640740298}
   - component: {fileID: 7848326908069796272}
   m_Layer: 0
   m_Name: Bird
@@ -566,9 +562,26 @@ MonoBehaviour:
   minHomeDistance: 1
   currentDisplacementSpot: {fileID: 0}
   homeDestination: {fileID: 0}
+  shouldFlee: 0
+  fleeCondition: {fileID: 11400000, guid: 7ee3d2672f686074fb82361cdaa77d97, type: 2}
   minMaxFlap: {x: 0.5, y: 10}
   minMaxGlide: {x: 0.5, y: 5}
   glide: 0
+  headTimeRange: {x: 2, y: 15}
+  canEat: 0
+  eatPoint: {fileID: 0}
+  xOffset: 0
+  edibleItems: []
+  isEating: 0
+  currentEdible: {fileID: 0}
+  hungryCondition: {fileID: 0}
+  foodFoundCondition: {fileID: 0}
+  canScritch: 0
+  isScritching: 0
+  currentScritchableTree: {fileID: 0}
+  wantScritchCondition: {fileID: 0}
+  scritchableFoundCondition: {fileID: 0}
+  hasDialogue: 0
 --- !u!114 &6585509589159697265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,8 +603,6 @@ MonoBehaviour:
   conditionsOnSucceed:
   - {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c, type: 2}
   conditionsOnFail: []
-  useBoids: 1
-  hasMaxWanderTime: 1
   minMaxWanderTime: {x: 10, y: 45}
 --- !u!114 &2240002081328395498
 MonoBehaviour:
@@ -637,9 +648,9 @@ MonoBehaviour:
   conditionsOnSucceed:
   - {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
   - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
-  conditionsOnFail: []
+  conditionsOnFail:
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
   wanderDistance: 1.5
-  headTimeRange: {x: 1, y: 10}
   idleTimerRange: {x: 2, y: 5}
   wanderTimerRange: {x: 5, y: 25}
 --- !u!114 &6887493229926418267
@@ -685,214 +696,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
   conditionsOnFail: []
   wakeCondition: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
---- !u!114 &7968763202729641296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e686552c6554b54ea35f421ae65f90d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6225581241868902536}
-  goals:
-  - GoalName: FlyWander
-    Priority: 5
-    Conditions:
-    - Condition: AnimalDay
-      State: 1
-    Action: {fileID: 0}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 10, y: 60}
-    TimeLimitCondition:
-      Condition: Land
-      State: 1
-  - GoalName: FlyLand
-    Priority: 6
-    Conditions:
-    - Condition: Land
-      State: 1
-    - Condition: OverWater
-      State: 0
-    Action: {fileID: 0}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: Land
-      State: 1
-  - GoalName: WalkWander
-    Priority: 7
-    Conditions:
-    - Condition: Landed
-      State: 1
-    Action: {fileID: 5109975621678393886}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 5, y: 30}
-    TimeLimitCondition:
-      Condition: Landed
-      State: 0
-  - GoalName: FlyHome
-    Priority: 8
-    Conditions:
-    - Condition: AnimalDay
-      State: 0
-    Action: {fileID: 3895514192025035302}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: 
-      State: 0
-  - GoalName: Sleep
-    Priority: 10
-    Conditions:
-    - Condition: AnimalDay
-      State: 0
-    - Condition: AtHome
-      State: 1
-    Action: {fileID: 2070390912640740298}
-    IsRunning: 0
-    TimeLimit: 0
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: 
-      State: 0
-  - GoalName: Flee
-    Priority: 9
-    Conditions:
-    - Condition: Flee
-      State: 1
-    Action: {fileID: 0}
-    IsRunning: 0
-    TimeLimit: 1
-    TimeLimitRange: {x: 0, y: 0}
-    TimeLimitCondition:
-      Condition: Flee
-      State: 0
-  currentGoal: -1
-  sounds: {fileID: 0}
-  musicItem: {fileID: 0}
-  currentGoalComplete: 0
-  currentGoalName: 
-  offScreen: 0
-  walker: {fileID: 0}
-  flier: {fileID: 0}
-  jumper: {fileID: 0}
-  isDeviating: 0
-  minMaxFlap: {x: 0.5, y: 10}
-  minMaxGlide: {x: 0.5, y: 5}
-  glide: 0
-  currentDisplacementSpot: {fileID: 0}
-  musicGeneratorItem: {fileID: 6300385493937077386}
-  interactAreas: {fileID: 0}
-  dayNightCycle: {fileID: 0}
-  bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  isNocturnal: 0
-  minHomeDistance: 1
-  closestSpots: []
-  removeFromMusicAtHome: 1
-  hasDialogue: 0
-  fleeTransfrom: {fileID: 0}
-  sleep: {fileID: 0}
-  canEat: 0
-  eatPoint: {fileID: 0}
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  edibleItems: []
-  isEating: 0
-  currentEdible: {fileID: 0}
-  canScritch: 0
-  isScritching: 0
-  scritchableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  animalSpotType: 0
-  currentScritchableItem: {fileID: 0}
-  currentScritchablePosition: {fileID: 0}
-  scritchCoolDown: 15
-  scritchTimer: 0
---- !u!114 &5109975621678393886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30308bc48de9b8458d198601f13cc66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  idleTimeRange: {x: 0.5, y: 10}
-  headTimeRange: {x: 1, y: 10}
-  wanderDistance: 0.6
---- !u!114 &3895514192025035302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73eeb1034a97649affb820bf590ffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  hasFixedHome: 1
-  home: {fileID: 0}
---- !u!114 &2070390912640740298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c5c0f82545ae4840b51b9d2f1ce7059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  hiddenWhenSleeping: 0
-  gatherableItem: {fileID: 0}
 --- !u!114 &7848326908069796272
 MonoBehaviour:
   m_ObjectHideFlags: 0

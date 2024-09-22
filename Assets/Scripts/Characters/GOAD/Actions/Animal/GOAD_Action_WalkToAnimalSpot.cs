@@ -23,8 +23,8 @@ namespace Klaxon.GOAD
             if (agent.jumper != null)
                 agent.jumper.enabled = false;
 
-            
-            agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
+            if(agent.currentDisplacementSpot == null)
+                agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
             if (agent.currentDisplacementSpot == null)
             {
                 success = false;
@@ -46,10 +46,17 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_Animal agent)
         {
             base.PerformAction(agent);
-
-            if (Vector2.Distance(transform.position, agent.walker.currentDestination) <= 0.02f)
+            if (agent.currentDisplacementSpot == null)
             {
-                agent.transform.position = agent.walker.currentDestination;
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+
+
+            if (Vector2.Distance(transform.position, agent.currentDisplacementSpot.transform.position) <= 0.02f)
+            {
+                agent.transform.position = agent.currentDisplacementSpot.transform.position;
                 success = true;
                 agent.SetActionComplete(true);
                 return;
@@ -76,7 +83,7 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_Animal agent)
         {
             base.EndAction(agent);
-
+            agent.walker.currentDirection = Vector2.zero;
             agent.closestSpots.Clear();
 
             //if (agent.currentDisplacementSpot != null)

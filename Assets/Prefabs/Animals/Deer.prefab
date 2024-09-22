@@ -43,7 +43,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9b06f107d8718544eb5a5c4052c1d175,
+      objectReference: {fileID: 21300000, guid: 60264b540a26d24498c1280a9e70ac05,
         type: 3}
     - target: {fileID: 12948384507156360, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -342,6 +342,33 @@ PrefabInstance:
       propertyPath: soundSets.Array.data[1].clips.Array.data[12]
       value: 
       objectReference: {fileID: 8300000, guid: 80d1add7ebeffe745bbfa43c4ae82c8e, type: 3}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: Goal.PreCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17,
+        type: 2}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: wanderTimerRange.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: wanderTimerRange.y
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c,
+        type: 2}
     - target: {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: wanderDistance
@@ -356,6 +383,16 @@ PrefabInstance:
         type: 3}
       propertyPath: type
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325525508577029593, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325525508577029593, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: MinDistance
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -390,6 +427,22 @@ PrefabInstance:
     - target: {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: neighborDistanceFarthest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7848326908069796272, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7848326908069796272, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditions.Array.data[1].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 1712fb5c2e5c2d0419fa1a1090337282,
+        type: 2}
+    - target: {fileID: 7848326908069796272, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditions.Array.data[1].setOnStart
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
@@ -453,27 +506,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goals.Array.data[0].Action
       value: 
-      objectReference: {fileID: 113777535731177983}
-    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-        type: 3}
-      propertyPath: goals.Array.data[1].Action
-      value: 
-      objectReference: {fileID: 8769519472565906111}
-    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-        type: 3}
-      propertyPath: goals.Array.data[2].Action
-      value: 
-      objectReference: {fileID: 7849212215251888979}
-    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-        type: 3}
-      propertyPath: goals.Array.data[3].Action
-      value: 
-      objectReference: {fileID: 7791511663137692369}
-    - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-        type: 3}
-      propertyPath: goals.Array.data[4].Action
-      value: 
-      objectReference: {fileID: 5462534296695647477}
+      objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: goals.Array.data[0].GoalName
@@ -636,9 +669,161 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      propertyPath: possibleGoals.Array.size
+      propertyPath: canEat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: eatPoint
+      value: 
+      objectReference: {fileID: 3233863256327339499}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: shouldFlee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxFlap.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxFlap.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxGlide.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minMaxGlide.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: hungryCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: b901a847ccd67b147a51e7e6327ef8dd,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minHomeDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: foodFoundCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 45236e8106e134c4f9b87b990f727fe0,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: hiddenWhenSleeping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: edibleItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: edibleItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d1d7ea66e0d2c1946a12c959c74f2e02,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: edibleItems.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: bd46715d9b7561a469052d91ee3cd63f,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: edibleItems.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 83084c2fc01ebbb4f8abbf797b6e5d16,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].Name
+      value: Walk Wander
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].Name
+      value: Rest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].Name
+      value: Eat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].Priority
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: c39195522676c4e468e4a7068ec6a41a,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1712fb5c2e5c2d0419fa1a1090337282,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b901a847ccd67b147a51e7e6327ef8dd,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 45236e8106e134c4f9b87b990f727fe0,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 637667237279358708, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
@@ -648,6 +833,8 @@ PrefabInstance:
     - {fileID: 536565924102336754, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 3980435461219289164, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 6585509589159697265, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 2240002081328395498, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 6887493229926418267, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 304862213367814950, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
@@ -661,37 +848,29 @@ PrefabInstance:
       addedObject: {fileID: 8465660531062329197}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7849212215251888979}
+      insertIndex: 7
+      addedObject: {fileID: 9182947922198958892}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7791511663137692369}
+      insertIndex: 8
+      addedObject: {fileID: 2799022524258849347}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8769519472565906111}
+      insertIndex: 11
+      addedObject: {fileID: 7354371111588327853}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5462534296695647477}
+      insertIndex: 12
+      addedObject: {fileID: 8001045624436362296}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: 13
+      addedObject: {fileID: 4352609249579637229}
     - targetCorrespondingSourceObject: {fileID: 5859352282203003539, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7302918878348849173}
   m_SourcePrefab: {fileID: 100100000, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
---- !u!114 &113777535731177983 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 5151695563370460129}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272269743052568361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30308bc48de9b8458d198601f13cc66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &489693602664505334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4734904358238399511, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
@@ -725,7 +904,7 @@ MonoBehaviour:
   soundSet:
     clips:
     - {fileID: 8300000, guid: cdd5a24c81b154514bae1c09b000ec85, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 1.18
     randomVolume: 0
     randomPitch: 0.2
@@ -816,7 +995,7 @@ MonoBehaviour:
   shitSpot: 0
   jumpVariation: 2
   groundedTimeBeforeJump: 0.08
---- !u!114 &7849212215251888979
+--- !u!114 &9182947922198958892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -825,22 +1004,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6272269743052568361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2522682ac0a80994e8c704ac6cefb172, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f34b987fd05fec41b629c1edc1eac71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  hasFixedHome: 0
-  home: {fileID: 0}
---- !u!114 &7791511663137692369
+  actionName: WalkToFood
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 8711769a5fe4906448c6edd8bbdea01a, type: 2}
+    PreCondition: {fileID: 11400000, guid: 09dbfee533ddbe94eb41e93151063784, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &2799022524258849347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -849,63 +1024,84 @@ MonoBehaviour:
   m_GameObject: {fileID: 6272269743052568361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 392a769bdd49f1a42945e4c8987d82d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 50b120ee8b46a034f864f4c816bce048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  fleeDistance: 4
---- !u!114 &8769519472565906111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272269743052568361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dce7b06bfdf7634bb6f57096c7203d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
-  headTimeRange: {x: 2, y: 10}
---- !u!114 &5462534296695647477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272269743052568361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc1d7093838c8240b4f09e9353018a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  path: []
-  currentPathIndex: 0
-  currentNode: {fileID: 0}
-  finalDestination: 0
-  attachedGoal: Please set this for clarity
-  target: {fileID: 0}
-  setConditionOnComplete: 0
-  conditionToSet:
-    Condition: 
-    State: 0
+  actionName: Eat
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: c39195522676c4e468e4a7068ec6a41a, type: 2}
+    PreCondition: {fileID: 11400000, guid: 8711769a5fe4906448c6edd8bbdea01a, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: e264743019af4ae4d94e7f892c26f35b, type: 2}
+  - {fileID: 11400000, guid: 09dbfee533ddbe94eb41e93151063784, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
   minMaxEatTime: {x: 2, y: 5}
+--- !u!114 &7354371111588327853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f369ccec82c0542a11ee6375835523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Walk to Rest Spot
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 745e9b33eab113a4ba8f328bcb3f9433, type: 2}
+    PreCondition: {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &8001045624436362296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17aca8ebf1c251e438e13f09a0d2fbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Rest
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: dab6ab5d50baec04d875abda95625087, type: 2}
+    PreCondition: {fileID: 11400000, guid: 745e9b33eab113a4ba8f328bcb3f9433, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 46c6c5c35d265cb4ea072ab5541ebe84, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail: []
+  minMaxRestTime: {x: 8, y: 60}
+--- !u!114 &4352609249579637229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd61cc2038e93342a42a2d1ce6ebbaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Flee
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 07bfee16d331a824f83a296d029ec58f, type: 2}
+    PreCondition: {fileID: 11400000, guid: 7ee3d2672f686074fb82361cdaa77d97, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 4fa6b69df55ba5344ba3443ff6b2560a, type: 2}
+  - {fileID: 11400000, guid: 0f3624065eb04014c932bd86fe55c899, type: 2}
+  conditionsOnFail: []
+  fleeDistance: 2.5

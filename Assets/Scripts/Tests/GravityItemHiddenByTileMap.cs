@@ -52,6 +52,7 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
             if (item.levelZ > 0)
                 return true;
         }
+        ChangeObjectZ(0);
         return false;
     }
     //private void CheckHidden()

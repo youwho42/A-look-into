@@ -8,6 +8,7 @@ namespace Klaxon.GOAD
     {
         public Vector2 minMaxRestTime;
         float restTimer;
+        float headTimer;
         public override void StartAction(GOAD_Scheduler_Animal agent)
         {
             base.StartAction(agent);
@@ -44,13 +45,19 @@ namespace Klaxon.GOAD
 
             agent.animator.SetBool(agent.landed_hash, true);
             agent.animator.SetBool(agent.walking_hash, false);
-            
+            agent.animator.SetBool(agent.isSitting_hash, true);
         }
 
         public override void PerformAction(GOAD_Scheduler_Animal agent)
         {
             base.PerformAction(agent);
             restTimer -= Time.deltaTime;
+
+            headTimer -= Time.deltaTime;
+            if (headTimer <= 0)
+                headTimer = agent.TurnHead();
+
+
             if (restTimer <= 0)
             {
                 success = true;
@@ -61,6 +68,7 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_Animal agent)
         {
             base.EndAction(agent);
+            agent.animator.SetBool(agent.isSitting_hash, false);
         }
         
     }

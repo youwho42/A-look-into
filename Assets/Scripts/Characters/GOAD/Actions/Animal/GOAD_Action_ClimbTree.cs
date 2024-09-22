@@ -106,8 +106,7 @@ namespace Klaxon.GOAD
 
                         agent.animator.SetBool(agent.climbIdle_hash, true);
                         agent.walker.isClimbing = false;
-                        currentClimable.Affect(false);
-
+                        currentClimable.Affect(true);
                     }
 
                 }

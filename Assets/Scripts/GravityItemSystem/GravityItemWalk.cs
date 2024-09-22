@@ -292,7 +292,7 @@ namespace Klaxon.GravitySystem
                         }
                     }
 
-                    if (tile.levelZ == -1)
+                    if (tile.levelZ == -1 || tile.levelZ == -2)
                     {
                         ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
 
@@ -348,7 +348,7 @@ namespace Klaxon.GravitySystem
                 if (hit.collider == null || ignoreCollider)
                 {
                     
-                    var d = _transform.position + ((Vector3)dir * .3f);
+                    var d = _transform.position + ((Vector3)dir * .6f);
                     
                     if (dir != currentDirection)
                     {

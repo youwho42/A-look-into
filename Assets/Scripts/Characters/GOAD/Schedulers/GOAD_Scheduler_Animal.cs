@@ -1,7 +1,10 @@
 using Klaxon.GravitySystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using Klaxon.ConversationSystem;
 
 namespace Klaxon.GOAD
 {
@@ -64,6 +67,9 @@ namespace Klaxon.GOAD
 
         public DrawZasYDisplacement homeDestination;
 
+        public bool shouldFlee;
+        [ConditionalHide("shouldFlee", true)]
+        public GOAD_ScriptableCondition fleeCondition;
 
         /// <summary>
         /// Fliers
@@ -72,6 +78,46 @@ namespace Klaxon.GOAD
         public Vector2 minMaxGlide;
         [HideInInspector]
         public bool glide;
+
+        public Vector2 headTimeRange;
+
+
+
+        [Header("Eating")]
+        public bool canEat;
+        [ConditionalHide("canEat", true)]
+        public Transform eatPoint;
+        [HideInInspector]
+        public float xOffset;
+        public List<QI_ItemData> edibleItems = new List<QI_ItemData>();
+        [HideInInspector]
+        public bool isEating;
+        [HideInInspector]
+        public GameObject currentEdible;
+        int maxEatAmount = 100;
+        int currentEatAmount;
+        [ConditionalHide("canEat", true)]
+        public GOAD_ScriptableCondition hungryCondition;
+        [ConditionalHide("canEat", true)]
+        public GOAD_ScriptableCondition foodFoundCondition;
+
+
+        [Header("Scritching")]
+        public bool canScritch;
+        [HideInInspector]
+        public bool isScritching;
+        [HideInInspector]
+        public TreeRustling currentScritchableTree;
+        [ConditionalHide("canScritch", true)]
+        public GOAD_ScriptableCondition wantScritchCondition;
+        [ConditionalHide("canScritch", true)]
+        public GOAD_ScriptableCondition scritchableFoundCondition;
+
+
+        public bool hasDialogue;
+        bool inTalkRange;
+        float inTalkRangeTimer;
+        DialogueManagerUI dialogueManager;
 
         public override void Start()
         {
@@ -91,11 +137,72 @@ namespace Klaxon.GOAD
             sounds = GetComponent<AnimalSounds>();
             musicItem = GetComponentInChildren<MusicGeneratorItem>();
             bounds = new Bounds(transform.position, new Vector3(4, 4, 4));
+
+            dialogueManager = DialogueManagerUI.instance;
+
+
+            currentEatAmount = maxEatAmount;
+            if (canEat)
+            {
+                GameEventManager.onTimeTickEvent.AddListener(RemoveEatAmount);
+                SetXOffset();
+            }
+            if(canScritch)
+                GameEventManager.onTimeTickEvent.AddListener(TryScritch);
+
+        }
+        private void OnDestroy()
+        {
+            if (canEat)
+                GameEventManager.onTimeTickEvent.RemoveListener(RemoveEatAmount);
+            if (canScritch)
+                GameEventManager.onTimeTickEvent.RemoveListener(TryScritch);
         }
 
+        void SetXOffset()
+        {
+            
+            if (walker != null)
+                xOffset = Mathf.Abs(walker.itemObject.localPosition.x - eatPoint.localPosition.x);
+            else if (flier != null)
+                xOffset = Mathf.Abs(flier.itemObject.localPosition.x - eatPoint.localPosition.x);
+            else if (jumper != null)
+                xOffset = Mathf.Abs(jumper.itemObject.localPosition.x - eatPoint.localPosition.x);
+        }
+        void RemoveEatAmount(int tick)
+        {
+            currentEatAmount--;
+            currentEatAmount = Mathf.Clamp(currentEatAmount, 0, maxEatAmount);
+            if (currentEatAmount <= maxEatAmount * 0.1f)
+                SetBeliefState(hungryCondition.Condition, true);
+        }
+
+        public void AddEatAmount()
+        {
+            currentEatAmount += 30;
+            if (currentEatAmount >= maxEatAmount * 0.9f)
+                SetBeliefState(hungryCondition.Condition, false);
+        }
+
+        void TryScritch(int tick)
+        {
+            if (isScritching)
+                return;
+            if(Random.Range(0.0f, 1.0f) <= 0.018f)
+                SetBeliefState(wantScritchCondition.Condition, true);
+
+        }
 
         private void Update()
         {
+
+            if (inTalkRange && hasDialogue)
+            {
+                TalkRangeTimer();
+                return;
+            }
+
+
             if (currentGoalIndex < 0 && availableActions.Count > 0)
             {
                 GetCurrentGoal();
@@ -119,6 +226,12 @@ namespace Klaxon.GOAD
                 }
 
             }
+            
+            if (canEat && IsConditionMet(hungryCondition) && !isEating)
+                FindFood();
+
+            if (canScritch && IsConditionMet(wantScritchCondition) && !isScritching)
+                FindScritchable();
         }
 
         void LateUpdate()
@@ -215,6 +328,7 @@ namespace Klaxon.GOAD
 
             if (sleep.isSleeping || interactAreas == null)
                 return null;
+            closestSpots.Clear();
             closestSpots = interactAreas.QueryQuadTree(bounds);
             if (closestSpots.Count <= 0)
                 return null;
@@ -247,6 +361,12 @@ namespace Klaxon.GOAD
 
         }
 
+        public float TurnHead()
+        {
+            animator.SetTrigger(idle_hash);
+            return SetRandomRange(headTimeRange);
+        }
+
         public void SetBoidsState(bool isInBoids)
         {
             if (flier.boid != null)
@@ -254,7 +374,6 @@ namespace Klaxon.GOAD
                 flier.useBoids = isInBoids;
                 flier.boid.inBoidPool = isInBoids;
             }
-
         }
 
         public void SetMusic(bool state)
@@ -271,7 +390,6 @@ namespace Klaxon.GOAD
                 musicGeneratorItem.isActive = true;
                 musicGeneratorItem.AddToDictionary();
             }
-            
         }
 
         public void SetHidden(bool state)
@@ -279,16 +397,142 @@ namespace Klaxon.GOAD
             if (!hiddenWhenSleeping)
                 return;
             gatherableItem.hasBeenHarvested = state;
-            
         }
-        public void FleePlayer(Transform playerTransform)
+
+        void InteruptCurrentGoal()
+        {
+            currentAction.success = false;
+            SetActionComplete(true);
+            currentAction.EndAction(this);
+            ResetGoal();
+        }
+
+        void FindFood()
         {
             
+            var hit = Physics2D.OverlapCircle(eatPoint.position, 2f, LayerMask.GetMask("Interactable"), transform.position.z, transform.position.z);
+            if (hit != null)
+            {
+                if (hit.TryGetComponent(out QI_Item item))
+                {
+                    if (edibleItems.Contains(item.Data))
+                    {
+                        currentEdible = hit.gameObject;
+                        isEating = true;
+                        SetBeliefState(foodFoundCondition.Condition, true);
+                        InteruptCurrentGoal();
+                        return;
+                    }
+                }
+            }
+            SetBeliefState(foodFoundCondition.Condition, false);
+        }
+
+
+        void FindScritchable()
+        {
+            currentScritchableTree = null;
+            var hits = Physics2D.OverlapCircleAll(transform.position, 2f, LayerMask.GetMask("Gatherable"), transform.position.z, transform.position.z);
+            if (hits.Length > 0)
+            {
+                foreach (var item in hits)
+                {
+                    var allDisplacementSpots = item.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == SpotType.Bear).ToList();
+                    if (allDisplacementSpots.Count > 0)
+                    {
+                        currentDisplacementSpot = allDisplacementSpots[0];
+                        currentScritchableTree = item.gameObject.GetComponent<TreeRustling>();
+                        isScritching = true;
+                        SetBeliefState(scritchableFoundCondition.Condition, true);
+                        InteruptCurrentGoal();
+                        break;
+                    }
+                        
+                }
+
+
+            }
+            
+        }
+
+        public void FleePlayer(Transform playerTransform)
+        {
+            if (!shouldFlee)
+                return;
+
+            SetBeliefState(fleeCondition.Condition, true);
+            if(currentAction != null)
+                InteruptCurrentGoal();
+
         }
 
         public void SetActiveState(bool active)
         {
             
         }
+
+        void TalkRangeTimer()
+        {
+            if (!dialogueManager.isSpeaking)
+            {
+                inTalkRangeTimer += Time.deltaTime;
+                if (inTalkRangeTimer >= 5f)
+                {
+                    inTalkRange = false;
+                    inTalkRangeTimer = 0;
+                }
+            }
+            else
+            {
+                if (dialogueManager.currentInteractable.gameObject != gameObject)
+                    inTalkRange = false;
+                inTalkRangeTimer = 0;
+            }
+
+            if (!animator.GetBool(sleeping_hash))
+            {
+                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
+
+        }
+
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+
+            if (collision.transform.position.z != transform.position.z || !hasDialogue)
+                return;
+
+
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                inTalkRange = true;
+                animator.SetBool(walking_hash, false);
+                walker.currentDirection = Vector2.zero;
+                if (!animator.GetBool(sleeping_hash))
+                {
+                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
+                    collision.transform.position.x > transform.position.x && !walker.facingRight)
+                        walker.Flip();
+                }
+
+            }
+        }
+
+
+
+        public void OnTriggerExit2D(Collider2D collision)
+        {
+            if (!hasDialogue)
+                return;
+            if (collision.gameObject.CompareTag("Player"))
+                inTalkRange = false;
+
+        }
+
+
     } 
 }

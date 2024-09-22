@@ -56,7 +56,11 @@ namespace Klaxon.GOAD
             base.PerformAction(agent);
             if (Time.frameCount % 30 != 0)
                 return;
-            
+
+            agent.animator.SetBool(agent.landed_hash, true);
+            agent.animator.SetBool(agent.walking_hash, false);
+            agent.animator.SetBool(agent.sleeping_hash, true);
+
             if (agent.IsConditionMet(wakeCondition))
             {
                 success = true;
@@ -68,7 +72,7 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_Animal agent)
         {
             base.EndAction(agent);
-
+            agent.animator.SetBool(agent.sleeping_hash, false);
             agent.SetHidden(false);
             agent.SetMusic(true);
         }
