@@ -189,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.data[0].Priority
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -239,6 +239,12 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f6b18f197d4fbc4aa45a84611abab1b,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 5f6b18f197d4fbc4aa45a84611abab1b,
         type: 2}
@@ -329,7 +335,8 @@ MonoBehaviour:
   IsRunning: 0
   success: 0
   conditionsOnSucceed: []
-  conditionsOnFail: []
+  conditionsOnFail:
+  - {fileID: 11400000, guid: 06fb83e7fcdae20499e79ff3aa8a2b15, type: 2}
 --- !u!114 &-5981913362857104771
 MonoBehaviour:
   m_ObjectHideFlags: 0

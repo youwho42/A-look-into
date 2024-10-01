@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using SerializableTypes;
@@ -13,7 +13,7 @@ namespace Klaxon.SaveSystem
     {
         
         public InteractableBallPeopleSeeker seekerInteractable;
-        public SAP_Scheduler_BP seekerAI;
+        public GOAD_Scheduler_BP seekerAI;
         public QI_ItemDatabase itemDatabase;
 
         public object CaptureState()

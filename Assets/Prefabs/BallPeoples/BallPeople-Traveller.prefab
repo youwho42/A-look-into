@@ -366,6 +366,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5864773831259950576}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
+--- !u!114 &1199039410927803327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8625472333734555374}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997007799972478863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c06cb893073a84a8aeba9766c50fc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4997007799972478863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
@@ -429,7 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   travellerInteractable: {fileID: 5864773831259950576}
-  travellerAI: {fileID: 0}
+  travellerAI: {fileID: 1199039410927803327}
   itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
 --- !u!114 &5864773831259950576
 MonoBehaviour:

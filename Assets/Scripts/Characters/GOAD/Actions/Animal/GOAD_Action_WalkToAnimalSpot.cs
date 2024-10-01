@@ -21,9 +21,13 @@ namespace Klaxon.GOAD
                 }
             }
             if (agent.jumper != null)
+            {
+                if (agent.jumper.enabled)
+                    agent.walker.facingRight = agent.jumper.facingRight;
                 agent.jumper.enabled = false;
+            }
 
-            if(agent.currentDisplacementSpot == null)
+            if (agent.currentDisplacementSpot == null)
                 agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
             if (agent.currentDisplacementSpot == null)
             {

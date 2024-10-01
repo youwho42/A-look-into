@@ -1,3 +1,4 @@
+using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,7 +8,14 @@ using UnityEngine.Localization;
 
 public class Signpost : MonoBehaviour
 {
+    [Header("Text(s)")]
     public LocalizedString localizedTitle;
+    public bool hasAlternateText;
+    //[ConditionalHide("hasAlternateText", true)]
+    public LocalizedString alternateLocalizedTitle;
+    [ConditionalHide("hasAlternateText", true)]
+    public UndertakingObject undertaking;
+    [Header("Visuals")]
     public TextMeshProUGUI signpostText;
     public SpriteRenderer lightSprite;
     public SkewTextExample skewText;
@@ -15,6 +23,23 @@ public class Signpost : MonoBehaviour
     private void Start()
     {
         signpostText.text = localizedTitle.GetLocalizedString();
+        if (hasAlternateText)
+            GameEventManager.onUndertakingsUpdateEvent.AddListener(ChangeText);
+    }
+    private void OnDestroy()
+    {
+        if (hasAlternateText)
+            GameEventManager.onUndertakingsUpdateEvent.RemoveListener(ChangeText);
+    }
+
+    void ChangeText()
+    {
+        if(undertaking != null)
+        {
+            if(undertaking.CurrentState == UndertakingState.Complete)
+                signpostText.text = alternateLocalizedTitle.GetLocalizedString();
+        }
+        
     }
 
     private void OnBecameVisible()

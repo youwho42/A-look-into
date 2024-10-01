@@ -1,4 +1,4 @@
-using Klaxon.SAP;
+using Klaxon.GOAD;
 using SerializableTypes;
 using System;
 using System.Collections;
@@ -11,7 +11,7 @@ namespace Klaxon.SaveSystem
     {
 
         public CurrentTilePosition currentTilePosition;
-        public SAP_Scheduler_NPC scheduler_NPC;
+        public GOAD_Scheduler_NPC scheduler_NPC;
 
         public object CaptureState()
         {

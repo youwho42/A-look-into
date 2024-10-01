@@ -24,7 +24,7 @@ namespace Klaxon.GOAD
             base.PerformAction(agent);
 
             if (Time.frameCount % 60 == 0)
-                agent.plantingArea.CheckForPlantable();
+                agent.plantingArea.CheckForHarvestable();
 
             if (agent.plantingArea.canHarvest && agent.seedBoxInventory.CheckInventoryHasSpace(agent.plantingArea.seedItem.plantedObject.harvestedItems[0].harvestedItem))
             {

@@ -111,7 +111,7 @@ namespace Klaxon.GravitySystem
         }
 
 
-        public new void FixedUpdate()
+        public override void FixedUpdate()
         {
             base.FixedUpdate();
             

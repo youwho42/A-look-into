@@ -11,7 +11,7 @@ namespace Klaxon.GOAD
         {
             base.StartAction(agent);
 
-            endCycleTicks = RealTimeDayNightCycle.instance.GetCycleTime(20);
+            endCycleTicks = RealTimeDayNightCycle.instance.GetCycleTime(10);
             agent.arms.SetActive(false);
             agent.plantingArea.CheckForPlantable();
             agent.walker.currentDirection = Vector2.zero;
@@ -26,13 +26,6 @@ namespace Klaxon.GOAD
             if (Time.frameCount % 60 == 0)
                 agent.plantingArea.CheckForPlantable();
 
-            if (agent.plantingArea.canPlant)
-            {
-                success = true;
-                agent.SetActionComplete(true);
-                return;
-            }
-
             if (RealTimeDayNightCycle.instance.currentTimeRaw >= endCycleTicks.tick && endCycleTicks.day == RealTimeDayNightCycle.instance.currentDayRaw)
             {
                 agent.plantingArea.ballPersonPlanterActive = false;
@@ -42,7 +35,18 @@ namespace Klaxon.GOAD
 
             }
 
-        }
+            if (agent.plantingArea.canPlant)
+            {
+                success = true;
+                agent.SetActionComplete(true);
+                return;
+            }
+            
 
+
+            
+
+        }
+        
     } 
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,22 +7,40 @@ namespace Klaxon.Interactable
 {
     public class InteractableDoor : Interactable
     {
+        
+        public enum DoorStates
+        {
+            UpperLeft,
+            UpperRight,
+            LowerLeft,
+            LowerRight
+        }
+        
 
-
-        public bool isOpen;
-        public float maxOpenTime = 1;
-        public GameObject doorOpen_Upper;
+        [Serializable]
+        public struct DoorObject
+        {
+            public DoorStates doorState;
+            public GameObject doorObject;
+        }
         public GameObject doorClosed;
-        public GameObject doorOpen_Lower;
+        public List<DoorObject> doorObjects = new List<DoorObject>();
+        public DoorStates upperState;
+        public DoorStates lowerState;
+        public bool isOpen;
+        float maxOpenTime = 5;
+        
+        
 
 
         public override void Start()
         {
             base.Start();
+            DisableOpenDoors();
 
-            doorOpen_Lower.SetActive(false);
-            doorOpen_Upper.SetActive(false);
         }
+
+        
 
         public override void Interact(GameObject interactor)
         {
@@ -32,31 +51,54 @@ namespace Klaxon.Interactable
 
         void InteractWithDoor(GameObject interactor)
         {
-            GameObject openState = interactor.transform.position.y > transform.position.y ? doorOpen_Lower : doorOpen_Upper;
-            GameObject otherState = interactor.transform.position.y < transform.position.y ? doorOpen_Lower : doorOpen_Upper;
+            
+            
+            
             PlayInteractionSound();
             isOpen = !isOpen;
-            if (isOpen)
-            {
-                interactVerb = "Close";
-                openState.SetActive(true);
-                otherState.SetActive(false);
-                doorClosed.SetActive(false);
-                Invoke("CloseDoor", maxOpenTime);
-            }
-            else
+
+            if (!isOpen)
             {
                 CloseDoor();
+                return;
+            }
+
+            bool upper = interactor.transform.position.y < transform.position.y;
+            OpenDoor(upper ? upperState : lowerState);
+            
+            interactVerb = "Close";
+            
+            doorClosed.SetActive(false);
+            Invoke("CloseDoor", maxOpenTime);
+            
+        }
+
+        void OpenDoor(DoorStates state)
+        {
+            foreach (var door in doorObjects)
+            {
+                door.doorObject.SetActive(door.doorState == state);
             }
         }
+        
+
         void CloseDoor()
         {
             isOpen = false;
             interactVerb = "Open";
-            doorOpen_Lower.SetActive(false);
-            doorOpen_Upper.SetActive(false);
+            DisableOpenDoors();
             doorClosed.SetActive(true);
         }
+
+        private void DisableOpenDoors()
+        {
+            foreach (var door in doorObjects)
+            {
+                door.doorObject.SetActive(false);
+            }
+        }
+
+
         public virtual void PlayInteractionSound()
         {
             audioManager.PlaySound(interactSound);

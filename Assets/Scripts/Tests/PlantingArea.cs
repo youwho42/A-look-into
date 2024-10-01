@@ -108,7 +108,7 @@ public class PlantingArea : MonoBehaviour
 
         
 
-        if (plantFreeLocations.Count == 0)
+        if (plantFreeLocations.Count == 0 || !seedBox.Stock.ContainsKey(seedItem.Name))
             canPlant = false;
 
         if (canPlant && !ballPersonPlanterActive)

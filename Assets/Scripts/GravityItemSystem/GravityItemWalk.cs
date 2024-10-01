@@ -124,14 +124,6 @@ namespace Klaxon.GravitySystem
         }
 
 
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-        }
-
-        
-
         void Jump()
         {
             if (isGrounded /*&& !playerInput.isInUI*/)
@@ -432,6 +424,7 @@ namespace Klaxon.GravitySystem
 
         public float CheckDistanceToDestination()
         {
+            
             float dist = Vector2.Distance(_transform.position, currentDestination);
 
             return dist;

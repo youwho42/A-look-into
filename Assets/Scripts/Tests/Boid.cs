@@ -23,65 +23,59 @@ public class Boid : MonoBehaviour
         Vector2 desiredPosition = Vector2.zero;
         Vector2 desiredAvoidance = Vector2.zero;
         int total = 0;
+
+        Vector2 currentBoidPosition = (Vector2)transform.position; // Cache position
+
         foreach (var boid in boidManager.allBoids)
         {
             if (boid == this || !boid.inBoidPool)
                 continue;
-            var dist = Vector2.Distance(boid.transform.position, transform.position);
-            if (dist <= neighborDistanceFarthest)
+
+            var sqrDist = ((Vector2)boid.transform.position - currentBoidPosition).sqrMagnitude;
+            if (sqrDist <= neighborDistanceFarthest * neighborDistanceFarthest)
             {
                 desiredDirection += boid.currentDirection;
                 desiredPosition += (Vector2)boid.transform.position;
-                if (dist <= neighborDistanceClosest)
+
+                if (sqrDist <= neighborDistanceClosest * neighborDistanceClosest)
                 {
-                    Vector2 avoidDirection = transform.position - boid.transform.position;
-                    avoidDirection /= dist;
+                    Vector2 avoidDirection = currentBoidPosition - (Vector2)boid.transform.position;
+                    avoidDirection /= Mathf.Sqrt(sqrDist); // Only take the square root when necessary
                     desiredAvoidance += avoidDirection;
                 }
 
                 total++;
             }
         }
+
         if (total > 1)
         {
-            
-            desiredDirection /= total;
-            desiredDirection -= _currentDirection;
-
-            desiredPosition /= total;
-            desiredPosition -= (Vector2)transform.position;
-
+            desiredDirection = (desiredDirection / total) - _currentDirection;
+            desiredPosition = (desiredPosition / total) - currentBoidPosition;
             desiredAvoidance /= total;
 
+            result = desiredDirection + desiredPosition + desiredAvoidance;
 
-
-            result += desiredDirection;
-            result += desiredPosition;
-            result += desiredAvoidance;
-
-            currentDirection += result;
-            
+            // Use lerp to smooth the direction change
+            currentDirection = Vector2.Lerp(currentDirection, currentDirection + result, Time.deltaTime);
         }
 
-        float distF = Vector2.Distance(boidManager.currentDestination.position, transform.position);
+        float distF = Vector2.Distance(boidManager.currentDestination.position, currentBoidPosition);
 
         if (distF >= roamingDistance)
         {
-            Vector2 center = boidManager.currentDestination.position - transform.position;
-            currentDirection += center/distF;
-            
+            Vector2 center = (Vector2)boidManager.currentDestination.position - currentBoidPosition;
+            currentDirection += center / distF;
         }
         else if (distF <= .01f)
         {
-            Vector2 center = transform.position - boidManager.currentDestination.position;
-            currentDirection += center/distF;
-            
-            
+            Vector2 center = currentBoidPosition - (Vector2)boidManager.currentDestination.position;
+            currentDirection += center / distF;
         }
 
         currentDirection = currentDirection.normalized;
         return currentDirection;
     }
 
-   
+
 }

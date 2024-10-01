@@ -32,7 +32,8 @@ namespace Klaxon.GOAD
             {
                 if (agent.flier.enabled)
                 {
-                    agent.walker.facingRight = agent.flier.facingRight;
+                    if (agent.walker != null)
+                        agent.jumper.facingRight = agent.flier.facingRight;
                     agent.flier.enabled = false;
                 }
             }
@@ -81,8 +82,8 @@ namespace Klaxon.GOAD
         {
             Vector2 direction = (Vector2)transform.position - (Vector2)PlayerInformation.instance.player.position;
             direction = direction.normalized;
-            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(-10f, 10f));
-            direction = randomRotation * direction;
+            //Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(-10f, 10f));
+            //direction = randomRotation * direction;
 
             Vector2 destination = (Vector2)transform.position + (direction * fleeDistance);
 

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -3944244787544571831}
   - component: {fileID: 2205414069559571003}
   - component: {fileID: 7302315021586878134}
-  - component: {fileID: 6657543003066565468}
   - component: {fileID: 3854956401634820199}
   m_Layer: 13
   m_Name: Lantern
@@ -122,7 +121,6 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -176,24 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6657543003066565468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249755112104138815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minGlow: 0
-  maxGlow: 0
-  bloomMinIntensity: 5
-  bloomMaxIntensity: 20
-  useAlpha: 0
-  useIntensity: 1
 --- !u!114 &3854956401634820199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7890626937924536301}
   - component: {fileID: 807425494592288639}
+  - component: {fileID: 3119120826609604469}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -292,6 +273,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &3119120826609604469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489762649359069991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGlow: 0
+  maxGlow: 0
+  bloomMinIntensity: 5
+  bloomMaxIntensity: 20
+  useAlpha: 0
+  useIntensity: 1
 --- !u!1 &5040350077614689561
 GameObject:
   m_ObjectHideFlags: 0

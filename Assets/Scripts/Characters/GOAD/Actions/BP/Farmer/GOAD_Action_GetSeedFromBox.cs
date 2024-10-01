@@ -23,9 +23,16 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
+                
             if (atBox)
             {
-
+                agent.plantingArea.CheckForPlantable();
+                if (!agent.plantingArea.canPlant)
+                {
+                    success = false;
+                    agent.SetActionComplete(true);
+                    return;
+                }
                 if (!hasLicked)
                 {
                     agent.animator.SetBool(agent.walking_hash, false);

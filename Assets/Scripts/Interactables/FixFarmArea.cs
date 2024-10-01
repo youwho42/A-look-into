@@ -15,17 +15,25 @@ public class FixFarmArea : MonoBehaviour, IFixArea
     public ParticleSystem fixingEffect;
     public CompleteTaskObject undertakingObject;
     public GOAD_ScriptableCondition worldStateEffect;
+    public GOAD_ScriptableCondition worldStatePrecondition;
     GOAD_WorldBeliefStates worldState;
 
     public bool Fix(List<FixableAreaIngredient> ingredients)
     {
+        if (worldStatePrecondition != null)
+        {
+            if (!GOAD_WorldBeliefStates.instance.HasState(worldStatePrecondition.Condition, worldStatePrecondition.State))
+            {
+                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Unavailable"), null, 0, NotificationsType.Warning);
+                return false;
+            }
+        }
+
         if (undertakingObject.undertaking != null)
         {
             if (undertakingObject.undertaking.CurrentState != UndertakingState.Active)
             {
                 Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Unavailable"), null, 0, NotificationsType.Warning);
-
-                //NotificationManager.instance.SetNewNotification($"This doesn't work", NotificationManager.NotificationType.Warning);
                 return false;
             }
         }
@@ -51,7 +59,7 @@ public class FixFarmArea : MonoBehaviour, IFixArea
         plantingArea.SetFarmAreaActive(true);
         if (undertakingObject.undertaking != null)
             undertakingObject.undertaking.TryCompleteTask(undertakingObject.task);
-        if(worldStateEffect.Condition != "")
+        if(worldStateEffect != null)
             worldState.SetWorldState(worldStateEffect.Condition, worldStateEffect.State);
 
         yield return null;
