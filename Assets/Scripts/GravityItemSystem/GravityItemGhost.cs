@@ -285,10 +285,11 @@ namespace Klaxon.GravitySystem
             var offset = oscillation + 0.8f;
             var disp = new Vector3(0, spriteDisplacementY * offset, offset);
             GhostItem.localPosition = disp;
-            var a = MapNumber.Remap(oscillation, -1.0f * amplitude, 1.0f * amplitude, 0.8f, 0.25f);
+            var a = MapNumber.Remap(oscillation, -1.0f * amplitude, 1.0f * amplitude, .25f, 0.2f);
             var c = new Color(shadowSprite.color.r, shadowSprite.color.g, shadowSprite.color.b, a);
             shadowSprite.color = c;
-            
+            var s = MapNumber.Remap(oscillation, -1.0f * amplitude, 1.0f * amplitude, 2.0f, 3.5f);
+            shadowSprite.transform.localScale = new Vector3(s, s, s);
         }
 
 

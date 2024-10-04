@@ -81,7 +81,7 @@ namespace Klaxon.GOAD
                 }
                 else
                 {
-                    var a = MapNumber.Remap(zPos, 0.0f, agent.ghoster.amplitude+0.8f, 1f, 0.25f);
+                    var a = MapNumber.Remap(zPos, 0.0f, agent.ghoster.amplitude+0.8f, 0.6f, 0.2f);
                     var c = new Color(agent.ghoster.shadowSprite.color.r,
                         agent.ghoster.shadowSprite.color.g, 
                         agent.ghoster.shadowSprite.color.b, 
@@ -92,8 +92,10 @@ namespace Klaxon.GOAD
                 yield return null;
 
             }
-
+            agent.ghoster.shadowSprite.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
             agent.transform.position = agent.ghostHome.transform.position;
+            agent.ghoster.currentTilePosition.position = agent.ghoster.currentTilePosition.GetCurrentTilePosition(agent.transform.position);
+            agent.ghoster.currentLevel = agent.ghoster.currentTilePosition.position.z;
             yield return null;
         }
 

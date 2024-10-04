@@ -67,7 +67,9 @@ namespace Klaxon.StatSystem
                     modifier.finalModifierAmount = modifier.ModifierAmount;
                     stat.AddModifier(modifier);
                 }
-                stat.SetCurrent(stat.GetRawCurrent() + modifier.ModifierAmount);
+
+
+                //stat.SetCurrent(stat.GetRawCurrent() + modifier.ModifierAmount);
 
                 break;
             }
@@ -86,7 +88,7 @@ namespace Klaxon.StatSystem
                     if (mod != modifier)
                         continue;
 
-                    if(mod.finalModifierAmount <= modifier.ModifierAmount)
+                    if(Mathf.Abs(mod.finalModifierAmount) <= Mathf.Abs(modifier.ModifierAmount))
                         stat.RemoveModifier(mod);
                     else
                         mod.finalModifierAmount -= modifier.ModifierAmount;

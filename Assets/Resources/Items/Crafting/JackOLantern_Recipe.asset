@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: JackOLantern_Recipe
+  m_EditorClassIdentifier: 
+  Name: Jack-O'-Lantern
+  ProductType: 8
+  Ingredients:
+  - Item: {fileID: 11400000, guid: a2395614f0f932f45b9fd3d4f35550c2, type: 2}
+    Amount: 1
+  Product:
+    Item: {fileID: 11400000, guid: 25de0156b7a78e14e8c649fa1f929484, type: 2}
+    Amount: 1
+  CraftingTime: 20
+  AgencyCost: 50
