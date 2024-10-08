@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 7905581266121444458}
   - component: {fileID: 6358729278633748027}
   - component: {fileID: 4443015713522968839}
+  - component: {fileID: 3641310447499908087}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -395,6 +396,22 @@ MonoBehaviour:
   conditionsOnSucceed: []
   conditionsOnFail: []
   appearCondition: {fileID: 11400000, guid: 0900d2a56b293474c8cbd1445f7094ba, type: 2}
+--- !u!114 &3641310447499908087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742201109519981305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12747f12137289d42b2952f8899fa489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostSprite: {fileID: 2470565128783471227}
+  shadowSprite: {fileID: 3552552503508410256}
+  ghostColor: {r: 0.16647384, g: 0.20576341, b: 0.8207547, a: 1}
+  ghostBloom: {r: 18463.053, g: 347.31815, b: 24543.86, a: 1}
 --- !u!1 &2453691137520056214
 GameObject:
   m_ObjectHideFlags: 0

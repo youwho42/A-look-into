@@ -13,6 +13,7 @@ public static class GameEventManager
     /// </summary>
     public static readonly GameEvent<int> onTimeTickEvent = new GameEvent<int>();
     public static readonly GameEvent<int> onTimeHourEvent = new GameEvent<int>();
+    public static readonly GameEvent<int> onNewDayEvent = new GameEvent<int>();
     public static readonly GameEvent<int> onShadowTickEvent = new GameEvent<int>();
     public static readonly GameEvent onDayStateChangeEvent = new GameEvent();
 

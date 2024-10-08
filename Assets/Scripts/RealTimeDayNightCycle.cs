@@ -187,9 +187,10 @@ public class RealTimeDayNightCycle : MonoBehaviour
                 currentTimeRaw++;
                 if (currentTimeRaw == 1440)
                 {
-
+                    
                     currentDayRaw++;
                     currentTimeRaw = 0;
+                    GameEventManager.onNewDayEvent.Invoke(currentDayRaw);
                 }
                 hours = Mathf.RoundToInt(currentTimeRaw / 60);
                 minutes = currentTimeRaw % 60;

@@ -15,22 +15,27 @@ public class DiplayTimeUI : MonoBehaviour
 
     private void Start()
     {
-
+        
         dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetTime);
+        GameEventManager.onNewDayEvent.AddListener(SetDayName);
+        SetDayName(0);
     }
 
     void SetTime(int tick)
     {
         timeText.text = string.Format("{0:00}:{1:00}", dayNightCycle.hours, dayNightCycle.minutes);
         SetHandRotations();
-        dayText.text = dayNightCycle.currentDayRaw.ToString();
     }
-    
+    void SetDayName(int day)
+    {
+        dayText.text = CalendarManager.instance.CurrentWeekdoot.ToString();
+    }
 
     private void OnDestroy()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(SetTime);
+        GameEventManager.onNewDayEvent.RemoveListener(SetDayName);
     }
 
     void SetHandRotations()

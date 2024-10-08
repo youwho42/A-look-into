@@ -7,7 +7,7 @@ namespace Klaxon.GOAD
     public class GOAD_Action_GhostVanish : GOAD_Action
     {
         SpriteRenderer[] ghostSprites;
-        public GOAD_ScriptableCondition appearCondition;
+        public List<GOAD_ScriptableCondition> appearConditions = new List<GOAD_ScriptableCondition>();
         bool hasAppeared;
         bool hasVanished;
         public override void StartAction(GOAD_Scheduler_Ghost agent)
@@ -25,7 +25,7 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_Ghost agent)
         {
             base.PerformAction(agent);
-            if(agent.IsConditionMet(appearCondition) && !hasAppeared)
+            if(agent.AreConditionsMet(appearConditions) && !hasAppeared)
             {
                 hasAppeared = true;
                 StartCoroutine(RiseGhostCO(agent));

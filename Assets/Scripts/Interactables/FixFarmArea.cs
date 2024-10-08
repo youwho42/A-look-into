@@ -44,6 +44,10 @@ public class FixFarmArea : MonoBehaviour, IFixArea
 
     IEnumerator FixCo(List<FixableAreaIngredient> ingredients)
     {
+        var player = PlayerInformation.instance;
+        player.playerInput.isInUI = true;
+        player.animatePlayerScript.SetCraftAnimation(true);
+
         worldState = GOAD_WorldBeliefStates.instance;
         isFixing = true;
         RemoveItemsFromInventory(ingredients);
@@ -61,7 +65,8 @@ public class FixFarmArea : MonoBehaviour, IFixArea
             undertakingObject.undertaking.TryCompleteTask(undertakingObject.task);
         if(worldStateEffect != null)
             worldState.SetWorldState(worldStateEffect.Condition, worldStateEffect.State);
-
+        player.playerInput.isInUI = false;
+        player.animatePlayerScript.SetCraftAnimation(false);
         yield return null;
     }
     void RemoveItemsFromInventory(List<FixableAreaIngredient> ingredients)

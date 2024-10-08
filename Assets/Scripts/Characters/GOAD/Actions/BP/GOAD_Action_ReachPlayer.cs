@@ -25,6 +25,13 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
+            if (!agent.CheckNearPlayer(3))
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+
             if (agent.walker.isStuck || agent.isDeviating)
             {
                 if (lastDestination == agent.walker.currentDestination)
@@ -41,12 +48,7 @@ namespace Klaxon.GOAD
             }
 
             agent.walker.hasDeviatePosition = false;
-            if (!agent.CheckNearPlayer(3))
-            {
-                success = false;
-                agent.SetActionComplete(true);
-                return;
-            }
+            
 
 
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;

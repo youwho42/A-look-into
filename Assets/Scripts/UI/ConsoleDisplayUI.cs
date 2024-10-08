@@ -5,6 +5,7 @@ using TMPro;
 using System;
 using QuantumTek.QuantumInventory;
 using Klaxon.StatSystem;
+using System.Linq;
 
 public class ConsoleDisplayUI : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class ConsoleDisplayUI : MonoBehaviour
     public TMP_Dropdown itemAmountDropdownField;
     public TMP_Dropdown locationsDropdownField;
     public QI_ItemDatabase allItemsDatabase;
-    public List<Transform> locations = new List<Transform>();
+    public Transform locationHolder;
+    List<Transform> locations = new List<Transform>();
     public TMP_Dropdown timesDropdownField;
     public StatChanger agencyChanger;
 
@@ -50,6 +52,8 @@ public class ConsoleDisplayUI : MonoBehaviour
     }
     void SetUpLocations()
     {
+        locations.Clear();
+        locations = locationHolder.GetComponentsInChildren<Transform>().Where(t => t != locationHolder).ToList();
         locationsDropdownField.ClearOptions();
         List<string> locs = new List<string>();
         locs.Add(" ");
@@ -57,7 +61,6 @@ public class ConsoleDisplayUI : MonoBehaviour
         {
             locs.Add(locations[i].name);
         }
-        locs.Sort();
         locationsDropdownField.AddOptions(locs);
     }
     public void ToggleConsole()

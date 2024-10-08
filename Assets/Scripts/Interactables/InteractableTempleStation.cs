@@ -1,5 +1,6 @@
 using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,8 @@ namespace Klaxon.Interactable
 
         public GOAD_ScriptableCondition completedCondition;
 
-
+        public List<QI_CraftingIngredient> requiredItems = new List<QI_CraftingIngredient>();
+        public List<GameObject> gameObjectsToEnable = new List<GameObject>();
 
         public override void Start()
         {
@@ -40,12 +42,16 @@ namespace Klaxon.Interactable
             }
             if (!isActivated)
             {
-                if (InteractCostReward())
+                if (InteractCostReward() && CheckForIngredients())
                 {
-
-                    //SetTempleFireAndRainStates(true);
+                    foreach (var item in requiredItems)
+                    {
+                        PlayerInformation.instance.playerInventory.RemoveItem(item.Item, item.Amount);
+                    }
                     StartCoroutine(LightFiresCo(true));
                 }
+                    
+                
             }
 
         }
@@ -84,7 +90,7 @@ namespace Klaxon.Interactable
             {
                 fire.SetActive(lit);
             }
-
+            SetGameObjectsToEnable(true);
             // Complete task/undertaking if there is one
             
             if (taskOnInteraction != null)
@@ -112,9 +118,16 @@ namespace Klaxon.Interactable
                 }
                 Destroy(purpleRain);
             }
-
+            SetGameObjectsToEnable(lit);
         }
 
+        void SetGameObjectsToEnable(bool state)
+        {
+            foreach (var item in gameObjectsToEnable)
+            {
+                item.SetActive(state);
+            }
+        }
         bool InteractCostReward()
         {
             float agency = playerInformation.statHandler.GetStatMaxModifiedValue("Agency");
@@ -127,6 +140,22 @@ namespace Klaxon.Interactable
             return false;
         }
 
+        public bool CheckForIngredients()
+        {
+            bool hasAll = true;
+            foreach (var ingredient in requiredItems)
+            {
+
+                int t = PlayerInformation.instance.GetTotalInventoryQuantity(ingredient.Item);
+                if (t < ingredient.Amount)
+                {
+                    Notifications.instance.SetNewNotification($"{ingredient.Amount - t} {ingredient.Item.Name}", null, 0, NotificationsType.Warning);
+                    hasAll = false;
+                }
+
+            }
+            return hasAll;
+        }
 
         private void OnDrawGizmosSelected()
         {

@@ -52,20 +52,24 @@ public class CharacterChoiceUI : MonoBehaviour
         playerNameInputField.text = "";
         CheckPlayerNameValid();
         characterChoiceCameraObject.SetActive(true);
-        SetRandomCharacter();
-        ChangeSprite(1);
+        StartCoroutine(SetRandomCharacter());
+        
     }
     public void OnDisable()
     {
         characterChoiceCameraObject.SetActive(false);
     }
-    void SetRandomCharacter()
+    IEnumerator SetRandomCharacter()
     {
-        int r = Random.Range(0, PlayerInformation.instance.characterManager.baseCharacters.Count);
-        index = r;
-        spriteName = PlayerInformation.instance.characterManager.baseCharacters[index];
-        chooseSpriteResolver.SetCategoryAndLabel("Player", spriteName);
-        
+        yield return new WaitForSeconds(0.02f);
+        int r = Random.Range(PlayerInformation.instance.characterManager.baseCharacters.Count * 2, PlayerInformation.instance.characterManager.baseCharacters.Count * 4);
+        for (int i = 0; i < r; i++)
+        {
+            AudioManager.instance.PlaySound("ButtonClick" + Random.Range(1, 4).ToString());
+            ChangeSprite(1);
+            yield return new WaitForSeconds(0.08f);
+        }
+        yield return null;
     }
     public void ChangeSprite(int dir)
     {

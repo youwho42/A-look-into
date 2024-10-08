@@ -14,6 +14,7 @@ namespace Klaxon.GOAD
 
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
         public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
+        public readonly int isIdleSitting_hash = Animator.StringToHash("IdleSit");
         public readonly int isSleeping_hash = Animator.StringToHash("IsSleeping");
         public readonly int isCrafting_hash = Animator.StringToHash("IsCrafting");
         public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
@@ -71,6 +72,8 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public InteractableChair currentRestSeat;
 
+        [HideInInspector]
+        public bool isBusy;
         bool inTalkRange;
         float inTalkRangeTimer;
         DialogueManagerUI dialogueManager;
@@ -346,7 +349,7 @@ namespace Klaxon.GOAD
             if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
             {
                 
-                if (PlayerInformation.instance.playerAnimator.GetBool("IsSitting") || PlayerInformation.instance.playerAnimator.GetBool("IsSleeping"))
+                if (PlayerInformation.instance.playerAnimator.GetBool("IsSitting") || PlayerInformation.instance.playerAnimator.GetBool("IsSleeping") || isBusy)
                     return;
                 
                 inTalkRange = true;

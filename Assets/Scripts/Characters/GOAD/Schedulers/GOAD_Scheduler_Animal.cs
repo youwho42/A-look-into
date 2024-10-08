@@ -378,7 +378,7 @@ namespace Klaxon.GOAD
 
         public void SetMusic(bool state)
         {
-            if (!removeFromMusicAtHome)
+            if (!removeFromMusicAtHome || musicGeneratorItem == null)
                 return;
             if (!state)
             {
@@ -394,7 +394,7 @@ namespace Klaxon.GOAD
 
         public void SetHidden(bool state)
         {
-            if (!hiddenWhenSleeping)
+            if (!hiddenWhenSleeping || gatherableItem == null)
                 return;
             gatherableItem.hasBeenHarvested = state;
         }

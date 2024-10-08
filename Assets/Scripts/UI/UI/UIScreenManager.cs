@@ -109,7 +109,7 @@ public class UIScreenManager : MonoBehaviour
         //if (MiniGameManager.instance.gameStarted /*|| LevelManager.instance.isInCutscene*/)
         //    return;
         SetScreenUI(screenType, state);
-        
+
         if (state)
         {
             currentUI = screenType;
@@ -124,8 +124,37 @@ public class UIScreenManager : MonoBehaviour
             pauseMenu.SetPause(false);
         }
         PreventPlayerInputs(state);
-       
+        SetTimeTickPause();
     }
+
+    private void SetTimeTickPause()
+    {
+        RealTimeDayNightCycle.instance.isPaused = false;
+        switch (currentUI)
+        {
+            case UIScreenType.MainMenuUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
+                break;
+            case UIScreenType.PauseUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
+                break;
+            case UIScreenType.ContainerUI:
+                break;
+            case UIScreenType.LoadGameUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
+                break;
+            case UIScreenType.CharacterSelectUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
+                break;
+            case UIScreenType.OptionsUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
+                break;
+            case UIScreenType.CreditsUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
+                break;
+        }
+    }
+
     /// <summary>
     /// Setting a screen here will just bypass all other functions and display the screen with any others that exist.
     /// </summary>
@@ -184,7 +213,7 @@ public class UIScreenManager : MonoBehaviour
             }
             
         }
-            
+        
     }
 
     public void DisplayOptionsUI(bool state, UIScreenType screenType)

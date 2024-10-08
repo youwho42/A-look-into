@@ -10,7 +10,8 @@ public class ConditionallyEnabledWorldItem : MonoBehaviour
     public struct ConditionalItem
     {
         public GameObject worldItem;
-        public GOAD_Condition worldCondition;
+        public GOAD_ScriptableCondition worldCondition;
+        public bool activate;
     }
 
     public List<ConditionalItem> conditionalItems = new List<ConditionalItem>();
@@ -32,7 +33,7 @@ public class ConditionallyEnabledWorldItem : MonoBehaviour
         foreach (var item in conditionalItems)
         {
             if(worldBeliefStates.HasState(item.worldCondition.Condition, item.worldCondition.State))
-                item.worldItem.SetActive(true);
+                item.worldItem.SetActive(item.activate);
 
         }
     }

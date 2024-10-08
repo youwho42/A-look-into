@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Klaxon.GOAD
@@ -29,8 +30,24 @@ namespace Klaxon.GOAD
             public bool isSet;
         }
 
+        [Serializable]
+        public class TimedCondition
+        {
+            public GOAD_ScriptableCondition conditionToSet;
+            public List<GOAD_ScriptableCondition> finalPreconditions = new List<GOAD_ScriptableCondition>();
+            public bool setDaysAfterConditionsMet;
+            [ConditionalHide("setDaysAfterConditionsMet", true)]
+            public int totalDaysToWait;
+            public List<GOAD_ScriptableCondition> activatePreconditions = new List<GOAD_ScriptableCondition>();
+            public int finalDayToBeSet;
+            [HideInInspector]
+            public bool isSet;
+
+        }
+
         public List<Conditions> conditions = new List<Conditions>();
         public List<SpecialCondition> specialConditions = new List<SpecialCondition>();
+        public List<TimedCondition> timedConditions = new List<TimedCondition>();
         public GOAD_Scheduler scheduler;
         RealTimeDayNightCycle dayNightCycle;
 
@@ -45,6 +62,7 @@ namespace Klaxon.GOAD
                 }
             }
             GameEventManager.onTimeTickEvent.AddListener(SetBeliefOnTick);
+            GameEventManager.onNewDayEvent.AddListener(SetTimedPersonalCondition);
             dayNightCycle = RealTimeDayNightCycle.instance;
         }
 
@@ -52,6 +70,8 @@ namespace Klaxon.GOAD
         private void OnDisable()
         {
             GameEventManager.onTimeTickEvent.RemoveListener(SetBeliefOnTick);
+            GameEventManager.onNewDayEvent.RemoveListener(SetTimedPersonalCondition);
+
         }
 
         void SetBeliefOnTick(int tick)
@@ -108,6 +128,40 @@ namespace Klaxon.GOAD
                 }
 
             }
+        }
+
+        void SetTimedPersonalCondition(int currentDay)
+        {
+            var worldStates = GOAD_WorldBeliefStates.instance;
+           
+            foreach (var condition in timedConditions)
+            {
+                if (!condition.setDaysAfterConditionsMet)
+                {
+                    condition.isSet = true;
+                    continue;
+                }
+                    
+                if (!condition.isSet)
+                {
+                    if (scheduler.AreConditionsMet(condition.activatePreconditions))
+                    {
+                        condition.isSet = true;
+                        condition.finalDayToBeSet = dayNightCycle.currentDayRaw + condition.totalDaysToWait;
+                    }
+                }
+                
+            }
+
+            
+            foreach (var condition in timedConditions)
+            {
+                if (!condition.isSet)
+                    continue;
+                if (scheduler.AreConditionsMet(condition.finalPreconditions) && currentDay >= condition.finalDayToBeSet)
+                    worldStates.SetWorldState(condition.conditionToSet.Condition, condition.conditionToSet.State);
+            } 
+            
         }
     }
 

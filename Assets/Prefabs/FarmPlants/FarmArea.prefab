@@ -4972,7 +4972,6 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -4984,6 +4983,7 @@ MonoBehaviour:
   playerGuide: {fileID: 0}
   isOpen: 0
   isSquirrelBox: 0
+  isLostAndFound: 0
   references:
     version: 2
     RefIds: []
@@ -5247,9 +5247,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   bounceCost: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
-  agencyCost: 100
+  agencyCost: 60
   canInteract: 1
   hasLongInteract: 1
   replaceObjectOnDrop: {fileID: 0}
@@ -5282,9 +5281,8 @@ MonoBehaviour:
   undertakingObject:
     undertaking: {fileID: 11400000, guid: cc5e177e553df0244bdd7e5776f61de1, type: 2}
     task: {fileID: 11400000, guid: 96acb1af87c33274fbae7683fff8510f, type: 2}
-  worldStateEffect:
-    Condition: FarmActive
-    State: 1
+  worldStateEffect: {fileID: 0}
+  worldStatePrecondition: {fileID: 0}
 --- !u!1001 &3277021171780142232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
-  m_Name: Torch
+  m_Script: {fileID: 11500000, guid: 696fac5cd8d834e449e107b00d3fd60c, type: 3}
+  m_Name: Equipment_Torch
   m_EditorClassIdentifier: 
   Name: Torch
   localizedName:
@@ -31,21 +31,25 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Type: 6
+  Type: 0
   AnimationName: 
-  Weight: 1
-  Price: 2
+  Weight: 0
+  Price: 5
   spawnWeight: 1
   Icon: {fileID: 21300000, guid: a0adea2ab0dd1884387abb71637735d2, type: 3}
   ItemPrefabVariants:
   - {fileID: 8795898393083815942, guid: b6dff242f16cd21418f388f16da71061, type: 3}
   pickUpItem: {fileID: 0}
-  EquipedItem: {fileID: 0}
-  MaxStack: 10
+  EquipedItem: {fileID: 1563155957046086015, guid: aa7e4219add36914399b16445dfd9c2a,
+    type: 3}
+  MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
-  placementGumption: {fileID: 0}
+  placementGumption: {fileID: 11400000, guid: a8eaf96d976a4d543b57845dce14677a, type: 2}
+  equipmentSlot: 0
+  equipmentTier: 0
+  statChanger: {fileID: 0}
   references:
     version: 2
     RefIds: []

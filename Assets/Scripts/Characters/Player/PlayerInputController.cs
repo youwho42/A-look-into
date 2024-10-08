@@ -62,7 +62,6 @@ public class PlayerInputController : MonoBehaviour
 
     float mouseInactiveTimer;
     Vector2 lastMouseActiveP;
-
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -233,6 +232,7 @@ public class PlayerInputController : MonoBehaviour
         if (isPaused || isInUI)
         {
             movement = Vector2.zero;
+            isRunning = false;
         }
         else
         {

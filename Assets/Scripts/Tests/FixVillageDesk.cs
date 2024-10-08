@@ -35,6 +35,7 @@ public class FixVillageArea
     public bool isFixing;
     [HideInInspector]
     public bool isActive;
+    public Collider2D areaCollider;
 }
 public class FixVillageDesk : MonoBehaviour
 {
