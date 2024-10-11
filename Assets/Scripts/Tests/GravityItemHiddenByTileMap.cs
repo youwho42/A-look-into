@@ -81,7 +81,7 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
 
     void DoubleCheck()
     {
-        var yOff = MapNumber.Remap(displacementPos, 0.0f, 0.33f, 0.0f, 1f);
+        var yOff = NumberFunctions.RemapNumber(displacementPos, 0.0f, 0.33f, 0.0f, 1f);
         var offset = new Vector3(0, 0.2990625f * yOff, 0);
         displacementPos = CheckObjectPosition(offset);
         
@@ -127,7 +127,7 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
     {
         float remap = 0;
         if (disp > 0)
-            remap = MapNumber.Remap(displacementPos, 0.0f, 0.33f, -1f, -0.33f);
+            remap = NumberFunctions.RemapNumber(displacementPos, 0.0f, 0.33f, -1f, -0.33f);
         Vector3 pos = new Vector3(0, 0, remap);
         objectCorrectionZ.localPosition = pos;
 

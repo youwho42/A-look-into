@@ -99,7 +99,7 @@ public class DetectVisibility : MonoBehaviour
 
     void ChangeObjectZ(bool isHidden)
     {
-        float remap = MapNumber.Remap(displacementPos, 0.0f, 0.33f, -1f, -0.33f);
+        float remap = NumberFunctions.RemapNumber(displacementPos, 0.0f, 0.33f, -1f, -0.33f);
         Vector3 pos = new Vector3(0, 0, isHidden ? remap : 0);
         objectCorrectionZ.localPosition = pos;
         

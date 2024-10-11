@@ -48,7 +48,7 @@ public class WindManager : MonoBehaviour
         float scale = 10.0f;
 
         float a = (float)openSimplexNoise.Evaluate(position.x / scale + offset, position.y / scale + offset, currentZ + (position.z / scale + offset));
-        a = MapNumber.Remap(a, -1.0f, 1.0f, 0.0f, 1.0f);
+        a = NumberFunctions.RemapNumber(a, -1.0f, 1.0f, 0.0f, 1.0f);
         return Mathf.Abs(maxMagnitude * a);
 
         

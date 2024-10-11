@@ -16,7 +16,7 @@ public class FadeDropOnHeight : MonoBehaviour
     void Update()
     {
         float a = transform.localPosition.z;
-        a = MapNumber.Remap(a, 0, fireSheet.maxHeight, 1, 0);
+        a = NumberFunctions.RemapNumber(a, 0, fireSheet.maxHeight, 1, 0);
         render.color = new Color(render.color.r, render.color.g, render.color.b, a);
     }
 }

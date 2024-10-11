@@ -509,7 +509,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 CompendiumRecipeSlot newRecipeSlot = Instantiate(compendiumRecipeSlotObject, compendiumRecipeListHolder.transform);
                 newRecipeSlot.AddItem(recipe.Ingredients[i].Item, recipe.Ingredients[i].Amount);
                 compendiumRecipeSlots.Add(newRecipeSlot);
-                agencyText.text = recipe.AgencyCost.ToString();
+                //agencyText.text = recipe.AgencyCost.ToString();
             }
             recipeDisplay.SetActive(true);
         }

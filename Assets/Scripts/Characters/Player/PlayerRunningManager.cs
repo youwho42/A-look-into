@@ -61,7 +61,7 @@ public class PlayerRunningManager : MonoBehaviour
             return;
 
         ActivateUI();
-        var amount = MapNumber.Remap(lastZ, 1.0f, 10.0f, 0.0f, 1.0f);
+        var amount = NumberFunctions.RemapNumber(lastZ, 1.0f, 10.0f, 0.0f, 1.0f);
         amount = Mathf.Clamp01(amount);
         currentGaugeAmount += amount;
         if (currentGaugeAmount >= 1)

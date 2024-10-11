@@ -108,8 +108,8 @@ public class PlayerMarkerTextureMap : MonoBehaviour
             textureCoord += playerMarkerImageUI.uvRect.min;
 
             Vector2Int pos = Vector2Int.zero;
-            pos.x = (int)MapNumber.Remap(textureCoord.x, 0, 1, 0, 128);
-            pos.y = (int)MapNumber.Remap(textureCoord.y, 0, 1, 0, 128);
+            pos.x = (int)NumberFunctions.RemapNumber(textureCoord.x, 0, 1, 0, 128);
+            pos.y = (int)NumberFunctions.RemapNumber(textureCoord.y, 0, 1, 0, 128);
 
             if (pos.x > 0 && pos.y > 0 && pos.x < 128 && pos.y < 128)
                 mapPos = pos;
@@ -118,8 +118,8 @@ public class PlayerMarkerTextureMap : MonoBehaviour
         {
             var map = PlayerInformation.instance.playerController.currentTilePosition.groundMap;
             Vector2Int terrainPos = Vector2Int.zero;
-            terrainPos.x = (int)MapNumber.Remap(mapPos.x, 0, 128, map.cellBounds.xMin, map.cellBounds.xMax);
-            terrainPos.y = (int)MapNumber.Remap(mapPos.y, 0, 128, map.cellBounds.yMin, map.cellBounds.yMax);
+            terrainPos.x = (int)NumberFunctions.RemapNumber(mapPos.x, 0, 128, map.cellBounds.xMin, map.cellBounds.xMax);
+            terrainPos.y = (int)NumberFunctions.RemapNumber(mapPos.y, 0, 128, map.cellBounds.yMin, map.cellBounds.yMax);
             AddMarkers(mapPos, terrainPos);
             DrawPlayerMap();
         }

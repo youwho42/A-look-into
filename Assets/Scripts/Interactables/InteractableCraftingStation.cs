@@ -14,12 +14,14 @@ namespace Klaxon.Interactable
         QI_CraftingHandler craftingHandler;
         public QI_CraftingRecipeDatabase recipeDatabase;
         public QI_Inventory selfInventory;
-        
+
+        QI_ItemData pickUpItem;
 
         public override void Start()
         {
             base.Start();
-            
+            pickUpItem = GetComponent<QI_Item>().Data;
+       
             craftingDisplay = CraftingStationDisplayUI.instance;
             craftingHandler = GetComponent<QI_CraftingHandler>();
         }
@@ -61,6 +63,8 @@ namespace Klaxon.Interactable
             var item = GetComponent<QI_Item>().Data;
             if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
             {
+                if(pickUpItem.placementGumption != null)
+                    PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
                 if (replaceObjectOnDrop != null)
                     replaceObjectOnDrop.ShowObjects(true);
                 Destroy(gameObject);

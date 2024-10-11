@@ -70,10 +70,10 @@ namespace Klaxon.GOAD
                 {
                     foreach (var sprite in ghostSprites)
                     {
-                        var a = MapNumber.Remap(zPos, -.1f, -.3f, 1.0f, -0.02f);
+                        var a = NumberFunctions.RemapNumber(zPos, -.1f, -.3f, 1.0f, -0.02f);
                         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, a);
                     }
-                    var b = MapNumber.Remap(zPos, -.1f, -.3f, 1.0f, -0.02f);
+                    var b = NumberFunctions.RemapNumber(zPos, -.1f, -.3f, 1.0f, -0.02f);
                     agent.ghoster.shadowSprite.color = new Color(agent.ghoster.shadowSprite.color.r, 
                         agent.ghoster.shadowSprite.color.g, 
                         agent.ghoster.shadowSprite.color.b, 
@@ -81,7 +81,7 @@ namespace Klaxon.GOAD
                 }
                 else
                 {
-                    var a = MapNumber.Remap(zPos, 0.0f, agent.ghoster.amplitude+0.8f, 0.6f, 0.2f);
+                    var a = NumberFunctions.RemapNumber(zPos, 0.0f, agent.ghoster.amplitude+0.8f, 0.6f, 0.2f);
                     var c = new Color(agent.ghoster.shadowSprite.color.r,
                         agent.ghoster.shadowSprite.color.g, 
                         agent.ghoster.shadowSprite.color.b, 
@@ -116,10 +116,10 @@ namespace Klaxon.GOAD
                 {
                     foreach (var sprite in ghostSprites)
                     {
-                        var a = MapNumber.Remap(zPos, -.3f, 0.0f, 0.0f, 1.0f);
+                        var a = NumberFunctions.RemapNumber(zPos, -.3f, 0.0f, 0.0f, 1.0f);
                         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, a);
                     }
-                    var b = MapNumber.Remap(zPos, -.3f, 0.0f, 0.0f, 1.0f);
+                    var b = NumberFunctions.RemapNumber(zPos, -.3f, 0.0f, 0.0f, 1.0f);
                     agent.ghoster.shadowSprite.color = new Color(agent.ghoster.shadowSprite.color.r,
                         agent.ghoster.shadowSprite.color.g,
                         agent.ghoster.shadowSprite.color.b,
@@ -127,7 +127,7 @@ namespace Klaxon.GOAD
                 }
                 else
                 {
-                    var a = MapNumber.Remap(zPos, 0.0f, 0.8f, 1.0f, 0.8f);
+                    var a = NumberFunctions.RemapNumber(zPos, 0.0f, 0.8f, 1.0f, 0.8f);
                     var c = new Color(agent.ghoster.shadowSprite.color.r,
                         agent.ghoster.shadowSprite.color.g,
                         agent.ghoster.shadowSprite.color.b,

@@ -149,8 +149,8 @@ public class GenerateMapFog : MonoBehaviour
         while (animIndex < animMax)
         {
             float t = (float)animIndex / (float)animMax;
-            float outTimer = MapNumber.Remap(t, timeDelay, 1.0f, 1.0f, 0.0f);
-            float inTimer = MapNumber.Remap(t, 0.0f, timeDelay, 0.0f, 1.0f);
+            float outTimer = NumberFunctions.RemapNumber(t, timeDelay, 1.0f, 1.0f, 0.0f);
+            float inTimer = NumberFunctions.RemapNumber(t, 0.0f, timeDelay, 0.0f, 1.0f);
             if(t >= timeDelay)
                 map.hasAnimated = true;
             for (int y = 0; y < mapSize; y++)

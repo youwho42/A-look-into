@@ -73,8 +73,7 @@ MonoBehaviour:
   - m_Id: 6251506884608
     m_Localized: To craft an item all you need is to have the necessary items in
       your inventory, select the recipe, choose an amount you want to craft and press
-      the craft button. Some crafting stations take time, while others are immediate.
-      You'll figure it out.
+      the craft button. All crafting stations require some type of energy to function.
     m_Metadata:
       m_Items: []
   - m_Id: 7514407624704
@@ -160,9 +159,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10869343313920
-    m_Localized: This represents your agency in this world. The more you have the
-      more you can do! It helps with interacting with objects and also those really
-      tough crafting recipes! You will never lose <sprite name="Agency">.
+    m_Localized: <sprite name="Agency"> is your AGENCY. This will never decrease.
+      It represents your capacity to interact with your surroundings (fixing, crafting...).
+      You gain <sprite name="Agency"> by researching items and observing the wildlife,
+      or by completing some of the undertakings you aquired.
     m_Metadata:
       m_Items: []
   - m_Id: 11169324130304
@@ -200,6 +200,43 @@ MonoBehaviour:
       map. For each marker that you place a <sprite anim="0,1,12"> will appear, will
       be of that markers color, and will always try to place itself a small distance
       from you in the direction of the marker.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132283342729568256
+    m_Localized: <sprite anim="6,21,12">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132283437747331072
+    m_Localized: <sprite anim="6,21,12"> is your BOUNCE. This depletes with certain
+      interactions (fixing, harvesting...) and fills back up when you rest. You can
+      also eat or drink certain things to fill it back up, or even have those same
+      interactions use less <sprite anim="6,21,12">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132295659802386432
+    m_Localized: <sprite name="Gumption">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132295723547418624
+    m_Localized: <sprite name="Gumption"> is your GUMPTION. This depletes each time
+      you talk with other beings and fills back up when you rest. Some objects that
+      you place in the world (crafting stations, campfires, decorations...) you increase
+      your max <sprite name="Gumption">. Some foods and drinks can also replenish
+      your <sprite name="Gumption">, or can make you lose less for each conversation
+      or temporarily boost the max amount you have. Other foods and drinks can also
+      diminish your max or make it be consumed faster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132295974614261760
+    m_Localized: <sprite anim="23,25,12">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132296545907826688
+    m_Localized: <sprite anim="23,25,12"> are SPARKS. This is the local trading medium.
+      You can these by selling items at the LOCAL GOODS stand in Town Hall or in
+      specialized shops around town. Gaining and spreading <sprite anim="23,25,12">
+      should be a simple concept, it does good things for everyone involved. Spread
+      the <sprite anim="23,25,12">!!
     m_Metadata:
       m_Items: []
   references:

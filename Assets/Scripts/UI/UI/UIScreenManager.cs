@@ -34,8 +34,10 @@ public class UIScreenManager : MonoBehaviour
     
     private UIScreenType currentUI;
     UIScreenType lastUI;
+    float autoSaveTimer;
     private void Start()
     {
+        
         // using TAB to toggle tabbedMenu
         GameEventManager.onMenuToggleEvent.AddListener(ToggleTabbedMenu);
         // using gamepad UP to display tabbedMenu
@@ -117,6 +119,8 @@ public class UIScreenManager : MonoBehaviour
         }
         else
         {
+            if(currentUI == UIScreenType.TabbedMenuUI)
+                GameEventManager.onAutoSaveEvent.Invoke();
             currentUI = UIScreenType.None;
             DisplayPlayerHUD(gameplay.HUDBinary == 1);
             CloseTipPanel();

@@ -39,8 +39,8 @@ public class PlayerLocationTextureMap : MonoBehaviour
         Color neutral = new Color(0, 0, 0, 0);
         var map = PlayerInformation.instance.playerController.currentTilePosition.groundMap;
         var playerPos = PlayerInformation.instance.playerController.currentTilePosition.position;
-        playerPos.x = (int)MapNumber.Remap(playerPos.x, map.cellBounds.xMin, map.cellBounds.xMax, 0, 128);
-        playerPos.y = (int)MapNumber.Remap(playerPos.y, map.cellBounds.yMin, map.cellBounds.yMax, 0, 128);
+        playerPos.x = (int)NumberFunctions.RemapNumber(playerPos.x, map.cellBounds.xMin, map.cellBounds.xMax, 0, 128);
+        playerPos.y = (int)NumberFunctions.RemapNumber(playerPos.y, map.cellBounds.yMin, map.cellBounds.yMax, 0, 128);
         for (int y = 0; y < height-1; y++)
         {
             for (int x = 0; x < width-1; x++)
@@ -64,7 +64,7 @@ public class PlayerLocationTextureMap : MonoBehaviour
         var pos = positions.ToArray();
         for (int i = 0; i < pos.Length; i++)
         {
-            float alpha = MapNumber.Remap(i, 0, pos.Length - 1, 0, 1);
+            float alpha = NumberFunctions.RemapNumber(i, 0, pos.Length - 1, 0, 1);
             if(alpha >= 1)
                 colorMap[pos[i]] = new Color(1f, 0, 0.1f, alpha);
             else

@@ -39,7 +39,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
 
     public CraftingSlot recipeResultSlot;
-    public TextMeshProUGUI recipeAgencyText;
+    public TextMeshProUGUI recipeTicksToCraftText;
 
     public GameObject recipeButtonHolder;
     public GameObject recipeButton;
@@ -66,7 +66,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
     UIScreen screen;
     [HideInInspector]
     public TutorialUI tutorial;
-
+    public TextMeshProUGUI queueTotalTime;
     [Space]
     [Header("Energy")]
     public GameObject energyContainer;
@@ -74,9 +74,13 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public Image energyImage;
     public TextMeshProUGUI energyAmountText;
     public Image energyUseImage;
+    public Image energyBGImage;
     public CraftingStationFuelInventorySlot craftingStationFuelInventorySlot;
     public Sprite emptySprite;
-
+    bool pulsingEnergy;
+    public Color energyFullColor;
+    public Color energyEmptyColor;
+    public TextMeshProUGUI energyTotalTime;
     private void Start()
     {
         tutorial = GetComponent<TutorialUI>();
@@ -94,6 +98,10 @@ public class CraftingStationDisplayUI : MonoBehaviour
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(SetContainerUI);
         GameEventManager.onTimeTickEvent.RemoveListener(SetEnergyPercent);
+    }
+    private void OnDestroy()
+    {
+        StopCoroutine(PulseEmptyEnergy());
     }
 
 
@@ -143,9 +151,66 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public void SetEnergyPercent(int tick)
     {
         if (craftingHandler.currentFuelAmount > 0)
+        {
             energyUseImage.fillAmount = craftingHandler.GetCurrentFuelPercent();
-        
+            if (pulsingEnergy)
+            {
+                pulsingEnergy = false;
+                StopCoroutine(PulseEmptyEnergy());
+                ResetEnergyPulse();
+            }
+            int amount = craftingHandler.currentFuelTick;
+            amount += (craftingHandler.currentFuelAmount - 1) * craftingHandler.currentFuel.FuelTicks;
+            energyTotalTime.text = NumberFunctions.GetTimeAsString(amount);    
+        }
+        else
+        {
+            energyTotalTime.text = "0:00";
+            if (!pulsingEnergy)
+            {
+                pulsingEnergy = true;
+                StartCoroutine(PulseEmptyEnergy());
+            }
+        }
 
+        int totalTime = 0;
+        foreach (var item in craftingHandler.Queues)
+        {
+            totalTime += (int)item.Timer;
+        }
+        queueTotalTime.text = NumberFunctions.GetTimeAsString(totalTime);
+
+    }
+
+    void ResetEnergyPulse()
+    {
+        energyBGImage.color = energyFullColor;
+    }
+    IEnumerator PulseEmptyEnergy()
+    {
+        bool pulseIn = true;
+        float waitTime = 1.0f;
+        float timer = 0;
+        Color c = energyFullColor;
+        while (pulsingEnergy)
+        {
+            
+            timer += Time.deltaTime;
+            
+            if (pulseIn)
+                c = Color.Lerp(energyFullColor, energyEmptyColor, timer / waitTime);
+            else
+                c = Color.Lerp(energyEmptyColor, energyFullColor, timer / waitTime);
+            energyBGImage.color = c;
+            if (timer >= waitTime)
+            {
+                pulseIn = !pulseIn;
+                timer = 0;
+            }
+            yield return null;
+        }
+
+        
     }
 
     public void HideUI()
@@ -281,7 +346,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         craftButton.interactable = false;
         craftableItem = null;
         recipeResultSlot.ClearSlot();
-        recipeAgencyText.text = "";
+        recipeTicksToCraftText.text = "";
         foreach (CraftingSlot slot in ingredientSlots)
         {
             slot.ClearSlot();
@@ -303,7 +368,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         ClearCurrentRecipe();
         craftableItem = itemToCraft;
         recipeResultSlot.AddItem(craftableItem.Product.Item, craftableItem.Product.Amount);
-        recipeAgencyText.text = craftableItem.AgencyCost.ToString();
+        recipeTicksToCraftText.text = NumberFunctions.GetTimeAsString((int)craftableItem.CraftingTime);
 
         SetQuantitySlider();
        
@@ -344,23 +409,23 @@ public class CraftingStationDisplayUI : MonoBehaviour
         if (craftableItem != null)
         {
             
-            if (InteractCostReward())
+            //if (InteractCostReward())
                 craftingHandler.Craft(craftableItem, (int)quantityToCraftSlider.value, finalInventory);
         }
         SetCurrentRecipe(craftableItem);
         GetCraftingQueueItems();
     }
 
-    bool InteractCostReward()
-    {
-        float agency = PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("Agency");
-        if (agency >= craftableItem.AgencyCost)
-            return true;
+    //bool InteractCostReward()
+    //{
+    //    float agency = PlayerInformation.instance.statHandler.GetStatMaxModifiedValue("Agency");
+    //    if (agency >= craftableItem.AgencyCost)
+    //        return true;
 
 
-        Notifications.instance.SetNewNotification($"{craftableItem.AgencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
-        return false;
-    }
+    //    Notifications.instance.SetNewNotification($"{craftableItem.AgencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
+    //    return false;
+    //}
 
     void GetCraftingQueueItems()
     {
@@ -406,6 +471,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
             craftingText += line;
         }
         craftingQueue.text = craftingText;
+        
         //string craftingText = "";
         //foreach (var item in craftingHandler.craftingQueue)
         //{

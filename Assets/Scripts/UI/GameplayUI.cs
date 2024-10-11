@@ -27,6 +27,12 @@ public class GameplayUI : MonoBehaviour
     public int RIBBinary = 0;
     [SerializeField]
     private TextMeshProUGUI RIBText;
+    [SerializeField]
+    private Slider AutoSaveDisplay;
+    [HideInInspector]
+    public int AutoSaveBinary = 0;
+    [SerializeField]
+    private TextMeshProUGUI AutoSaveText;
     public int languageSelected;
 
     void Start()
@@ -50,6 +56,7 @@ public class GameplayUI : MonoBehaviour
         SetDisplayHUD(HUDBinary);
         SetAutoZoomReset(autoZoomBinary);
         SetRIB(RIBBinary);
+        SetAutoSave(autoZoomBinary);
     }
 
     void LocaleSelected(int index)
@@ -94,6 +101,17 @@ public class GameplayUI : MonoBehaviour
         RIBDisplay.value = RIBBin;
         SetRIBData();
     }
+    public void ToggleAutoSave()
+    {
+        AutoSaveBinary = (int)AutoSaveDisplay.value;
+        SetHUDText();
+    }
+    public void SetAutoSave(int autoSave)
+    {
+        AutoSaveBinary = autoSave;
+        AutoSaveDisplay.value = autoSave;
+        SetHUDText();
+    }
 
     void SetAutoZoomText()
     {
@@ -117,13 +135,21 @@ public class GameplayUI : MonoBehaviour
         Application.runInBackground = RIBBinary == 1;
     }
 
+    void SetAutoSaveData()
+    {
+        AutoSaveText.text = AutoSaveBinary == 1 ?
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Auto-save on") :
+            LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Auto-save off");
+        
+    }
+
     public void SetFromSave(int locale, int autoZoom, int hud, int rib)
     {
         LocaleSelected(locale);
         SetAutoZoomReset(autoZoom);
         SetDisplayHUD(hud);
         SetRIB(rib);
-
+        //SetAutoSave();
     }
 
 

@@ -181,7 +181,7 @@ public class MusicGenerator : MonoBehaviour
     {
         int q = itemValue > soundAssociation.maxTypeAmount ? soundAssociation.maxTypeAmount : itemValue;
         float max = q;
-        max = MapNumber.Remap(max, 0, soundAssociation.maxTypeAmount, 0.01f, soundAssociation.maxVolume);
+        max = NumberFunctions.RemapNumber(max, 0, soundAssociation.maxTypeAmount, 0.01f, soundAssociation.maxVolume);
         return max;
     }
 

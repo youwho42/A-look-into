@@ -60,6 +60,8 @@ public static class GameEventManager
     public static readonly GameEvent onGameStartLoadEvent = new GameEvent();
     public static readonly GameEvent onGameLoadedEvent = new GameEvent();
     public static readonly GameEvent onGameSavedEvent = new GameEvent();
+    public static readonly GameEvent onAutoSaveEvent = new GameEvent();
+
 
     /// <summary>
     /// Scroll wheel scrolled

@@ -29,7 +29,7 @@ public class CraftingTimerUI : MonoBehaviour
 
     public void SetCraftingTimer(int time, int maxTime)
     {
-        timerImage.fillAmount = MapNumber.Remap(time-1, 0, maxTime, 0, 1);
+        timerImage.fillAmount = NumberFunctions.RemapNumber(time-1, 0, maxTime, 0, 1);
     }
     public void SetTimerColorActive(bool active)
     {

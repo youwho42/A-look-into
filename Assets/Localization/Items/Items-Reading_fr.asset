@@ -60,8 +60,8 @@ MonoBehaviour:
     m_Localized: "Pour fabriquer un objet, tout ce dont vous avez besoin, c'est d'avoir
       les objets n\xE9cessaires dans votre inventaire, de s\xE9lectionner la recette,
       de choisir la quantit\xE9 que vous souhaitez fabriquer et d'appuyer sur le
-      bouton de fabrication. Certaines stations de fabrication prennent du temps,
-      tandis que d'autres sont instantan\xE9es. Vous comprendrez rapidement."
+      bouton de fabrication. Toutes les stations de fabrication n\xE9cessitent un
+      certain type d\u2019\xE9nergie pour fonctionner."
     m_Metadata:
       m_Items: []
   - m_Id: 7514407624704
@@ -153,10 +153,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10869343313920
-    m_Localized: "Ceci represente ton influence sur le monde qui t'entour. Le plus
-      t'en as le plus de choses tu peux faire! Ca aide \xE0 interagir avec des objects
-      d\xE9j\xE0 existant et \xE0 fabriquer les recettes que tu as trouv\xE9. Tu
-      ne perderas jamais de <sprite name=\"Agency\">."
+    m_Localized: "<sprite name=\"Agency\"> est votre CAPACIT\xC9 D'AGIR. Cela ne
+      diminuera jamais. Il repr\xE9sente votre capacit\xE9 \xE0 interagir avec votre
+      environnement (r\xE9paration, bricolage...). Vous gagnez <sprite name=\"Agency\">
+      en recherchant des objets et en observant la faune, ou en accomplissant certaines
+      des entreprises que vous avez acquises."
     m_Metadata:
       m_Items: []
   - m_Id: 11169324130304
@@ -199,6 +200,47 @@ MonoBehaviour:
       anim=\"0,1,12\"> appara\xEEtra, sera de la couleur du marqueur et essaiera
       toujours de se placer \xE0 une petite distance de toi dans la direction du
       marqueur."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132283342729568256
+    m_Localized: <sprite anim="6,21,12">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132283437747331072
+    m_Localized: "<sprite anim=\"6,21,12\"> est votre REBOND. Celui-ci s'\xE9puise
+      avec certaines interactions (r\xE9paration, r\xE9colte...) et se remplit lorsque
+      vous vous reposez. Vous pouvez \xE9galement manger ou boire certaines choses
+      pour le remplir, ou m\xEAme faire en sorte que ces m\xEAmes interactions utilisent
+      moins de <sprite anim=\"6,21,12\">"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132295723547418624
+    m_Localized: "<sprite name=\"Gumption\"> est votre Audacit\xE9. Cela s'\xE9puise
+      un  peu \xE0 chaque fois que vous parlez avec d'autres \xEAtres et se remplit
+      lorsque vous vous reposez. Certains objets que vous placez dans le monde (postes
+      de fabrication, feux de camp, d\xE9corations...) vous augmentent votre <sprite
+      name=\"Gumption\"> maximal. Certains aliments et boissons peuvent \xE9galement
+      reconstituer votre <sprite name=\"Gumption\">, vous faire perdre moins \xE0
+      chaque conversation ou augmenter temporairement le montant maximum dont vous
+      disposez. D\u2019autres aliments et boissons peuvent \xE9galement diminuer
+      votre maximum ou le faire consommer plus rapidement."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132295659802386432
+    m_Localized: <sprite name="Gumption">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132295974614261760
+    m_Localized: <sprite anim="23,25,12">
+    m_Metadata:
+      m_Items: []
+  - m_Id: 132296545907826688
+    m_Localized: "<sprite anim=\"23,25,12\"> sont des \xC9TINCELLES. C'est le support
+      commercial local. Vous pouvez le faire en vendant des articles au stand PRODUITS
+      LOCAUX de la Mairie ou dans les magasins sp\xE9cialis\xE9s de la ville. Gagner
+      et diffuser <sprite anim=\"23,25,12\"> devrait \xEAtre un concept simple, cela
+      fait de bonnes choses pour toutes les personnes impliqu\xE9es. R\xE9pandez
+      les <sprite anim=\"23,25,12\"> !!"
     m_Metadata:
       m_Items: []
   references:

@@ -23,6 +23,7 @@ public class TutorialUI : MonoBehaviour
     public void StartTutorial()
     {
         HideAll();
+        currentIndex= 0;
         if (!hasShownTutorial)
             SetTutorialArrow(currentIndex);
         tutorialButtonCross.gameObject.SetActive(!hasShownTutorial); 

@@ -36,7 +36,7 @@ public class TilemapToPNG : MonoBehaviour
                 {
                     if(groundMap.GetTile(new Vector3Int(x,y,z)) != null)
                     {
-                        indZ = MapNumber.Remap(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, 0, 1);
+                        indZ = NumberFunctions.RemapNumber(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, 0, 1);
                         tiles[indX, indY] = indZ;
                         break;
                     }

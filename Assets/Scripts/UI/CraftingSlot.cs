@@ -14,11 +14,11 @@ public class CraftingSlot : MonoBehaviour
     public bool isIngredientSlot;
     public Button craftButton;
     bool addedToListener;
-    
 
+   
     public void ShowInformation()
     {
-        if (item == null)
+        if (item == null || !isIngredientSlot)
             return;
         ItemInformationDisplayUI.instance.ShowItemName(item, this.GetComponent<RectTransform>());
     }
@@ -30,6 +30,7 @@ public class CraftingSlot : MonoBehaviour
     // Recipe Result 
     public void AddItem(QI_ItemData newItem, int recipeQuantity)
     {
+
         item = newItem;
         icon.sprite = item.Icon;
         

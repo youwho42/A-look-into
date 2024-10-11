@@ -464,9 +464,17 @@ CHANGELOG:
 		Fixed:		Some NPC's no longer get stuck in colliders.
 		Fixed:		Character choice would sometimes show a character as a jumbled mess.
 		Fixed:		Entering a menu while running stops augmenting the running time limit.
+		Fixed:		Picking up crafting stations no removes the Gumption it added when placed.
+		Fixed:		An undertaking was not showing its text in the Undertaking menu.
 
 		Changed:	Torches can now be equipped in players hand from inventory UI.
 		Changed:	Farm areas require less Agency (paw icon) to fix.
+		Changed:	Added a pulsing color to the energy holder of crafting stations when the holder is empty.
+		Changed:	Crafting station ingredients will now show the name of the item if you hover over it.
+		Changed:	Crafting recipes, crafting energy slot and chrafting queue now all indicate their time.
+		Changed:	Little arrow tutorial resets if you didn't finish the tutorial the first time.
+
+		Added:		Auto-save feature, happens when exiting the tabbed menu (inventory, compendiums...) if more then 10 minutes have passed since the last auto-save.
 
 COMMENTS
 		
@@ -510,11 +518,5 @@ Debug Helpers
         UnityEngine.Debug.Log(stackTrace.GetFrame(1).GetMethod().Name);
 						
 			
-
-
-
-
-
-
 
 

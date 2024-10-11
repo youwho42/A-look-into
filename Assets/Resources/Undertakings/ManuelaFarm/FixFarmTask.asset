@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: FixFarmTask
   m_EditorClassIdentifier: 
   Name: Fix the farm area
-  IsComplete: 1
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:73d96f3006bf95141844ca6786766ee7
+    m_TableEntryReference:
+      m_KeyId: 24172253732864
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  IsComplete: 0
   SparksReward: 0
   GumptionReward: {fileID: 0}
   AgencyReward: {fileID: 0}
@@ -21,3 +30,6 @@ MonoBehaviour:
   ItemQuantity: 0
   RecipeReward: {fileID: 0}
   mapName: 
+  references:
+    version: 2
+    RefIds: []

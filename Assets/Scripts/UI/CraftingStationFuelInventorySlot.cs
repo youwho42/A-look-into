@@ -12,6 +12,18 @@ public class CraftingStationFuelInventorySlot : MonoBehaviour
     public TextMeshProUGUI amountText;
     QI_CraftingHandler craftingHandler;
 
+    public void ShowInformation()
+    {
+        if (currentItem == null)
+            return;
+        ItemInformationDisplayUI.instance.ShowItemName(currentItem, this.GetComponent<RectTransform>());
+    }
+    public void HideInformation()
+    {
+        ItemInformationDisplayUI.instance.HideItemName();
+    }
+
+
     public void SetFuelInventorySlot(QI_ItemData itemData, int amount, QI_CraftingHandler handler)
     {
         currentItem = itemData;

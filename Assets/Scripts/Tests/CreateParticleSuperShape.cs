@@ -83,7 +83,7 @@ public class CreateParticleSuperShape : MonoBehaviour
                 Vector3 disp = new Vector3(0, spriteDisplacementY * layer.zBase, layer.zBase);
                 go.itemObject.localPosition = disp;
 
-                float scl = MapNumber.Remap(y, -layer.b, layer.b, 1.0f, 0.8f);
+                float scl = NumberFunctions.RemapNumber(y, -layer.b, layer.b, 1.0f, 0.8f);
                 Vector3 size = new Vector3(scl, scl, scl);
                 go.itemObject.localScale = size;
                 go.itemShadow.localScale = size;
@@ -118,13 +118,13 @@ public class CreateParticleSuperShape : MonoBehaviour
 
                 if (layer.oscillateZ)
                 {
-                    float newZ = layer.zBase + MapNumber.Remap(Mathf.Sin(Time.time + angle), -1, 1, 0, layer.zVariance);
+                    float newZ = layer.zBase + NumberFunctions.RemapNumber(Mathf.Sin(Time.time + angle), -1, 1, 0, layer.zVariance);
                     Vector3 disp = new Vector3(0, spriteDisplacementY * newZ, newZ);
                     layer.particles[i].itemObject.localPosition = disp;
                 }
 
 
-                float scl = MapNumber.Remap(y, -layer.b, layer.b, 1.0f, 0.8f);
+                float scl = NumberFunctions.RemapNumber(y, -layer.b, layer.b, 1.0f, 0.8f);
                 Vector3 size = new Vector3(scl, scl, scl);
                 layer.particles[i].itemObject.localScale = size;
                 layer.particles[i].itemShadow.localScale = size;

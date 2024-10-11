@@ -68,7 +68,7 @@ public class FogGenerator : MonoBehaviour
         {
             fadeAmount = fadeIn ? fadeAmount+=1 : fadeAmount-=1;
             float a = (float)fadeAmount / (float)fadeTick;
-            float amount = MapNumber.Remap(a, 0.0f, 1.0f, 0.0f, 0.1f);
+            float amount = NumberFunctions.RemapNumber(a, 0.0f, 1.0f, 0.0f, 0.1f);
             if (fogObject.TryGetComponent(out IWeatherObject weather))
                 weather.Activate(amount);
             if (fadeIn && a >= 1.0f || !fadeIn && a <= 0.0f)

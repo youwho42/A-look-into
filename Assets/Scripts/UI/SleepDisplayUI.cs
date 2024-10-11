@@ -211,15 +211,15 @@ public class SleepDisplayUI : MonoBehaviour
     {
         int time = UIScreenManager.instance.isSleeping ? dayNightCycle.currentTimeRaw : (dayNightCycle.currentTimeRaw + (int)sleepSlider.value) % 1440;
 
-        float starRot = MapNumber.Remap(time, 0, 1440, starObject.minRotation, starObject.maxRotation);
+        float starRot = NumberFunctions.RemapNumber(time, 0, 1440, starObject.minRotation, starObject.maxRotation);
         starObject.transform.rotation = Quaternion.Euler(0, 0, starRot);
 
         float t = time >= dayNightCycle.dayStart && time <= dayNightCycle.nightStart ? time : 0;
-        float sunRot = MapNumber.Remap(t, dayNightCycle.dayStart, dayNightCycle.nightStart, sunObject.minRotation, sunObject.maxRotation);
+        float sunRot = NumberFunctions.RemapNumber(t, dayNightCycle.dayStart, dayNightCycle.nightStart, sunObject.minRotation, sunObject.maxRotation);
         sunObject.transform.rotation = Quaternion.Euler(0, 0, sunRot);
 
         float t2 = time >= dayNightCycle.nightStart || time <= dayNightCycle.dayStart ? time : 720;
-        float moonRot = MapNumber.Remap((t2 + 500) % 1440, (dayNightCycle.nightStart+500) % 1440, (dayNightCycle.dayStart + 500), moonObject.minRotation, moonObject.maxRotation);
+        float moonRot = NumberFunctions.RemapNumber((t2 + 500) % 1440, (dayNightCycle.nightStart+500) % 1440, (dayNightCycle.dayStart + 500), moonObject.minRotation, moonObject.maxRotation);
         moonObject.transform.rotation = Quaternion.Euler(0, 0, moonRot);
 
         if(time >= dayNightCycle.dayStart && time <= dayNightCycle.nightStart)

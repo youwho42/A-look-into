@@ -159,8 +159,8 @@ public class SpawnObjectsOnTiles : MonoBehaviour
         {
             for (int y = 0; y < mapSize; y++)
             {
-                int mapX = (int)MapNumber.Remap(x, 0, mapSize, groundTilemap.cellBounds.xMin, groundTilemap.cellBounds.xMax);
-                int mapY = (int)MapNumber.Remap(y, 0, mapSize, groundTilemap.cellBounds.yMin, groundTilemap.cellBounds.yMax);
+                int mapX = (int)NumberFunctions.RemapNumber(x, 0, mapSize, groundTilemap.cellBounds.xMin, groundTilemap.cellBounds.xMax);
+                int mapY = (int)NumberFunctions.RemapNumber(y, 0, mapSize, groundTilemap.cellBounds.yMin, groundTilemap.cellBounds.yMax);
                 float mass = map[x, y];
 
                 int possible = Mathf.RoundToInt(maxObjectsPerTile * mass);
