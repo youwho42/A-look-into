@@ -134,7 +134,7 @@ namespace Klaxon.Interactable
             if (agency >= agencyCost)
                 return true;
 
-            Notifications.instance.SetNewNotification($"{agencyCost - agency} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
+            Notifications.instance.SetNewNotification($"{agencyCost} <sprite name=\"Agency\">", null, 0, NotificationsType.Warning);
 
             //NotificationManager.instance.SetNewNotification($"{agencyCost} Agency needed", NotificationManager.NotificationType.Warning);
             return false;

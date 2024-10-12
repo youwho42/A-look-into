@@ -150,6 +150,7 @@ public class PlayerRunningManager : MonoBehaviour
         UITimer = 0;
         runningUIVisible = false;
         overMaxAmount = 0;
+        runningUI.SetCracks(-1);
         overMax = false;
     }
 

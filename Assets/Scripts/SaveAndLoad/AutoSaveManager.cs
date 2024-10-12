@@ -21,7 +21,7 @@ namespace Klaxon.SaveSystem
 
         void AutoSave()
         {
-            if (Time.time <= nextAutoSaveTime)
+            if (Time.time <= nextAutoSaveTime && UIScreenManager.instance.gameplay.AutoSaveBinary == 1)
                 return;
 
             nextAutoSaveTime = Time.time + 600;

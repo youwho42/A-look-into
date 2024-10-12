@@ -49,6 +49,12 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_Animal agent)
         {
             base.PerformAction(agent);
+            if (agent.homeDestination == null)
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
 
             if (Vector2.Distance(transform.position, agent.walker.currentDestination) <= 0.02f)
             {

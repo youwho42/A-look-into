@@ -30,7 +30,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField]
     private Slider AutoSaveDisplay;
     [HideInInspector]
-    public int AutoSaveBinary = 0;
+    public int AutoSaveBinary = 1;
     [SerializeField]
     private TextMeshProUGUI AutoSaveText;
     public int languageSelected;
@@ -56,7 +56,7 @@ public class GameplayUI : MonoBehaviour
         SetDisplayHUD(HUDBinary);
         SetAutoZoomReset(autoZoomBinary);
         SetRIB(RIBBinary);
-        SetAutoSave(autoZoomBinary);
+        SetAutoSave(AutoSaveBinary);
     }
 
     void LocaleSelected(int index)
@@ -143,13 +143,13 @@ public class GameplayUI : MonoBehaviour
         
     }
 
-    public void SetFromSave(int locale, int autoZoom, int hud, int rib)
+    public void SetFromSave(int locale, int autoZoom, int hud, int rib, int autoSave)
     {
         LocaleSelected(locale);
         SetAutoZoomReset(autoZoom);
         SetDisplayHUD(hud);
         SetRIB(rib);
-        //SetAutoSave();
+        SetAutoSave(autoSave);
     }
 
 

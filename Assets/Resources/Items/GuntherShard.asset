@@ -36,6 +36,7 @@ MonoBehaviour:
   Weight: 0.5
   Price: 0
   spawnWeight: 20
+  FuelTicks: 0
   Icon: {fileID: 21300000, guid: 549b7ceee11a9194f958158233556b42, type: 3}
   ItemPrefabVariants:
   - {fileID: 2997377886582240980, guid: 58c683c17675f424481c239aa468e6fc, type: 3}
@@ -45,11 +46,15 @@ MonoBehaviour:
   compendiumGuide: {fileID: 0}
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 9d9c9b3288ab3b1418c5433d08659e4c, type: 2}
-    RecipeRevealAmount: 10
+    RecipeRevealAmount: 20
     agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
       type: 2}
   - recipe: {fileID: 11400000, guid: 1d5566312be1c8d4b95c3c013c95800c, type: 2}
-    RecipeRevealAmount: 20
+    RecipeRevealAmount: 40
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
+  - recipe: {fileID: 11400000, guid: 19ca2982523379f44b538413cd30fc27, type: 2}
+    RecipeRevealAmount: 40
     agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
       type: 2}
   GameDificulty: 0

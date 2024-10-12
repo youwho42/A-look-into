@@ -18,13 +18,14 @@ namespace Klaxon.SaveSystem
                 autoZoomBinary = gameplayUI.autoZoomBinary,
                 HUDBinary = gameplayUI.HUDBinary,
                 RIBBinary = gameplayUI.RIBBinary,
+                AutoSaveBinary = gameplayUI.AutoSaveBinary
             };
         }
 
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            gameplayUI.SetFromSave(saveData.localizationIndex, saveData.autoZoomBinary, saveData.HUDBinary, saveData.RIBBinary);
+            gameplayUI.SetFromSave(saveData.localizationIndex, saveData.autoZoomBinary, saveData.HUDBinary, saveData.RIBBinary, saveData.AutoSaveBinary);
         }
 
         [Serializable]
@@ -34,6 +35,7 @@ namespace Klaxon.SaveSystem
             public int autoZoomBinary;
             public int HUDBinary;
             public int RIBBinary;
+            public int AutoSaveBinary;
         }
     }
 }

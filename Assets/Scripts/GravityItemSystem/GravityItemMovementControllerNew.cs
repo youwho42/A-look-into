@@ -176,7 +176,7 @@ namespace Klaxon.GravitySystem
                             slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
                         continue;
                     }
-
+                    
                 }
                 if (tile.direction == nextTileKey)
                     level = tile.levelZ;
@@ -184,8 +184,16 @@ namespace Klaxon.GravitySystem
                     continue;
                 Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
-
-
+                if (nextTilePosition == currentTilePosition.position)
+                    return true;
+                if (!isGrounded)
+                {
+                    Debug.Log("jumping while changing tiles");
+                }
+                else
+                {
+                    Debug.Log("NOT jumping while changing tiles");
+                }
                 // JUMPING! ----------------------------------------------------------------------------------------------------
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
                 if (tile.direction == nextTileKey && !tile.isValid)
@@ -196,7 +204,27 @@ namespace Klaxon.GravitySystem
                     //    onCliffEdge = true;
                     //    return false;
                     //}
-
+                    if (onSlope)
+                    {
+                        if(level <= 0)
+                        {
+                            getOffSlope = true;
+                            ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
+                            onSlope = false;
+                            return true;
+                        }
+                            
+                    }
+                    if (tile.tileName.Contains("Slope"))
+                    {
+                        if (level <= 0)
+                        {
+                            getOnSlope = true;
+                            onSlope = true;
+                            ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
+                            return true;
+                        }
+                    }
                     if (!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                     {
                         var newPos = new Vector3Int(nextTileKey.x, nextTileKey.y, level);
@@ -222,33 +250,41 @@ namespace Klaxon.GravitySystem
                 if (tile.direction == nextTileKey && tile.isValid)
                 {
 
-                    // if the next tile is a slope, am i approaching it in the right direction?
-                    if (tile.tileName.Contains("Slope"))
+                    // I am on a slope
+                    if (onSlope)
                     {
-                        if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
-                            return false;
+                        //am i walking 'off' the slope on the upper part in the right direction ?
+                        //if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                        //{
+                        //    onCliffEdge = true;
+                        //    return false;
+                        //}
 
-                        onSlope = true;
+                        if (tile.levelZ > 0)
+                            getOffSlope = true;
+
+                    }
+                    // if the next tile is a slope, am i approaching it in the right direction?
+                    else if (tile.tileName.Contains("Slope"))
+                    {
+                        if (isGrounded)
+                        {
+                            if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                                return false;
+                        }
+                        
+                        
+
+                        //onSlope = true;
 
                         // is the slope is lower?
                         if (tile.levelZ < 0)
                             getOnSlope = true;
 
-
+                        
                     }
 
-                    // I am on a slope
-                    if (onSlope)
-                    {
-                        //am i walking 'off' the slope on the upper part in the right direction?
-                        if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
-                        {
-                            onCliffEdge = true;
-                            return false;
-                        }
-                        if (tile.levelZ > 0)
-                            getOffSlope = true;
-                    }
+                    
 
                 }
 

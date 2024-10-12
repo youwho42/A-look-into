@@ -56,10 +56,12 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
     void ChangeControlText(string text)
     {
-        
+        string t0 = "";
         string t1 = "";
         string t2 = "";
         string t3 = "";
+        if (!containerInventory.PlayerCanAddToInventory)
+            t0 = "Cannot transfer from player to container";
         if (text == "Gamepad")
         {
             t1 = "A";
@@ -73,7 +75,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             t3 = "E";
         }
 
-        tipText = $"{t1} > transfer item - {t2} > transfer stack / {t3} > close";
+        tipText = $"{t0} {t1} > transfer item - {t2} > transfer stack / {t3} > close";
         UIScreenManager.instance.SetTipPanel(tipText);
 
     }
@@ -81,13 +83,14 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
     public void ShowContainerUI(QI_Inventory container)
     {
-        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
+        
         
         
         containerInventory = container;
         containerName.text = LocalizationSettings.StringDatabase.GetLocalizedString("Items-Utility", container.Name);
         //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         SetContainerUI();
+        ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
     }
     public void HideContainerUI()
     {

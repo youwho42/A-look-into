@@ -6,6 +6,7 @@ Equipment, Copper Axe, 1, ***
 Equipment, Iron Axe, 1, ***
 Equipment, Stone Axe, 1, ***
 Equipment, Clay Bowl, 10, ***
+Equipment, Drinking Glass, 10, ***
 Equipment, Copper Pick Axe, 1, ***
 Equipment, Iron Pick Axe, 1, ***
 Equipment, Stone Pick Axe, 1, ***
@@ -17,6 +18,7 @@ Equipment, Lantern, 1, ***
 Equipment, Poking Stick I, 1, ***
 Equipment, Poking Stick II, 1, ***
 Equipment, Poking Stick III, 1, ***
+Equipment, Torch, 0, ***
 Animal, BP-Harvester, 0, ***
 Animal, BP-Planter, 0, ***
 Animal, BP-Indicator, 0, ***
@@ -57,7 +59,7 @@ Resource, Fibrous Plant, 100, ***
 Resource, Flax Fibers, 100,  - Linen Thread
 Resource, Gunther Crystal, 100, ***
 Resource, Gunther Crystal Dust, 100,  - Compass I - Vial
-Resource, Gunther Crystal Shard, 100,  - Spyglass I - Gunther Crystal Dust
+Resource, Gunther Crystal Shard, 100,  - Spyglass I - Gunther Crystal Dust - Mill
 Resource, Hematite, 100,  - Iron
 Resource, Iron, 100,  - Iron Axe
 Resource, Linen Thread, 100,  - Cloth
@@ -65,11 +67,11 @@ Resource, Linseed, 100, ***
 Resource, Maze Ticket, 100, ***
 Resource, Platinum, 100, ***
 Resource, Rope, 100, ***
-Resource, Sap, 100,  - Torch
+Resource, Sap, 100, ***
 Resource, Sperrylite, 100,  - Platinum
 Resource, Stick Solid, 100,  - Cooking Station
-Resource, Stick Weak, 100, ***
-Resource, Stone, 100,  - Stone Pick Axe - Stone Axe - Mill
+Resource, Stick Weak, 100,  - Torch
+Resource, Stone, 100,  - Stone Pick Axe - Stone Axe - Smelter
 Resource, Sunflower Oil, 100, ***
 Resource, Tumeric, 100, ***
 Resource, Twine, 100,  - Loom - Rope - Burlap
@@ -78,25 +80,31 @@ Resource, Wheat Flour, 100, ***
 Resource, Hard Wood, 100,  - 10 Charcoal
 Resource, Iron Wood, 100,  - 15 Charcoal
 Resource, Medium Wood, 100,  - 5 Charcoal
-Resource, Soft Wood, 100,  - Campfire - Chest Recipe - 1 Charcoal
-Consumable, Blu Strawberri, 100, ***
-Consumable, Blu Strawberri, 0, ***
+Resource, Soft Wood, 100,  - Campfire - Wooden Post - 1 Charcoal - Chest Recipe
+Consumable, Blu Strawberri Plant, 100, ***
+Consumable, Blu Strawberri, 0,  - Blu Strawberri Juice - Juicer
 Consumable, Brown Mushroom, 10, ***
-Consumable, Carrot, 0, ***
+Consumable, Carrot, 0,  - Carrot Juice
 Consumable, Chili, 0, ***
 Consumable, Corn, 0,  - Corn Meal - Popcorn
 Consumable, Ginger, 0, ***
+Consumable, Juice Blu Strawberri, 0, ***
+Consumable, Juice Carrot, 0, ***
+Consumable, Juice Lunibs, 0, ***
+Consumable, Juice Water, 0, ***
+Consumable, Lunibs, 0,  - Roasted Lunibs
 Consumable, Mushroom Soup, 0, ***
 Consumable, Onion, 0, ***
 Consumable, Pinon, 0, ***
 Consumable, Popcorn, 0, ***
 Consumable, Potato, 0, ***
 Consumable, Potato Soup, 0, ***
-Consumable, Pumpkin, 0, ***
+Consumable, Pumpkin, 0,  - Jack-O'-Lantern
 Consumable, Pumpkin Pie, 0, ***
 Consumable, Sunflower Seeds, 0, ***
 Consumable, Tomato, 0, ***
 Consumable, Water Bowl, 0, ***
+Consumable, Roasted Lunibs, 100,  - Carrot Juice
 FarmStuffs, Carrot Plant, 0, ***
 FarmStuffs, Carrot seed, 0, ***
 FarmStuffs, Chili Plant, 0, ***
@@ -119,7 +127,6 @@ FarmStuffs, Tomato Plant, 0, ***
 FarmStuffs, Tomato seed, 0, ***
 FarmStuffs, Wheat Plant, 0, ***
 FarmStuffs, Wheat seed, 0, ***
-Reading, Agency Guide, 0, ***
 Reading, Axe's Guide, 0, ***
 Reading, Movement Guide, 0, ***
 Reading, Compass Guide, 0, ***
@@ -128,6 +135,10 @@ Reading, Crafting Station Guide, 0, ***
 Reading, Farming Guide, 0, ***
 Reading, Research Station Guide, 0, ***
 Reading, Spyglass Guide, 0, ***
+Reading, Agency Guide, 0, ***
+Reading, Bounce Guide, 0, ***
+Reading, Gumption Guide, 0, ***
+Reading, Sparks Guide, 0, ***
 Reading, Undertakings Guide, 0, ***
 Reading, The <sprite anim="0,1,12">, 0, ***
 Reading, Fissures, 0, ***
@@ -144,8 +155,9 @@ Utility, Dynamiblob Statue, 0, ***
 Utility, Broken Dynamiblob Statue, 0, ***
 Utility, Fountain, 1, ***
 Utility, Broken Fountain, 0, ***
-Utility, Mill, 1, ***
+Utility, Juicer, 1, ***
 Utility, Loom, 1, ***
+Utility, Mill, 1, ***
 Utility, Research Post, 0, ***
 Utility, Broken Research Post, 0, ***
 Utility, Seed Box, 1, ***
@@ -157,18 +169,20 @@ Utility, Spinner, 1, ***
 Utility, Squirrel Box, 1, ***
 Utility, Teleport Build Area, 1, ***
 Utility, Teleporter, 0, ***
-Utility, Torch, 10, ***
 Utility, Broken Torch, 0, ***
 Guise, Dog, 0, ***
 Decoration, Ball, 10, ***
 Decoration, Bookcase Basic, 1, ***
 Decoration, Basic Chair, 1, ***
 Decoration, Crate, 1, ***
+Decoration, JackOLantern, 0, ***
+Decoration, JackOLantern Rotten, 0, ***
 Decoration, Planter, 1, ***
 Decoration, Stool, 1, ***
 Decoration, Basic Table, 1, ***
 Decoration, Small Vase, 1, ***
 Decoration, Wheel, 1, ***
+Decoration, Wooden Post, 1, ***
 Smells, Smell Flower Bloop, 0, ***
 Smells, Smell Flower Bluebell, 0, ***
 Smells, Smell Flower Capucine, 0, ***
