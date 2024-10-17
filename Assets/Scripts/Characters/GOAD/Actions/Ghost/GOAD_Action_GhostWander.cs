@@ -41,7 +41,7 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
-            if (agent.currentPathIndex >= agent.aStarPath.Count)
+            if (agent.currentPathIndex >= agent.aStarPath.Count - 1)
             {
                 success = true;
                 agent.SetActionComplete(true);

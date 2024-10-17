@@ -29,8 +29,22 @@ namespace Klaxon.GOAD
             public Vector2 setFromToTimeTick;
         }
         public List<Conditions> conditions = new List<Conditions>();
-
-
+        [Serializable]
+        public class ConditionalCondition
+        {
+            public string conditionName;
+            public GOAD_ScriptableCondition conditionNeeded;
+            public GOAD_ScriptableCondition conditionSet;
+            public bool setDaysAfterConditionsMet;
+            [ConditionalHide("setDaysAfterConditionsMet", true)]
+            public int totalDaysToWait;
+            public int finalDayToBeSet;
+            [HideInInspector]
+            public bool isReady;
+            [HideInInspector]
+            public bool isSet;
+        }
+        public List<ConditionalCondition> conditionalConditions = new List<ConditionalCondition>();   
 
         public Dictionary<string, bool> worldStates = new Dictionary<string, bool>();
 
@@ -86,7 +100,7 @@ namespace Klaxon.GOAD
             {
                 worldStates[condition] = state;
             }
-
+            SetConditionalConditions();
             GameEventManager.onWorldStateUpdateEvent.Invoke();
         }
 
@@ -112,6 +126,34 @@ namespace Klaxon.GOAD
                 }
             }
 
+        }
+
+        void SetConditionalConditions()
+        {
+            foreach (var condition in conditionalConditions)
+            {
+                if (condition.isSet)
+                    continue;
+                
+                if (HasState(condition.conditionNeeded.Condition, condition.conditionNeeded.State))
+                {
+                    if (!condition.isReady)
+                    {
+                        condition.finalDayToBeSet = RealTimeDayNightCycle.instance.currentDayRaw + condition.totalDaysToWait;
+                        condition.isReady = true;
+                    }
+                    if(condition.isReady && RealTimeDayNightCycle.instance.currentDayRaw == condition.finalDayToBeSet)
+                    {
+                        if (!worldStates.ContainsKey(condition.conditionSet.Condition))
+                            worldStates.Add(condition.conditionSet.Condition, condition.conditionSet.State);
+                        else
+                            worldStates[condition.conditionSet.Condition] = condition.conditionSet.State;
+
+                        condition.isSet = true;
+                    }
+                }
+            }
+            
         }
 
         public bool HasState(string condition, bool state)

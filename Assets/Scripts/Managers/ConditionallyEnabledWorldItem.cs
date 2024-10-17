@@ -20,7 +20,9 @@ public class ConditionallyEnabledWorldItem : MonoBehaviour
     private void Start()
     {
         worldBeliefStates = GOAD_WorldBeliefStates.instance;
+        ActivateWorldItem();
         GameEventManager.onWorldStateUpdateEvent.AddListener(ActivateWorldItem);
+        
     }
 
     public void OnDisable()
@@ -34,7 +36,8 @@ public class ConditionallyEnabledWorldItem : MonoBehaviour
         {
             if(worldBeliefStates.HasState(item.worldCondition.Condition, item.worldCondition.State))
                 item.worldItem.SetActive(item.activate);
-
+            else
+                item.worldItem.SetActive(!item.activate);
         }
     }
 }

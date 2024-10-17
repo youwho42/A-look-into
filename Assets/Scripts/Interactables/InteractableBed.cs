@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using QuantumTek.QuantumInventory;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +11,12 @@ namespace Klaxon.Interactable
         public bool facingRight;
         public NavigationNode navigationNode;
         SleepDisplayUI sleepDisplay;
+        QI_ItemData pickUpItem;
 
         public override void Start()
         {
             base.Start();
+            pickUpItem = GetComponent<QI_Item>().Data;
             sleepDisplay = SleepDisplayUI.instance;
         }
 
@@ -27,6 +30,29 @@ namespace Klaxon.Interactable
                 CloseSleeping();
 
             
+
+        }
+
+        public override void LongInteract(GameObject interactor)
+        {
+            base.Interact(interactor);
+
+            
+            PickUpBed();
+
+        }
+
+        void PickUpBed()
+        {
+            var item = GetComponent<QI_Item>().Data;
+            if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
+            {
+                if (pickUpItem.placementGumption != null)
+                    PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
+                if (replaceObjectOnDrop != null)
+                    replaceObjectOnDrop.ShowObjects(true);
+                Destroy(gameObject);
+            }
 
         }
 

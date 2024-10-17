@@ -59,7 +59,7 @@ public class EquipmentGatherData : EquipmentData
         // Find nearest item.
         Collider2D nearest = null;
         float distance = 0;
-       
+        PlayerInformation playerInfo = PlayerInformation.instance;
         for (int i = 0; i < colliders.Length; i++)
         {
 
@@ -102,7 +102,7 @@ public class EquipmentGatherData : EquipmentData
                         {
                             continue;
                         }
-                        if (PlayerInformation.instance.playerInventory.AddItem(nearestItem.Data, 1, false))
+                        if (playerInfo.playerInventory.AddItem(nearestItem.Data, 1, false))
                         {
 
                             if (!takeSample)
@@ -127,7 +127,7 @@ public class EquipmentGatherData : EquipmentData
                             }
                             if (nearestItemList.RemoveItem())
                             {
-                                if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1, false))
+                                if (playerInfo.playerInventory.AddItem(itemData, 1, false))
                                 {
 
                                     if (!takeSample)
@@ -164,11 +164,17 @@ public class EquipmentGatherData : EquipmentData
                                 {
                                     continue;
                                 }
-                                none = false;
-                                if (InteractCostReward())
+                                if (!playerInfo.playerInventory.CheckInventoryHasSpace(itemData))
                                 {
-                                    
-                                    PlayerInformation.instance.playerActivateSpyglass.SlowTimeEvent(false);
+                                    Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory Full"), null, 0, NotificationsType.Warning);
+                                    return;
+                                }
+
+                                none = false;
+                                if (InteractCostReward(playerInfo))
+                                {
+
+                                    playerInfo.playerActivateSpyglass.SlowTimeEvent(false);
                                     nearestItemList.hasBeenHarvested = true;
                                     nearestItemList.harvestedSticker.SetActive(true);
                                     MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
@@ -178,7 +184,7 @@ public class EquipmentGatherData : EquipmentData
                         }
                         if (none)
                         {
-                            PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+                            playerInfo.playerAnimator.SetBool("UseEquipement", false);
                             Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Wrong equipment"), null, 0, NotificationsType.Warning);
                             
                             //NotificationManager.instance.SetNewNotification($"You cannot gather {nearestItemList.dataList[0].Name} with the {EquipmentManager.instance.currentEquipment[(int)EquipmentSlot.Hands].Name}.", NotificationManager.NotificationType.Warning);
@@ -187,7 +193,7 @@ public class EquipmentGatherData : EquipmentData
                     }
                     else
                     {
-                        PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+                        playerInfo.playerAnimator.SetBool("UseEquipement", false);
                         Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Already Harvested"), null, 0, NotificationsType.Warning);
 
                         //NotificationManager.instance.SetNewNotification($"You already harvested from this object today.", NotificationManager.NotificationType.Warning);
@@ -198,15 +204,15 @@ public class EquipmentGatherData : EquipmentData
             }
         }
     }
-    bool InteractCostReward()
+    bool InteractCostReward(PlayerInformation pInfo)
     {
-        if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(statChanger.Amount))
+        if (pInfo.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(statChanger.Amount))
         {
-            PlayerInformation.instance.statHandler.ChangeStat(statChanger);
+            pInfo.statHandler.ChangeStat(statChanger);
             //PlayerInformation.instance.playerStats.RemoveFromBounce(playerEnergyCost);
             return true;
         }
-        PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
+        pInfo.playerAnimator.SetBool("UseEquipement", false);
         Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
 
         //NotificationManager.instance.SetNewNotification("You are missing Yellow Bar stuff to do this.");

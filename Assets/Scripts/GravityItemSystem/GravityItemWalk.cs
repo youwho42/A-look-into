@@ -151,6 +151,7 @@ namespace Klaxon.GravitySystem
 
             int level = 0;
 
+            
             TileInfoRequestManager.RequestTileInfo(currentTilePosition.position, TileFound);
 
             if (tileBlockInfo == null)
@@ -193,6 +194,8 @@ namespace Klaxon.GravitySystem
                     continue;
                 Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
+                if (nextTilePosition == currentTilePosition.position)
+                    return true;
 
 
                 // JUMPING! ----------------------------------------------------------------------------------------------------

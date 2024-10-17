@@ -48,6 +48,7 @@ namespace Klaxon.GOAD
         public List<Conditions> conditions = new List<Conditions>();
         public List<SpecialCondition> specialConditions = new List<SpecialCondition>();
         public List<TimedCondition> timedConditions = new List<TimedCondition>();
+        public List<GOAD_ScriptableCondition> dailyResetConditions = new List<GOAD_ScriptableCondition>();
         public GOAD_Scheduler scheduler;
         RealTimeDayNightCycle dayNightCycle;
 
@@ -133,7 +134,11 @@ namespace Klaxon.GOAD
         void SetTimedPersonalCondition(int currentDay)
         {
             var worldStates = GOAD_WorldBeliefStates.instance;
-           
+            foreach (var condition in dailyResetConditions)
+            {
+                scheduler.SetBeliefState(condition.Condition, condition.State);
+            }
+
             foreach (var condition in timedConditions)
             {
                 if (!condition.setDaysAfterConditionsMet)

@@ -5,6 +5,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Klaxon.GOAD
 {
@@ -27,6 +28,8 @@ namespace Klaxon.GOAD
 
         [HideInInspector]
         public bool offScreen;
+        [HideInInspector]
+        public bool nearPlayer;
 
         [HideInInspector]
         public GravityItemWalk walker;
@@ -77,6 +80,9 @@ namespace Klaxon.GOAD
         bool inTalkRange;
         float inTalkRangeTimer;
         DialogueManagerUI dialogueManager;
+        public Transform speechBubbleTransform;
+        public GOAD_ScriptableCondition canDailySpeakWithPlayer;
+        public GOAD_ScriptableCondition canSpeakWithPlayerPeriod;
 
         public override void Start()
         {
@@ -98,7 +104,13 @@ namespace Klaxon.GOAD
                 TalkRangeTimer();
                 return;
             }
-
+            if (nearPlayer && IsConditionMet(canDailySpeakWithPlayer) && IsConditionMet(canSpeakWithPlayerPeriod))
+            {
+                if(Random.Range(0.0f, 1.0f) <= 0.25f)
+                    ContextSpeechBubbleManager.instance.SetContextBubble(3, speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hello Player"), true);
+                
+                SetBeliefState(canDailySpeakWithPlayer.Condition, !canDailySpeakWithPlayer.State);
+            }
 
             if (currentGoalIndex < 0 && availableActions.Count > 0)
             {
@@ -349,18 +361,17 @@ namespace Klaxon.GOAD
             if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
             {
                 
-                if (PlayerInformation.instance.playerAnimator.GetBool("IsSitting") || PlayerInformation.instance.playerAnimator.GetBool("IsSleeping") || isBusy)
+                if (isBusy|| animator.GetBool(isSleeping_hash))
                     return;
                 
                 inTalkRange = true;
                 animator.SetFloat(velocityX_hash, 0);
                 walker.currentDirection = Vector2.zero;
-                if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
-                {
-                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
-                    collision.transform.position.x > transform.position.x && !walker.facingRight)
-                        walker.Flip();
-                }
+                
+                if (collision.transform.position.x < transform.position.x && walker.facingRight ||
+                collision.transform.position.x > transform.position.x && !walker.facingRight)
+                    walker.Flip();
+                
 
 
             }

@@ -45,6 +45,8 @@ public class ConsoleDisplayUI : MonoBehaviour
         items.Add(" ");
         for (int i = 0; i < allItemsDatabase.Items.Count; i++)
         {
+            if (allItemsDatabase.Items[i] == null)
+                continue;
             items.Add(allItemsDatabase.Items[i].Name);
         }
         items.Sort();

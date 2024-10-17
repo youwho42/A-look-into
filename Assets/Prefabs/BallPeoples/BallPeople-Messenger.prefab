@@ -607,6 +607,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &1922055878059167226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5640973068886415090}
+  m_Layer: 0
+  m_Name: SpeechBubble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5640973068886415090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922055878059167226}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3669067541027879401}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2057764634072783559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,6 +1627,7 @@ MonoBehaviour:
   currentFire: {fileID: 0}
   type: 0
   BPHomeDestination: {x: 0, y: 0, z: 0}
+  speechBubbleTransform: {fileID: 5640973068886415090}
   hasFoundDestination: 0
   justIndicatedTravellerDestination: 0
   travellerAreaFoundCondition: {fileID: 0}
@@ -1778,6 +1810,8 @@ MonoBehaviour:
     setBetweenTimes: 0
     setFromToTimeTick: {x: 0, y: 0}
   specialConditions: []
+  timedConditions: []
+  dailyResetConditions: []
   scheduler: {fileID: 7426438665716282705}
 --- !u!1 &3669067540875941393
 GameObject:
@@ -1897,6 +1931,7 @@ Transform:
   - {fileID: 3669067541797113145}
   - {fileID: 6597659317767841431}
   - {fileID: 1393783013621861581}
+  - {fileID: 5640973068886415090}
   m_Father: {fileID: 3669067541791994077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3669067541027879398

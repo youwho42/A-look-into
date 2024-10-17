@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &4459392728133920222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,8 +186,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:fe8027436c05aca4f9379190ec58069a
+    m_TableEntryReference:
+      m_KeyId: 6104307109257216
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -194,6 +204,7 @@ MonoBehaviour:
   canPlaceOnOther: 1
   visualItem: {fileID: 8331251571769606503}
   instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   references:
     version: 2
     RefIds: []

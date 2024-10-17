@@ -2,6 +2,7 @@ using Klaxon.Interactable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Klaxon.GOAD
 {
@@ -19,11 +20,21 @@ namespace Klaxon.GOAD
             agent.interactor.canInteract = false;
             agent.animator.SetBool(agent.walking_hash, true);
             offset = new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+            ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "HOME"), false);
+
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
+
+            if (!agent.CheckNearPlayer(3))
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+
             if (atDestination)
             {
                 

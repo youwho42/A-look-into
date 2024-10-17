@@ -8,87 +8,102 @@ public class QuadTree
 {
     public Bounds bounds;
     public int capacity;
-    public List<DrawZasYDisplacement> allSpots = new List<DrawZasYDisplacement>();
-    public bool divided;
-    public QuadTree northWest;
-    public QuadTree northEast;
-    public QuadTree southWest;
-    public QuadTree southEast;
+    private List<DrawZasYDisplacement> allSpots;
+    private bool divided;
+    private QuadTree northWest;
+    private QuadTree northEast;
+    private QuadTree southWest;
+    private QuadTree southEast;
 
     public QuadTree(Bounds bounds, int capacity)
     {
         this.bounds = bounds;
         this.capacity = capacity;
+        this.allSpots = new List<DrawZasYDisplacement>();
+        this.divided = false;
     }
 
-    public void Insert(DrawZasYDisplacement spot)
+    public bool Insert(DrawZasYDisplacement spot)
     {
         if (!bounds.Contains(spot.transform.position))
-            return;
+            return false;
 
         if (allSpots.Count < capacity)
+        {
             allSpots.Add(spot);
+            return true;
+        }
         else
         {
             if (!divided)
                 Subdivide();
-            
-               
-            northEast.Insert(spot);
-            northWest.Insert(spot);
-            southWest.Insert(spot);
-            southEast.Insert(spot);
+
+            // Insert the spot into the appropriate quadrant
+            if (northWest.Insert(spot)) return true;
+            if (northEast.Insert(spot)) return true;
+            if (southWest.Insert(spot)) return true;
+            if (southEast.Insert(spot)) return true;
         }
-           
+
+        return false; // Should not reach here
     }
 
-    
-
-    public void Subdivide()
+    private void Subdivide()
     {
-        Bounds nw = new Bounds(new Vector3(bounds.center.x - bounds.extents.x / 2, bounds.center.y + bounds.extents.y / 2), bounds.extents);
+        float halfWidth = bounds.size.x / 2f;
+        float halfHeight = bounds.size.y / 2f;
+        Vector3 center = bounds.center;
+
+        // Define the bounds for each quadrant
+        Bounds nw = new Bounds(new Vector3(center.x - halfWidth / 2f, center.y + halfHeight / 2f, center.z), new Vector3(halfWidth, halfHeight, bounds.size.z));
         northWest = new QuadTree(nw, capacity);
-        Bounds ne = new Bounds(new Vector3(bounds.center.x + bounds.extents.x / 2, bounds.center.y + bounds.extents.y / 2), bounds.extents);
+
+        Bounds ne = new Bounds(new Vector3(center.x + halfWidth / 2f, center.y + halfHeight / 2f, center.z), new Vector3(halfWidth, halfHeight, bounds.size.z));
         northEast = new QuadTree(ne, capacity);
-        Bounds sw = new Bounds(new Vector3(bounds.center.x - bounds.extents.x / 2, bounds.center.y - bounds.extents.y / 2), bounds.extents);
+
+        Bounds sw = new Bounds(new Vector3(center.x - halfWidth / 2f, center.y - halfHeight / 2f, center.z), new Vector3(halfWidth, halfHeight, bounds.size.z));
         southWest = new QuadTree(sw, capacity);
-        Bounds se = new Bounds(new Vector3(bounds.center.x + bounds.extents.x / 2, bounds.center.y - bounds.extents.y / 2), bounds.extents);
+
+        Bounds se = new Bounds(new Vector3(center.x + halfWidth / 2f, center.y - halfHeight / 2f, center.z), new Vector3(halfWidth, halfHeight, bounds.size.z));
         southEast = new QuadTree(se, capacity);
 
         divided = true;
+
+        // Redistribute existing spots into children
+        List<DrawZasYDisplacement> spotsToRedistribute = new List<DrawZasYDisplacement>(allSpots);
+        allSpots.Clear();
+        foreach (var spot in spotsToRedistribute)
+        {
+            Insert(spot);
+        }
     }
 
-
-    public List<DrawZasYDisplacement> QueryTree(Bounds boundry)
+    public List<DrawZasYDisplacement> QueryTree(Bounds boundary)
     {
-        
-        List<DrawZasYDisplacement> spots = new List<DrawZasYDisplacement>();
+        List<DrawZasYDisplacement> foundSpots = new List<DrawZasYDisplacement>();
 
-        if (!bounds.Intersects(boundry))
-            return spots;
+        if (!bounds.Intersects(boundary))
+            return foundSpots;
 
         foreach (var spot in allSpots)
         {
             if (spot == null)
                 continue;
-            if (boundry.Contains(spot.transform.position))
-                spots.Add(spot);
 
+            if (boundary.Contains(spot.transform.position))
+                foundSpots.Add(spot);
         }
 
-        if(divided)
+        if (divided)
         {
-            spots.AddRange(northWest.QueryTree(boundry));
-            spots.AddRange(northEast.QueryTree(boundry));
-            spots.AddRange(southWest.QueryTree(boundry));
-            spots.AddRange(southEast.QueryTree(boundry));
+            foundSpots.AddRange(northWest.QueryTree(boundary));
+            foundSpots.AddRange(northEast.QueryTree(boundary));
+            foundSpots.AddRange(southWest.QueryTree(boundary));
+            foundSpots.AddRange(southEast.QueryTree(boundary));
         }
 
-        return spots;
+        return foundSpots;
     }
-
-    
-
 }
 
 public class InteractAreasManager : MonoBehaviour

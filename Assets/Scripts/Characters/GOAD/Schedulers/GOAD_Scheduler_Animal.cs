@@ -323,32 +323,37 @@ namespace Klaxon.GOAD
         {
 
         }
+
         public DrawZasYDisplacement CheckForDisplacementSpot()
         {
-
             if (sleep.isSleeping || interactAreas == null)
                 return null;
-            closestSpots.Clear();
+
+            // Direct assignment, no need for Clear()
             closestSpots = interactAreas.QueryQuadTree(bounds);
-            if (closestSpots.Count <= 0)
+
+            if (closestSpots == null || closestSpots.Count == 0)
                 return null;
-            
-            DrawZasYDisplacement bestTarget = null;
-            float closestDistance = Mathf.Infinity;
+
+            float closestDistanceSqr = Mathf.Infinity;
             Vector2 currentPosition = transform.position;
+            DrawZasYDisplacement bestTarget = null;
+
             foreach (var item in closestSpots)
             {
+                // Skip if item is null, in use, or position is invalid
                 if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position))
                     continue;
-                var dist = Vector2.Distance(currentPosition, item.transform.position);
 
-                if (dist < closestDistance)
-                {
-                    if (dist < minHomeDistance)
-                        continue;
-                    closestDistance = dist;
-                    bestTarget = item;
-                }
+                // Calculate squared distance to avoid sqrt overhead
+                float distSqr = (currentPosition - (Vector2)item.transform.position).sqrMagnitude;
+
+                // Skip if it's too close to the home distance or not the closest
+                if (distSqr < minHomeDistance * minHomeDistance || distSqr >= closestDistanceSqr)
+                    continue;
+
+                closestDistanceSqr = distSqr;
+                bestTarget = item;
             }
 
             if (bestTarget == null)
@@ -358,8 +363,48 @@ namespace Klaxon.GOAD
             currentDisplacementSpot.isInUse = true;
 
             return bestTarget;
-
         }
+
+
+        //public DrawZasYDisplacement CheckForDisplacementSpot()
+        //{
+
+
+
+        //    if (sleep.isSleeping || interactAreas == null)
+        //        return null;
+        //    closestSpots.Clear();
+        //    closestSpots = interactAreas.QueryQuadTree(bounds);
+        //    if (closestSpots.Count <= 0)
+        //        return null;
+
+        //    DrawZasYDisplacement bestTarget = null;
+        //    float closestDistance = Mathf.Infinity;
+        //    Vector2 currentPosition = transform.position;
+        //    foreach (var item in closestSpots)
+        //    {
+        //        if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position))
+        //            continue;
+        //        var dist = Vector2.Distance(currentPosition, item.transform.position);
+
+        //        if (dist < closestDistance)
+        //        {
+        //            if (dist < minHomeDistance)
+        //                continue;
+        //            closestDistance = dist;
+        //            bestTarget = item;
+        //        }
+        //    }
+
+        //    if (bestTarget == null)
+        //        return null;
+
+        //    currentDisplacementSpot = bestTarget;
+        //    currentDisplacementSpot.isInUse = true;
+
+        //    return bestTarget;
+
+        //}
 
         public float TurnHead()
         {

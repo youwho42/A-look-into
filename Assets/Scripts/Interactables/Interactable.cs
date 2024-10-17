@@ -15,6 +15,7 @@ namespace Klaxon.Interactable
         public string interactVerb = "whaaAA???";
         public LocalizedString localizedInteractVerb;
         public LocalizedString longInteractVerb;
+        public LocalizedString localizedItemName;
 
         public StatChanger bounceCost;
         

@@ -8,6 +8,8 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.Localization;
 using System;
+using Klaxon.Interactable;
+using UnityEngine.Localization.Settings;
 
 public class CompendiumDisplayUI : MonoBehaviour
 {
@@ -83,6 +85,8 @@ public class CompendiumDisplayUI : MonoBehaviour
 
     public GameObject resourceButtonTypesHolder;
     public List<ResourceButtonType> resourceButtonType = new List<ResourceButtonType>();
+
+    public List<InteractableCraftingStation> allCraftingStations = new List<InteractableCraftingStation>();
     private void Start()
     {
         playerInformation = PlayerInformation.instance;
@@ -495,9 +499,9 @@ public class CompendiumDisplayUI : MonoBehaviour
         localizedDisplayDescription = item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
         informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString(item.Name)}</style>\n\n{item.localizedDescription.GetLocalizedString(item.Name + " Description")}\n\n";
-        if (item.Type == QuantumTek.QuantumInventory.ItemType.Consumable)
+        if (item.Type == ItemType.Consumable)
         {
-            informationDisplayItemDescription.text += GetStatModifierText(item as ConsumableItemData); 
+            informationDisplayItemDescription.text += $"{GetStatModifierText(item as ConsumableItemData)}\n"; 
         }
         recipeDisplay.SetActive(false);
         recipeRevealDisplay.SetActive(false);
@@ -512,6 +516,11 @@ public class CompendiumDisplayUI : MonoBehaviour
                 //agencyText.text = recipe.AgencyCost.ToString();
             }
             recipeDisplay.SetActive(true);
+            informationDisplayItemDescription.text += GetCraftingStation(recipe);
+        }
+        else
+        {
+            informationDisplayItemDescription.text += GetCraftingStation(item);
         }
         if (recipeReveals.Count > 0)
         {
@@ -557,6 +566,36 @@ public class CompendiumDisplayUI : MonoBehaviour
         }
         return text;
     }
+
+    string GetCraftingStation(QI_CraftingRecipe recipe)
+    {
+        
+        foreach (var station in allCraftingStations)
+        {
+            foreach (var r in station.recipeDatabase.CraftingRecipes)
+            {
+                if (r == recipe)
+                    return $"{LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")} {station.GetComponent<QI_Item>().Data.localizedName.GetLocalizedString()} \n";
+            }
+        }
+        return "";
+    }
+
+    string GetCraftingStation(QI_ItemData item)
+    {
+
+        foreach (var station in allCraftingStations)
+        {
+            foreach (var recipe in station.recipeDatabase.CraftingRecipes)
+            {
+                if (recipe.Product.Item == item)
+                    return $"{LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")} {station.GetComponent<QI_Item>().Data.localizedName.GetLocalizedString()} \n";
+            }
+        }
+        return "";
+    }
+
+
 
     public void ClearItemInformation()
     {

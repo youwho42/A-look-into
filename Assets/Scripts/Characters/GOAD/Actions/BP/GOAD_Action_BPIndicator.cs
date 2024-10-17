@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Klaxon.GOAD
 {
@@ -14,17 +15,22 @@ namespace Klaxon.GOAD
         float leadDistanceOffset;
         bool distanceSet;
         float timer;
+        Vector2 minMaxThoughtBubbleTime = new Vector2(30,60);
+        float thoughtBubbleTime;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
+            timer = 0;
             agent.interactor.canInteract = false;
             agent.animator.SetBool(agent.walking_hash, true);
-
+            thoughtBubbleTime = Random.Range(minMaxThoughtBubbleTime.x, minMaxThoughtBubbleTime.y);
             SetMarkerDestination(agent);
             player = PlayerInformation.instance;
             playerMarkerTextureMap = PlayerMarkerTextureMap.instance;
             leadDistanceOffset = Random.Range(-0.05f, 0.3f);
             distanceSet = true;
+            ContextSpeechBubbleManager.instance.SetContextBubble(4, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay"), false);
+
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
@@ -41,6 +47,12 @@ namespace Klaxon.GOAD
                 
                 return;
             }
+            if (!agent.CheckNearPlayer(3))
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
 
             if (agent.walker.isStuck || agent.isDeviating)
             {
@@ -55,7 +67,13 @@ namespace Klaxon.GOAD
             SetIndicatorPosition();
             agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)indicatorPos;
 
+            thoughtBubbleTime-=Time.deltaTime;
+            if (thoughtBubbleTime <= 0)
+            {
+                thoughtBubbleTime = Random.Range(minMaxThoughtBubbleTime.x, minMaxThoughtBubbleTime.y);
+                ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay"), false);
 
+            }
 
 
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
@@ -90,6 +108,8 @@ namespace Klaxon.GOAD
 
             if (DistanceToMarker() <= 0.5f)
             {
+                ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorLocationFound"), false);
+
                 agent.walker.currentDirection = Vector2.zero;
                 agent.animator.SetBool(agent.walking_hash, false);
                 agent.walker.jumpAhead = true;
@@ -106,8 +126,9 @@ namespace Klaxon.GOAD
             agent.interactor.canInteract = true;
 
             agent.animator.SetBool(agent.walking_hash, false);
+            agent.walker.isStuck = false;
+            agent.isDeviating = false;
 
-            
         }
 
         public void SetMarkerDestination(GOAD_Scheduler_BP agent)

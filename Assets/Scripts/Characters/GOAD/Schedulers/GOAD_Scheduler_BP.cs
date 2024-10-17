@@ -63,7 +63,7 @@ namespace Klaxon.GOAD
 
         [HideInInspector]
         public Vector3 BPHomeDestination;
-
+        public Transform speechBubbleTransform;
         /// <summary>
         /// Traveller BP
         /// </summary>

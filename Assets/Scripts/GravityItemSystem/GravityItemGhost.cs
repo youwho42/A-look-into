@@ -106,7 +106,7 @@ namespace Klaxon.GravitySystem
             
 
             int level = 0;
-
+            
             TileInfoRequestManager.RequestTileInfo(currentTilePosition.position, TileFound);
 
             if (tileBlockInfo == null)
@@ -149,7 +149,8 @@ namespace Klaxon.GravitySystem
                     continue;
                 Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
-
+                if (nextTilePosition == currentTilePosition.position)
+                    return true;
 
                 // JUMPING! ----------------------------------------------------------------------------------------------------
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height

@@ -377,7 +377,6 @@ namespace Klaxon.GravitySystem
                                     return false;
                                 }
 
-
                             }
 
                         }

@@ -91,9 +91,12 @@ public class PlayerDistanceToggle : MonoBehaviour
     {
         if (agent == null)
             return;
-        bool state = GetPlayerDistance(agent.transform, playerPos) <= maxDist * maxDist;
+        float dist = GetPlayerDistance(agent.transform, playerPos);
+        bool state = dist <= maxDist * maxDist || !agent.offScreen;
+        bool nearPlayer = dist <= 1.5f;
         agent.animator.enabled = state;
         agent.offScreen = !state;
+        agent.nearPlayer = nearPlayer;
     }
 
     public float GetPlayerDistance(Transform objTransform, Vector3 playerPos)

@@ -44,7 +44,15 @@ public class GridManager : MonoBehaviour
     }
     private void Start()
     {
+        GameEventManager.onGameLoadedEvent.AddListener(SetGradient);
+        GameEventManager.onGameStartLoadEvent.AddListener(SetGradient);
         SetGradient();
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.onGameLoadedEvent.RemoveListener(SetGradient);
+        GameEventManager.onGameStartLoadEvent.RemoveListener(SetGradient);
     }
 
     void SetGradient()
@@ -59,6 +67,10 @@ public class GridManager : MonoBehaviour
                 Vector3Int pos = new Vector3Int(x, y, z);
                     if (groundMap.GetTile(pos) != null)
                     {
+                        groundMap.SetTileFlags(pos, TileFlags.None);
+                        decorationOne.SetTileFlags(pos, TileFlags.None);
+                        decorationTwo.SetTileFlags(pos, TileFlags.None);
+
                         float c = NumberFunctions.RemapNumber(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, 0.0f, 0.25f);
                         Color levelcolor = Color.Lerp(Color.white, Color.black, c);
                         groundMap.SetColor(pos, levelcolor);

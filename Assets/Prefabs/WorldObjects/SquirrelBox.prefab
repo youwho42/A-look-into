@@ -154,8 +154,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 6245081210880
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -163,8 +171,11 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 8125003967965524453}
   canPlaceOnOther: 0
   visualItem: {fileID: 8205734965921608282}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   isOpen: 0
   isSquirrelBox: 1
+  isLostAndFound: 0
   references:
     version: 2
     RefIds: []
@@ -181,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 63d97d31ad99f8a44aacd920190657c3, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &6170133900980816654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +218,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!58 &1391937170142155149
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -73,8 +73,16 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 2074235953152
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
@@ -82,8 +90,11 @@ MonoBehaviour:
   replaceObjectOnDrop: {fileID: 7753344069441805333}
   canPlaceOnOther: 1
   visualItem: {fileID: 3081765978603034298}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   isOpen: 0
   isSquirrelBox: 0
+  isLostAndFound: 0
   references:
     version: 2
     RefIds: []
@@ -101,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Chest
   MaxStacks: 24
+  PlayerCanAddToInventory: 1
 --- !u!60 &169350935358001118
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -177,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &3895996295937873297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 6a229901705335245b7ea313d86326f2, type: 2}
+  itemVariantIndex: 0
 --- !u!114 &-6500804666801059760
 MonoBehaviour:
   m_ObjectHideFlags: 0

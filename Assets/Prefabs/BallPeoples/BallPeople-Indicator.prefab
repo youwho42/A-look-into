@@ -210,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -225,7 +225,7 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.data[2].Name
-      value: Set Fire
+      value: TeleportToPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -236,6 +236,11 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[1].Priority
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[2].Priority
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -253,7 +258,7 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[2].DesiredGoal.ResultCondition
       value: 
-      objectReference: {fileID: 11400000, guid: d7872e5781151934aa18d84f5868a463,
+      objectReference: {fileID: 11400000, guid: 42ffd9db415d2dc4c8ee3a6562d029c1,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -271,7 +276,7 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
+      objectReference: {fileID: 11400000, guid: b15341d8b26059046a961455765be920,
         type: 2}
     - target: {fileID: 7959522142015012436, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -293,6 +298,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 14
       addedObject: {fileID: 767022714493567859}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3147621343875626062}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
 --- !u!1 &336499352444056229 stripped
 GameObject:
@@ -320,4 +329,29 @@ MonoBehaviour:
   success: 0
   conditionsOnSucceed:
   - {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597, type: 2}
+  conditionsOnFail:
+  - {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}
+--- !u!114 &3147621343875626062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336499352444056229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbf33b283814e944bd7c18d980aa834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Teleport
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 42ffd9db415d2dc4c8ee3a6562d029c1, type: 2}
+    PreCondition: {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 896eac7591b94a24f9601c46171f8d19, type: 2}
   conditionsOnFail: []
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288

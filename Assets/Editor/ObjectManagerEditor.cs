@@ -79,16 +79,17 @@ public class ObjectManagerEditor : Editor
             //Should we add or remove objects?
             if (objectManager.action == ObjectManagerCircle.Actions.AddObjects)
             {
-                AddNewPrefabs(center + new Vector3(0, offsetZ * 0.2990625f, offsetZ));
+                AddNewPrefabs(center + new Vector3(0, offsetZ * GlobalSettings.SpriteDisplacementY, offsetZ));
 
-                MarkSceneAsDirty();
+                
             }
             else if (objectManager.action == ObjectManagerCircle.Actions.RemoveObjects)
             {
                 objectManager.RemoveObjects(center);
 
-                MarkSceneAsDirty();
             }
+            
+            MarkSceneAsDirty();
         }
     }
 
@@ -132,7 +133,6 @@ public class ObjectManagerEditor : Editor
             {
                 
                 GameObject newGO = objectManager.useNeighboringObjects? CreateGameObjectFromNeighbor(center) : CreateGameObjectFromPrefab();
-
                 //Send it to the main script to add it at a random position within the circle
                 objectManager.AddPrefab(newGO, center);
             }
@@ -149,7 +149,6 @@ public class ObjectManagerEditor : Editor
                 if (Vector2.Distance(positions[i], area/2) < objectManager.radius)
                 {
                     GameObject newGO = objectManager.useNeighboringObjects ? CreateGameObjectFromNeighbor(center) : CreateGameObjectFromPrefab();
-
                     //Send it to the main script to add it at a random position within the circle
                     objectManager.AddPrefab(newGO, center, positions[i]);
                 }

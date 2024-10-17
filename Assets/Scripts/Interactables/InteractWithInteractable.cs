@@ -137,15 +137,18 @@ namespace Klaxon.Interactable
                 closest.SetInteractVerb();
                 string buttTap = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
                 string action="";
-                if (closest.interactVerb!= "")
-                    action = $"{buttTap} {closest.interactVerb}";
+                if (closest.localizedInteractVerb != null)
+                    action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
                 string buttHold = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
                 string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");
                 if (closest.hasLongInteract)
                 {
-                    action += $"\n {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {closest.localizedInteractVerb.GetLocalizedString()}";
+                    string itemName = "";
+                    if (closest.localizedItemName != null)
+                        itemName = closest.localizedItemName.GetLocalizedString();
+                    action += $"\n {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {itemName}";
                     interactSlider.gameObject.SetActive(true);
                 }
                 interactVerb.text = action;

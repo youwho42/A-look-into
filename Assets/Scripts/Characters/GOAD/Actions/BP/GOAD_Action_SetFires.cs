@@ -2,6 +2,7 @@ using Klaxon.Interactable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Klaxon.GOAD
 {
@@ -20,6 +21,8 @@ namespace Klaxon.GOAD
             agent.animator.SetBool(agent.sleeping_hash, false);
             agent.animator.SetBool(agent.walking_hash, true);
             currentFireDirection = GetFiresPosition(agent);
+            ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "FIRE"), false);
+
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
@@ -75,6 +78,8 @@ namespace Klaxon.GOAD
             hasLicked = false;
             timer = 0;
             agent.currentFire = null;
+            agent.walker.isStuck = false;
+            agent.isDeviating = false;
         }
 
 

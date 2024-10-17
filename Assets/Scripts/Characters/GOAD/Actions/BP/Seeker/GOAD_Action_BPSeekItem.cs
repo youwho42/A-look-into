@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Klaxon.GOAD
 {
@@ -17,11 +18,21 @@ namespace Klaxon.GOAD
             base.StartAction(agent);
             agent.interactor.canInteract = false;
             agent.animator.SetBool(agent.walking_hash, true);
+            ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, $"{agent.seekItem.localizedName.GetLocalizedString()}!", false);
+
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
+            //if(agent.currentSeekItem = null)
+            //{
+            //    ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "SeekItemMissing"), false);
+            //    agent.isSeeking = false;
+            //    success = false;
+            //    agent.SetActionComplete(true);
+            //    return;
+            //}
             if (isLicking)
             {
 
@@ -41,6 +52,8 @@ namespace Klaxon.GOAD
                     agent.foundAmount++;
                     if (agent.foundAmount == agent.seekAmount)
                     {
+                        ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "SeekItemFound"), false);
+
                         agent.task.undertaking.TryCompleteTask(agent.task.task);
                         agent.hasInteracted = false;
                     }

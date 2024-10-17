@@ -71,6 +71,8 @@ namespace Klaxon.GOAD
             
             agent.walker.currentDirection = Vector2.zero;
             agent.animator.SetBool(agent.walking_hash, false);
+            agent.walker.isStuck = false;
+            agent.isDeviating = false;
         }
     }
 

@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 2534173994798523337}
   - component: {fileID: 1984241908007187673}
   - component: {fileID: 1397053786737790979}
+  - component: {fileID: -8421364843601657199}
   m_Layer: 0
   m_Name: WoodenPost_Craftable
   m_TagString: Untagged
@@ -338,7 +339,7 @@ MonoBehaviour:
   - {x: -0.014964372, y: -0.007608084, z: 0}
   m_ShapePathHash: 871567547
   m_Mesh: {fileID: 0}
-  m_InstanceId: -650430
+  m_InstanceId: 2139780
   m_LocalBounds:
     m_Center: {x: -0.00075166486, y: 0.0014970535, z: 0}
     m_Extent: {x: 0.020191697, y: 0.012557725, z: 0}
@@ -401,6 +402,62 @@ MonoBehaviour:
   id: 
   version: 
   intVersion: 
+--- !u!114 &-8421364843601657199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953126727497118714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a58d24946e62414a9131fa56dc1a2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactVerb: whaaAA???
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:fe8027436c05aca4f9379190ec58069a
+    m_TableEntryReference:
+      m_KeyId: 103262010381754368
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:09f68d926e0c88c4f8908b5a1fc1b26a
+    m_TableEntryReference:
+      m_KeyId: 630401795678208
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:fe8027436c05aca4f9379190ec58069a
+    m_TableEntryReference:
+      m_KeyId: 103262010381754368
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  agencyReward: 0
+  agencyCost: 0
+  canInteract: 1
+  hasLongInteract: 1
+  replaceObjectOnDrop: {fileID: 8707879516530326805, guid: faa0f1a1e7b0a704e879648ab01ddd4a,
+    type: 3}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 8331251571769606503, guid: faa0f1a1e7b0a704e879648ab01ddd4a,
+    type: 3}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1001 &297676917976538096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -503,6 +560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: positionZ
       value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 8567683575678473893, guid: 8c513a78c5f31da49bb32729516a1e4f,
+        type: 3}
+      propertyPath: isDecorationSurface
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8603354187458980764, guid: 8c513a78c5f31da49bb32729516a1e4f,
         type: 3}

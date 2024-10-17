@@ -26,6 +26,7 @@ namespace Klaxon.GOAD
         protected bool currentActionComplete;
         public string currentActionName;
 
+        GOAD_WorldBeliefStates worldBeliefs;
         public void SetActionComplete(bool state)
         {
             currentActionComplete = state;
@@ -34,7 +35,7 @@ namespace Klaxon.GOAD
         {
             
             availableActions = GetComponents<GOAD_Action>().ToList();
-            
+            worldBeliefs = GOAD_WorldBeliefStates.instance;
         }
         
 
@@ -116,7 +117,7 @@ namespace Klaxon.GOAD
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
 
             // Combine the two dictionaries without modifying the original dictionaries
-            foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
+            foreach (var kvp in worldBeliefs.worldStates)
             {
                     temp[kvp.Key] = kvp.Value;
             }
@@ -135,7 +136,7 @@ namespace Klaxon.GOAD
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
 
             // Combine the two dictionaries without modifying the original dictionaries
-            foreach (var kvp in GOAD_WorldBeliefStates.instance.worldStates)
+            foreach (var kvp in worldBeliefs.worldStates)
             {
                     temp[kvp.Key] = kvp.Value;
             }

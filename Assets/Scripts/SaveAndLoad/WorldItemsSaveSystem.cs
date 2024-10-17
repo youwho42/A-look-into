@@ -56,7 +56,7 @@ namespace Klaxon.SaveSystem
             for (int i = 0; i < saveData.items.Count; i++)
             {
 
-
+                
                 var itemData = itemDatabase.GetItem(saveData.items[i]);
                 if (itemData == null)
                     continue;

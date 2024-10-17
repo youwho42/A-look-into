@@ -70,8 +70,8 @@ public class PlantingArea : MonoBehaviour
         // check for available seeds > is it the right type for the plot
 
         canPlant = false;
-        if (!CheckTime())
-            return;
+        //if (!CheckTime())
+        //    return;
         if (seedBox.Stacks.Count == 0)
             return;
         foreach (var stack in seedBox.Stacks)
