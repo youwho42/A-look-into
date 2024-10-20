@@ -27,13 +27,15 @@ namespace Klaxon.GOAD
         public string currentActionName;
 
         GOAD_WorldBeliefStates worldBeliefs;
+
+        protected Transform _transform;
         public void SetActionComplete(bool state)
         {
             currentActionComplete = state;
         }
         public virtual void Start()
         {
-            
+            _transform = transform;
             availableActions = GetComponents<GOAD_Action>().ToList();
             worldBeliefs = GOAD_WorldBeliefStates.instance;
         }

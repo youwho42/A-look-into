@@ -34,7 +34,7 @@ namespace Klaxon.GravitySystem
         public float bounceFriction;
         [Range(0, 10)]
         public float bounciness;
-        float bounceFactor = 0;
+        protected float bounceFactor = 0;
 
         // Movement
 
@@ -92,7 +92,10 @@ namespace Klaxon.GravitySystem
 
 
         public bool facingRight;
+        protected Vector2 collisionNormal;
 
+        [HideInInspector]
+        public bool addUpsies;
 
         public virtual void Awake()
         {
@@ -346,46 +349,51 @@ namespace Klaxon.GravitySystem
         }
 
 
-
-        public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey)
+        public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey, bool getBounceNormal = false)
         {
-            //onObstacle = false;
-            
-            
-            
-            // Check for a positive gameobject on the obstacle layer
-            hit = Physics2D.OverlapCircleAll(checkPosition, 0.01f, obstacleLayer, _transform.position.z, _transform.position.z);
-            if (hit != null)
+            collisionNormal = Vector2.zero;
+            // Cache hit data to avoid allocating new memory with OverlapCircleNonAlloc
+            Collider2D[] hitBuffer = new Collider2D[10];  // Buffer size can be adjusted based on expected obstacles
+            int hitCount = Physics2D.OverlapCircleNonAlloc(checkPosition, 0.01f, hitBuffer, obstacleLayer, _transform.position.z, _transform.position.z);
+            obstacleDisplacement = Vector3.zero;
+            if (hitCount > 0)
             {
-                
                 bool isColliding = false;
-                // do it got a thing
-                for (int i = 0; i < hit.Length; i++)
+
+                // Process each hit
+                for (int i = 0; i < hitCount; i++)
                 {
+                    Collider2D hitCollider = hitBuffer[i];
                     
-                    
-                    if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
+                    // Check if it has a DrawZasYDisplacement component
+                    if (hitCollider.TryGetComponent(out DrawZasYDisplacement displacement))
                     {
                         if (itemObject.localPosition.z == 0)
                         {
-                            InteractableDoor door = hit[i].GetComponentInParent<InteractableDoor>();
-                            if (door != null)
+                            // Check for an InteractableDoor component
+                            if (hitCollider.GetComponentInParent<InteractableDoor>() is InteractableDoor door && !door.isOpen)
                             {
-                                if (!door.isOpen)
-                                {
-                                    door.Interact(this.gameObject);
-                                    return false;
-                                }
-
+                                door.Interact(this.gameObject);
+                                return false;  // Return early if door is interacted with
                             }
-
                         }
-                        // is our local z higher than the thing
 
+                        // Check local z-position for collision logic
                         if (Mathf.Abs(itemObject.localPosition.z) < displacement.positionZ)
-                            isColliding = true;
+                        {
+                            if (getBounceNormal)
+                            {
+                                //var dir = hitCollider.gameObject.transform.position - _transform.position;
+                                RaycastHit2D hit = Physics2D.Raycast(_transform.position, direction, 0.2f, obstacleLayer);
+                                if (hit)
+                                    collisionNormal = hit.normal;
+                            }
+                            
+                            isColliding = true;  // Mark collision
+                        }
                         else
                         {
+                            // Handle obstacle displacement
                             onObstacle = true;
                             float displacementY = displacement.positionZ * spriteDisplacementY;
                             obstacleDisplacement = new Vector3(0, displacementY, displacement.positionZ);
@@ -393,20 +401,83 @@ namespace Klaxon.GravitySystem
                     }
                 }
 
-
-
-                doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
-                if (doubleHit == null)
+                // Second check for obstacle, use NonAlloc to avoid unnecessary allocations
+                if (Physics2D.OverlapPointNonAlloc(doubleCheck, hitBuffer, obstacleLayer, transform.position.z, transform.position.z) == 0)
                 {
-                    //onObstacle = false;
+                    // Reset obstacle if nothing found on second check
                     obstacleDisplacement = Vector3.zero;
                 }
 
-
-                return isColliding/* && !onObstacle*/;
+                return isColliding;  // Return if collision detected
             }
+
+            // No obstacles detected
             return false;
         }
+
+        //public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey)
+        //{
+        //    //onObstacle = false;
+
+
+
+        //    // Check for a positive gameobject on the obstacle layer
+        //    hit = Physics2D.OverlapCircleAll(checkPosition, 0.01f, obstacleLayer, _transform.position.z, _transform.position.z);
+        //    if (hit != null)
+        //    {
+
+        //        bool isColliding = false;
+        //        // do it got a thing
+        //        for (int i = 0; i < hit.Length; i++)
+        //        {
+
+
+        //            if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
+        //            {
+        //                if (itemObject.localPosition.z == 0)
+        //                {
+        //                    InteractableDoor door = hit[i].GetComponentInParent<InteractableDoor>();
+        //                    if (door != null)
+        //                    {
+        //                        if (!door.isOpen)
+        //                        {
+        //                            door.Interact(this.gameObject);
+        //                            return false;
+        //                        }
+
+        //                    }
+
+        //                }
+        //                // is our local z higher than the thing
+
+        //                if (Mathf.Abs(itemObject.localPosition.z) < displacement.positionZ)
+        //                {
+                            
+        //                    isColliding = true;
+        //                }
+        //                else
+        //                {
+        //                    onObstacle = true;
+        //                    float displacementY = displacement.positionZ * spriteDisplacementY;
+        //                    obstacleDisplacement = new Vector3(0, displacementY, displacement.positionZ);
+        //                }
+        //            }
+        //        }
+
+
+
+        //        doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
+        //        if (doubleHit == null)
+        //        {
+        //            //onObstacle = false;
+        //            obstacleDisplacement = Vector3.zero;
+        //        }
+
+
+        //        return isColliding/* && !onObstacle*/;
+        //    }
+        //    return false;
+        //}
 
         protected void ApplyGravity()
         {

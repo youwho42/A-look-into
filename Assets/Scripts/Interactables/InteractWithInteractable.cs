@@ -29,7 +29,8 @@ namespace Klaxon.Interactable
         public Slider interactSlider;
         [SerializeField] private InputActionReference holdButton;
 
-        
+        UIScreenManager uiManager;
+        PlayerInformation player;
 
         private float currentHoldTime = 0f;
         public bool isHolding = false;
@@ -51,6 +52,8 @@ namespace Klaxon.Interactable
 
         private void Start()
         {
+            player = PlayerInformation.instance;
+            uiManager = UIScreenManager.instance;
             interactSlider.maxValue = InputSystem.settings.defaultHoldTime;
         }
 
@@ -76,7 +79,7 @@ namespace Klaxon.Interactable
             interactSlider.gameObject.SetActive(false);
             interactUI.SetActive(false);
 
-            if (UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
+            if (uiManager.GetCurrentUI() != UIScreenType.None)
                 return;
 
             currentInteractables.Clear();
@@ -111,7 +114,7 @@ namespace Klaxon.Interactable
         {
             //interactSlider.gameObject.SetActive(false);
             //interactUI.SetActive(false);
-            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded)
+            if (player.isSitting || !player.playerController.isGrounded)
                 return;
 
             if (currentInteractables.Count > 0)
@@ -135,13 +138,13 @@ namespace Klaxon.Interactable
                     
                 }
                 closest.SetInteractVerb();
-                string buttTap = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
+                string buttTap = player.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
                 string action="";
                 if (closest.localizedInteractVerb != null)
                     action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
-                string buttHold = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
+                string buttHold = player.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
                 string hold = LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hold");
                 if (closest.hasLongInteract)
                 {
@@ -161,7 +164,7 @@ namespace Klaxon.Interactable
 
         public void Interact()
         {
-            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded || isHolding)
+            if (player.isSitting || !player.playerController.isGrounded || isHolding)
                 return;
             if (currentInteractables.Count > 0)
             {
@@ -175,7 +178,7 @@ namespace Klaxon.Interactable
 
         public void LongInteract()
         {
-            if (PlayerInformation.instance.isSitting || !PlayerInformation.instance.playerController.isGrounded)
+            if (player.isSitting || !player.playerController.isGrounded)
                 return;
             if (currentInteractables.Count > 0)
             {

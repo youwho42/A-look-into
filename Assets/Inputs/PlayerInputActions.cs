@@ -242,6 +242,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AddBallUpsies"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc770672-2ec5-4a56-92b5-2a7705b8f529"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -970,6 +979,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Sit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""257984ad-1cfd-466c-8634-4eb5342861ba"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""AddBallUpsies"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1332,6 +1352,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_SurroundingItemsDisplay = m_Player.FindAction("SurroundingItemsDisplay", throwIfNotFound: true);
         m_Player_Smell = m_Player.FindAction("Smell", throwIfNotFound: true);
         m_Player_Sit = m_Player.FindAction("Sit", throwIfNotFound: true);
+        m_Player_AddBallUpsies = m_Player.FindAction("AddBallUpsies", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1426,6 +1447,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SurroundingItemsDisplay;
     private readonly InputAction m_Player_Smell;
     private readonly InputAction m_Player_Sit;
+    private readonly InputAction m_Player_AddBallUpsies;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1454,6 +1476,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @SurroundingItemsDisplay => m_Wrapper.m_Player_SurroundingItemsDisplay;
         public InputAction @Smell => m_Wrapper.m_Player_Smell;
         public InputAction @Sit => m_Wrapper.m_Player_Sit;
+        public InputAction @AddBallUpsies => m_Wrapper.m_Player_AddBallUpsies;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1535,6 +1558,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sit.started += instance.OnSit;
             @Sit.performed += instance.OnSit;
             @Sit.canceled += instance.OnSit;
+            @AddBallUpsies.started += instance.OnAddBallUpsies;
+            @AddBallUpsies.performed += instance.OnAddBallUpsies;
+            @AddBallUpsies.canceled += instance.OnAddBallUpsies;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1611,6 +1637,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sit.started -= instance.OnSit;
             @Sit.performed -= instance.OnSit;
             @Sit.canceled -= instance.OnSit;
+            @AddBallUpsies.started -= instance.OnAddBallUpsies;
+            @AddBallUpsies.performed -= instance.OnAddBallUpsies;
+            @AddBallUpsies.canceled -= instance.OnAddBallUpsies;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1793,6 +1822,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSurroundingItemsDisplay(InputAction.CallbackContext context);
         void OnSmell(InputAction.CallbackContext context);
         void OnSit(InputAction.CallbackContext context);
+        void OnAddBallUpsies(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

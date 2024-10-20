@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 953684700885641417}
   - component: {fileID: 3380158080016935912}
   - component: {fileID: 43444038107672037}
+  - component: {fileID: -5283216550233336104}
   m_Layer: 13
   m_Name: NPC
   m_TagString: NPC
@@ -485,6 +486,15 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedItemName:
     m_TableReference:
       m_TableCollectionName: 
     m_TableEntryReference:
@@ -812,6 +822,41 @@ MonoBehaviour:
   success: 0
   conditionsOnSucceed: []
   conditionsOnFail: []
+--- !u!58 &-5283216550233336104
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.015}
+  serializedVersion: 2
+  m_Radius: 0.04
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,6 +48,7 @@ public class QuadTree
         return false; // Should not reach here
     }
 
+
     private void Subdivide()
     {
         float halfWidth = bounds.size.x / 2f;

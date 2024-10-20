@@ -12,13 +12,17 @@ namespace Klaxon.GravitySystem {
         [Range(0, 1)]
         public float itemBounceFriction;
 
+        Vector3 checkPosition;
+        Vector3 doubleCheckPosition;
+
+
         float velocity;
         Vector2 mainDirection;
         Vector3Int nextTilePosition;
         public bool canCollideWithGravityItems;
 
         DrawZasYDisplacement displacement;
-
+        bool canMove;
         private new IEnumerator Start()
         {
             base.Start();
@@ -34,94 +38,172 @@ namespace Klaxon.GravitySystem {
 
         }
 
-        private new void Update()
+        public override void Update()
         {
             base.Update();
-        
+            canMove = CanReachNextTile(mainDirection);
+            
+                
         }
-        public new void FixedUpdate()
+
+        public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!CanReachNextTile(mainDirection))
-            {
-                CheckBounce();
-            
-            }
-
+            if (!canMove)
+                return;
+                
             Move(mainDirection, velocity);
 
             if (velocity > 0)
                 velocity -= itemDrag * Time.fixedDeltaTime;
 
         }
+        Vector2 GetTileNormal(Vector2Int tileDirection)
+        {
+            float n = GlobalSettings.TileSize;
+            // BR
+            if(tileDirection == Vector2Int.down)
+                return new Vector2(-n, n).normalized;
+            // TL
+            if (tileDirection == Vector2Int.up)
+                return new Vector2(n,-n).normalized;
+            // TR
+            if (tileDirection == Vector2Int.right)
+                return new Vector2(-n, -n).normalized;
+            // BL
+            if (tileDirection == -Vector2Int.right)
+                return new Vector2(n, n).normalized;
+            //// BC
+            //if (tileDirection == -Vector2Int.one)
+            //{
+            //    foreach (var tile in tileBlockInfo)
+            //    { 
+            //        if((Vector2Int)tile.direction == new Vector2Int(-1, 0) && !tile.isValid)
+            //            return new Vector2(n, n).normalized;
+            //        if ((Vector2Int)tile.direction == new Vector2Int(0, -1) && !tile.isValid)
+            //            return new Vector2(-n, n).normalized;
+            //    }
+                
+            //}
+            //// BC
+            //if (tileDirection == Vector2Int.one)
+            //{
+            //    foreach (var tile in tileBlockInfo)
+            //    {
+            //        if ((Vector2Int)tile.direction == new Vector2Int(1, 0) && !tile.isValid)
+            //            return new Vector2(-n, -n).normalized;
+            //        if ((Vector2Int)tile.direction == new Vector2Int(0, 1) && !tile.isValid)
+            //            return new Vector2(n, -n).normalized;
+            //    }
 
+            //}
+            //// LC
+            //if (tileDirection == new Vector2Int(-1, 1))
+            //{
+            //    foreach (var tile in tileBlockInfo)
+            //    {
+            //        if ((Vector2Int)tile.direction == new Vector2Int(-1, 0) && !tile.isValid)
+            //            return new Vector2(n, n).normalized;
+            //        if ((Vector2Int)tile.direction == new Vector2Int(0, 1) && !tile.isValid)
+            //            return new Vector2(n, -n).normalized;
+            //    }
+
+            //}
+            //// RC
+            //if (tileDirection == new Vector2Int(1, -1))
+            //{
+            //    foreach (var tile in tileBlockInfo)
+            //    {
+            //        if ((Vector2Int)tile.direction == new Vector2Int(1, 0) && !tile.isValid)
+            //            return new Vector2(-n, -n).normalized;
+            //        if ((Vector2Int)tile.direction == new Vector2Int(0, -1) && !tile.isValid)
+            //            return new Vector2(-n, n).normalized;
+            //    }
+
+            //}
+            return Vector2.zero;
+        }
         void CheckBounce()
         {
             Vector3Int diff = nextTilePosition - currentTilePosition.position;
-            List<TileDirectionInfo> tileBlock;
-            allTilesManager.allTilesDictionary.TryGetValue(currentTilePosition.position, out tileBlock);
-            foreach (var tile in tileBlock)
+            
+            foreach (var tile in tileBlockInfo)
             {
                 if (tile.direction == diff)
                 {
                     if (tile.levelZ >= 0)
                     {
-                        mainDirection = new Vector2(mainDirection.y, mainDirection.x);
-                        if (diff.x > 0)
-                            mainDirection *= -1;
+
+                        mainDirection = Vector2.Reflect(mainDirection * velocity, GetTileNormal((Vector2Int)tile.direction));
+
+                        AddMovement(mainDirection, velocity * itemBounceFriction);
 
                         velocity *= itemBounceFriction;
 
                     }
+                    break;
                 }
             }
+            
         }
     
 
         bool CanReachNextTile(Vector2 direction)
         {
-        
 
-            Vector3 checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
-            Vector3 doubleCheckPosition = transform.position - Vector3.forward;
+            checkPosition = (_transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
+            doubleCheckPosition = _transform.position - Vector3.forward;
 
-            
 
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
-            Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
 
-            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey))
+            Vector3Int nextTileKey = nextTilePosition - currentTilePosition.position;
+            
+            if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey, true))
             {
-                mainDirection *= -1;
+                
+                //mainDirection = new Vector2(mainDirection.y*Mathf.Sign(collisionNormal.x), mainDirection.x* Mathf.Sign(collisionNormal.y));
+                //if (collisionNormal.x > 0)
+                //    mainDirection *= -1;
+                mainDirection = Vector2.Reflect(mainDirection * velocity, collisionNormal);
                 AddMovement(mainDirection, velocity * itemBounceFriction);
+                
                 return false;
             }
 
-
-
             int level = 0;
-            List<TileDirectionInfo> tileBlock;
-            allTilesManager.allTilesDictionary.TryGetValue(currentTilePosition.position, out tileBlock);
-            if (tileBlock == null)
-                return true;
-            foreach (var tile in tileBlock)
-            {
-                // CURRENT TILE ----------------------------------------------------------------------------------------------------
-                // right now, where we are, what it be? is it be a slope?
-                if (tile.direction == Vector3Int.zero)
-                {
-                    slopeDirection = Vector2.zero;
-                    onSlope = tile.tileName.Contains("Slope");
-                    if (onSlope)
-                    {
-                        if (tile.tileName.Contains("X"))
-                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
-                        else
-                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
-                        continue;
-                    }
 
+            TileInfoRequestManager.RequestTileInfo(currentTilePosition.position, TileFound);
+
+            if (tileBlockInfo == null)
+                return true;
+
+            foreach (var tile in tileBlockInfo)
+            {
+                if (tile.direction != Vector3Int.zero)
+                    continue;
+
+                slopeDirection = Vector2.zero;
+                onSlope = tile.tileName.Contains("Slope");
+                if (onSlope)
+                {
+
+                    if (tile.tileName.Contains("X"))
+                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                    else
+                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                    continue;
                 }
+                break;
+            }
+
+            if (nextTilePosition == currentTilePosition.position)
+                return true;
+
+
+            foreach (var tile in tileBlockInfo)
+            {
+
                 if (tile.direction == nextTileKey)
                     level = tile.levelZ;
                 else
@@ -133,7 +215,7 @@ namespace Klaxon.GravitySystem {
                 if (tile.direction == nextTileKey && !isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                 {
 
-                    currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                    ChangeObjectLocation(nextTileKey.x, nextTileKey.y, level);
 
                     if (tile.tileName.Contains("Slope"))
                         onSlope = true;
@@ -168,12 +250,7 @@ namespace Klaxon.GravitySystem {
                     // I am on a slope
                     if (onSlope)
                     {
-                        //am i walking 'off' the slope on the upper part in the right direction?
-                        /*if (surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("X") && nextTileKey.x == 0 || surroundingTiles.allCurrentDirections[Vector3Int.zero].tileName.Contains("Y") && nextTileKey.y == 0)
-                        {
-                            onCliffEdge = true;
-                            return false;
-                        }*/
+                        
                         if (tile.levelZ > 0)
                             getOffSlope = true;
                     }
@@ -183,10 +260,7 @@ namespace Klaxon.GravitySystem {
                 // the next tile is NOT valid
                 if (tile.direction == nextTileKey && !tile.isValid)
                 {
-                    if (doubleCheckTilePosition == nextTilePosition)
-                    {
-                        Nudge(direction);
-                    }
+                    
 
                     // If I am on a slope, am i approaching or leaving the slope in a valid direction?
                     if (onSlope)
@@ -198,22 +272,30 @@ namespace Klaxon.GravitySystem {
                     // This is where we are at the top of a cliff
                     if (tile.levelZ <= 0)
                     {
-                        currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+                        ChangeObjectLocation(nextTileKey.x, nextTileKey.y, level);
                         return true;
                     }
-                    
+
+                    CheckBounce();
 
                     // This is where we hit a wall of height 1 or above
                     return false;
                 }
             }
 
-            currentTilePosition.position += new Vector3Int(nextTileKey.x, nextTileKey.y, level);
+            ChangeObjectLocation(nextTileKey.x, nextTileKey.y, level);
 
             return true;
         }
 
-    
+        void ChangeObjectLocation(int x, int y, int z)
+        {
+
+            var newPos = new Vector3Int(x, y, z);
+            currentTilePosition.position += newPos;
+            
+        }
+
 
 
         public void AddMovement(Vector2 newDirection, float _velocity)
@@ -230,31 +312,20 @@ namespace Klaxon.GravitySystem {
             if (collision.gameObject.TryGetComponent(out GravityItemNew gravityItem) && canCollideWithGravityItems)
             {
             
-                if (gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ)
+                if (gravityItem == this || gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ|| itemObject.localPosition.z > gravityItem.itemObject.localPosition.z)
                     return;
                 Vector2 direction = transform.position - collision.transform.position;
-            
-                AddMovement(direction, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity : velocity * itemBounceFriction);
-            }
-
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-            {
-                var direction = transform.position - collision.transform.position;
-                AddMovement(direction, velocity * itemBounceFriction);
+                float addedVelocity = gravityItem.currentVelocity * 0.04f;
+                AddMovement(direction, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity + addedVelocity : velocity * itemBounceFriction);
+                if (gravityItem.addUpsies)
+                {
+                    bounceFactor = 1;
+                    Bounce(gravityItem.currentVelocity * 6);
+                }
+                
             }
 
         }
-
-
-        /*private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-            {
-                var direction = transform.position - collision.transform.position;
-                AddMovement(direction, velocity * itemBounceFriction);
-            }
-        }
-    */
 
     }
 }

@@ -36,16 +36,14 @@ public class CreateParticleSuperShape : MonoBehaviour
 
     float twoPI = Mathf.PI * 2;
 
-
-
-
-
-
-    readonly float spriteDisplacementY = 0.2990625f;
+    //readonly float spriteDisplacementY = 0.2990625f;
     public SphereParticle particle;
 
     public List<SuperShape> particleLayers = new List<SuperShape>();
-    
+
+    public bool testSculpture;
+
+    public int TotalM = -1;
 
     float SuperShape(SuperShape shape, float angle)
     {
@@ -80,7 +78,7 @@ public class CreateParticleSuperShape : MonoBehaviour
                 SphereParticle go = Instantiate(particle, transform);
                 go.transform.localPosition = pos;
 
-                Vector3 disp = new Vector3(0, spriteDisplacementY * layer.zBase, layer.zBase);
+                Vector3 disp = new Vector3(0, GlobalSettings.SpriteDisplacementY * layer.zBase, layer.zBase);
                 go.itemObject.localPosition = disp;
 
                 float scl = NumberFunctions.RemapNumber(y, -layer.b, layer.b, 1.0f, 0.8f);
@@ -88,7 +86,7 @@ public class CreateParticleSuperShape : MonoBehaviour
                 go.itemObject.localScale = size;
                 go.itemShadow.localScale = size;
                 layer.particles.Add(go);
-
+                go.gameObject.SetActive(false);
             }
 
         }
@@ -100,9 +98,14 @@ public class CreateParticleSuperShape : MonoBehaviour
     {
         foreach (var layer in particleLayers)
         {
-            float itemAngleIncrement = twoPI / layer.totalItems;
+            layer.m = TotalM;
+            float itemAngleIncrement = twoPI / layer.particles.Count;
             for (int i = 0; i < layer.particles.Count; i++)
             {
+                if (layer.particles[i].active == false && !testSculpture)
+                    continue;
+                
+                layer.particles[i].gameObject.SetActive(true);
                 float angle = i * itemAngleIncrement + Time.time * layer.animationSpeed;
                 angle += (itemAngleIncrement * layer.offset);
 
@@ -119,7 +122,7 @@ public class CreateParticleSuperShape : MonoBehaviour
                 if (layer.oscillateZ)
                 {
                     float newZ = layer.zBase + NumberFunctions.RemapNumber(Mathf.Sin(Time.time + angle), -1, 1, 0, layer.zVariance);
-                    Vector3 disp = new Vector3(0, spriteDisplacementY * newZ, newZ);
+                    Vector3 disp = new Vector3(0, GlobalSettings.SpriteDisplacementY * newZ, newZ);
                     layer.particles[i].itemObject.localPosition = disp;
                 }
 

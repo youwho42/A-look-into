@@ -64,6 +64,7 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public Vector3 BPHomeDestination;
         public Transform speechBubbleTransform;
+        PlayerInformation player;
         /// <summary>
         /// Traveller BP
         /// </summary>
@@ -130,7 +131,7 @@ namespace Klaxon.GOAD
         public override void Start()
         {
             base.Start();
-            
+            player = PlayerInformation.instance;
             sleep = UIScreenManager.instance;
             walker = GetComponent<GravityItemWalk>();
             walker.currentDirection = Vector2.zero;
@@ -219,9 +220,9 @@ namespace Klaxon.GOAD
 
         public bool CheckNearPlayer(float maxDistance)
         {
-            float dist = Vector2.Distance(transform.position, PlayerInformation.instance.player.position);
+            float dist = (_transform.position - player.player.position).sqrMagnitude;
 
-            return dist <= maxDistance;
+            return dist <= maxDistance * maxDistance;
         }
 
 
@@ -253,12 +254,12 @@ namespace Klaxon.GOAD
 
             if (hasMovedOffScreen)
             {
-                offScreenMoveTime = Mathf.RoundToInt(Vector2.Distance(transform.position, currentDestination) / walker.walkSpeed);
+                offScreenMoveTime = Mathf.RoundToInt(Vector2.Distance(_transform.position, currentDestination) / walker.walkSpeed);
                 offScreenMoveTime = (offScreenMoveTime + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
 
-                if (transform.position.x < currentDestination.x && !walker.facingRight)
+                if (_transform.position.x < currentDestination.x && !walker.facingRight)
                     walker.Flip();
-                else if (transform.position.x > currentDestination.x && walker.facingRight)
+                else if (_transform.position.x > currentDestination.x && walker.facingRight)
                     walker.Flip();
 
                 hasMovedOffScreen = false;
@@ -268,8 +269,8 @@ namespace Klaxon.GOAD
             {
 
                 hasMovedOffScreen = true;
-                walker.transform.position = currentDestination;
-                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                _transform.position = currentDestination;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(_transform.position);
                 walker.currentLevel = walker.currentTilePosition.position.z;
 
                 action.ReachFinalDestination(this);
@@ -299,7 +300,7 @@ namespace Klaxon.GOAD
             
             if (hasInteracted && !hasFoundDestination)
             {
-                var dist = Vector3.Distance(transform.position, BPHomeDestination);
+                var dist = Vector3.Distance(_transform.position, BPHomeDestination);
                 if (dist < 1.8f)
                 {
                     hasFoundDestination = true;
@@ -338,7 +339,7 @@ namespace Klaxon.GOAD
         Vector3 GetSeekItemPosition()
         {
             Vector3 pos = currentSeekItem.transform.position;
-            Vector2 dir = transform.position - pos;
+            Vector2 dir = _transform.position - pos;
             dir = dir.normalized;
             dir *= 0.055f;
             var colliders = currentSeekItem.GetComponentsInChildren<Collider2D>();
@@ -346,7 +347,7 @@ namespace Klaxon.GOAD
             {
                 if (gameObject.layer == LayerMask.NameToLayer("Obstacle"))
                 {
-                    pos = coll.ClosestPoint(transform.position);
+                    pos = coll.ClosestPoint(_transform.position);
                     break;
                 }
             }
@@ -357,16 +358,13 @@ namespace Klaxon.GOAD
         GameObject CheckForSeekItem()
         {
             
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, seekRadius, LayerMask.GetMask("Interactable"));
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(_transform.position, seekRadius, LayerMask.GetMask("Interactable"), _transform.position.z, _transform.position.z);
 
             if (colliders.Length > 0)
             {
 
                 for (int i = 0; i < colliders.Length; i++)
                 {
-
-                    if (colliders[i].transform.position.z != transform.position.z)
-                        continue;
 
                     if (colliders[i].gameObject.TryGetComponent(out QI_Item item))
                     {

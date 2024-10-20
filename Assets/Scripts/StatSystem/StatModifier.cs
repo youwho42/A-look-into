@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Localization;
 
 namespace Klaxon.StatSystem
 {
@@ -42,7 +42,7 @@ namespace Klaxon.StatSystem
         int ModifierTimer;
         public Sprite modIcon;
         public Sprite modIconGrey;
-
+        public LocalizedString EffectDescription;
         public void SetTimer(int amount)
         {
             ModifierTimer = amount;

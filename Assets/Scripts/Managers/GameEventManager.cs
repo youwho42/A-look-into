@@ -102,4 +102,5 @@ public static class GameEventManager
     public static readonly GameEvent onSmellEvent = new GameEvent();
     public static readonly GameEvent onSitEvent = new GameEvent();
     public static readonly GameEvent<bool> onExhaustedEvent = new GameEvent<bool>();
+    public static readonly GameEvent onToggleUpsies = new GameEvent();
 }

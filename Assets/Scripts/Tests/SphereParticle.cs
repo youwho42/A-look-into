@@ -6,4 +6,5 @@ public class SphereParticle : MonoBehaviour
 {
     public Transform itemObject;
     public Transform itemShadow;
+    public bool active = false;
 }

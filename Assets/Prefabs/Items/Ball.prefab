@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 2102037779340491033}
   - component: {fileID: 4797862346246737360}
   - component: {fileID: 3006377091520276690}
+  - component: {fileID: 2054339339284736611}
   m_Layer: 13
   m_Name: Ball
   m_TagString: Untagged
@@ -292,6 +293,7 @@ MonoBehaviour:
   slopeObject: {fileID: 7924754857489894188}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastHighestZ: 0
   isGrounded: 0
   bounceFriction: 0.9
   bounciness: 5
@@ -428,6 +430,8 @@ MonoBehaviour:
   displacedPosition: {x: 0, y: 0, z: 0}
   isInUse: 0
   isDecorationSurface: 0
+  showArea: 0
+  size: 0
 --- !u!114 &3918326343213773838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,3 +488,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 7924754857800506253}
+--- !u!58 &2054339339284736611
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924754858217846129}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.04}
+  serializedVersion: 2
+  m_Radius: 0.04

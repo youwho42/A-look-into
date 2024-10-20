@@ -336,7 +336,7 @@ namespace Klaxon.GOAD
                 return null;
 
             float closestDistanceSqr = Mathf.Infinity;
-            Vector2 currentPosition = transform.position;
+            Vector2 currentPosition = _transform.position;
             DrawZasYDisplacement bestTarget = null;
 
             foreach (var item in closestSpots)
@@ -366,45 +366,6 @@ namespace Klaxon.GOAD
         }
 
 
-        //public DrawZasYDisplacement CheckForDisplacementSpot()
-        //{
-
-
-
-        //    if (sleep.isSleeping || interactAreas == null)
-        //        return null;
-        //    closestSpots.Clear();
-        //    closestSpots = interactAreas.QueryQuadTree(bounds);
-        //    if (closestSpots.Count <= 0)
-        //        return null;
-
-        //    DrawZasYDisplacement bestTarget = null;
-        //    float closestDistance = Mathf.Infinity;
-        //    Vector2 currentPosition = transform.position;
-        //    foreach (var item in closestSpots)
-        //    {
-        //        if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position))
-        //            continue;
-        //        var dist = Vector2.Distance(currentPosition, item.transform.position);
-
-        //        if (dist < closestDistance)
-        //        {
-        //            if (dist < minHomeDistance)
-        //                continue;
-        //            closestDistance = dist;
-        //            bestTarget = item;
-        //        }
-        //    }
-
-        //    if (bestTarget == null)
-        //        return null;
-
-        //    currentDisplacementSpot = bestTarget;
-        //    currentDisplacementSpot.isInUse = true;
-
-        //    return bestTarget;
-
-        //}
 
         public float TurnHead()
         {
@@ -455,7 +416,7 @@ namespace Klaxon.GOAD
         void FindFood()
         {
             
-            var hit = Physics2D.OverlapCircle(eatPoint.position, 2f, LayerMask.GetMask("Interactable"), transform.position.z, transform.position.z);
+            var hit = Physics2D.OverlapCircle(eatPoint.position, 2f, LayerMask.GetMask("Interactable"), _transform.position.z, _transform.position.z);
             if (hit != null)
             {
                 if (hit.TryGetComponent(out QI_Item item))
@@ -477,7 +438,7 @@ namespace Klaxon.GOAD
         void FindScritchable()
         {
             currentScritchableTree = null;
-            var hits = Physics2D.OverlapCircleAll(transform.position, 2f, LayerMask.GetMask("Gatherable"), transform.position.z, transform.position.z);
+            var hits = Physics2D.OverlapCircleAll(_transform.position, 2f, LayerMask.GetMask("Gatherable"), _transform.position.z, _transform.position.z);
             if (hits.Length > 0)
             {
                 foreach (var item in hits)
@@ -536,8 +497,8 @@ namespace Klaxon.GOAD
 
             if (!animator.GetBool(sleeping_hash))
             {
-                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
-                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                if (PlayerInformation.instance.player.position.x < _transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.player.position.x > _transform.position.x && !walker.facingRight)
                     walker.Flip();
             }
 
@@ -547,7 +508,7 @@ namespace Klaxon.GOAD
         public void OnTriggerEnter2D(Collider2D collision)
         {
 
-            if (collision.transform.position.z != transform.position.z || !hasDialogue)
+            if (collision.transform.position.z != _transform.position.z || !hasDialogue)
                 return;
 
 
@@ -559,8 +520,8 @@ namespace Klaxon.GOAD
                 walker.currentDirection = Vector2.zero;
                 if (!animator.GetBool(sleeping_hash))
                 {
-                    if (collision.transform.position.x < transform.position.x && walker.facingRight ||
-                    collision.transform.position.x > transform.position.x && !walker.facingRight)
+                    if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
+                    collision.transform.position.x > _transform.position.x && !walker.facingRight)
                         walker.Flip();
                 }
 

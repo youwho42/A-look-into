@@ -56,6 +56,7 @@ public class PlayerInputController : MonoBehaviour
     InputAction rotateDecoration;
     InputAction surroundingItems;
     InputAction playerSit;
+    InputAction playerAddUpsies;
 
     PlayerInputActions inputActions;
     public PlayerInput playerInput;
@@ -183,6 +184,10 @@ public class PlayerInputController : MonoBehaviour
         playerSit.Enable();
         playerSit.started += PlayerSit;
 
+        playerAddUpsies = inputActions.Player.AddBallUpsies;
+        playerAddUpsies.Enable();
+        playerAddUpsies.started += ToggleUpsies;
+        playerAddUpsies.canceled += ToggleUpsies;
     }
     private void OnDisable()
     {
@@ -210,6 +215,7 @@ public class PlayerInputController : MonoBehaviour
         rotateDecoration.Disable();
         surroundingItems.Disable();
         playerSit.Disable();
+        playerAddUpsies.Disable();
     }
 
    
@@ -366,8 +372,9 @@ public class PlayerInputController : MonoBehaviour
             interactable.LongInteract();
     }
     
+    public void ToggleUpsies(InputAction.CallbackContext context) => GameEventManager.onToggleUpsies.Invoke();
 
-    
+
     public void SubmitAction(InputAction.CallbackContext context) => GameEventManager.onSubmitEvent.Invoke();
 
 

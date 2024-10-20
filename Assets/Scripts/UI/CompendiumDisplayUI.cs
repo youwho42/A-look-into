@@ -499,10 +499,13 @@ public class CompendiumDisplayUI : MonoBehaviour
         localizedDisplayDescription = item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
         informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString(item.Name)}</style>\n\n{item.localizedDescription.GetLocalizedString(item.Name + " Description")}\n\n";
+        
         if (item.Type == ItemType.Consumable)
-        {
             informationDisplayItemDescription.text += $"{GetStatModifierText(item as ConsumableItemData)}\n"; 
-        }
+        if(item.placementGumption != null)
+            informationDisplayItemDescription.text += $"\n{item.placementGumption.EffectDescription.GetLocalizedString()}\n\n";
+
+
         recipeDisplay.SetActive(false);
         recipeRevealDisplay.SetActive(false);
         if (recipe!= null)
@@ -554,15 +557,11 @@ public class CompendiumDisplayUI : MonoBehaviour
         string text = "";
         foreach (var mod in item.statChangers)
         {
-            string sign = mod.Amount > 0 ? "+" : "";
-            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.Amount * 100}%" : $"{sign}{mod.Amount}";
-            text += $"{mod.StatToModify.Name} {mod.Amount} \n";
+            text += $"{mod.EffectDescription.GetLocalizedString()} \n";
         }
         foreach (var mod in item.statModifiers)
         {
-            string sign = mod.ModifierAmount > 0 ? "+" : "";
-            string amount = mod.ModifierType == Klaxon.StatSystem.ModifierType.Percent ? $"{mod.ModifierAmount * 100}%" : $"{sign}{mod.ModifierAmount}";
-            text += $"{mod.StatToModify.Name} {amount} \n";
+            text += $"{mod.EffectDescription.GetLocalizedString()} \n";
         }
         return text;
     }

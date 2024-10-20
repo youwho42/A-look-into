@@ -14,6 +14,7 @@ namespace Klaxon.GOAD
 
 
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
+        public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
         public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
         public readonly int isIdleSitting_hash = Animator.StringToHash("IdleSit");
         public readonly int isSleeping_hash = Animator.StringToHash("IsSleeping");
@@ -83,10 +84,13 @@ namespace Klaxon.GOAD
         public Transform speechBubbleTransform;
         public GOAD_ScriptableCondition canDailySpeakWithPlayer;
         public GOAD_ScriptableCondition canSpeakWithPlayerPeriod;
+        [HideInInspector]
+        public InteractableDialogue interactable;
 
         public override void Start()
         {
             base.Start();
+            interactable = GetComponent<InteractableDialogue>();
             walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
             sleep = UIScreenManager.instance;
@@ -158,7 +162,7 @@ namespace Klaxon.GOAD
 
         public void GetRandomTilePosition(int distance, GOAD_Action action)
         {
-            var currentPos = transform.position;
+            var currentPos = _transform.position;
             Vector3 destination = currentPos;
             destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
             currentFinalDestination = destination;
@@ -168,7 +172,7 @@ namespace Klaxon.GOAD
         public void SetAStarDestination(Vector3 destination, GOAD_Action action)
         {
 
-            var start = GridManager.instance.GetTilePosition(transform.position);
+            var start = GridManager.instance.GetTilePosition(_transform.position);
             var end = GridManager.instance.GetTilePosition(destination);
             if(start == end)
             {
@@ -241,6 +245,25 @@ namespace Klaxon.GOAD
             walker.SetLastPosition();
         }
 
+        public void Deviate()
+        {
+            isDeviating = true;
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+                isDeviating = false;
+
+            walker.SetLastPosition();
+
+        }
+
         public void HandleOffScreenAStar(GOAD_Action action)
         {
             walker.currentDirection = Vector2.zero;
@@ -249,12 +272,12 @@ namespace Klaxon.GOAD
 
             if (offScreenPosMoved && currentPathIndex < aStarPath.Count)
             {
-                timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, aStarPath[currentPathIndex]) / walker.walkSpeed);
+                timeTo = Mathf.RoundToInt(Vector2.Distance(_transform.position, aStarPath[currentPathIndex]) / walker.walkSpeed);
                 timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
 
-                if (transform.position.x < aStarPath[currentPathIndex].x && !walker.facingRight)
+                if (_transform.position.x < aStarPath[currentPathIndex].x && !walker.facingRight)
                     walker.Flip();
-                else if (transform.position.x > aStarPath[currentPathIndex].x && walker.facingRight)
+                else if (_transform.position.x > aStarPath[currentPathIndex].x && walker.facingRight)
                     walker.Flip();
 
                 offScreenPosMoved = false;
@@ -265,8 +288,8 @@ namespace Klaxon.GOAD
             {
 
                 offScreenPosMoved = true;
-                walker.transform.position = aStarPath[currentPathIndex];
-                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                _transform.position = aStarPath[currentPathIndex];
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(_transform.position);
                 walker.currentLevel = walker.currentTilePosition.position.z;
 
                 if (currentPathIndex <= aStarPath.Count - 1)
@@ -287,11 +310,11 @@ namespace Klaxon.GOAD
             walker.currentDirection = Vector2.zero;
             if (offScreenPosMoved && currentPathIndex < nodePath.Count)
             {
-                timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, nodePath[currentPathIndex].transform.position) / walker.walkSpeed);
+                timeTo = Mathf.RoundToInt(Vector2.Distance(_transform.position, nodePath[currentPathIndex].transform.position) / walker.walkSpeed);
                 timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
-                if (transform.position.x < nodePath[currentPathIndex].transform.position.x && !walker.facingRight)
+                if (_transform.position.x < nodePath[currentPathIndex].transform.position.x && !walker.facingRight)
                     walker.Flip();
-                else if (transform.position.x > nodePath[currentPathIndex].transform.position.x && walker.facingRight)
+                else if (_transform.position.x > nodePath[currentPathIndex].transform.position.x && walker.facingRight)
                     walker.Flip();
                 offScreenPosMoved = false;
             }
@@ -301,8 +324,8 @@ namespace Klaxon.GOAD
             {
 
                 offScreenPosMoved = true;
-                walker.transform.position = nodePath[currentPathIndex].transform.position;
-                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(walker.transform.position);
+                _transform.position = nodePath[currentPathIndex].transform.position;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(_transform.position);
                 walker.currentLevel = walker.currentTilePosition.position.z;
                 if (currentPathIndex < nodePath.Count)
                 {
@@ -355,10 +378,11 @@ namespace Klaxon.GOAD
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            if (!interactable.canInteract)
+                return;
+           
 
-
-
-            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
             {
                 
                 if (isBusy|| animator.GetBool(isSleeping_hash))
@@ -368,8 +392,8 @@ namespace Klaxon.GOAD
                 animator.SetFloat(velocityX_hash, 0);
                 walker.currentDirection = Vector2.zero;
                 
-                if (collision.transform.position.x < transform.position.x && walker.facingRight ||
-                collision.transform.position.x > transform.position.x && !walker.facingRight)
+                if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
+                collision.transform.position.x > _transform.position.x && !walker.facingRight)
                     walker.Flip();
                 
 
@@ -382,7 +406,7 @@ namespace Klaxon.GOAD
         public void OnTriggerExit2D(Collider2D collision)
         {
 
-            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
                 inTalkRange = false;
 
         }

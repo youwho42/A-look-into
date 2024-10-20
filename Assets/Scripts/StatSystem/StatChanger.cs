@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Localization;
 
 namespace Klaxon.StatSystem
 {
@@ -14,5 +14,6 @@ namespace Klaxon.StatSystem
         public ModifierType ModifierType;
         public ModifierDestination ModifierDestination;
         public float Amount;
+        public LocalizedString EffectDescription;
     } 
 }

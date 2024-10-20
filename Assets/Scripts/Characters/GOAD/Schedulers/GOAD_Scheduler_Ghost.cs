@@ -130,7 +130,7 @@ namespace Klaxon.GOAD
 
         public void GetRandomTilePosition(int distance, GOAD_Action action)
         {
-            var currentPos = ghoster.centerOfActiveArea == null ? transform.position : ghoster.centerOfActiveArea.transform.position;
+            var currentPos = ghoster.centerOfActiveArea == null ? _transform.position : ghoster.centerOfActiveArea.transform.position;
             Vector3 destination = currentPos;
             destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
             currentFinalDestination = destination;
@@ -140,7 +140,7 @@ namespace Klaxon.GOAD
         public void SetAStarDestination(Vector3 destination, GOAD_Action action)
         {
 
-            var start = GridManager.instance.GetTilePosition(transform.position);
+            var start = GridManager.instance.GetTilePosition(_transform.position);
             var end = GridManager.instance.GetTilePosition(destination);
             if (start == end)
             {
@@ -213,7 +213,7 @@ namespace Klaxon.GOAD
 
             if (offScreenPosMoved && currentPathIndex < aStarPath.Count)
             {
-                timeTo = Mathf.RoundToInt(Vector2.Distance(transform.position, aStarPath[currentPathIndex]) / ghoster.floatSpeed);
+                timeTo = Mathf.RoundToInt(Vector2.Distance(_transform.position, aStarPath[currentPathIndex]) / ghoster.floatSpeed);
                 timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
 
                 if (transform.position.x < aStarPath[currentPathIndex].x && !ghoster.facingRight)
@@ -229,8 +229,8 @@ namespace Klaxon.GOAD
             {
 
                 offScreenPosMoved = true;
-                ghoster.transform.position = aStarPath[currentPathIndex];
-                ghoster.currentTilePosition.position = ghoster.currentTilePosition.GetCurrentTilePosition(ghoster.transform.position);
+                _transform.position = aStarPath[currentPathIndex];
+                ghoster.currentTilePosition.position = ghoster.currentTilePosition.GetCurrentTilePosition(_transform.position);
                 ghoster.currentLevel = ghoster.currentTilePosition.position.z;
 
                 if (currentPathIndex <= aStarPath.Count - 1)
@@ -266,8 +266,8 @@ namespace Klaxon.GOAD
             }
 
             
-            if (PlayerInformation.instance.player.position.x < transform.position.x && ghoster.facingRight ||
-            PlayerInformation.instance.player.position.x > transform.position.x && !ghoster.facingRight)
+            if (PlayerInformation.instance.player.position.x < _transform.position.x && ghoster.facingRight ||
+            PlayerInformation.instance.player.position.x > _transform.position.x && !ghoster.facingRight)
                 ghoster.Flip();
             
 
@@ -282,7 +282,7 @@ namespace Klaxon.GOAD
 
 
 
-            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
             {
 
                 if (PlayerInformation.instance.playerAnimator.GetBool("IsSitting") || PlayerInformation.instance.playerAnimator.GetBool("IsSleeping"))
@@ -292,8 +292,8 @@ namespace Klaxon.GOAD
                 animator.SetFloat(velocityX_hash, 0);
                 ghoster.currentDirection = Vector2.zero;
                 
-                if (collision.transform.position.x < transform.position.x && ghoster.facingRight ||
-                collision.transform.position.x > transform.position.x && !ghoster.facingRight)
+                if (collision.transform.position.x < _transform.position.x && ghoster.facingRight ||
+                collision.transform.position.x > _transform.position.x && !ghoster.facingRight)
                     ghoster.Flip();
                 
 
@@ -306,7 +306,7 @@ namespace Klaxon.GOAD
         public void OnTriggerExit2D(Collider2D collision)
         {
 
-            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
                 inTalkRange = false;
 
         }

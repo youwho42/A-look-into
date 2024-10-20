@@ -164,32 +164,39 @@ namespace Klaxon.GravitySystem
 
             foreach (var tile in tileBlockInfo)
             {
-                // CURRENT TILE ----------------------------------------------------------------------------------------------------
-                // right now, where we are, what it be? is it be a slope?
-                if (tile.direction == Vector3Int.zero)
+                if (tile.direction != Vector3Int.zero)
+                    continue;
+
+                slopeDirection = Vector2.zero;
+                onSlope = tile.tileName.Contains("Slope");
+                if (onSlope)
                 {
 
-                    slopeDirection = Vector2.zero;
-                    onSlope = tile.tileName.Contains("Slope");
-                    if (onSlope)
-                    {
-                        if (tile.tileName.Contains("X"))
-                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
-                        else
-                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
-                        continue;
-                    }
-
+                    if (tile.tileName.Contains("X"))
+                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                    else
+                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                    continue;
                 }
+                break;
+            }
+
+            if (nextTilePosition == currentTilePosition.position)
+                return true;
+
+
+
+            foreach (var tile in tileBlockInfo)
+            {
+                
                 if (tile.direction == nextTileKey)
                     level = tile.levelZ;
                 else
                     continue;
+
                 Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
-                if (nextTilePosition == currentTilePosition.position)
-                    return true;
-
+                
                 // JUMPING! ----------------------------------------------------------------------------------------------------
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
                 if (tile.direction == nextTileKey)

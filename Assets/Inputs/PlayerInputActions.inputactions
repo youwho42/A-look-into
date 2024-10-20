@@ -220,6 +220,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AddBallUpsies",
+                    "type": "Button",
+                    "id": "dc770672-2ec5-4a56-92b5-2a7705b8f529",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -948,6 +957,17 @@
                     "action": "Sit",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "257984ad-1cfd-466c-8634-4eb5342861ba",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "AddBallUpsies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
