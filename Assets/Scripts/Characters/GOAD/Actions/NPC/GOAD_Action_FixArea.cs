@@ -99,6 +99,10 @@ namespace Klaxon.GOAD
                 currentArea.isActive = true;
                 currentArea.isFixing = false;
                 currentArea.undertakingObject.TryCompleteTask(currentArea.taskObject);
+                foreach (var tilePos in currentArea.pathfindingTilePositions)
+                {
+                    PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[tilePos].walkable = true;
+                }
                 GOAD_WorldBeliefStates.instance.SetWorldState(currentArea.GOAD_CompletedCondition.Condition, currentArea.GOAD_CompletedCondition.State);
                 GOAD_WorldBeliefStates.instance.SetWorldState(fixAreaCondition.Condition, fixAreaCondition.State);
                 transform.position = basePos;

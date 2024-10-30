@@ -149,15 +149,22 @@ namespace Klaxon.GOAD
             }
             if(canScritch)
                 GameEventManager.onTimeTickEvent.AddListener(TryScritch);
+            
+            
 
         }
+       
+
         private void OnDestroy()
         {
             if (canEat)
                 GameEventManager.onTimeTickEvent.RemoveListener(RemoveEatAmount);
             if (canScritch)
                 GameEventManager.onTimeTickEvent.RemoveListener(TryScritch);
+
+           
         }
+       
 
         void SetXOffset()
         {

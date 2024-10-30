@@ -66,7 +66,17 @@ public class LevelManager : MonoBehaviour
             {
                 SceneManager.LoadSceneAsync("MainScene-Decoration", LoadSceneMode.Additive);
             }
-            
+
+            if (!SceneManager.GetSceneByName("MainScene-Flowers").isLoaded)
+            {
+                SceneManager.LoadSceneAsync("MainScene-Flowers", LoadSceneMode.Additive);
+            }
+
+            if (!SceneManager.GetSceneByName("MainScene-Trees").isLoaded)
+            {
+                SceneManager.LoadSceneAsync("MainScene-Trees", LoadSceneMode.Additive);
+            }
+
         }
 
 
@@ -152,6 +162,8 @@ public class LevelManager : MonoBehaviour
         Pause(true);
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
 
+
+        //LOAD TERRAIN
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName +"-Terrain");
         audioSettings.Mute();
         while (!currentLevelLoading.isDone)
@@ -166,6 +178,8 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
         audioSettings.Mute();
+
+        //LOAD GRASS
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -178,6 +192,36 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
         audioSettings.Mute();
+
+        //LOAD FLOWERS
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Flowers", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Flowers: {Mathf.RoundToInt(progress * 100)}%";
+
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD TREES
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Trees", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Trees: {Mathf.RoundToInt(progress * 100)}%";
+
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD PLANTS AND ANIMALS
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -185,7 +229,7 @@ public class LevelManager : MonoBehaviour
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Trees and Animals: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Plants and Animals: {Mathf.RoundToInt(progress * 100)}%";
            
             yield return null;
         }
@@ -238,7 +282,8 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.DisplayPlayerHUD(false);
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
         Pause(true);
-        
+
+        //LOAD TERRAIN
         AsyncOperation currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Terrain");
         audioSettings.Mute();
         while (!currentLevelLoading.isDone)
@@ -249,9 +294,12 @@ public class LevelManager : MonoBehaviour
             loadScreenSlider.value = progress;
             text.text = $"Loading Terrain: {Mathf.RoundToInt(progress * 100)}%";
 
+
             yield return null;
         }
         audioSettings.Mute();
+
+        //LOAD GRASS
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Grass", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -261,10 +309,39 @@ public class LevelManager : MonoBehaviour
             loadScreenSlider.value = progress;
             text.text = $"Loading Grass: {Mathf.RoundToInt(progress * 100)}%";
 
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD FLOWERS
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Flowers", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Flowers: {Mathf.RoundToInt(progress * 100)}%";
 
             yield return null;
         }
         audioSettings.Mute();
+
+        //LOAD TREES
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Trees", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Trees: {Mathf.RoundToInt(progress * 100)}%";
+
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD PLANTS AND ANIMALS
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -272,8 +349,7 @@ public class LevelManager : MonoBehaviour
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Trees and Animals: {Mathf.RoundToInt(progress * 100)}%";
-
+            text.text = $"Loading Plants and Animals: {Mathf.RoundToInt(progress * 100)}%";
 
             yield return null;
         }

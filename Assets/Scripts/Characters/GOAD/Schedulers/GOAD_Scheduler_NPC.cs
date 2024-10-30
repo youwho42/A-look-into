@@ -98,7 +98,7 @@ namespace Klaxon.GOAD
             lastValidTileLocation = transform.position;
         }
 
-
+        
 
         private void Update()
         {
@@ -235,7 +235,7 @@ namespace Klaxon.GOAD
                     SetAStarDestination(currentFinalDestination, action);
                 else
                 {
-                    Debug.Log("start position not valid after deviate", gameObject);
+                    Debug.LogWarning("start position not valid after deviate", gameObject);
                     aStarPath.Add(lastValidTileLocation);
                 }
 

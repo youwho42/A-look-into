@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
@@ -16,7 +17,7 @@ namespace Klaxon.GravitySystem
         public float runSpeed;
         public float jumpHeight;
         //PlayerInputController playerInput;
-        
+
         [HideInInspector]
         public bool isInInteractAction;
         [HideInInspector]
@@ -30,7 +31,7 @@ namespace Klaxon.GravitySystem
         Vector3 doubleCheckPosition;
 
 
-        
+
         [HideInInspector]
         public bool jumpAhead;
 
@@ -41,10 +42,10 @@ namespace Klaxon.GravitySystem
         //public bool onCliffEdge;
         WorldObjectAudioManager audioManager;
 
-        
+
         [HideInInspector]
         public bool hasDeviatePosition;
-        
+
         Vector3 lastPosition;
         Vector3 lastValidPosition;
 
@@ -67,10 +68,9 @@ namespace Klaxon.GravitySystem
         public SpriteRenderer characterRenderer;
 
         public bool shitSpot;
-        float finalSpeed;
-        [HideInInspector]
-        public bool isRunning;
-        bool canMove;
+
+
+
         public override void Start()
         {
             base.Start();
@@ -78,12 +78,12 @@ namespace Klaxon.GravitySystem
             audioManager = GetComponentInChildren<WorldObjectAudioManager>();
             isGrounded = true;
         }
-        
-        
+
+
 
         public override void Update()
         {
-            
+
             base.Update();
 
             if (Mathf.Approximately(currentDirection.x, 0))
@@ -94,8 +94,8 @@ namespace Klaxon.GravitySystem
             if (isInInteractAction || currentDirection == Vector2.zero && !isClimbing)
                 return;
 
-            canMove = CanReachNextTile(currentDirection);
-
+            if (CanReachNextTile(currentDirection))
+                Move(currentDirection, walkSpeed);
 
 
             if (!Mathf.Approximately(currentDirection.x, 0) && !isInInteractAction)
@@ -120,17 +120,8 @@ namespace Klaxon.GravitySystem
             if (jumpAhead)
                 Jump();
 
-            if(Mathf.Approximately(currentDirection.x, 0) || Mathf.Approximately(currentDirection.y, 0))
+            if (Mathf.Approximately(currentDirection.x, 0) || Mathf.Approximately(currentDirection.y, 0))
                 isStuck = false;
-        }
-
-        public override void FixedUpdate()
-        {
-            if (canMove)
-            {
-                finalSpeed = isRunning ? runSpeed : walkSpeed;
-                Move(currentDirection, finalSpeed);
-            }
         }
 
 
@@ -141,7 +132,7 @@ namespace Klaxon.GravitySystem
             jumpAhead = false;
         }
 
-        
+
 
         bool CanReachNextTile(Vector2 direction)
         {
@@ -150,7 +141,7 @@ namespace Klaxon.GravitySystem
             jumpAhead = false;
             checkPosition = (_transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
             doubleCheckPosition = _transform.position - Vector3.forward;
-            
+
 
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
 
@@ -161,52 +152,56 @@ namespace Klaxon.GravitySystem
 
             int level = 0;
 
-            
+
+
             TileInfoRequestManager.RequestTileInfo(currentTilePosition.position, TileFound);
 
             if (tileBlockInfo == null)
                 return true;
+            
+               
+
+
+
             foreach (var tile in tileBlockInfo)
             {
-                if (tile.direction != Vector3Int.zero)
-                    continue;
-
-                if (tile.isValid)
-                    lastValidPosition = _transform.position;
-                else
+                // CURRENT TILE ----------------------------------------------------------------------------------------------------
+                // right now, where we are, what it be? is it be a slope?
+                if (tile.direction == Vector3Int.zero)
                 {
-                    _transform.position = lastValidPosition;
-                    return false;
-                }
-
-                slopeDirection = Vector2.zero;
-                onSlope = tile.tileName.Contains("Slope");
-                if (onSlope)
-                {
-
-                    if (tile.tileName.Contains("X"))
-                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                    if (tile.isValid)
+                        lastValidPosition = _transform.position;
                     else
-                        slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
-                    continue;
+                    {
+                        _transform.position = lastValidPosition;
+                        return false;
+                    }
+
+
+
+                    slopeDirection = Vector2.zero;
+                    onSlope = tile.tileName.Contains("Slope");
+                    if (onSlope)
+                    {
+
+                        if (tile.tileName.Contains("X"))
+                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(-0.9f, -0.5f) : new Vector2(0.9f, 0.5f);
+                        else
+                            slopeDirection = tile.tileName.Contains("0") ? new Vector2(0.9f, -0.5f) : new Vector2(-0.9f, 0.5f);
+                        continue;
+                    }
+
                 }
-                break;
-            }
-
-            if (nextTilePosition == currentTilePosition.position)
-                return true;
-
-
-            foreach (var tile in tileBlockInfo)
-            {
-                
                 if (tile.direction == nextTileKey)
                     level = tile.levelZ;
                 else
                     continue;
                 Vector3Int doubleCheckTilePosition = currentTilePosition.grid.WorldToCell(doubleCheckPosition);
 
-               
+                if (nextTilePosition == currentTilePosition.position)
+                    return true;
+
+                
 
                 // JUMPING! ----------------------------------------------------------------------------------------------------
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
@@ -288,7 +283,7 @@ namespace Klaxon.GravitySystem
                     }
 
                     // This is checking if we are on that shit spot inbetween tiles 
-                    if(Mathf.Abs(tile.levelZ) >= 1)
+                    if (Mathf.Abs(tile.levelZ) >= 1)
                     {
                         float difference = Mathf.Abs(_transform.position.y - currentDestination.y);
                         if (difference < spriteDisplacementY * Mathf.Abs(tile.levelZ))
@@ -339,22 +334,22 @@ namespace Klaxon.GravitySystem
             for (int i = 0; i < rays; i++)
             {
                 Vector2 dir = Quaternion.Euler(0f, 0f, i * angleIncrement) * currentDirection;
-                
+
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, dir, 0.5f, obstacleLayer);
                 bool ignoreCollider = false;
-                if (hit.collider!=null)
+                if (hit.collider != null)
                 {
                     if (hit.collider.TryGetComponent(out DrawZasYDisplacement displacement))
                     {
                         if (displacement.positionZ <= 0)
                             ignoreCollider = true;
-                    } 
+                    }
                 }
                 if (hit.collider == null || ignoreCollider)
                 {
-                    
+
                     var d = _transform.position + ((Vector3)dir * .6f);
-                    
+
                     if (dir != currentDirection)
                     {
                         dir = dir.normalized;
@@ -369,7 +364,7 @@ namespace Klaxon.GravitySystem
             //        int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
             //        int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
             //        currentDestination = (Vector2)_transform.position - new Vector2(ra * currentDirection.y, rb * currentDirection.x) * 0.15f;
-                    
+
             //    } while (!GridManager.instance.GetTileValid(new Vector3(currentDestination.x, currentDestination.y, _transform.position.z)));
             //    //int ra = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
             //    //int rb = (int)Mathf.Sign(Random.Range(-1.0f, 1.0f));
@@ -380,7 +375,7 @@ namespace Klaxon.GravitySystem
 
             if (framesStuck >= 30 || directions.Count == 0)
             {
-                
+
                 jumpAhead = true;
                 int ra = Random.value < .5 ? 1 : -1;
                 int rb = Random.value < .5 ? 1 : -1;
@@ -404,13 +399,11 @@ namespace Klaxon.GravitySystem
                     bestIndex = i;
                 }
             }
-            
+
             currentDestination = (Vector2)_transform.position + directions[secondBestIndex] * .3f;
             SetDirection();
             hasDeviatePosition = true;
         }
-
-       
 
         public void SetLastPosition()
         {
@@ -427,7 +420,7 @@ namespace Klaxon.GravitySystem
                     framesStuck++;
                     if (framesStuck >= 4)
                         isStuck = true;
-                } 
+                }
             }
         }
 
@@ -439,7 +432,7 @@ namespace Klaxon.GravitySystem
 
         public float CheckDistanceToDestination()
         {
-            
+
             float dist = Vector2.Distance(_transform.position, currentDestination);
 
             return dist;
@@ -447,7 +440,7 @@ namespace Klaxon.GravitySystem
 
         public override void JustLanded()
         {
-            if(audioManager != null) 
+            if (audioManager != null)
                 audioManager.PlayFootstepSound();
 
         }
@@ -458,21 +451,21 @@ namespace Klaxon.GravitySystem
 
             var newPos = new Vector3Int(x, y, z);
             currentTilePosition.position += newPos;
-            
+
         }
 
         public void SetFacingDirection(Vector3 direction)
         {
             var dir = Mathf.Sign(direction.x);
-            
+
             if (_transform.localScale.x != dir)
             {
                 Flip();
             }
-            
+
         }
 
-        
+
 
 
 
@@ -487,7 +480,7 @@ namespace Klaxon.GravitySystem
         {
 
             Vector2 rand = (Random.insideUnitCircle * roamingDistance);
-            Vector3 center = centerOfActivity==null? _transform.position:centerOfActivity.transform.position;
+            Vector3 center = centerOfActivity == null ? _transform.position : centerOfActivity.transform.position;
             var d = currentTilePosition.groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
             for (int z = currentTilePosition.groundMap.cellBounds.zMax; z > currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
             {
@@ -503,7 +496,7 @@ namespace Klaxon.GravitySystem
         }
 
 
-       
+
         public void SetWorldDestination(Vector3 destination)
         {
             if (shitSpot)
@@ -512,7 +505,7 @@ namespace Klaxon.GravitySystem
                 shitSpot = false;
             }
             currentDestination = destination;
-            
+
         }
 
         public void SetDestinationZ(DrawZasYDisplacement displacement)
@@ -535,8 +528,8 @@ namespace Klaxon.GravitySystem
             currentDirectionZ = currentDestinationZ - itemObject.localPosition;
 
         }
-        
+
 
     }
-    
+
 }

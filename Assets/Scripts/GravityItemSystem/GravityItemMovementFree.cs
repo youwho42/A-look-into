@@ -17,12 +17,15 @@ namespace Klaxon.GravitySystem {
 
 
         float velocity;
-        Vector2 mainDirection;
+        //Vector2 mainDirection;
         Vector3Int nextTilePosition;
         public bool canCollideWithGravityItems;
 
         DrawZasYDisplacement displacement;
         bool canMove;
+        public AudioSource source;
+        [Range(0.0f, 1.0f)]
+        public float volume;
         private new IEnumerator Start()
         {
             base.Start();
@@ -41,7 +44,7 @@ namespace Klaxon.GravitySystem {
         public override void Update()
         {
             base.Update();
-            canMove = CanReachNextTile(mainDirection);
+            canMove = CanReachNextTile(currentDirection);
             
                 
         }
@@ -52,7 +55,7 @@ namespace Klaxon.GravitySystem {
             if (!canMove)
                 return;
                 
-            Move(mainDirection, velocity);
+            Move(currentDirection, velocity);
 
             if (velocity > 0)
                 velocity -= itemDrag * Time.fixedDeltaTime;
@@ -132,15 +135,9 @@ namespace Klaxon.GravitySystem {
                 if (tile.direction == diff)
                 {
                     if (tile.levelZ >= 0)
-                    {
-
-                        mainDirection = Vector2.Reflect(mainDirection * velocity, GetTileNormal((Vector2Int)tile.direction));
-
-                        AddMovement(mainDirection, velocity * itemBounceFriction);
-
-                        velocity *= itemBounceFriction;
-
-                    }
+                        ReflectDirection(GetTileNormal((Vector2Int)tile.direction));
+                        
+                    
                     break;
                 }
             }
@@ -161,13 +158,7 @@ namespace Klaxon.GravitySystem {
             
             if (CheckForObstacles(checkPosition, doubleCheckPosition, direction, nextTileKey, true))
             {
-                
-                //mainDirection = new Vector2(mainDirection.y*Mathf.Sign(collisionNormal.x), mainDirection.x* Mathf.Sign(collisionNormal.y));
-                //if (collisionNormal.x > 0)
-                //    mainDirection *= -1;
-                mainDirection = Vector2.Reflect(mainDirection * velocity, collisionNormal);
-                AddMovement(mainDirection, velocity * itemBounceFriction);
-                
+                ReflectDirection(collisionNormal);
                 return false;
             }
 
@@ -236,7 +227,10 @@ namespace Klaxon.GravitySystem {
                     if (tile.tileName.Contains("Slope"))
                     {
                         if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                        {
+                            CheckBounce();
                             return false;
+                        }
 
                         onSlope = true;
 
@@ -288,6 +282,14 @@ namespace Klaxon.GravitySystem {
             return true;
         }
 
+        private void ReflectDirection(Vector2 _collisionNormal)
+        {
+            currentDirection = Vector2.Reflect(currentDirection * velocity, _collisionNormal);
+            AddMovement(currentDirection, velocity * itemBounceFriction);
+            velocity *= itemBounceFriction;
+
+        }
+
         void ChangeObjectLocation(int x, int y, int z)
         {
 
@@ -296,26 +298,38 @@ namespace Klaxon.GravitySystem {
             
         }
 
-
+        public override void JustLanded()
+        {
+            base.JustLanded();
+            MakeBounceSound(bounceFactor);
+        }
+        void MakeBounceSound(float volumeFraction)
+        {
+            source.volume = volume * volumeFraction;
+            source.Play();
+        }
 
         public void AddMovement(Vector2 newDirection, float _velocity)
         {
-            mainDirection = newDirection.normalized;
+            currentDirection = newDirection.normalized;
             velocity = _velocity;
+            MakeBounceSound(NumberFunctions.RemapNumber(velocity, 0.0f, 1.3f, 0.0f, 1.0f));
         }
 
-       private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.collider is CompositeCollider2D)
+            if (collision.CompareTag("Water") || collision.CompareTag("Animal"))
                 return;
        
             if (collision.gameObject.TryGetComponent(out GravityItemNew gravityItem) && canCollideWithGravityItems)
             {
             
-                if (gravityItem == this || gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ|| itemObject.localPosition.z > gravityItem.itemObject.localPosition.z)
+                if (gravityItem == this || gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ|| itemObject.localPosition.z - displacement.positionZ > gravityItem.itemObject.localPosition.z)
                     return;
-                Vector2 direction = transform.position - collision.transform.position;
-                float addedVelocity = gravityItem.currentVelocity * 0.04f;
+                Vector2 directionA = (transform.position - collision.transform.position).normalized;
+                Vector2 directionB = gravityItem.currentDirection;
+                Vector2 direction = ((directionA + directionB) / 2).normalized;
+                float addedVelocity = gravityItem.currentVelocity * 0.07f;
                 AddMovement(direction, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity + addedVelocity : velocity * itemBounceFriction);
                 if (gravityItem.addUpsies)
                 {

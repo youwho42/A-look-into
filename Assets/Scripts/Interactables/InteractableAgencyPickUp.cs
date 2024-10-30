@@ -9,7 +9,7 @@ namespace Klaxon.Interactable
     {
         QI_Item interactableItem;
 
-
+        
 
 
         bool addedToInventory;

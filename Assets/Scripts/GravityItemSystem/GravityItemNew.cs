@@ -34,7 +34,8 @@ namespace Klaxon.GravitySystem
         public float bounceFriction;
         [Range(0, 10)]
         public float bounciness;
-        protected float bounceFactor = 0;
+        [HideInInspector]
+        public float bounceFactor = 0;
 
         // Movement
 
@@ -113,6 +114,14 @@ namespace Klaxon.GravitySystem
 
             canJump = true;
         }
+        //private void OnEnable()
+        //{
+        //    GameEventManager.onGameUpdateEvent.AddListener(GameUpdate);
+        //}
+        //private void OnDisable()
+        //{
+        //    GameEventManager.onGameUpdateEvent.RemoveListener(GameUpdate);
+        //}
         public virtual void Update()
         {
             

@@ -69,7 +69,7 @@ namespace Klaxon.GOAD
             dialogueManager = DialogueManagerUI.instance;
             lastValidTileLocation = transform.position;
         }
-
+       
 
 
         private void Update()

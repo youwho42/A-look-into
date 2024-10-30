@@ -27,7 +27,10 @@ public class ItemFuzzGlow : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onTimeTickEvent.AddListener(SetGlow);
-
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(SetGlow);
     }
 
     public void SetGlow(int time)
@@ -85,8 +88,5 @@ public class ItemFuzzGlow : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        GameEventManager.onTimeTickEvent.RemoveListener(SetGlow);
-    }
+    
 }

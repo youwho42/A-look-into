@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Klaxon.Interactable;
 
-
 public class FixAndReplace : MonoBehaviour, IFixArea
 {
     public ParticleSystem fixingEffect;
@@ -16,8 +15,19 @@ public class FixAndReplace : MonoBehaviour, IFixArea
 
     public CompleteTaskObject undertakingObject;
     public bool replacementObjectHasLongInteract;
+    public bool needsActiveUndertaking;
+    [ConditionalHide("needsActiveUndertaking", true)]
+    public UndertakingObject neededUndertaking;
+
     public bool Fix(List<FixableAreaIngredient> ingredients)
     {
+        if (needsActiveUndertaking)
+        {
+            if(neededUndertaking.CurrentState == UndertakingState.Inactive)
+                neededUndertaking.ActivateUndertaking();
+               
+        }
+
         if (!isFixing)
             StartCoroutine(FixCo(ingredients));
         return true;

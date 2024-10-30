@@ -415,6 +415,7 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
+  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.5
   runSpeed: 0
@@ -431,8 +432,9 @@ MonoBehaviour:
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
-  characterRenderer: {fileID: 0}
+  characterRenderer: {fileID: 2971686813194710284}
   shitSpot: 0
+  isRunning: 0
 --- !u!114 &3968540688165807639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,6 +670,7 @@ MonoBehaviour:
     type: 2}
   canSpeakWithPlayerPeriod: {fileID: 11400000, guid: 8982609d24c92ae4aa53beb4460b007e,
     type: 2}
+  interactable: {fileID: 0}
 --- !u!114 &391497059651357732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2285,6 +2288,12 @@ Transform:
 --- !u!4 &2604685650672239295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8929763117865184448, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6902144604697357951}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &2971686813194710284 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8571716352521503603, guid: 09687c9e6eb97bf40aead4c3b09960fc,
     type: 3}
   m_PrefabInstance: {fileID: 6902144604697357951}
   m_PrefabAsset: {fileID: 0}

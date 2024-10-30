@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7924754856793469295}
   - component: {fileID: 7924754856793469280}
+  - component: {fileID: 3308450813752416679}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -84,6 +85,103 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &3308450813752416679
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924754856793469294}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: dd012462b4cefc84980368dfcbae8d81, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 0.2
+  MaxDistance: 2
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7924754857191804872
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +353,7 @@ GameObject:
   - component: {fileID: 2054339339284736611}
   m_Layer: 13
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,6 +395,7 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0.9
   bounciness: 5
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 3918326343213773838}
   currentVelocity: 0
@@ -322,9 +421,12 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 0
+  addUpsies: 0
   itemDrag: 0.1
   itemBounceFriction: 0.95
   canCollideWithGravityItems: 1
+  source: {fileID: 3308450813752416679}
+  volume: 0.611
 --- !u!58 &7924754858217846134
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -354,7 +456,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.04}
@@ -459,8 +561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 3c2bd5c4-e9c2-4ba1-bc4c-b8bce10cd129
-  version: 0.04.05
+  id: 
+  version: 
   intVersion: 000000000400000005000000
 --- !u!114 &4797862346246737360
 MonoBehaviour:

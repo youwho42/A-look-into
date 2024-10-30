@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Localization;
 using Klaxon.Interactable;
 using Klaxon.GOAD;
+using UnityEngine.Tilemaps;
 
 [Serializable]
 public class FixVillageArea
@@ -36,13 +37,14 @@ public class FixVillageArea
     [HideInInspector]
     public bool isActive;
     public Collider2D areaCollider;
+    public List<Vector3Int> pathfindingTilePositions = new List<Vector3Int>();
 }
 public class FixVillageDesk : MonoBehaviour
 {
     public List<FixVillageArea> fixableAreas = new List<FixVillageArea>();
     [HideInInspector]
     public bool isActive;
-
+    public Tilemap groundTiles; 
     private void Start()
     {
         SetAllAreas();
@@ -54,7 +56,25 @@ public class FixVillageDesk : MonoBehaviour
         {
             area.activeArea.SetActive(area.isActive);
             area.inactiveArea.SetActive(!area.isActive);
+            foreach (var tilePos in area.pathfindingTilePositions)
+            {
+                if(PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(tilePos, out IsometricNodeXYZ value))
+                    value.walkable = area.isActive;
+            }
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        foreach (var area in fixableAreas)
+        {
+            foreach (var tilePos in area.pathfindingTilePositions)
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawWireSphere(groundTiles.GetCellCenterWorld(tilePos), 0.2f);
+            }
+        }
+
+        
+    }
 }

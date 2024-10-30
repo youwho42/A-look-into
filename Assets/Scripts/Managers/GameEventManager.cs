@@ -7,6 +7,11 @@ using UnityEngine.InputSystem;
 
 public static class GameEventManager
 {
+    /// <summary>
+    ///  Update Events
+    /// </summary>
+    ///public static readonly GameEvent onGameUpdateEvent = new GameEvent();
+     
 
     /// <summary>
     ///  Day Night cycle times, hours and ticks, maybe days later...

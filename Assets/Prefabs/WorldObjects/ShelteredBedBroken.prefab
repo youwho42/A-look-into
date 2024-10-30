@@ -130,13 +130,25 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+    m_TableEntryReference:
+      m_KeyId: 11285994541735936
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 10
   canInteract: 1
   hasLongInteract: 1
   replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
   ingredients:
   - item: {fileID: 11400000, guid: b581bbd250a074af0a3f75e68accf984, type: 2}
     amount: 10
@@ -164,6 +176,7 @@ MonoBehaviour:
   undertakingObject:
     undertaking: {fileID: 0}
     task: {fileID: 0}
+  replacementObjectHasLongInteract: 0
 --- !u!60 &6750399011244368914
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -238,6 +251,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-3279186467900159224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: d772232c15b812344a407d2d912c7b0b, type: 2}
+  itemVariantIndex: 0
 --- !u!1 &8899666191770706392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5096,13 +5112,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 0
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
