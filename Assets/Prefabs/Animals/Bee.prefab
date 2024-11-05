@@ -156,6 +156,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2db9af7d771b2ec47a3b0aae6fcb7ce8,
         type: 2}
+    - target: {fileID: 2240002081328395498, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240002081328395498, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c81d758c88ae3c4fa947127ff746e95,
+        type: 2}
+    - target: {fileID: 2240002081328395498, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2,
+        type: 2}
     - target: {fileID: 2302526306177949363, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: useBoids
@@ -439,12 +456,12 @@ PrefabInstance:
     - target: {fileID: 6337084432757913328, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.6840585
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 6337084432757913328, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.34202924
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 6337084432757913328, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -610,6 +627,36 @@ PrefabInstance:
         type: 3}
       propertyPath: minDistance
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: spotType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: shouldFlee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: maxHomeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: minHomeDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: displacementSpotLayer.m_Bits
+      value: 16777216
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}

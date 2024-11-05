@@ -191,7 +191,7 @@ namespace Klaxon.GOAD
             if (success)
                 aStarPath = newPath;
             else
-                Debug.LogWarning("Path not found");
+                Debug.LogWarning("Path not found", gameObject);
 
             gettingPath = false;
         }

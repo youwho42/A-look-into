@@ -24,14 +24,14 @@ public class CraftingStationDisplayUI : MonoBehaviour
     //PlayerInformation playerInformation;
     QI_CraftingRecipeDatabase recipeDatabase;
     public GameObject craftingStationUI;
-    
+
 
 
     //QI_Inventory playerInventory;
     QI_CraftingHandler craftingHandler;
     QI_Inventory finalInventory;
     public QI_ItemDatabase itemDatabase;
-    
+
 
 
     public List<CraftingSlot> ingredientSlots = new List<CraftingSlot>();
@@ -81,6 +81,8 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public Color energyFullColor;
     public Color energyEmptyColor;
     public TextMeshProUGUI energyTotalTime;
+    public Button removeEnergyButton;
+
     private void Start()
     {
         tutorial = GetComponent<TutorialUI>();
@@ -116,36 +118,57 @@ public class CraftingStationDisplayUI : MonoBehaviour
         SetQuantityText();
         inventoryEnergy.SetActive(false);
         SetEnergyItems();
-        
+
         energyContainer.SetActive(craftingHandler.craftingFuels.Count > 0);
 
         finalContainer.SetActive(false);
         craftingQueueObject.SetActive(false);
-        if(finalInventory.Name != "MainPlayerInventory")
+        if (finalInventory.Name != "MainPlayerInventory")
         {
             finalContainer.SetActive(true);
             craftingQueueObject.SetActive(true);
             SetContainerUI();
         }
-        
+
         EventSystem.current.SetSelectedGameObject(null);
         if (recipeButtons.Count > 0)
             EventSystem.current.SetSelectedGameObject(recipeButtons[0].GetComponentInChildren<Button>().gameObject);
-        
-    }
 
+    }
+    
+    public void RemoveEnergyItems()
+    {
+        var playerInventory = PlayerInformation.instance.playerInventory;
+        if (playerInventory.CheckInventoryHasSpace(craftingStationFuelInventorySlot.currentItem))
+        {
+            int amount = craftingHandler.currentFuelTick == craftingHandler.currentMaxTick ? craftingHandler.currentFuelAmount : craftingHandler.currentFuelAmount - 1;
+            playerInventory.AddItem(craftingHandler.currentFuel, amount, false);
+            craftingHandler.RemoveFuel(amount);
+
+            removeEnergyButton.interactable = false;
+
+            GameEventManager.onInventoryUpdateEvent.Invoke();
+        }
+
+    }
+    
     private void SetEnergyItems()
     {
         
         energyImage.sprite = emptySprite;
         energyAmountText.text = "0";
         energyUseImage.fillAmount = 0;
+        
         if (craftingHandler.currentFuel != null)
         {
             energyImage.sprite = craftingHandler.currentFuel.Icon;
             energyAmountText.text = craftingHandler.currentFuelAmount.ToString();
+            
+            removeEnergyButton.interactable = true;
         }
-        
+        removeEnergyButton.interactable = true;
+        if (craftingHandler.currentFuelAmount == 0 || craftingHandler.currentFuelAmount == 1 && craftingHandler.currentFuelTick != craftingHandler.currentMaxTick)
+            removeEnergyButton.interactable = false;
         SetEnergyPercent(0);
     }
     public void SetEnergyPercent(int tick)
@@ -225,8 +248,9 @@ public class CraftingStationDisplayUI : MonoBehaviour
             inventoryEnergy.SetActive(false);
             return;
         }
-        
-        tutorial.SetNextTutorialIndex(0);
+
+        if (!tutorial.hasShownTutorial || tutorial.currentIndex > 0)
+            tutorial.SetNextTutorialIndex(0);
         SetFuelSlots();
         inventoryEnergy.SetActive(true);
     }
@@ -430,14 +454,10 @@ public class CraftingStationDisplayUI : MonoBehaviour
     void GetCraftingQueueItems()
     {
         
-        
-
         QI_ItemData lastItem = null;
         
-
         string craftingText = "";
 
-       
         int finalAmount = 0;
         List<string> lines = new List<string>();
         int lineIndex = 0;

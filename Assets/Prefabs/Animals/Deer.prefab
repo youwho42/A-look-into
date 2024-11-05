@@ -394,6 +394,16 @@ PrefabInstance:
       propertyPath: MinDistance
       value: 0.29
       objectReference: {fileID: 0}
+    - target: {fileID: 6337084432757913328, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337084432757913328, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7442178345146074088, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: runSpeed
@@ -679,6 +689,11 @@ PrefabInstance:
       objectReference: {fileID: 3233863256327339499}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: spotType
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: shouldFlee
       value: 1
       objectReference: {fileID: 0}
@@ -732,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -754,6 +769,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: displacementSpotLayer.m_Bits
+      value: 131072
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: possibleGoals.Array.data[0].Name
       value: Walk Wander
       objectReference: {fileID: 0}
@@ -769,8 +789,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: possibleGoals.Array.data[4].Name
+      value: Flee
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: possibleGoals.Array.data[3].Priority
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].Priority
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -792,6 +822,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 07bfee16d331a824f83a296d029ec58f,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -799,6 +835,11 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -821,6 +862,24 @@ PrefabInstance:
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 45236e8106e134c4f9b87b990f727fe0,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ee3d2672f686074fb82361cdaa77d97,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b901a847ccd67b147a51e7e6327ef8dd,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 45236e8106e134c4f9b87b990f727fe0,
         type: 2}
@@ -955,6 +1014,7 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 0}
   currentVelocity: 0
@@ -980,6 +1040,7 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 0
+  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 1.15
   runSpeed: 0

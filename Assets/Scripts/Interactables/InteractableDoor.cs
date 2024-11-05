@@ -29,15 +29,16 @@ namespace Klaxon.Interactable
         public DoorStates lowerState;
         public bool isOpen;
         float maxOpenTime = 5;
-        
-        
+
+        public Sound doorSound;
+        AudioSource source;
 
 
         public override void Start()
         {
             base.Start();
             DisableOpenDoors();
-
+            source = GetComponent<AudioSource>();
         }
 
         
@@ -101,7 +102,8 @@ namespace Klaxon.Interactable
 
         public virtual void PlayInteractionSound()
         {
-            audioManager.PlaySound(interactSound);
+            doorSound.SetSource(source);
+            doorSound.Play();
         }
     }
 

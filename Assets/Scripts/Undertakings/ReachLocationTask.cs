@@ -15,13 +15,13 @@ namespace Klaxon.UndertakingSystem
             if (!collision.CompareTag("Player"))
                 return;
 
+            if (collision.gameObject.transform.position.z != transform.position.z)
+                return;
+            
             if (canSelfActivate)
                 taskObject.undertaking.ActivateUndertaking();
 
-            if (taskObject.undertaking.CurrentState != UndertakingState.Active )
-                return;
-
-            if (collision.gameObject.transform.position.z == transform.position.z)
+            if (taskObject.undertaking.CurrentState == UndertakingState.Active)
                 taskObject.undertaking.TryCompleteTask(taskObject.task);
         }
     }

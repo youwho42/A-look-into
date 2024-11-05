@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6887493229926418267}
   - component: {fileID: 590698739972397137}
   - component: {fileID: 7848326908069796272}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: Bird
   m_TagString: Animal
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2, y: 1}
+  m_Size: {x: 1.55, y: 0.73}
   m_Direction: 1
 --- !u!114 &7442178345146074088
 MonoBehaviour:
@@ -399,6 +399,7 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 2910552320548766059}
   currentVelocity: 0
@@ -424,6 +425,7 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
+  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.15
   runSpeed: 0
@@ -463,6 +465,7 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 2910552320548766059}
   currentVelocity: 0
@@ -488,6 +491,7 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
+  addUpsies: 0
   centerOfActiveArea: {fileID: 0}
   flightSpeed: 0.9
   flyRoamingDistance: 4
@@ -560,10 +564,15 @@ MonoBehaviour:
     m_Extent: {x: 0, y: 0, z: 0}
   closestSpots: []
   minHomeDistance: 1
+  maxHomeDistance: 5
   currentDisplacementSpot: {fileID: 0}
   homeDestination: {fileID: 0}
   shouldFlee: 0
   fleeCondition: {fileID: 11400000, guid: 7ee3d2672f686074fb82361cdaa77d97, type: 2}
+  displacementSpotLayer:
+    serializedVersion: 2
+    m_Bits: 16793600
+  spotType: 3
   minMaxFlap: {x: 0.5, y: 10}
   minMaxGlide: {x: 0.5, y: 5}
   glide: 0
@@ -582,6 +591,7 @@ MonoBehaviour:
   wantScritchCondition: {fileID: 0}
   scritchableFoundCondition: {fileID: 0}
   hasDialogue: 0
+  fleeTransform: {fileID: 0}
 --- !u!114 &6585509589159697265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,11 +632,10 @@ MonoBehaviour:
     PreCondition: {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
   IsRunning: 0
   success: 0
-  conditionsOnSucceed:
-  - {fileID: 11400000, guid: 3c81d758c88ae3c4fa947127ff746e95, type: 2}
+  conditionsOnSucceed: []
   conditionsOnFail:
-  - {fileID: 11400000, guid: a9128fbf3a25af949926121b20d7315d, type: 2}
-  - {fileID: 11400000, guid: 2ede4b02055dc9e43a5b68977a4745f9, type: 2}
+  - {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
 --- !u!114 &4097649243831503232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,6 +723,8 @@ MonoBehaviour:
     setBetweenTimes: 0
     setFromToTimeTick: {x: 0, y: 0}
   specialConditions: []
+  timedConditions: []
+  dailyResetConditions: []
   scheduler: {fileID: 8378868691461979021}
 --- !u!1 &1186113324396075657
 GameObject:

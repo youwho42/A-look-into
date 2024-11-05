@@ -38,26 +38,32 @@ namespace Klaxon.Interactable
 
         IEnumerator InteractCo(GameObject interactor)
         {
+            var playerInventory = PlayerInformation.instance.playerInventory;
             interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
             yield return new WaitForSeconds(0.33f);
             PlayInteractSound();
 
-
-            if (PlayerInformation.instance.playerInventory.AddItem(pickUpItem, pickupQuantity, false))
+            int space = playerInventory.CheckInventoryHasSpace(pickUpItem, pickupQuantity);
+            int finalAmount = pickupQuantity < space ? pickupQuantity : space;
+            if (playerInventory.AddItem(pickUpItem, finalAmount, false))
             {
+                Notifications.instance.SetNewNotification("", pickUpItem, finalAmount, NotificationsType.Inventory);
+                if (finalAmount < pickupQuantity)
+                    pickupQuantity -= finalAmount;
+                else 
+                {
+                    if (pickUpItem.placementGumption != null)
+                        PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
+                    if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
+                        obj.ShowObjects(true);
 
-                if (TryGetComponent(out ReplaceObjectOnItemDrop obj))
-                    obj.ShowObjects(true);
-
-                Notifications.instance.SetNewNotification("", pickUpItem, pickupQuantity, NotificationsType.Inventory);
-                //NotificationManager.instance.SetNewNotification($"{pickUpItem.Name} {pickupQuantity}", NotificationManager.NotificationType.Inventory);
-                Destroy(gameObject);
-
+                    Destroy(gameObject);
+                }
+                
             }
 
             hasInteracted = false;
-            if(pickUpItem.placementGumption != null)
-                PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
+            
                 
             WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
 

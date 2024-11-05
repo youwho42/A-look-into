@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public class CraftingStationFuelInventorySlot : MonoBehaviour
 {
-    QI_ItemData currentItem;
+    [HideInInspector]
+    public QI_ItemData currentItem;
     public Button iconImage;
     public TextMeshProUGUI amountText;
-    QI_CraftingHandler craftingHandler;
+    [HideInInspector]
+    public QI_CraftingHandler craftingHandler;
 
     public void ShowInformation()
     {

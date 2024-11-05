@@ -1,6 +1,4 @@
 using QuantumTek.QuantumInventory;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,9 +10,11 @@ public class ResearchStationResearchSlot : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI recipesText;
     public Button researchButton;
-    float gameEnergyReward = 1;
-
     private void Start()
+    {
+        ClearSlot();
+    }
+    private void OnEnable()
     {
         ClearSlot();
     }
@@ -34,9 +34,10 @@ public class ResearchStationResearchSlot : MonoBehaviour
         {
             if (!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
             {
-                var n = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{item.ResearchRecipes[i].recipe.Product.Item.Type.ToString()}", item.ResearchRecipes[i].recipe.Product.Item.Name);
-                var c = PlayerInformation.instance.playerInventory.GetStock(item.Name) >= item.ResearchRecipes[i].RecipeRevealAmount ? "" : "<color=#FF0000>";
-                textToAdd += $"{c} {item.ResearchRecipes[i].RecipeRevealAmount} - {n}\n";
+                int inventoryAmount = PlayerInformation.instance.playerInventory.GetStock(item.Name);
+                var n = item.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString();
+                var c = inventoryAmount >= item.ResearchRecipes[i].RecipeRevealAmount ? "" : "<color=#FF0000>";
+                textToAdd += $"{c}{inventoryAmount}/{item.ResearchRecipes[i].RecipeRevealAmount} - {n}\n";
             }
                 
         }
@@ -50,7 +51,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         icon.enabled = false;
-        recipesText.text = "The recipes you will from researching items will show here alongside the amount of items needed to research the recipe.";
+        recipesText.text = LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Research Recipe Description");
     }
 
     public void LearnRecipes()
@@ -65,11 +66,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
                 PlayerInformation.instance.statHandler.ChangeStat(item.ResearchRecipes[i].agencyStatChanger);
                 PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
                 Notifications.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
-
-                //NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[i].recipe.Name} recipe learned", NotificationManager.NotificationType.Compendium);
             }
-            //ResearchStationDisplayUI.instance.UpdateResearchDisplay();
-
         }
         ResearchStationDisplayUI.instance.UpdateResearchDisplay();
         ClearSlot();

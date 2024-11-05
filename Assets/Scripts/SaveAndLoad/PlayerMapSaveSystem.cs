@@ -11,14 +11,20 @@ namespace Klaxon.SaveSystem
         public object CaptureState()
         {
             List<string> maps = new List<string>();
+            List<bool> animated = new List<bool>();
             foreach (var map in mapManager.mapAreas)
             {
                 if (map.active)
+                {
                     maps.Add(map.mapName);
+                    animated.Add(map.hasAnimated);
+                }
+                    
             }
             return new SaveData
             {
-                mapNames = maps
+                mapNames = maps,
+                hasAnimated = animated
 
             };
         }
@@ -27,16 +33,19 @@ namespace Klaxon.SaveSystem
         {
             var saveData = (SaveData)state;
 
-            foreach (var map in saveData.mapNames)
+            for (int i = 0; i < saveData.mapNames.Count; i++)
             {
-                mapManager.ActivateMapArea(map);
+                mapManager.ActivateMapAreaFromSave(saveData.mapNames[i], saveData.hasAnimated[i]);
             }
+            
         }
 
         [Serializable]
         private struct SaveData
         {
             public List<string> mapNames;
+            public List<bool> hasAnimated;
+            
         }
 
 

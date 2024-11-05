@@ -494,8 +494,8 @@ public class CompendiumDisplayUI : MonoBehaviour
     public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)
     {
         recipeRevealDescription.SetActive(false);
-       
-       
+
+        informationDisplayItemDescription.text = " ";
         localizedDisplayDescription = item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
         informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString(item.Name)}</style>\n\n{item.localizedDescription.GetLocalizedString(item.Name + " Description")}\n\n";

@@ -54,4 +54,17 @@ public class PlayerMapsManager : MonoBehaviour
                 
         }
     }
+
+    public void ActivateMapAreaFromSave(string mapName, bool animated)
+    {
+        foreach (var map in mapAreas)
+        {
+            if (map.mapName == mapName && !map.active)
+            {
+                map.active = true;
+                map.hasAnimated = animated;
+            }
+
+        }
+    }
 }

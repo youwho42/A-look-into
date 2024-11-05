@@ -96,7 +96,7 @@ public class UndertakingsDisplayUI : MonoBehaviour
     {
         currentUndertaking = null;
         
-        undertakingDescription.text = "";
+        undertakingDescription.text = " ";
     }
 
 

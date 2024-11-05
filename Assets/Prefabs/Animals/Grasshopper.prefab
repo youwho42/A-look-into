@@ -267,6 +267,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: spotType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: shouldFlee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: minMaxFlap.x
       value: 0
       objectReference: {fileID: 0}
@@ -289,6 +299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: displacementSpotLayer.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -319,6 +334,7 @@ PrefabInstance:
     - {fileID: 4097649243831503232, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 6887493229926418267, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 590698739972397137, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 5344582656604894456, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -370,6 +386,7 @@ MonoBehaviour:
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 0}
   currentVelocity: 0
@@ -395,6 +412,7 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 0
+  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.7
   runSpeed: 0

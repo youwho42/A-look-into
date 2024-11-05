@@ -7,13 +7,19 @@ public class MakeAnimalFlee : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var currentClipInfo = PlayerInformation.instance.playerAnimator.GetCurrentAnimatorClipInfo(0);
-        if (currentClipInfo[0].clip.name == "SitOnGround")
+        if(!enabled) return;
+        if (!collision.gameObject.CompareTag("Animal"))
+            return;
+        if (collision.transform.position.z != transform.position.z)
             return;
 
         if (collision.TryGetComponent(out IAnimal animal))
         {
-           animal.FleePlayer(transform);
+            var currentClipInfo = PlayerInformation.instance.playerAnimator.GetCurrentAnimatorClipInfo(0);
+            if (currentClipInfo[0].clip.name == "SitOnGround")
+                return;
+
+            animal.FleePlayer(transform);
         }
     }
 

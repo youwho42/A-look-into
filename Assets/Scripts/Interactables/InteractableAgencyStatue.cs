@@ -58,16 +58,7 @@ namespace Klaxon.Interactable
             hasBeenActivated = false;
             canInteract = true;
         }
-        //void ResetStatue(int time)
-        //{
-        //    if (time == 5)
-        //    {
-        //        float factor = Mathf.Pow(2, onIntensity);
-        //        material.SetColor("_EmissionColor", initialColor * factor);
-        //        hasBeenActivated = false;
-        //        canInteract = true;
-        //    }
-        //}
+        
 
         public override void Interact(GameObject interactor)
         {
@@ -75,9 +66,7 @@ namespace Klaxon.Interactable
 
             if (!hasBeenActivated && PlayerInformation.instance.playerInventory.CheckInventoryHasSpace(agencyItem))
                 StartCoroutine(InteractCo(interactor));
-            //else
-            //    Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory full"), null, 0, NotificationsType.Warning);
-        
+            
         }
 
         IEnumerator InteractCo(GameObject interactor)
@@ -126,7 +115,6 @@ namespace Klaxon.Interactable
 
             PlayerInformation.instance.playerInventory.AddItem(agencyItem, agencyAmount, false);
             Notifications.instance.SetNewNotification("", agencyItem, agencyAmount, NotificationsType.Inventory);
-            //NotificationManager.instance.SetNewNotification($"{agencyItem.Name} {agencyAmount}", NotificationManager.NotificationType.Inventory);
         }
 
         public void SetMaterialColor(float intensity)
@@ -160,10 +148,7 @@ namespace Klaxon.Interactable
 
         }
 
-        //public void SetToManager()
-        //{
-        //    ResetAtDawnManager.instance.AddToManager(this);
-        //}
+        
     }
 
 }

@@ -128,7 +128,8 @@ GameObject:
   - component: {fileID: 7897041632071972313}
   - component: {fileID: 3313445778719661174}
   - component: {fileID: 7905477252400666841}
-  m_Layer: 13
+  - component: {fileID: 5101609357701088189}
+  m_Layer: 26
   m_Name: Cattail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,6 +244,41 @@ MonoBehaviour:
   - item: {fileID: 21300000, guid: 64839b8a6d1c6cb4eb22934875b949d2, type: 3}
   - item: {fileID: 21300000, guid: 3e89257788fb5914a8f75b3119867980, type: 3}
   - item: {fileID: 21300000, guid: 408a5c8ae521de146a37bcc9af279e5a, type: 3}
+--- !u!58 &5101609357701088189
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897041632071972312}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.01
 --- !u!1001 &8064623377329944392
 PrefabInstance:
   m_ObjectHideFlags: 0

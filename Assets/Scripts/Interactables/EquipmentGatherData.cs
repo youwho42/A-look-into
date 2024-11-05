@@ -164,7 +164,7 @@ public class EquipmentGatherData : EquipmentData
                                 {
                                     continue;
                                 }
-                                if (!playerInfo.playerInventory.CheckInventoryHasSpace(itemData))
+                                if (!playerInfo.playerInventory.CheckInventoryHasSpace(itemData) && !isSpyglass)
                                 {
                                     Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Inventory Full"), null, 0, NotificationsType.Warning);
                                     return;

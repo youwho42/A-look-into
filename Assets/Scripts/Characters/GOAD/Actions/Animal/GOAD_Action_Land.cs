@@ -7,7 +7,7 @@ namespace Klaxon.GOAD
     public class GOAD_Action_Land : GOAD_Action
     {
         float timer;
-
+        
         public override void StartAction(GOAD_Scheduler_Animal agent)
         {
             base.StartAction(agent);
@@ -66,6 +66,7 @@ namespace Klaxon.GOAD
                 return;
             }
 
+            
 
 
             if (agent.currentDisplacementSpot.positionZ == 0)
@@ -85,19 +86,19 @@ namespace Klaxon.GOAD
                 {
                     agent.flier.itemObject.localPosition = agent.currentDisplacementSpot.displacedPosition;
                     agent.transform.position = agent.currentDisplacementSpot.transform.position;
-                    success = false;
+                    success = true;
                     agent.SetActionComplete(true);
                     return;
                 }
             }
-
-
 
             if (agent.flier.isStuck || agent.isDeviating || !agent.flier.canReachNextTile)
             {
                 agent.DeviateFly();
                 return;
             }
+            agent.flier.SetDestination(agent.currentDisplacementSpot);
+
 
 
 
@@ -110,7 +111,7 @@ namespace Klaxon.GOAD
                 agent.animator.SetBool(agent.gliding_hash, agent.glide);
             }
 
-            agent.flier.SetDestination(agent.currentDisplacementSpot);
+            
 
 
             

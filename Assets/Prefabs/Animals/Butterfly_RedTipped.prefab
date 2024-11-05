@@ -161,12 +161,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0660b00dc3305fd43b13672a5e5f515b,
         type: 2}
-    - target: {fileID: 2240002081328395498, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-        type: 3}
-      propertyPath: conditionsOnFail.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ede4b02055dc9e43a5b68977a4745f9,
-        type: 2}
     - target: {fileID: 2302526306177949363, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: useBoids
@@ -645,8 +639,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: spotType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: maxHomeDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: minHomeDistance
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: displacementSpotLayer.m_Bits
+      value: 16777216
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}

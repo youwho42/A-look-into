@@ -51,7 +51,7 @@ namespace Klaxon.GOAD
         [ConditionalHide("hiddenWhenSleeping", true)]
         public GatherableItem gatherableItem;
 
-        InteractAreasManager interactAreas;
+        
 
         public bool isNocturnal;
 
@@ -62,6 +62,7 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public List<DrawZasYDisplacement> closestSpots = new List<DrawZasYDisplacement>();
         public float minHomeDistance = 1f;
+        public float maxHomeDistance = 5f;
         [HideInInspector]
         public DrawZasYDisplacement currentDisplacementSpot;
 
@@ -71,6 +72,8 @@ namespace Klaxon.GOAD
         [ConditionalHide("shouldFlee", true)]
         public GOAD_ScriptableCondition fleeCondition;
 
+        public LayerMask displacementSpotLayer;
+        public SpotType spotType;
         /// <summary>
         /// Fliers
         /// </summary>
@@ -119,6 +122,9 @@ namespace Klaxon.GOAD
         float inTalkRangeTimer;
         DialogueManagerUI dialogueManager;
 
+        [HideInInspector]
+        public Transform fleeTransform;
+
         public override void Start()
         {
             base.Start();
@@ -133,7 +139,7 @@ namespace Klaxon.GOAD
 
             flier = GetComponent<GravityItemFly>();
             jumper = GetComponent<GravityItemJump>();
-            interactAreas = GetComponentInParent<InteractAreasManager>();
+            
             sounds = GetComponent<AnimalSounds>();
             musicItem = GetComponentInChildren<MusicGeneratorItem>();
             bounds = new Bounds(transform.position, new Vector3(4, 4, 4));
@@ -333,14 +339,19 @@ namespace Klaxon.GOAD
 
         public DrawZasYDisplacement CheckForDisplacementSpot()
         {
-            if (sleep.isSleeping || interactAreas == null)
+            if (sleep.isSleeping)
                 return null;
-
-            // Direct assignment, no need for Clear()
-            closestSpots = interactAreas.QueryQuadTree(bounds);
-
-            if (closestSpots == null || closestSpots.Count == 0)
-                return null;
+            int waterdisp = 0;
+            if(flier != null)
+                waterdisp = flier.enabled && flier.isOverWater ? 3 : 0; 
+            
+            closestSpots.Clear();
+            var spots = Physics2D.OverlapCircleAll(_transform.position, maxHomeDistance, displacementSpotLayer, _transform.position.z + waterdisp, _transform.position.z + waterdisp);
+            foreach (var spot in spots)
+            {
+                var allDisplacementSpots = spot.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == spotType).ToList();
+                closestSpots.AddRange(allDisplacementSpots);
+            }
 
             float closestDistanceSqr = Mathf.Infinity;
             Vector2 currentPosition = _transform.position;
@@ -348,8 +359,9 @@ namespace Klaxon.GOAD
 
             foreach (var item in closestSpots)
             {
+                var hit = Physics2D.OverlapPoint(item.transform.position, LayerMask.GetMask("Obstacle"), item.transform.position.z, item.transform.position.z);
                 // Skip if item is null, in use, or position is invalid
-                if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position))
+                if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position) || hit != null)
                     continue;
 
                 // Calculate squared distance to avoid sqrt overhead
@@ -372,6 +384,7 @@ namespace Klaxon.GOAD
             return bestTarget;
         }
 
+        
 
 
         public float TurnHead()
@@ -446,33 +459,34 @@ namespace Klaxon.GOAD
         {
             currentScritchableTree = null;
             var hits = Physics2D.OverlapCircleAll(_transform.position, 2f, LayerMask.GetMask("Gatherable"), _transform.position.z, _transform.position.z);
-            if (hits.Length > 0)
+            
+            foreach (var item in hits)
             {
-                foreach (var item in hits)
+                var allDisplacementSpots = item.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == SpotType.Bear).ToList();
+                if (allDisplacementSpots.Count > 0)
                 {
-                    var allDisplacementSpots = item.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == SpotType.Bear).ToList();
-                    if (allDisplacementSpots.Count > 0)
-                    {
-                        currentDisplacementSpot = allDisplacementSpots[0];
-                        currentScritchableTree = item.gameObject.GetComponent<TreeRustling>();
-                        isScritching = true;
-                        SetBeliefState(scritchableFoundCondition.Condition, true);
-                        InteruptCurrentGoal();
-                        break;
-                    }
-                        
+                    currentDisplacementSpot = allDisplacementSpots[0];
+                    currentScritchableTree = item.gameObject.GetComponent<TreeRustling>();
+                    isScritching = true;
+                    SetBeliefState(scritchableFoundCondition.Condition, true);
+                    InteruptCurrentGoal();
+                    break;
                 }
-
-
+                        
             }
+
+
+            
             
         }
 
-        public void FleePlayer(Transform playerTransform)
+        public void FleePlayer(Transform interactorTransform)
         {
-            if (!shouldFlee)
+            if (!shouldFlee && IsConditionMet(fleeCondition))
                 return;
 
+
+            fleeTransform = interactorTransform;
             SetBeliefState(fleeCondition.Condition, true);
             if(currentAction != null)
                 InteruptCurrentGoal();

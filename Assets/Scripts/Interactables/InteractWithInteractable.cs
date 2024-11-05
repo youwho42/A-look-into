@@ -8,6 +8,7 @@ using Klaxon.GravitySystem;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
+using System;
 
 namespace Klaxon.Interactable
 {
@@ -140,8 +141,16 @@ namespace Klaxon.Interactable
                 closest.SetInteractVerb();
                 string buttTap = player.playerInput.currentControlScheme == "Gamepad" ? "-X-" : "-E-";
                 string action="";
+                string quantity = "";
+                if (closest is InteractablePickUp derivedObj)
+                {
+                    if(derivedObj.pickupQuantity>1)
+                        quantity = $"({derivedObj.pickupQuantity})";
+                }
+                    
+                
                 if (closest.localizedInteractVerb != null)
-                    action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}";
+                    action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
                 string buttHold = player.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
