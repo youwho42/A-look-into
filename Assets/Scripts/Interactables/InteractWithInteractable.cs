@@ -149,8 +149,7 @@ namespace Klaxon.Interactable
                 }
                     
                 
-                if (closest.localizedInteractVerb != null)
-                    action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
+                action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
                 string buttHold = player.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";

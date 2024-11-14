@@ -46,11 +46,13 @@ public class PlayerRunningManager : MonoBehaviour
 
     void Jump()
     {
-        if (shattered || !player.playerController.isGrounded)
+        if (shattered || !player.playerController.isGrounded || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
             return;
 
-        ActivateUI();
+        
         currentGaugeAmount += 0.05f;
+        if(currentGaugeAmount >0.1f)
+            ActivateUI();
         if (currentGaugeAmount >= 1)
             ShatterGlass();
                 
@@ -60,10 +62,12 @@ public class PlayerRunningManager : MonoBehaviour
         if (shattered)
             return;
 
-        ActivateUI();
+        
         var amount = NumberFunctions.RemapNumber(lastZ, 1.0f, 7.0f, 0.0f, 1.0f);
         amount = Mathf.Clamp01(amount);
         currentGaugeAmount += amount;
+        if (currentGaugeAmount > 0.1f)
+            ActivateUI();
         if (currentGaugeAmount >= 1)
             ShatterGlass();
     }

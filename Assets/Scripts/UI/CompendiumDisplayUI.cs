@@ -599,9 +599,9 @@ public class CompendiumDisplayUI : MonoBehaviour
     public void ClearItemInformation()
     {
         
-        informationDisplayItemDescription.text = "";
-        agencyText.text = "";
-        timesViewedText.text = "";
+        informationDisplayItemDescription.text = " ";
+        agencyText.text = " ";
+        timesViewedText.text = " ";
         ClearCompendiumRecipeSlot();
         ClearCompendiumRecipeRevealSlot();
     }

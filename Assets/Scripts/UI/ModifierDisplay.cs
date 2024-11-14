@@ -26,5 +26,16 @@ public class ModifierDisplay : MonoBehaviour
         float max = statModifier.GetMaxTimer();
         modifierIcon.fillAmount = current / max;
     }
-    
+
+    public void ShowInformation()
+    {
+        if (statModifier == null)
+            return;
+        ItemInformationDisplayUI.instance.ShowModifierInfo(statModifier, this.GetComponent<RectTransform>());
+    }
+    public void HideInformation()
+    {
+        ItemInformationDisplayUI.instance.HideItemName();
+    }
+
 }

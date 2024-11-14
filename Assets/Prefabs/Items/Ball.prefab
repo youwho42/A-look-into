@@ -350,7 +350,6 @@ GameObject:
   - component: {fileID: 2102037779340491033}
   - component: {fileID: 4797862346246737360}
   - component: {fileID: 3006377091520276690}
-  - component: {fileID: 2054339339284736611}
   m_Layer: 13
   m_Name: Ball
   m_TagString: Ball
@@ -412,7 +411,7 @@ MonoBehaviour:
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
   isOverWater: 0
-  checkTileDistance: 0.08
+  checkTileDistance: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -427,6 +426,8 @@ MonoBehaviour:
   canCollideWithGravityItems: 1
   source: {fileID: 3308450813752416679}
   volume: 0.611
+  addGuide: 1
+  guideToAdd: {fileID: 11400000, guid: ccd2359d28381de428bc35cefa92c9a7, type: 2}
 --- !u!58 &7924754858217846134
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -590,38 +591,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 7924754857800506253}
---- !u!58 &2054339339284736611
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924754858217846129}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.04}
-  serializedVersion: 2
-  m_Radius: 0.04

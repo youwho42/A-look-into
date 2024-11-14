@@ -1,3 +1,4 @@
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,10 @@ namespace Klaxon.GravitySystem {
         public AudioSource source;
         [Range(0.0f, 1.0f)]
         public float volume;
+
+        public bool addGuide;
+        [ConditionalHide("addGuide", true)]
+        public QI_ItemData guideToAdd;
         private new IEnumerator Start()
         {
             base.Start();
@@ -320,7 +325,20 @@ namespace Klaxon.GravitySystem {
         {
             if (collision.CompareTag("Water") || collision.CompareTag("Animal"))
                 return;
-       
+
+            if (collision.CompareTag("Player"))
+            {
+                if (addGuide)
+                {
+                    if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(guideToAdd))
+                    {
+                        PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(guideToAdd);
+                        Notifications.instance.SetNewNotification($"{guideToAdd.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                        GameEventManager.onGuideCompediumUpdateEvent.Invoke();
+                    }
+                }
+            }
+
             if (collision.gameObject.TryGetComponent(out GravityItemNew gravityItem) && canCollideWithGravityItems)
             {
             

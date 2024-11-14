@@ -23,6 +23,7 @@ namespace Klaxon.GOAD
                     agent.SetAStarDestination(targetNode.transform.position, this);
 
                 agent.currentFinalDestination = targetNode.transform.position;
+                
             }
         }
 
@@ -50,6 +51,8 @@ namespace Klaxon.GOAD
                 agent.AStarDeviate(this);
                 return;
             }
+            if (agent.aStarPath.Count == 0)
+                agent.aStarPath.Add(targetNode.transform.position);
 
             if (agent.aStarPath.Count > 0)
                 agent.walker.currentDestination = agent.aStarPath[agent.currentPathIndex];

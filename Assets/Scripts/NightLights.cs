@@ -9,7 +9,7 @@ public class NightLights : MonoBehaviour
 
     RealTimeDayNightCycle dayNightCycle;
 
-    public List<LightFlicker> lights = new List<LightFlicker>();
+    public List<Lights> lights = new List<Lights>();
 
 
 
@@ -17,7 +17,7 @@ public class NightLights : MonoBehaviour
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(SetLights);
-        lights = GetComponentsInChildren<LightFlicker>().ToList();
+        lights = GetComponentsInChildren<Lights>().ToList();
         Invoke("SetInitialLights", 1f);
     }
 
@@ -40,7 +40,7 @@ public class NightLights : MonoBehaviour
             foreach (var light in lights)
             {
                 if(!light.lightsOn)
-                    light.LightAndFlicker();
+                    light.Light();
             }
 
         }
@@ -49,7 +49,7 @@ public class NightLights : MonoBehaviour
             foreach (var light in lights)
             {
                 if (light.lightsOn)
-                    light.Exinguish();
+                    light.Extinguish();
             }
         }
 

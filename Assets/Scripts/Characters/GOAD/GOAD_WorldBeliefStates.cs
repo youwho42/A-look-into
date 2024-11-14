@@ -44,7 +44,17 @@ namespace Klaxon.GOAD
             [HideInInspector]
             public bool isSet;
         }
-        public List<ConditionalCondition> conditionalConditions = new List<ConditionalCondition>();   
+        public List<ConditionalCondition> conditionalConditions = new List<ConditionalCondition>();
+
+        [Serializable]
+        public struct RepeatableConditionalCondition
+        {
+            public string conditionName;
+            public GOAD_ScriptableCondition conditionToSet;
+            public List<GOAD_ScriptableCondition> neededConditions;
+            public Vector2 setFromToTimeTick;
+        }
+        public List<RepeatableConditionalCondition> repeatableConditions = new List<RepeatableConditionalCondition>();
 
         public Dictionary<string, bool> worldStates = new Dictionary<string, bool>();
 
@@ -125,7 +135,7 @@ namespace Klaxon.GOAD
                         SetWorldState(item.condition.Condition, item.condition.State);
                 }
             }
-
+            SetRepeatableConditionalConditions();
         }
 
         void SetConditionalConditions()
@@ -154,6 +164,32 @@ namespace Klaxon.GOAD
                 }
             }
             
+        }
+
+        void SetRepeatableConditionalConditions()
+        {
+            int timeTick = RealTimeDayNightCycle.instance.currentTimeRaw;
+            foreach (var condition in repeatableConditions)
+            {
+                bool canSet = timeTick > condition.setFromToTimeTick.x && timeTick < condition.setFromToTimeTick.y;
+                
+                foreach (var c in condition.neededConditions)
+                {
+                    if (!HasState(c.Condition, c.State))
+                    {
+                        canSet = false;
+                        break;
+                    }
+
+                }
+                
+                if (!worldStates.ContainsKey(condition.conditionToSet.Condition))
+                    worldStates.Add(condition.conditionToSet.Condition, canSet ? condition.conditionToSet.State : !condition.conditionToSet.State);
+                else
+                    worldStates[condition.conditionToSet.Condition] = canSet ? condition.conditionToSet.State : !condition.conditionToSet.State;
+                
+            }
+
         }
 
         public bool HasState(string condition, bool state)

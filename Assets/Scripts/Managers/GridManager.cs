@@ -62,7 +62,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = groundMap.cellBounds.yMin; y < groundMap.cellBounds.yMax; y++)
             {
-                for (int z = groundMap.cellBounds.zMin; z < groundMap.cellBounds.zMax; z++)
+                for (int z = -1; z < groundMap.cellBounds.zMax; z++)
                 {
                 Vector3Int pos = new Vector3Int(x, y, z);
                     if (groundMap.GetTile(pos) != null)
@@ -71,7 +71,7 @@ public class GridManager : MonoBehaviour
                         decorationOne.SetTileFlags(pos, TileFlags.None);
                         decorationTwo.SetTileFlags(pos, TileFlags.None);
 
-                        float c = NumberFunctions.RemapNumber(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, 0.0f, 0.25f);
+                        float c = NumberFunctions.RemapNumber(z, -1, groundMap.cellBounds.zMax, 0.0f, 0.25f);
                         Color levelcolor = Color.Lerp(Color.white, Color.black, c);
                         groundMap.SetColor(pos, levelcolor);
                         decorationOne.SetColor(pos, levelcolor);

@@ -24,7 +24,7 @@ namespace Klaxon.Interactable
         }
         public override void SetInteractVerb()
         {
-            interactVerb = interactableItem.Data.localizedName.GetLocalizedString();
+            interactVerb = localizedInteractVerb.GetLocalizedString();
             //interactVerb = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-{interactableItem.Data.Type}", interactableItem.Data.Name);
         }
         public override void Interact(GameObject interactor)

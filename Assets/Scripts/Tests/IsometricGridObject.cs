@@ -19,6 +19,7 @@ public class IsometricGridObject : MonoBehaviour
     
     public float xComponent { get; private set; } // The x component of the angle
     public float yComponent { get; private set; }// The y component of the angle
+    public float zComponent { get; private set; }// The z component of the angle
 
 
     

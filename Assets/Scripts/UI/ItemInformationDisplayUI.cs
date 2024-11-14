@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Klaxon.StatSystem;
 
 public class ItemInformationDisplayUI : MonoBehaviour
 {
@@ -17,11 +18,14 @@ public class ItemInformationDisplayUI : MonoBehaviour
 
     public GameObject informationDisplay;
     public TextMeshProUGUI itemName;
-    public Vector2 offset;
+    public Vector2 itemAnchorOffset;
     public RectTransform canvasRectTransform;
     QI_ItemData currentItem;
-    RectTransform otherAnchor;
+    RectTransform otherItemAnchor;
     bool isShowing;
+    StatModifier currentStat;
+    RectTransform otherStatAnchor;
+    public Vector2 statAnchorOffset;
 
     private void Start()
     {
@@ -38,7 +42,7 @@ public class ItemInformationDisplayUI : MonoBehaviour
     public void ShowItemName(QI_ItemData item, RectTransform anchor)
     {
         currentItem = item;
-        otherAnchor = anchor;
+        otherItemAnchor = anchor;
         if (isShowing)
         {
             StopCoroutine("HideItemCo");
@@ -46,6 +50,20 @@ public class ItemInformationDisplayUI : MonoBehaviour
         }
         else
             Invoke("ShowItem", 1.3f);
+
+    }
+
+    public void ShowModifierInfo(StatModifier stat, RectTransform anchor)
+    {
+        currentStat = stat;
+        otherStatAnchor = anchor;
+        if (isShowing)
+        {
+            StopCoroutine("HideItemCo");
+            ShowStat();
+        }
+        else
+            Invoke("ShowStat", 1.3f);
 
     }
 
@@ -61,12 +79,28 @@ public class ItemInformationDisplayUI : MonoBehaviour
     void ShowItem()
     {
         isShowing = true;
-        itemName.text = currentItem.Name;
+        itemName.text = currentItem.localizedName.GetLocalizedString();
 
         // Convert the screen point to a position in the canvas
 
         Vector2 anchoredPosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, otherAnchor.position + (Vector3)offset, null, out anchoredPosition);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, otherItemAnchor.position + (Vector3)itemAnchorOffset, null, out anchoredPosition);
+
+        // Apply the anchored position to the UI element
+        informationDisplay.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
+
+        informationDisplay.SetActive(true);
+    }
+
+    void ShowStat()
+    {
+        isShowing = true;
+        itemName.text = currentStat.EffectDescription.GetLocalizedString();
+
+        // Convert the screen point to a position in the canvas
+
+        Vector2 anchoredPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, otherStatAnchor.position + (Vector3)statAnchorOffset, null, out anchoredPosition);
 
         // Apply the anchored position to the UI element
         informationDisplay.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;

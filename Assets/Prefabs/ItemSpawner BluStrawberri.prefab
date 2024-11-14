@@ -10,6 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2613490507250368973, guid: da8a87e62613a474f892d75083bfbc9b,
         type: 3}
+      propertyPath: itemToSpawn
+      value: 
+      objectReference: {fileID: 11400000, guid: bd46715d9b7561a469052d91ee3cd63f,
+        type: 2}
+    - target: {fileID: 2613490507250368973, guid: da8a87e62613a474f892d75083bfbc9b,
+        type: 3}
       propertyPath: itemDatabase
       value: 
       objectReference: {fileID: 11400000, guid: 319a2190e30c13045abb556b79c42372,
@@ -73,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 8450607413518688736, guid: da8a87e62613a474f892d75083bfbc9b,
         type: 3}
       propertyPath: m_Name
-      value: FibrousPlantsSpawner BluStrawberri
+      value: ItemSpawner BluStrawberri
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -28,8 +28,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             if(points[i].CompareTag("ItemSpawnPoint"))
                 spawnPoints.Add(points[i]);
         }
-        //GameEventManager.onTimeHourEvent.AddListener(SpawnObjects);
-        //SetToManager();
+        
         SpawnObjects();
     }
 
@@ -66,12 +65,6 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
     }
 
     
-
-    //private void OnDestroy()
-    //{
-    //    GameEventManager.onTimeHourEvent.RemoveListener(SpawnObjects);
-    //}
-
     public void ResetAtDawn()
     {
         SpawnObjects();
@@ -79,8 +72,4 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             pokable.SetTimesPoked(0);
     }
 
-    //public void SetToManager()
-    //{
-    //    ResetAtDawnManager.instance.AddToManager(this);
-    //}
 }

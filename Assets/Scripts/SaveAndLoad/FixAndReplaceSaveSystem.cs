@@ -13,6 +13,7 @@ namespace Klaxon.SaveSystem
         public FixAndReplace fixAndReplace;
         public object CaptureState()
         {
+            
             return new SaveData
             {
                 undertakingName = fixAndReplace.undertakingObject.undertaking.Name,

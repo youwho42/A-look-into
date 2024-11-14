@@ -1,27 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-public class LightFlicker : MonoBehaviour
+public class LightFlicker : Lights
 {
 
-    public Light2D lightObject;
-    public bool lightsOn;
-
+    
     private void Start()
     {
-        Exinguish();
+        Extinguish();
     }
-    public void LightAndFlicker()
+
+    public override void Light()
     {
+        
         StartCoroutine(Flicker());
     }
 
-    public void Exinguish()
+    public override void Extinguish()
     {
-        lightObject.enabled = false;
-        lightsOn = false;
+        base.Extinguish();
     }
     IEnumerator Flicker()
     {
@@ -53,5 +50,7 @@ public class LightFlicker : MonoBehaviour
     }
 
     
+
+   
 }
 

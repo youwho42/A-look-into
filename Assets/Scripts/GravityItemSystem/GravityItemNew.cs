@@ -373,7 +373,8 @@ namespace Klaxon.GravitySystem
                 for (int i = 0; i < hitCount; i++)
                 {
                     Collider2D hitCollider = hitBuffer[i];
-                    
+                    if (hitCollider.gameObject == gameObject)
+                        continue;
                     // Check if it has a DrawZasYDisplacement component
                     if (hitCollider.TryGetComponent(out DrawZasYDisplacement displacement))
                     {

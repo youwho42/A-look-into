@@ -157,7 +157,7 @@ public class IsometricGridXYZ : MonoBehaviour
                     {
                         movementPenalty = GetMovementPenalty(currentPosition);
                         
-                        Collider2D obstacleCheck = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.05f, obstacleMask, currentPosition.z+1, currentPosition.z+1);
+                        Collider2D obstacleCheck = Physics2D.OverlapCircle(GetTileWorldPosition(currentPosition), 0.1f, obstacleMask, currentPosition.z+1, currentPosition.z+1);
                         if (obstacleCheck != null)
                         {
                             walkable = false;

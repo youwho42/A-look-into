@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-
+        AllItemsDatabaseManager.instance.ResetItemsDatabase();
     }
 
 
@@ -91,7 +91,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         loadScreen.gameObject.SetActive(false);
 
-        AllItemsDatabaseManager.instance.ResetItemsDatabase();
+        //AllItemsDatabaseManager.instance.ResetItemsDatabase();
 
 #if UNITY_STANDALONE && !UNITY_EDITOR
         LoadTitleScreen();

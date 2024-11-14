@@ -385,13 +385,15 @@ namespace Klaxon.GOAD
             if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
             {
                 
-                if (isBusy|| animator.GetBool(isSleeping_hash))
+                if (isBusy || animator.GetBool(isSleeping_hash) || PlayerInformation.instance.playerAnimator.GetBool(isIdleSitting_hash))
                     return;
                 
                 inTalkRange = true;
                 animator.SetFloat(velocityX_hash, 0);
                 walker.currentDirection = Vector2.zero;
-                
+
+                if (animator.GetBool(isSitting_hash))
+                    return;
                 if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
                 collision.transform.position.x > _transform.position.x && !walker.facingRight)
                     walker.Flip();

@@ -19,6 +19,7 @@ public class AnimatePlayer : MonoBehaviour
 
     public readonly int balance_hash = Animator.StringToHash("LostBalance");
     public readonly int idleSit_hash = Animator.StringToHash("IdleSit");
+    public readonly int isSitting_hash = Animator.StringToHash("IsSitting");
     public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
     public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
     public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
