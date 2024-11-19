@@ -378,6 +378,8 @@ namespace Klaxon.GOAD
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            if (interactable == null)
+                return;
             if (!interactable.canInteract)
                 return;
            

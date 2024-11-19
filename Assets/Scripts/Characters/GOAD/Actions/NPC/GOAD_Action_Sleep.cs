@@ -46,8 +46,11 @@ namespace Klaxon.GOAD
             {
                 sleeping = true;
                 interactableDialogue.canInteract = false;
-                undertakingAvailable.isInactive = true;
-                undertakingAvailable.SetUndertakingIcon();
+                if (undertakingAvailable != null)
+                {
+                    undertakingAvailable.isInactive = true;
+                    undertakingAvailable.SetUndertakingIcon(); 
+                }
                 agent.animator.SetBool(agent.isSleeping_hash, true);
                 agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
                 agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
@@ -67,8 +70,11 @@ namespace Klaxon.GOAD
             base.EndAction(agent);
             sleeping = false;
             interactableDialogue.canInteract = true;
-            undertakingAvailable.isInactive = false;
-            undertakingAvailable.SetUndertakingIcon();
+            if (undertakingAvailable != null)
+            {
+                undertakingAvailable.isInactive = false;
+                undertakingAvailable.SetUndertakingIcon(); 
+            }
         }
     }
 

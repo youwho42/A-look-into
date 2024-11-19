@@ -118,6 +118,17 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.16258784
       objectReference: {fileID: 0}
+    - target: {fileID: 2277972646265590774, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2277972646265590774, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: conditionsOnSucceed.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4802730467d65a143991a89ffd9d65f8,
+        type: 2}
     - target: {fileID: 2604685650672239295, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -152,7 +163,22 @@ PrefabInstance:
     - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: conditions.Array.size
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: specialConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: dailyResetConditions.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
@@ -168,6 +194,23 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
+      propertyPath: conditions.Array.data[3].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 98d5cb28248fecd4eb36b7dff7b70e64,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: dailyResetConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: eb74e35484fb58b449673538cd34e7d0,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: conditions.Array.data[3].setOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
       propertyPath: conditions.Array.data[1].setBetweenTimes
       value: 1
       objectReference: {fileID: 0}
@@ -176,6 +219,12 @@ PrefabInstance:
       propertyPath: conditions.Array.data[2].setBetweenTimes
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: specialConditions.Array.data[1].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c,
+        type: 2}
     - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: conditions.Array.data[1].setFromToTimeTick.x
@@ -196,6 +245,77 @@ PrefabInstance:
       propertyPath: conditions.Array.data[2].setFromToTimeTick.y
       value: 705
       objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].conditionToSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 5296be0469630044e85ab51c1e55d2f7,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].totalDaysToWait
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: specialConditions.Array.data[1].currentActionName
+      value: Attend Gathering Site
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: specialConditions.Array.data[1].minMaxTimeToSet.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: specialConditions.Array.data[1].minMaxTimeToSet.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].setDaysAfterConditionsMet
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].finalPreconditions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].activatePreconditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].finalPreconditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b8e2fd298710d54a9e7e49beaca15af,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].finalPreconditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 441428f72d8e6664dabf4d1a62f23685,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].finalPreconditions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a59cd7e5d21bf54980da87272684033,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].activatePreconditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b8e2fd298710d54a9e7e49beaca15af,
+        type: 2}
+    - target: {fileID: 3212525274398011632, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: timedConditions.Array.data[0].activatePreconditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 441428f72d8e6664dabf4d1a62f23685,
+        type: 2}
     - target: {fileID: 3452598702035648778, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -319,7 +439,7 @@ PrefabInstance:
     - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
@@ -333,6 +453,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
+      propertyPath: possibleGoals.Array.data[5].Name
+      value: VisitGrandpa
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[6].Name
+      value: GatheringSiteDay
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[2].Priority
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
       propertyPath: possibleGoals.Array.data[3].Priority
       value: 4
       objectReference: {fileID: 0}
@@ -340,6 +475,16 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[4].Priority
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[5].Priority
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[6].Priority
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
@@ -355,6 +500,23 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
+      propertyPath: possibleGoals.Array.data[5].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: d2c26fc4cb0d2864cb5c23c9aa851843,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[6].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: bc0c63d995f138d42afc0db1f3288094,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -363,6 +525,22 @@ PrefabInstance:
       propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[5].DesiredGoal.PreConditions.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[6].DesiredGoal.PreConditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 00aebe2ce8c8fa54981167b254c6c52e,
+        type: 2}
     - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]
@@ -386,6 +564,36 @@ PrefabInstance:
       propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 1b8e2fd298710d54a9e7e49beaca15af,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[5].DesiredGoal.PreConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 83e939928d4371e4db7d299e6037260d,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[5].DesiredGoal.PreConditions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 290a149854f1ed147b043d823be80984,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[5].DesiredGoal.PreConditions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4802730467d65a143991a89ffd9d65f8,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[5].DesiredGoal.PreConditions.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 441428f72d8e6664dabf4d1a62f23685,
+        type: 2}
+    - target: {fileID: 6362118105225639249, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[6].DesiredGoal.PreConditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a2f33945e368f7149a0a58ba341df2ea,
         type: 2}
     - target: {fileID: 6384390429406860087, guid: 0dae89472a3e25645aa923afe5a9fb0f,
         type: 3}
@@ -814,6 +1022,22 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5504233969908382092}
+    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5425840040050372882}
+    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4202433298263258455}
+    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1694369611270253676}
+    - targetCorrespondingSourceObject: {fileID: 6902144603053421309, guid: 0dae89472a3e25645aa923afe5a9fb0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 528169652678367664}
   m_SourcePrefab: {fileID: 100100000, guid: 0dae89472a3e25645aa923afe5a9fb0f, type: 3}
 --- !u!114 &4033799851453802055 stripped
 MonoBehaviour:
@@ -954,6 +1178,90 @@ MonoBehaviour:
   actionName: GoToWork
   Goal:
     ResultCondition: {fileID: 11400000, guid: c8910481117a67748b3138c74a0244bd, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+  targetNode: {fileID: 0}
+--- !u!114 &5425840040050372882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772900991890362928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c89a5b9a8af5a4093242e6e517a244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GoToGrave
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 7e1947236bf1c784d9b26565f2088b56, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+  targetNode: {fileID: 0}
+--- !u!114 &4202433298263258455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772900991890362928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69db5a8f19fc3247b50148acfb6ba31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: SittingAtGrave
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: d2c26fc4cb0d2864cb5c23c9aa851843, type: 2}
+    PreCondition: {fileID: 11400000, guid: 7e1947236bf1c784d9b26565f2088b56, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+  minMaxSittingTime: {x: 70, y: 130}
+--- !u!114 &1694369611270253676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772900991890362928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716d6179b50e81b4d8a2ad65b4d437df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Attend Gathering Site
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: bc0c63d995f138d42afc0db1f3288094, type: 2}
+    PreCondition: {fileID: 11400000, guid: ab9f969e46783a54c80d9f623ee8fa7f, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+  gatheringCenter: {fileID: 0}
+--- !u!114 &528169652678367664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772900991890362928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c89a5b9a8af5a4093242e6e517a244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Reach Gathering Site
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: ab9f969e46783a54c80d9f623ee8fa7f, type: 2}
     PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
   IsRunning: 0
   success: 0

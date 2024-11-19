@@ -57,13 +57,14 @@ public class PlayerRunningManager : MonoBehaviour
             ShatterGlass();
                 
     }
-    void Land(float lastZ)
+    void Land(int lastZ)
     {
         if (shattered)
             return;
 
+        int z = (int)lastZ - (int)player.currentTilePosition.position.z;
         
-        var amount = NumberFunctions.RemapNumber(lastZ, 1.0f, 7.0f, 0.0f, 1.0f);
+        var amount = NumberFunctions.RemapNumber(z, 1.0f, 7.0f, 0.0f, 1.0f);
         amount = Mathf.Clamp01(amount);
         currentGaugeAmount += amount;
         if (currentGaugeAmount > 0.1f)

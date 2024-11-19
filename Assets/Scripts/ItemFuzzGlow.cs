@@ -75,7 +75,8 @@ public class ItemFuzzGlow : MonoBehaviour
             float startIntensity = state ? bloomMinIntensity : bloomMaxIntensity;
             float endIntinsity = state ? bloomMaxIntensity : bloomMinIntensity;
             float j = Mathf.Lerp(startIntensity, endIntinsity, (elapsedTime / waitTime));
-            material.SetColor("_EmissionColor", initialColor * j);
+            if(material != null)
+                material.SetColor("_EmissionColor", initialColor * j);
         }
 
         if (useAlpha)

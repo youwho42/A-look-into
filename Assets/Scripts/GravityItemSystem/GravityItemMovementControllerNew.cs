@@ -344,7 +344,7 @@ namespace Klaxon.GravitySystem
         public override void JustLanded()
         {
             audioManager.PlayFootstepSound();
-            GameEventManager.onLandEvent.Invoke(lastHighestZ);
+            GameEventManager.onLandEvent.Invoke(lastJumpZ);
         }
 
 

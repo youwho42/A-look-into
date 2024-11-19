@@ -98,7 +98,7 @@ public static class GameEventManager
     /// Player Controls and animations
     /// </summary>
     public static readonly GameEvent onJumpEvent = new GameEvent();
-    public static readonly GameEvent<float> onLandEvent = new GameEvent<float>();
+    public static readonly GameEvent<int> onLandEvent = new GameEvent<int>();
     public static readonly GameEvent onUseEquipmentEvent = new GameEvent();
     public static readonly GameEvent<bool> onSpyglassAimEvent = new GameEvent<bool>();
     public static readonly GameEvent<int> onSpyglassAimChageSelectedEvent = new GameEvent<int>();
