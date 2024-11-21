@@ -25,6 +25,7 @@ public class SphereSuperShapeActivator : MonoBehaviour
     public AudioMixerGroup mixerGroup;
     public GameObject finalLight;
     public CompleteTaskObject undertakingObject;
+    public bool isActivated;
 
     private void Start()
     {
@@ -36,6 +37,23 @@ public class SphereSuperShapeActivator : MonoBehaviour
             _go.transform.position = transform.position;
             clip.SetSource(_go.AddComponent<AudioSource>());
             clip.source.outputAudioMixerGroup = mixerGroup;
+        }
+    }
+
+    public void SetActivatorFromSave(bool active)
+    {
+        isActivated = active;
+        if(isActivated)
+        {
+            finalLight.SetActive(true);
+            Destroy(blueRain);
+            Destroy(blueWalls);
+            fissureMap.SetTile(fissureLocation, null);
+            var a = GetComponent<AudioSource>();
+            a.Stop();
+            a.enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+          
         }
     }
 
@@ -84,9 +102,10 @@ public class SphereSuperShapeActivator : MonoBehaviour
         superShape.particleLayers[0].particles[layerPosition].active = true;
         superShape.TotalM++;
 
+        isActivated = true;
         // destroy ourselves
-        yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+        //yield return new WaitForSeconds(3f);
+        //Destroy(gameObject);
 
         yield return null;
     }
@@ -136,6 +155,8 @@ public class SphereSuperShapeActivator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isActivated)
+            return;
         if (collision.gameObject.transform.position.z != transform.position.z)
             return;
         if (collision.CompareTag("SculptureBall"))

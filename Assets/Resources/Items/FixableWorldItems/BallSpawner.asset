@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
   m_Name: BallSpawner
   m_EditorClassIdentifier: 
-  Name: Dynamiblob Statue
+  Name: Ball Spawner
   localizedName:
     m_TableReference:
       m_TableCollectionName: 
@@ -36,11 +36,10 @@ MonoBehaviour:
   Weight: 100
   Price: 100
   spawnWeight: 1
-  Icon: {fileID: 21300000, guid: fef5ae8b5e33b2d4994aa2a7733c8a50, type: 3}
-  ItemPrefab: {fileID: 833522979328079235, guid: c297aaef705fddf4cb6b54c54fe40be1,
-    type: 3}
+  FuelTicks: 0
+  Icon: {fileID: 21300000, guid: 1dca6db387e7ad149ad26342135f9389, type: 3}
   ItemPrefabVariants:
-  - {fileID: 833522979328079235, guid: c297aaef705fddf4cb6b54c54fe40be1, type: 3}
+  - {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 0
