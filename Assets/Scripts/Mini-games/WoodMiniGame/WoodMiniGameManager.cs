@@ -202,7 +202,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty){ }
 
 
-        void SetDificulty(MiniGameDificulty dificulty)
+    void SetDificulty(MiniGameDificulty dificulty)
     {
         currentDificulty = dificulty;
         foreach (var dif in dificultyAreas)

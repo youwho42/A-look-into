@@ -83,7 +83,7 @@ public class TilemapToPNG : MonoBehaviour
             layer = CreateFinalTexture(tiles, i);
             SaveTexture(layer, mapLayers[i].mapName);
             
-            //SaveTexture(Resize(layer, 640, 640), $"{mapLayers[i].mapName}_384");
+            //SaveTexture(Resize(layer, 1280, 1280), $"{mapLayers[i].mapName}_384");
         }
         
 

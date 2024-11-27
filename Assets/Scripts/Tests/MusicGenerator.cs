@@ -105,9 +105,13 @@ public class MusicGenerator : MonoBehaviour
 
     public void RemoveFromDictionary(SoundType type)
     {
-        if (possibleSounds[type] <= 0)
+        if (possibleSounds.TryGetValue(type, out int value))
+        {
+            if(possibleSounds[type] <= 0)
             return;
-        possibleSounds[type] -= 1;
+            possibleSounds[type] -= 1;
+        }
+        
 
     }
 

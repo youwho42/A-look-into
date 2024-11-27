@@ -82,7 +82,7 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
     void DoubleCheck()
     {
         var yOff = NumberFunctions.RemapNumber(displacementPos, 0.0f, 0.33f, 0.0f, 1f);
-        var offset = new Vector3(0, 0.2990625f * yOff, 0);
+        var offset = new Vector3(0, GlobalSettings.SpriteDisplacementY * yOff, 0);
         displacementPos = CheckObjectPosition(offset);
         
     }

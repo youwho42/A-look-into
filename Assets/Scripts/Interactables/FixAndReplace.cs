@@ -14,7 +14,7 @@ public class FixAndReplace : MonoBehaviour, IFixArea
     bool isFixing;
 
     public CompleteTaskObject undertakingObject;
-    public bool replacementObjectHasLongInteract;
+    //public bool replacementObjectHasLongInteract;
     public bool needsActiveUndertaking;
     [ConditionalHide("needsActiveUndertaking", true)]
     public UndertakingObject neededUndertaking;
@@ -57,8 +57,8 @@ public class FixAndReplace : MonoBehaviour, IFixArea
         if (go.TryGetComponent(out ActivateOnQuestComplete obj))
             obj.undertakingName = undertakingObject.undertaking.Name;
 
-        if (go.TryGetComponent(out Interactable interactable))
-            interactable.hasLongInteract = replacementObjectHasLongInteract;
+        //if (go.TryGetComponent(out Interactable interactable))
+        //    interactable.hasLongInteract = replacementObjectHasLongInteract;
 
         fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
         yield return new WaitForSeconds(3);

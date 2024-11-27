@@ -27,7 +27,7 @@ public class DrawZasYDisplacement : MonoBehaviour
     public SpotType spotType;
 
     public float positionZ;
-    readonly float spriteDisplacementY = 0.2990625f;
+    float spriteDisplacementY = GlobalSettings.SpriteDisplacementY;
     public Vector3 displacedPosition;
 
     public bool isInUse;

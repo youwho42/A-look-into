@@ -285,14 +285,15 @@ namespace Klaxon.MazeTech
             foreach (var tile in mazeTiles)
             {
                 float r = UnityEngine.Random.Range(0.0f, 1.0f);
-                if (r < 0.8f)
+                if (r < 0.5f)
                     continue;
                 var item = mazeItems.GetRandomWeightedItem();
                 var go = Instantiate(item.ItemPrefabVariants[0], tile.TileCenter, Quaternion.identity, itemsHolder);
                 if(go.TryGetComponent(out InteractablePickUp i))
                 {
                     float height = 0.6f;
-                    i.visualItem.transform.localPosition = new Vector3(0, 0.2990625f * height, height);
+                    i.visualItem.transform.localPosition = new Vector3(0, GlobalSettings.SpriteDisplacementY * height, height);
+                    i.pickupQuantity = UnityEngine.Random.Range(1, 6);
                 }
                 if (go.TryGetComponent(out SaveableItemEntity saveable))
                 {

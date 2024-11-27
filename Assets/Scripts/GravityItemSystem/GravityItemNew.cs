@@ -16,7 +16,7 @@ namespace Klaxon.GravitySystem
 
         const float tileSize = 0.578125f;
         public const float gravity = 20f;
-        protected const float spriteDisplacementY = 0.2990625f;
+        protected float spriteDisplacementY = GlobalSettings.SpriteDisplacementY;
         [HideInInspector]
         public float positionZ;
         [HideInInspector]

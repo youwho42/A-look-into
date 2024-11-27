@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TreeDropping : MonoBehaviour
 {
-    const float spriteDisplacementY = 0.2990625f;
+    float spriteDisplacementY = GlobalSettings.SpriteDisplacementY;
 
     public SpriteRenderer droppingItemSprite;
     public SpriteRenderer droppingItemShadow;

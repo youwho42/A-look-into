@@ -37,7 +37,7 @@ public class ParticlesToPlayer : MonoBehaviour
             for (int i = 0; i < particles.Count; i++)
             {
                 particles[i].transform.position += (Vector3)directions[i] * speed * Time.deltaTime;
-                Vector3 interpolatedPosition = Vector3.Lerp(particleItems[i].transform.localPosition, new Vector3(0, 0.2990625f, 1.0f), timer/.3f);
+                Vector3 interpolatedPosition = Vector3.Lerp(particleItems[i].transform.localPosition, new Vector3(0, GlobalSettings.SpriteDisplacementY, 1.0f), timer/.3f);
                 particleItems[i].transform.localPosition = interpolatedPosition;
             }
             timer += Time.deltaTime;

@@ -65,7 +65,7 @@ public class ObjectManagerEditor : Editor
 
         Handles.color = Color.white;
 
-        Handles.DrawWireDisc(center + new Vector3(0, offsetZ * 0.2990625f, offsetZ), Vector3.forward, objectManager.radius);
+        Handles.DrawWireDisc(center + new Vector3(0, offsetZ * GlobalSettings.SpriteDisplacementY, offsetZ), Vector3.forward, objectManager.radius);
 
 
         //Add or remove objects with left mouse click

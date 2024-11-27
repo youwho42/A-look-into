@@ -26,7 +26,7 @@ public class IsometricGridObject : MonoBehaviour
     
     private void SetIsometric()
     {
-        size = 0.2990625f;
+        size = GlobalSettings.SpriteDisplacementY;
         float angleRad = angle * Mathf.Deg2Rad;
         xComponent = Mathf.Cos(angleRad);
         yComponent = Mathf.Sin(angleRad);

@@ -58,7 +58,7 @@ public class MazeStringGame : MonoBehaviour
     private void Update()
     {
         if(inMaze && line.positionCount > 1 && !mazeComplete) 
-            line.SetPosition(line.positionCount - 1, PlayerInformation.instance.player.position + new Vector3(0, 0.2990625f*0.6f, endPostItems[currentIndex].transform.position.z + 3));
+            line.SetPosition(line.positionCount - 1, PlayerInformation.instance.player.position + new Vector3(0, GlobalSettings.SpriteDisplacementY * 0.6f, endPostItems[currentIndex].transform.position.z + 3));
     }
 
     public void SetStringGameFromSave(int index, bool complete, Vector3[] stringPositions)

@@ -109,6 +109,9 @@ public class CampsiteManager : MonoBehaviour
         // set lastDay to be current day plus 3
         lastDay = RealTimeDayNightCycle.instance.currentDayRaw + 3;
         // delete visitor at midnight on lastDay.
+
+        // notify the player that a visitor is somewhere.
+        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Campsite Visitor"), null, 0, NotificationsType.None);
     }
 
     private void SetName()
