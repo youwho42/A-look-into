@@ -63,7 +63,7 @@ namespace Klaxon.GOAD
         private void Start()
         {
             allSeats.Clear();
-            var a = FindObjectsOfType<InteractableChair>().ToList();
+            var a = FindObjectsByType<InteractableChair>(FindObjectsSortMode.None).ToList();
             foreach (var seat in a)
             {
                 if (seat == null)

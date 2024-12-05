@@ -16,7 +16,7 @@ namespace Klaxon.SaveSystem
 
         public object CaptureState()
         {
-            QI_Item[] items = FindObjectsOfType<QI_Item>();
+            QI_Item[] items = FindObjectsByType<QI_Item>(FindObjectsSortMode.None);
             List<string> tempItem = new List<string>();
             List<string> tempItemID = new List<string>();
             List<string> tempVersion = new List<string>();
@@ -45,7 +45,7 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            SaveableItemEntity[] items = FindObjectsOfType<SaveableItemEntity>();
+            SaveableItemEntity[] items = FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None);
             foreach (var item in items)
             {
                 if (item.TryGetComponent(out QI_Item value))

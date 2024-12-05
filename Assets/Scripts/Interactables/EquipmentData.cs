@@ -1,6 +1,5 @@
-﻿using QuantumTek.QuantumInventory;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Klaxon.StatSystem;
+using QuantumTek.QuantumInventory;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
@@ -11,7 +10,9 @@ public class EquipmentData : QI_ItemData
     public EquipmentSlot equipmentSlot;
 
     public EquipmentTier equipmentTier;
-    
+
+    public StatChanger statChanger;
+
     public override void UseItem()
     {
         base.UseItem();
@@ -19,29 +20,45 @@ public class EquipmentData : QI_ItemData
     }
     void EquipItem()
     {
-        if(EquipmentManager.instance.currentEquipment[(int)equipmentSlot] != null)
+        var pInfo = PlayerInformation.instance;
+        var eManager = EquipmentManager.instance;
+        if (eManager.currentEquipment[(int)equipmentSlot] != null)
         {
-            PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
-            if (EquipmentManager.instance.UnEquipToInventory(EquipmentManager.instance.currentEquipment[(int)equipmentSlot], (int)equipmentSlot))
+            pInfo.playerInventory.RemoveItem(this, 1);
+            if (eManager.UnEquipToInventory(eManager.currentEquipment[(int)equipmentSlot], (int)equipmentSlot))
             {
-                EquipmentManager.instance.Equip(this, (int)equipmentSlot);
+                eManager.Equip(this, (int)equipmentSlot);
             }
             else
             {
-                PlayerInformation.instance.playerInventory.AddItem(this, 1, false);
+                pInfo.playerInventory.AddItem(this, 1, false);
                 Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", "Inventory Full"), null, 0, NotificationsType.Warning);
             }
         } 
         else
         {
-            PlayerInformation.instance.playerInventory.RemoveItem(this, 1);
-            EquipmentManager.instance.Equip(this, (int)equipmentSlot);
+            pInfo.playerInventory.RemoveItem(this, 1);
+            eManager.Equip(this, (int)equipmentSlot);
         }
 
     }
     public override void UseEquippedItem()
     {
         base.UseEquippedItem();
+    }
+
+    public bool InteractCostReward()
+    {
+        var pInfo = PlayerInformation.instance;
+        if (pInfo.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(statChanger.Amount))
+        {
+            pInfo.statHandler.ChangeStat(statChanger);
+            return true;
+        }
+        pInfo.playerAnimator.SetBool("UseEquipement", false);
+        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
+
+        return false;
     }
 }
 public enum EquipmentSlot 

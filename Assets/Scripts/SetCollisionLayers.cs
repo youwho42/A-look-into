@@ -21,7 +21,7 @@ public class SetCollisionLayers : MonoBehaviour
         {
             instance = this;
         }
-        player = FindObjectOfType<PlayerLevelChange>();
+        player = FindFirstObjectByType<PlayerLevelChange>();
         //player.playerChangeLevelEvent.AddListener(SetCollisionLayer);
     }
 

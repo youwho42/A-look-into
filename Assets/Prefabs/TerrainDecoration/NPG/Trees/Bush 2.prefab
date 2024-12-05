@@ -23,6 +23,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 212ef618331ae499c913c2496edc86da, type: 3}
+    - target: {fileID: 872127117397536571, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: positionZ
+      value: 0.52
+      objectReference: {fileID: 0}
     - target: {fileID: 1577352993535151833, guid: 671c4aa1bf58daf44963295cc12c1c3a,
         type: 3}
       propertyPath: positionZ
@@ -394,10 +399,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5600921993665641497, guid: 671c4aa1bf58daf44963295cc12c1c3a,
         type: 3}
-      propertyPath: dataList.Array.data[0]
+      propertyPath: 'dataList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 2f1bddb4f4bba0f4cbc6de1a56330c02,
         type: 2}
+    - target: {fileID: 5940555199065426025, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.242
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940555199065426025, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.008
+      objectReference: {fileID: 0}
     - target: {fileID: 7067902391315928121, guid: 671c4aa1bf58daf44963295cc12c1c3a,
         type: 3}
       propertyPath: m_Mesh
@@ -517,6 +532,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ShapePath.Array.data[7].y
       value: 0.0054505644
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067902391315928121, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
+      value: 0.0011825375
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067902391315928121, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
+      value: 0.001676471
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067902391315928121, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
+      value: 0.015762772
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067902391315928121, guid: 671c4aa1bf58daf44963295cc12c1c3a,
+        type: 3}
+      propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
+      value: 0.0072992677
       objectReference: {fileID: 0}
     - target: {fileID: 8475963027699790231, guid: 671c4aa1bf58daf44963295cc12c1c3a,
         type: 3}

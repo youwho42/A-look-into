@@ -68,12 +68,15 @@ public class AnimalSounds : MonoBehaviour
     public Vector2 minMaxBetweenCries;
     public bool continuous;
     public bool mute;
+    public float minSpeachPause;
     public float maxSpeachPause;
 
     public AnimationCurve curve;
     public Animator animator;
     int caw_hash = Animator.StringToHash("Caw");
     float mainVolume;
+
+    int lastCryIndex;
 
     private void Start()
     {
@@ -144,7 +147,7 @@ public class AnimalSounds : MonoBehaviour
             if (PlaySound(AudioSet))
                 t++;
                 
-            yield return new WaitForSeconds(Random.Range(0.0f, maxSpeachPause));
+            yield return new WaitForSeconds(Random.Range(minSpeachPause, maxSpeachPause));
         }
         isCrying = false;
         SetNextCry();
@@ -171,7 +174,14 @@ public class AnimalSounds : MonoBehaviour
     {
         if (!source.isPlaying)
         {
-            int t = Random.Range(0, soundSets[soundSet].clips.Length);
+            int t = 0;
+            do
+            {
+                t = Random.Range(0, soundSets[soundSet].clips.Length);
+            }
+            while (t == lastCryIndex);
+            lastCryIndex = t;
+            
             soundSets[soundSet].SetSource(source, t);
             soundSets[soundSet].source.outputAudioMixerGroup = mixerGroup;
             mainVolume = soundSets[soundSet].volume;

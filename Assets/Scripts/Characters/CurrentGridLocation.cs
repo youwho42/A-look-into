@@ -82,7 +82,7 @@ public class CurrentGridLocation : MonoBehaviour
         if (groundGrid != null)
             return;
         
-        groundGrid = FindObjectOfType<Grid>();
+        groundGrid = FindFirstObjectByType<Grid>();
         Tilemap[] maps = groundGrid.GetComponentsInChildren<Tilemap>();
         foreach (var map in maps)
         {

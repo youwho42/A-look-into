@@ -18,7 +18,8 @@ public enum SpotType
     Dragonfly,
     Pigeon,
     Deer,
-    Bear
+    Bear,
+    Bluebird
 
 }
 

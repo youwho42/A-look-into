@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
             vertical *= moveLimiter;
         }
 
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        body.linearVelocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
 
 }

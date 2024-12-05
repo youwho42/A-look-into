@@ -58,7 +58,7 @@ public class IsometricGrid3DObject : MonoBehaviour
 
     private void UpdateGrains()
     {
-        var updatedPositions = new NativeHashMap<int3, int>(allGridPositions.Count(), Allocator.TempJob);
+        var updatedPositions = new NativeHashMap<int3, int>(allGridPositions.Count, Allocator.TempJob);
 
         // Initialize a Unity.Mathematics.Random instance with a unique seed
         var randomSeed = new Unity.Mathematics.Random((uint)(UnityEngine.Random.Range(1, int.MaxValue)));

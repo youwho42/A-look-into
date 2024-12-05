@@ -27,7 +27,7 @@ public class GridManager : MonoBehaviour
         if (grid != null && groundMap != null)
             return grid;
 
-        grid = FindObjectOfType<Grid>();
+        grid = FindFirstObjectByType<Grid>();
         Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
         foreach (var map in maps)
         {

@@ -26,7 +26,7 @@ public class RandomPlantGrowthAtStart : MonoBehaviour
     IEnumerator SetPlantGrowthAtStartCo()
     {
         
-        var allPlants = FindObjectsOfType<PlantGrowCycle>();
+        var allPlants = FindObjectsByType<PlantGrowCycle>(FindObjectsSortMode.None);
         foreach (var plant in allPlants)
         {
             

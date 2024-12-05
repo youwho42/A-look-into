@@ -147,11 +147,11 @@ namespace Klaxon.SaveSystem
 
         private void CaptureState(Dictionary<string, object> state)
         {
-            foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
+            foreach (var saveableWorldEntity in FindObjectsByType<SaveableWorldEntity>(FindObjectsSortMode.None))
             {
                 state[saveableWorldEntity.ID] = saveableWorldEntity.CaptureState();
             }
-            foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None))
             {
                 state[saveableItemEntity.ID] = saveableItemEntity.CaptureState();
             }
@@ -162,7 +162,7 @@ namespace Klaxon.SaveSystem
         private void RestoreState(Dictionary<string, object> state)
         {
             
-            foreach (var saveableWorldEntity in FindObjectsOfType<SaveableWorldEntity>())
+            foreach (var saveableWorldEntity in FindObjectsByType<SaveableWorldEntity>(FindObjectsSortMode.None))
             {
                 
                 if (state.TryGetValue(saveableWorldEntity.ID, out object value))
@@ -172,7 +172,7 @@ namespace Klaxon.SaveSystem
                 
             }
             //ConsoleDebuggerUI.instance.SetDebuggerText("restoring file");
-            foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None))
             {
                 if (state.TryGetValue(saveableItemEntity.ID, out object value))
                 {
@@ -211,7 +211,7 @@ namespace Klaxon.SaveSystem
         private void CaptureVersionItems(Dictionary<string, object> state)
         {
             state[saveableVersionItems.versionItemsName] = saveableVersionItems.CaptureState();
-            foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None))
             {
                 if(saveableItemEntity.version != "")
                     state[saveableItemEntity.ID] = saveableItemEntity.CaptureState();
@@ -225,7 +225,7 @@ namespace Klaxon.SaveSystem
             {
                 saveableVersionItems.RestoreState(value);
             }
-            foreach (var saveableItemEntity in FindObjectsOfType<SaveableItemEntity>())
+            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None))
             {
                 if (state.TryGetValue(saveableItemEntity.ID, out object itemValue))
                 {

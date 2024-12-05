@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerUseEquipment : MonoBehaviour
 {
@@ -46,7 +44,6 @@ public class PlayerUseEquipment : MonoBehaviour
             animator.SetBool("UseEquipement", false);
             animator.SetTrigger("Swing_" + equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].AnimationName);
             equipmentManager.currentEquipment[(int)EquipmentSlot.Hands].UseEquippedItem();
-            //UIScreenManager.instance.PreventPlayerInputs(true);
         }
 
     }

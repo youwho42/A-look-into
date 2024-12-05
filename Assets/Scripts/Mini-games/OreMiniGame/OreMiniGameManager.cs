@@ -53,6 +53,9 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     [ColorUsage(true, true)]
     public Color failEmission;
 
+    int toolTier;
+    int q;
+
     private void Start()
     {
         SetDificulty(MiniGameDificulty.Easy);
@@ -90,6 +93,9 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         minigameIsActive = true;
         this.item = item;
         SetDificulty(gameDificulty);
+
+        toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
+        q = currentDificulty == PlayerInformation.instance.equipmentManager.currentEquipment[0].GameDificulty ? 1 : toolTier;
     }
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
 
@@ -153,8 +159,8 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentSection++;
-            PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
-            Notifications.instance.SetNewNotification("", item, 1, NotificationsType.Inventory);
+            PlayerInformation.instance.playerInventory.AddItem(item, q, false);
+            Notifications.instance.SetNewNotification("", item, q, NotificationsType.Inventory);
             PlaySound(0);
             StartCoroutine(GlowOn(material, successEmission));
         }

@@ -89,7 +89,7 @@ public class DayNightCycle : MonoBehaviour
     {
         if (sun == null)
         {
-            UnityEngine.Rendering.Universal.Light2D[] tempSun = FindObjectsOfType<UnityEngine.Rendering.Universal.Light2D>();
+            UnityEngine.Rendering.Universal.Light2D[] tempSun = FindObjectsByType<UnityEngine.Rendering.Universal.Light2D>(FindObjectsSortMode.None);
             for (int i = 0; i < tempSun.Length; i++)
             {
                 if (!tempSun[i].CompareTag("Sun"))

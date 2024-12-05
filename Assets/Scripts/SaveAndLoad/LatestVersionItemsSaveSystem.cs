@@ -17,7 +17,7 @@ namespace Klaxon.SaveSystem
 
         public object CaptureState()
         {
-            QI_Item[] items = FindObjectsOfType<QI_Item>();
+            QI_Item[] items = FindObjectsByType<QI_Item>(FindObjectsSortMode.None);
             List<string> tempItem = new List<string>();
             List<string> tempItemID = new List<string>();
             List<string> tempVersion = new List<string>();

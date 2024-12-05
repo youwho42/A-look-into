@@ -43,7 +43,7 @@ public class CurrentTilePosition : MonoBehaviour
         if (grid != null)
             return;
 
-        grid = FindObjectOfType<Grid>();
+        grid = FindFirstObjectByType<Grid>();
         Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
         foreach (var map in maps)
         {

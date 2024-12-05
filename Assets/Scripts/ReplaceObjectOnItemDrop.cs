@@ -18,7 +18,7 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
         filter.minDepth = coll.transform.position.z;
         filter.maxDepth = coll.transform.position.z;
         List<Collider2D> results = new List<Collider2D>();
-        coll.OverlapCollider(filter, results);
+        coll.Overlap(filter, results);
 
         
         if (results.Count > 0)

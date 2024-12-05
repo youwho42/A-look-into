@@ -128,7 +128,7 @@ public class InteractAreasManager : MonoBehaviour
     void RefreshQuadTree()
     {
         allAreas.Clear();
-        var all = FindObjectsOfType<DrawZasYDisplacement>();
+        var all = FindObjectsByType<DrawZasYDisplacement>(FindObjectsSortMode.None);
         foreach (var item in all)
         {
             if (item.spotType == spotType && GridManager.instance.GetTileValid(item.transform.position))

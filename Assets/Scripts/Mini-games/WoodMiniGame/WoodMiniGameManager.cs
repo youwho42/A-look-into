@@ -49,6 +49,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     [ColorUsage(true, true)]
     public Color failEmission;
 
+    int toolTier;
+    int q;
     private void Start() 
     {
         
@@ -78,15 +80,13 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
         
     }
+
     void CheckCurrentAttempts()
     {
-        if (currentAttempts == maxAttempts)
-        {
-            //Destroy(currentGameObject);
-            //currentGameObject = null;
+        if (currentAttempts >= maxAttempts)
             MiniGameManager.instance.EndMiniGame(miniGameType);
-        }
     }
+
     IEnumerator GlowOn(Material materialToSet, Color color)
     {
         float elapsedTime = 0;
@@ -105,24 +105,25 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         materialToSet.SetColor("_EmissionColor", color);
         yield return null;
     }
+
     void GlowOff(Material materialToSet)
     {
         materialToSet.SetColor("_EmissionColor", initialIntensity);
     }
 
-
     IEnumerator NextBallCo(bool success)
     {
+        
         transitioning = true;
         balls[currentIndex].rotateBall.enabled = false;
         var mat = balls[currentIndex].ballSprite.material;
+        
         if (success)
         {
             currentAttemptHits++;
-            PlayerInformation.instance.playerInventory.AddItem(item, 1, false);
-            Notifications.instance.SetNewNotification("", item, 1, NotificationsType.Inventory);
+            PlayerInformation.instance.playerInventory.AddItem(item, q * q, false);
+            Notifications.instance.SetNewNotification("", item, q * q, NotificationsType.Inventory);
 
-            //NotificationManager.instance.SetNewNotification(item.Name, NotificationManager.NotificationType.Inventory);
             PlaySound(0);
             StartCoroutine(GlowOn(mat, successEmission));
         }
@@ -140,11 +141,11 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         else
         {
             currentIndex = 0;
-            currentAttempts++;
+            currentAttempts += q;
             SetDificulty(currentDificulty);
         }
         CheckCurrentAttempts();
-        if (currentAttemptHits == attemptSteps)
+        if (currentAttemptHits >= attemptSteps)
         {
             
             currentAttemptHits = 0;
@@ -162,7 +163,6 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             {
                 GlowOff(balls[i].ballSprite.material);
                 balls[i].rotateBall.RandomizeRotation();
-                //balls[i].rotateBall.enabled = true;
                 balls[i].rotateBall.RandomizeDirection();
             }
         }
@@ -182,7 +182,6 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             }
             else
             {
-                //material = balls[i].ballSprite.material;
                 balls[i].rotateBall.enabled = true;
                 balls[i].ballCollider.enabled = true;
                 balls[i].ballSprite.enabled = true;
@@ -198,9 +197,10 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         SetDificulty(gameDificulty);
         minigameIsActive = true;
         ResetBalls(0);
+        toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
+        q = currentDificulty == PlayerInformation.instance.equipmentManager.currentEquipment[0].GameDificulty ? 1 : toolTier;
     }
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty){ }
-
 
     void SetDificulty(MiniGameDificulty dificulty)
     {
@@ -226,11 +226,9 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
     void PlaySound(int soundSet)
     {
-        
         int t = UnityEngine.Random.Range(0, soundSets[soundSet].clips.Length);
         soundSets[soundSet].SetSource(source, t);
         soundSets[soundSet].Play();
-         
     }
 
     public void ResetMiniGame()

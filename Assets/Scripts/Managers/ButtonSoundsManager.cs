@@ -8,7 +8,7 @@ public class ButtonSoundsManager : MonoBehaviour
 {
     void Start()
     {
-        Button[] buttons = FindObjectsOfType<Button>(true); // parameter makes it include inactive UI elements with buttons
+        Button[] buttons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None); // parameter makes it include inactive UI elements with buttons
         foreach (Button b in buttons)
         {
             EventTrigger trigger = null;

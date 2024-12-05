@@ -337,7 +337,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         filter.layerMask = LayerMask.NameToLayer("Obstacle");
         
         List<Collider2D> results = new List<Collider2D>();
-        coll.OverlapCollider(filter, results);
+        coll.Overlap(filter, results);
         
         
         var interactable = itemToDrop.GetComponent<Interactable>();
@@ -379,7 +379,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         filter.minDepth = coll.transform.position.z;
         filter.maxDepth = coll.transform.position.z;
         List <Collider2D> results = new List<Collider2D>();
-        coll.OverlapCollider(filter, results);
+        coll.Overlap(filter, results);
         
         return results.Count > 0;
     }

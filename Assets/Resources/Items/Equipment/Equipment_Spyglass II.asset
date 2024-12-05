@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54cec23c17c36ba40ac1ed2eda30964c, type: 3}
-  m_Name: Equipment_GathererSpyGlass II
+  m_Script: {fileID: 11500000, guid: 0f160bd0908560246bf73263610f6977, type: 3}
+  m_Name: Equipment_Spyglass II
   m_EditorClassIdentifier: 
   Name: Spyglass II
   localizedName:
@@ -32,10 +32,11 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   Type: 0
-  AnimationName: Spyglass
-  Weight: 2
-  Price: 100
+  AnimationName: 
+  Weight: 0
+  Price: 60
   spawnWeight: 1
+  FuelTicks: 0
   Icon: {fileID: 21300000, guid: 36a8e4d90004689449d782b156b784c6, type: 3}
   ItemPrefabVariants:
   - {fileID: 205002403857363210, guid: ed72de0d0b08de147a4e5816b711753c, type: 3}
@@ -45,28 +46,30 @@ MonoBehaviour:
   MaxStack: 1
   compendiumGuide: {fileID: 11400000, guid: 720d3daa6616d4f4db0e5f0257fdde8c, type: 2}
   ResearchRecipes: []
-  GameDificulty: 2
+  GameDificulty: 1
   placementGumption: {fileID: 0}
   equipmentSlot: 0
-  equipmentTier: 1
+  equipmentTier: 0
+  statChanger: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
   gatherItemData:
   - {fileID: 11400000, guid: 19fcdbc487c297d49b75c2851e7ea201, type: 2}
+  - {fileID: 11400000, guid: 424d402123afdfd4c9a470f6c938b7ab, type: 2}
   - {fileID: 11400000, guid: 87f92308592164e4ba696ca7fd370317, type: 2}
   - {fileID: 11400000, guid: 76124a4ca19d15b4488db4dbce14507e, type: 2}
+  - {fileID: 11400000, guid: eb0f5c13633f7364d8f49ce32c5235f9, type: 2}
   - {fileID: 11400000, guid: b93de0ccb7a0c54459147aef26808e24, type: 2}
   - {fileID: 11400000, guid: 9489a579de16e1441a1f110d52a42488, type: 2}
   - {fileID: 11400000, guid: 0660b00dc3305fd43b13672a5e5f515b, type: 2}
   - {fileID: 11400000, guid: 8985f7fdd00cae944bb6723f3b13a194, type: 2}
   - {fileID: 11400000, guid: 97a75a7747862aa4f9be9b4ce160b2b6, type: 2}
+  - {fileID: 11400000, guid: 7cbbf56ee35194d4da597fb15b6eb359, type: 2}
+  - {fileID: 11400000, guid: 01a85339e4eee0d45a2ee3a245dda221, type: 2}
   - {fileID: 11400000, guid: cc32c7e8f0329cb41bdbedcdda9ccbf3, type: 2}
   miniGameType: 2
   gathererLayer:
     serializedVersion: 2
     m_Bits: 16384
   detectionRadius: 0.01
-  takeSample: 0
-  oneUse: 0
-  statChanger: {fileID: 11400000, guid: 2ac8e3baca8766a418d615a3bed576a7, type: 2}
   references:
     version: 2
     RefIds: []

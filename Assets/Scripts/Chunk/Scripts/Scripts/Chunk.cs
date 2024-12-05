@@ -21,7 +21,7 @@ public class Chunk : MonoBehaviour
     private void Awake()
     {
 
-        tilemaps = FindObjectsOfType<Tilemap>();
+        tilemaps = FindObjectsByType<Tilemap>(FindObjectsSortMode.None);
 
 
     }

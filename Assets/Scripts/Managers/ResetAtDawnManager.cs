@@ -42,7 +42,7 @@ public class ResetAtDawnManager : MonoBehaviour
         
         if (time != hourToDailySpawn)
             return;
-        itemsToReset = FindObjectsOfType<MonoBehaviour>(true).OfType<IResetAtDawn>().ToList();
+        itemsToReset = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IResetAtDawn>().ToList();
         foreach (var item in itemsToReset)
         {
             item.ResetAtDawn();

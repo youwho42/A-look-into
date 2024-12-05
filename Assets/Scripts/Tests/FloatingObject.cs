@@ -131,7 +131,7 @@ public class FloatingObject : MonoBehaviour
         if (waterTiles != null)
             return;
 
-        var grid = FindObjectOfType<Grid>();
+        var grid = FindFirstObjectByType<Grid>();
         Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
         foreach (var map in maps)
         {

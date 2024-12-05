@@ -1,5 +1,120 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2650800591799248793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8132660780086301261}
+  - component: {fileID: 7179339319021386448}
+  - component: {fileID: 1857961554248965690}
+  m_Layer: 14
+  m_Name: water
+  m_TagString: Water
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8132660780086301261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650800591799248793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2829647905476213769}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &7179339319021386448
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650800591799248793}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.49485588, y: 0.14159258}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.11600542, y: 0.33303595}
+      - {x: -0.24126053, y: 0.28396368}
+      - {x: -0.30996847, y: 0.23851967}
+      - {x: -0.33651733, y: 0.16559976}
+      - {x: -0.32405138, y: 0.09337616}
+      - {x: -0.259727, y: 0.01692009}
+      - {x: -0.14692974, y: -0.035471916}
+      - {x: -0.0004734993, y: -0.056161404}
+      - {x: 0.1560893, y: -0.029559135}
+      - {x: 0.26816988, y: 0.015231073}
+      - {x: 0.33023167, y: 0.088517666}
+      - {x: 0.3502307, y: 0.15772623}
+      - {x: 0.3144703, y: 0.23156977}
+      - {x: 0.25497913, y: 0.28552055}
+      - {x: 0.1467514, y: 0.3334508}
+      - {x: 0.009326458, y: 0.3452496}
+  m_UseDelaunayMesh: 0
+--- !u!114 &1857961554248965690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650800591799248793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648be16917332774c9671200e1c3480e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataList:
+  - {fileID: 11400000, guid: 4f52864ce589299498fb263530172d2b, type: 2}
+  - {fileID: 11400000, guid: 339c4b1f5fe29bd46a141500657091d7, type: 2}
+  maxPerDay: 0
+  timeToReset: 0
+  hasBeenHarvested: 0
+  harvestedSticker: {fileID: 0}
 --- !u!1 &4137697330669691420
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,6 +146,7 @@ Transform:
   m_Children:
   - {fileID: 8331251571769606503}
   - {fileID: 2087780752157704665}
+  - {fileID: 8132660780086301261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8974854931717848141
@@ -82,6 +198,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

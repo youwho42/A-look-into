@@ -516,7 +516,7 @@ namespace Klaxon.GravitySystem
             if (waterMap != null)
                 return;
 
-            var grid = FindObjectOfType<Grid>();
+            var grid = FindFirstObjectByType<Grid>();
             Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
             foreach (var map in maps)
             {

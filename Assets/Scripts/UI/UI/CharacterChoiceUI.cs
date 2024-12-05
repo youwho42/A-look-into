@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using UnityEngine.UI;

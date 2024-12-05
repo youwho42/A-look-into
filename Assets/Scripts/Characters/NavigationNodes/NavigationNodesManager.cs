@@ -145,7 +145,7 @@ public class NavigationNodesManager : MonoBehaviour
         //}
 
         allAreas.Clear();
-        allAreas = FindObjectsOfType<NavigationNode>().ToList();
+        allAreas = FindObjectsByType<NavigationNode>(FindObjectsSortMode.None).ToList();
 
 
         quadTree = new NavNodeQuadTree(baseBounds, 10);

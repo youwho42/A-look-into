@@ -7,7 +7,7 @@ using UnityEngine.Localization.Settings;
 [CreateAssetMenu(menuName = "Quantum Tek/Quantum Inventory/Equipment Item/PokeItem", fileName = "New Poke Item")]
 public class EquipmentPokeData : EquipmentData
 {
-    public StatChanger statChanger;
+    //public StatChanger statChanger;
 
 
     public override void UseEquippedItem()
@@ -26,22 +26,5 @@ public class EquipmentPokeData : EquipmentData
         }
 
     }
-
-    
-
-
-    bool InteractCostReward()
-    {
-        if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(statChanger.Amount))
-        {
-            PlayerInformation.instance.statHandler.ChangeStat(statChanger);
-            return true;
-        }
-        PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
-        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Missing bounce"), null, 0, NotificationsType.Warning);
-
-        return false;
-    }
-
 
 }
