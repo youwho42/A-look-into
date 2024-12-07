@@ -47,7 +47,10 @@ public class MiniGameManager : MonoBehaviour
                 if (game.miniGameType == miniGameType)
                 {
                     UIScreenManager.instance.SetMiniGameUI(true);
-                    yield return new WaitForSeconds(1.5f);
+                    yield return new WaitForSeconds(1.0f);
+                    if (gameObject.TryGetComponent(out TreeRustling tree))
+                        tree.Affect(true);
+                    yield return new WaitForSeconds(0.5f);
                     game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);

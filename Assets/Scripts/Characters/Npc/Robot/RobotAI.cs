@@ -341,6 +341,7 @@ public class RobotAI : MonoBehaviour
     {
         audioManager.PlaySound("CloseHeadAir");
     }
+
     void SetMovementDirection()
     {
         if (animator.GetFloat("DirectionX") != GetDirection().x && !changingDirection)

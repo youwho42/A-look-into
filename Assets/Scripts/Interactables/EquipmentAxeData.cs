@@ -81,6 +81,7 @@ public class EquipmentAxeData : EquipmentData
                                 playerInfo.playerActivateSpyglass.SlowTimeEvent(false);
                                 nearestItemList.hasBeenHarvested = true;
                                 nearestItemList.harvestedSticker.SetActive(true);
+                                
                                 MiniGameManager.instance.StartMiniGame(miniGameType, itemData, nearest.gameObject);
                                 break;
                             }

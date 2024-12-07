@@ -84,7 +84,13 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     void CheckCurrentAttempts()
     {
         if (currentAttempts >= maxAttempts)
+        {
+            if (currentGameObject.TryGetComponent(out TreeRustling tree))
+                tree.Affect(true);
+
             MiniGameManager.instance.EndMiniGame(miniGameType);
+        }
+            
     }
 
     IEnumerator GlowOn(Material materialToSet, Color color)

@@ -52,7 +52,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     public Color successEmission;
     [ColorUsage(true, true)]
     public Color failEmission;
-
+    GameObject currentGameObject;
     int toolTier;
     int q;
 
@@ -85,7 +85,13 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     void CheckCurrentSection()
     {
         if (currentSection == playerControlSections.Count)
+        {
+            if (currentGameObject.TryGetComponent(out SpawnDailyObjects rock))
+                rock.SpawnObjects();
+
             MiniGameManager.instance.EndMiniGame(miniGameType);
+        }
+            
     }
 
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty)
@@ -93,7 +99,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         minigameIsActive = true;
         this.item = item;
         SetDificulty(gameDificulty);
-
+        currentGameObject = gameObject;
         toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
         q = currentDificulty == PlayerInformation.instance.equipmentManager.currentEquipment[0].GameDificulty ? 1 : toolTier;
     }
