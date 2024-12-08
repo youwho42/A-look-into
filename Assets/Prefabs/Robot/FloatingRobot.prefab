@@ -441,8 +441,12 @@ GameObject:
   - component: {fileID: 2694084357877942661}
   - component: {fileID: 5894214627344360367}
   - component: {fileID: 4279119567352370715}
-  - component: {fileID: 1238425235592496225}
   - component: {fileID: 8208192830924907664}
+  - component: {fileID: 7147082949420819042}
+  - component: {fileID: 3847592326226557652}
+  - component: {fileID: 4525564362538449222}
+  - component: {fileID: 1993787423325594573}
+  - component: {fileID: 6547732681933283880}
   m_Layer: 0
   m_Name: FloatingRobot
   m_TagString: Untagged
@@ -606,8 +610,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.05}
-  m_Size: {x: 0.92, y: 0.52}
+  m_Offset: {x: 0.0000000027726, y: 0.023258256}
+  m_Size: {x: 0.92000014, y: 0.46651688}
   m_Direction: 1
 --- !u!114 &3701699528926834388
 MonoBehaviour:
@@ -650,9 +654,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76283022cb7ce44a690f2b9bc3e794c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: SeedRobotInventory
+  Name: RobotInventory
   MaxStacks: 10
-  PlayerCanAddToInventory: 1
+  PlayerCanAddToInventory: 0
 --- !u!114 &5894214627344360367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,9 +673,9 @@ MonoBehaviour:
   interactVerb: Check Robot
   localizedInteractVerb:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 1122674660663296
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -687,9 +691,9 @@ MonoBehaviour:
     m_LocalVariables: []
   localizedItemName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:09b0306f53cf2634e8280873462c7992
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 35893825165123584
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -705,7 +709,7 @@ MonoBehaviour:
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
   isOpen: 0
-  inventory: {fileID: 0}
+  inventory: {fileID: 2694084357877942661}
   references:
     version: 2
     RefIds: []
@@ -721,20 +725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50099efb614781844bd07a12855ff0de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  inventory: {fileID: 2694084357877942661}
   itemDatabase: {fileID: 11400000, guid: 61c5e91b1447f434eb931f0e96e89dae, type: 2}
---- !u!114 &1238425235592496225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2241129123687212892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a246d86dda4eab40a607504e89b2f87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8208192830924907664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +739,217 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7147082949420819042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3e0657d4719b045aaa42374d7a4e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 202300898151160598}
+  itemShadow: {fileID: 2118775029492065457}
+  slopeObject: {fileID: 7998372727354537513}
+  positionZ: 0
+  displacedPosition: {x: 0, y: 0, z: 0}
+  lastJumpZ: 0
+  isGrounded: 0
+  bounceFriction: 0
+  bounciness: 0
+  bounceFactor: 0
+  allTilesManager: {fileID: 0}
+  currentTilePosition: {fileID: 0}
+  currentVelocity: 0
+  currentDirection: {x: 0, y: 0}
+  currentLevel: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  getOnSlope: 0
+  getOffSlope: 0
+  onSlope: 0
+  slopeDisplacement: 0
+  slopeCollisionPoint: {x: 0, y: 0}
+  slopeCheckPosition: {x: 0, y: 0}
+  slopeDirection: {x: 0, y: 0}
+  isOverWater: 0
+  checkTileDistance: 0.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  isWeightless: 1
+  tileBlockInfo: []
+  onObstacle: 0
+  obstacleDisplacement: {x: 0, y: 0, z: 0}
+  facingRight: 0
+  addUpsies: 0
+  centerOfActivity: {fileID: 0}
+  walkSpeed: 0.22
+  runSpeed: 0
+  jumpHeight: 0
+  isInInteractAction: 0
+  moveSpeed: 0
+  currentDestination: {x: 0, y: 0}
+  jumpAhead: 0
+  hasDeviatePosition: 0
+  isStuck: 0
+  tilemapObstacle: 0
+  canClimb: 0
+  isClimbing: 0
+  mainDestinationZ: {x: 0, y: 0, z: 0}
+  currentDestinationZ: {x: 0, y: 0, z: 0}
+  currentDirectionZ: {x: 0, y: 0, z: 0}
+  characterRenderer: {fileID: 5348145429394433305}
+  shitSpot: 0
+--- !u!114 &3847592326226557652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cfb02ebb9026d640a83b5fc5c5c3291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleGoals:
+  - Name: Wander
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+    Priority: 0
+  - Name: Gather
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: cd978853ec448ba4bafe8a206e1919ff,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+      - {fileID: 11400000, guid: acca86e78d9cf2a4ab39524ae50d00a0, type: 2}
+    Priority: 5
+  currentActionName: 
+  animator: {fileID: 1100596710413150033}
+  isDeviating: 0
+  offScreen: 0
+  nearPlayer: 0
+  walker: {fileID: 0}
+  currentPathIndex: 0
+  agentInventory: {fileID: 0}
+  robotItems: {fileID: 11400000, guid: f2015b3485797cb45ab7ffcb9fbb4e42, type: 2}
+  robotLights: {fileID: 6547732681933283880}
+  aStarPath: []
+  gettingPath: 0
+  currentFinalDestination: {x: 0, y: 0, z: 0}
+  lastValidTileLocation: {x: 0, y: 0, z: 0}
+  offScreenPosMoved: 1
+  sleep: {fileID: 0}
+--- !u!114 &4525564362538449222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e49c7467c8769b4ea93e869ad00491d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Wander
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21, type: 2}
+    PreCondition: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: acca86e78d9cf2a4ab39524ae50d00a0, type: 2}
+  conditionsOnFail: []
+  wanderDistance: 6
+--- !u!114 &1993787423325594573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b1f305d9efd1945b6ba1a2fccfe444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Gather
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: cd978853ec448ba4bafe8a206e1919ff, type: 2}
+    PreCondition: {fileID: 11400000, guid: acca86e78d9cf2a4ab39524ae50d00a0, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 91f9fc8527ecac1498c1402cb4ef79ac, type: 2}
+  conditionsOnFail: []
+  gatherChance: 0.412
+--- !u!114 &6547732681933283880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf73b27838e516346921b10cc3ff098a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryLights:
+  - {fileID: 2404871351929788298}
+  - {fileID: 4102301649875060854}
+  - {fileID: 9198734465870969314}
+  - {fileID: 3588208259503159143}
+  - {fileID: 3019737917437366156}
+  - {fileID: 8190503250966202166}
+  - {fileID: 1662355784427491152}
+  - {fileID: 6632388658091863113}
+  - {fileID: 4302536583412708299}
+  - {fileID: 3894166386504459800}
+  inventoryLightStates:
+  - color: {r: 0.06863769, g: 0.31132078, b: 0, a: 1}
+    intensity: 2
+    state: Empty
+  - color: {r: 0.9528302, g: 0.6694466, b: 0.05842829, a: 1}
+    intensity: 2
+    state: Holding
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    intensity: 3
+    state: Full
+  functionLight: {fileID: 3175502952829614061}
+  functionLights:
+  - color: {r: 0.36044857, g: 0.6659936, b: 0.9433962, a: 1}
+    intensity: 3
+    state: 0
+  - color: {r: 0.8490566, g: 0.50079936, b: 0.14017442, a: 1}
+    intensity: 3
+    state: 1
+  - color: {r: 0, g: 0.745283, b: 0.11658196, a: 1}
+    intensity: 3
+    state: 2
+  - color: {r: 0.8490566, g: 0.20096436, b: 0.06007475, a: 1}
+    intensity: 3
+    state: 3
+  - color: {r: 1, g: 0.6885365, b: 0.08962262, a: 1}
+    intensity: 3
+    state: 4
+  - color: {r: 0.9339623, g: 0.057271298, b: 0.77953374, a: 1}
+    intensity: 3
+    state: 5
+  - color: {r: 0.4433962, g: 0, b: 0.0045765657, a: 1}
+    intensity: 5
+    state: 6
+  currentState: 2
 --- !u!1 &2549691065831760386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,8 +1939,7 @@ GameObject:
   - component: {fileID: 202300898151160598}
   - component: {fileID: 1100596710413150033}
   - component: {fileID: 731462316825384227}
-  - component: {fileID: 4024141947720548162}
-  - component: {fileID: 7552702400838490597}
+  - component: {fileID: 4648160796591808697}
   m_Layer: 13
   m_Name: SeedRobot_Floater
   m_TagString: Robot
@@ -1895,129 +2097,18 @@ MonoBehaviour:
     m_Bits: 0
   mixerGroup: {fileID: -6149981308244972507, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
---- !u!114 &4024141947720548162
+--- !u!114 &4648160796591808697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7761395593029364578}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 548be061f9e84154686e54ac4a88c78b, type: 3}
+  m_Script: {fileID: 11500000, guid: 51c4f48d1673a484eb78cd9fcd7f9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  robotID: 0
-  obstaclesLayers:
-    serializedVersion: 2
-    m_Bits: 524288
-  seedSpawnChance:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1.6982282
-      outSlope: 1.6982282
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.29835585
-    - serializedVersion: 3
-      time: 0.03601532
-      value: 0.099712275
-      inSlope: 2.052852
-      outSlope: 2.052852
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.3427659
-      outWeight: 0.78409785
-    - serializedVersion: 3
-      time: 0.062334575
-      value: 0.19779636
-      inSlope: 2.886571
-      outSlope: 2.886571
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.85553294
-      outSlope: 0.85553294
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  seedDatabase: {fileID: 11400000, guid: 3ff1e68d57409c245b88a7d015795115, type: 2}
-  isActivated: 1
-  homeBaseTilePosition: {x: 0, y: 0, z: 0}
-  headBone: {fileID: 5421092476190231174}
-  inventoryLights:
-  - {fileID: 2404871351929788298}
-  - {fileID: 4102301649875060854}
-  - {fileID: 9198734465870969314}
-  - {fileID: 3588208259503159143}
-  - {fileID: 3019737917437366156}
-  - {fileID: 8190503250966202166}
-  - {fileID: 1662355784427491152}
-  - {fileID: 6632388658091863113}
-  - {fileID: 4302536583412708299}
-  - {fileID: 3894166386504459800}
-  inventoryLightStates:
-  - color: {r: 0.06863769, g: 0.31132078, b: 0, a: 1}
-    intensity: 0
-    state: Empty
-  - color: {r: 0.9528302, g: 0.6694466, b: 0.05842829, a: 1}
-    intensity: 2
-    state: Holding
-  - color: {r: 1, g: 0, b: 0, a: 1}
-    intensity: 3
-    state: Full
-  functionLight: {fileID: 3175502952829614061}
-  functionLights:
-  - color: {r: 0.36044857, g: 0.6659936, b: 0.9433962, a: 1}
-    intensity: 3
-    state: 0
-  - color: {r: 0.8490566, g: 0.50079936, b: 0.14017442, a: 1}
-    intensity: 3
-    state: 1
-  - color: {r: 0, g: 0.745283, b: 0.11658196, a: 1}
-    intensity: 3
-    state: 2
-  - color: {r: 0.8490566, g: 0.20096436, b: 0.06007475, a: 1}
-    intensity: 3
-    state: 3
-  - color: {r: 0.08223567, g: 0.35905364, b: 0.8301887, a: 1}
-    intensity: 3
-    state: 4
-  - color: {r: 0.9339623, g: 0.057271298, b: 0.77953374, a: 1}
-    intensity: 3
-    state: 5
-  - color: {r: 0.4433962, g: 0, b: 0.0045765657, a: 1}
-    intensity: 5
-    state: 6
-  currentState: 2
---- !u!114 &7552702400838490597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7761395593029364578}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41373e51eaf2b8c47bb29bbd8420a532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentDestination: {x: 0, y: 0, z: 0}
-  speed: 0.2
-  hasPath: 0
-  pathComplete: 0
 --- !u!1 &7839897062047962339
 GameObject:
   m_ObjectHideFlags: 0

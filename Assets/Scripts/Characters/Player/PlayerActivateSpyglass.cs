@@ -18,8 +18,11 @@ public class PlayerActivateSpyglass : MonoBehaviour
     int currentSelected;
     [HideInInspector]
     public GatherableItem selectedAnimal;
+
+    PlayerInformation player;
     private void Start()
     {
+        player = PlayerInformation.instance;
         GameEventManager.onSpyglassAimEvent.AddListener(SlowTimeEvent);
         GameEventManager.onSpyglassAimChageSelectedEvent.AddListener(ChangeSelectedAnimal);
     }
@@ -150,7 +153,11 @@ public class PlayerActivateSpyglass : MonoBehaviour
         Vector3 pos = allAnimals[animal].transform.position;
         pos.z = allAnimals[animal].transform.position.z + 0.5f;
         spyglassReticle.transform.position = pos;
-        
+
+        if (Mathf.Sign(pos.x - player.player.position.x) < 0 && player.playerController.facingRight ||
+            Mathf.Sign(pos.x - player.player.position.x) > 0 && !player.playerController.facingRight)
+            player.playerController.Flip();
+
         if (!spyglassReticle.activeInHierarchy)
                     spyglassReticle.SetActive(true);
     }
