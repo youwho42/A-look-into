@@ -439,15 +439,17 @@ GameObject:
   - component: {fileID: 3701699528926834388}
   - component: {fileID: 525111143070921070}
   - component: {fileID: 2694084357877942661}
-  - component: {fileID: 5894214627344360367}
+  - component: {fileID: 2611192963114918276}
   - component: {fileID: 4279119567352370715}
   - component: {fileID: 8208192830924907664}
   - component: {fileID: 7147082949420819042}
   - component: {fileID: 3847592326226557652}
   - component: {fileID: 4525564362538449222}
   - component: {fileID: 1993787423325594573}
+  - component: {fileID: 7299720697204009636}
   - component: {fileID: 6547732681933283880}
-  m_Layer: 0
+  - component: {fileID: 413779838492909492}
+  m_Layer: 13
   m_Name: FloatingRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +659,7 @@ MonoBehaviour:
   Name: RobotInventory
   MaxStacks: 10
   PlayerCanAddToInventory: 0
---- !u!114 &5894214627344360367
+--- !u!114 &2611192963114918276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -666,16 +668,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2241129123687212892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 818389e3e7e40224ab633484a348f7e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5916311643c8d844dab207e19ca297f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
-  interactVerb: Check Robot
+  interactVerb: whaaAA???
   localizedInteractVerb:
     m_TableReference:
-      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
     m_TableEntryReference:
-      m_KeyId: 1122674660663296
+      m_KeyId: 57271746312069120
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -691,9 +693,9 @@ MonoBehaviour:
     m_LocalVariables: []
   localizedItemName:
     m_TableReference:
-      m_TableCollectionName: GUID:09b0306f53cf2634e8280873462c7992
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
     m_TableEntryReference:
-      m_KeyId: 35893825165123584
+      m_KeyId: 57271746312069120
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -709,7 +711,24 @@ MonoBehaviour:
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
   isOpen: 0
-  inventory: {fileID: 2694084357877942661}
+  selfInventory: {fileID: 2694084357877942661}
+  currentPriority: 2
+  robotPriorities:
+  - PriorityType: 0
+    PriorityDatabase: {fileID: 11400000, guid: de30a2dae2fc1f54489deda66851d219, type: 2}
+    isActive: 0
+  - PriorityType: 1
+    PriorityDatabase: {fileID: 11400000, guid: 5a1773cd45c5e1343905831bb6482a31, type: 2}
+    isActive: 0
+  - PriorityType: 2
+    PriorityDatabase: {fileID: 11400000, guid: 032b47f040ea351449c21f31d5ac6bc0, type: 2}
+    isActive: 0
+  - PriorityType: 3
+    PriorityDatabase: {fileID: 11400000, guid: 18bdda9ff65052048a152bc234ddc218, type: 2}
+    isActive: 0
+  - PriorityType: 4
+    PriorityDatabase: {fileID: 11400000, guid: 9b4df1dd26ecc224b9dc826db8685385, type: 2}
+    isActive: 0
   references:
     version: 2
     RefIds: []
@@ -823,16 +842,24 @@ MonoBehaviour:
       ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21,
         type: 2}
       PreConditions:
-      - {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+      - {fileID: 11400000, guid: d2b46b0ad100581479445b9af85fdf01, type: 2}
     Priority: 0
   - Name: Gather
     DesiredGoal:
       ResultCondition: {fileID: 11400000, guid: cd978853ec448ba4bafe8a206e1919ff,
         type: 2}
       PreConditions:
-      - {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17, type: 2}
+      - {fileID: 11400000, guid: d2b46b0ad100581479445b9af85fdf01, type: 2}
       - {fileID: 11400000, guid: acca86e78d9cf2a4ab39524ae50d00a0, type: 2}
     Priority: 5
+  - Name: GoHome
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: b5c071f60b02eea48b4340371a4038fe, type: 2}
+      - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+    Priority: 6
   currentActionName: 
   animator: {fileID: 1100596710413150033}
   isDeviating: 0
@@ -841,7 +868,6 @@ MonoBehaviour:
   walker: {fileID: 0}
   currentPathIndex: 0
   agentInventory: {fileID: 0}
-  robotItems: {fileID: 11400000, guid: f2015b3485797cb45ab7ffcb9fbb4e42, type: 2}
   robotLights: {fileID: 6547732681933283880}
   aStarPath: []
   gettingPath: 0
@@ -849,6 +875,10 @@ MonoBehaviour:
   lastValidTileLocation: {x: 0, y: 0, z: 0}
   offScreenPosMoved: 1
   sleep: {fileID: 0}
+  interactable: {fileID: 2611192963114918276}
+  robotActiveCondition: {fileID: 11400000, guid: d2b46b0ad100581479445b9af85fdf01,
+    type: 2}
+  homeBase: {fileID: 0}
 --- !u!114 &4525564362538449222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -893,6 +923,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 91f9fc8527ecac1498c1402cb4ef79ac, type: 2}
   conditionsOnFail: []
   gatherChance: 0.412
+--- !u!114 &7299720697204009636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c42a26a3b78e143ba55aae05f89bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: GoHome
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
 --- !u!114 &6547732681933283880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,6 +1000,31 @@ MonoBehaviour:
     intensity: 5
     state: 6
   currentState: 2
+--- !u!114 &413779838492909492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2241129123687212892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf8bb0f1744bd943b68536e2f13a14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - condition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+    setOnStart: 1
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
+  - condition: {fileID: 11400000, guid: b5c071f60b02eea48b4340371a4038fe, type: 2}
+    setOnStart: 1
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
+  specialConditions: []
+  timedConditions: []
+  dailyResetConditions: []
+  scheduler: {fileID: 3847592326226557652}
 --- !u!1 &2549691065831760386
 GameObject:
   m_ObjectHideFlags: 0

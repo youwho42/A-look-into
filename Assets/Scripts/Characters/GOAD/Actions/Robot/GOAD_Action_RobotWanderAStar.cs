@@ -29,7 +29,7 @@ namespace Klaxon.GOAD
 
             if (agent.gettingPath)
                 return;
-            if (agent.aStarPath.Count <= 0)
+            if (agent.aStarPath.Count <= 0 || agent.HasBelief(agent.robotActiveCondition.Condition, false))
             {
                 success = false;
                 agent.SetActionComplete(true);

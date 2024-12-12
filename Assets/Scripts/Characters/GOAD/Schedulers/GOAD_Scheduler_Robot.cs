@@ -1,4 +1,5 @@
 using Klaxon.GravitySystem;
+using Klaxon.Interactable;
 using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,6 @@ namespace Klaxon.GOAD
         public int currentPathIndex;
         [HideInInspector]
         public QI_Inventory agentInventory;
-        public QI_ItemDatabase robotItems;
         public RobotLightManager robotLights;
 
         [Header("A* Pathfinding")]
@@ -47,22 +47,24 @@ namespace Klaxon.GOAD
         public Vector3 lastValidTileLocation;
 
         float timeTo;
+        bool hasGatherTime;
         [HideInInspector]
         public bool offScreenPosMoved = true;
         [HideInInspector]
         public UIScreenManager sleep;
+        public InteractableRobot interactable;
+        bool inInteractRange;
+        float inInteractRangeTimer;
 
-        
-
+        public GOAD_ScriptableCondition robotActiveCondition;
+        public NavigationNode homeBase;
         public override void Start()
         {
             base.Start();
             
-            //interactable = GetComponent<InteractableDialogue>();
             walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
             sleep = UIScreenManager.instance;
-            //dialogueManager = DialogueManagerUI.instance;
             lastValidTileLocation = transform.position;
         }
 
@@ -70,12 +72,17 @@ namespace Klaxon.GOAD
 
         private void Update()
         {
-
-            //if (inTalkRange)
-            //{
-            //    TalkRangeTimer();
-            //    return;
-            //}
+            if (interactable.isOpen)
+            {
+                walker.currentDirection = Vector2.zero;
+                return;
+            }
+                
+            if (inInteractRange)
+            {
+                TalkRangeTimer();
+                return;
+            }
             //if (nearPlayer && IsConditionMet(canDailySpeakWithPlayer) && IsConditionMet(canSpeakWithPlayerPeriod))
             //{
             //    if (Random.Range(0.0f, 1.0f) <= 0.25f)
@@ -235,7 +242,98 @@ namespace Klaxon.GOAD
                 }
             }
         }
-        
+
+
+        public void HandleSleepGather(GOAD_Action action)
+        {
+            if (!hasGatherTime)
+            {
+                timeTo = 6;
+                timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+                hasGatherTime = true;
+            }
+            
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo)
+            {
+                agentInventory.AddItem(interactable.robotPriorities[interactable.currentPriority].PriorityDatabase.GetRandomWeightedItem(), 1, false);
+                robotLights.SetInventoryLights();
+                action.success = true;
+                SetActionComplete(true);
+                hasGatherTime = false;
+                return;
+            }
+
+        }
+
+        public void SetRobotActive(bool state)
+        {
+            SetBeliefState(robotActiveCondition.Condition, state);
+        }
+
+        void TalkRangeTimer()
+        {
+            if (!interactable.isOpen)
+            {
+                inInteractRangeTimer += Time.deltaTime;
+                if (inInteractRangeTimer >= 5f)
+                {
+                    inInteractRange = false;
+                    inInteractRangeTimer = 0;
+                }
+            }
+            //else
+            //{
+            //    if (dialogueManager.currentInteractable.gameObject != gameObject)
+            //        inInteractRange = false;
+            //    inTalkRangeTimer = 0;
+            //}
+
+            
+            if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
+            PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                walker.Flip();
+            
+
+        }
+
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (interactable == null)
+                return;
+            if (!interactable.canInteract)
+                return;
+
+
+            if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
+            {
+
+                //if (PlayerInformation.instance.playerAnimator.GetBool(isIdleSitting_hash))
+                //    return;
+
+                inInteractRange = true;
+                //animator.SetFloat(velocityX_hash, 0);
+                walker.currentDirection = Vector2.zero;
+
+                
+                if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
+                collision.transform.position.x > _transform.position.x && !walker.facingRight)
+                    walker.Flip();
+
+
+
+            }
+        }
+
+
+
+        public void OnTriggerExit2D(Collider2D collision)
+        {
+
+            if (collision.gameObject.CompareTag("Player"))
+                inInteractRange = false;
+
+        }
 
     }
 }

@@ -22,6 +22,7 @@ public enum UIScreenType
     WarningUI, 
     LoadScreenUI,
     MiniGameUI,
-    CreditsUI
+    CreditsUI,
+    RobotUI
    
 }

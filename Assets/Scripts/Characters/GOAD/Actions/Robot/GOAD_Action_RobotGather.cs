@@ -25,6 +25,12 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
+            if (agent.sleep.isSleeping)
+            {
+                agent.HandleSleepGather(this);
+                return;
+            }
+
             float dir = agent.animator.GetFloat(agent.Direction_hash);
             if (dir > 0)
             {
@@ -42,7 +48,7 @@ namespace Klaxon.GOAD
             if (timer >= 3.5f && !gathered)
             {
                 gathered = true;
-                agent.agentInventory.AddItem(agent.robotItems.GetRandomWeightedItem(), 1, false);
+                agent.agentInventory.AddItem(agent.interactable.robotPriorities[agent.interactable.currentPriority].PriorityDatabase.GetRandomWeightedItem(), 1, false);
                 agent.robotLights.SetInventoryLights();
             }
             if (timer >= 6)

@@ -102,7 +102,7 @@ namespace Klaxon.GOAD
 
         private void Update()
         {
-
+            
             if (inTalkRange)
             {
                 TalkRangeTimer();
