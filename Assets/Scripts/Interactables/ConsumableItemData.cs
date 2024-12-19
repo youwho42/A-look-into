@@ -32,6 +32,11 @@ public class ConsumableItemData : QI_ItemData
         
         PlayerInformation.instance.playerInventory.RemoveItem(this.Name, 1);
         if(itemToBecome != null)
-            PlayerInformation.instance.playerInventory.AddItem(itemToBecome, 1, false); 
+        {
+            if(!PlayerInformation.instance.playerInventory.AddItem(itemToBecome, 1, false))
+                LostAndFoundManager.instance.inventory.AddItem(itemToBecome, 1, false);
+            
+        }
+             
     }
 }

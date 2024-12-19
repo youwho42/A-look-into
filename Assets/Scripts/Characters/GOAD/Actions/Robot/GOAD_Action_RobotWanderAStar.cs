@@ -13,7 +13,7 @@ namespace Klaxon.GOAD
 
             //agent.animator.SetBool(agent.isSitting_hash, false);
             //agent.animator.SetBool(agent.isSleeping_hash, false);
-
+            agent.animator.SetBool(agent.Wander_hash, true);
             agent.currentPathIndex = 0;
             agent.aStarPath.Clear();
             if (agent.StartPositionValid())
@@ -90,7 +90,7 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_Robot agent)
         {
             base.EndAction(agent);
-            //agent.animator.SetFloat(agent.velocityX_hash, 0);
+            agent.animator.SetBool(agent.Wander_hash, false);
             agent.walker.currentDirection = Vector2.zero;
             agent.aStarPath.Clear();
             agent.currentPathIndex = 0;

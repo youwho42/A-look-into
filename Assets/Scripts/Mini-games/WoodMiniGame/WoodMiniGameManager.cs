@@ -97,11 +97,10 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     {
         float elapsedTime = 0;
         float waitTime = 0.2f;
-
+        
         while (elapsedTime < waitTime)
         {
             Color i = Color.Lerp(initialIntensity, color, (elapsedTime / waitTime));
-
             materialToSet.SetColor("_EmissionColor", i);
             elapsedTime += Time.deltaTime;
 
@@ -109,6 +108,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         }
 
         materialToSet.SetColor("_EmissionColor", color);
+        
         yield return null;
     }
 
@@ -127,7 +127,9 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentAttemptHits++;
-            PlayerInformation.instance.playerInventory.AddItem(item, q * q, false);
+            if (!PlayerInformation.instance.playerInventory.AddItem(item, q * q, false))
+                LostAndFoundManager.instance.inventory.AddItem(item, q * q, false);
+            //PlayerInformation.instance.playerInventory.AddItem(item, q * q, false);
             Notifications.instance.SetNewNotification("", item, q * q, NotificationsType.Inventory);
 
             PlaySound(0);

@@ -13,30 +13,34 @@ public class ResetAtDawnManager : MonoBehaviour
             instance = this;
            
     }
-    private void OnEnable()
-    {
-        GameEventManager.onTimeHourEvent.AddListener(ResetAllItems);
-        GameEventManager.onGameStartLoadEvent.AddListener(ResetManager);
-        ResetAllItems(hourToDailySpawn);
-    }
-    private void OnDisable()
-    {
-        GameEventManager.onTimeHourEvent.RemoveListener(ResetAllItems);
-        GameEventManager.onGameStartLoadEvent.RemoveListener(ResetManager);
-    }
 
     public List<IResetAtDawn> itemsToReset = new List<IResetAtDawn>();
 
     int hourToDailySpawn = 5;
 
+
+    private void OnEnable()
+    {
+        GameEventManager.onTimeHourEvent.AddListener(ResetAllItems);
+        //GameEventManager.onGameStartLoadEvent.AddListener(ResetManager);
+        //ResetAllItems(hourToDailySpawn);
+    }
+    private void OnDisable()
+    {
+        GameEventManager.onTimeHourEvent.RemoveListener(ResetAllItems);
+        //GameEventManager.onGameStartLoadEvent.RemoveListener(ResetManager);
+    }
+
+    
+
     //public void AddToManager(IResetAtDawn item)
     //{
     //    itemsToReset.Add(item);
     //}
-    void ResetManager()
-    {
-        itemsToReset.Clear();
-    }
+    //void ResetManager()
+    //{
+    //    itemsToReset.Clear();
+    //}
     public void ResetAllItems(int time)
     {
         

@@ -27,6 +27,7 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
+            
             transform.position = saveData.location;
             Vector3Int tilePos = new Vector3Int(saveData.tilePositionX, saveData.tilePositionY, saveData.tilePositionZ);
             currentTilePosition.position = tilePos;

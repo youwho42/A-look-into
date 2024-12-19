@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using SerializableTypes;
 using System;
 using System.Collections;
@@ -8,22 +9,15 @@ namespace Klaxon.SaveSystem
 {
     public class RobotSaveSystem : MonoBehaviour, ISaveable
     {
-        RobotAI robotAI;
-        void Start()
-        {
-            robotAI = GetComponent<RobotAI>();
-        }
+        public GOAD_Scheduler_Robot robot;
+        
 
         public object CaptureState()
         {
 
             return new SaveData
             {
-                homeBaseTilePositionX = robotAI.homeBaseTilePosition.x,
-                homeBaseTilePositionY = robotAI.homeBaseTilePosition.y,
-                homeBaseTilePositionZ = robotAI.homeBaseTilePosition.z,
-                currentState = (int)robotAI.currentState,
-                isActivated = robotAI.isActivated
+                homeBasePosition = robot.homeBase
             };
         }
 
@@ -35,19 +29,15 @@ namespace Klaxon.SaveSystem
         {
             var saveData = (SaveData)state;
             yield return new WaitForSeconds(0.35f);
-            robotAI.homeBaseTilePosition = new Vector3Int(saveData.homeBaseTilePositionX, saveData.homeBaseTilePositionY, saveData.homeBaseTilePositionZ);
-            robotAI.currentState = (RobotAI.RobotStates)saveData.currentState;
-            robotAI.isActivated = saveData.isActivated;
+            robot.homeBase = saveData.homeBasePosition;
+            
         }
 
         [Serializable]
         private struct SaveData
         {
-            public int homeBaseTilePositionX;
-            public int homeBaseTilePositionY;
-            public int homeBaseTilePositionZ;
-            public int currentState;
-            public bool isActivated;
+            public SVector3 homeBasePosition;
+           
         }
     }
 

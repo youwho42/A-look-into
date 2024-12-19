@@ -8,13 +8,13 @@ namespace Klaxon.SaveSystem
 {
     public class NPC_BeliefSaveSystem : MonoBehaviour, ISaveable
     {
-        public GOAD_Scheduler_NPC scheduler_NPC;
+        public GOAD_Scheduler scheduler;
 
         public object CaptureState()
         {
             List<string> allBeliefs = new List<string>();
             List<bool> allStates = new List<bool>();
-            foreach (var b in scheduler_NPC.beliefs)
+            foreach (var b in scheduler.beliefs)
             {
                 allBeliefs.Add(b.Key);
                 allStates.Add(b.Value);
@@ -31,7 +31,7 @@ namespace Klaxon.SaveSystem
             var saveData = (SaveData)state;
             for (int i = 0; i < saveData.beliefs.Count; i++)
             {
-                scheduler_NPC.SetBeliefState(saveData.beliefs[i], saveData.states[i]);
+                scheduler.SetBeliefState(saveData.beliefs[i], saveData.states[i]);
             }
         }
 

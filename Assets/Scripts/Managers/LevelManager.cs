@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour
         loadScreen.gameObject.SetActive(false);
 
         //AllItemsDatabaseManager.instance.ResetItemsDatabase();
-
+        GameEventManager.onTimeHourEvent.Invoke(5);
 #if UNITY_STANDALONE && !UNITY_EDITOR
         LoadTitleScreen();
 #endif

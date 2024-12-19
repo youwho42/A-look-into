@@ -81,6 +81,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -288,6 +291,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902144603053421309}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -311,13 +315,13 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 0.28
 --- !u!50 &4679355543035452280
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -328,8 +332,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -386,10 +390,11 @@ MonoBehaviour:
   slopeObject: {fileID: 6902144604944210876}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
-  lastHighestZ: 0
+  lastJumpZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 6902144603053421248}
   currentVelocity: 0
@@ -434,7 +439,6 @@ MonoBehaviour:
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 2971686813194710284}
   shitSpot: 0
-  isRunning: 0
 --- !u!114 &3968540688165807639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d61040f8f08ab4aba6fd461d16b94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scheduler_NPC: {fileID: 6362118105225639249}
+  scheduler: {fileID: 6362118105225639249}
 --- !u!114 &3212525274398011632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,6 +837,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902144603053421309}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -856,9 +861,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.015}
-  serializedVersion: 2
   m_Radius: 0.04
 --- !u!1 &6902144603091180861
 GameObject:
@@ -974,6 +979,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1374,6 +1382,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2042,79 +2053,79 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[0]
+      propertyPath: 'm_BoneTransforms.Array.data[0]'
       value: 
       objectReference: {fileID: 30274519168957837}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[1]
+      propertyPath: 'm_BoneTransforms.Array.data[1]'
       value: 
       objectReference: {fileID: 7798650254662299003}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[2]
+      propertyPath: 'm_BoneTransforms.Array.data[2]'
       value: 
       objectReference: {fileID: 3452598702035648778}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[3]
+      propertyPath: 'm_BoneTransforms.Array.data[3]'
       value: 
       objectReference: {fileID: 7503511565052202373}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[4]
+      propertyPath: 'm_BoneTransforms.Array.data[4]'
       value: 
       objectReference: {fileID: 5403499714921065287}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[5]
+      propertyPath: 'm_BoneTransforms.Array.data[5]'
       value: 
       objectReference: {fileID: 2604685650672239295}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[7]
+      propertyPath: 'm_BoneTransforms.Array.data[7]'
       value: 
       objectReference: {fileID: 4471609245778424751}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[8]
+      propertyPath: 'm_BoneTransforms.Array.data[8]'
       value: 
       objectReference: {fileID: 6825303480352541499}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[9]
+      propertyPath: 'm_BoneTransforms.Array.data[9]'
       value: 
       objectReference: {fileID: 5227844514808439475}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[10]
+      propertyPath: 'm_BoneTransforms.Array.data[10]'
       value: 
       objectReference: {fileID: 4476669420550251924}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[11]
+      propertyPath: 'm_BoneTransforms.Array.data[11]'
       value: 
       objectReference: {fileID: 1127333376999465971}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[12]
+      propertyPath: 'm_BoneTransforms.Array.data[12]'
       value: 
       objectReference: {fileID: 6384390429406860087}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[13]
+      propertyPath: 'm_BoneTransforms.Array.data[13]'
       value: 
       objectReference: {fileID: 2445203559821424314, guid: fc8d00e2a781cc744914e6855ab2242d,
         type: 3}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[14]
+      propertyPath: 'm_BoneTransforms.Array.data[14]'
       value: 
       objectReference: {fileID: 3601747243452827454, guid: fc8d00e2a781cc744914e6855ab2242d,
         type: 3}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[15]
+      propertyPath: 'm_BoneTransforms.Array.data[15]'
       value: 
       objectReference: {fileID: 2445203559821424314, guid: fc8d00e2a781cc744914e6855ab2242d,
         type: 3}
@@ -2146,7 +2157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8571716352521503603, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: cff66fe0b37384abb8c8a49ba579cb18, type: 2}
     - target: {fileID: 8929763117865184448, guid: 09687c9e6eb97bf40aead4c3b09960fc,
@@ -2351,6 +2362,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2438,7 +2450,7 @@ AudioSource:
     m_RotationOrder: 4
 --- !u!95 &6902144603035044640
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2452,6 +2464,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -2487,6 +2500,7 @@ MonoBehaviour:
   - {fileID: 6902144604908704143}
   - {fileID: 6902144604077078198}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1

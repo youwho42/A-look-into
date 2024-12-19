@@ -2,7 +2,9 @@ using Klaxon.GOAD;
 using Klaxon.Interactable;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class RobotDisplayUI : MonoBehaviour
@@ -42,7 +44,7 @@ public class RobotDisplayUI : MonoBehaviour
     public Color selectedButtonColor;
 
     public Slider activeToggle;
-
+    public TextMeshProUGUI activeText;
     private void Start()
     {
         tutorial = GetComponent<TutorialUI>();
@@ -65,17 +67,23 @@ public class RobotDisplayUI : MonoBehaviour
         currentRobot = robot;
         SetContainerUI();
         SetPriorityColor((RobotPriorityTypes)robot.currentPriority);
+        SetActivateButton();
     }
 
     public void HideUI()
     {
         currentRobot = null;
     }
-
+    void SetActivateButton() 
+    {
+        activeToggle.value = currentRobot.GetComponent<GOAD_Scheduler_Robot>().GetRobotActive() ? 1 : 0;
+        activeText.text = activeToggle.value == 1 ? LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Deactivate") : LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Activate");
+    }
     public void ActivateRobot()
     {
         bool active = activeToggle.value == 1 ? true : false;
         currentRobot.GetComponent<GOAD_Scheduler_Robot>().SetRobotActive(active);
+        SetActivateButton();
     }
 
     public void SetRobotPriority(RobotPriorityTypes type)

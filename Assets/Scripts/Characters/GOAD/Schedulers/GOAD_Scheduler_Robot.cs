@@ -11,11 +11,9 @@ namespace Klaxon.GOAD
         public readonly int Direction_hash = Animator.StringToHash("DirectionX");
         public readonly int Gather_hash = Animator.StringToHash("Gather");
         public readonly int Wander_hash = Animator.StringToHash("Wander");
-        public readonly int Open_hash = Animator.StringToHash("Open");
-        public readonly int Close_hash = Animator.StringToHash("Close");
-        public readonly int Deactivate_hash = Animator.StringToHash("Deactivate");
+        public readonly int Active_hash = Animator.StringToHash("Active");
         public Animator animator;
-        bool changingDirection;
+        
 
         [HideInInspector]
         public bool isDeviating;
@@ -57,7 +55,8 @@ namespace Klaxon.GOAD
         float inInteractRangeTimer;
 
         public GOAD_ScriptableCondition robotActiveCondition;
-        public NavigationNode homeBase;
+        public Vector3 homeBase;
+        public bool isResting;
         public override void Start()
         {
             base.Start();
@@ -269,6 +268,10 @@ namespace Klaxon.GOAD
         {
             SetBeliefState(robotActiveCondition.Condition, state);
         }
+        public bool GetRobotActive()
+        {
+            return IsConditionMet(robotActiveCondition);
+        }
 
         void TalkRangeTimer()
         {
@@ -288,11 +291,12 @@ namespace Klaxon.GOAD
             //    inTalkRangeTimer = 0;
             //}
 
-            
-            if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
-            PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
-                walker.Flip();
-            
+            if (!isResting)
+            {
+                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
 
         }
 
@@ -315,10 +319,13 @@ namespace Klaxon.GOAD
                 //animator.SetFloat(velocityX_hash, 0);
                 walker.currentDirection = Vector2.zero;
 
+                if (!isResting)
+                {
+                    if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
+                    collision.transform.position.x > _transform.position.x && !walker.facingRight)
+                        walker.Flip();
+                }
                 
-                if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
-                collision.transform.position.x > _transform.position.x && !walker.facingRight)
-                    walker.Flip();
 
 
 

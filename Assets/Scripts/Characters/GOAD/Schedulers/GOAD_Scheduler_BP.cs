@@ -212,7 +212,7 @@ namespace Klaxon.GOAD
             for (int i = 0; i < allSprites.Count; i++)
             {
                 if (allSprites[i].gameObject.activeSelf)
-                    DissolveEffect.instance.StartDissolve(allSprites[i].material, 1f, disolveIn);
+                    DissolveEffect.instance.StartDissolve(allSprites[i].material, 1.5f, disolveIn);
             }
             
         }

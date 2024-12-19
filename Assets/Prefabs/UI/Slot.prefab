@@ -174,6 +174,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 4802785787896109911}
+          m_TargetAssemblyTypeName: InventoryDisplaySlot, Assembly-CSharp
+          m_MethodName: SetMouseHover
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -194,6 +206,18 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: InventoryDisplaySlot, Assembly-CSharp
           m_MethodName: HideInformation
           m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4802785787896109911}
+          m_TargetAssemblyTypeName: InventoryDisplaySlot, Assembly-CSharp
+          m_MethodName: SetMouseHover
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -311,15 +335,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -446,15 +472,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -596,20 +624,6 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  contactFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 525312
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
   references:
     version: 2
     RefIds: []
@@ -722,15 +736,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

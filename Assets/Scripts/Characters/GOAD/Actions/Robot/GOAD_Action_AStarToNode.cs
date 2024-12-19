@@ -9,18 +9,19 @@ namespace Klaxon.GOAD
         public override void StartAction(GOAD_Scheduler_Robot agent)
         {
             base.StartAction(agent);
-            //agent.animator.SetBool(agent.isSitting_hash, false);
+            agent.animator.SetBool(agent.Wander_hash, true);
             //agent.animator.SetBool(agent.isSleeping_hash, false);
             if (agent.homeBase != null)
             {
                 agent.currentPathIndex = 0;
                 agent.aStarPath.Clear();
                 if (agent.StartPositionValid())
-                    agent.SetAStarDestination(agent.homeBase.transform.position, this);
+                    agent.SetAStarDestination(agent.homeBase, this);
 
-                agent.currentFinalDestination = agent.homeBase.transform.position;
+                agent.currentFinalDestination = agent.homeBase;
 
             }
+            agent.robotLights.SetCurrentFunction(RobotLightManager.RobotStates.Retiring);
         }
 
         public override void PerformAction(GOAD_Scheduler_Robot agent)
@@ -34,7 +35,7 @@ namespace Klaxon.GOAD
 
             if(!hasResetFinalDestination)
             {
-                agent.aStarPath[agent.aStarPath.Count - 1] = agent.homeBase.transform.position;
+                agent.aStarPath[agent.aStarPath.Count - 1] = agent.homeBase;
                 hasResetFinalDestination = true;
             }
 
@@ -60,7 +61,7 @@ namespace Klaxon.GOAD
                 return;
             }
             if (agent.aStarPath.Count == 0)
-                agent.aStarPath.Add(agent.homeBase.transform.position);
+                agent.aStarPath.Add(agent.homeBase);
 
             if (agent.aStarPath.Count > 0)
                 agent.walker.currentDestination = agent.aStarPath[agent.currentPathIndex];
@@ -98,6 +99,7 @@ namespace Klaxon.GOAD
             agent.aStarPath.Clear();
             agent.currentPathIndex = 0;
             hasResetFinalDestination = false;
+            agent.animator.SetBool(agent.Wander_hash, false);
         }
         public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_NPC agent)
         {

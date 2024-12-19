@@ -35,10 +35,6 @@ namespace Klaxon.Interactable
             Destroy(gameObject);
             hasInteracted = false;
 
-            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(guiseItem.Name, 1);
-
-
-
         }
 
         void PlayInteractSound()

@@ -42,10 +42,7 @@ namespace Klaxon.Interactable
 
             Destroy(gameObject);
             hasInteracted = false;
-
             WorldItemManager.instance.RemoveItemFromWorldItemDictionary(readableItem.Name, 1);
-
-
 
         }
 

@@ -41,12 +41,13 @@ namespace Klaxon.Interactable
             var playerInventory = PlayerInformation.instance.playerInventory;
             interactor.GetComponent<AnimatePlayer>().TriggerPickUp();
             yield return new WaitForSeconds(0.33f);
-            PlayInteractSound();
+            
 
             int space = playerInventory.CheckInventoryHasSpace(pickUpItem, pickupQuantity);
             int finalAmount = pickupQuantity < space ? pickupQuantity : space;
             if (playerInventory.AddItem(pickUpItem, finalAmount, false))
             {
+                PlayInteractSound(true);
                 Notifications.instance.SetNewNotification("", pickUpItem, finalAmount, NotificationsType.Inventory);
                 if (finalAmount < pickupQuantity)
                     pickupQuantity -= finalAmount;
@@ -59,19 +60,21 @@ namespace Klaxon.Interactable
 
                     Destroy(gameObject);
                 }
-                
+
+            }
+            else
+            {
+                PlayInteractSound(false);
             }
 
             hasInteracted = false;
-            
-                
+
+
             WorldItemManager.instance.RemoveItemFromWorldItemDictionary(interactableItem.Data.Name, 1);
-
-
         }
 
 
-        void PlayInteractSound()
+        void PlayInteractSound(bool success)
         {
             if (audioManager.CompareSoundNames("PickUp-" + interactSound))
             {

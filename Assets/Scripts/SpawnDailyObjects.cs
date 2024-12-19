@@ -29,7 +29,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
                 spawnPoints.Add(points[i]);
         }
         
-        SpawnObjects();
+        //SpawnObjects();
     }
 
 

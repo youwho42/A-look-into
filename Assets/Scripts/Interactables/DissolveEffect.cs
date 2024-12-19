@@ -24,16 +24,15 @@ public class DissolveEffect : MonoBehaviour
     IEnumerator StartDissolveCo(Material material, float dissolveTime, bool dissovleIn)
     {
         
-        float timePercentage = 0f;
-        float fadeTime = 2f;
+        float timer = 0f;
         int from = dissovleIn ? 0 : 1;
         int to = dissovleIn ? 1 : 0;
-        while (timePercentage < 1f)
+        while (timer < dissolveTime)
         {
-            timePercentage += Time.deltaTime / fadeTime;
-            float x = Mathf.Lerp(from, to, timePercentage);
+            timer += Time.deltaTime;
+            float x = Mathf.Lerp(from, to, timer/dissolveTime);
             material.SetFloat("_Fade", x);
-
+            
             yield return null;
         }
     }

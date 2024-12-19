@@ -41,7 +41,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     DropAmountUI dropAmountUI;
     Vector3 dropPosition;
-
+    bool mouseHover;
     
 
     [Serializable]
@@ -77,6 +77,10 @@ public class InventoryDisplaySlot : MonoBehaviour
             ResetDragging();
         }
             
+    }
+    public void SetMouseHover(bool state)
+    {
+        mouseHover = state;
     }
     public void ShowInformation()
     {
@@ -220,13 +224,13 @@ public class InventoryDisplaySlot : MonoBehaviour
             return;
         if (PlayerInformation.instance.inventorySlot != null && PlayerInformation.instance.inventorySlot != this)
             return;
+        
 
-        PlayerInformation.instance.inventorySlot = this;
-        PlayerInformation.instance.isDragging = true;
+        
 
         dragTimer += Time.deltaTime;
         
-        if (!isDragged)
+        if (!isDragged && mouseHover)
         {
             
             var prefab = item.ItemPrefabVariants[0];
@@ -239,12 +243,16 @@ public class InventoryDisplaySlot : MonoBehaviour
             var go = Instantiate(prefab, GetMousePosition(), Quaternion.identity);
             itemToDrop = go.gameObject;
             isDragged = true;
+            PlayerInformation.instance.inventorySlot = this;
+            PlayerInformation.instance.isDragging = true;
         }
 
-        SetValidity();
+        if(itemToDrop != null)
+        {
+            SetValidity();
+            itemToDrop.transform.position = GetMousePosition();
+        }
         
-
-        itemToDrop.transform.position = GetMousePosition();
     }
     void SetValidity()
     {

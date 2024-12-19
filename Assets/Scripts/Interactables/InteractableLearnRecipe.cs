@@ -33,10 +33,6 @@ namespace Klaxon.Interactable
             Destroy(gameObject);
             hasInteracted = false;
 
-            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(craftingRecipe.Name, 1);
-            
-
-
         }
 
         void PlayInteractSound()

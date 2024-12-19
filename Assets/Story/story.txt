@@ -489,7 +489,19 @@ FONTS:
 
 BUGS!!!!!!!!!!
 
-	
+		Played your game, latest version got stuck here... https://imgur.com/MahzJjb
+        Got stock in wall behind ramiros house
+
+        
+        Trying to pick up stuff with full inventory should make different sound and notice player better of failure to do so. Also makes axe sound hitting wood/rock if clicking anywhere
+        Using a tool in a crowded area makes harvesting fail (instead check more than the closest item to see if any is harvestable with the tool)
+        blueberries at camp seems to spawn multiple times making stacks (also seems to happen to some clay and stone)
+        failing minigmae cutting wood should have another sound than hitting stone?
+        E- to interract and fixing cost does not show at the fireplace at the hilltop or the hill
+        maybe sitting should speed up recovery?
+        Right clicking a stack in -inventory moves all stacks of same type, should only move all of the clicked stack
+        Trying to fix ramiras farm - gets you unavalible notice but costs you BOUNCE each time
+        Minor - When fixing a torch you can light it before it is completed
 	
 	
 	
@@ -520,11 +532,15 @@ THINGS TO CHANGE
 
 
 CHANGELOG:
+		Changed:	Notifications now appear above any other UI.
 
 		Fixed:		Flying animals no longer land in impossible places.
 					Maps no longer reveal themselves again after loading a game.
 					Auto-saves would happen every time you exited the inventory if the auto-save option was set to false, the opposite of turning off auto-saves.
-		
+					Your mouse must now be on the selected item when dragging an item from your inventory.
+					Consuming an item that returns an item to your inventory  now sends the latter to the Lost and Found id your inventory is full.
+
+
 		Added:		Stat modifier icons now show what their effect is on mouse hover.
 
 COMMENTS
