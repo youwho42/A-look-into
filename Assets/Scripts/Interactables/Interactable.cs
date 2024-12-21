@@ -12,6 +12,7 @@ namespace Klaxon.Interactable
     {
         protected AudioManager audioManager;
         public string interactSound = "Default";
+        public string interactFailSound = "DefaultFail";
         public string interactVerb = "whaaAA???";
         public LocalizedString localizedInteractVerb;
         public LocalizedString longInteractVerb;
@@ -82,7 +83,7 @@ namespace Klaxon.Interactable
                 return true;
             if (PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Bounce") >= Mathf.Abs(bounceCost.Amount))
             {
-                PlayerInformation.instance.statHandler.ChangeStat(bounceCost);
+                
                 return true;
             }
 

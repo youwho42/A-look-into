@@ -296,6 +296,16 @@ public class UIScreenManager : MonoBehaviour
         dropAmountUI.SetupUI(maxAmount, position);
         return dropAmountUI;
     }
+
+    public DropAmountUI DisplayDropAmountUI(ContainerDisplaySlot containerDisplaySlot, int maxAmount, Vector3 position)
+    {
+        dropAmountUI.gameObject.SetActive(true);
+        dropAmountUI.okButton.onClick.AddListener(containerDisplaySlot.SetTransferAmount);
+        dropAmountUI.SetAmount(maxAmount);
+        dropAmountUI.SetupUI(maxAmount, position);
+        return dropAmountUI;
+    }
+
     public void CloseDropAmountUI()
     {
         if (!dropAmountUI.isActiveAndEnabled)

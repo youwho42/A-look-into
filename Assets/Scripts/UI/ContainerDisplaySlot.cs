@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
@@ -20,6 +21,9 @@ public class ContainerDisplaySlot : MonoBehaviour
 
 
     public bool canTransfer;
+
+    DropAmountUI dropAmountUI;
+    
 
     private void Start()
     {
@@ -39,21 +43,36 @@ public class ContainerDisplaySlot : MonoBehaviour
         
         if (isContainerSlot)
         {
-            int amount = !isLeftButton ? containerInventory.GetStock(item.Name) : 1;
-            Transfer(item, amount, containerInventory, PlayerInformation.instance.playerInventory);
+            if (isLeftButton)
+                Transfer(item, 1, containerInventory, PlayerInformation.instance.playerInventory);
+            else
+                OpenDropAmountUI();
         }
         else
         {
-            int amount = !isLeftButton ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
-            Transfer(item, amount, PlayerInformation.instance.playerInventory, containerInventory);
+            if (isLeftButton)
+                Transfer(item, 1, PlayerInformation.instance.playerInventory, containerInventory);
+            else
+                OpenDropAmountUI();
         }
 
-        
+        //if (isContainerSlot)
+        //{
+        //    int amount = !isLeftButton ? containerInventory.GetStock(item.Name) : 1;
+        //    Transfer(item, amount, containerInventory, PlayerInformation.instance.playerInventory);
+        //}
+        //else
+        //{
+        //    int amount = !isLeftButton ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
+        //    Transfer(item, amount, PlayerInformation.instance.playerInventory, containerInventory);
+        //}
+
+
     }
 
     void TransferStack()
     {
-        
+
         if (item == null || EventSystem.current.currentSelectedGameObject != icon.gameObject)
             return;
 
@@ -62,6 +81,28 @@ public class ContainerDisplaySlot : MonoBehaviour
         else
             Transfer(item, PlayerInformation.instance.playerInventory.GetStock(item.Name), PlayerInformation.instance.playerInventory, containerInventory);
         
+    }
+
+    void OpenDropAmountUI()
+    {
+
+        int quantity = isContainerSlot ? containerInventory.GetStock(item.Name) : PlayerInformation.instance.playerInventory.GetStock(item.Name);
+        if (quantity > 5)
+            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity, Mouse.current.position.ReadValue());
+        else
+            TransferItem(true);
+
+    }
+
+
+    public void SetTransferAmount()
+    {
+        
+        if (isContainerSlot)
+            Transfer(item, dropAmountUI.CurrentAmount, containerInventory, PlayerInformation.instance.playerInventory);
+        else
+            Transfer(item, dropAmountUI.CurrentAmount, PlayerInformation.instance.playerInventory, containerInventory);
+        UIScreenManager.instance.CloseDropAmountUI();
     }
 
     void Transfer(QI_ItemData item, int amount, QI_Inventory fromInventory, QI_Inventory toInventory)

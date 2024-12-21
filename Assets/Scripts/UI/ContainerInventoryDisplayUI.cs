@@ -94,7 +94,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     }
     public void HideContainerUI()
     {
-        
+        UIScreenManager.instance.CloseDropAmountUI();
         ClearSlots();
         containerInventory = null;
     }

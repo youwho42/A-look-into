@@ -76,9 +76,10 @@ namespace Klaxon.Interactable
 
         void PlayInteractSound(bool success)
         {
-            if (audioManager.CompareSoundNames("PickUp-" + interactSound))
+            string sound = success ? interactSound : interactFailSound;
+            if (audioManager.CompareSoundNames("PickUp-" + sound))
             {
-                audioManager.PlaySound("PickUp-" + interactSound);
+                audioManager.PlaySound("PickUp-" + sound);
             }
         }
 

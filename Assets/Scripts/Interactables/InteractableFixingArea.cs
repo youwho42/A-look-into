@@ -47,6 +47,7 @@ namespace Klaxon.Interactable
                         SetGuideOrNote();
                         fixSound.StartSoundsWithTimer();
                         canInteract = false;
+                        PlayerInformation.instance.statHandler.ChangeStat(bounceCost);
                     }
 
                 }
