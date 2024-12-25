@@ -1,3 +1,4 @@
+using BezierSolution;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,13 +23,16 @@ namespace Klaxon.GOAD
             //atDestination = true;
             agent.animator.SetBool(agent.landed_hash, true);
 
-            if(agent.walker != null)
+            if (agent.walker != null)
                 agent.walker.enabled = true;
+
+            if (agent.walker.itemObject.transform.localPosition.y < 0)
+                agent.walker.itemObject.transform.localPosition = Vector3.zero;
+            agent.walker.SetLastPosition();
 
             if (agent.flier != null)
             {
-                if (agent.walker.itemObject.localPosition.y != 0)
-                    agent.walker.isWeightless = true;
+                agent.walker.isWeightless = agent.walker.itemObject.localPosition.y > 0;
                 if (agent.flier.enabled)
                 {
                     agent.walker.facingRight = agent.flier.facingRight;
@@ -52,7 +56,7 @@ namespace Klaxon.GOAD
             idleTimer = agent.SetRandomRange(idleTimerRange);
             wanderTimer = agent.SetRandomRange(wanderTimerRange);
 
-
+            
             agent.walker.SetRandomDestination(wanderDistance);
         }
 

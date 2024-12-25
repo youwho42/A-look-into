@@ -14,7 +14,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
     List<Transform> spawnPoints = new List<Transform>();
 
     public float minDistanceToSpawn = 0.05f;
-
+    [Range(0f, 1f)]
+    public float chanceToSpawn = 0.2f;
     private void Start()
     {
         
@@ -47,7 +48,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         {
             if (!GridManager.instance.GetTileValid(point.position))
                 continue;
-            if (Random.Range(0.0f, 1.0f) > 0.5f)
+            if (Random.Range(0.0f, 1.0f) < chanceToSpawn)
             {
 
                 var hit = Physics2D.OverlapCircle(point.position, minDistanceToSpawn);

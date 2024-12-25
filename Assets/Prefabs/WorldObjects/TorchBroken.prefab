@@ -4795,6 +4795,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4910,6 +4913,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4958,6 +4964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: Fix Torch
   localizedInteractVerb:
     m_TableReference:
@@ -4986,7 +4993,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  bounceCost: {fileID: 0}
+  bounceCost: {fileID: 11400000, guid: 85a4f09e6265b3c4a8a6e195f78ada24, type: 2}
   agencyReward: 0
   agencyCost: 20
   canInteract: 1
@@ -5025,7 +5032,6 @@ MonoBehaviour:
   undertakingObject:
     undertaking: {fileID: 0}
     task: {fileID: 0}
-  replacementObjectHasLongInteract: 0
   needsActiveUndertaking: 0
   neededUndertaking: {fileID: 0}
 --- !u!58 &580766165297189526
@@ -5036,6 +5042,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6446148457427665764}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -5059,9 +5066,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0.007, y: 0.015}
-  serializedVersion: 2
   m_Radius: 0.05
 --- !u!114 &-6387850509642863919
 MonoBehaviour:

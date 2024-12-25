@@ -51,18 +51,22 @@ public class FixAndReplace : MonoBehaviour, IFixArea
             yield return null;
         }
         var go = Instantiate(fixableReplacementObject, transform.position, Quaternion.identity);
-        if(go.TryGetComponent(out SaveableItemEntity item))
+        if (go.TryGetComponent(out SaveableItemEntity item))
             item.GenerateId();
 
         if (go.TryGetComponent(out ActivateOnQuestComplete obj))
             obj.undertakingName = undertakingObject.undertaking.Name;
+
+        if (go.TryGetComponent(out Interactable interactable))
+            interactable.canInteract = false;
 
         //if (go.TryGetComponent(out Interactable interactable))
         //    interactable.hasLongInteract = replacementObjectHasLongInteract;
 
         fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
         yield return new WaitForSeconds(3);
-        if(fixableReplacementObject.TryGetComponent(out QI_Item data))
+        interactable.canInteract = true;
+        if (fixableReplacementObject.TryGetComponent(out QI_Item data))
         {
             if (data.Data.compendiumGuide != null)
             {

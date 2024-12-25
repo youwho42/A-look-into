@@ -364,6 +364,7 @@ namespace Klaxon.GOAD
                 if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position) || hit != null)
                     continue;
 
+               
                 // Calculate squared distance to avoid sqrt overhead
                 float distSqr = (currentPosition - (Vector2)item.transform.position).sqrMagnitude;
 

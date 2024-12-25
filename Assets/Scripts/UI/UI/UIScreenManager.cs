@@ -133,6 +133,8 @@ public class UIScreenManager : MonoBehaviour
 
     private void SetTimeTickPause()
     {
+
+
         RealTimeDayNightCycle.instance.isPaused = false;
         switch (currentUI)
         {

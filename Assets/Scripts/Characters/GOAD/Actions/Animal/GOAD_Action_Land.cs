@@ -74,6 +74,7 @@ namespace Klaxon.GOAD
                 if (agent.flier.itemObject.localPosition.y <= 0.03f)
                 {
                     agent.flier.itemObject.localPosition = Vector3.zero;
+                    
                     success = true;
                     agent.SetActionComplete(true);
                     return;
@@ -86,6 +87,7 @@ namespace Klaxon.GOAD
                 {
                     agent.flier.itemObject.localPosition = agent.currentDisplacementSpot.displacedPosition;
                     agent.transform.position = agent.currentDisplacementSpot.transform.position;
+                    
                     success = true;
                     agent.SetActionComplete(true);
                     return;

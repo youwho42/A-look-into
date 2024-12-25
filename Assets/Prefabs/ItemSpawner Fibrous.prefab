@@ -80,6 +80,7 @@ MonoBehaviour:
   itemDatabase: {fileID: 11400000, guid: 7602ca9413f9080439c367d8c8ff553e, type: 2}
   hideOnStart: 1
   minDistanceToSpawn: 0.05
+  chanceToSpawn: 0.4
 --- !u!212 &3462826158695607463
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -97,6 +98,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

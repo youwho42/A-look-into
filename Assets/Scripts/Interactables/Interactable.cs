@@ -76,7 +76,7 @@ namespace Klaxon.Interactable
             // The rest happens in child script...
         }
 
-
+       
         public bool InteractBounceCost()
         {
             if (bounceCost == null)

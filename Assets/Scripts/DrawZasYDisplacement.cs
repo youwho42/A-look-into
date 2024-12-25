@@ -30,7 +30,6 @@ public class DrawZasYDisplacement : MonoBehaviour
     public float positionZ;
     float spriteDisplacementY = GlobalSettings.SpriteDisplacementY;
     public Vector3 displacedPosition;
-
     public bool isInUse;
     public bool isDecorationSurface;
 
