@@ -61,7 +61,7 @@ namespace Klaxon.GOAD
             }
 
             agent.walker.hasDeviatePosition = false;
-
+            currentFireDirection = GetFiresPosition(agent);
             agent.walker.SetWorldDestination(currentFireDirection);
             agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)

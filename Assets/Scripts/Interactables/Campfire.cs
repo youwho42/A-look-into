@@ -25,7 +25,7 @@ namespace Klaxon.Interactable
 
         public StatChanger gumptionStatChanger;
         PlayerInformation player;
-        [HideInInspector]
+        //[HideInInspector]
         public bool hasBP;
         
 

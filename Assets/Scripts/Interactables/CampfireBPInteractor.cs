@@ -32,6 +32,7 @@ public class CampfireBPInteractor : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         coll.enabled = true;
     }
+    
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,9 +43,15 @@ public class CampfireBPInteractor : MonoBehaviour
 
         if (collision.TryGetComponent(out GOAD_Scheduler_BP bp))
         {
+            
             bool isDay = RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Day;
             if (!fire.isLit && !isDay || fire.isLit && isDay)
             {
+                if (bp.currentFire != null)
+                {
+                    Invoke("CheckForBP", 1f);
+                    return;
+                }
                 fire.hasBP = true;
                 bp.SetFire(fire);
             }

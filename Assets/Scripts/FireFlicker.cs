@@ -21,7 +21,7 @@ public class FireFlicker : MonoBehaviour
     bool isFlickering;
     private void Start()
     {
-        startIntensity = 1.35f;
+        startIntensity = lightToAffect.intensity;
         startFalloff = lightToAffect.falloffIntensity;
     }
     private void OnEnable()
@@ -61,7 +61,7 @@ public class FireFlicker : MonoBehaviour
         {
 
             lightToAffect.intensity = Mathf.Lerp(intensity, tempIntensity, (elapsedTime / waitTime));
-            SetFalloff(lightToAffect.intensity * .4f);
+            SetFalloff(lightToAffect.intensity * startFalloff);
             elapsedTime += Time.deltaTime;
 
             yield return null;
