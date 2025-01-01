@@ -11,16 +11,16 @@ public class FadeTilesOnPlayer : MonoBehaviour
     HashSet<Vector3Int> fadedTilePositions = new HashSet<Vector3Int>();
     Vector3Int lastPlayerTilePosition;
     bool inHouse;
-    bool debugging;
-    private void Start()
-    {
-        GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
-    }
+    //bool debugging;
+    //private void Start()
+    //{
+    //    GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
+    //}
 
-    private void OnDisable()
-    {
-        GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(FadeTiles);
-    }
+    //private void OnDisable()
+    //{
+    //    GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(FadeTiles);
+    //}
 
     
 
@@ -38,6 +38,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
     void ClearFadedTiles()
     {
         StopAllCoroutines();
+        
         foreach (Vector3Int pos in fadedTilePositions)
         {
             StartCoroutine(FadeTile(pos, 1f)); // Fade back to full visibility
@@ -105,6 +106,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
         if (collision.CompareTag("House"))
         {
             inHouse = true;
+            GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
             FadeTiles(); // Call FadeTiles immediately when entering the house to avoid initial jittering
         }
     }
@@ -114,6 +116,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
         if (collision.CompareTag("House"))
         {
             inHouse = false;
+            GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(FadeTiles);
             ClearFadedTiles();
         }
     }

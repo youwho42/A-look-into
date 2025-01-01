@@ -10,7 +10,8 @@ public class PlayerAnimalCompendiumInformation : MonoBehaviour
     public List<string> animalNames = new List<string>();
     [HideInInspector]
     public List<int> animalTimesViewed = new List<int>();
-    
+    [HideInInspector]
+    public List<bool> viewedComplete = new List<bool>();
 
     public void AddAnimal(string name, int amount)
     {
@@ -23,10 +24,15 @@ public class PlayerAnimalCompendiumInformation : MonoBehaviour
         {
             animalNames.Add(name);
             animalTimesViewed.Add(amount);
+            viewedComplete.Add(false);
         }
     }
 
-    public int TimesViewed(string name)
+    public void SetViewedComplete(int index)
+    {
+        viewedComplete[index] = true;
+    }
+    public int GetTimesViewed(string name)
     {
         if (animalNames.Contains(name))
         {

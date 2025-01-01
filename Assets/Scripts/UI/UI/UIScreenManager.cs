@@ -144,7 +144,8 @@ public class UIScreenManager : MonoBehaviour
             case UIScreenType.PauseUI:
                 RealTimeDayNightCycle.instance.isPaused = true;
                 break;
-            case UIScreenType.ContainerUI:
+            case UIScreenType.PaintingUI:
+                RealTimeDayNightCycle.instance.isPaused = true;
                 break;
             case UIScreenType.LoadGameUI:
                 RealTimeDayNightCycle.instance.isPaused = true;

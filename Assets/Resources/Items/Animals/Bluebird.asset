@@ -31,6 +31,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:f472391570da1124a875b2ac5db53485
+    m_TableEntryReference:
+      m_KeyId: 162419759291883520
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 1
   AnimationName: 
   Weight: 0.2
@@ -43,8 +52,12 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   MaxStack: 1
   compendiumGuide: {fileID: 0}
-  ResearchRecipes: []
-  GameDificulty: 1
+  ResearchRecipes:
+  - recipe: {fileID: 0}
+    RecipeRevealAmount: 11
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
+  GameDificulty: 3
   placementGumption: {fileID: 0}
   references:
     version: 2

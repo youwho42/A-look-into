@@ -33,11 +33,10 @@ RectTransform:
   - {fileID: 813715893}
   - {fileID: 1036771340}
   m_Father: {fileID: 8485133871545729583}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15.5}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 257}
+  m_AnchoredPosition: {x: 23, y: 278}
   m_SizeDelta: {x: 972.4, y: 89.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &390067083
@@ -87,7 +86,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.581
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -102,6 +101,7 @@ GameObject:
   - component: {fileID: 394067653}
   - component: {fileID: 394067654}
   - component: {fileID: 394067655}
+  - component: {fileID: 6603972738732474222}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -122,7 +122,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1036771340}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -167,6 +166,43 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6603972738732474222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394067652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 1262911364646305792
+  references:
+    version: 2
+    RefIds:
+    - rid: 1262911364646305792
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
+        asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 394067653}
+        m_TrackedProperties:
+          items:
+          - rid: 1262911364646305793
+    - rid: 1262911364646305793
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
+        asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchorMax.y
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 0
+        - localeIdentifier:
+            m_Code: fr
+          value: 0
 --- !u!1 &633540718
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +234,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 813715893}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -242,7 +277,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.4
 --- !u!1 &813715892
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +308,6 @@ RectTransform:
   m_Children:
   - {fileID: 633540719}
   m_Father: {fileID: 390067084}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -311,7 +345,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 390067084}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -339,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.14117648}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -355,7 +388,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.4
 --- !u!1 &1036771339
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +419,6 @@ RectTransform:
   m_Children:
   - {fileID: 394067653}
   m_Father: {fileID: 390067084}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -426,7 +458,6 @@ RectTransform:
   - {fileID: 390067084}
   - {fileID: 8485133871924647122}
   m_Father: {fileID: 8485133872171259148}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15.511001}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -502,12 +533,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8485133871545729583}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15.5}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 3, y: 604}
-  m_SizeDelta: {x: 1852.3, y: 210}
+  m_AnchoredPosition: {x: -0, y: 616}
+  m_SizeDelta: {x: 2500, y: 210}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8485133871924647124
 CanvasRenderer:
@@ -539,8 +569,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hold -X- Required Items
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0aa83a6efdfd6b946821e946144a7518, type: 2}
-  m_sharedMaterial: {fileID: 3807629882853483367, guid: 0aa83a6efdfd6b946821e946144a7518,
+  m_fontAsset: {fileID: 11400000, guid: f8dfc6024beca904387a7e684172d9ae, type: 2}
+  m_sharedMaterial: {fileID: 197620476844376146, guid: f8dfc6024beca904387a7e684172d9ae,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -565,11 +595,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 125
-  m_fontSizeBase: 125
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 0
+  m_fontSizeMin: 0.001
   m_fontSizeMax: 1000
   m_fontStyle: 1
   m_HorizontalAlignment: 2
@@ -581,15 +611,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -640,7 +672,6 @@ RectTransform:
   m_Children:
   - {fileID: 8485133871545729583}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -664,7 +695,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -1234477561
   m_SortingOrder: 0
   m_TargetDisplay: 0

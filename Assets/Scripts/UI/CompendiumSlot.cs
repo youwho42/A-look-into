@@ -14,6 +14,7 @@ public class CompendiumSlot : MonoBehaviour
     public List<QI_ItemData.RecipeRevealObject> recipeReveals = new List<QI_ItemData.RecipeRevealObject>();
     public TextMeshProUGUI itemName;
     LocalizedString localizedName;
+    bool longDescription;
     public void AddItem(QI_ItemData newItem, QI_CraftingRecipe newRecipe = null)
     {
         item = newItem;
@@ -23,6 +24,14 @@ public class CompendiumSlot : MonoBehaviour
         localizedName = newItem.localizedName;
         localizedName.StringChanged += UpdateName;
         itemName.text = newItem.localizedName.GetLocalizedString(newItem.Name);
+        longDescription = false;
+        if(item.Type == ItemType.Animal)
+        {
+            int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(item.Name);
+            int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
+            if(amount >= item.ResearchRecipes[0].RecipeRevealAmount)
+                longDescription = true;
+        }
     }
     public void AddRecipeReveal(List<QI_ItemData.RecipeRevealObject> revealObject)
     {
@@ -46,6 +55,6 @@ public class CompendiumSlot : MonoBehaviour
 
     public void DisplayIformation()
     {
-        CompendiumDisplayUI.instance.DisplayItemInformation(item, itemRecipe, recipeReveals);
+        CompendiumDisplayUI.instance.DisplayItemInformation(item, itemRecipe, recipeReveals, longDescription);
     }
 }

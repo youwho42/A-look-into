@@ -47,7 +47,8 @@ namespace Klaxon.SaveSystem
                 noteItemName = noteNames,
                 guideItemName = guideNames,
                 animalCompendiumNames = animalCompendiumInformation.animalNames,
-                animalCompendiumAmounts = animalCompendiumInformation.animalTimesViewed
+                animalCompendiumAmounts = animalCompendiumInformation.animalTimesViewed,
+                animalCompendiumViewedComplete = animalCompendiumInformation.viewedComplete
 
             };
         }
@@ -77,6 +78,7 @@ namespace Klaxon.SaveSystem
             }
             animalCompendiumInformation.animalNames = saveData.animalItemName;
             animalCompendiumInformation.animalTimesViewed = saveData.animalCompendiumAmounts;
+            animalCompendiumInformation.viewedComplete = saveData.animalCompendiumViewedComplete;
             GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
             GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             GameEventManager.onNoteCompediumUpdateEvent.Invoke();
@@ -92,6 +94,7 @@ namespace Klaxon.SaveSystem
             public List<string> guideItemName;
             public List<string> animalCompendiumNames;
             public List<int> animalCompendiumAmounts;
+            public List<bool> animalCompendiumViewedComplete;
 
         }
 

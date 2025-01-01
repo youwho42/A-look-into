@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class InsectMiniGameManager : MonoBehaviour, IMinigame
 {
@@ -188,26 +189,32 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                 // Add animal to compendium information
                 PlayerInformation.instance.animalCompendiumInformation.AddAnimal(animal.Name, successfullHits);
 
+                bool receivedNotification = false;
                 // Add recipe revealed if already viewed enough times and you don't have the recipe already
                 if (animal.ResearchRecipes.Count > 0)
                 {
                     int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(animal.Name);
                     int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
-                    for (int i = 0; i < animal.ResearchRecipes.Count; i++)
+                    receivedNotification = PlayerInformation.instance.animalCompendiumInformation.viewedComplete[index];
+                    if(!receivedNotification)
                     {
-                        if (PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(animal.ResearchRecipes[i].recipe))
-                            continue;
-                        if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
+                        for (int i = 0; i < animal.ResearchRecipes.Count; i++)
                         {
-                            if (PlayerCrafting.instance.AddCraftingRecipe(animal.ResearchRecipes[i].recipe))
+
+                            if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
                             {
-                                Notifications.instance.SetNewNotification($"{animal.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                                
+                                string notificationText = $"{animal.localizedName.GetLocalizedString()} {LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Updated")}";
+                                Notifications.instance.SetNewNotification(notificationText, null, 0, NotificationsType.Compendium);
+                                PlayerInformation.instance.animalCompendiumInformation.SetViewedComplete(index);
                                 PlayerInformation.instance.statHandler.ChangeStat(animal.ResearchRecipes[i].agencyStatChanger);
                             }
-                            
                         }
                     }
+                   
                 }
+
+                
                 miniGameOver = true;
                 
                 MiniGameManager.instance.EndMiniGame(miniGameType);

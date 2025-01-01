@@ -51,6 +51,8 @@ public static class GameEventManager
     ///  Player Undertakings Update
     /// </summary>
     public static readonly GameEvent onUndertakingsUpdateEvent = new GameEvent();
+    public static readonly GameEvent onMuseumPieceUpdateEvent = new GameEvent();
+
 
     /// <summary>
     ///  World State Update

@@ -25,6 +25,8 @@ public class NavigationNode : MonoBehaviour
     public NavigationPathType pathType;
 
     public bool active = true;
+
+    public Color gizmoColor = Color.white;
     public GameObject AddNewChild()
     {
         GameObject go = new GameObject("NavNode");
@@ -39,6 +41,7 @@ public class NavigationNode : MonoBehaviour
         children.Add(node);
         node.children.Add(this);
         node.pathType = pathType;
+        node.gizmoColor = gizmoColor;
         return go;
     }
 
@@ -208,10 +211,11 @@ public class NavigationNode : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = gizmoColor;
         Gizmos.DrawSphere(transform.position, 0.02f);
         if(children.Count > 0)
         {
-            Gizmos.color = new Color(1, 1, 1, .2f);
+            Gizmos.color = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, .2f);
             for (int i = 0; i < children.Count; i++)
             {
                 Gizmos.DrawLine(transform.position, children[i].transform.position);

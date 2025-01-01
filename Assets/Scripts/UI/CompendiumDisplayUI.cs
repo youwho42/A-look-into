@@ -259,7 +259,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
                     newSlot.AddItem(playerAnimalCompendium.Items[i]);
-                    newSlot.AddRecipeReveal(playerAnimalCompendium.Items[i].ResearchRecipes);
+                    //newSlot.AddRecipeReveal(playerAnimalCompendium.Items[i].ResearchRecipes);
                     compendiumSlots.Add(newSlot);
                 }
 
@@ -491,22 +491,29 @@ public class CompendiumDisplayUI : MonoBehaviour
         informationDisplayItemDescription.text = value;
     }
 
-    public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals)
+    public void DisplayItemInformation(QI_ItemData item, QI_CraftingRecipe recipe, List<QI_ItemData.RecipeRevealObject> recipeReveals, bool longDescription = false)
     {
         recipeRevealDescription.SetActive(false);
-
         informationDisplayItemDescription.text = " ";
-        localizedDisplayDescription = item.localizedDescription;
+        localizedDisplayDescription = longDescription ? item.localizedLongDescription : item.localizedDescription;
         localizedDisplayDescription.StringChanged += UpdateDescription;
-        informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString(item.Name)}</style>\n\n{item.localizedDescription.GetLocalizedString(item.Name + " Description")}\n\n";
+        informationDisplayItemDescription.text = $"\n<style=\"H1\">{item.localizedName.GetLocalizedString()}</style>\n\n{localizedDisplayDescription.GetLocalizedString()}\n\n";
         
         if (item.Type == ItemType.Consumable)
             informationDisplayItemDescription.text += $"{GetStatModifierText(item as ConsumableItemData)}\n"; 
         if(item.placementGumption != null)
             informationDisplayItemDescription.text += $"\n{item.placementGumption.EffectDescription.GetLocalizedString()}\n\n";
+        if (item.Type == ItemType.Animal)
+        {
+            int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(item.Name);
+            int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
+            
+            informationDisplayItemDescription.text += $"<sprite name=\"Spyglass\"> {amount}X\n";
+        }
+            
 
 
-        recipeDisplay.SetActive(false);
+            recipeDisplay.SetActive(false);
         recipeRevealDisplay.SetActive(false);
         if (recipe!= null)
         {
@@ -531,9 +538,10 @@ public class CompendiumDisplayUI : MonoBehaviour
             for (int i = 0; i < recipeReveals.Count; i++)
             {
                 CompendiumRecipeSlot newRecipeSlot = Instantiate(compendiumRecipeSlotObject, compendiumRecipeRevealListHolder.transform);
-                newRecipeSlot.AddItem(recipeReveals[i].recipe.Product.Item, recipeReveals[i].RecipeRevealAmount);
+                if(recipeReveals[i].recipe != null)
+                    newRecipeSlot.AddItem(recipeReveals[i].recipe.Product.Item, recipeReveals[i].RecipeRevealAmount);
                 compendiumRecipeSlots.Add(newRecipeSlot);
-                int times = PlayerInformation.instance.animalCompendiumInformation.TimesViewed(item.Name);
+                int times = PlayerInformation.instance.animalCompendiumInformation.GetTimesViewed(item.Name);
                 if(times > 0)
                 {
                     timesViewedText.text = times.ToString();

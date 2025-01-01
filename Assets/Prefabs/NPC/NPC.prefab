@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   MaxStacks: 12
-  PlayerCanAddToInventory: 1
+  PlayerCanAddToInventory: 0
 --- !u!114 &7451026495035940893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: whaaAA???
   localizedInteractVerb:
     m_TableReference:

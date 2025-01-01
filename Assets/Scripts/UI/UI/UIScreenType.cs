@@ -23,6 +23,8 @@ public enum UIScreenType
     LoadScreenUI,
     MiniGameUI,
     CreditsUI,
-    RobotUI
+    RobotUI,
+    PaintingUI,
+    RestorePaintingUI
    
 }
