@@ -14,11 +14,11 @@ public class DropAmountUI : MonoBehaviour
     public RectTransform canvasRectTransform;
     public bool setAmountOverTime;
     public int CurrentAmount { get { return currentAmount; } }
-    public void SetupUI(int max, Vector3 position)
+    public void SetupUI(int max, int stack, Vector3 position)
     {
         maxAmount = max;
-        currentAmount = max;
-        amountText.text = max.ToString();
+        currentAmount = stack;
+        amountText.text = $"{stack}/{max}";
 
         // Convert the screen point to a position in the canvas
         
@@ -39,11 +39,12 @@ public class DropAmountUI : MonoBehaviour
         currentAmount = 0;
     }
 
-    public void SetAmount(int amount)
+    public void SetAmount(int _maxAmount, int stackAmount)
     {
-        currentAmount = amount;
+        maxAmount = _maxAmount;
+        currentAmount = stackAmount;
         
-        amountText.text = currentAmount.ToString();
+        amountText.text = $"{currentAmount}/{maxAmount}";
     }
     public void ChangeAmount(int amount)
     {
@@ -52,7 +53,7 @@ public class DropAmountUI : MonoBehaviour
             currentAmount = 0;
         else if (currentAmount < 0)
             currentAmount = maxAmount;
-        amountText.text = currentAmount.ToString();
+        amountText.text = $"{currentAmount}/{maxAmount}";
     }
     public void HalfAmount()
     {
@@ -60,7 +61,7 @@ public class DropAmountUI : MonoBehaviour
         currentAmount = a;
         if (currentAmount < 1)
             currentAmount = 1;
-        amountText.text = currentAmount.ToString();
+        amountText.text = $"{currentAmount}/{maxAmount}";
     }
     public void DoubleAmount()
     {
@@ -68,7 +69,7 @@ public class DropAmountUI : MonoBehaviour
         if (currentAmount > maxAmount)
             currentAmount = maxAmount;
         
-        amountText.text = currentAmount.ToString();
+        amountText.text = $"{currentAmount}/{maxAmount}";
     }
     public void StartSetAmount(int amount)
     {

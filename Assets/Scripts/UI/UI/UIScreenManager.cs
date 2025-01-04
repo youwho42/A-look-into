@@ -291,21 +291,21 @@ public class UIScreenManager : MonoBehaviour
     }
 
 
-    public DropAmountUI DisplayDropAmountUI(InventoryDisplaySlot inventoryDisplaySlot, int maxAmount, Vector3 position)
+    public DropAmountUI DisplayDropAmountUI(InventoryDisplaySlot inventoryDisplaySlot, int maxAmount, int stackAmount, Vector3 position)
     {
         dropAmountUI.gameObject.SetActive(true);
         dropAmountUI.okButton.onClick.AddListener(inventoryDisplaySlot.SetDropAmount);
-        dropAmountUI.SetAmount(maxAmount);
-        dropAmountUI.SetupUI(maxAmount, position);
+        dropAmountUI.SetAmount(maxAmount, stackAmount);
+        dropAmountUI.SetupUI(maxAmount, stackAmount, position);
         return dropAmountUI;
     }
 
-    public DropAmountUI DisplayDropAmountUI(ContainerDisplaySlot containerDisplaySlot, int maxAmount, Vector3 position)
+    public DropAmountUI DisplayDropAmountUI(ContainerDisplaySlot containerDisplaySlot, int maxAmount, int stackAmount, Vector3 position)
     {
         dropAmountUI.gameObject.SetActive(true);
         dropAmountUI.okButton.onClick.AddListener(containerDisplaySlot.SetTransferAmount);
-        dropAmountUI.SetAmount(maxAmount);
-        dropAmountUI.SetupUI(maxAmount, position);
+        dropAmountUI.SetAmount(maxAmount, stackAmount);
+        dropAmountUI.SetupUI(maxAmount, stackAmount, position);
         return dropAmountUI;
     }
 

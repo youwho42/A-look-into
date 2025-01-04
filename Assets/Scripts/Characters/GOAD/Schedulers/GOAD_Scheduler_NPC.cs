@@ -139,6 +139,8 @@ namespace Klaxon.GOAD
                 }
 
             }
+            animator.SetBool(isGrounded_hash, walker.isGrounded);
+            animator.SetFloat(velocityY_hash, walker.isGrounded ? 0 : walker.displacedPosition.y);
         }
 
         void SetNextAction()

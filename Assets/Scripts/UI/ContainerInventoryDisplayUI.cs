@@ -60,22 +60,25 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         string t1 = "";
         string t2 = "";
         string t3 = "";
+        string t4 = "";
         if (!containerInventory.PlayerCanAddToInventory)
             t0 = "Cannot transfer from player to container";
         if (text == "Gamepad")
         {
             t1 = "A";
             t2 = "Y";
-            t3 = "X";
+            t3 = "Y";
+            t4 = "X";
         }
         else
         {
             t1 = "LMB";
             t2 = "RMB";
-            t3 = "E";
+            t3 = "- Shift-RMB > transfer amount";
+            t4 = "E";
         }
 
-        tipText = $"{t0} {t1} > transfer item - {t2} > transfer stack / {t3} > close";
+        tipText = $"{t0} {t1} > transfer item - {t2} > transfer stack {t3} / {t4} > close";
         UIScreenManager.instance.SetTipPanel(tipText);
 
     }

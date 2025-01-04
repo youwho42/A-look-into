@@ -32,19 +32,15 @@ public class RestorePainting : MonoBehaviour
     public InteractablePainting interactablePainting;
 
     public NavigationNode paintingNode;
-
+    public int ticks;
     
 
 
     private void Start()
     {
         interactablePainting = GetComponent<InteractablePainting>();
-        foreach (var item in ingredients)
-        {
-            item.complete = false;
-            item.activated = false;
-        }
-        worldSprite.sprite = unfinishedSprite;
+       
+        GetIsFinished();
     }
     
     public bool GetIsFinished()
@@ -58,9 +54,11 @@ public class RestorePainting : MonoBehaviour
                 break;
             }
         }
-        if (finished) 
-            SetFinishedWorldSprite();
+        
+        SetFinishedWorldSprite(finished);
 
+        if(interactablePainting == null)
+            interactablePainting = GetComponent<InteractablePainting>();
         interactablePainting.hasLongInteract = !finished;
         
             
@@ -77,9 +75,9 @@ public class RestorePainting : MonoBehaviour
         return -1;
     }
 
-    public void SetFinishedWorldSprite()
+    public void SetFinishedWorldSprite(bool isFinished)
     {
 
-        worldSprite.sprite = finishedSprite;
+        worldSprite.sprite = isFinished ? finishedSprite : unfinishedSprite;
     }
 }

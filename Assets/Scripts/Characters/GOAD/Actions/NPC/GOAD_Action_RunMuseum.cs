@@ -41,6 +41,7 @@ namespace Klaxon.GOAD
             
             if (agent.HasBelief("CanWork", false))
             {
+                Debug.Log("Wants to leave work");
                 GetUpAndLeave(agent);
                 return;
             }
@@ -49,10 +50,11 @@ namespace Klaxon.GOAD
             
             if(!hasPainting)
             {
+                Debug.Log("Checks for painting");
                 hasPainting = MuseumManager.instance.HasPaintingsInQueue();
                 return;
             }
-
+            Debug.Log("has a painting");
             if (sitting)
             {
                 if (!gettingUp)

@@ -26,6 +26,9 @@ namespace Klaxon.GOAD
             sitting = true;
             closeDesk = false;
             gettingUp = false;
+            agent.animator.SetBool(agent.isSitting_hash, true);
+            if (agent.walker.facingRight != workSeat.facingRight)
+                agent.walker.Flip();
             base.StartAction(agent);
             // Setting up the seat for when we leave
             if (target == null)

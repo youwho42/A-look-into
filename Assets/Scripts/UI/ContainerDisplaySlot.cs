@@ -18,7 +18,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     public QI_Inventory containerInventory;
     
     public bool isContainerSlot;
-
+    int stackAmount;
 
     public bool canTransfer;
 
@@ -28,6 +28,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     private void Start()
     {
         GameEventManager.onStackTransferGamepadEvent.AddListener(TransferStack);
+        ButtonSoundsManager.instance.AddButtonToSounds(GetComponentInChildren<Button>());
     }
     private void OnDisable()
     {
@@ -56,30 +57,19 @@ public class ContainerDisplaySlot : MonoBehaviour
                 OpenDropAmountUI();
         }
 
-        //if (isContainerSlot)
-        //{
-        //    int amount = !isLeftButton ? containerInventory.GetStock(item.Name) : 1;
-        //    Transfer(item, amount, containerInventory, PlayerInformation.instance.playerInventory);
-        //}
-        //else
-        //{
-        //    int amount = !isLeftButton ? PlayerInformation.instance.playerInventory.GetStock(item.Name) : 1;
-        //    Transfer(item, amount, PlayerInformation.instance.playerInventory, containerInventory);
-        //}
-
-
+        
     }
 
-    void TransferStack()
+    public void TransferStack()
     {
 
         if (item == null || EventSystem.current.currentSelectedGameObject != icon.gameObject)
             return;
 
         if (isContainerSlot)
-            Transfer(item, containerInventory.GetStock(item.Name), containerInventory, PlayerInformation.instance.playerInventory);
+            Transfer(item, stackAmount, containerInventory, PlayerInformation.instance.playerInventory);
         else
-            Transfer(item, PlayerInformation.instance.playerInventory.GetStock(item.Name), PlayerInformation.instance.playerInventory, containerInventory);
+            Transfer(item, stackAmount, PlayerInformation.instance.playerInventory, containerInventory);
         
     }
 
@@ -88,7 +78,7 @@ public class ContainerDisplaySlot : MonoBehaviour
 
         int quantity = isContainerSlot ? containerInventory.GetStock(item.Name) : PlayerInformation.instance.playerInventory.GetStock(item.Name);
         if (quantity > 5)
-            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity, Mouse.current.position.ReadValue());
+            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity, stackAmount, Mouse.current.position.ReadValue());
         else
             TransferItem(true);
 
@@ -119,7 +109,8 @@ public class ContainerDisplaySlot : MonoBehaviour
         ClearSlot();
         item = newItem;
         icon.sprite = item.Icon;
-        itemAmount.text = amount.ToString();
+        stackAmount = amount;
+        itemAmount.text = stackAmount.ToString();
         icon.enabled = true;
     }
     

@@ -193,7 +193,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""InventoryRightClickItem"",
                     ""type"": ""Button"",
                     ""id"": ""8e71d039-e8f7-4fba-8b15-73e462193d64"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -248,6 +248,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""dc770672-2ec5-4a56-92b5-2a7705b8f529"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShiftTransfer"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ee52551-9480-4cda-84bd-1b42c830d58d"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -990,6 +999,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""AddBallUpsies"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35fa8fdd-fc3e-4568-93db-ccc1e168f1b5"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ShiftTransfer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1353,6 +1373,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Smell = m_Player.FindAction("Smell", throwIfNotFound: true);
         m_Player_Sit = m_Player.FindAction("Sit", throwIfNotFound: true);
         m_Player_AddBallUpsies = m_Player.FindAction("AddBallUpsies", throwIfNotFound: true);
+        m_Player_ShiftTransfer = m_Player.FindAction("ShiftTransfer", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1454,6 +1475,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Smell;
     private readonly InputAction m_Player_Sit;
     private readonly InputAction m_Player_AddBallUpsies;
+    private readonly InputAction m_Player_ShiftTransfer;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1483,6 +1505,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Smell => m_Wrapper.m_Player_Smell;
         public InputAction @Sit => m_Wrapper.m_Player_Sit;
         public InputAction @AddBallUpsies => m_Wrapper.m_Player_AddBallUpsies;
+        public InputAction @ShiftTransfer => m_Wrapper.m_Player_ShiftTransfer;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1567,6 +1590,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AddBallUpsies.started += instance.OnAddBallUpsies;
             @AddBallUpsies.performed += instance.OnAddBallUpsies;
             @AddBallUpsies.canceled += instance.OnAddBallUpsies;
+            @ShiftTransfer.started += instance.OnShiftTransfer;
+            @ShiftTransfer.performed += instance.OnShiftTransfer;
+            @ShiftTransfer.canceled += instance.OnShiftTransfer;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1646,6 +1672,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @AddBallUpsies.started -= instance.OnAddBallUpsies;
             @AddBallUpsies.performed -= instance.OnAddBallUpsies;
             @AddBallUpsies.canceled -= instance.OnAddBallUpsies;
+            @ShiftTransfer.started -= instance.OnShiftTransfer;
+            @ShiftTransfer.performed -= instance.OnShiftTransfer;
+            @ShiftTransfer.canceled -= instance.OnShiftTransfer;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1829,6 +1858,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSmell(InputAction.CallbackContext context);
         void OnSit(InputAction.CallbackContext context);
         void OnAddBallUpsies(InputAction.CallbackContext context);
+        void OnShiftTransfer(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

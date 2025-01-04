@@ -83,7 +83,7 @@ namespace Klaxon.Interactable
                 int t = PlayerInformation.instance.GetTotalInventoryQuantity(ingredient.item);
                 if (t < ingredient.amount)
                 {
-                    Notifications.instance.SetNewNotification($"{ingredient.amount - t} {ingredient.item.Name}", null, 0, NotificationsType.Warning);
+                    Notifications.instance.SetNewNotification($"{ingredient.amount - t} {ingredient.item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Warning);
                     hasAll = false;
                 }
 

@@ -34,6 +34,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     int decorationIndex = 0;
 
+    int stackAmount;
     
     Bounds bounds;
 
@@ -142,8 +143,8 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         item = newItem;
         icon.sprite = item.Icon;
-        
-        itemAmount.text = amount.ToString();
+        stackAmount = amount;
+        itemAmount.text = stackAmount.ToString();
         icon.enabled = true;
         itemTypeName = GetItemType();
         ShowItemUse(false);
@@ -169,7 +170,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         int quantity = inventory.GetStock(item.Name);
         if (quantity > 1)
-            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity, Mouse.current.position.ReadValue());
+            dropAmountUI = UIScreenManager.instance.DisplayDropAmountUI(this, quantity, stackAmount, Mouse.current.position.ReadValue());
         else
             DropItem(1);
         

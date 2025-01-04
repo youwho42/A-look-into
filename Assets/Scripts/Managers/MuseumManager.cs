@@ -14,8 +14,8 @@ public class MuseumManager : MonoBehaviour
     
 
     public List<RestorePainting> allArtPieces = new List<RestorePainting>();
-
-    List<RestorePainting> restorePaintingQueue = new List<RestorePainting>();
+    [HideInInspector]
+    public List<RestorePainting> restorePaintingQueue = new List<RestorePainting>();
 
     void Start()
     {
@@ -58,5 +58,9 @@ public class MuseumManager : MonoBehaviour
     public void RemovePaintingFromQueue()
     {
         restorePaintingQueue.RemoveAt(0);
+    }
+    void AddToQueueFromSave(int allArtIndex)
+    {
+        restorePaintingQueue.Add(allArtPieces[allArtIndex]);
     }
 }

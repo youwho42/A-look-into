@@ -92,7 +92,7 @@ AXE A = Easy/StoneAxe, B = Normal/CopperAxe, C = Hard/IronAxe
 
 							
 
-Compendiums : 
+COMPENDIUMS : 
 	
 	(THIS IS DONE AND IN THE GAME)
 	
@@ -454,7 +454,7 @@ FONTS:
 				- despawn camper after x days spent.
 				- this all means that if a camper exists at a site, the player cannot sleep there anymore until the camper leaves.
 
-	Decorations:
+	DECORATIONS:
 
 			Well
 			Carts
@@ -476,7 +476,7 @@ FONTS:
 			Cemetary
 
 
-	Localization helpers:
+LOCALIZATION HELPERS:
 
 		Bounce		<sprite anim="6,21,12">
 		Gumption	<sprite name="Gumption">
@@ -486,6 +486,18 @@ FONTS:
 		BP			<sprite anim="0,1,12">
 
 		LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")
+
+BUTTON HELPER:
+
+		[SerializeField] private InputActionReference button;
+		void Start()
+		{
+			button.action.started += Function;
+		}
+		void OnDisable()
+		{
+			button.action.started -= Function;
+		}
 
 
 BUGS!!!!!!!!!!
@@ -530,21 +542,7 @@ THINGS TO CHANGE
 
 
 CHANGELOG:
-		Changed:	Notifications now appear above any other UI.
-					Trying to pick something up with a full inventory now plays a different sound.
-					When transfering quantities of item in containers you now choose a quantity, 
-						just like when dropping items into the world.
-
-
-		Fixed:		Flying animals no longer land in impossible places.
-					Maps no longer reveal themselves again after loading a game.
-					Auto-saves would happen every time you exited the inventory if the auto-save option was set to false, the opposite of turning off auto-saves.
-					Your mouse must now be on the selected item when dragging an item from your inventory.
-					Consuming an item that returns an item to your inventory now sends the latter to the Lost and Found if your inventory is full.
-					Tools now check the closest harvestable item of its type instead of the closest harvestable, regardless of type.
-					Trying to fix an unavalible area no longer costs you BOUNCE.
-
-		Added:		Stat modifier icons now show what their effect is on mouse hover.
+		
 
 COMMENTS
 		
@@ -564,7 +562,7 @@ ACHIEVEMENTS: (https://wiki.facepunch.com/steamworks/)
 						
 						- Poke anything pokable 10 times in one day in one session.
 
-game suggestions:
+GAME SUGGESTIONS:
 
 			drgambit____:	make the sculpture a quest based endeavour, step by step throughout the quest the sculptures builds itself 
 							little by little and at the end of quest you make it so that the sculpture essentially gives a buff to your character 
@@ -580,7 +578,7 @@ game suggestions:
 								the item is sold 
 
 
-Debug Helpers
+DEBUG HELPERS
 
 		using System.Diagnostics;
 

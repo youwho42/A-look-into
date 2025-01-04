@@ -15,12 +15,9 @@ namespace Klaxon.GOAD
         bool destinationReached;
         bool sitting;
 
-        CycleTicks currentWaitTime;
-        RealTimeDayNightCycle dayNightCycle;
         public override void StartAction(GOAD_Scheduler_NPC agent)
         {
             base.StartAction(agent);
-            dayNightCycle = RealTimeDayNightCycle.instance;
             atPainting = false;
             isRestoring = false;
             returnToSeat = false;
@@ -35,7 +32,23 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
+
+            if(agent.currentNode == null)
+            {
+                var hit = Physics2D.OverlapCircle(transform.position, .1f, LayerMask.GetMask("NavNode"));
+                if (hit != null)
+                {
+                    agent.currentNode = hit.GetComponent<NavigationNode>();
+                }
+            }
+
             GetPathToNode(agent, currentPainting.paintingNode);
+            
+        }
+
+        void Tick(int tick)
+        {
+            currentPainting.ticks--;
         }
 
         public override void PerformAction(GOAD_Scheduler_NPC agent)
@@ -65,14 +78,18 @@ namespace Klaxon.GOAD
 
             if (!isRestoring)
             {
-                currentWaitTime = dayNightCycle.GetCycleTime(GetPaintingRestoreTicks(agent));
+                GameEventManager.onTimeTickEvent.AddListener(Tick);
+                if(currentPainting.ticks==0)
+                    currentPainting.ticks = GetPaintingRestoreTicks();
                 currentPainting.interactablePainting.canInteract = false;
                 agent.animator.SetBool(agent.isCrafting_hash, true);
                 isRestoring = true;
             }
 
-            if (dayNightCycle.currentTimeRaw >= currentWaitTime.tick && dayNightCycle.currentDayRaw == currentWaitTime.day)
+            if (currentPainting.ticks <= 0)
             {
+                currentPainting.ticks = 0;
+                GameEventManager.onTimeTickEvent.RemoveListener(Tick);
                 isRestoring = false;
                 agent.animator.SetBool(agent.isCrafting_hash, false);
                 currentPainting.interactablePainting.canInteract = true;
@@ -94,6 +111,7 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_NPC agent)
         {
             base.EndAction(agent);
+           
         }
         void SetPaintingLayersActive()
         {
@@ -105,7 +123,7 @@ namespace Klaxon.GOAD
             MuseumManager.instance.RemovePaintingFromQueue();
         }
 
-        int GetPaintingRestoreTicks(GOAD_Scheduler_NPC agent)
+        int GetPaintingRestoreTicks()
         {
             int ticks = 0;
             foreach (var item in currentPainting.ingredients)

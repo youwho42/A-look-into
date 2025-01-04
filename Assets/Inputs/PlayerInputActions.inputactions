@@ -171,7 +171,7 @@
                     "name": "InventoryRightClickItem",
                     "type": "Button",
                     "id": "8e71d039-e8f7-4fba-8b15-73e462193d64",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -226,6 +226,15 @@
                     "type": "Button",
                     "id": "dc770672-2ec5-4a56-92b5-2a7705b8f529",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShiftTransfer",
+                    "type": "Button",
+                    "id": "0ee52551-9480-4cda-84bd-1b42c830d58d",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -966,6 +975,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "AddBallUpsies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35fa8fdd-fc3e-4568-93db-ccc1e168f1b5",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ShiftTransfer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
