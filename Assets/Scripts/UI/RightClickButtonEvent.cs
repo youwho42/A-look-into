@@ -8,8 +8,11 @@ public class RightClickButtonEvent : MonoBehaviour, IPointerClickHandler
 {
 
     public ContainerDisplaySlot containerDisplaySlot;
-    [SerializeField] private InputActionReference holdShiftButton;
+    [SerializeField] 
+    private InputActionReference holdShiftButton;
     bool isShifty;
+
+    
 
     void Start()
     {

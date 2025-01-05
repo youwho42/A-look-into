@@ -36,6 +36,12 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
     UIScreen screen;
 
+    public Image dragableStack;
+    [HideInInspector]
+    public int otherInventoryStackIndex = -1;
+    [HideInInspector]
+    public QI_Inventory otherInventory;
+
     private void Start()
     {
         screen = GetComponent<UIScreen>();
@@ -112,6 +118,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             var s = newSlot.GetComponent<ContainerDisplaySlot>();
             s.isContainerSlot = true;
             s.canTransfer = true;
+            s.SetupSlot(i, this);
             containerSlots.Add(s);
 
         }
@@ -122,6 +129,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             var s = newSlot.GetComponent<ContainerDisplaySlot>();
             s.isContainerSlot = false;
             s.canTransfer = containerInventory.PlayerCanAddToInventory;
+            s.SetupSlot(i, this);
             playerSlots.Add(s);
             
             
@@ -136,6 +144,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
 
     public void UpdateContainerInventoryUI()
     {
+        ResetStackImage();
         if (containerInventory == null)
             return;
         foreach (ContainerDisplaySlot containerSlot in containerSlots)
@@ -159,14 +168,9 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             {
                 containerSlots[i].containerInventory = containerInventory;
                 containerSlots[i].AddItem(containerInventory.Stacks[i].Item, containerInventory.Stacks[i].Amount);
-                containerSlots[i].icon.enabled = true;
                 containerSlots[i].isContainerSlot = true;
-                butt.interactable = true;
             }
-            else
-            {
-                butt.interactable = false;
-            }
+            
         }
         
         for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
@@ -177,7 +181,6 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             {
                 playerSlots[i].containerInventory = containerInventory;
                 playerSlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
-                playerSlots[i].icon.enabled = true;
                 butt.interactable = true;
             }
             else
@@ -235,5 +238,11 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
             containerInventory.AddItem(items[i], finalAmount, false);
             PlayerInformation.instance.playerInventory.RemoveItem(items[i], finalAmount);
         }
+    }
+
+    public void ResetStackImage()
+    {
+        dragableStack.sprite = null;
+        dragableStack.color = new Color(1, 1, 1, 0);
     }
 }

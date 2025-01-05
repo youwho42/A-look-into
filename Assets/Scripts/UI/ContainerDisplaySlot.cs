@@ -23,12 +23,17 @@ public class ContainerDisplaySlot : MonoBehaviour
     public bool canTransfer;
 
     DropAmountUI dropAmountUI;
-    
+    int inventoryStackIndex = -1;
+    ContainerInventoryDisplayUI currentDisplay;
+    bool canDrag = true;
+    Button slotButton;
+
 
     private void Start()
     {
         GameEventManager.onStackTransferGamepadEvent.AddListener(TransferStack);
         ButtonSoundsManager.instance.AddButtonToSounds(GetComponentInChildren<Button>());
+        slotButton = GetComponentInChildren<Button>();
     }
     private void OnDisable()
     {
@@ -104,6 +109,12 @@ public class ContainerDisplaySlot : MonoBehaviour
         
     }
 
+    public void SetupSlot(int stackIndex, ContainerInventoryDisplayUI display)
+    {
+        inventoryStackIndex = stackIndex;
+        currentDisplay = display;
+    }
+
     public void AddItem(QI_ItemData newItem, int amount)
     {
         ClearSlot();
@@ -111,7 +122,7 @@ public class ContainerDisplaySlot : MonoBehaviour
         icon.sprite = item.Icon;
         stackAmount = amount;
         itemAmount.text = stackAmount.ToString();
-        icon.enabled = true;
+        icon.color = new Color(1, 1, 1, 1);
     }
     
 
@@ -120,7 +131,7 @@ public class ContainerDisplaySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         itemAmount.text = "";
-        icon.enabled = false;
+        icon.color = new Color(1, 1, 1, 0);
     }
     
 
@@ -135,4 +146,61 @@ public class ContainerDisplaySlot : MonoBehaviour
         ItemInformationDisplayUI.instance.HideItemName();
     }
 
+    public void SetMouseHover(bool state)
+    {
+        if (state)
+        {
+            currentDisplay.otherInventory = isContainerSlot ? containerInventory : PlayerInformation.instance.playerInventory;
+            currentDisplay.otherInventoryStackIndex = inventoryStackIndex;
+        }
+        else
+        {
+            currentDisplay.otherInventory = null;
+            currentDisplay.otherInventoryStackIndex = -1;
+        }
+        
+        
+    }
+    public void DragItem()
+    {
+        if (item == null || !canDrag)
+            return;
+
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            canDrag = false;
+            currentDisplay.ResetStackImage();
+            return;
+        }
+
+        currentDisplay.dragableStack.color = new Color(1, 1, 1, 1);
+        currentDisplay.dragableStack.sprite = item.Icon;
+        currentDisplay.dragableStack.rectTransform.position = Mouse.current.position.ReadValue();
+    }
+    public void EndDrag()
+    {
+        canDrag = true;
+        currentDisplay.ResetStackImage();
+        if (item == null)
+            return;
+        if (currentDisplay.otherInventoryStackIndex == -1)
+            return;
+        var playerInventory = PlayerInformation.instance.playerInventory;
+        bool sameInventory = isContainerSlot ? containerInventory == currentDisplay.otherInventory : playerInventory == currentDisplay.otherInventory;
+        if (sameInventory)
+        {
+            if (isContainerSlot)
+                containerInventory.SwapStacks(inventoryStackIndex, currentDisplay.otherInventoryStackIndex);
+            else
+                playerInventory.SwapStacks(inventoryStackIndex, currentDisplay.otherInventoryStackIndex);
+
+            currentDisplay.UpdateContainerInventoryUI();
+            if (isContainerSlot)
+                EventSystem.current.SetSelectedGameObject(currentDisplay.containerSlots[currentDisplay.otherInventoryStackIndex].slotButton.gameObject);
+            else
+                EventSystem.current.SetSelectedGameObject(currentDisplay.playerSlots[currentDisplay.otherInventoryStackIndex].slotButton.gameObject);
+
+        }
+
+    }
 }

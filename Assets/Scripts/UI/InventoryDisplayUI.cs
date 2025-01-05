@@ -18,7 +18,8 @@ public class InventoryDisplayUI : MonoBehaviour
     public List<InventoryDisplaySlot> inventorySlots = new List<InventoryDisplaySlot>();
     public List<ISlot> equipmentSlots = new List<ISlot>();
 
-    
+    public Image dragableStack;
+    public int currentHoverStack;
     private void Start()
     {
         GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
@@ -49,6 +50,7 @@ public class InventoryDisplayUI : MonoBehaviour
 
             GameObject newSlot = Instantiate(inventorySlot, inventoryUI.transform);
             inventorySlots.Add(newSlot.GetComponent<InventoryDisplaySlot>());
+            inventorySlots[i].SetupSlot(i, this);
         }
         for (int i = 0; i < System.Enum.GetNames(typeof(EquipmentSlot)).Length; i++)
         {
@@ -64,6 +66,7 @@ public class InventoryDisplayUI : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
+        ClearStack();
         //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         foreach (InventoryDisplaySlot slot in inventorySlots)
         {
@@ -71,12 +74,13 @@ public class InventoryDisplayUI : MonoBehaviour
         }
         for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
-            if(PlayerInformation.instance.playerInventory.Stacks[i].Item != null)
+
+            if (PlayerInformation.instance.playerInventory.Stacks[i].Item != null)
             {
                 inventorySlots[i].inventory = PlayerInformation.instance.playerInventory;
                 inventorySlots[i].equipmentManager = PlayerInformation.instance.equipmentManager;
                 inventorySlots[i].AddItem(PlayerInformation.instance.playerInventory.Stacks[i].Item, PlayerInformation.instance.playerInventory.Stacks[i].Amount);
-                inventorySlots[i].icon.enabled = true;
+                inventorySlots[i].icon.color = new Color(1, 1, 1, 1);
             }
         }
 
@@ -93,7 +97,18 @@ public class InventoryDisplayUI : MonoBehaviour
         }
 
     }
-    
+    public void ResetStackImage()
+    {
+        dragableStack.sprite = null;
+        dragableStack.color = new Color(1, 1, 1, 0);
+    }
+
+    public void ClearStack()
+    {
+        ResetStackImage();
+        currentHoverStack = -1;
+    }
+
     public void SortInventory()
     {
         PlayerInformation.instance.playerInventory.SortInventory();

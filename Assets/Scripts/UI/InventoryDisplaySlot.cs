@@ -10,6 +10,7 @@ using Klaxon.SaveSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using Klaxon.Interactable;
+
 using System.Linq;
 
 public class InventoryDisplaySlot : MonoBehaviour
@@ -43,7 +44,9 @@ public class InventoryDisplaySlot : MonoBehaviour
     DropAmountUI dropAmountUI;
     Vector3 dropPosition;
     bool mouseHover;
-    
+    [HideInInspector]
+    public int inventoryStackIndex = -1;
+    InventoryDisplayUI currentDisplay;
 
     [Serializable]
     public struct ItemTypeNames
@@ -59,7 +62,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     
     private void OnEnable()
     {
-        GameEventManager.onInventoryDragEvent.AddListener(DragItem);
+        //GameEventManager.onInventoryDragEvent.AddListener(DragItem);
         GameEventManager.onInventoryRightClickEvent.AddListener(SetItemSelected);
         GameEventManager.onInventoryRightClickReleaseEvent.AddListener(EndDragItem);
         GameEventManager.onRotateDecoration.AddListener(RotateDecoration);
@@ -67,7 +70,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     private void OnDisable()
     {
-        GameEventManager.onInventoryDragEvent.RemoveListener(DragItem);
+        //GameEventManager.onInventoryDragEvent.RemoveListener(DragItem);
         GameEventManager.onInventoryRightClickEvent.RemoveListener(SetItemSelected);
         GameEventManager.onInventoryRightClickReleaseEvent.RemoveListener(EndDragItem);
         GameEventManager.onRotateDecoration.RemoveListener(RotateDecoration);
@@ -79,9 +82,10 @@ public class InventoryDisplaySlot : MonoBehaviour
         }
             
     }
+    
     public void SetMouseHover(bool state)
     {
-        mouseHover = state;
+        currentDisplay.currentHoverStack = state ? inventoryStackIndex : -1;
     }
     public void ShowInformation()
     {
@@ -138,7 +142,11 @@ public class InventoryDisplaySlot : MonoBehaviour
             itemUse.text = active ? itemTypeName : "";
         
     }
-
+    public void SetupSlot(int stackIndex, InventoryDisplayUI display)
+    {
+        inventoryStackIndex = stackIndex;
+        currentDisplay = display;
+    }
     public void AddItem(QI_ItemData newItem, int amount)
     {
         item = newItem;
@@ -148,6 +156,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         icon.enabled = true;
         itemTypeName = GetItemType();
         ShowItemUse(false);
+        
         if (item.ItemPrefabVariants.Count > 1)
             variantsDisplay.gameObject.SetActive(true);
     }
@@ -218,29 +227,56 @@ public class InventoryDisplaySlot : MonoBehaviour
     }
 
 
+    public void PointerRelease()
+    {
+        currentDisplay.ResetStackImage();
+        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
+            return;
+        if (currentDisplay.currentHoverStack == -1 || currentDisplay.currentHoverStack == inventoryStackIndex)
+            return;
+        var inventory = PlayerInformation.instance.playerInventory;
+        inventory.SwapStacks(inventoryStackIndex, currentDisplay.currentHoverStack);
+        EventSystem.current.SetSelectedGameObject(currentDisplay.inventorySlots[currentDisplay.currentHoverStack].slotButton.gameObject);
+        currentDisplay.UpdateInventoryUI();
+
+    }
 
     public void DragItem()
     {
-        if (EventSystem.current.currentSelectedGameObject != slotButton.gameObject || item == null)
+
+        
+        if (/*EventSystem.current.currentSelectedGameObject != slotButton.gameObject || */item == null)
             return;
         if (PlayerInformation.instance.inventorySlot != null && PlayerInformation.instance.inventorySlot != this)
             return;
-        
 
-        
-
-        dragTimer += Time.deltaTime;
-        
-        if (!isDragged && mouseHover)
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            
+            if(itemToDrop != null)
+            {
+                Destroy(itemToDrop);
+                ResetDragging();
+                
+            }
+            currentDisplay.dragableStack.color = new Color(1, 1, 1, 1);
+            currentDisplay.dragableStack.sprite = item.Icon;
+            currentDisplay.dragableStack.rectTransform.position = Mouse.current.position.ReadValue();
+            return;
+        }
+
+        currentDisplay.ClearStack();
+        dragTimer += Time.deltaTime;
+
+        if (!isDragged/* && mouseHover*/)
+        {
+
             var prefab = item.ItemPrefabVariants[0];
             if (item.Type == ItemType.Decoration)
             {
-                
+
                 prefab = item.ItemPrefabVariants[decorationIndex];
             }
-                
+
             var go = Instantiate(prefab, GetMousePosition(), Quaternion.identity);
             itemToDrop = go.gameObject;
             isDragged = true;
@@ -248,7 +284,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             PlayerInformation.instance.isDragging = true;
         }
 
-        if(itemToDrop != null)
+        if (itemToDrop != null)
         {
             SetValidity();
             itemToDrop.transform.position = GetMousePosition();
@@ -436,7 +472,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         itemAmount.text = "";
-        icon.enabled = false;
+        icon.color = new Color(1, 1, 1, 0);
         itemUse.text = "";
         decorationIndex = 0;
         variantsDisplay.gameObject.SetActive(false);
