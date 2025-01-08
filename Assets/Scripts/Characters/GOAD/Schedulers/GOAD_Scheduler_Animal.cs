@@ -363,8 +363,10 @@ namespace Klaxon.GOAD
                 // Skip if item is null, in use, or position is invalid
                 if (item == null || item.isInUse || !GridManager.instance.GetTileValid(item.transform.position) || hit != null)
                     continue;
+                var houseHit = Physics2D.OverlapPoint(item.transform.position, LayerMask.GetMask("HouseFloor"));
+                if (houseHit != null)
+                    continue;
 
-               
                 // Calculate squared distance to avoid sqrt overhead
                 float distSqr = (currentPosition - (Vector2)item.transform.position).sqrMagnitude;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QuantumTek.QuantumInventory;
 using Klaxon.SaveSystem;
+using Klaxon.Interactable;
 
 public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
 {
@@ -46,17 +47,23 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         }
         foreach (var point in spawnPoints)
         {
+
+            var child = point.GetComponentInChildren<Interactable>();
+            if (child != null)
+                continue;
+
             if (!GridManager.instance.GetTileValid(point.position))
                 continue;
+
             if (Random.Range(0.0f, 1.0f) < chanceToSpawn)
             {
 
                 var hit = Physics2D.OverlapCircle(point.position, minDistanceToSpawn);
                 if (hit == null || hit.CompareTag("Grass") || hit.CompareTag("Animal") || hit.CompareTag("Path"))
                 {
-                    
+
                     var item = itemDatabase.GetRandomWeightedItem();
-                    var go = Instantiate(item.ItemPrefabVariants[0], point.position, Quaternion.identity, transform);
+                    var go = Instantiate(item.ItemPrefabVariants[0], point.position, Quaternion.identity, point);
 
                     if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
                         itemToSpawn.GenerateId();

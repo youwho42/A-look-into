@@ -31,23 +31,32 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 3
   AnimationName: 
   Weight: 1
   Price: 1
   spawnWeight: 2
+  FuelTicks: 0
   Icon: {fileID: 21300000, guid: 80edd8b206ebf2c4a86e6c8e5e39720a, type: 3}
   ItemPrefabVariants:
   - {fileID: 835383707523805113, guid: e244eb96feff31446bd65780f2030b9f, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  MaxStack: 0
+  MaxStack: 10
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   placementGumption: {fileID: 0}
-  statChangers:
-  - {fileID: 11400000, guid: d016d69e4f93154498728b4371ad1eb9, type: 2}
+  statChangers: []
   statModifiers:
   - {fileID: 11400000, guid: b08f1849ab9f04748973ea04604ef501, type: 2}
   itemToBecome: {fileID: 11400000, guid: 8d4c3eaca7886d84b9da93bcbd65c9d0, type: 2}

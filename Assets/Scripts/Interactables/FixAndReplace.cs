@@ -65,7 +65,8 @@ public class FixAndReplace : MonoBehaviour, IFixArea
 
         fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
         yield return new WaitForSeconds(3);
-        interactable.canInteract = true;
+        if(interactable != null)
+            interactable.canInteract = true;
         if (fixableReplacementObject.TryGetComponent(out QI_Item data))
         {
             if (data.Data.compendiumGuide != null)

@@ -70,6 +70,11 @@ namespace Klaxon.GOAD
 
         }
 
+        public override void EndAction(GOAD_Scheduler_NPC agent)
+        {
+            base.EndAction(agent);
+            CancelInvoke("CheckTables");
+        }
         void CheckTables()
         {
             //if(!useDatabaseForTables)
@@ -146,8 +151,8 @@ namespace Klaxon.GOAD
             {
                 merchantTables[i].ClearTable();
             }
-            
-            
+            CancelInvoke("CheckTables");
+
         }
 
         //void CheckTableInventory(GOAD_Scheduler_NPC agent)
@@ -182,7 +187,8 @@ namespace Klaxon.GOAD
             List<QI_ItemData> currentItems = new List<QI_ItemData>();
             foreach (var table in merchantTables)
             {
-                currentItems.Add(table.item);
+                if(table.item != null)
+                    currentItems.Add(table.item);
             }
             for (int i = 0; i < merchantTables.Count; i++)
             {
@@ -196,7 +202,7 @@ namespace Klaxon.GOAD
 
                 int r = Random.Range(1, maxItems);
                 merchantTables[i].SetUpTable(newitem, r, agent);
-                
+                currentItems.Add(newitem);
             }
         }
 

@@ -11,7 +11,7 @@ public class ModifierDisplay : MonoBehaviour
     public TextMeshProUGUI amountText;
     public Image modifierIcon;
     public Image modifierIconGrey;
-
+    bool isHover;
     
     public void SetModifierUI()
     {
@@ -29,13 +29,21 @@ public class ModifierDisplay : MonoBehaviour
 
     public void ShowInformation()
     {
+        isHover = true;
         if (statModifier == null)
             return;
         ItemInformationDisplayUI.instance.ShowModifierInfo(statModifier, this.GetComponent<RectTransform>());
     }
     public void HideInformation()
     {
+        isHover = false;
         ItemInformationDisplayUI.instance.HideItemName();
     }
 
+    private void OnDestroy()
+    {
+        if (isHover && statModifier.GetTimer()<=0)
+            ItemInformationDisplayUI.instance.HideItemName();
+        
+    }
 }

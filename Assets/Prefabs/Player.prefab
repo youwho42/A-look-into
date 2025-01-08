@@ -207,6 +207,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -672,6 +675,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -763,6 +769,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705034264205414415}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -786,13 +793,13 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.015}
-  serializedVersion: 2
   m_Radius: 0.04
 --- !u!50 &1705034264205414400
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -803,8 +810,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -832,6 +839,8 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   usingEquippedItem: 0
   isRunning: 0
+  runToggle: 0
+  canRun: 1
   isPaused: 0
   isInUI: 0
   rightStickPos: {x: 0, y: 0}
@@ -852,7 +861,7 @@ MonoBehaviour:
   animator: {fileID: 572547919}
   isIdleSitting: 0
   gumptionChanger: {fileID: 11400000, guid: 44bbb998803dee249b6ac7dd17deb3d0, type: 2}
-  bounceChanger: {fileID: 11400000, guid: 5e97448c22fde1b4b98c7f56efbed763, type: 2}
+  bounceChanger: {fileID: 11400000, guid: 6166d8d6cf8631a488a79a7829236492, type: 2}
 --- !u!114 &1705034264205414424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,7 +899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cbc7235dd914975b1b46b220b3451a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
+  HousesFront: {fileID: 0}
+  HousesInterior: {fileID: 0}
 --- !u!114 &1705034264205414427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,9 +967,11 @@ MonoBehaviour:
   slopeObject: {fileID: 1680125245580215105}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
+  lastJumpZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
+  bounceFactor: 0
   allTilesManager: {fileID: 0}
   currentTilePosition: {fileID: 6599017659682180303}
   currentVelocity: 0
@@ -985,6 +997,7 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
+  addUpsies: 0
   walkSpeed: 0.6
   runSpeed: 1.2
   finalSpeed: 0
@@ -1223,6 +1236,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1733,77 +1749,77 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[0]
+      propertyPath: 'm_BoneTransforms.Array.data[0]'
       value: 
       objectReference: {fileID: 8727268441151608832}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[1]
+      propertyPath: 'm_BoneTransforms.Array.data[1]'
       value: 
       objectReference: {fileID: 1534792878826047734}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[2]
+      propertyPath: 'm_BoneTransforms.Array.data[2]'
       value: 
       objectReference: {fileID: 6241121369754526855}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[3]
+      propertyPath: 'm_BoneTransforms.Array.data[3]'
       value: 
       objectReference: {fileID: 1249510203459037192}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[4]
+      propertyPath: 'm_BoneTransforms.Array.data[4]'
       value: 
       objectReference: {fileID: 3714313793087819466}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[5]
+      propertyPath: 'm_BoneTransforms.Array.data[5]'
       value: 
       objectReference: {fileID: 6724790305318397746}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[7]
+      propertyPath: 'm_BoneTransforms.Array.data[7]'
       value: 
       objectReference: {fileID: 5150053096955024930}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[8]
+      propertyPath: 'm_BoneTransforms.Array.data[8]'
       value: 
       objectReference: {fileID: 2868418792604085942}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[9]
+      propertyPath: 'm_BoneTransforms.Array.data[9]'
       value: 
       objectReference: {fileID: 3601747243452827454}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[10]
+      propertyPath: 'm_BoneTransforms.Array.data[10]'
       value: 
       objectReference: {fileID: 5140474099039879193}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[11]
+      propertyPath: 'm_BoneTransforms.Array.data[11]'
       value: 
       objectReference: {fileID: 8562439450232129150}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[12]
+      propertyPath: 'm_BoneTransforms.Array.data[12]'
       value: 
       objectReference: {fileID: 2445203559821424314}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[13]
+      propertyPath: 'm_BoneTransforms.Array.data[13]'
       value: 
       objectReference: {fileID: 2445203559821424314}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[14]
+      propertyPath: 'm_BoneTransforms.Array.data[14]'
       value: 
       objectReference: {fileID: 3601747243452827454}
     - target: {fileID: 7525381936685021868, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_BoneTransforms.Array.data[15]
+      propertyPath: 'm_BoneTransforms.Array.data[15]'
       value: 
       objectReference: {fileID: 2445203559821424314}
     - target: {fileID: 8080389880964853621, guid: 09687c9e6eb97bf40aead4c3b09960fc,
@@ -1844,7 +1860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8571716352521503603, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: cff66fe0b37384abb8c8a49ba579cb18, type: 2}
     - target: {fileID: 8929763117865184448, guid: 09687c9e6eb97bf40aead4c3b09960fc,
@@ -2052,6 +2068,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2139,7 +2156,7 @@ AudioSource:
     m_RotationOrder: 4
 --- !u!95 &572547919
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2153,6 +2170,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -2176,6 +2194,7 @@ MonoBehaviour:
   - {fileID: 91239951}
   - {fileID: 2068126202}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
