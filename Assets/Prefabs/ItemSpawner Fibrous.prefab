@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 4039317544878135823}
   - component: {fileID: 2613490507250368973}
   - component: {fileID: 3462826158695607463}
+  - component: {fileID: 7805193778755634021}
+  - component: {fileID: 4793809451202413700}
   m_Layer: 0
   m_Name: ItemSpawner Fibrous
   m_TagString: Untagged
@@ -136,3 +138,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &7805193778755634021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8450607413518688736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &4793809451202413700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8450607413518688736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2025c7f1767ccb409543faf2cf33d22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dailyObjects: {fileID: 2613490507250368973}

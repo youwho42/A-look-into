@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Klaxon.SaveSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -43,7 +44,13 @@ public class ObjectManagerCircle : MonoBehaviour
 
     }
 
-
+    void SetObjectID(GameObject obj)
+    {
+        if (obj.TryGetComponent(out SaveableWorldEntity saveableItem))
+            saveableItem.GenerateId();
+        if (obj.TryGetComponent(out SaveableItemEntity otherSaveableItem))
+            otherSaveableItem.GenerateId();
+    }
     //Add a prefab that we instantiated in the editor script
     public void AddPrefab(GameObject newPrefabObj, Vector3 center)
     {
@@ -69,6 +76,7 @@ public class ObjectManagerCircle : MonoBehaviour
         newPrefabObj.transform.position = randomPos;
 
         newPrefabObj.transform.parent = transform;
+        SetObjectID(newPrefabObj);
     }
 
     //Add a prefab that we instantiated in the editor script using poisson 
@@ -83,6 +91,7 @@ public class ObjectManagerCircle : MonoBehaviour
         newPrefabObj.transform.position = newPos;
 
         newPrefabObj.transform.parent = transform;
+        SetObjectID(newPrefabObj);
     }
 
     //Remove objects within the circle

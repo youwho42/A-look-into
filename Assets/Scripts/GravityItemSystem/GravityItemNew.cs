@@ -201,7 +201,7 @@ namespace Klaxon.GravitySystem
             getOnSlope = false;
         }
 
-        public void ChangeLevel(int dif)
+        public void ChangeLevel(float dif)
         {
             
             bounceFactor = 1;
@@ -225,6 +225,12 @@ namespace Klaxon.GravitySystem
                 //positionZ -= dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y + displacement, displacedPosition.z + dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y + displacement, itemObject.localPosition.z + dif);
+
+            }
+            else if (currentTilePosition.position.z == currentLevel)
+            {
+                displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y + displacement, displacedPosition.z + dif);
+                itemObject.localPosition = new Vector3(itemObject.localPosition.x, displacement, dif);
 
             }
             currentLevel = currentTilePosition.position.z;

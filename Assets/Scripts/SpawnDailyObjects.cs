@@ -24,27 +24,58 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         {
             rend.enabled = false;
         }
-        Transform[] points = GetComponentsInChildren<Transform>();
-        for (int i = 0; i < points.Length; i++)
-        {
-            if(points[i].CompareTag("ItemSpawnPoint"))
-                spawnPoints.Add(points[i]);
-        }
+        SetSpawnPoints();
         
         //SpawnObjects();
     }
 
+    void SetSpawnPoints()
+    {
+        spawnPoints.Clear();
+        Transform[] points = GetComponentsInChildren<Transform>();
+        for (int i = 0; i < points.Length; i++)
+        {
+            if (points[i].CompareTag("ItemSpawnPoint"))
+                spawnPoints.Add(points[i]);
+        }
+    }
+
+    public void SpawnItemFromSave(int index, string name)
+    {
+        
+        if (name != "")
+        {
+            
+            var item = itemDatabase.GetItem(name);
+            int i = Random.Range(0, item.ItemPrefabVariants.Count);
+            var go = Instantiate(item.ItemPrefabVariants[i], spawnPoints[index].position, Quaternion.identity, spawnPoints[index]);
+            //var go = Instantiate(item.ItemPrefabVariants[i], spawnPoints[index]);
+            //go.localPosition = Vector3.zero;
+            if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
+                Destroy(itemToSpawn);
+        }
+    }
+    public List<string> GetSpawnedItems()
+    {
+        List<string> allItems = new List<string>();
+        for (int i = 0; i < spawnPoints.Count; i++)
+        {
+            string item = "";
+            var child = spawnPoints[i].GetComponentInChildren<QI_Item>();
+            if (child != null)
+                item = child.Data.Name;
+            allItems.Add(item);
+        }
+        
+        return allItems;
+    }
 
     public void SpawnObjects()
     {
         if (itemDatabase == null)
             return;
        
-        if (TryGetComponent(out PlantGrowCycle plantCycle))
-        {
-            if (plantCycle.currentCycle < plantCycle.gatherableCycle)
-                return;
-        }
+        
         foreach (var point in spawnPoints)
         {
 
@@ -63,10 +94,12 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
                 {
 
                     var item = itemDatabase.GetRandomWeightedItem();
-                    var go = Instantiate(item.ItemPrefabVariants[0], point.position, Quaternion.identity, point);
+                   
+                    int i = Random.Range(0, item.ItemPrefabVariants.Count);
+                    var go = Instantiate(item.ItemPrefabVariants[i], point.position, Quaternion.identity, point);
 
                     if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
-                        itemToSpawn.GenerateId();
+                        Destroy(itemToSpawn);
                 }
             }
         }

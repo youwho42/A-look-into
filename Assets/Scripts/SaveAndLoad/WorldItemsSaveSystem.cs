@@ -16,21 +16,24 @@ namespace Klaxon.SaveSystem
 
         public object CaptureState()
         {
-            QI_Item[] items = FindObjectsByType<QI_Item>(FindObjectsSortMode.None);
+            SaveableItemEntity[] entities = FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None);
             List<string> tempItem = new List<string>();
             List<string> tempItemID = new List<string>();
             List<string> tempVersion = new List<string>();
             List<int> tempItemVariant = new List<int>();
-            foreach (var item in items)
+            foreach (var entity in entities)
             {
-                if (item.TryGetComponent(out SaveableItemEntity entity))
-                {
 
+                if(entity.TryGetComponent(out QI_Item item))
+                {
                     tempItem.Add(item.Data.Name);
-                    tempItemID.Add(entity.ID);
-                    tempVersion.Add(entity.version);
                     tempItemVariant.Add(item.itemVariantIndex);
                 }
+                
+                tempItemID.Add(entity.ID);
+                tempVersion.Add(entity.version);
+                
+                
 
             }
             return new SaveData
@@ -45,14 +48,14 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            SaveableItemEntity[] items = FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None);
-            foreach (var item in items)
-            {
-                if (item.TryGetComponent(out QI_Item value))
-                    Destroy(item.gameObject);
-            }
+            //SaveableItemEntity[] items = FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None);
+            //foreach (var item in items)
+            //{
+            //    if (item.TryGetComponent(out QI_Item value))
+            //        Destroy(item.gameObject);
+            //}
 
-            
+
             for (int i = 0; i < saveData.items.Count; i++)
             {
 
@@ -60,12 +63,13 @@ namespace Klaxon.SaveSystem
                 var itemData = itemDatabase.GetItem(saveData.items[i]);
                 if (itemData == null)
                     continue;
-                
+
+
                 var itemObject = itemData.ItemPrefabVariants[saveData.itemVariantIndex[i]];
                 if (itemObject == null)
                     continue;
 
-                
+
 
                 // somewhere / somehow, check if this item is in the tempload file
                 // if it isn't do not instantiate it.

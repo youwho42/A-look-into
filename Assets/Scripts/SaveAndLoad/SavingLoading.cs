@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using QuantumTek.QuantumInventory;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -147,12 +148,13 @@ namespace Klaxon.SaveSystem
 
         private void CaptureState(Dictionary<string, object> state)
         {
-            foreach (var saveableWorldEntity in FindObjectsByType<SaveableWorldEntity>(FindObjectsSortMode.None))
+            foreach (var saveableWorldEntity in FindObjectsByType<SaveableWorldEntity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
                 state[saveableWorldEntity.ID] = saveableWorldEntity.CaptureState();
             }
-            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None))
+            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
+                
                 state[saveableItemEntity.ID] = saveableItemEntity.CaptureState();
             }
 
@@ -161,10 +163,15 @@ namespace Klaxon.SaveSystem
 
         private void RestoreState(Dictionary<string, object> state)
         {
-            
-            foreach (var saveableWorldEntity in FindObjectsByType<SaveableWorldEntity>(FindObjectsSortMode.None))
+            SaveableItemEntity[] items = FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None);
+            foreach (var item in items)
             {
-                
+                if (item.TryGetComponent(out QI_Item value))
+                    Destroy(item.gameObject);
+            }
+
+            foreach (var saveableWorldEntity in FindObjectsByType<SaveableWorldEntity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+            {
                 if (state.TryGetValue(saveableWorldEntity.ID, out object value))
                 {
                     saveableWorldEntity.RestoreState(value);
@@ -172,8 +179,10 @@ namespace Klaxon.SaveSystem
                 
             }
             //ConsoleDebuggerUI.instance.SetDebuggerText("restoring file");
-            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsSortMode.None))
+            foreach (var saveableItemEntity in FindObjectsByType<SaveableItemEntity>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
             {
+                if (saveableItemEntity.ID == "")
+                    continue;
                 if (state.TryGetValue(saveableItemEntity.ID, out object value))
                 {
                     saveableItemEntity.RestoreState(value);

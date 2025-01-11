@@ -208,12 +208,20 @@ namespace Klaxon.GravitySystem
                 // I don't care what height the tile is at as long as the sprite is jumping and has a y above the tile height
                 if (tile.direction == nextTileKey && !tile.isValid)
                 {
-
+                    
                     if (onSlope)
                     {
                         if (level <= 0)
                         {
-                            getOffSlope = true;
+                            //displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y - displacement, displacedPosition.z - dif);
+                            //itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y - displacement, itemObject.localPosition.z - dif);
+                            float newZ = slopeObject.localPosition.z + itemObject.localPosition.z;
+                            ChangeLevel(newZ);
+                            //float displacementY = newZ * spriteDisplacementY;
+                            //itemObject.localPosition = new Vector3(0, displacementY, newZ);
+
+                            // set itemObject to slope displacement height here
+                            //getOffSlope = true;
                             ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
                             onSlope = false;
                             return true;
@@ -241,6 +249,7 @@ namespace Klaxon.GravitySystem
 
                     if (!isGrounded && Mathf.Abs(itemObject.localPosition.z) >= level)
                     {
+                        
                         var newPos = new Vector3Int(nextTileKey.x, nextTileKey.y, level);
                         var waterCheck = currentTilePosition.position + newPos;
                         if (CheckForWaterAbove(waterCheck))
@@ -252,6 +261,8 @@ namespace Klaxon.GravitySystem
                         ChangePlayerLocation(nextTileKey.x, nextTileKey.y, level);
                         if (tile.tileName.Contains("Slope"))
                             onSlope = true;
+                            
+                            
                         return true;
                     }
                 }
@@ -267,7 +278,7 @@ namespace Klaxon.GravitySystem
                     // if the next tile is a slope, am i approaching it in the right direction?
                     if (tile.tileName.Contains("Slope"))
                     {
-                        if (tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0)
+                        if (tile.tileName.Contains("X") && nextTileKey.x == 0 && itemObject.localPosition.z == 0 || tile.tileName.Contains("Y") && nextTileKey.y == 0 && itemObject.localPosition.z == 0)
                             return false;
 
                         onSlope = true;
@@ -282,6 +293,7 @@ namespace Klaxon.GravitySystem
                     // I am on a slope
                     if (onSlope)
                     {
+                        
                         //am i walking 'off' the slope on the upper part in the right direction?
                         if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x == 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y == 0)
                         {
@@ -297,16 +309,17 @@ namespace Klaxon.GravitySystem
                 // the next tile is NOT valid
                 if (tile.direction == nextTileKey && !tile.isValid)
                 {
-
+                    
 
                     if (doubleCheckTilePosition == nextTilePosition)
                     {
                         Nudge(direction);
                     }
 
-                    // If I am approaching a slope, am i approaching or leaving the slope in a valid direction?
+                    // If I am on a slope, am i leaving the slope in a valid direction?
                     if (onSlope)
                     {
+                        
                         if (tile.direction == Vector3Int.zero && tile.tileName.Contains("X") && nextTileKey.x != 0 || tile.direction == Vector3Int.zero && tile.tileName.Contains("Y") && nextTileKey.y != 0)
                             continue;
                     }
