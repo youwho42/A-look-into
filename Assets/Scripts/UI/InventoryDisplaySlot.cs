@@ -80,7 +80,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             Destroy(itemToDrop);
             ResetDragging();
         }
-            
+        UIScreenManager.instance.CloseDropAmountUI();
     }
     
     public void SetMouseHover(bool state)
@@ -286,8 +286,9 @@ public class InventoryDisplaySlot : MonoBehaviour
 
         if (itemToDrop != null)
         {
-            SetValidity();
             itemToDrop.transform.position = GetMousePosition();
+            SetValidity();
+            
         }
         
     }
@@ -406,7 +407,6 @@ public class InventoryDisplaySlot : MonoBehaviour
                             return false;
                     }
                 }
-                
                 return true;
             }
         }
@@ -440,7 +440,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         if (gManager.groundMap.HasTile(posDown) && !gManager.groundMap.HasTile(posUp)) 
             return true;
-
+        
         return false;
         
     }

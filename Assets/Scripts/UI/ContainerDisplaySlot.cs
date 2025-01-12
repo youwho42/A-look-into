@@ -24,7 +24,7 @@ public class ContainerDisplaySlot : MonoBehaviour
 
     DropAmountUI dropAmountUI;
     int inventoryStackIndex = -1;
-    ContainerInventoryDisplayUI currentDisplay;
+    ContainerInventoryDisplayUI currentContainerDisplay;
     bool canDrag = true;
     Button slotButton;
 
@@ -38,6 +38,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     private void OnDisable()
     {
         GameEventManager.onStackTransferGamepadEvent.RemoveListener(TransferStack);
+        UIScreenManager.instance.CloseDropAmountUI();
     }
 
     
@@ -112,8 +113,9 @@ public class ContainerDisplaySlot : MonoBehaviour
     public void SetupSlot(int stackIndex, ContainerInventoryDisplayUI display)
     {
         inventoryStackIndex = stackIndex;
-        currentDisplay = display;
+        currentContainerDisplay = display;
     }
+   
 
     public void AddItem(QI_ItemData newItem, int amount)
     {
@@ -148,15 +150,17 @@ public class ContainerDisplaySlot : MonoBehaviour
 
     public void SetMouseHover(bool state)
     {
+        if (currentContainerDisplay == null)
+            return;
         if (state)
         {
-            currentDisplay.otherInventory = isContainerSlot ? containerInventory : PlayerInformation.instance.playerInventory;
-            currentDisplay.otherInventoryStackIndex = inventoryStackIndex;
+            currentContainerDisplay.otherInventory = isContainerSlot ? containerInventory : PlayerInformation.instance.playerInventory;
+            currentContainerDisplay.otherInventoryStackIndex = inventoryStackIndex;
         }
         else
         {
-            currentDisplay.otherInventory = null;
-            currentDisplay.otherInventoryStackIndex = -1;
+            currentContainerDisplay.otherInventory = null;
+            currentContainerDisplay.otherInventoryStackIndex = -1;
         }
         
         
@@ -165,40 +169,43 @@ public class ContainerDisplaySlot : MonoBehaviour
     {
         if (item == null || !canDrag)
             return;
-
+        if (currentContainerDisplay == null)
+            return;
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             canDrag = false;
-            currentDisplay.ResetStackImage();
+            currentContainerDisplay.ResetStackImage();
             return;
         }
 
-        currentDisplay.dragableStack.color = new Color(1, 1, 1, 1);
-        currentDisplay.dragableStack.sprite = item.Icon;
-        currentDisplay.dragableStack.rectTransform.position = Mouse.current.position.ReadValue();
+        currentContainerDisplay.dragableStack.color = new Color(1, 1, 1, 1);
+        currentContainerDisplay.dragableStack.sprite = item.Icon;
+        currentContainerDisplay.dragableStack.rectTransform.position = Mouse.current.position.ReadValue();
     }
     public void EndDrag()
     {
+        if (currentContainerDisplay == null)
+            return;
         canDrag = true;
-        currentDisplay.ResetStackImage();
+        currentContainerDisplay.ResetStackImage();
         if (item == null)
             return;
-        if (currentDisplay.otherInventoryStackIndex == -1)
+        if (currentContainerDisplay.otherInventoryStackIndex == -1)
             return;
         var playerInventory = PlayerInformation.instance.playerInventory;
-        bool sameInventory = isContainerSlot ? containerInventory == currentDisplay.otherInventory : playerInventory == currentDisplay.otherInventory;
+        bool sameInventory = isContainerSlot ? containerInventory == currentContainerDisplay.otherInventory : playerInventory == currentContainerDisplay.otherInventory;
         if (sameInventory)
         {
             if (isContainerSlot)
-                containerInventory.SwapStacks(inventoryStackIndex, currentDisplay.otherInventoryStackIndex);
+                containerInventory.SwapStacks(inventoryStackIndex, currentContainerDisplay.otherInventoryStackIndex);
             else
-                playerInventory.SwapStacks(inventoryStackIndex, currentDisplay.otherInventoryStackIndex);
+                playerInventory.SwapStacks(inventoryStackIndex, currentContainerDisplay.otherInventoryStackIndex);
 
-            currentDisplay.UpdateContainerInventoryUI();
+            currentContainerDisplay.UpdateContainerInventoryUI();
             if (isContainerSlot)
-                EventSystem.current.SetSelectedGameObject(currentDisplay.containerSlots[currentDisplay.otherInventoryStackIndex].slotButton.gameObject);
+                EventSystem.current.SetSelectedGameObject(currentContainerDisplay.containerSlots[currentContainerDisplay.otherInventoryStackIndex].slotButton.gameObject);
             else
-                EventSystem.current.SetSelectedGameObject(currentDisplay.playerSlots[currentDisplay.otherInventoryStackIndex].slotButton.gameObject);
+                EventSystem.current.SetSelectedGameObject(currentContainerDisplay.playerSlots[currentContainerDisplay.otherInventoryStackIndex].slotButton.gameObject);
 
         }
 

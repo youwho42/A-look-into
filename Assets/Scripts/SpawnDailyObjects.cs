@@ -47,6 +47,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         {
             
             var item = itemDatabase.GetItem(name);
+            if (item == null)
+                Debug.Log(name);
             int i = Random.Range(0, item.ItemPrefabVariants.Count);
             var go = Instantiate(item.ItemPrefabVariants[i], spawnPoints[index].position, Quaternion.identity, spawnPoints[index]);
             //var go = Instantiate(item.ItemPrefabVariants[i], spawnPoints[index]);
