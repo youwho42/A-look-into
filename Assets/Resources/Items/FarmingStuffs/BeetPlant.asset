@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 656533e295b17f348b94547daf1ba285, type: 3}
+  m_Name: BeetPlant
+  m_EditorClassIdentifier: 
+  Name: Beet Plant
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 169270453110104064
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 169270712376811520
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 169270712376811520
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 4
+  AnimationName: 
+  Weight: 0
+  Price: 0
+  spawnWeight: 1
+  FuelTicks: 0
+  Icon: {fileID: 21300000, guid: ca1f54c747570ee4ca00e81a20125c77, type: 3}
+  ItemPrefabVariants:
+  - {fileID: 7370250198005159290, guid: 7c844b33b627a944b9a78fcba39e6f22, type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  MaxStack: 0
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes: []
+  GameDificulty: 0
+  placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
+  harvestedItems:
+  - harvestedItem: {fileID: 11400000, guid: 8170c1adcb6f5964ab48568248814119, type: 2}
+    minMaxAmount: {x: 1, y: 1}
+    amountVariance:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2.2367074
+        outSlope: 2.2367074
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2267866
+        value: 0.50725526
+        inSlope: 0.021166632
+        outSlope: 0.021166632
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.093713105
+      - serializedVersion: 3
+        time: 0.78688765
+        value: 0.50664485
+        inSlope: 0.083091766
+        outSlope: 0.083091766
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.109248035
+        outWeight: 0.187739
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2.3150003
+        outSlope: 2.3150003
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  references:
+    version: 2
+    RefIds: []
