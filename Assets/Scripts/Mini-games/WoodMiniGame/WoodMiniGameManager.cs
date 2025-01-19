@@ -50,7 +50,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public Color failEmission;
 
     int toolTier;
-    int q;
+    int gatherAmount;
     private void Start() 
     {
         
@@ -69,6 +69,31 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
     }
 
+    int SetAmountPerHit()
+    {
+        if (toolTier == 1 && currentDificulty == MiniGameDificulty.Easy || 
+            toolTier == 2 && currentDificulty == MiniGameDificulty.Normal || 
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Hard)
+            return 1;
+        if (toolTier == 2 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Normal)
+            return 2;
+        if (toolTier == 4)
+            return 6;
+        return 5;
+    }
+
+    int SetMaxHitAttempts()
+    {
+        if (toolTier == 1 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 2 && currentDificulty == MiniGameDificulty.Normal ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Hard)
+            return 3;
+        if (toolTier == 2 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Normal)
+            return 2;
+        return 1;
+    }
 
     void OnMouseClick()
     {
@@ -127,10 +152,9 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentAttemptHits++;
-            if (!PlayerInformation.instance.playerInventory.AddItem(item, q * q, false))
-                LostAndFoundManager.instance.inventory.AddItem(item, q * q, false);
-            //PlayerInformation.instance.playerInventory.AddItem(item, q * q, false);
-            Notifications.instance.SetNewNotification("", item, q * q, NotificationsType.Inventory);
+            if (!PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false))
+                LostAndFoundManager.instance.inventory.AddItem(item, gatherAmount, false);
+            Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
 
             PlaySound(0);
             StartCoroutine(GlowOn(mat, successEmission));
@@ -140,7 +164,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             PlaySound(1);
             StartCoroutine(GlowOn(mat, failEmission));
         }
-        float t = currentIndex == balls.Count - 1 ? 0.75f : 0.1f;
+        float t = currentIndex == balls.Count - 1 ? 0.75f : 0.01f;
         yield return new WaitForSeconds(t);
         if (currentIndex < balls.Count - 1)
         {
@@ -149,7 +173,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         else
         {
             currentIndex = 0;
-            currentAttempts += q;
+            currentAttempts ++;
             SetDificulty(currentDificulty);
         }
         CheckCurrentAttempts();
@@ -206,7 +230,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         minigameIsActive = true;
         ResetBalls(0);
         toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
-        q = currentDificulty == PlayerInformation.instance.equipmentManager.currentEquipment[0].GameDificulty ? 1 : toolTier;
+        maxAttempts = SetMaxHitAttempts();
+        gatherAmount = SetAmountPerHit();
     }
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty){ }
 

@@ -51,6 +51,7 @@ namespace Klaxon.ConversationSystem
             if(currentInteractable!=null)
                 currentInteractable.canInteract = true;
             GameEventManager.onDialogueNextEvent.RemoveListener(DialogueNextActivate);
+            
         }
 
 
@@ -78,9 +79,16 @@ namespace Klaxon.ConversationSystem
             }
             else
             {
+                
                 isSpeaking = false;
                 currentInteractable.canInteract = true;
                 UIScreenManager.instance.HideScreenUI();
+                if (currentDialogue.UndertakingTask != null)
+                {
+                    if (currentDialogue.UndertakingTask.mapName != "")
+                        GameEventManager.onMapUpdateEvent.Invoke();
+                }
+                
 
             }
             

@@ -72,5 +72,6 @@ public enum EquipmentTier
 {
     I,
     II,
-    III
+    III,
+    IV
 }

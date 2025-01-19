@@ -23,7 +23,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     public TextMeshProUGUI messageContent;
 
     bool destroyOnClose;
-    InteractableFixingArea fixingArea;
+    Interactable fixingArea;
 
     UIScreen screen;
 
@@ -39,7 +39,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         if(!UIScreenManager.instance.inMainMenu)
             CloseMessageUI();
     }
-    public void ShowFixingAreaIngredients(InteractableFixingArea fixingArea, string messageName, string messageDescription)
+    public void ShowFixingAreaIngredients(Interactable fixingArea, string messageName, string messageDescription)
     {
         this.fixingArea = fixingArea;
         messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";

@@ -57,6 +57,23 @@ namespace Klaxon.Interactable
             }
 
         }
+        public override void LongInteract(GameObject interactor)
+        {
+
+            base.LongInteract(interactor);
+            string ingredients = "";
+            if (agencyCost > 0)
+                ingredients += $"<sprite name=\"Agency\"> - {agencyCost}\n";
+            for (int i = 0; i < requiredItems.Count; i++)
+            {
+                ingredients += $"{requiredItems[i].Amount} - {requiredItems[i].Item.localizedName.GetLocalizedString()}\n";
+            }
+
+            BallPersonMessageDisplayUI.instance.ShowFixingAreaIngredients(this, longInteractVerb.GetLocalizedString(), ingredients);
+            UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
+            canInteract = false;
+        }
+
 
 
         IEnumerator LightFiresCo(bool lit)

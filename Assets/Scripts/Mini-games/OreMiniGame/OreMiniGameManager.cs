@@ -54,7 +54,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     public Color failEmission;
     GameObject currentGameObject;
     int toolTier;
-    int q;
+    int gatherAmount;
 
     private void Start()
     {
@@ -71,6 +71,20 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     void OnDisable()
     {
         GameEventManager.onMinigameMouseClickEvent.RemoveListener(OnMouseClick);
+    }
+
+    int SetAmountPerHit()
+    {
+        if (toolTier == 1 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 2 && currentDificulty == MiniGameDificulty.Normal ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Hard)
+            return 1;
+        if (toolTier == 2 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Normal)
+            return 2;
+        if (toolTier == 4)
+            return 4;
+        return 3;
     }
 
     void OnMouseClick()
@@ -101,7 +115,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         SetDificulty(gameDificulty);
         currentGameObject = gameObject;
         toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
-        q = currentDificulty == PlayerInformation.instance.equipmentManager.currentEquipment[0].GameDificulty ? 1 : toolTier;
+        gatherAmount = SetAmountPerHit();
     }
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
 
@@ -165,8 +179,8 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentSection++;
-            PlayerInformation.instance.playerInventory.AddItem(item, q, false);
-            Notifications.instance.SetNewNotification("", item, q, NotificationsType.Inventory);
+            PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false);
+            Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
             PlaySound(0);
             StartCoroutine(GlowOn(material, successEmission));
         }
@@ -177,7 +191,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             StartCoroutine(GlowOn(material, failEmission));
         }
 
-        float wait = 0.2f;
+        float wait = 0.01f;
         if (currentSection == playerControlSections.Count)
             wait = 1.5f;
         yield return new WaitForSeconds(wait);

@@ -44,6 +44,7 @@ namespace Klaxon.UndertakingSystem
             yield return new WaitForSeconds(0.3f);
             AudioManager.instance.StartAquiredAudio();
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
+            
         }
         //IEnumerator CompleteTaskCo(UndertakingTaskObject undertaking)
         //{

@@ -52,6 +52,7 @@ public static class GameEventManager
     /// </summary>
     public static readonly GameEvent onUndertakingsUpdateEvent = new GameEvent();
     public static readonly GameEvent onMuseumPieceUpdateEvent = new GameEvent();
+    public static readonly GameEvent onMapUpdateEvent = new GameEvent();
 
 
     /// <summary>

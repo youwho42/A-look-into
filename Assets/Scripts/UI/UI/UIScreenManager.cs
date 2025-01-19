@@ -46,7 +46,7 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMenuHideEvent.AddListener(HideScreenUI);
         // using M to display tabbedMenu at Map
         GameEventManager.onMapDisplayEvent.AddListener(DisplayMapMenu);
-
+        GameEventManager.onMapUpdateEvent.AddListener(DisplayMapMenu);
 
         SavingLoading.instance.LoadOptions();
 
@@ -61,6 +61,7 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMenuDisplayEvent.RemoveListener(GamepadDisplayTabbedMenu);
         GameEventManager.onMenuHideEvent.RemoveListener(HideScreenUI);
         GameEventManager.onMapDisplayEvent.RemoveListener(DisplayMapMenu);
+        GameEventManager.onMapUpdateEvent.RemoveListener(DisplayMapMenu);
     }
 
     void GamepadDisplayTabbedMenu()
@@ -97,15 +98,63 @@ public class UIScreenManager : MonoBehaviour
     {
         if (inMainMenu)
             return;
-        if (GetCurrentUI() == UIScreenType.TabbedMenuUI || GetCurrentUI() == UIScreenType.None)
+        //var current = GetCurrentUI();
+        //if (current == UIScreenType.TabbedMenuUI || current == UIScreenType.None)
+        //{
+        //    tabbedMenu.SetInventoryUI();
+        //    DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
+        //}
+        //if (current == UIScreenType.CraftingStationUI || current == UIScreenType.ResearchStationUI || current == UIScreenType.ContainerUI)
+        //    DisplayScreenUI(currentUI, false);
+        switch (currentUI)
         {
-            tabbedMenu.SetInventoryUI();
-            DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
+            case UIScreenType.None:
+                tabbedMenu.SetInventoryUI();
+                DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
+                break;
+            case UIScreenType.PauseUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.ContainerUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.SleepUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.ResearchStationUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.CraftingStationUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.TabbedMenuUI:
+                tabbedMenu.SetInventoryUI();
+                DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
+                break;
+            case UIScreenType.MerchantTableUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.VillageDeskUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.LocalGoodsUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.GuiseUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.RobotUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.PaintingUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            case UIScreenType.RestorePaintingUI:
+                DisplayScreenUI(currentUI, false);
+                break;
+            
         }
-        if (GetCurrentUI() == UIScreenType.CraftingStationUI || GetCurrentUI() == UIScreenType.ResearchStationUI || GetCurrentUI() == UIScreenType.ContainerUI)
-            DisplayScreenUI(currentUI, false);
     }
-
     public void DisplayScreenUI(UIScreenType screenType, bool state)
     {
         //if (MiniGameManager.instance.gameStarted /*|| LevelManager.instance.isInCutscene*/)

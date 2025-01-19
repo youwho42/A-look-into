@@ -50,6 +50,7 @@ public class PlayerMapsManager : MonoBehaviour
                 map.active = true;
                 map.hasAnimated = false;
                 Notifications.instance.SetNewNotification("Map Added", null, 0, NotificationsType.Map);
+                
             }
                 
         }

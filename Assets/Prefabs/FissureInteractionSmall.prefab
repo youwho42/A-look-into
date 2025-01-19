@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: Fix
   localizedInteractVerb:
     m_TableReference:
@@ -61,9 +62,18 @@ MonoBehaviour:
     m_LocalVariables: []
   longInteractVerb:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 1805523701260288
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:292c995fc0fcb4e41ae8985786199dc7
+    m_TableEntryReference:
+      m_KeyId: 9796629094400
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -72,7 +82,7 @@ MonoBehaviour:
   agencyReward: 0
   agencyCost: 100
   canInteract: 1
-  hasLongInteract: 0
+  hasLongInteract: 1
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
@@ -100,6 +110,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8647259986619931618}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -123,9 +134,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 0.17985058
 --- !u!114 &1718212626174302572
 MonoBehaviour:

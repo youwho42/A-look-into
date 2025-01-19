@@ -30,6 +30,7 @@ namespace Klaxon.UndertakingSystem
         {
             IsComplete = true;
             RewardTask();
+            
             GameEventManager.onUndertakingsUpdateEvent.Invoke();
         }
 

@@ -10,7 +10,7 @@ namespace Klaxon.GOAD
         public InteractableChair workSeat;
         NavigationNode target;
         public GOAD_ScriptableCondition paintingAvailableCondition;
-
+        MuseumManager museum;
         bool hasPainting;
 
         bool sitting;
@@ -29,8 +29,8 @@ namespace Klaxon.GOAD
             agent.nodePath.Clear();
             agent.currentPathIndex = 0;
             agent.nodePath = agent.currentNode.FindPath(target);
-            
 
+            museum = MuseumManager.instance;
 
         }
 
@@ -41,7 +41,6 @@ namespace Klaxon.GOAD
             
             if (agent.HasBelief("CanWork", false))
             {
-                Debug.Log("Wants to leave work");
                 GetUpAndLeave(agent);
                 return;
             }
@@ -50,11 +49,10 @@ namespace Klaxon.GOAD
             
             if(!hasPainting)
             {
-                Debug.Log("Checks for painting");
-                hasPainting = MuseumManager.instance.HasPaintingsInQueue();
+                if(Time.frameCount % 60 == 0)
+                    hasPainting = museum.HasPaintingsInQueue();
                 return;
             }
-            Debug.Log("has a painting");
             if (sitting)
             {
                 if (!gettingUp)

@@ -10,11 +10,17 @@ public class ResearchStationResearchSlot : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI recipesText;
     public Button researchButton;
+    ResearchStationDisplayUI researchDisplayUI;
     private void Start()
     {
         ClearSlot();
     }
     private void OnEnable()
+    {
+        ClearSlot();
+        
+    }
+    void OnDisable()
     {
         ClearSlot();
     }
@@ -24,6 +30,8 @@ public class ResearchStationResearchSlot : MonoBehaviour
         item = newItem;
         icon.sprite = item.Icon;
         icon.enabled = true;
+        researchDisplayUI.currentResearchStation.HideResearchItem();
+        researchDisplayUI.currentResearchStation.ShowResearchItem(item);
         AddRecipes();
     }
 
@@ -47,6 +55,10 @@ public class ResearchStationResearchSlot : MonoBehaviour
 
     public void ClearSlot()
     {
+        if(researchDisplayUI == null)
+            researchDisplayUI = ResearchStationDisplayUI.instance;
+        if(researchDisplayUI.currentResearchStation != null)
+            researchDisplayUI.currentResearchStation.HideResearchItem();
         researchButton.interactable = false;
         item = null;
         icon.sprite = null;

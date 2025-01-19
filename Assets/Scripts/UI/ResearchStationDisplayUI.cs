@@ -1,3 +1,4 @@
+using Klaxon.Interactable;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ public class ResearchStationDisplayUI : MonoBehaviour
     public GameObject inventoryItemArea;
     public ResearchStationResearchSlot researchSlot;
     List<ResearchStationInventorySlot> researchStationInventorySlots = new List<ResearchStationInventorySlot>();
-
+    [HideInInspector]
+    public InteractableResearchStation currentResearchStation;
     UIScreen screen;
 
     private void Start()
@@ -36,29 +38,35 @@ public class ResearchStationDisplayUI : MonoBehaviour
         playerRecipes = PlayerCrafting.instance;
     }
 
-    public void ShowUI()
+    public void ShowUI(InteractableResearchStation researchStation)
     {
         UpdateResearchDisplay();
         PlayerInformation.instance.uiScreenVisible = true;
         PlayerInformation.instance.TogglePlayerInput(false);
+        currentResearchStation = researchStation;
     }
 
     public void HideUI()
     {
         PlayerInformation.instance.uiScreenVisible = false;
         PlayerInformation.instance.TogglePlayerInput(true);
+        currentResearchStation.HideResearchItem();
+        currentResearchStation = null;
     }
     
     public void UpdateResearchDisplay()
     {
         ClearInventorySlots();
 
-        
-        
+
+        List<QI_ItemData> itemsInStock = new List<QI_ItemData>();
         for (int i = 0; i < PlayerInformation.instance.playerInventory.Stacks.Count; i++)
         {
 
             QI_ItemData item = PlayerInformation.instance.playerInventory.Stacks[i].Item;
+            if (itemsInStock.Contains(item))
+                continue;
+            itemsInStock.Add(item);
             if (item.ResearchRecipes.Count > 0)
             {
               

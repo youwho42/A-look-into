@@ -30,7 +30,7 @@ public class DemoManager : MonoBehaviour
 
     private void OnDisable()
     {
-        if (isDemo)
+        if (isDemo) 
             GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPlayerPosition);
 
     }
@@ -44,13 +44,15 @@ public class DemoManager : MonoBehaviour
     {
         if (!isDemo)
             return;
+        if(playerInformation == null)
+            playerInformation = PlayerInformation.instance;
         Vector3Int pPos = playerInformation.currentTilePosition.position;
         if(pPos.x > demoBounds.x || pPos.y < demoBounds.y)
         {
             PlayerInformation.instance.player.position = startArea.position;
             PlayerInformation.instance.currentTilePosition.position = PlayerInformation.instance.currentTilePosition.GetCurrentTilePosition(startArea.position);
             PlayerInformation.instance.playerController.currentLevel = (int)startArea.position.z - 1;
-            Notifications.instance.SetNewNotification("Demo Bro", null, 0, NotificationsType.Warning);
+            Notifications.instance.SetNewNotification("Demo Bounds Breached!", null, 0, NotificationsType.Warning);
         }
     }
 

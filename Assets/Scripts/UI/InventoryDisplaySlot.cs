@@ -379,6 +379,13 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (PlacedOnNavigationNodes(coll))
             return true;
 
+        if (item.onlyPlacedInPlayerHouse)
+        {
+            if (!PlayerHouseCollision(coll))
+                return true;
+        }
+            
+
         ContactFilter2D filter = new ContactFilter2D();
         filter.layerMask = LayerMask.NameToLayer("Obstacle");
         
@@ -414,6 +421,24 @@ public class InventoryDisplaySlot : MonoBehaviour
         return false;
     }
 
+    bool PlayerHouseCollision(Collider2D coll)
+    {
+        if (!item.onlyPlacedInPlayerHouse)
+            return false;
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        filter.useDepth = true;
+        filter.minDepth = coll.transform.position.z;
+        filter.maxDepth = coll.transform.position.z;
+        List<Collider2D> results = new List<Collider2D>();
+        coll.Overlap(filter, results);
+        foreach (var c in results)
+        {
+            if (c.gameObject.CompareTag("PlayerHouse"))
+                return true;
+        }
+        return false;
+    }
 
     bool PlacedOnNavigationNodes(Collider2D coll)
     {
@@ -451,7 +476,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         Vector3 playerPos = PlayerInformation.instance.player.position;
         
         float dist = Vector2.Distance(playerPos, itemToDrop.transform.position);
-        if (dist <= 0.5f)
+        if (dist <= 1.5f)
             return true;
 
         return false;

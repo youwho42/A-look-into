@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CraftingStationFuelInventorySlot : MonoBehaviour
@@ -40,6 +41,17 @@ public class CraftingStationFuelInventorySlot : MonoBehaviour
         if(craftingHandler.AddFuel(currentItem, 1))
         {
             PlayerInformation.instance.playerInventory.RemoveItem(currentItem, 1);
+            GameEventManager.onInventoryUpdateEvent.Invoke();
+        }
+    }
+    public void TransferStack()
+    {
+        if (currentItem == null || EventSystem.current.currentSelectedGameObject != iconImage.gameObject)
+            return;
+        int amount = PlayerInformation.instance.playerInventory.GetStock(currentItem.Name);
+        if (craftingHandler.AddFuel(currentItem, amount))
+        {
+            PlayerInformation.instance.playerInventory.RemoveItem(currentItem, amount);
             GameEventManager.onInventoryUpdateEvent.Invoke();
         }
     }
