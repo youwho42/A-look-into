@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: Spyglass II_Recipe
+  m_EditorClassIdentifier: 
+  Name: Spyglass II
+  ProductType: 0
+  Ingredients:
+  - Item: {fileID: 11400000, guid: 866edef531e9ffb468faa05b189c1dc0, type: 2}
+    Amount: 1
+  - Item: {fileID: 11400000, guid: 41e43aff0d4014a45affe024ce71b683, type: 2}
+    Amount: 10
+  - Item: {fileID: 11400000, guid: 70c7c16f32499304897e29eee66863c2, type: 2}
+    Amount: 2
+  - Item: {fileID: 11400000, guid: 56f41e83d67f1bb4f8e8c85cff39c986, type: 2}
+    Amount: 5
+  Product:
+    Item: {fileID: 11400000, guid: 866edef531e9ffb468faa05b189c1dc0, type: 2}
+    Amount: 1
+  CraftingTime: 60

@@ -42,6 +42,11 @@ public class DrawZasYDisplacement : MonoBehaviour
         displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
     }
 
+    public Vector3 GetDisplacedPosition()
+    {
+        return new Vector3(0, spriteDisplacementY * positionZ, positionZ);
+    }
+
     private void OnDrawGizmosSelected()
     {
         var pos = new Vector3(0, spriteDisplacementY * positionZ, positionZ) + transform.position;

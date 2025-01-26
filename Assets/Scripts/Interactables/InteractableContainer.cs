@@ -15,6 +15,10 @@ namespace Klaxon.Interactable
         QI_Inventory inventory;
         public bool isSquirrelBox;
         public bool isLostAndFound;
+        public SpriteRenderer containerSprite;
+        public Sprite closedSprite;
+        public Sprite openSprite;
+
         public override void Start()
         {
             base.Start();
@@ -34,9 +38,9 @@ namespace Klaxon.Interactable
                 if (inventory == null)
                     inventory = GetComponentInParent<QI_Inventory>();
             }
-           
+            if (closedSprite != null)
+                containerSprite.sprite = closedSprite;
 
-            
         }
 
         
@@ -87,12 +91,27 @@ namespace Klaxon.Interactable
         {
             if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.ContainerUI, true))
                 containerUI.ShowContainerUI(inventory);
+            SetContainerImage(true);
+        }
+
+        public void SetContainerImage(bool state)
+        {
+            if (state)
+            {
+                if (openSprite != null)
+                    containerSprite.sprite = openSprite;
+                return;
+            }
+            
+            if (closedSprite != null)
+                containerSprite.sprite = closedSprite;
         }
 
         private void CloseContainer()
         {
             UIScreenManager.instance.HideScreenUI();
             containerUI.HideContainerUI();
+            SetContainerImage(false);
         }
 
 

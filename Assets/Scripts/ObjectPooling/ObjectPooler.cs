@@ -13,19 +13,29 @@ public class ObjectPooler : MonoBehaviour
     private GameObject prefab;
     [SerializeField]
     private int amountToPool;
-
+    [SerializeField]
+    private bool useWorldSpace;
 
 
     private void Start()
     {
         for (int i = 0; i < amountToPool; i++)
         {
-            GameObject go = Instantiate(prefab/*, this.transform*/);
-            go.SetActive(false);
-            pooledObjects.Add(go);
+            CreatePooledObject();
         }
     }
-    
+
+    private GameObject CreatePooledObject()
+    {
+        GameObject go = Instantiate(prefab/*, transform*/);
+        if (!useWorldSpace)
+            go.transform.parent = transform;
+        go.SetActive(false);
+        pooledObjects.Add(go);
+        return go;
+    }
+
+
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < pooledObjects.Count; i++)
@@ -35,6 +45,8 @@ public class ObjectPooler : MonoBehaviour
                 return pooledObjects[i];
             }
         }
-        return null;
+        var go = CreatePooledObject();
+
+        return go;
     }
 }

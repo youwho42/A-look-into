@@ -1,4 +1,5 @@
-﻿using Klaxon.StatSystem;
+﻿using Klaxon.Interactable;
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,6 +59,8 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
+        if(containerInventory != null )
+            containerInventory.GetComponent<InteractableContainer>().SetContainerImage(false);
     }
 
     void ChangeControlText(string text)

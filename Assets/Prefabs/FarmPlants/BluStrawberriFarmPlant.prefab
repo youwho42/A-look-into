@@ -1,0 +1,363 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6205825547579117422
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3483506780370557459, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.19726562
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557459, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.43945312
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557459, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8ce5d876c2d9f840aa144ca285cf257,
+        type: 3}
+    - target: {fileID: 3483506780370557459, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557459, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 45c850b9828353245a5a4eb4065cd6ea, type: 2}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557460, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: ticksPerCycle
+      value: 1440
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantSwayAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[0].plantSprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[1].plantSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[2].plantSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[3].plantSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[4].plantSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[5].plantSprites.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: plantCycles.Array.data[6].plantSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[0].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: -5008024259662410636, guid: 7b75009fdb4c8b54fa0f983f061b0ba2,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[0].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: -1649024199241242681, guid: 7b75009fdb4c8b54fa0f983f061b0ba2,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[0].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: -2041056540247146080, guid: 7b75009fdb4c8b54fa0f983f061b0ba2,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[0].plantSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 721121587577537640, guid: 7b75009fdb4c8b54fa0f983f061b0ba2,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[0].plantSprites.Array.data[4]'
+      value: 
+      objectReference: {fileID: 861912765, guid: 25bed0cbccfbc604f93c2c44d9617fc6,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[1].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: a4c671355150779499057a08104e0b0e,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[1].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: ee467d81c17c8d548b28577016226b48,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[1].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 09d706d3a5704cf4dae29bd517940123,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[1].plantSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1334717327, guid: c15872de328bb7046a1077233652c666,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[1].plantSprites.Array.data[4]'
+      value: 
+      objectReference: {fileID: 861912765, guid: 25bed0cbccfbc604f93c2c44d9617fc6,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[2].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a21249f9b21a8f45acb866e263b8706,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[2].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: a5ab056ec6f440a488ed250659c7b080,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[2].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: b441a67ee09d9f94a8a52955f8dbb2b2,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[2].plantSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d4ffdbb1094a664584b508661e8b20a,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[3].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c3b1d8ec6eb90744b1800f13a16aeb9,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[3].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 970dcf2d14e76b3438b1b65f532ba209,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[3].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d13ad0382f8ca224d9dcc1593c34aed8,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[3].plantSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 5212d06284b860a45b5be1b668923bb9,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[4].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: e8ce5d876c2d9f840aa144ca285cf257,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[4].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: c4ac57aa824c291489741acf48c99edc,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[4].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: d0b0b99c9d2adf047bd39f9ead25a3f8,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[4].plantSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 754ee2feeee9c5c4a9395a80d02e69df,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[5].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 729520a6625d43e4e8ad8c6c5a8808be,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[5].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: b16dc827d1dba274c924e00bad90e96d,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[5].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 98696158, guid: ed3da2f9dd7214341b2c2b0c5f115730,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[6].plantSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: -79821194, guid: 653d39e879b9b854fb538f5780d83b95,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[6].plantSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1207109876, guid: 653d39e879b9b854fb538f5780d83b95,
+        type: 3}
+    - target: {fileID: 3483506780370557461, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: 'plantCycles.Array.data[6].plantSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 772657357, guid: 653d39e879b9b854fb538f5780d83b95,
+        type: 3}
+    - target: {fileID: 3483506780370557462, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: m_Name
+      value: BluStrawberriFarmPlant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6599778492792083575, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: localizedItemName.m_TableEntryReference.m_KeyId
+      value: 90628216860499968
+      objectReference: {fileID: 0}
+    - target: {fileID: 6599778492792083575, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: localizedItemName.m_TableReference.m_TableCollectionName
+      value: GUID:ea3bccddb512ec64aadd3f387de714af
+      objectReference: {fileID: 0}
+    - target: {fileID: 6991177185566791734, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      propertyPath: Data
+      value: 
+      objectReference: {fileID: 11400000, guid: 253853cc10a76ff429bf1b8d2c2ef707,
+        type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3483506780370557462, guid: b2b16a6bc9c93b24cacc422b83982522,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3377313942686189872}
+  m_SourcePrefab: {fileID: 100100000, guid: b2b16a6bc9c93b24cacc422b83982522, type: 3}
+--- !u!1 &7370250198005159288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3483506780370557462, guid: b2b16a6bc9c93b24cacc422b83982522,
+    type: 3}
+  m_PrefabInstance: {fileID: 6205825547579117422}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3377313942686189872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7370250198005159288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGlow: 0
+  maxGlow: 0
+  bloomMinIntensity: 3
+  bloomMaxIntensity: 10
+  useAlpha: 0
+  useIntensity: 1
