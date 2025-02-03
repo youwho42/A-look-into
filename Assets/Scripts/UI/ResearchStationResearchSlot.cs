@@ -43,9 +43,10 @@ public class ResearchStationResearchSlot : MonoBehaviour
             if (!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
             {
                 int inventoryAmount = PlayerInformation.instance.playerInventory.GetStock(item.Name);
+                string amt = item.ResearchRecipes[i].recipe.Product.Amount > 1 ? $"x{item.ResearchRecipes[i].recipe.Product.Amount}" : "";
                 var n = item.ResearchRecipes[i].recipe.Product.Item.localizedName.GetLocalizedString();
                 var c = inventoryAmount >= item.ResearchRecipes[i].RecipeRevealAmount ? "" : "<color=#FF0000>";
-                textToAdd += $"{c}{inventoryAmount}/{item.ResearchRecipes[i].RecipeRevealAmount} - {n}\n";
+                textToAdd += $"{c}{inventoryAmount}/{item.ResearchRecipes[i].RecipeRevealAmount} - {n} {amt}\n";
             }
                 
         }

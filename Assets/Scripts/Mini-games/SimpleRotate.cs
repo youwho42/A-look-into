@@ -98,9 +98,7 @@ public class SimpleRotate : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        int newStart = end;
-        end = start;
-        
-        StartCoroutine(RotateToFromCo(newStart, end, timeToRotate));
+        yield return null;
+        //StartCoroutine(RotateToFromCo(newStart, end, timeToRotate));
     }
 }

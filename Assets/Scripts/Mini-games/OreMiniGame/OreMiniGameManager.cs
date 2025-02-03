@@ -55,7 +55,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     GameObject currentGameObject;
     int toolTier;
     int gatherAmount;
-
+    bool fullSuccess;
     private void Start()
     {
         SetDificulty(MiniGameDificulty.Easy);
@@ -66,6 +66,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
 
     void OnEnable()
     {
+        fullSuccess = true;
         GameEventManager.onMinigameMouseClickEvent.AddListener(OnMouseClick);
     }
     void OnDisable()
@@ -93,13 +94,17 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             return;
 
         if (currentSection != playerControlSections.Count && !transitioning)
-            StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreaHit.isInArea));
+            StartCoroutine(NextAreaCo(playerControlSections[currentSection].controlAreaHit.IsInArea()));
     }
 
     void CheckCurrentSection()
     {
         if (currentSection == playerControlSections.Count)
         {
+            if(fullSuccess)
+            { 
+                //have a grand ol time
+            }
             if (currentGameObject.TryGetComponent(out SpawnDailyObjects rock))
                 rock.SpawnObjects();
 
@@ -118,6 +123,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         gatherAmount = SetAmountPerHit();
     }
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
 
     void SetDificulty(MiniGameDificulty dificulty)
     {
@@ -184,8 +190,9 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
             PlaySound(0);
             StartCoroutine(GlowOn(material, successEmission));
         }
-         else
-         {
+        else
+        {
+            fullSuccess = false;
             currentSection++;
             PlaySound(1);
             StartCoroutine(GlowOn(material, failEmission));

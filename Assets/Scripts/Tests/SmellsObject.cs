@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class SmellsObject : MonoBehaviour
@@ -9,7 +6,7 @@ public class SmellsObject : MonoBehaviour
     public Animator animator;
     WindManager wind;
     public float speed;
-    SmellGenerator smellGenerator;
+    //SmellGenerator smellGenerator;
     Material smellMaterial;
     float timer;
     float minSize = 0.3f;
@@ -28,11 +25,10 @@ public class SmellsObject : MonoBehaviour
         speed += Random.Range(-r, r);
     }
 
-    public void SetSmell(SmellGenerator generator, DrawZasYDisplacement displacement, SmellItemData smellItem)
+    public void SetSmell(DrawZasYDisplacement displacement, SmellItemData smellItem)
     {
         gatherableItem.dataList.Add(smellItem);
         wind = WindManager.instance;
-        smellGenerator = generator;
         var pos = displacement.displacedPosition;
         pos.z = displacement.transform.parent.transform.position.z;
         smellSprite.transform.localPosition = pos;
@@ -86,7 +82,7 @@ public class SmellsObject : MonoBehaviour
     {
         if (timer > 10)
         {
-            smellGenerator.StopEmit(this);
+            gameObject.SetActive(false);
             return;
         }
         Color c = smellSprite.color;

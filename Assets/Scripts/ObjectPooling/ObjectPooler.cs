@@ -5,8 +5,8 @@ using UnityEngine;
 public class ObjectPooler : MonoBehaviour
 {
 
-    
-    private List<GameObject> pooledObjects = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject> pooledObjects = new List<GameObject>();
     
 
     [SerializeField]
@@ -38,15 +38,18 @@ public class ObjectPooler : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
+        GameObject go = null;
         for (int i = 0; i < pooledObjects.Count; i++)
         {
             if (!pooledObjects[i].activeInHierarchy)
             {
-                return pooledObjects[i];
+                go = pooledObjects[i];
+                break;
             }
         }
-        var go = CreatePooledObject();
-
+        if(go == null)
+            go = CreatePooledObject();
+        go.SetActive(true);
         return go;
     }
 }

@@ -99,8 +99,7 @@ namespace Klaxon.Interactable
             var item = GetComponent<QI_Item>().Data;
             if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
             {
-                if (replaceObjectOnDrop != null)
-                    replaceObjectOnDrop.ShowObjects(true);
+                
 
                 PlayerInformation.instance.statHandler.RemoveModifiableModifier(item.placementGumption);
 

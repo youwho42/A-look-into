@@ -32,8 +32,7 @@ namespace Klaxon.Interactable
             
             if (PlayerInformation.instance.playerInventory.AddItem(pickUpItem, 1, false))
             {
-                if (replaceObjectOnDrop != null)
-                    replaceObjectOnDrop.ShowObjects(true);
+                
 
                 PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
 

@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class SquonkManager : MonoBehaviour
 {
+    public static SquonkManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
     public GameObject theSquonk;
     public SpriteRenderer squonkSprite;
     Material squonkMaterial;
@@ -30,8 +38,8 @@ public class SquonkManager : MonoBehaviour
     void TrySpawnSquonk()
     {
 
-        if (!GOAD_WorldBeliefStates.instance.HasState(dayToSpawn.Condition, dayToSpawn.State))
-            return;
+        //if (!GOAD_WorldBeliefStates.instance.HasState(dayToSpawn.Condition, dayToSpawn.State))
+        //    return;
         if (RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Sunset)
         {
             if (Random.Range(0.0f, 1.0f) <= currentChance)
@@ -48,11 +56,19 @@ public class SquonkManager : MonoBehaviour
         }
         else if (RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Night)
         {
-            if(isActive)
-                StartCoroutine(SquonkDisappearCo());
+            StartCoroutine(SquonkDisappearCo(false));
         }
 
 
+    }
+
+    public void SquonkDisappear()
+    {
+        if (!isActive)
+            return;
+        StopAllCoroutines();
+        
+        StartCoroutine(SquonkDisappearCo(true));
     }
 
     IEnumerator SquonkAppearCo()
@@ -72,15 +88,20 @@ public class SquonkManager : MonoBehaviour
         
     }
 
-    IEnumerator SquonkDisappearCo()
+    IEnumerator SquonkDisappearCo(bool immediate)
     {
-        var t = RealTimeDayNightCycle.instance.currentTimeRaw + 20;
-        while (RealTimeDayNightCycle.instance.currentTimeRaw < t)
-            yield return null;
+        if (!immediate)
+        {
+            var t = RealTimeDayNightCycle.instance.currentTimeRaw + 20;
+            while (RealTimeDayNightCycle.instance.currentTimeRaw < t)
+                yield return null;
+        }
+        
 
         DissolveEffect.instance.StartDissolve(squonkMaterial, 2.0f, false);
         yield return new WaitForSeconds(2.0f);
         isActive = false;
+        GetComponent<GatherableItem>().hasBeenHarvested = false;
         theSquonk.SetActive(false);
 
 
@@ -107,4 +128,5 @@ public class SquonkManager : MonoBehaviour
         }
         return GetSquonkPosition();
     }
+
 }

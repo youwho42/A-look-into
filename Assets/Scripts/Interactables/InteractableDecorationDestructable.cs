@@ -25,8 +25,7 @@ namespace Klaxon.Interactable
 
             base.LongInteract(interactor);
 
-            if (replaceObjectOnDrop != null)
-                replaceObjectOnDrop.ShowObjects(true);
+            
 
             PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
             Destroy(gameObject);

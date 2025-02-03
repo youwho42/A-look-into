@@ -6,9 +6,13 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
 {
    
     public List<GameObject> grassObjects = new List<GameObject>();
-    private void Start()
+    private void OnEnable()
     {
         CheckForObjects();
+    }
+    private void OnDisable()
+    {
+        ShowObjects(true);
     }
     public void CheckForObjects()
     {
@@ -20,7 +24,7 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
         List<Collider2D> results = new List<Collider2D>();
         coll.Overlap(filter, results);
 
-        
+        grassObjects.Clear();
         if (results.Count > 0)
         {
             foreach (var item in results)
@@ -43,7 +47,8 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
         {
             foreach (var item in grassObjects)
             {
-                item.SetActive(showState);
+                if (item != null)
+                    item.SetActive(showState);
             }
         }
         if(showState)

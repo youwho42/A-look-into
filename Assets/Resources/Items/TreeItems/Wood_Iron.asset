@@ -31,6 +31,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 2
   AnimationName: 
   Weight: 1
@@ -49,8 +58,13 @@ MonoBehaviour:
     RecipeRevealAmount: 10
     agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
       type: 2}
+  - recipe: {fileID: 11400000, guid: 484603d7cda157d4aa35cb95545d9ada, type: 2}
+    RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 3
   placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   references:
     version: 2
     RefIds: []

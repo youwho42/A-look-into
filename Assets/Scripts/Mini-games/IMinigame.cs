@@ -7,6 +7,7 @@ public interface IMinigame
 {
     void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty);
     void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty);
+    void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty);
     void ResetMiniGame();
 }
 public enum MiniGameType
@@ -15,7 +16,8 @@ public enum MiniGameType
     Wood,
     Animal,
     Ore,
-    Poking
+    Poking,
+    Spade
 }
 
 public enum MiniGameDificulty

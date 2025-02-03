@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 
 public class TreeDroppingManager : MonoBehaviour
@@ -14,54 +11,23 @@ public class TreeDroppingManager : MonoBehaviour
             instance = this;
     }
 
-    public int poolAmount;
 
-    public TreeDropping treeDroppingPrefab;
-    public ObjectPool<TreeDropping> treeDroppingPool;
-    
-    List<TreeDropping> startTreeDroppings = new List<TreeDropping>();
-
-
+    ObjectPooler droppingsPool;
     public void Start()
     {
-
-        treeDroppingPool = new ObjectPool<TreeDropping>
-            (
-                createFunc: CreateDropping,
-                actionOnGet: GetFromPool,
-                actionOnRelease: ReleaseToPool,
-                defaultCapacity: poolAmount
-
-            );
-
-        
-        //for (int i = 0; i < 6; i++)
-        //{
-        //    var t = treeDroppingPool.Get();
-        //    t.TestDrop();
-        //}
-        
+        droppingsPool = GetComponent<ObjectPooler>();
+       
     }
 
-    
-
-
-    TreeDropping CreateDropping()
+    public TreeDropping GetDropping()
     {
-        TreeDropping dropping = Instantiate(treeDroppingPrefab, transform);
-        
-        dropping.gameObject.SetActive(true);
-        //dropping.SetSmell(this, currentZAsYDisplacement, smellData);
-        return dropping;
+        TreeDropping td = null;
+        var go = droppingsPool.GetPooledObject();
+        go.TryGetComponent(out td);
+        return td;
+
     }
 
-    void GetFromPool(TreeDropping dropping)
-    {
-        dropping.gameObject.SetActive(true);
-    }
 
-    void ReleaseToPool(TreeDropping dropping)
-    {
-        dropping.gameObject.SetActive(false);
-    }
+   
 }

@@ -31,11 +31,20 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 2
   AnimationName: 
   Weight: 1
   Price: 10
-  spawnWeight: 1
+  spawnWeight: 4
   FuelTicks: 45
   Icon: {fileID: 21300000, guid: 2a0441d2fd424c642bc9f7520afe0939, type: 3}
   ItemPrefabVariants:
@@ -49,12 +58,17 @@ MonoBehaviour:
     RecipeRevealAmount: 10
     agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
       type: 2}
+  - recipe: {fileID: 11400000, guid: 91b6094638f9e344aa1e8820c5001c52, type: 2}
+    RecipeRevealAmount: 10
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   - recipe: {fileID: 11400000, guid: 16aa4660663d8a347a7577ed399a35df, type: 2}
     RecipeRevealAmount: 20
     agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
       type: 2}
   GameDificulty: 2
   placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   references:
     version: 2
     RefIds: []

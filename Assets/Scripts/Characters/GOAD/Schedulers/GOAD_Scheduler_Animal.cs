@@ -124,6 +124,8 @@ namespace Klaxon.GOAD
 
         [HideInInspector]
         public Transform fleeTransform;
+        
+        
 
         public override void Start()
         {
@@ -208,7 +210,7 @@ namespace Klaxon.GOAD
 
         private void Update()
         {
-
+            
             if (inTalkRange && hasDialogue)
             {
                 TalkRangeTimer();

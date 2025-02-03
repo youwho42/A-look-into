@@ -1,25 +1,29 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RandomSpriteForItems : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     public struct ItemSprites
     {
         public Sprite item;
         //public Sprite shadow;
     }
-
+ 
     public SpriteRenderer mainImage;
     public SpriteRenderer mainShadow;
 
     public List<ItemSprites> itemSpritesList = new List<ItemSprites>();
-
+    public bool setOnVisible;
+    bool isSet;
+    public bool flippable = true;
     private void Start()
     {
-        SetRandomSprites();
+        if (!setOnVisible) 
+            SetRandomSprites();
+        
     }
 
     private void SetRandomSprites()
@@ -30,15 +34,26 @@ public class RandomSpriteForItems : MonoBehaviour
         if(mainImage != null)
         {
             mainImage.sprite = itemSpritesList[i].item;
-            mainImage.flipX = r;
+            if(flippable)
+                mainImage.flipX = r;
         }
             
         if (mainShadow != null)
         {
             mainShadow.sprite = itemSpritesList[i].item;
-            mainShadow.flipX = r;
+            if (flippable)
+                mainShadow.flipX = r;
         }
             
     }
-    
+
+    private void OnBecameVisible()
+    {
+        if(!isSet && setOnVisible)
+        {
+            isSet = true;
+            SetRandomSprites();
+        }
+            
+    }
 }

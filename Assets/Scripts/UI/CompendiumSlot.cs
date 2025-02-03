@@ -23,7 +23,10 @@ public class CompendiumSlot : MonoBehaviour
         itemRecipe = newRecipe;
         localizedName = newItem.localizedName;
         localizedName.StringChanged += UpdateName;
-        itemName.text = newItem.localizedName.GetLocalizedString(newItem.Name);
+        string amt = "";
+        if (newRecipe != null)
+            amt = $"x{itemRecipe.Product.Amount}";
+        itemName.text = $"{newItem.localizedName.GetLocalizedString(newItem.Name)} {amt}";
         longDescription = false;
         if(item.Type == ItemType.Animal)
         {

@@ -23,7 +23,7 @@ public class ItemsToCSV : MonoBehaviour
         if (allItemsDatabase.Items.Count > 0)
         {
             TextWriter tw = new StreamWriter(fileName, false);
-            tw.WriteLine("Type, Item, Max-Stack, Price, ResearchRecipes");
+            tw.WriteLine("Type, Item, SpawnWeights, Max-Stack, Price, ResearchRecipes");
             tw.Close();
 
             tw = new StreamWriter(fileName, true);
@@ -47,7 +47,7 @@ public class ItemsToCSV : MonoBehaviour
                 }
                 
 
-                tw.WriteLine($"{item.Type}, {item.Name}, {item.MaxStack}, {item.Price}, {recipes}");
+                tw.WriteLine($"{item.Type}, {item.Name}, {item.spawnWeight}, {item.MaxStack}, {item.Price}, {recipes}");
             }
             tw.Close();
         }

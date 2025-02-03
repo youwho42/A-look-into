@@ -48,7 +48,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     public Color successEmission;
     [ColorUsage(true, true)]
     public Color failEmission;
-
+    bool fullSuccess;
     int toolTier;
     int gatherAmount;
     private void Start() 
@@ -61,6 +61,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     }
     void OnEnable()
     {
+        fullSuccess = true;
         GameEventManager.onMinigameMouseClickEvent.AddListener(OnMouseClick);
     }
     void OnDisable()
@@ -102,7 +103,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
 
 
         if (currentAttempts != maxAttempts && !transitioning)
-            StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.isInArea));
+            StartCoroutine(NextBallCo(balls[currentIndex].ballHitDetection.IsInArea()));
         
     }
 
@@ -110,6 +111,10 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     {
         if (currentAttempts >= maxAttempts)
         {
+            if (fullSuccess)
+            {
+                // have a grand ol time
+            }
             if (currentGameObject.TryGetComponent(out TreeRustling tree))
                 tree.Affect(true);
 
@@ -161,6 +166,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         }
         else
         {
+            fullSuccess = false;
             PlaySound(1);
             StartCoroutine(GlowOn(mat, failEmission));
         }
@@ -234,6 +240,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         gatherAmount = SetAmountPerHit();
     }
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty){ }
+    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty){ }
 
     void SetDificulty(MiniGameDificulty dificulty)
     {

@@ -50,7 +50,7 @@ public class TreeDropping : MonoBehaviour
 
     void ResetDrop()
     {
-        TreeDroppingManager.instance.treeDroppingPool.Release(this);
+        gameObject.SetActive(false);
     }
 
     

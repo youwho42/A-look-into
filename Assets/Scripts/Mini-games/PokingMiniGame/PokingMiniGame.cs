@@ -71,6 +71,7 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
     }
    
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
 
     void SetDificulty(MiniGameDificulty gameDificulty)
     {
@@ -108,7 +109,7 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
     {
         if (!minigameIsActive)
             return;
-        if (!detectAreaHit.isInArea)
+        if (!detectAreaHit.IsInArea())
         {
             PlaySound(0);
             endStick.gameObject.SetActive(true);
@@ -160,8 +161,8 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
 
             materialToSet.SetColor("_EmissionColor", i);
             elapsedTime += Time.deltaTime;
-            if (detectAreaHit.isInArea)
-                backgroundIllumination.color = i;
+            //if (detectAreaHit.isInArea)
+            //    backgroundIllumination.color = i;
             yield return null;
         }
 
@@ -171,7 +172,7 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
 
     void GlowOff(Material materialToSet)
     {
-        backgroundIllumination.color = Color.white;
+        //backgroundIllumination.color = Color.white;
         materialToSet.SetColor("_EmissionColor", initialIntensity);
     }
 

@@ -37,7 +37,7 @@ public class CraftingRecipeButton : MonoBehaviour
     {
         item = newItem;
         var n = item.Product.Item.localizedName.GetLocalizedString();
-        recipeName.text = item.Product.Amount > 1 ? $"{n} ({item.Product.Amount})" : n;
+        recipeName.text = item.Product.Amount > 1 ? $"{n} x{item.Product.Amount}" : n;
         
     }
 

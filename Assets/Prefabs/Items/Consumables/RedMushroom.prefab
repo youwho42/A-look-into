@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8723274420625485492}
   - component: {fileID: 2435803614370553690}
+  - component: {fileID: 6841742597686105193}
   m_Layer: 0
   m_Name: PumpkinPie
   m_TagString: Untagged
@@ -87,6 +88,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &6841742597686105193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2937123701642050555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainImage: {fileID: 2435803614370553690}
+  mainShadow: {fileID: 0}
+  itemSpritesList:
+  - item: {fileID: 21300000, guid: c04e7edbd6b353a4e8eaeeba409a7c42, type: 3}
+  - item: {fileID: 21300000, guid: 9b0e9db3d13a528489fcc0581c433f9a, type: 3}
+  - item: {fileID: 21300000, guid: f6376a0f83ace5849babd564bc412bf0, type: 3}
+  setOnVisible: 1
 --- !u!1 &2997489056520279129
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +123,6 @@ GameObject:
   - component: {fileID: -8485895923607002208}
   - component: {fileID: -1945669398405494975}
   - component: {fileID: -1357257276112831112}
-  - component: {fileID: 4242362281376780196}
   m_Layer: 13
   m_Name: RedMushroom
   m_TagString: Untagged
@@ -286,21 +305,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUp: {fileID: 4373343320986057330}
---- !u!114 &4242362281376780196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2997489056520279129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainImage: {fileID: 2435803614370553690}
-  mainShadow: {fileID: 0}
-  itemSpritesList:
-  - item: {fileID: 21300000, guid: c04e7edbd6b353a4e8eaeeba409a7c42, type: 3}
-  - item: {fileID: 21300000, guid: 9b0e9db3d13a528489fcc0581c433f9a, type: 3}
-  - item: {fileID: 21300000, guid: f6376a0f83ace5849babd564bc412bf0, type: 3}

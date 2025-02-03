@@ -6,8 +6,6 @@ public class SquonkTearManager : MonoBehaviour
 {
     public int poolAmount;
     public GameObject theSquonk;
-    //public SquonkTear tearObject;
-    //public ObjectPool<SquonkTear> tearPool;
     public DrawZasYDisplacement currentZAsYDisplacementA;
     public DrawZasYDisplacement currentZAsYDisplacementB;
     public ObjectPooler tearObjectPool;
@@ -52,7 +50,7 @@ public class SquonkTearManager : MonoBehaviour
 
         var go = tearObjectPool.GetPooledObject();
         var tear = go.GetComponent<SquonkTear>();
-        go.SetActive(true);
+        
         tear.transform.localPosition = displacement.transform.localPosition;
         tear.SetTear(this, displacement);
     }
@@ -63,7 +61,7 @@ public class SquonkTearManager : MonoBehaviour
         Vector3 offset = new Vector3(Random.Range(-0.02f, 0.02f), Random.Range(-0.02f, 0.02f), 0);
         position += offset;
         go.transform.position = position;
-        go.SetActive(true);
+        
     }
 
 

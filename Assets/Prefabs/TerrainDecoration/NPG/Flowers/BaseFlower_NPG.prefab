@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5518729531771902421}
   - component: {fileID: 2148166260611311637}
   - component: {fileID: 4945412199821993355}
-  - component: {fileID: 875342350109306203}
   - component: {fileID: 3267754517960481149}
+  - component: {fileID: 7274383686211685229}
   m_Layer: 24
   m_Name: BaseFlower_NPG
   m_TagString: Grass
@@ -46,6 +46,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5518729531771902423}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -69,9 +70,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: -0.0010116659, y: 0.003932245}
-  serializedVersion: 2
   m_Radius: 0.009060677
 --- !u!114 &4945412199821993355
 MonoBehaviour:
@@ -86,21 +87,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighboringObjects: 
---- !u!114 &875342350109306203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5518729531771902423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainImage: {fileID: 5518729533509488751}
-  mainShadow: {fileID: 5518729532945011619}
-  itemSpritesList: []
 --- !u!114 &3267754517960481149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,11 +99,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d148878d9f802c47b4387b129ebf507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolAmount: 15
-  smellObject: {fileID: 2698306259377388479, guid: 6514ca6a3b9eb334ba7d13a09349ec4f,
-    type: 3}
   currentZAsYDisplacement: {fileID: 180598354502683909}
   smellData: {fileID: 11400000, guid: ebae919a0229a324da926f29bd8df233, type: 2}
+--- !u!114 &7274383686211685229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05846c969ff49fa4383a664556107d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  prefab: {fileID: 620321830874702874, guid: 6514ca6a3b9eb334ba7d13a09349ec4f, type: 3}
+  amountToPool: 0
+  useWorldSpace: 0
 --- !u!1 &5518729532945011621
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +166,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -245,6 +247,7 @@ GameObject:
   - component: {fileID: 5518729533509488750}
   - component: {fileID: 5518729533509488751}
   - component: {fileID: 2926524106173410704}
+  - component: {fileID: 8343797658777830652}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -285,6 +288,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -336,6 +342,24 @@ MonoBehaviour:
   shadowSprite: {fileID: 5518729532945011619}
   shadowCaster: {fileID: 0}
   shadowUpdateTick: 6
+--- !u!114 &8343797658777830652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729533509488752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac460a5b4ed1d8488f635982d1a1763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainImage: {fileID: 5518729533509488751}
+  mainShadow: {fileID: 5518729532945011619}
+  itemSpritesList:
+  - item: {fileID: 21300000, guid: 981407da41337414cb4374defd9d34f5, type: 3}
+  - item: {fileID: 21300000, guid: 1278bfbce069ed245ae5d57ea3ebacb6, type: 3}
+  setOnVisible: 1
 --- !u!1001 &2419599905433101482
 PrefabInstance:
   m_ObjectHideFlags: 0

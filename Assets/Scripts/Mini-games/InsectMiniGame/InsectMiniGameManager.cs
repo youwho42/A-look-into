@@ -41,6 +41,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     
     public QI_ItemData animal;
     public SpriteRenderer animalHolder;
+    SpriteRenderer currentAnimalSprite;
     Material animalFocusMaterial;
 
     bool minigameIsActive;
@@ -83,7 +84,11 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         GameEventManager.onMinigameMouseClickEvent.RemoveListener(OnMouseClick);
     }
 
-    
+    void Update()
+    {
+        if(currentAnimalSprite != null)
+            animalHolder.sprite = currentAnimalSprite.sprite;
+    }
 
 
     void OnMouseClick()
@@ -94,7 +99,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         if (!transitioning)
         {
             if (currentIndex != maxAttempts)
-                StartCoroutine(NextTargetAreaCo(focal.focalHitDetection.isInArea));
+                StartCoroutine(NextTargetAreaCo(focal.focalHitDetection.IsInArea()));
         }
         
     }
@@ -174,45 +179,51 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
             currentIndex = 0;
 
 
-            if (successfullHits > 0)
+            if (successfullHits >= 0)
             {
 
-                // Add animal to compendium if not already done
-                if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal))
+                
+                if (successfullHits > 0)
                 {
-                    PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
-                    PlayerInformation.instance.statHandler.ChangeStat(statChanger);
-                    GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
-                    Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
-                }
-
-                // Add animal to compendium information
-                PlayerInformation.instance.animalCompendiumInformation.AddAnimal(animal.Name, successfullHits);
-
-                bool receivedNotification = false;
-                // Add recipe revealed if already viewed enough times and you don't have the recipe already
-                if (animal.ResearchRecipes.Count > 0)
-                {
-                    int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(animal.Name);
-                    int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
-                    receivedNotification = PlayerInformation.instance.animalCompendiumInformation.viewedComplete[index];
-                    if(!receivedNotification)
+                    // Add animal to compendium if not already done
+                    if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal))
                     {
-                        for (int i = 0; i < animal.ResearchRecipes.Count; i++)
-                        {
+                        PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
+                        PlayerInformation.instance.statHandler.ChangeStat(statChanger);
+                        GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
+                        Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                    }
 
-                            if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
+                    // Add animal to compendium information
+
+                    PlayerInformation.instance.animalCompendiumInformation.AddAnimal(animal.Name, successfullHits);
+
+                    bool receivedNotification = false;
+                    // Add recipe revealed if already viewed enough times and you don't have the recipe already
+                    if (animal.ResearchRecipes.Count > 0)
+                    {
+                        int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(animal.Name);
+                        int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
+                        receivedNotification = PlayerInformation.instance.animalCompendiumInformation.viewedComplete[index];
+                        if (!receivedNotification)
+                        {
+                            for (int i = 0; i < animal.ResearchRecipes.Count; i++)
                             {
-                                
-                                string notificationText = $"{animal.localizedName.GetLocalizedString()} {LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Updated")}";
-                                Notifications.instance.SetNewNotification(notificationText, null, 0, NotificationsType.Compendium);
-                                PlayerInformation.instance.animalCompendiumInformation.SetViewedComplete(index);
-                                PlayerInformation.instance.statHandler.ChangeStat(animal.ResearchRecipes[i].agencyStatChanger);
+
+                                if (amount >= animal.ResearchRecipes[i].RecipeRevealAmount)
+                                {
+
+                                    string notificationText = $"{animal.localizedName.GetLocalizedString()} {LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Updated")}";
+                                    Notifications.instance.SetNewNotification(notificationText, null, 0, NotificationsType.Compendium);
+                                    PlayerInformation.instance.animalCompendiumInformation.SetViewedComplete(index);
+                                    PlayerInformation.instance.statHandler.ChangeStat(animal.ResearchRecipes[i].agencyStatChanger);
+                                }
                             }
                         }
+
                     }
-                   
                 }
+                
 
                 
                 miniGameOver = true;
@@ -251,12 +262,15 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     }
 
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
+
 
     public void SetupMiniGame(QI_ItemData item, GameObject animalObject, MiniGameDificulty gameDificulty)
     {
         minigameIsActive = true;
         animal = item;
-        animalHolder.sprite = animalObject.GetComponent<SpriteRenderer>().sprite;
+        currentAnimalSprite = animalObject.GetComponent<SpriteRenderer>();
+        animalHolder.sprite = currentAnimalSprite.sprite;
         animalGameObject = animalObject;
         SetDificulty(gameDificulty);
         ResetFocal();
@@ -302,6 +316,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         currentIndex = 0;
         successfullHits = 0;
         minigameIsActive = false;
+        currentAnimalSprite = null;
         PlayerInformation.instance.playerAnimator.SetBool("UseEquipement", false);
         SetAnimalState(true);
     }
@@ -310,10 +325,12 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     {
         if (animalGameObject != null)
         {
-            IAnimal thisAnimal = animalGameObject.transform.GetComponentInParent<IAnimal>();
-            if (thisAnimal != null)
-                thisAnimal.SetActiveState(active);
-            animalGameObject.GetComponent<Animator>().speed = active? 1 : 0;
+            if (animalGameObject.TryGetComponent(out SquonkTearManager squonk))
+                SquonkManager.instance.SquonkDisappear();
+            //IAnimal thisAnimal = animalGameObject.transform.GetComponentInParent<IAnimal>();
+            //if (thisAnimal != null)
+            //    thisAnimal.SetActiveState(active);
+            //animalGameObject.GetComponent<Animator>().speed = active? 1 : 0;
         }
     }
 

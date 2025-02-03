@@ -1,13 +1,11 @@
-using Klaxon.StatSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Pool;
 
 public class PlayerActivateSmells : MonoBehaviour
 {
-
+    
     bool active;
 
     List<SmellGenerator> smellGenerators = new List<SmellGenerator>();
