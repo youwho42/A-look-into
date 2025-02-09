@@ -2,6 +2,7 @@ using Klaxon.UndertakingSystem;
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -23,7 +24,6 @@ public class UndertakingsDisplayUI : MonoBehaviour
     public GameObject undertakingsSpace;
     public UndertakingObject currentUndertaking;
 
-    //public TextMeshProUGUI undertakingTitle;
     public TextMeshProUGUI undertakingDescription;
 
     List<UndertakingsButton> undertakingsButtons = new List<UndertakingsButton>();
@@ -65,7 +65,6 @@ public class UndertakingsDisplayUI : MonoBehaviour
 
         if (currentUndertaking != null)
             SetCurrentUndertaking(currentUndertaking);
-        //ClearCurrentUndertaking();
     }
 
     void CreateUndertakingButton(UndertakingObject undertaking)
@@ -79,16 +78,21 @@ public class UndertakingsDisplayUI : MonoBehaviour
     {
         ClearCurrentUndertaking();
         currentUndertaking = undertaking;
-        //undertakingTitle.text = currentUndertaking.localizedName.GetLocalizedString();
         
 
         string desc = undertaking.CurrentState == UndertakingState.Complete ? currentUndertaking.localizedCompleteDescription.GetLocalizedString() : currentUndertaking.localizedDescription.GetLocalizedString();
         string tasks = "";
-        foreach (var task in undertaking.Tasks)
+        
+        var allTasks = AllTasksDictionary(undertaking);
+        foreach (var task in allTasks)
         {
-            tasks += task.IsComplete ? "" : $"- {task.localizedDescription.GetLocalizedString()}\n";
+            string quantText = "";
+            var quant = task.Value;
+            if(quant.y > 1)
+                quantText = $"{quant.x}/{quant.y}";
+            tasks += quant.x == quant.y ? "" : $"{task.Key} {quantText}\n";
         }
-        //undertakingDescription.text = $"{desc}<br>{tasks}";
+
         undertakingDescription.text = $"\n<style=\"H1\">{currentUndertaking.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n{tasks}";
     }
 
@@ -109,5 +113,24 @@ public class UndertakingsDisplayUI : MonoBehaviour
         }
         
         undertakingsButtons.Clear();
+    }
+
+    
+    Dictionary<string, Vector2Int> AllTasksDictionary(UndertakingObject undertaking)
+    {
+        Dictionary<string, Vector2Int> allTasks = new Dictionary<string, Vector2Int>();
+        foreach (var task in undertaking.Tasks)
+        {
+            if (allTasks.ContainsKey(task.localizedDescription.GetLocalizedString()))
+            {
+                allTasks[task.localizedDescription.GetLocalizedString()] += new Vector2Int(task.IsComplete ? 1 : 0, 1);
+            }
+            else
+            {
+                Vector2Int quantities = new Vector2Int(task.IsComplete ? 1 : 0, 1);
+                allTasks.Add(task.localizedDescription.GetLocalizedString(), quantities);
+            }
+        }
+        return allTasks;
     }
 }

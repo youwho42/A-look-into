@@ -127,6 +127,7 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
             SetCurrentStage();
         else
         {
+            currentJunkPile.StartParticles();
             yield return new WaitForSeconds(setupTime*2);
             CompleteMinigame();
         }
@@ -188,8 +189,8 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         {
             //have a grand ol time
         }
-            
 
+        
         MiniGameManager.instance.EndMiniGame(MiniGameType.Spade);
         
 

@@ -18,6 +18,7 @@ public class FixAndReplace : MonoBehaviour, IFixArea
     public bool needsActiveUndertaking;
     [ConditionalHide("needsActiveUndertaking", true)]
     public UndertakingObject neededUndertaking;
+    public FixableObject fixableObject;
 
     public bool Fix(List<FixableAreaIngredient> ingredients)
     {
@@ -50,20 +51,25 @@ public class FixAndReplace : MonoBehaviour, IFixArea
             timer += Time.deltaTime;
             yield return null;
         }
-        var go = Instantiate(fixableReplacementObject, transform.position, Quaternion.identity);
-        if (go.TryGetComponent(out SaveableItemEntity item))
-            item.GenerateId();
 
-        if (go.TryGetComponent(out ActivateOnQuestComplete obj))
+        fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
+
+
+        //var go = Instantiate(fixableReplacementObject, transform.position, Quaternion.identity);
+        fixableReplacementObject.SetActive(true);
+        //if (fixableReplacementObject.TryGetComponent(out SaveableItemEntity item))
+        //    item.GenerateId();
+
+        if (fixableReplacementObject.TryGetComponent(out ActivateOnQuestComplete obj))
             obj.undertakingName = undertakingObject.undertaking.Name;
 
-        if (go.TryGetComponent(out Interactable interactable))
+        if (fixableReplacementObject.TryGetComponent(out Interactable interactable))
             interactable.canInteract = false;
 
         //if (go.TryGetComponent(out Interactable interactable))
         //    interactable.hasLongInteract = replacementObjectHasLongInteract;
 
-        fixableSprite.color = new Color(fixableSprite.color.r, fixableSprite.color.r, fixableSprite.color.r, 0);
+        
         yield return new WaitForSeconds(3);
         if(interactable != null)
             interactable.canInteract = true;
@@ -85,7 +91,9 @@ public class FixAndReplace : MonoBehaviour, IFixArea
             undertakingObject.undertaking.TryCompleteTask(undertakingObject.task);
         player.playerInput.isInUI = false;
         player.animatePlayerScript.SetCraftAnimation(false);
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        fixableObject.hasBeenFixed = true;
     }
     void RemoveItemsFromInventory(List<FixableAreaIngredient> ingredients)
     {

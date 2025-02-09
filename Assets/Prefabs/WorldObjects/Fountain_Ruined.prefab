@@ -4867,10 +4867,6 @@ GameObject:
   - component: {fileID: 1851124935705737949}
   - component: {fileID: 1316630150078309428}
   - component: {fileID: 9161658218354804662}
-  - component: {fileID: 6911450644821151652}
-  - component: {fileID: 6771104723603762680}
-  - component: {fileID: -1975277694721709374}
-  - component: {fileID: 9121333042859490829}
   m_Layer: 13
   m_Name: Fountain_Ruined
   m_TagString: Untagged
@@ -5032,6 +5028,7 @@ MonoBehaviour:
     task: {fileID: 0}
   needsActiveUndertaking: 0
   neededUndertaking: {fileID: 0}
+  fixableObject: {fileID: 0}
 --- !u!58 &9161658218354804662
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5068,60 +5065,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.09
---- !u!114 &6911450644821151652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437085086703540300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
-  version: 
-  intVersion: 
---- !u!114 &6771104723603762680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437085086703540300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: d6889bb8a1f90de47aabaaffc486bd65, type: 2}
-  itemVariantIndex: 0
---- !u!114 &-1975277694721709374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437085086703540300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9121333042859490829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437085086703540300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd880e14467067c44b2e3f76ed3c0fa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixAndReplace: {fileID: 1316630150078309428}
 --- !u!1001 &1582194374357250539
 PrefabInstance:
   m_ObjectHideFlags: 0

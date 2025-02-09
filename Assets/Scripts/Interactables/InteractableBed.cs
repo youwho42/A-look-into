@@ -11,12 +11,12 @@ namespace Klaxon.Interactable
         public bool facingRight;
         public NavigationNode navigationNode;
         SleepDisplayUI sleepDisplay;
-        QI_ItemData pickUpItem;
+        //QI_ItemData pickUpItem;
 
         public override void Start()
         {
             base.Start();
-            pickUpItem = GetComponent<QI_Item>().Data;
+            //pickUpItem = GetComponent<QI_Item>().Data;
             sleepDisplay = SleepDisplayUI.instance;
         }
 
@@ -33,27 +33,27 @@ namespace Klaxon.Interactable
 
         }
 
-        public override void LongInteract(GameObject interactor)
-        {
-            base.Interact(interactor);
+        //public override void LongInteract(GameObject interactor)
+        //{
+        //    base.Interact(interactor);
 
             
-            PickUpBed();
+        //    PickUpBed();
 
-        }
+        //}
 
-        void PickUpBed()
-        {
-            var item = GetComponent<QI_Item>().Data;
-            if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
-            {
-                if (pickUpItem.placementGumption != null)
-                    PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
+        //void PickUpBed()
+        //{
+        //    var item = GetComponent<QI_Item>().Data;
+        //    if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
+        //    {
+        //        if (pickUpItem.placementGumption != null)
+        //            PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
                 
-                Destroy(gameObject);
-            }
+        //        Destroy(gameObject);
+        //    }
 
-        }
+        //}
 
         private void OpenSleeping()
         {

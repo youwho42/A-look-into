@@ -1,0 +1,249 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1592417854118901741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2674636796571158062}
+  - component: {fileID: 4551046037508311061}
+  - component: {fileID: 7121502625171190762}
+  - component: {fileID: 8900829348502640423}
+  m_Layer: 0
+  m_Name: BallSpawnerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2674636796571158062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592417854118901741}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.625754, y: -44.067043, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8438831714705534001}
+  - {fileID: 2504971908691494502}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4551046037508311061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592417854118901741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a2af53be0e3a54996a675cff8fb8a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasBeenFixed: 0
+  brokenObject: {fileID: 2504971908691494557}
+  fixedObject: {fileID: 8438831714705534004}
+--- !u!114 &7121502625171190762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592417854118901741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &8900829348502640423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592417854118901741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f70d197c9390e4f9cd99e1a08f9e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixableObject: {fileID: 4551046037508311061}
+--- !u!1001 &4045460791442053376
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2674636796571158062}
+    m_Modifications:
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938570435017777050, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: fixableObject
+      value: 
+      objectReference: {fileID: 4551046037508311061}
+    - target: {fileID: 1938570435017777050, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: fixableReplacementObject
+      value: 
+      objectReference: {fileID: 8438831714705534004}
+    - target: {fileID: 1938570435017777053, guid: 81da77e330adac3448e08f629d4cd6de,
+        type: 3}
+      propertyPath: m_Name
+      value: BallSpawnerBroken
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 81da77e330adac3448e08f629d4cd6de, type: 3}
+--- !u!4 &2504971908691494502 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1938570435017776998, guid: 81da77e330adac3448e08f629d4cd6de,
+    type: 3}
+  m_PrefabInstance: {fileID: 4045460791442053376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2504971908691494557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1938570435017777053, guid: 81da77e330adac3448e08f629d4cd6de,
+    type: 3}
+  m_PrefabInstance: {fileID: 4045460791442053376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9119089956376762802
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2674636796571158062}
+    m_Modifications:
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833522979328079238, guid: 518fa4452c941924baee0c6271682351,
+        type: 3}
+      propertyPath: m_Name
+      value: BallSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 518fa4452c941924baee0c6271682351, type: 3}
+--- !u!4 &8438831714705534001 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 833522979328079235, guid: 518fa4452c941924baee0c6271682351,
+    type: 3}
+  m_PrefabInstance: {fileID: 9119089956376762802}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8438831714705534004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 833522979328079238, guid: 518fa4452c941924baee0c6271682351,
+    type: 3}
+  m_PrefabInstance: {fileID: 9119089956376762802}
+  m_PrefabAsset: {fileID: 0}
