@@ -46,6 +46,15 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
     {
         if (item != null)
         {
+            if(equipmentSlot == EquipmentSlot.Backpack)
+            {
+                if (EquipmentManager.instance.UnequipBackpack(item, (int)equipmentSlot))
+                    ClearSlot();
+                else 
+                    Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString("Variable-Texts", "Inventory Full"), null, 0, NotificationsType.Warning);
+
+                return;
+            }
             if(EquipmentManager.instance.UnEquipToInventory(item, (int)equipmentSlot))
                 ClearSlot();
         }

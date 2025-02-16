@@ -24,6 +24,7 @@ namespace Klaxon.SaveSystem
 
             return new SaveData
             {
+                maxStacks = inventory.MaxStacks,
                 itemName = names,
                 itemAmount = amounts
             };
@@ -32,6 +33,7 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
+            inventory.MaxStacks = saveData.maxStacks;
             inventory.RemoveAllItems();
             for (int i = 0; i < saveData.itemName.Count; i++)
             {
@@ -44,6 +46,7 @@ namespace Klaxon.SaveSystem
         [Serializable]
         private struct SaveData
         {
+            public int maxStacks;
             public List<string> itemName;
             public List<int> itemAmount;
 

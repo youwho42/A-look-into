@@ -18,8 +18,9 @@ public class EquipmentData : QI_ItemData
         base.UseItem();
         EquipItem();
     }
-    void EquipItem()
+    public virtual void EquipItem()
     {
+        
         var pInfo = PlayerInformation.instance;
         var eManager = EquipmentManager.instance;
         if (eManager.currentEquipment[(int)equipmentSlot] != null)
@@ -65,7 +66,8 @@ public enum EquipmentSlot
 { 
     Hands, 
     Light,
-    Compass
+    Compass,
+    Backpack
 }
 
 public enum EquipmentTier

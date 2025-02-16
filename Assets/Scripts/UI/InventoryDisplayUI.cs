@@ -24,7 +24,7 @@ public class InventoryDisplayUI : MonoBehaviour
     {
         GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateInventoryUI);
-
+        GameEventManager.onInventoryResetEvent.AddListener(ResetInventoryUI);
         SetInventoryUI();
         UpdateInventoryUI();
 
@@ -42,26 +42,43 @@ public class InventoryDisplayUI : MonoBehaviour
         
         GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
+        GameEventManager.onInventoryResetEvent.RemoveListener(ResetInventoryUI);
+
+    }
+    void ResetInventoryUI()
+    {
+        ClearSlots();
+        SetInventoryUI();
+        UpdateInventoryUI();
     }
     void SetInventoryUI()
     {
+        
+        
         for (int i = 0; i < PlayerInformation.instance.playerInventory.MaxStacks; i++)
         {
 
             GameObject newSlot = Instantiate(inventorySlot, inventoryUI.transform);
             inventorySlots.Add(newSlot.GetComponent<InventoryDisplaySlot>());
             inventorySlots[i].SetupSlot(i, this);
+            var b = newSlot.GetComponentInChildren<Button>();
+                ButtonSoundsManager.instance.AddButtonToSounds(b);
         }
         for (int i = 0; i < System.Enum.GetNames(typeof(EquipmentSlot)).Length; i++)
         {
 
             GameObject newSlot = Instantiate(equipmentSlot, equipmentUI.transform);
+            var b = newSlot.GetComponentInChildren<Button>();
+            ButtonSoundsManager.instance.AddButtonToSounds(b);
             equipmentSlots.Add(newSlot.GetComponent<ISlot>());
             for (int x = 0; x < equipmentSlots.Count; x++)
             {
                 equipmentSlots[x].SetIndex(x);
+                
             }
         }
+
+        
     }
 
     public void UpdateInventoryUI()
@@ -113,5 +130,19 @@ public class InventoryDisplayUI : MonoBehaviour
     {
         PlayerInformation.instance.playerInventory.SortInventory();
         UpdateInventoryUI();
+    }
+    
+    void ClearSlots()
+    {
+        inventorySlots.Clear();
+        foreach (Transform child in inventoryUI.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        equipmentSlots.Clear();
+        foreach (Transform child in equipmentUI.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

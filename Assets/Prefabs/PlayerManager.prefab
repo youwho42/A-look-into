@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -96,6 +99,7 @@ GameObject:
   - component: {fileID: 5769325092054554963}
   - component: {fileID: 5769325092054554961}
   - component: {fileID: 5769325092054554960}
+  - component: {fileID: 5992541584260250593}
   - component: {fileID: 5769325092054554952}
   - component: {fileID: 5769325092054554956}
   - component: {fileID: 5769325092054554959}
@@ -118,6 +122,7 @@ GameObject:
   - component: {fileID: 9117594588704422361}
   - component: {fileID: 6508041560538065312}
   - component: {fileID: 5069542031274091914}
+  - component: {fileID: 2671324304173814794}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -219,6 +224,19 @@ MonoBehaviour:
   Name: MainPlayerInventory
   MaxStacks: 12
   PlayerCanAddToInventory: 1
+--- !u!114 &5992541584260250593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44721190e2d2ef0479d18ece6c98690f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInventory: {fileID: 5769325092054554960}
 --- !u!114 &5769325092054554952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalNames: []
   animalTimesViewed: 
+  viewedComplete: 
 --- !u!114 &1778278584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,6 +508,10 @@ MonoBehaviour:
     mapImage: {fileID: 21300000, guid: c3d59236f860f4940a6ca773f441f61a, type: 3}
     active: 0
     hasAnimated: 1
+  - mapName: Thimbleton
+    mapImage: {fileID: 21300000, guid: 786a5f280e3d8f54d8e1671b952f17eb, type: 3}
+    active: 0
+    hasAnimated: 1
 --- !u!114 &6133568523072871628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,9 +575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87568283368e54a4284edbfe151d8e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolAmount: 5
-  treeDroppingPrefab: {fileID: 5141383258962760151, guid: ed11e04b7d93e664f8b73812d63e5533,
-    type: 3}
 --- !u!114 &5069542031274091914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,9 +587,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89ac711ad7d64ee44b5ab0f26bb487e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gaugeIncreaseAmount: 0.1
-  gaugeDecreaseAmount: 0.1
+  gaugeIncreaseAmount: 0.08
+  gaugeDecreaseAmount: 0.12
   shattered: 0
+--- !u!114 &2671324304173814794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5769325092054554972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05846c969ff49fa4383a664556107d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  prefab: {fileID: 1791082037900311243, guid: ed11e04b7d93e664f8b73812d63e5533, type: 3}
+  amountToPool: 0
+  useWorldSpace: 0
 --- !u!1 &6503686989659570342
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +655,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

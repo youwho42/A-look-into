@@ -27,6 +27,7 @@ public static class GameEventManager
     /// </summary>
     public static readonly GameEvent onInventoryUpdateEvent = new GameEvent();
     public static readonly GameEvent onEquipmentUpdateEvent = new GameEvent();
+    public static readonly GameEvent onInventoryResetEvent = new GameEvent();
 
     /// <summary>
     ///  Stats Updating

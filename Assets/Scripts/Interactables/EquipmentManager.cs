@@ -45,7 +45,7 @@ public class EquipmentManager : MonoBehaviour
   
     public bool UnEquipToInventory(QI_ItemData itemData, int equipedIndex)
     {
-        
+       
         if(PlayerInformation.instance.playerInventory.AddItem(itemData, 1, false))
         {
             currentEquipment[equipedIndex] = null;
@@ -60,6 +60,20 @@ public class EquipmentManager : MonoBehaviour
             }
             GameEventManager.onEquipmentUpdateEvent.Invoke();
             return true;
+        }
+        return false;
+    }
+
+    public bool UnequipBackpack(QI_ItemData itemData, int equipedIndex)
+    {
+        if(PlayerInformation.instance.playerInventory.Stacks.Count < 12)
+        {
+            if (PlayerInformation.instance.playerInventory.AddItem(itemData, 1, false))
+            {
+                currentEquipment[equipedIndex] = null;
+                GameEventManager.onEquipmentUpdateEvent.Invoke();
+                return true;
+            }
         }
         return false;
     }
