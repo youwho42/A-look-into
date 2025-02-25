@@ -57,6 +57,8 @@ namespace Klaxon.GravitySystem
         public bool canClimb;
         [HideInInspector]
         public bool isClimbing;
+        [HideInInspector]
+        public bool isRunning;
 
         [HideInInspector]
         public Vector3 mainDestinationZ;
@@ -92,9 +94,12 @@ namespace Klaxon.GravitySystem
 
             if (isInInteractAction || currentDirection == Vector2.zero && !isClimbing)
                 return;
-
+            var finalSpeed = isRunning ? runSpeed : walkSpeed;
             if (CanReachNextTile(currentDirection))
-                Move(currentDirection, walkSpeed);
+                Move(currentDirection, finalSpeed);
+
+
+
 
 
             if (!Mathf.Approximately(currentDirection.x, 0) && !isInInteractAction)

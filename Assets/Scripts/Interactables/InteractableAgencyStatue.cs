@@ -54,7 +54,8 @@ namespace Klaxon.Interactable
         public void ResetAtDawn()
         {
             float factor = Mathf.Pow(2, onIntensity);
-            material.SetColor("_EmissionColor", initialColor * factor);
+            if(material != null)
+                material.SetColor("_EmissionColor", initialColor * factor);
             hasBeenActivated = false;
             canInteract = true;
         }

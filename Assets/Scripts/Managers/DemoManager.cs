@@ -15,6 +15,8 @@ public class DemoManager : MonoBehaviour
 
     [SerializeField]
     bool isDemo;
+    [SerializeField]
+    bool isPlaytest;
     public Transform startArea;
     PlayerInformation playerInformation;
     public Tilemap tileMap;
@@ -38,6 +40,11 @@ public class DemoManager : MonoBehaviour
     public bool IsDemoVersion()
     {
         return isDemo;
+    }
+
+    public bool IsPlaytestVersion()
+    {
+        return isPlaytest;
     }
 
     void CheckPlayerPosition()

@@ -55,7 +55,7 @@ public class EquipmentSpade : EquipmentData
             if (nearest.gameObject.TryGetComponent(out JunkPileInteractor junkPile))
             { 
                 
-                if(junkPile.junkPileTier == equipmentTier)
+                if(junkPile.junkPileTier <= equipmentTier)
                 {
                     none = false;
                     if (InteractCostReward())

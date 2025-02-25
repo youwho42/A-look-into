@@ -18,6 +18,7 @@ public class ConsoleDisplayUI : MonoBehaviour
     List<Transform> locations = new List<Transform>();
     public TMP_Dropdown timesDropdownField;
     public StatChanger agencyChanger;
+    public int lastSelectedItem = 0;
 
     private void Start()
     {
@@ -38,6 +39,8 @@ public class ConsoleDisplayUI : MonoBehaviour
 
         timesDropdownField.AddOptions(times);
     }
+
+
     void SetUpItems()
     {
         itemsDropdownField.ClearOptions();
@@ -72,24 +75,9 @@ public class ConsoleDisplayUI : MonoBehaviour
         PlayerInformation.instance.playerInput.isPaused = textAndButton.activeSelf;
     }
 
-    //public void DoTheThing()
-    //{
-    //    if (textInputField.text == "")
-    //        return;
-    //    string[] myStringSplit = textInputField.text.Split(':');
-
-    //    if (myStringSplit[0] == "Add")
-    //        AddToInventory(myStringSplit[1], int.Parse(myStringSplit[2]));
-    //    else if (myStringSplit[0] == "GoTo")
-    //        GoToPosition(myStringSplit[1]);
-    //    else
-    //        textInputField.text = "No valid command input";
-
-
-    //}
-
     public void AddToInventory()
     {
+        lastSelectedItem = itemsDropdownField.value;
         var item = itemsDropdownField.options[itemsDropdownField.value].text;
         var amount = int.Parse(itemAmountDropdownField.options[itemAmountDropdownField.value].text);
         var i = allItemsDatabase.GetItem(item);
@@ -133,5 +121,14 @@ public class ConsoleDisplayUI : MonoBehaviour
     public void AddSparks()
     {
         PlayerInformation.instance.purse.AddToPurse(1000);
+    }
+    public void AddAllRecipes()
+    {
+        var allRecipes = AllItemsDatabaseManager.instance.allRecipesDatabase;
+        var player = PlayerInformation.instance.playerRecipeDatabase;
+        foreach (var item in allRecipes.CraftingRecipes)
+        {
+            player.CraftingRecipes.Add(item);
+        }
     }
 }

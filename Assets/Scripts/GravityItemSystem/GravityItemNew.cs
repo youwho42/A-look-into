@@ -14,7 +14,7 @@ namespace Klaxon.GravitySystem
         public Transform itemShadow;
         public Transform slopeObject;
 
-        const float tileSize = 0.578125f;
+        protected float tileSize = GlobalSettings.TileSize;
         public const float gravity = 20f;
         protected float spriteDisplacementY = GlobalSettings.SpriteDisplacementY;
         [HideInInspector]

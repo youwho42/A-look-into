@@ -39,6 +39,8 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
     int mainSpinDirection;
     float setupTime = 0.3f;
     int currentStage = 0;
+    int toolTier;
+    Vector2Int gatherAmount;
     bool fullSuccess;
     bool minigameIsActive;
     bool transitioning;
@@ -78,6 +80,20 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
     }
 
 
+    Vector2Int SetAmountPerHit()
+    {
+        if (toolTier == 1 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 2 && currentDificulty == MiniGameDificulty.Normal ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Hard)
+            return new Vector2Int(1,3);
+        if (toolTier == 2 && currentDificulty == MiniGameDificulty.Easy ||
+            toolTier == 3 && currentDificulty == MiniGameDificulty.Normal)
+            return new Vector2Int(3, 6);
+        if (toolTier == 4)
+            return new Vector2Int(8, 12);
+        return new Vector2Int(6, 9);
+    }
+
     public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty)
     {
         currentStage = 0;
@@ -86,6 +102,8 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         currentJunkPile = junkPile;
         currentDificulty = gameDificulty;
         mainSpinDirection = UnityEngine.Random.Range(0, 2) * 2 - 1;
+        toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
+        gatherAmount = SetAmountPerHit();
         SetDificulty(currentDificulty);
         Invoke("SetCurrentStage", setupTime * 2);
     }
@@ -101,9 +119,13 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         if (success)
         {
             var item = currentJunkPile.junkPileDatabase.GetRandomWeightedItem();
-            int amount = UnityEngine.Random.Range(1, (int)item.spawnWeight);
+            int amount = UnityEngine.Random.Range(gatherAmount.x, gatherAmount.y);
             if(PlayerInformation.instance.playerInventory.AddItem(item, amount, false))
                 Notifications.instance.SetNewNotification("", item, amount, NotificationsType.Inventory);
+            else
+                LostAndFoundManager.instance.inventory.AddItem(item, amount, false);
+                
+                
             PlaySound(0);
             StartCoroutine(GlowOn(currentAreas[currentStage].dificultyAreaSprite.material, successEmission));
             StartCoroutine(GlowOn(targetBars[currentStage].controlAreaSprite.material, successEmission));

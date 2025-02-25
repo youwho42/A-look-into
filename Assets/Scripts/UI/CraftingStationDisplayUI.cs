@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,7 +23,9 @@ public class CraftingStationDisplayUI : MonoBehaviour
 
 
     //PlayerInformation playerInformation;
+    QI_CraftingRecipeDatabase playerRecipes;
     QI_CraftingRecipeDatabase recipeDatabase;
+    List<QI_CraftingRecipe> currentRecipes = new List<QI_CraftingRecipe>();
     public GameObject craftingStationUI;
 
 
@@ -90,6 +93,7 @@ public class CraftingStationDisplayUI : MonoBehaviour
         screen.SetScreenType(UIScreenType.CraftingStationUI);
         sliderSelectHandler = quantityToCraftSlider.GetComponent<UISelectHandler>();
         gameObject.SetActive(false);
+        playerRecipes = PlayerInformation.instance.playerRecipeDatabase;
     }
     private void OnEnable()
     {
@@ -340,29 +344,35 @@ public class CraftingStationDisplayUI : MonoBehaviour
     public void SetAvailableRecipes()
     {
         ClearRecipeSlots();
-        QI_CraftingRecipeDatabase playerRecipes = PlayerInformation.instance.playerRecipeDatabase;
-        List<QI_CraftingRecipe> recipes = new List<QI_CraftingRecipe>();
+        currentRecipes.Clear();
         for (int i = 0; i < recipeDatabase.CraftingRecipes.Count; i++)
         {
             if (playerRecipes.CraftingRecipes.Contains(recipeDatabase.CraftingRecipes[i]))
             {
                 GameObject newRecipe = Instantiate(recipeButton, recipeButtonHolder.transform);
                 recipeButtons.Add(newRecipe.GetComponent<CraftingRecipeButton>());
-                recipes.Add(recipeDatabase.CraftingRecipes[i]);
+                currentRecipes.Add(recipeDatabase.CraftingRecipes[i]);
             }
             
         }
-        UpdateCraftingUI(recipes);
+        UpdateCraftingUI();
         ClearCurrentRecipe();
     }
 
-    public void UpdateCraftingUI(List<QI_CraftingRecipe> recipes)
+    public void UpdateCraftingUI()
     {
         for (int i = 0; i < recipeButtons.Count; i++)
         {
-            recipeButtons[i].AddItem(recipes[i]);
+            recipeButtons[i].AddItem(currentRecipes[i]);
         }
 
+    }
+
+    public void SortRecipes()
+    {
+        //reorder the current recipe list
+        currentRecipes = currentRecipes.OrderBy(x => x.ProductType).ThenBy(x => x.Product.Item.name).ToList();
+        UpdateCraftingUI();
     }
 
     public void ClearCurrentRecipe()

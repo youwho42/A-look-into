@@ -40,10 +40,16 @@ namespace Klaxon.Interactable
             }
             if (closedSprite != null)
                 containerSprite.sprite = closedSprite;
+            if(inventory.Name == "EditorChest")
+            {
+#if UNITY_STANDALONE && !UNITY_EDITOR
+        gameObject.SetActive(false);
+#endif
+            }
 
         }
 
-        
+
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);

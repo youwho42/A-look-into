@@ -98,9 +98,9 @@ public class LevelManager : MonoBehaviour
 #endif
 
     }
-    
 
-    
+
+
 
     public void PlayerSpriteAndNameAccepted()
     {

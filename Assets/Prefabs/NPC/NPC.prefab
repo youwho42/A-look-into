@@ -213,7 +213,6 @@ GameObject:
   - component: {fileID: 6902144603053421259}
   - component: {fileID: 4679355543035452280}
   - component: {fileID: 6902144603053421261}
-  - component: {fileID: 6902144603053421266}
   - component: {fileID: 7772467107561492345}
   - component: {fileID: 1781550424958762}
   - component: {fileID: 3968540688165807639}
@@ -360,20 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
---- !u!114 &6902144603053421266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b45d32161b2ffc409c08eb2118da842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentTilePosition: {fileID: 6902144603053421248}
-  scheduler_NPC: {fileID: 6362118105225639249}
 --- !u!114 &7772467107561492345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +434,7 @@ MonoBehaviour:
   tilemapObstacle: 0
   canClimb: 0
   isClimbing: 0
+  isRunning: 0
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
@@ -2475,7 +2461,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7ad1301b5d9131947bb7b3dc0096eb76, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

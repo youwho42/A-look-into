@@ -16,14 +16,11 @@ public class RandomSpriteForItems : MonoBehaviour
     public SpriteRenderer mainShadow;
 
     public List<ItemSprites> itemSpritesList = new List<ItemSprites>();
-    public bool setOnVisible;
-    bool isSet;
+    
     public bool flippable = true;
     private void Start()
     {
-        if (!setOnVisible) 
-            SetRandomSprites();
-        
+        SetRandomSprites();
     }
 
     private void SetRandomSprites()
@@ -47,13 +44,5 @@ public class RandomSpriteForItems : MonoBehaviour
             
     }
 
-    private void OnBecameVisible()
-    {
-        if(!isSet && setOnVisible)
-        {
-            isSet = true;
-            SetRandomSprites();
-        }
-            
-    }
+    
 }

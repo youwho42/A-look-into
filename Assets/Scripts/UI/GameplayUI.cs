@@ -33,6 +33,14 @@ public class GameplayUI : MonoBehaviour
     public int AutoSaveBinary = 1;
     [SerializeField]
     private TextMeshProUGUI AutoSaveText;
+    [SerializeField]
+    private GameObject ShowConsoleObject;
+    [SerializeField]
+    private Slider ShowConsoleSlider;
+    [HideInInspector]
+    public int ShowConsoleBinary = 0;
+    [SerializeField]
+    private GameObject ConsoleObject;
     public int languageSelected;
 
     void Start()
@@ -57,6 +65,7 @@ public class GameplayUI : MonoBehaviour
         SetAutoZoomReset(autoZoomBinary);
         SetRIB(RIBBinary);
         SetAutoSave(AutoSaveBinary);
+        ShowConsoleObject.SetActive(DemoManager.instance.IsPlaytestVersion());
     }
 
     void LocaleSelected(int index)
@@ -101,6 +110,14 @@ public class GameplayUI : MonoBehaviour
         RIBDisplay.value = RIBBin;
         SetRIBData();
     }
+    public void ToggleConsole()
+    {
+        ShowConsoleBinary = (int)ShowConsoleSlider.value;
+        ConsoleObject.SetActive(ShowConsoleBinary == 1);
+    }
+
+
+
     public void ToggleAutoSave()
     {
         AutoSaveBinary = (int)AutoSaveDisplay.value;

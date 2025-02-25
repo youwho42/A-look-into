@@ -1,3 +1,4 @@
+using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class JunkPileInteractor : MonoBehaviour
     [HideInInspector]
     public bool hasInteracted;
     public ReplaceObjectOnItemDrop replaceObjectOnDrop;
+    public CompleteTaskObject undertaking;
+
     private void Start()
     {
         GameEventManager.onGameLoadedEvent.AddListener(CheckForObjectsToHide);
@@ -42,7 +45,8 @@ public class JunkPileInteractor : MonoBehaviour
         interactCollider.enabled = false;
         hasInteracted = true;
         SetPathfindingTiles();
-
+        if (undertaking.undertaking != null)
+            undertaking.undertaking.TryCompleteTask(undertaking.task);
     }
 
     private void SetPathfindingTiles()
