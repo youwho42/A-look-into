@@ -13,6 +13,7 @@ public class AnimatePlayer : MonoBehaviour
 
     public StatChanger gumptionChanger;
     public StatChanger bounceChanger;
+    public StatObject speedStat;
     PlayerInputController playerInput;
     bool lostBalance;
     int timeIdle;
@@ -29,6 +30,7 @@ public class AnimatePlayer : MonoBehaviour
     public readonly int isBreathing_hash = Animator.StringToHash("Breathing");
     public readonly int BreathingState_hash = Animator.StringToHash("BreatheState");
     public readonly int ExhaustedState_hash = Animator.StringToHash("Exhausted");
+    public readonly int speedMultiplier_hash = Animator.StringToHash("SpeedMultiplier");
 
 
 
@@ -86,20 +88,24 @@ public class AnimatePlayer : MonoBehaviour
             Invoke("ResetBalance", t);
         }
 
+        float multiplier = speedStat.GetModifiedMax();
+        animator.SetFloat(speedMultiplier_hash, multiplier != 1 ? multiplier : 1);
+
+
         //if(playerMovement.currentVelocity > 0 || !playerMovement.isGrounded )
         //    PlayerSit(false);
 
-        //if (GetIdleAnimState())
-        //    timeIdle += Time.deltaTime;
-        //else
-        //    timeIdle = 0;
+            //if (GetIdleAnimState())
+            //    timeIdle += Time.deltaTime;
+            //else
+            //    timeIdle = 0;
 
 
-        //isIdleSitting = timeIdle > 20;
-        //animator.SetBool(idleSit_hash, isIdleSitting);
-          
-        
-            
+            //isIdleSitting = timeIdle > 20;
+            //animator.SetBool(idleSit_hash, isIdleSitting);
+
+
+
     }
 
     void SetExhausted(bool state)

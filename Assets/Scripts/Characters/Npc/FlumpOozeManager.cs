@@ -6,7 +6,7 @@ public class FlumpOozeManager : MonoBehaviour
 {
     public ObjectPooler oozeObjectPool;
     public DrawZasYDisplacement currentZAsYDisplacementA;
-    public GameObject flumpOozeContainer;
+    public FlumpOozeContainer flumpOozeContainer;
 
     
 
@@ -15,7 +15,7 @@ public class FlumpOozeManager : MonoBehaviour
     {
         var go = Instantiate(flumpOozeContainer, position, Quaternion.identity);
         go.GetComponent<SaveableItemEntity>().GenerateId();
-        StartCoroutine(SpawnOozeCo(position, go.transform));
+        StartCoroutine(SpawnOozeCo(position, go.oozeContainer));
     }
 
     public void StopOoze()

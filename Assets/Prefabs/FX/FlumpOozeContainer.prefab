@@ -1,5 +1,124 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2990925833731185917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6147394907898089818}
+  - component: {fileID: 2555494530962872698}
+  - component: {fileID: 4581978469101385072}
+  - component: {fileID: 5429179293485016335}
+  m_Layer: 19
+  m_Name: OozeContainer
+  m_TagString: Ooze
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6147394907898089818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990925833731185917}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4183822768972237541}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &2555494530962872698
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990925833731185917}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!66 &4581978469101385072
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990925833731185917}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 7716828349134673595}
+--- !u!114 &5429179293485016335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990925833731185917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!1 &7716828349134673595
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,11 +128,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4183822768972237541}
+  - component: {fileID: 3866970694248460587}
   - component: {fileID: -5183965464757350253}
   - component: {fileID: 1709635707482428581}
   - component: {fileID: -6740365832843627258}
   - component: {fileID: -3460822024214027081}
-  m_Layer: 0
+  - component: {fileID: 7448505200537282748}
+  m_Layer: 13
   m_Name: FlumpOozeContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,9 +153,66 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6147394907898089818}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3866970694248460587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716828349134673595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a216317699b8d49b32ee73bdd4cddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactSound: Default
+  interactFailSound: DefaultFail
+  interactVerb: whaaAA???
+  localizedInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+    m_TableEntryReference:
+      m_KeyId: 184099469214146560
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: GUID:85a847c082cd5cc439b469224edb23fa
+    m_TableEntryReference:
+      m_KeyId: 184099469214146560
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  bounceCost: {fileID: 0}
+  agencyReward: 0
+  agencyCost: 0
+  canInteract: 1
+  hasLongInteract: 0
+  replaceObjectOnDrop: {fileID: 0}
+  canPlaceOnOther: 0
+  visualItem: {fileID: 0}
+  instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
+  oozeContainer: {fileID: -5183965464757350253}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-5183965464757350253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,6 +227,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flumpOoze: {fileID: 8500804723733842263, guid: 56cd7301b3e05bf42b113a2396bb9ba5,
     type: 3}
+  cleanOozeColorA: {r: 0.1462264, g: 0.8716591, b: 1, a: 1}
+  cleanOozeColorB: {r: 0.3915094, g: 0.72383404, b: 1, a: 1}
+  oozeContainer: {fileID: 6147394907898089818}
+  replaceObject: {fileID: 5429179293485016335}
 --- !u!114 &1709635707482428581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,3 +273,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 9ef1e6347d576494b9dc864133011578, type: 2}
   itemVariantIndex: 0
+--- !u!58 &7448505200537282748
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716828349134673595}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.01

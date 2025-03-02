@@ -41,6 +41,9 @@ namespace Klaxon.GravitySystem
         Vector3 lastValidPosition;
 
         bool canMove;
+
+        [HideInInspector]
+        public bool inOoze;
         //Vector2 avoidanceDirection;
         public override void Awake()
         {
@@ -107,7 +110,7 @@ namespace Klaxon.GravitySystem
             {
                 float exhausted = PlayerInformation.instance.runningManager.shattered ? 0.4f : 1;
                 finalSpeed = playerInput.isRunning ? runSpeed * speedStat.GetModifiedMax() : (walkSpeed * exhausted) * speedStat.GetModifiedMax();
-
+                finalSpeed = inOoze ? finalSpeed * .4f : finalSpeed;
                 Move(playerInput.movement, finalSpeed);
             }
 
@@ -411,12 +414,22 @@ namespace Klaxon.GravitySystem
         {
             if (collision.CompareTag("Maze"))
                 canJump = false;
+            if (collision.CompareTag("Ooze"))
+                inOoze = true;
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Ooze"))
+                inOoze = true;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.CompareTag("Maze"))
                 canJump = true;
+            if (collision.CompareTag("Ooze"))
+                inOoze = false;
         }
 
 

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 764023417940184197}
   - component: {fileID: 9025044752143390789}
   - component: {fileID: 9014684654389641068}
-  - component: {fileID: 7855764400936105292}
   - component: {fileID: 8500804723733842263}
   - component: {fileID: -8843854966581221438}
   m_Layer: 19
@@ -123,7 +122,7 @@ PolygonCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
+  m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -155,19 +154,6 @@ PolygonCollider2D:
       - {x: -0.012174942, y: 0.021822982}
       - {x: -0.033529665, y: 0.020178214}
   m_UseDelaunayMesh: 0
---- !u!114 &7855764400936105292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2182337940338844804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grassObjects: []
 --- !u!114 &8500804723733842263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +174,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3fabcbd753c71734cb41d934a601dc67, type: 3}
   - {fileID: 21300000, guid: cb0bc7e4ba13e1a4bba45da26d3f0403, type: 3}
   - {fileID: 21300000, guid: 6a6b504ce11cf8d419b7eb41feca798a, type: 3}
-  replaceGrass: {fileID: 7855764400936105292}
   landSoundSet:
     clips:
     - {fileID: 8300000, guid: 17a57a08ea44adb4fb900ead987130e0, type: 3}

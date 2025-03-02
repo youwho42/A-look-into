@@ -98,6 +98,12 @@ public class GridManager : MonoBehaviour
     {
         SetGrid();
         var tileAbove = tile + Vector3Int.forward;
+        for (int i = groundMap.cellBounds.zMax; i < groundMap.cellBounds.zMin; i--)
+        {
+            var t = new Vector3Int(tile.x, tile.y, i);
+            if (waterMap.GetTile(tile) != null)
+                return false;
+        }
         if (groundMap.GetTile(tile) != null && groundMap.GetTile(tileAbove) == null)
             return true;
         return false;

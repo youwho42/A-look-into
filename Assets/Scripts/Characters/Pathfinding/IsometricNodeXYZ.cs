@@ -14,6 +14,7 @@ public class IsometricNodeXYZ : IHeapItem<IsometricNodeXYZ>
     public int hCost;
 
     public int movementPenalty;
+    public int movementPenaltyModifier;
 
     public int gridX;
     public int gridY;

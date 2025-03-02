@@ -56,12 +56,14 @@ namespace Klaxon.GOAD
                         var hit = Physics2D.OverlapPoint(transform.position, obstacleLayer);
                         if (tile.isValid && hit == null)
                         {
+                            
+                            agent.walker.currentLevel = (int)transform.position.z - 1;
                             agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(transform.position);
-                            var p = transform.position;
+                            //var p = transform.position;
 
-                            p.z = agent.walker.currentTilePosition.position.z + 1;
+                            //p.z = agent.walker.currentTilePosition.position.z + 1;
 
-                            transform.position = p;
+                            //transform.position = p;
                         }
                         else
                             SetPositionNearPlayer(agent);

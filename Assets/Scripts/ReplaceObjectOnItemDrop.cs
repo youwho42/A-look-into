@@ -43,16 +43,14 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
     public void ShowObjects(bool showState)
     {
         
-        if (grassObjects.Count > 0)
+        foreach (var item in grassObjects)
         {
-            foreach (var item in grassObjects)
-            {
-                if (item != null)
-                    item.SetActive(showState);
-            }
+            if (item != null)
+                item.SetActive(showState);
         }
-        if(showState)
-            grassObjects.Clear();
+        
+        //if(showState)
+        //    grassObjects.Clear();
     }
 
     

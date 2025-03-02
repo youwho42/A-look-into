@@ -96,4 +96,9 @@ public class WorldObjectAudioManager : MonoBehaviour
         }
         PlaySound(soundName);
     }
+
+    public void PlaySighSound()
+    {
+        PlaySound("Sigh");
+    }
 }

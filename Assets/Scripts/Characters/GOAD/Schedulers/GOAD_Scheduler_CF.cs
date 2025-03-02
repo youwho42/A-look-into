@@ -1,4 +1,6 @@
 using Klaxon.GravitySystem;
+using Klaxon.Interactable;
+using QuantumTek.QuantumInventory;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +11,7 @@ namespace Klaxon.GOAD
     {
         public readonly int isGrounded_hash = Animator.StringToHash("IsGrounded");
         public readonly int isRunning_hash = Animator.StringToHash("IsRunning");
+        public readonly int breakObject_hash = Animator.StringToHash("BreakObject");
         public readonly int velocityX_hash = Animator.StringToHash("VelocityX");
         public readonly int velocityY_hash = Animator.StringToHash("VelocityY");
 
@@ -49,30 +52,52 @@ namespace Klaxon.GOAD
 
         [HideInInspector]
         public bool gettingPath;
+        [HideInInspector]
+        public bool validPath;
 
-        CurrentTilePosition currentTilePosition;
-        List<FixableObject> allFixables = new List<FixableObject>();
+        [HideInInspector]
+        public CurrentTilePosition currentTilePosition;
+
+        [HideInInspector]
+        public List<FixableObject> allFixables = new List<FixableObject>();
+        [HideInInspector]
+        public FixableObject currentFixable;
+        [HideInInspector]
+        public InteractableCraftingStation currentCraftingStation;
+
+        public GOAD_ScriptableCondition fleeCondition;
+        [HideInInspector]
+        public Transform fleeTransform;
+
+        [HideInInspector]
+        public CokernutManager manager;
+        [HideInInspector]
+        public bool isFleeing;
         public override void Start()
         {
             base.Start();
+            SetUpCokernutFlump();
+        }
+        public void SetUpCokernutFlump()
+        {
+            manager = GetComponentInParent<CokernutManager>();
             walker = GetComponent<GravityItemWalk>();
             lastValidTileLocation = transform.position;
             currentTilePosition = GetComponent<CurrentTilePosition>();
             lastValidTile = currentTilePosition.position;
             allFixables = FindObjectsByType<FixableObject>(FindObjectsSortMode.None).ToList();
-            
+            for (int i = allFixables.Count - 1; i > 0; i--)
+            {
+                if (allFixables[i].particles == null)
+                    allFixables.RemoveAt(i);
+            }
         }
 
 
 
         private void Update()
         {
-            if(lastValidTile != currentTilePosition.position)
-            {
-                lastValidTile = currentTilePosition.position;
-                // check fixables for closest and in range
-                var closest = GetClosestFixable();
-            }
+            
             if (currentGoalIndex < 0 && availableActions.Count > 0)
             {
                 GetCurrentGoal();
@@ -172,6 +197,25 @@ namespace Klaxon.GOAD
             Vector3 destPos = destination;
             destPos.z -= 1;
             Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
+            if(!PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[gridPos].walkable)
+            {
+                float distance = float.MaxValue;
+                Vector3Int best = Vector3Int.zero;
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        Vector2Int offset = new Vector2Int(x, y);
+                        var d = ((gridPos + (Vector3Int)offset) - currentTilePosition.position).sqrMagnitude;
+                        if (d < distance && PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[gridPos + (Vector3Int)offset].walkable)
+                        {
+                            distance = d;
+                            best = gridPos + (Vector3Int)offset;
+                        }
+                    }
+                }
+                gridPos = best;
+            }
             gettingPath = true;
             PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
         }
@@ -182,20 +226,23 @@ namespace Klaxon.GOAD
                 aStarPath = newPath;
             else
                 Debug.LogWarning("Path not found", gameObject);
-
+            validPath = success;
             gettingPath = false;
         }
 
+        
 
-        FixableObject GetClosestFixable()
+        public FixableObject GetClosestFixable()
         {
             var dist = float.MaxValue;
             FixableObject closest = null;
 
             foreach (var fixable in allFixables)
             {
+                if (!fixable.fixedObject.activeInHierarchy || Mathf.Abs(fixable.transform.position.z-transform.position.z) > 1)
+                    continue;
                 var d = (fixable.transform.position - _transform.position).sqrMagnitude;
-                if (d > 3)
+                if (d > 10)
                     continue;
 
                 if (d < dist)
@@ -206,6 +253,56 @@ namespace Klaxon.GOAD
 
             }
             return closest;
+        }
+
+        public InteractableCraftingStation GetClosestCraftingStation()
+        {
+            var dist = float.MaxValue;
+            InteractableCraftingStation closest = null;
+
+
+            var allCraftingStation = FindObjectsByType<InteractableCraftingStation>(FindObjectsSortMode.None).ToList();
+            for (int i = allCraftingStation.Count - 1; i > 0; i--)
+            {
+                if (allCraftingStation[i].GetComponent<QI_Item>() == null)
+                    allCraftingStation.RemoveAt(i);
+            }
+
+
+            foreach (var craftingStation in allCraftingStation)
+            {
+                if (Mathf.Abs(craftingStation.transform.position.z - transform.position.z) > 1)
+                    continue;
+                var d = (craftingStation.transform.position - _transform.position).sqrMagnitude;
+                if (d > 10)
+                    continue;
+
+                if (d < dist)
+                {
+                    dist = d;
+                    closest = craftingStation;
+                }
+
+            }
+            return closest;
+        }
+
+        public void FleePlayer(Transform playerTransform)
+        {
+            if (HasBelief(fleeCondition.Condition, true) && isFleeing)
+                return;
+            fleeTransform = playerTransform;
+            SetBeliefState(fleeCondition.Condition, true);
+            if (currentAction != null)
+                InteruptCurrentGoal();
+        }
+
+        void InteruptCurrentGoal()
+        {
+            currentAction.success = false;
+            SetActionComplete(true);
+            currentAction.EndAction(this);
+            ResetGoal();
         }
 
     }

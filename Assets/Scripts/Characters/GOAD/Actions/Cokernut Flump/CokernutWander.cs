@@ -8,6 +8,8 @@ namespace Klaxon.GOAD
         Vector3 wanderDestination;
         float deviateTimer;
         bool trueDestination;
+        public GOAD_ScriptableCondition fixableNearCondition;
+        public GOAD_ScriptableCondition craftingStationNearCondition;
         public override void StartAction(GOAD_Scheduler_CF agent)
         {
             base.StartAction(agent);
@@ -24,6 +26,40 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_CF agent)
         {
             base.PerformAction(agent);
+
+            if (agent.lastValidTile != agent.currentTilePosition.position)
+            {
+                agent.lastValidTile = agent.currentTilePosition.position;
+                // check fixables for closest and in range
+                agent.currentFixable = agent.GetClosestFixable();
+                agent.currentCraftingStation = agent.GetClosestCraftingStation();
+                if(agent.currentFixable != null && agent.currentCraftingStation != null)
+                {
+                    var da = (agent.currentFixable.transform.position - transform.position).sqrMagnitude;
+                    var db = (agent.currentCraftingStation.transform.position - transform.position).sqrMagnitude;
+                    if (da > db)
+                        agent.currentFixable = null;
+                    else
+                        agent.currentCraftingStation = null;
+                }
+                if (agent.currentFixable != null)
+                {
+                    success = false;
+                    agent.SetActionComplete(true);
+                    agent.SetBeliefState(fixableNearCondition.Condition, fixableNearCondition.State);
+                    return;
+                }
+                if (agent.currentCraftingStation != null)
+                {
+                    success = false;
+                    agent.SetActionComplete(true);
+                    agent.SetBeliefState(craftingStationNearCondition.Condition, craftingStationNearCondition.State);
+                    return;
+                }
+            }
+            
+
+
 
             agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
             //agent.animator.SetBool(agent.isRunning_hash, agent.walker.isRunning);
@@ -54,9 +90,10 @@ namespace Klaxon.GOAD
             agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)
             {
-                
+
                 //    agent.flumpOozeManager.StartOoze();
-                success = trueDestination;
+                var ooze = trueDestination ? Random.value > 0.5f : false;
+                success = ooze;
                 agent.SetActionComplete(true);
             }
 
@@ -69,6 +106,9 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_CF agent)
         {
             base.EndAction(agent);
+            agent.animator.SetFloat(agent.velocityX_hash, 0);
+
+            agent.walker.currentDirection = Vector2.zero;
         }
 
 
@@ -76,7 +116,13 @@ namespace Klaxon.GOAD
         {
 
             Vector2 rand = Random.insideUnitCircle * wanderDistance;
-            var d = agent.walker.currentTilePosition.groundMap.WorldToCell(new Vector2(agent.transform.position.x + rand.x, agent.transform.position.y + rand.y));
+            var dir = PlayerInformation.instance.player.position - transform.position;
+            var dist = dir.sqrMagnitude;
+            Vector2 offset = dir.normalized * Mathf.Clamp(dist, 0.5f, 3.0f);
+
+            offset = (Vector2)transform.position + offset;
+            offset = offset + rand;
+            var d = agent.walker.currentTilePosition.groundMap.WorldToCell(offset);
             for (int z = agent.walker.currentTilePosition.groundMap.cellBounds.zMax; z > agent.walker.currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
             {
 

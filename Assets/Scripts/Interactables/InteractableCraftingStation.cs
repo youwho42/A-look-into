@@ -15,12 +15,13 @@ namespace Klaxon.Interactable
         public QI_CraftingRecipeDatabase recipeDatabase;
         public QI_Inventory selfInventory;
 
-        //QI_ItemData pickUpItem;
+        QI_ItemData pickUpItem;
 
         public override void Start()
         {
             base.Start();
-            //pickUpItem = GetComponent<QI_Item>().Data;
+            if(TryGetComponent(out QI_Item item))
+                pickUpItem = item.Data;
        
             craftingDisplay = CraftingStationDisplayUI.instance;
             craftingHandler = GetComponent<QI_CraftingHandler>();
@@ -37,39 +38,42 @@ namespace Klaxon.Interactable
                
         }
 
-        //public override void LongInteract(GameObject interactor)
-        //{
-        //    base.Interact(interactor);
+        public override void LongInteract(GameObject interactor)
+        {
+            base.Interact(interactor);
 
-        //    if (selfInventory.Stacks.Count > 0)
-        //    {
-        //        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Container pick up"), null, 0, NotificationsType.Warning);
-        //        return;
-        //    }
-        //    else if (craftingHandler.Queues.Count > 0)
-        //    {
-        //        Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Crafting pick up"), null, 0, NotificationsType.Warning);
+            if (selfInventory.Stacks.Count > 0)
+            {
+                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Container pick up"), null, 0, NotificationsType.Warning);
+                return;
+            }
+            else if (craftingHandler.Queues.Count > 0)
+            {
+                Notifications.instance.SetNewNotification(LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Crafting pick up"), null, 0, NotificationsType.Warning);
 
-        //        //NotificationManager.instance.SetNewNotification("Must not be crafting to pick up.", NotificationManager.NotificationType.Warning);
-        //        return;
-        //    }
-        //    else
-        //        PickUpCraftingStation();
+                //NotificationManager.instance.SetNewNotification("Must not be crafting to pick up.", NotificationManager.NotificationType.Warning);
+                return;
+            }
+            else
+                PickUpCraftingStation();
 
-        //}
+        }
 
-        //void PickUpCraftingStation()
-        //{
-        //    var item = GetComponent<QI_Item>().Data;
-        //    if (PlayerInformation.instance.playerInventory.AddItem(item, 1, false))
-        //    {
-        //        if(pickUpItem.placementGumption != null)
-        //            PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
-                
-        //        Destroy(gameObject);
-        //    }
+        void PickUpCraftingStation()
+        {
+            if (pickUpItem == null)
+                return;
 
-        //}
+
+            if (PlayerInformation.instance.playerInventory.AddItem(pickUpItem, 1, false))
+            {
+                if (pickUpItem.placementGumption != null)
+                    PlayerInformation.instance.statHandler.RemoveModifiableModifier(pickUpItem.placementGumption);
+
+                Destroy(gameObject);
+            }
+
+        }
 
         private void OpenCrafting()
         {

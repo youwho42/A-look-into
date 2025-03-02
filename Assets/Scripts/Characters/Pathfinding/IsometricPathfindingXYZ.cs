@@ -94,7 +94,7 @@ public class IsometricPathfindingXYZ : MonoBehaviour
                         // all good
 
                         // Here we have all the neighboring nodes that are walkable. 
-                        int newMovementCostToNeighbour = currentNode.gCost + GetDistanceBetweenNodes(currentNode, neighbour) + neighbour.movementPenalty;
+                        int newMovementCostToNeighbour = currentNode.gCost + GetDistanceBetweenNodes(currentNode, neighbour) + (neighbour.movementPenalty + neighbour.movementPenaltyModifier);
                         if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
                         {
                             neighbour.gCost = newMovementCostToNeighbour;

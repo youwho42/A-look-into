@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class FlumpOoze : MonoBehaviour
     public SpriteRenderer oozeSprite;
     public PolygonCollider2D coll;
     public List<Sprite> oozeSprites = new List<Sprite>();
-    public ReplaceObjectOnItemDrop replaceGrass;
+    
 
     public SoundSet landSoundSet;
     AudioSource source;
@@ -21,10 +22,9 @@ public class FlumpOoze : MonoBehaviour
         coll.points = pointsList.ToArray();
         if(!fromSave)
             PlaySound();
-        replaceGrass.CheckForObjects();
-        if(parent.TryGetComponent(out FlumpOozeContainer container))
+        if(parent.parent.TryGetComponent(out FlumpOozeContainer container))
         {
-            container.SetOccupiedTile(transform.position);
+            container.SetOccupiedTile(transform.position, oozeSprite);
         }
     }
 
@@ -36,4 +36,6 @@ public class FlumpOoze : MonoBehaviour
         landSoundSet.SetSource(source, t);
         landSoundSet.Play();
     }
+
+
 }

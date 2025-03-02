@@ -92,7 +92,10 @@ public class FixAndReplace : MonoBehaviour, IFixArea
         player.playerInput.isInUI = false;
         player.animatePlayerScript.SetCraftAnimation(false);
         //Destroy(this.gameObject);
+        if (TryGetComponent(out Interactable thisInteractable))
+            thisInteractable.canInteract = true;
         gameObject.SetActive(false);
+        isFixing = false;
         fixableObject.hasBeenFixed = true;
     }
     void RemoveItemsFromInventory(List<FixableAreaIngredient> ingredients)

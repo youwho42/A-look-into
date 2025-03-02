@@ -28,7 +28,8 @@ public class JunkPileInteractor : MonoBehaviour
         GameEventManager.onGameStartLoadEvent.RemoveListener(CheckForObjectsToHide);
     }
     void CheckForObjectsToHide() 
-    { 
+    {
+        replaceObjectOnDrop.ShowObjects(true);
         replaceObjectOnDrop.CheckForObjects();
     }
     public void StartParticles()

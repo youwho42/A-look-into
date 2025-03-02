@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,11 @@ public class MakeAnimalFlee : MonoBehaviour
                 return;
 
             animal.FleePlayer(transform);
+            return;
+        }
+        if (collision.TryGetComponent(out GOAD_Scheduler_CF cokernutFlump))
+        {
+            cokernutFlump.FleePlayer(transform);
         }
     }
 
