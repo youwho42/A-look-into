@@ -7,15 +7,20 @@ public class FlumpOozeManager : MonoBehaviour
     public ObjectPooler oozeObjectPool;
     public DrawZasYDisplacement currentZAsYDisplacementA;
     public FlumpOozeContainer flumpOozeContainer;
-
+    public FlumpOoze finalOoze;
+    public Color colorA;
+    public Color colorB;
     
 
 
-    public void StartOoze(Vector3 position)
+    public void StartOoze(Vector3 position, bool isSleeping)
     {
         var go = Instantiate(flumpOozeContainer, position, Quaternion.identity);
         go.GetComponent<SaveableItemEntity>().GenerateId();
-        StartCoroutine(SpawnOozeCo(position, go.oozeContainer));
+        if(!isSleeping)
+            StartCoroutine(SpawnOozeCo(position, go.oozeContainer));
+        //else
+
     }
 
     public void StopOoze()
@@ -45,9 +50,17 @@ public class FlumpOozeManager : MonoBehaviour
         //PlaySound();
         //oozeDrop.transform.localPosition = displacement.transform.localPosition;
 
-        oozeDrop.SetOozeDrop(parent, position, currentZAsYDisplacementA);
+        oozeDrop.SetOozeDrop(parent, position, currentZAsYDisplacementA, GetCurrentColor());
     }
 
-    
+    void SpawnFinalOoze(Transform parent)
+    {
+        var go = Instantiate(finalOoze, transform.position, Quaternion.identity, parent);
+        go.SetOoze(parent, GetCurrentColor(), false);
+    }
 
+    Color GetCurrentColor()
+    {
+        return Color.Lerp(colorA, colorB, Random.value);
+    }
 }

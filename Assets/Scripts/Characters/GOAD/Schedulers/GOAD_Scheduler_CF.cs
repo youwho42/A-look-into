@@ -73,6 +73,11 @@ namespace Klaxon.GOAD
         public CokernutManager manager;
         [HideInInspector]
         public bool isFleeing;
+
+        [HideInInspector]
+        public UIScreenManager sleep;
+
+
         public override void Start()
         {
             base.Start();
@@ -82,13 +87,14 @@ namespace Klaxon.GOAD
         {
             manager = GetComponentInParent<CokernutManager>();
             walker = GetComponent<GravityItemWalk>();
+            sleep = UIScreenManager.instance;
             lastValidTileLocation = transform.position;
             currentTilePosition = GetComponent<CurrentTilePosition>();
             lastValidTile = currentTilePosition.position;
             allFixables = FindObjectsByType<FixableObject>(FindObjectsSortMode.None).ToList();
             for (int i = allFixables.Count - 1; i > 0; i--)
             {
-                if (allFixables[i].particles == null)
+                if (!allFixables[i].cokernutFlumpInteractable)
                     allFixables.RemoveAt(i);
             }
         }
@@ -166,23 +172,13 @@ namespace Klaxon.GOAD
 
         }
 
-
-
+        
         public bool StartPositionValid()
         {
             if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(walker.currentTilePosition.position, out IsometricNodeXYZ node))
                 return node.walkable;
             return false;
         }
-
-        //public void GetRandomTilePosition(int distance, GOAD_Action action)
-        //{
-        //    var currentPos = _transform.position;
-        //    Vector3 destination = currentPos;
-        //    destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
-        //    currentFinalDestination = destination;
-        //    SetAStarDestination(destination, action);
-        //}
 
         public void SetAStarDestination(Vector3 destination, GOAD_Action action)
         {
@@ -220,6 +216,8 @@ namespace Klaxon.GOAD
             PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
         }
 
+
+
         public void OnPathFound(List<Vector3> newPath, bool success)
         {
             if (success)
@@ -230,7 +228,78 @@ namespace Klaxon.GOAD
             gettingPath = false;
         }
 
-        
+
+
+        public void HandleOffScreenAStar(GOAD_Action action)
+        {
+            walker.currentDirection = Vector2.zero;
+
+
+
+            if (offScreenPosMoved && currentPathIndex < aStarPath.Count)
+            {
+                timeTo = Mathf.RoundToInt(Vector2.Distance(_transform.position, aStarPath[currentPathIndex]) / walker.walkSpeed);
+                timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+
+                if (_transform.position.x < aStarPath[currentPathIndex].x && !walker.facingRight)
+                    walker.Flip();
+                else if (_transform.position.x > aStarPath[currentPathIndex].x && walker.facingRight)
+                    walker.Flip();
+
+                offScreenPosMoved = false;
+            }
+
+
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
+            {
+
+                offScreenPosMoved = true;
+                _transform.position = aStarPath[currentPathIndex];
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(_transform.position);
+                walker.currentLevel = walker.currentTilePosition.position.z;
+
+                if (currentPathIndex <= aStarPath.Count - 1)
+                    currentPathIndex++;
+
+                if (currentPathIndex >= aStarPath.Count)
+                {
+                    action.success = true;
+                    SetActionComplete(true);
+                    return;
+                }
+            }
+        }
+
+        public void HandleOffScreenWander(GOAD_Action action, Vector3 wanderDestination)
+        {
+            walker.currentDirection = Vector2.zero;
+
+            
+
+            if (offScreenPosMoved)
+            {
+                timeTo = Mathf.RoundToInt(Vector2.Distance(_transform.position, wanderDestination / walker.walkSpeed));
+                timeTo = (timeTo + RealTimeDayNightCycle.instance.currentTimeRaw) % 1440;
+
+                if (_transform.position.x < wanderDestination.x && !walker.facingRight)
+                    walker.Flip();
+                else if (_transform.position.x > wanderDestination.x && walker.facingRight)
+                    walker.Flip();
+
+                offScreenPosMoved = false;
+            }
+
+
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= timeTo && !offScreenPosMoved)
+            {
+                offScreenPosMoved = true;
+                _transform.position = wanderDestination;
+                walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(_transform.position);
+                walker.currentLevel = walker.currentTilePosition.position.z;
+                action.success = true;
+                SetActionComplete(true);
+            }
+        }
 
         public FixableObject GetClosestFixable()
         {

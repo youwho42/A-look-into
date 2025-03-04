@@ -12,7 +12,7 @@ namespace Klaxon.GOAD
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.walker.currentDirection = Vector2.zero;
             idleTime = Random.Range(2.2f, 5.5f);
-            oozeManager.StartOoze(transform.position);
+            oozeManager.StartOoze(transform.position, agent.sleep.isSleeping);
         }
 
         public override void PerformAction(GOAD_Scheduler_CF agent)

@@ -25,7 +25,11 @@ namespace Klaxon.GOAD
                 }
             }
             if (agent.jumper != null)
+            {
+                if (agent.jumper.enabled)
+                    agent.walker.facingRight = agent.jumper.facingRight;
                 agent.jumper.enabled = false;
+            }
 
             SetEatPosition(agent);
             agent.walker.SetWorldDestination(eatPosition);

@@ -102,6 +102,12 @@ namespace Klaxon.GOAD
             agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
+            if (agent.offScreen || agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreenAStar(this);
+                return;
+            }
+
             if (agent.walker.isStuck || agent.isDeviating)
             {
                 if (!agent.walker.jumpAhead)
@@ -180,11 +186,14 @@ namespace Klaxon.GOAD
             return allItems;
         }
 
-        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_NPC agent)
+
+        public override void ReachFinalDestination(GOAD_Scheduler_CF agent)
         {
-            Debug.Log("Already there");
-            //success = true;
-            //agent.SetActionComplete(true);
+            agent.walker.currentDirection = Vector2.zero;
+            agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
+            agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
+            agent.animator.SetFloat(agent.velocityX_hash, 0);
+            reachedDestination = true;
         }
 
     }

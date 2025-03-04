@@ -103,6 +103,12 @@ namespace Klaxon.GOAD
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
 
+            if (agent.offScreen || agent.sleep.isSleeping)
+            {
+                agent.HandleOffScreenAStar(this);
+                return;
+            }
+
             if (agent.walker.isStuck || agent.isDeviating)
             {
                 if (!agent.walker.jumpAhead)
@@ -207,6 +213,15 @@ namespace Klaxon.GOAD
             var closestPoint = coll.ClosestPoint(position);
             var dir = ((Vector2)position - closestPoint).normalized * (agent.walker.checkTileDistance + 0.01f);
             return closestPoint + dir;
+        }
+
+        public override void ReachFinalDestination(GOAD_Scheduler_CF agent)
+        {
+            agent.walker.currentDirection = Vector2.zero;
+            agent.animator.SetBool(agent.isGrounded_hash, agent.walker.isGrounded);
+            agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
+            agent.animator.SetFloat(agent.velocityX_hash, 0);
+            reachedDestination = true;
         }
 
     } 

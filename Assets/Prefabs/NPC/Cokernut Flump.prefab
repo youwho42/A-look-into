@@ -988,11 +988,14 @@ MonoBehaviour:
   gettingPath: 0
   validPath: 0
   currentTilePosition: {fileID: 0}
+  allFixables: []
   currentFixable: {fileID: 0}
   currentCraftingStation: {fileID: 0}
   fleeCondition: {fileID: 11400000, guid: 7ee3d2672f686074fb82361cdaa77d97, type: 2}
   fleeTransform: {fileID: 0}
   manager: {fileID: 0}
+  isFleeing: 0
+  sleep: {fileID: 0}
 --- !u!114 &8871377881501208771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2488,8 +2491,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oozeObjectPool: {fileID: 2811632366216277808}
   currentZAsYDisplacementA: {fileID: 3925845448932800562}
-  flumpOozeContainer: {fileID: 7716828349134673595, guid: e0b9a92505b4cc740ab2084ab13f4faf,
+  flumpOozeContainer: {fileID: -5183965464757350253, guid: e0b9a92505b4cc740ab2084ab13f4faf,
     type: 3}
+  finalOoze: {fileID: 8500804723733842263, guid: 56cd7301b3e05bf42b113a2396bb9ba5,
+    type: 3}
+  colorA: {r: 0.67058825, g: 0.5411765, b: 0.10980392, a: 1}
+  colorB: {r: 0.5647059, g: 0.25882354, b: 0.22352941, a: 1}
 --- !u!114 &3925845448932800562
 MonoBehaviour:
   m_ObjectHideFlags: 0

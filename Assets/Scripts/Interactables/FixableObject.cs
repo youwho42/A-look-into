@@ -8,8 +8,7 @@ public class FixableObject : MonoBehaviour
     public bool hasBeenFixed;
     public GameObject brokenObject;
     public GameObject fixedObject;
-    public ParticleSystem particles;
-    public FixingSounds fixSound;
+    public bool cokernutFlumpInteractable;
     private void Start()
     {
         brokenObject.SetActive(true);

@@ -22,6 +22,7 @@ public class PlayerDistanceToggle : MonoBehaviour
     //public List<SAP_Scheduler_NPC> agents;
 
     public List<GOAD_Scheduler_NPC> GOADAgents;
+    public List<GOAD_Scheduler_CF> GOADCokernutFlump;
 
     private void Start()
     {
@@ -46,6 +47,13 @@ public class PlayerDistanceToggle : MonoBehaviour
         foreach (var agent in c)
         {
             GOADAgents.Add(agent);
+        }
+
+        GOADCokernutFlump.Clear();
+        var d = FindObjectsByType<GOAD_Scheduler_CF>(FindObjectsSortMode.None).ToList();
+        foreach (var agent in d)
+        {
+            GOADCokernutFlump.Add(agent);
         }
 
     }
@@ -76,6 +84,11 @@ public class PlayerDistanceToggle : MonoBehaviour
                 SetGOADAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
             }
 
+            foreach (var agent in GOADCokernutFlump)
+            {
+                SetGOADAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
+            }
+
         }
     }
 
@@ -88,6 +101,18 @@ public class PlayerDistanceToggle : MonoBehaviour
     }
 
     void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
+    {
+        if (agent == null)
+            return;
+        float dist = GetPlayerDistance(agent.transform, playerPos);
+        bool state = dist <= maxDist * maxDist || !agent.offScreen;
+        bool nearPlayer = dist <= 1.5f;
+        agent.animator.enabled = state;
+        agent.offScreen = !state;
+        agent.nearPlayer = nearPlayer;
+    }
+
+    void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_CF agent, Vector3 playerPos, float maxDist)
     {
         if (agent == null)
             return;

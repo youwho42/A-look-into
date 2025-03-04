@@ -12,8 +12,7 @@ public class FlumpOozeDrop : MonoBehaviour
     Vector3 displacedPosition;
     float currentZ;
     bool launched;
-    public Color colorA;
-    public Color colorB;
+    
     Color currentColor;
     public FlumpOoze flumpOoze;
     Transform currentParent;
@@ -34,14 +33,14 @@ public class FlumpOozeDrop : MonoBehaviour
         speed = Random.Range(0.05f, 0.4f);
     }
 
-    public void SetOozeDrop(Transform parent, Vector3 position, DrawZasYDisplacement displacement)
+    public void SetOozeDrop(Transform parent, Vector3 position, DrawZasYDisplacement displacement, Color color)
     {
         transform.position = position;
         currentZ = transform.position.z;
         currentParent = parent;
         dropObject.localPosition = displacement.displacedPosition;
         positionZ = displacement.positionZ;
-        currentColor = Color.Lerp(colorA, colorB, Random.value);
+        currentColor = color;
         dropSprite.color = currentColor;
     }
 

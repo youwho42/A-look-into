@@ -290,7 +290,7 @@ namespace Klaxon.GOAD
         {
         }
 
-        public virtual void OffscreenNodeHandleComplete(GOAD_Scheduler_CF agent)
+        public virtual void ReachFinalDestination(GOAD_Scheduler_CF agent)
         {
         }
 
