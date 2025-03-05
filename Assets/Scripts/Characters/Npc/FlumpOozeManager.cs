@@ -17,10 +17,10 @@ public class FlumpOozeManager : MonoBehaviour
     {
         var go = Instantiate(flumpOozeContainer, position, Quaternion.identity);
         go.GetComponent<SaveableItemEntity>().GenerateId();
-        if(!isSleeping)
+        if (!isSleeping)
             StartCoroutine(SpawnOozeCo(position, go.oozeContainer));
-        //else
-
+        else
+            SpawnFinalOoze(go.oozeContainer);
     }
 
     public void StopOoze()
@@ -44,7 +44,7 @@ public class FlumpOozeManager : MonoBehaviour
 
     void SpawnOoze(Vector3 position, Transform parent)
     {
-
+        
         var go = oozeObjectPool.GetPooledObject();
         var oozeDrop = go.GetComponent<FlumpOozeDrop>();
         //PlaySound();
@@ -55,8 +55,16 @@ public class FlumpOozeManager : MonoBehaviour
 
     void SpawnFinalOoze(Transform parent)
     {
-        var go = Instantiate(finalOoze, transform.position, Quaternion.identity, parent);
-        go.SetOoze(parent, GetCurrentColor(), false);
+        Debug.Log("spawn final ooze");
+        int r = Random.Range(25, 50);
+        for (int i = 0; i < r; i++)
+        {
+            Vector3 pos = Random.insideUnitCircle * 0.6f;
+            pos.z = 0;
+            var go = Instantiate(finalOoze, pos, Quaternion.identity, parent);
+            go.SetOoze(parent, GetCurrentColor(), false);
+        }
+        
     }
 
     Color GetCurrentColor()

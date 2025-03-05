@@ -296,7 +296,7 @@ namespace Klaxon.GOAD
                 _transform.position = wanderDestination;
                 walker.currentTilePosition.position = walker.currentTilePosition.GetCurrentTilePosition(_transform.position);
                 walker.currentLevel = walker.currentTilePosition.position.z;
-                action.success = true;
+                action.success = Random.value < 0.5f;
                 SetActionComplete(true);
             }
         }

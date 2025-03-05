@@ -20,7 +20,7 @@ namespace Klaxon.GOAD
                 success = false;
                 agent.SetActionComplete(true);
             }
-            //agent.walker.isRunning = true;
+            
         }
         
         public override void PerformAction(GOAD_Scheduler_CF agent)
@@ -68,6 +68,7 @@ namespace Klaxon.GOAD
 
             if (agent.offScreen || agent.sleep.isSleeping)
             {
+                
                 agent.HandleOffScreenWander(this, wanderDestination);
                 return;
             }
