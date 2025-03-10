@@ -45,7 +45,7 @@ namespace Klaxon.GOAD
         void SetPositionNearPlayer(GOAD_Scheduler_BP agent)
         {
             Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
-            transform.position = PlayerInformation.instance.player.position + (Vector3)offset;
+            Vector3 potentialSpot = PlayerInformation.instance.player.position + (Vector3)offset;
             if (agent.walker.tileBlockInfo != null)
             {
                 foreach (var tile in agent.walker.tileBlockInfo)
@@ -53,10 +53,18 @@ namespace Klaxon.GOAD
 
                     if (tile.direction == Vector3Int.zero)
                     {
-                        var hit = Physics2D.OverlapPoint(transform.position, obstacleLayer);
-                        if (tile.isValid && hit == null)
+                        var hit = Physics2D.OverlapPoint(potentialSpot, obstacleLayer);
+                        bool hitValid = hit != null;
+                        if (hitValid)
                         {
-                            
+                            if (hit.TryGetComponent(out DrawZasYDisplacement disp))
+                                hitValid = disp.positionZ > 0;
+                        }
+                        
+
+                        if (tile.isValid && !hitValid)
+                        {
+                            transform.position = potentialSpot;
                             agent.walker.currentLevel = (int)transform.position.z - 1;
                             agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(transform.position);
                             //var p = transform.position;

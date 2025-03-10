@@ -24,6 +24,14 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_CF agent)
         {
             base.PerformAction(agent);
+            if (agent.sleep.isSleeping)
+            {
+                success = true;
+                agent.SetActionComplete(true);
+                agent.manager.nextAppearanceSet = false;
+                gameObject.SetActive(false);
+                return;
+            }
 
             fleeTimer += Time.deltaTime;
             if(fleeTimer > 3.5f)

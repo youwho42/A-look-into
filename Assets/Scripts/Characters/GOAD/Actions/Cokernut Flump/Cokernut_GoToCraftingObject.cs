@@ -52,37 +52,39 @@ namespace Klaxon.GOAD
 
             if (reachedDestination)
             {
-                if (!breaking)
+                if (!agent.sleep.isSleeping)
                 {
-                    agent.manager.fixSound.transform.position = agent.currentCraftingStation.transform.position;
-                    agent.manager.particles.transform.position = agent.currentCraftingStation.transform.position;
-                    agent.manager.fixSound.StartSoundsWithTimer();
-                    agent.manager.particles.Play();
-
-                    if (agent.currentCraftingStation.transform.position.x < transform.position.x && agent.walker.facingRight)
-                        agent.walker.Flip();
-                    else if (agent.currentCraftingStation.transform.position.x > transform.position.x && !agent.walker.facingRight)
-                        agent.walker.Flip();
-
-                    //agent.currentFixable.StartBreakObject(3f);
-                    breaking = true;
-                }
-                agent.animator.SetBool(agent.breakObject_hash, true);
-                breakTimer += Time.deltaTime;
-                if (breakTimer > 3f)
-                {
-                    foreach (var item in currentItems)
+                    if (!breaking)
                     {
-                        var offset = Random.insideUnitCircle * Random.Range(0.03f, 0.2f);
-                        var go = Instantiate(item.Key.ItemPrefabVariants[Random.Range(0, item.Key.ItemPrefabVariants.Count)], agent.currentCraftingStation.transform.position + (Vector3)offset, Quaternion.identity);
-                        if (go.TryGetComponent(out InteractablePickUp pickup))
-                            pickup.pickupQuantity = item.Value;
+                        agent.manager.fixSound.transform.position = agent.currentCraftingStation.transform.position;
+                        agent.manager.particles.transform.position = agent.currentCraftingStation.transform.position;
+                        agent.manager.fixSound.StartSoundsWithTimer();
+                        agent.manager.particles.Play();
+
+                        if (agent.currentCraftingStation.transform.position.x < transform.position.x && agent.walker.facingRight)
+                            agent.walker.Flip();
+                        else if (agent.currentCraftingStation.transform.position.x > transform.position.x && !agent.walker.facingRight)
+                            agent.walker.Flip();
+
+                        //agent.currentFixable.StartBreakObject(3f);
+                        breaking = true;
                     }
-                    Destroy(agent.currentCraftingStation.gameObject);
-                    agent.animator.SetBool(agent.breakObject_hash, false);
+                    agent.animator.SetBool(agent.breakObject_hash, true);
+                    breakTimer += Time.deltaTime;
+                    if (breakTimer > 3f)
+                    {
+                        BreakObject(agent);
+                        success = true;
+                        agent.SetActionComplete(true);
+                    }
+                }
+                else
+                {
+                    BreakObject(agent);
                     success = true;
                     agent.SetActionComplete(true);
                 }
+                
 
                 return;
             }
@@ -157,7 +159,18 @@ namespace Klaxon.GOAD
 
         }
 
-
+        private void BreakObject(GOAD_Scheduler_CF agent)
+        {
+            foreach (var item in currentItems)
+            {
+                var offset = Random.insideUnitCircle * Random.Range(0.03f, 0.2f);
+                var go = Instantiate(item.Key.ItemPrefabVariants[Random.Range(0, item.Key.ItemPrefabVariants.Count)], agent.currentCraftingStation.transform.position + (Vector3)offset, Quaternion.identity);
+                if (go.TryGetComponent(out InteractablePickUp pickup))
+                    pickup.pickupQuantity = item.Value;
+            }
+            Destroy(agent.currentCraftingStation.gameObject);
+            agent.animator.SetBool(agent.breakObject_hash, false);
+        }
 
         public override void EndAction(GOAD_Scheduler_CF agent)
         {
@@ -201,7 +214,22 @@ namespace Klaxon.GOAD
                 else
                     allItems[handler.currentFuel] += handler.currentFuelAmount;
             }
-            
+
+            foreach (var queuedItem in handler.Queues)
+            {
+                foreach (var recipe in recipes)
+                {
+                    if (recipe.Product.Item != queuedItem.Item) continue;
+                    foreach (var ingredient in recipe.Ingredients)
+                    {
+                        if (!allItems.ContainsKey(ingredient.Item))
+                            allItems.Add(ingredient.Item, ingredient.Amount);
+                        else
+                            allItems[ingredient.Item] += ingredient.Amount;
+
+                    }
+                }
+            }
 
 
             return allItems;

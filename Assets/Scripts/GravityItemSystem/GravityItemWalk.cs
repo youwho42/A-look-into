@@ -48,7 +48,8 @@ namespace Klaxon.GravitySystem
         Vector3 lastPosition;
         Vector3 lastValidPosition;
 
-        int framesStuck;
+        
+        public int framesStuck;
         [HideInInspector]
         public bool isStuck;
         [HideInInspector]

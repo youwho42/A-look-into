@@ -22,6 +22,10 @@ public class RandomSpriteForItems : MonoBehaviour
     {
         SetRandomSprites();
     }
+    //private void OnBecameVisible()
+    //{
+    //    SetRandomSprites();
+    //}
 
     private void SetRandomSprites()
     {

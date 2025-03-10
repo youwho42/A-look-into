@@ -58,7 +58,7 @@ public class PlantLife : MonoBehaviour
 
     void CheckPlantCycle(int tick)
     {
-        if (currentCycle == plantCycles.Count - 1)
+        if (currentCycle == plantCycles.Count - 1 || cycle == null)
             return;
         RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
         if (tick >= cycle.tick && dayNightCycle.currentDayRaw == cycle.day)

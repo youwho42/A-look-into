@@ -6,10 +6,10 @@ public class ActivateOnQuestComplete : MonoBehaviour
 {
     public List<GameObject> objectsToActivate = new List<GameObject>();
     public string undertakingName;
-    private void Start()
+    private void OnEnable()
     {
         GameEventManager.onUndertakingsUpdateEvent.AddListener(SetObjectsToActivate);
-        SetObjectsToActivate();
+        Invoke("SetObjectsToActivate", 2.0f);
     }
     private void OnDisable()
     {

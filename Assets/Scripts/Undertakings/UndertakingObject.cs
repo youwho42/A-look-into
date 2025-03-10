@@ -43,13 +43,14 @@ namespace Klaxon.UndertakingSystem
             {
                 CurrentState = UndertakingState.Active;
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(this);
+                TryCompleteQuest();
             }
         }
 
 
         public void TryCompleteTask(UndertakingTaskObject taskObject)
         {
-            if (CurrentState != UndertakingState.Active)
+            if (CurrentState == UndertakingState.Complete)
                 return;
             foreach (var task in Tasks)
             {
@@ -65,6 +66,9 @@ namespace Klaxon.UndertakingSystem
 
         public void TryCompleteQuest()
         {
+            if (CurrentState != UndertakingState.Active)
+                return;
+
             bool complete = true;
             foreach (var task in Tasks)
             {

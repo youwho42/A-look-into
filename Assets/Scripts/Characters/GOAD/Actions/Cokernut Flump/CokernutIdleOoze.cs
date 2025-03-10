@@ -18,6 +18,13 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_CF agent)
         {
             base.PerformAction(agent);
+
+            if (agent.sleep.isSleeping)
+            {
+                success = true;
+                agent.SetActionComplete(true);
+                return;
+            }
             idleTime -= Time.deltaTime;
             if(idleTime < 0)
             {

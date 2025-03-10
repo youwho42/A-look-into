@@ -103,7 +103,8 @@ namespace Klaxon.GOAD
 
         private void Update()
         {
-            
+            if (sleep.isSleeping)
+                return;
             if (currentGoalIndex < 0 && availableActions.Count > 0)
             {
                 GetCurrentGoal();

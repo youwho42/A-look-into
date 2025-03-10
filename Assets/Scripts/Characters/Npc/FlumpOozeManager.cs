@@ -55,14 +55,15 @@ public class FlumpOozeManager : MonoBehaviour
 
     void SpawnFinalOoze(Transform parent)
     {
-        Debug.Log("spawn final ooze");
         int r = Random.Range(25, 50);
         for (int i = 0; i < r; i++)
         {
-            Vector3 pos = Random.insideUnitCircle * 0.6f;
+            Vector3 pos = Random.insideUnitCircle * 0.3f;
             pos.z = 0;
-            var go = Instantiate(finalOoze, pos, Quaternion.identity, parent);
+            var go = Instantiate(finalOoze, parent);
+            go.transform.localPosition = pos;
             go.SetOoze(parent, GetCurrentColor(), false);
+            
         }
         
     }

@@ -6,7 +6,7 @@ namespace Klaxon.GOAD
     public class GOAD_Action_GoToNearestSeat : GOAD_Action
 	{
 
-        InteractableChair chair;
+        public InteractableChair chair;
         bool lastPositionReset;
         NavigationNode target;
 

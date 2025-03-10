@@ -101,7 +101,7 @@ public class SquonkManager : MonoBehaviour
         DissolveEffect.instance.StartDissolve(squonkMaterial, 2.0f, false);
         yield return new WaitForSeconds(2.0f);
         isActive = false;
-        GetComponent<GatherableItem>().hasBeenHarvested = false;
+        squonkSprite.GetComponent<GatherableItem>().hasBeenHarvested = false;
         theSquonk.SetActive(false);
 
 

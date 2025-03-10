@@ -148,7 +148,7 @@ public class GridManager : MonoBehaviour
             if (GetTileValid(destinationTile))
                 return groundMap.GetCellCenterWorld(destinationTile) + Vector3.forward;
         }
-        return origin;
+        return GetRandomTileWorldPosition(origin, maxDistance);
     }
 
     public Vector3Int GetRandomNodeInArea(Vector3Int startPos, int maxDistance)

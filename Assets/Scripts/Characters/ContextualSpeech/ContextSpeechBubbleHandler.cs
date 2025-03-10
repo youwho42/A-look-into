@@ -38,7 +38,9 @@ public class ContextSpeechBubbleHandler : MonoBehaviour
 
     void SetRandomSpeechBubble(int tick)
     {
-        if(tick >= nextSpeechCycle.tick && nextSpeechCycle.day == timeCycle.currentDayRaw)
+        if (UIScreenManager.instance.isSleeping)
+            return;
+        if(tick >= nextSpeechCycle.tick && nextSpeechCycle.day >= timeCycle.currentDayRaw)
         {
             ResetNextRandomSpeechTime();
             int index = Random.Range(0, localizedTexts.Count);
