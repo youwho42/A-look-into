@@ -59,8 +59,12 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateContainerInventoryUI);
-        if(containerInventory != null )
-            containerInventory.GetComponent<InteractableContainer>().SetContainerImage(false);
+        if(containerInventory != null)
+        {
+            if(containerInventory.TryGetComponent(out InteractableContainer interactable))
+                interactable.SetContainerImage(false);
+        }
+            
     }
 
     void ChangeControlText(string text)

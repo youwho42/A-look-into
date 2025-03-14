@@ -7,7 +7,7 @@ public class FlumpOozeContainer : MonoBehaviour
 {
     public FlumpOoze flumpOoze;
     List<Vector3Int> tilePositions = new List<Vector3Int>();
-    List<SpriteRenderer> oozeSprites = new List<SpriteRenderer>();
+    List<FlumpOoze> oozeSprites = new List<FlumpOoze>();
     public Color cleanOozeColorA;
     public Color cleanOozeColorB;
     public Transform oozeContainer;
@@ -20,10 +20,10 @@ public class FlumpOozeContainer : MonoBehaviour
         ooze.SetOoze(oozeContainer, color, true);
     }
 
-    public void SetOccupiedTile(Vector3 position, SpriteRenderer sprite)
+    public void SetOccupiedTile(Vector3 position, FlumpOoze ooze)
     {
         var pos = GridManager.instance.GetTilePosition(position);
-        oozeSprites.Add(sprite);
+        oozeSprites.Add(ooze);
         if (!tilePositions.Contains(pos))
         {
             if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.ContainsKey(pos))
@@ -34,7 +34,7 @@ public class FlumpOozeContainer : MonoBehaviour
             }
                 
         }
-        replaceObject.ShowObjects(true);
+        //replaceObject.ShowObjects(true);
         replaceObject.CheckForObjects();
     }
 
@@ -60,11 +60,11 @@ public class FlumpOozeContainer : MonoBehaviour
     }
 
 
-    IEnumerator CleanOozeSpritesCo(SpriteRenderer sprite)
+    IEnumerator CleanOozeSpritesCo(FlumpOoze ooze)
     {
         yield return new WaitForSeconds(1.3f);
         var cleanColor = Color.Lerp(cleanOozeColorA, cleanOozeColorB, Random.value);
-        var startColor = sprite.color;
+        var startColor = ooze.oozeSprite.color;
         float timer = 0;
         while (timer < 3)
         {
@@ -72,10 +72,11 @@ public class FlumpOozeContainer : MonoBehaviour
             Color c = Color.Lerp(startColor, cleanColor, timer / 3);
             float a = Mathf.Lerp(1, 0, timer / 3);
             c.a = a;
-            sprite.color = c;
+            ooze.oozeSprite.color = c;
+            ooze.stinkTrail.color = c;
             yield return null;
         }
-        Destroy(sprite.gameObject);
+        Destroy(ooze.gameObject);
         yield return null;
         
         ResetOccupiedTiles();

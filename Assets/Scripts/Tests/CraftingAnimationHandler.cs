@@ -12,7 +12,7 @@ public class CraftingAnimationHandler : MonoBehaviour
     public SpriteRenderer itemSprite;
     public AudioSource source;
     float mainVolume;
-    private void Start()
+    private void OnEnable()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(SetInventoryItemImage);
         mainVolume = source.volume;
@@ -39,13 +39,10 @@ public class CraftingAnimationHandler : MonoBehaviour
     public void SetInventoryItemImage()
     {
         if (inventory.Stacks.Count > 0)
-        {
             itemSprite.sprite = inventory.Stacks[0].Item.Icon;
-        }
         else
-        {
             itemSprite.sprite = null;
-        }
+        
     }
 
 }

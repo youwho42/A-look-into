@@ -98,11 +98,13 @@ public class CraftingStationDisplayUI : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(SetContainerUI);
+        GameEventManager.onInventoryUpdateEvent.AddListener(ResetCurrentRecipe);
         GameEventManager.onTimeTickEvent.AddListener(SetEnergyPercent);
     }
     private void OnDisable()
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(SetContainerUI);
+        GameEventManager.onInventoryUpdateEvent.RemoveListener(ResetCurrentRecipe);
         GameEventManager.onTimeTickEvent.RemoveListener(SetEnergyPercent);
     }
     private void OnDestroy()
@@ -395,6 +397,13 @@ public class CraftingStationDisplayUI : MonoBehaviour
         }
         
         recipeButtons.Clear();
+    }
+
+    void ResetCurrentRecipe()
+    {
+        if (craftableItem == null)
+            return;
+        SetCurrentRecipe(craftableItem);
     }
 
     public void SetCurrentRecipe(QI_CraftingRecipe itemToCraft)

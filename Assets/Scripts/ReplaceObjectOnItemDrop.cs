@@ -6,8 +6,10 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
 {
    
     public List<GameObject> grassObjects = new List<GameObject>();
+    Collider2D coll;
     private void OnEnable()
     {
+        coll = GetComponent<Collider2D>();
         CheckForObjects();
     }
     private void OnDisable()
@@ -16,17 +18,18 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
     }
     public void CheckForObjects()
     {
-        Collider2D coll = GetComponent<Collider2D>();
+
         ContactFilter2D filter = new ContactFilter2D().NoFilter();
         filter.useDepth = true;
-        filter.minDepth = coll.transform.position.z;
-        filter.maxDepth = coll.transform.position.z;
+        filter.minDepth = coll.gameObject.transform.position.z;
+        filter.maxDepth = coll.gameObject.transform.position.z;
         List<Collider2D> results = new List<Collider2D>();
         coll.Overlap(filter, results);
 
-        grassObjects.Clear();
+        
         if (results.Count > 0)
         {
+            
             foreach (var item in results)
             {
                 if (!item.CompareTag("Grass"))
@@ -39,7 +42,10 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
 
     }
 
-    
+    //public void CheckObjectsDelay()
+    //{
+    //    Invoke("CheckForObjects", 0.1f);
+    //}
     public void ShowObjects(bool showState)
     {
         
@@ -49,6 +55,8 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
                 item.SetActive(showState);
         }
         
+        if(showState)
+            grassObjects.Clear();
         //if(showState)
         //    grassObjects.Clear();
     }

@@ -19,9 +19,10 @@ public class CokernutManager : MonoBehaviour
     [HideInInspector]
     public bool nextAppearanceSet;
     RealTimeDayNightCycle dayNightCycle;
-
+    UIScreenManager sleep;
     private void OnEnable()
     {
+        sleep = UIScreenManager.instance;
         dayNightCycle = RealTimeDayNightCycle.instance;
         GameEventManager.onTimeTickEvent.AddListener(CheckAppearance);
         cokernutScheduler.SetUpCokernutFlump();
@@ -40,6 +41,11 @@ public class CokernutManager : MonoBehaviour
             dayNightCycle = RealTimeDayNightCycle.instance;
             return;
         }
+        if (sleep == null)
+        {
+            sleep = UIScreenManager.instance;
+            return;
+        }
 
         if (!cokernutScheduler.gameObject.activeInHierarchy)
         {
@@ -52,7 +58,9 @@ public class CokernutManager : MonoBehaviour
             }
             else
             {
-                if (dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw == nextAppearance.day)
+                if (sleep.isSleeping)
+                    return;
+                if (dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
                 {
 
                     nextAppearanceSet = false;
@@ -80,7 +88,7 @@ public class CokernutManager : MonoBehaviour
             }
             else
             {
-                if (dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw == nextAppearance.day)
+                if (sleep.isSleeping || dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
                 {
                     cokernutScheduler.SetBeliefState(cokernutScheduler.fleeCondition.Condition, true);
                 }
