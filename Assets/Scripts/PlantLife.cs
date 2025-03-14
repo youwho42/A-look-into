@@ -106,13 +106,21 @@ public class PlantLife : MonoBehaviour
         coll.enabled = false;
         interactablePlant = GetComponent<InteractableFarmPlant>();
         interactablePlant.canInteract = false;
-        var hit = Physics2D.OverlapPoint(transform.position, farmLayer);
-        
-        if (hit != null)
+        var hit = Physics2D.OverlapPointAll(transform.position, farmLayer);
+
+        foreach (var item in hit)
         {
-            interactablePlant.plantingArea = hit.GetComponent<PlantingArea>();
+            if (!item.CompareTag("FarmArea"))
+                continue;
+            interactablePlant.plantingArea = item.GetComponent<PlantingArea>();
             interactablePlant.plantingArea.CheckForHarvestable();
+            break;
         }
+        //if (hit != null)
+        //{
+        //    interactablePlant.plantingArea = hit.GetComponent<PlantingArea>();
+        //    interactablePlant.plantingArea.CheckForHarvestable();
+        //}
 
     }
 

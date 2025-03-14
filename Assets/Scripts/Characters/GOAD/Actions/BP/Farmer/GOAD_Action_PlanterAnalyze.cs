@@ -23,10 +23,10 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
-            if (Time.frameCount % 60 == 0)
+            //if (Time.frameCount % 60 == 0)
                 agent.plantingArea.CheckForPlantable();
 
-            if (RealTimeDayNightCycle.instance.currentTimeRaw >= endCycleTicks.tick && endCycleTicks.day == RealTimeDayNightCycle.instance.currentDayRaw)
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= endCycleTicks.tick && RealTimeDayNightCycle.instance.currentDayRaw >= endCycleTicks.day)
             {
                 agent.plantingArea.ballPersonPlanterActive = false;
                 success = false;

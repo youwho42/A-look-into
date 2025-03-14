@@ -23,7 +23,7 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
-            if (Time.frameCount % 60 == 0)
+            //if (Time.frameCount % 60 == 0)
                 agent.plantingArea.CheckForHarvestable();
 
             if (agent.plantingArea.canHarvest && agent.seedBoxInventory.CheckInventoryHasSpace(agent.plantingArea.seedItem.plantedObject.harvestedItems[0].harvestedItem))
@@ -33,10 +33,10 @@ namespace Klaxon.GOAD
                 return;
             }
 
-            if (RealTimeDayNightCycle.instance.currentTimeRaw >= endCycleTicks.tick && endCycleTicks.day == RealTimeDayNightCycle.instance.currentDayRaw)
+            if (RealTimeDayNightCycle.instance.currentTimeRaw >= endCycleTicks.tick && RealTimeDayNightCycle.instance.currentDayRaw >= endCycleTicks.day)
             {
                 agent.plantingArea.ballPersonHarvesterActive = false;
-                success = true;
+                success = false;
                 agent.SetActionComplete(true);
                 return;
             }

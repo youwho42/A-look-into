@@ -82,7 +82,7 @@ namespace Klaxon.GOAD
 
             if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.03f)
             {
-
+                agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];
                 if (agent.currentPathIndex < agent.aStarPath.Count - 1)
                 {
                     agent.currentPathIndex++;
@@ -95,8 +95,7 @@ namespace Klaxon.GOAD
                     agent.SetActionComplete(true);
 
                 }
-                if (agent.currentPathIndex <= agent.aStarPath.Count - 1)
-                    agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];
+                
 
             }
 

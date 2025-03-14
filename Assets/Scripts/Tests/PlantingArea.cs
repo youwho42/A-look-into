@@ -122,8 +122,8 @@ public class PlantingArea : MonoBehaviour
     public void CheckForHarvestable()
     {
         canHarvest = false;
-        if (!CheckTime())
-            return;
+        //if (!CheckTime())
+        //    return;
         if (harvestablePlants.Count == 0)
             return;
         

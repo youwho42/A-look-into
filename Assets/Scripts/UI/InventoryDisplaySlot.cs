@@ -407,6 +407,8 @@ public class InventoryDisplaySlot : MonoBehaviour
                 
                 if (hit.TryGetComponent(out DrawZasYDisplacement obj))
                 {
+                    if (obj.positionZ == 0)
+                        return false;
                     if (interactable.canPlaceOnOther)
                     {
                         interactable.visualItem.localPosition = obj.displacedPosition;
