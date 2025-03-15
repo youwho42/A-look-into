@@ -12,6 +12,7 @@ namespace Klaxon.SaveSystem
 
         public object CaptureState()
         {
+            
             return new SaveData
             {
                 isActive = fissure.isActivated
@@ -22,7 +23,7 @@ namespace Klaxon.SaveSystem
         {
             var saveData = (SaveData)state;
             fissure.isActivated = saveData.isActive;
-            fissure.SetGameObjectRainStates(fissure.isActivated);
+            fissure.SetGameObjectRainStates(saveData.isActive);
 
         }
 

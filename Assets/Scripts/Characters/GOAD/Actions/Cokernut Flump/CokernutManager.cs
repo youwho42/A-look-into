@@ -12,14 +12,18 @@ public class CokernutManager : MonoBehaviour
     public ParticleSystem particles;
     public FixingSounds fixSound;
 
-    
 
-    CycleTicks nextAppearance;
+    [HideInInspector]
+    public CycleTicks nextAppearance;
     
     [HideInInspector]
     public bool nextAppearanceSet;
     RealTimeDayNightCycle dayNightCycle;
     UIScreenManager sleep;
+
+    [HideInInspector]
+    public bool isActive;
+
     private void OnEnable()
     {
         sleep = UIScreenManager.instance;
@@ -33,6 +37,12 @@ public class CokernutManager : MonoBehaviour
         GameEventManager.onTimeTickEvent.RemoveListener(CheckAppearance);
     }
 
+    public void ActivateCokernut(bool active)
+    {
+        isActive = active;
+        cokernutScheduler.gameObject.SetActive(true);
+        DissolveEffect.instance.StartDissolve(cokernutScheduler.walker.characterRenderer.material, 1.0f, true);
+    }
     
     void CheckAppearance(int tick)
     {
@@ -67,6 +77,7 @@ public class CokernutManager : MonoBehaviour
                     if (GetRandomPosition(out Vector3 pos))
                     {
                         cokernutScheduler.gameObject.SetActive(true);
+                        isActive = true;
                         cokernutScheduler.transform.position = pos;
                         cokernutScheduler.currentTilePosition.position = cokernutScheduler.currentTilePosition.GetCurrentTilePosition(pos);
                         cokernutScheduler.walker.currentLevel = (int)pos.z - 1;
@@ -91,6 +102,7 @@ public class CokernutManager : MonoBehaviour
                 if (sleep.isSleeping || dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
                 {
                     cokernutScheduler.SetBeliefState(cokernutScheduler.fleeCondition.Condition, true);
+                    isActive = false;
                 }
             }
         }

@@ -7,6 +7,7 @@ namespace Klaxon.SaveSystem
 {
     public class SaveTimeAndDate : MonoBehaviour, ISaveable
     {
+        
         public object CaptureState()
         {
             return new SaveData
@@ -20,7 +21,7 @@ namespace Klaxon.SaveSystem
         {
             var saveData = (SaveData)state;
             RealTimeDayNightCycle.instance.SetDayTime(saveData.currentTimeRaw, saveData.currentDayRaw);
-
+            CalendarManager.instance.SetDootOfWeek(saveData.currentDayRaw);
         }
 
         [Serializable]

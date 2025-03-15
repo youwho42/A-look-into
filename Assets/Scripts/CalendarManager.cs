@@ -54,7 +54,7 @@ public class CalendarManager : MonoBehaviour
         GameEventManager.onNewDayEvent.RemoveListener(SetDootOfWeek);
     }
     
-    void SetDootOfWeek(int currentDay)
+    public void SetDootOfWeek(int currentDay)
     {
         int day = (currentDay % dootAmount) - 1;
         if (day < 0)

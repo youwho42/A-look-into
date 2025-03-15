@@ -1,4 +1,5 @@
 using Klaxon.ConversationSystem;
+using Klaxon.GOAD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,8 @@ namespace Klaxon.Interactable
 
                 if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
                 {
+                    if (TryGetComponent(out GOAD_Scheduler_NPC npc))
+                        npc.StopNPC(interactor.transform.position);
                     canInteract = false;
                     DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
                     

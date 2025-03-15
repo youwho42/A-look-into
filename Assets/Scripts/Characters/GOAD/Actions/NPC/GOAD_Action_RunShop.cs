@@ -42,6 +42,7 @@ namespace Klaxon.GOAD
                 agent.nodePath = agent.currentNode.FindPath(target);
                 //agent.walker.currentDestination = agent.nodePath[agent.currentPathIndex].transform.position;
             }
+            agent.animator.SetBool(agent.isSitting_hash, true);
         }
 
         public override void PerformAction(GOAD_Scheduler_NPC agent)

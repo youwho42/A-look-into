@@ -415,26 +415,28 @@ namespace Klaxon.GOAD
 
             if (collision.gameObject.CompareTag("Player") && collision.transform.position.z == _transform.position.z)
             {
-                
+
                 if (isBusy || animator.GetBool(isSleeping_hash) || PlayerInformation.instance.playerAnimator.GetBool(isIdleSitting_hash))
                     return;
-                
-                inTalkRange = true;
-                animator.SetFloat(velocityX_hash, 0);
-                walker.currentDirection = Vector2.zero;
 
-                if (animator.GetBool(isSitting_hash))
-                    return;
-                if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
-                collision.transform.position.x > _transform.position.x && !walker.facingRight)
-                    walker.Flip();
-                
-
+                StopNPC(collision.transform.position);
 
             }
         }
 
+        public void StopNPC(Vector3 position)
+        {
+            inTalkRange = true;
+            animator.SetFloat(velocityX_hash, 0);
+            walker.currentDirection = Vector2.zero;
 
+            if (!animator.GetBool(isSitting_hash))
+            {
+                if (position.x < _transform.position.x && walker.facingRight ||
+                    position.x > _transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
+        }
 
         public void OnTriggerExit2D(Collider2D collision)
         {
