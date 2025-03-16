@@ -51,11 +51,13 @@ namespace Klaxon.GOAD
 
             if (agent.aStarPath.Count <= 0)
             {
-                agent.aStarPath.Add(target.transform.position);
+                success = false;
+                agent.SetActionComplete(true);
+                return;
             }
             if (!lastPositionReset)
             {
-                agent.aStarPath[agent.aStarPath.Count - 1] = target.transform.position;
+                agent.aStarPath.Add(target.transform.position);
                 lastPositionReset = true;
             }
 

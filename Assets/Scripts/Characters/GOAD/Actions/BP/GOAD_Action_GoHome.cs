@@ -8,7 +8,7 @@ namespace Klaxon.GOAD
     {
 
         Vector2 offset;
-        Vector2 lastDestination;
+        Vector3 lastDestination;
 
         public override void StartAction(GOAD_Scheduler_BP agent)
         {

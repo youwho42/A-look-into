@@ -179,13 +179,14 @@ namespace Klaxon.Interactable
                 var interactable = GetNearestInteractable(currentInteractables);
                 if (interactable == null)
                     return;
+                if (playermovement.transform.position.x < interactable.transform.position.x && !playermovement.facingRight ||
+                   playermovement.transform.position.x > interactable.transform.position.x && playermovement.facingRight)
+                    playermovement.Flip();
                 if (interactable.canInteract)
                     interactable.Interact(gameObject);
 
                 
-                if (playermovement.transform.position.x < interactable.transform.position.x && !playermovement.facingRight ||
-                    playermovement.transform.position.x > interactable.transform.position.x && playermovement.facingRight)
-                    playermovement.Flip();
+               
             }
         }
 

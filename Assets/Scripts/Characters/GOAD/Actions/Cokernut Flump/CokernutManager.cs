@@ -40,8 +40,9 @@ public class CokernutManager : MonoBehaviour
     public void ActivateCokernut(bool active)
     {
         isActive = active;
-        cokernutScheduler.gameObject.SetActive(true);
-        DissolveEffect.instance.StartDissolve(cokernutScheduler.walker.characterRenderer.material, 1.0f, true);
+        cokernutScheduler.gameObject.SetActive(active);
+        if(active == true)
+            DissolveEffect.instance.StartDissolve(cokernutScheduler.walker.characterRenderer.material, 1.0f, true);
     }
     
     void CheckAppearance(int tick)

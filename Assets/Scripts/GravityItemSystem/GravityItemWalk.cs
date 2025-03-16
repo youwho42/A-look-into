@@ -24,7 +24,7 @@ namespace Klaxon.GravitySystem
         //[HideInInspector]
         //public Vector2 currentDir;
         [HideInInspector]
-        public Vector2 currentDestination;
+        public Vector3 currentDestination;
 
         Vector3 checkPosition;
         Vector3 doubleCheckPosition;
@@ -325,7 +325,7 @@ namespace Klaxon.GravitySystem
 
         public void SetDirection()
         {
-            var dir = currentDestination - (Vector2)_transform.position;
+            var dir = (Vector2)currentDestination - (Vector2)_transform.position;
             dir = dir.normalized;
             currentDirection = dir;
         }
@@ -494,7 +494,7 @@ namespace Klaxon.GravitySystem
                 {
 
                     currentDestination = GetTileWorldPosition(d);
-                    currentDestination += new Vector2(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f));
+                    currentDestination += new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
                     break;
                 }
             }

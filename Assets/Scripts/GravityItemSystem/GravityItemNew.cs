@@ -452,7 +452,8 @@ namespace Klaxon.GravitySystem
 
                     if (hit[i].TryGetComponent(out DrawZasYDisplacement displacement))
                     {
-
+                        if (displacement.positionZ == 0)
+                            continue;
                         if (itemObject.localPosition.z == 0)
                         {
                             InteractableDoor door = hit[i].GetComponentInParent<InteractableDoor>();

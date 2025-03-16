@@ -11,7 +11,7 @@ namespace Klaxon.GOAD
         bool isLicking;
         bool hasLicked;
         float timer;
-
+        bool hasDeviated;
         Vector2 lastDestination;
         float deviateTimer = 0;
 
@@ -32,6 +32,7 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
+            
             if (isLicking)
             {
 
@@ -70,13 +71,19 @@ namespace Klaxon.GOAD
                 }
                 if (!agent.walker.jumpAhead)
                 {
+                    hasDeviated = true;
                     agent.Deviate();
                     return;
                 }
 
             }
 
-
+            if (hasDeviated)
+            {
+                wanderDestination = lastDestination;
+                hasDeviated = false;
+            }
+               
             agent.walker.SetWorldDestination(wanderDestination);
             agent.walker.SetDirection();
             if (agent.walker.CheckDistanceToDestination() <= 0.02f)
