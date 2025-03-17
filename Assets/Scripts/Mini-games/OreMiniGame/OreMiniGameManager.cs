@@ -106,7 +106,7 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
                 //have a grand ol time
             }
             if (currentGameObject.TryGetComponent(out SpawnDailyObjects rock))
-                rock.SpawnObjects();
+                rock.SpawnObjects(0.3f);
 
             MiniGameManager.instance.EndMiniGame(miniGameType);
         }

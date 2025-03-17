@@ -117,6 +117,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
             }
             if (currentGameObject.TryGetComponent(out TreeRustling tree))
                 tree.Affect(true);
+            if (currentGameObject.TryGetComponent(out SpawnDailyObjects treeSpawn))
+                treeSpawn.SpawnObjects(0.3f);
 
             MiniGameManager.instance.EndMiniGame(miniGameType);
         }

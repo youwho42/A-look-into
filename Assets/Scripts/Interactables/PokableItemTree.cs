@@ -15,7 +15,8 @@ public class PokableItemTree : PokableItem
         if (TryGetComponent(out TreeRustling rustling))
             rustling.Affect(true);
         if (TryGetComponent(out SpawnDailyObjects spawner) && TimesPoked <= 5)
-            spawner.SpawnObjects();
+            spawner.SpawnObjects(0.3f);
+        
     }
     public override void PokeItemFail()
     {

@@ -72,15 +72,15 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         return allItems;
     }
 
-    public void SpawnObjects()
+    public void SpawnObjects(float extraChance = 0.0f)
     {
         if (itemDatabase == null)
             return;
-       
+
         
+
         foreach (var point in spawnPoints)
         {
-
             var child = point.GetComponentInChildren<Interactable>();
             if (child != null)
                 continue;
@@ -88,21 +88,37 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             if (!GridManager.instance.GetTileValid(point.position))
                 continue;
 
-            if (Random.Range(0.0f, 1.0f) < chanceToSpawn)
+            
+            if (Random.Range(0.0f, 1.0f) < chanceToSpawn + extraChance)
             {
-
-                var hit = Physics2D.OverlapCircle(point.position, minDistanceToSpawn);
-                if (hit == null || hit.CompareTag("Grass") || hit.CompareTag("Animal") || hit.CompareTag("Path"))
+                
+                var hits = Physics2D.OverlapCircleAll(point.position, minDistanceToSpawn);
+                bool canSpawn = true;
+                for (int i = 0; i < hits.Length; i++)
                 {
-
-                    var item = itemDatabase.GetRandomWeightedItem();
-                   
-                    int i = Random.Range(0, item.ItemPrefabVariants.Count);
-                    var go = Instantiate(item.ItemPrefabVariants[i], point.position, Quaternion.identity, point);
-
-                    if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
-                        Destroy(itemToSpawn);
+                    if (!hits[i].CompareTag("Grass")
+                        && !hits[i].CompareTag("Animal")
+                        && !hits[i].CompareTag("Path")
+                        && !hits[i].CompareTag("Minigame")
+                        && !hits[i].CompareTag("Player"))
+                    {
+                        canSpawn = false;
+                        break;
+                    }
                 }
+                
+                if (!canSpawn)
+                    return;
+
+                
+                var item = itemDatabase.GetRandomWeightedItem();
+
+                int index = Random.Range(0, item.ItemPrefabVariants.Count);
+                var go = Instantiate(item.ItemPrefabVariants[index], point.position, Quaternion.identity, point);
+
+                if (go.TryGetComponent(out SaveableItemEntity itemToSpawn))
+                    Destroy(itemToSpawn);
+                   
             }
         }
     }

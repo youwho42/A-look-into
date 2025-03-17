@@ -12,7 +12,7 @@ public class PokableItemRock : PokableItem
         base.PokeItemSuccess();
         
         if (TryGetComponent(out SpawnDailyObjects spawner) && TimesPoked <= 5)
-            spawner.SpawnObjects();
+            spawner.SpawnObjects(0.3f);
     }
     public override void PokeItemFail()
     {
