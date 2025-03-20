@@ -42,6 +42,9 @@ public class ContextSpeechBubbleManager : MonoBehaviour
     }
     public void CloseSpeechBubble(ContextSpeechBubble speechBubble)
     {
+        if (speechBubble == null)
+            return;
+        
         speechBubblePool.Release(speechBubble);
     }
 

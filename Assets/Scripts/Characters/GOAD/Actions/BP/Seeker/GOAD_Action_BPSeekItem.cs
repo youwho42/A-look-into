@@ -12,27 +12,39 @@ namespace Klaxon.GOAD
         bool hasLicked;
         float timer;
 
-
+        int deviateAmount;
+        bool deviated;
+        ContextSpeechBubble currentSpeechBubble;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
             agent.interactor.canInteract = false;
             agent.animator.SetBool(agent.walking_hash, true);
-            ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, $"{agent.seekItem.localizedName.GetLocalizedString()}!", false);
+            currentSpeechBubble = ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, $"{agent.seekItem.localizedName.GetLocalizedString()}!", false);
 
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
-            //if(agent.currentSeekItem = null)
-            //{
-            //    ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "SeekItemMissing"), false);
-            //    agent.isSeeking = false;
-            //    success = false;
-            //    agent.SetActionComplete(true);
-            //    return;
-            //}
+            if(deviateAmount > 10)
+            {
+                agent.seekItemsFound.Add(agent.currentSeekItem.transform.position);
+                agent.isSeeking = false;
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+            if (agent.currentSeekItem == null)
+            {
+                if(currentSpeechBubble != null && currentSpeechBubble.isActiveAndEnabled) 
+                    ContextSpeechBubbleManager.instance.CloseSpeechBubble(currentSpeechBubble);
+                currentSpeechBubble = ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "SeekItemMissing"), false);
+                agent.isSeeking = false;
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
             if (isLicking)
             {
 
@@ -52,7 +64,7 @@ namespace Klaxon.GOAD
                     agent.foundAmount++;
                     if (agent.foundAmount == agent.seekAmount)
                     {
-                        ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "SeekItemFound"), false);
+                        currentSpeechBubble = ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "SeekItemFound"), false);
 
                         agent.task.undertaking.TryCompleteTask(agent.task.task);
                         agent.hasInteracted = false;
@@ -71,11 +83,16 @@ namespace Klaxon.GOAD
             {
                 if (!agent.walker.jumpAhead)
                 {
+                    deviated = true;
                     agent.Deviate();
                     return;
                 }
             }
-
+            if (deviated)
+            {
+                deviateAmount++;
+                deviated = false;
+            }
             agent.walker.hasDeviatePosition = false;
 
             agent.walker.SetWorldDestination(agent.currentSeekItemLocation);
@@ -90,6 +107,9 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_BP agent)
         {
             base.EndAction(agent);
+            currentSpeechBubble = null;
+            deviated = false;
+            deviateAmount = 0;
             timer = 0;
             hasLicked = false;
             isLicking = false;

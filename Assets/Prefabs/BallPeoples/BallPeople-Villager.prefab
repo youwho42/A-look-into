@@ -520,25 +520,25 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: fe7390c83f7ab38498247f76d45d069c,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 286c35623ba445d4c862fc41a54ba7f2,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 0900d2a56b293474c8cbd1445f7094ba,
         type: 2}
@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: Talk
   localizedInteractVerb:
     m_TableReference:
@@ -709,6 +710,15 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   longInteractVerb:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedItemName:
     m_TableReference:
       m_TableCollectionName: 
     m_TableEntryReference:

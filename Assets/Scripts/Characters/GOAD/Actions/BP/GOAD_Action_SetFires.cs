@@ -13,7 +13,8 @@ namespace Klaxon.GOAD
         bool hasLicked;
         float timer;
         Vector3 currentFireDirection;
-
+        int deviateAmount;
+        bool deviated;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
@@ -28,6 +29,13 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
+            if (deviateAmount > 10)
+            {
+                agent.currentFire.hasBP = false;
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
 
             if (atFire)
             {
@@ -55,9 +63,16 @@ namespace Klaxon.GOAD
             {
                 if (!agent.walker.jumpAhead)
                 {
+                    deviated = true;
                     agent.Deviate();
                     return;
                 }
+            }
+
+            if (deviated)
+            {
+                deviateAmount++;
+                deviated = false;
             }
 
             agent.walker.hasDeviatePosition = false;
@@ -74,6 +89,8 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_BP agent)
         {
             base.EndAction(agent);
+            deviated = false;
+            deviateAmount = 0;
             atFire = false;
             hasLicked = false;
             timer = 0;
