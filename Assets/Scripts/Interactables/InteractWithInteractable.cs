@@ -211,7 +211,7 @@ namespace Klaxon.Interactable
 
             for (int i = 0; i < items.Count; i++)
             {
-                if (!items[i].canInteract)
+                if (!items[i].canInteract || items[i] == null)
                     continue;
                 float tempDistance = Vector3.Distance(transform.position, items[i].gameObject.transform.position);
                 if (nearest == null || tempDistance < distance)

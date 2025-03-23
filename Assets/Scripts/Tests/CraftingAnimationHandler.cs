@@ -16,6 +16,7 @@ public class CraftingAnimationHandler : MonoBehaviour
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(SetInventoryItemImage);
         mainVolume = source.volume;
+        SetInventoryItemImage();
     }
     private void OnDisable()
     {

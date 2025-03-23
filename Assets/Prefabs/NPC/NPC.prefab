@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 3380158080016935912}
   - component: {fileID: 43444038107672037}
   - component: {fileID: -5283216550233336104}
+  - component: {fileID: 2679971043299447750}
   m_Layer: 13
   m_Name: NPC
   m_TagString: NPC
@@ -427,9 +428,10 @@ MonoBehaviour:
   jumpHeight: 8
   isInInteractAction: 0
   moveSpeed: 0
-  currentDestination: {x: 0, y: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
   jumpAhead: 0
   hasDeviatePosition: 0
+  framesStuck: 0
   isStuck: 0
   tilemapObstacle: 0
   canClimb: 0
@@ -521,6 +523,8 @@ MonoBehaviour:
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  hasMetPlayerCondition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db,
+    type: 2}
   references:
     version: 2
     RefIds: []
@@ -674,9 +678,11 @@ MonoBehaviour:
   speechBubbleTransform: {fileID: 6155575475738352471}
   canDailySpeakWithPlayer: {fileID: 11400000, guid: 98d5cb28248fecd4eb36b7dff7b70e64,
     type: 2}
-  canSpeakWithPlayerPeriod: {fileID: 11400000, guid: 8982609d24c92ae4aa53beb4460b007e,
+  canSpeakWithPlayerPeriod: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db,
     type: 2}
   interactable: {fileID: 0}
+  currentFailedPathfindingAttempts: 0
+  mainHomeNode: {fileID: 0}
 --- !u!114 &391497059651357732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +837,7 @@ MonoBehaviour:
   success: 0
   conditionsOnSucceed: []
   conditionsOnFail: []
+  chair: {fileID: 0}
 --- !u!58 &-5283216550233336104
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -867,6 +874,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.015}
   m_Radius: 0.04
+--- !u!114 &2679971043299447750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 0}
+  itemVariantIndex: 0
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

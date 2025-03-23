@@ -26,6 +26,7 @@ public class PlayerInformation : MonoBehaviour
     public EquipmentManager equipmentManager;
     public QI_CraftingRecipeDatabase playerRecipeDatabase;
     public QI_ItemDatabase playerResourceCompendiumDatabase;
+    public QI_ItemDatabase playerEncountersCompendiumDatabase;
     public QI_ItemDatabase playerAnimalCompendiumDatabase;
     public QI_ItemDatabase playerNotesCompendiumDatabase;
     public QI_ItemDatabase playerGuidesCompendiumDatabase;
@@ -72,6 +73,7 @@ public class PlayerInformation : MonoBehaviour
     private void Start()
     {
         currentTilePosition = player.GetComponent<CurrentTilePosition>();
+        playerEncountersCompendiumDatabase.Items.Clear();
         playerAnimalCompendiumDatabase.Items.Clear();
         playerResourceCompendiumDatabase.Items.Clear();
         playerNotesCompendiumDatabase.Items.Clear();

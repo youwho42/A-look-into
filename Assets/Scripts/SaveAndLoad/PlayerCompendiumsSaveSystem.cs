@@ -9,6 +9,7 @@ namespace Klaxon.SaveSystem
     public class PlayerCompendiumsSaveSystem : MonoBehaviour, ISaveable
     {
 
+        public QI_ItemDatabase playerEncountersCompendiumDatabase;
         public QI_ItemDatabase playerAnimalCompendiumDatabase;
         public QI_ItemDatabase playerResourceCompendiumDatabase;
         public QI_ItemDatabase playerNoteCompendiumDatabase;
@@ -18,11 +19,16 @@ namespace Klaxon.SaveSystem
         public object CaptureState()
         {
 
+            List<string> encounterNames = new List<string>();
             List<string> animalNames = new List<string>();
             List<string> resourcesNames = new List<string>();
             List<string> noteNames = new List<string>();
             List<string> guideNames = new List<string>();
 
+            for (int i = 0; i < playerEncountersCompendiumDatabase.Items.Count; i++)
+            {
+                encounterNames.Add(playerEncountersCompendiumDatabase.Items[i].Name);
+            }
             for (int i = 0; i < playerAnimalCompendiumDatabase.Items.Count; i++)
             {
                 animalNames.Add(playerAnimalCompendiumDatabase.Items[i].Name);
@@ -42,6 +48,7 @@ namespace Klaxon.SaveSystem
 
             return new SaveData
             {
+                encounterItemName = encounterNames,
                 animalItemName = animalNames,
                 resourceItemName = resourcesNames,
                 noteItemName = noteNames,
@@ -56,10 +63,15 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
+            playerEncountersCompendiumDatabase.Items.Clear();
             playerAnimalCompendiumDatabase.Items.Clear();
             playerResourceCompendiumDatabase.Items.Clear();
             playerNoteCompendiumDatabase.Items.Clear();
             playerGuidesCompendiumDatabase.Items.Clear();
+            for (int i = 0; i < saveData.encounterItemName.Count; i++)
+            {
+                playerEncountersCompendiumDatabase.Items.Add(allItemsDatabase.GetItem(saveData.encounterItemName[i]));
+            }
             for (int i = 0; i < saveData.animalItemName.Count; i++)
             {
                 playerAnimalCompendiumDatabase.Items.Add(allItemsDatabase.GetItem(saveData.animalItemName[i]));
@@ -80,6 +92,7 @@ namespace Klaxon.SaveSystem
             animalCompendiumInformation.animalTimesViewed = saveData.animalCompendiumAmounts;
             animalCompendiumInformation.viewedComplete = saveData.animalCompendiumViewedComplete;
             GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
+            GameEventManager.onEncountersCompediumUpdateEvent.Invoke();
             GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             GameEventManager.onNoteCompediumUpdateEvent.Invoke();
             GameEventManager.onGuideCompediumUpdateEvent.Invoke();
@@ -88,6 +101,7 @@ namespace Klaxon.SaveSystem
         [Serializable]
         private struct SaveData
         {
+            public List<string> encounterItemName;
             public List<string> animalItemName;
             public List<string> resourceItemName;
             public List<string> noteItemName;

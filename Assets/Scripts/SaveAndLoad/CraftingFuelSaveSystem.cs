@@ -18,7 +18,7 @@ namespace Klaxon.SaveSystem
                     fuelName = craftingHandler.currentFuel.Name,
                     fuelAmount = craftingHandler.currentFuelAmount,
                     fuelTick = craftingHandler.currentFuelTick,
-                    maxTick = craftingHandler.currentFuelTick
+                    maxTick = craftingHandler.currentMaxTick
                 };
             }
             else
@@ -28,7 +28,7 @@ namespace Klaxon.SaveSystem
                     fuelName = "",
                     fuelAmount = craftingHandler.currentFuelAmount,
                     fuelTick = craftingHandler.currentFuelTick,
-                    maxTick = craftingHandler.currentFuelTick
+                    maxTick = craftingHandler.currentMaxTick
                 };
             }
             

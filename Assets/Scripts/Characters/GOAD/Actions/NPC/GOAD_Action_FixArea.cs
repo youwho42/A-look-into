@@ -41,7 +41,7 @@ namespace Klaxon.GOAD
             currentArea = GetFixableArea();
 
             positionTimer = Random.Range(positionTimerMinMax.x, positionTimerMinMax.y);
-            basePos = transform.position;
+            basePos = currentArea.fixingNode.transform.position;
 
             // Setting up the seat for when we leave
             if (currentArea != null)

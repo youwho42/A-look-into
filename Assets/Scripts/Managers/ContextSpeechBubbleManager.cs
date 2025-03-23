@@ -15,27 +15,12 @@ public class ContextSpeechBubbleManager : MonoBehaviour
             Destroy(this);
     }
 
-
-    public ContextSpeechBubble speechBubbleObject;
-    public ObjectPool<ContextSpeechBubble> speechBubblePool;
-    int poolAmount = 3;
-
-    public void Start()
-    {
-
-        speechBubblePool = new ObjectPool<ContextSpeechBubble>
-            (
-                createFunc: CreateSmell,
-                actionOnGet: GetFromPool,
-                actionOnRelease: ReleaseToPool,
-                defaultCapacity: poolAmount
-
-            );
-
-    }
+    public ObjectPooler speechBubblePool;
+    
     public ContextSpeechBubble SetContextBubble(float time, Transform _transform, string text, bool useLine)
     {
-        var bubble = speechBubblePool.Get();
+        var go = speechBubblePool.GetPooledObject();
+        var bubble = go.GetComponent<ContextSpeechBubble>();
         bubble.transform.position = _transform.position;
         bubble.SetText(time, text, _transform, useLine);
         return bubble;
@@ -44,27 +29,9 @@ public class ContextSpeechBubbleManager : MonoBehaviour
     {
         if (speechBubble == null)
             return;
-        
-        speechBubblePool.Release(speechBubble);
-    }
 
-    ContextSpeechBubble CreateSmell()
-    {
-        ContextSpeechBubble speechBubble = Instantiate(speechBubbleObject, transform);
-        speechBubble.transform.position = Vector3.zero;
-        speechBubble.gameObject.SetActive(true);
-        
-        return speechBubble;
-    }
-
-    void GetFromPool(ContextSpeechBubble speechBubble)
-    {
-        speechBubble.gameObject.SetActive(true);
-    }
-
-    void ReleaseToPool(ContextSpeechBubble speechBubble)
-    {
         speechBubble.gameObject.SetActive(false);
     }
 
+    
 }

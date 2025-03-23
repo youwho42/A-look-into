@@ -1,5 +1,6 @@
 using Klaxon.ConversationSystem;
 using Klaxon.GOAD;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,14 @@ namespace Klaxon.Interactable
 
         NPC_ConversationSystem dialogueSystem;
         DialogueBranch currentDialogue;
-
+        public GOAD_ScriptableCondition hasMetPlayerCondition;
+        GOAD_Scheduler_NPC agent;
+        QI_Item characterItem;
         public override void Start()
         {
             base.Start();
+            characterItem = GetComponent<QI_Item>();
+            agent = GetComponent<GOAD_Scheduler_NPC>();
             dialogueSystem = GetComponent<NPC_ConversationSystem>();
         }
         public override void Interact(GameObject interactor)
@@ -31,6 +36,15 @@ namespace Klaxon.Interactable
 
                 if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
                 {
+                    if(hasMetPlayerCondition != null)
+                    {
+                        if(characterItem != null)
+                            PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
+
+                        agent.SetBeliefState(hasMetPlayerCondition.Condition, true);
+                    }
+                        
+
                     if (TryGetComponent(out GOAD_Scheduler_NPC npc))
                         npc.StopNPC(interactor.transform.position);
                     canInteract = false;

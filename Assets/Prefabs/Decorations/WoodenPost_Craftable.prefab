@@ -81,6 +81,9 @@ SpriteMask:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -115,6 +118,7 @@ SpriteMask:
   m_BackSortingOrder: -100
   m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!1 &3935859283380133193
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +168,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -216,7 +223,9 @@ GameObject:
   - component: {fileID: 1984241908007187673}
   - component: {fileID: 1397053786737790979}
   - component: {fileID: -8421364843601657199}
-  m_Layer: 0
+  - component: {fileID: 4131559532249413806}
+  - component: {fileID: 6820795651214234066}
+  m_Layer: 13
   m_Name: WoodenPost_Craftable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,6 +267,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -322,11 +334,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
-  m_ComponentVersion: 1
+  m_Priority: 0
+  m_ComponentVersion: 5
   m_HasRenderer: 1
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 1
+  m_AlphaCutoff: 0.1
   m_ApplyToSortingLayers: 00000000075e6bb6dded52f491e34331
   m_ShapePath:
   - {x: -0.020943362, y: 0.00024478557, z: 0}
@@ -338,11 +352,31 @@ MonoBehaviour:
   - {x: -0.001113683, y: -0.011060672, z: 0}
   - {x: -0.014964372, y: -0.007608084, z: 0}
   m_ShapePathHash: 871567547
-  m_Mesh: {fileID: 0}
   m_InstanceId: 2139780
-  m_LocalBounds:
-    m_Center: {x: -0.00075166486, y: 0.0014970535, z: 0}
-    m_Extent: {x: 0.020191697, y: 0.012557725, z: 0}
+  m_ShadowShape2DComponent: {fileID: 0}
+  m_ShadowShape2DProvider:
+    rid: -2
+  m_ShadowCastingSource: 1
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: -0.00075166486, y: 0.0014970535, z: 0}
+      m_Extent: {x: 0.020191697, y: 0.012557725, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0
+  m_CastingOption: 2
+  m_PreviousTrimEdge: 0
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 1
+  m_PreviousShadowShape2DSource: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &3899266946050363155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +395,7 @@ MonoBehaviour:
   - item: {fileID: 21300000, guid: 0313f5dc31b911743a6a0fc1f5d5e72b, type: 3}
   - item: {fileID: 21300000, guid: 43bc7c094318bbe4cae6f88ebc8dc3a6, type: 3}
   - item: {fileID: 21300000, guid: 4e38279208b63634c99b3444f9f767aa, type: 3}
+  flippable: 1
 --- !u!114 &2534173994798523337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: whaaAA???
   localizedInteractVerb:
     m_TableReference:
@@ -448,16 +484,82 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
-  replaceObjectOnDrop: {fileID: 8707879516530326805, guid: faa0f1a1e7b0a704e879648ab01ddd4a,
-    type: 3}
+  replaceObjectOnDrop: {fileID: 6820795651214234066}
   canPlaceOnOther: 0
-  visualItem: {fileID: 8331251571769606503, guid: faa0f1a1e7b0a704e879648ab01ddd4a,
-    type: 3}
+  visualItem: {fileID: 4788289996056830821}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
   references:
     version: 2
     RefIds: []
+--- !u!60 &4131559532249413806
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953126727497118714}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.037037082}
+    oldSize: {x: 0.125, y: 0.625}
+    newSize: {x: 0.125, y: 0.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.016587485, y: 0.00678197}
+      - {x: -0.020447839, y: -0.000064478256}
+      - {x: -0.013189286, y: -0.00785878}
+      - {x: -0.0008788947, y: -0.0111728255}
+      - {x: 0.015314747, y: -0.0057813413}
+      - {x: 0.019427499, y: 0.002006628}
+      - {x: 0.010594565, y: 0.009343342}
+      - {x: -0.0025618766, y: 0.0115329195}
+  m_UseDelaunayMesh: 0
+--- !u!114 &6820795651214234066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953126727497118714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddcece7e88890648822c268332bc9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassObjects: []
 --- !u!1001 &297676917976538096
 PrefabInstance:
   m_ObjectHideFlags: 0

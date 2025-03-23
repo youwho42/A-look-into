@@ -163,7 +163,9 @@ namespace Klaxon.GOAD
                 if (go.TryGetComponent(out InteractablePickUp pickup))
                     pickup.pickupQuantity = item.Value;
             }
-
+            var inventory = agent.currentFixable.fixedObject.GetComponent<QI_Inventory>();
+            if (inventory != null)
+                inventory.RemoveAllItems();
             agent.currentFixable = null;
             agent.animator.SetBool(agent.breakObject_hash, false);
         }
