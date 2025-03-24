@@ -21,7 +21,7 @@ namespace Klaxon.GOAD
             worldStates = GOAD_WorldBeliefStates.instance;
             agent.animator.SetBool(agent.isSitting_hash, false);
             agent.animator.SetBool(agent.isSleeping_hash, false);
-
+            agent.isBusy = true;
 
         }
         public override void PerformAction(GOAD_Scheduler_NPC agent)
@@ -75,6 +75,7 @@ namespace Klaxon.GOAD
                 undertakingAvailable.isInactive = false;
                 undertakingAvailable.SetUndertakingIcon(); 
             }
+            agent.isBusy = false;
         }
     }
 

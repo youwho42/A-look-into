@@ -56,7 +56,7 @@ public class ParticlesToPlayer : MonoBehaviour
                     dir = dir.normalized;
                     particles[i].transform.position += dir * (speed * 2) * Time.deltaTime;
                     var dist = Vector2.Distance(player.position, particles[i].transform.position);
-                    if (dist < .02f)
+                    if (dist < .03f)
                     {
                         counter--;
                         doneList.Add(i, true);

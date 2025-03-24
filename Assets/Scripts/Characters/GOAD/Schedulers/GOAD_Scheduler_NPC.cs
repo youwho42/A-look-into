@@ -110,7 +110,7 @@ namespace Klaxon.GOAD
                 TalkRangeTimer();
                 return;
             }
-            if (nearPlayer && IsConditionMet(canDailySpeakWithPlayer) && IsConditionMet(canSpeakWithPlayerPeriod))
+            if (nearPlayer && IsConditionMet(canDailySpeakWithPlayer) && IsConditionMet(canSpeakWithPlayerPeriod) && !isBusy)
             {
                 if(Random.Range(0.0f, 1.0f) <= 0.25f)
                     ContextSpeechBubbleManager.instance.SetContextBubble(3, speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"Variable-Texts", "Hello Player"), true);

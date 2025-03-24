@@ -185,7 +185,6 @@ namespace Klaxon.GOAD
             point.y = Random.Range(collider.bounds.min.y, collider.bounds.max.y);
 
             point = collider.ClosestPoint(point);
-
             return point;
         }
     } 
