@@ -1,11 +1,15 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+
+
+
+//// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 
 Shader "Custom/ShadowShader" {
 	 Properties {
 	     [PerRendererData] _MainTex ( "Sprite Texture", 2D ) = "white" {}
 		 
-	     _Color ( "Tint", Color ) = ( 1, 1, 1, 1 )
+	     _Color ( "Tint", Color ) = ( 0, 0, 0, 0.5 )
 		 
 
 	 }
@@ -18,17 +22,23 @@ Shader "Custom/ShadowShader" {
           	"CanUseSpriteAtlas" = "True" }
 	     
 		Pass {
+			
+
 		    Stencil {
 		        Ref 0
 				Comp Equal
 				Pass DecrWrap
+				
 		    }
 
 		    Cull Off
       		Lighting Off
       		ZWrite Off
-
-		     Blend SrcAlpha OneMinusSrcAlpha     
+			ZTest Always
+			
+			
+		     Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+		         
 	 
 			 CGPROGRAM
 			 #pragma vertex vert
@@ -57,13 +67,13 @@ Shader "Custom/ShadowShader" {
 			 }
 
 			 half4 frag (v2f i) : COLOR {
+				 
 				half4 color = tex2D(_MainTex, i.uv);
 				if (color.a <= 0.3)
 					discard;
 
 				color = _Color;
 				return color;
-					
 				
 			}
 			 ENDCG

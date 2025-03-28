@@ -26,6 +26,11 @@ public class TreeShadows : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(1.0f);
+        if(TryGetComponent(out SpriteRenderer rend))
+        {
+            if (rend.isVisible)
+                OnBecameVisible();
+        }
         SetShadows(shadowUpdateTick);
     }
     private void OnBecameVisible()
@@ -77,16 +82,17 @@ public class TreeShadows : MonoBehaviour
         var scale = globalShadows.shadowScale;
         for (int i = 0; i < subShadowSprites.Count; i++)
         {
-            float diff = NumberFunctions.RemapNumber(scale.y, 0.4f, 1.4f, -0.08f, 0.08f);
-            subShadowSprites[i].transform.localPosition = new Vector3(subShadowPositions[i].x, subShadowPositions[i].y + diff, subShadowPositions[i].z);
             subShadowSprites[i].enabled = visible;
             subShadowMaterials[i].SetColor("_Color", c);
-            subShadowSprites[i].transform.localScale = scale;
         }
         shadowSprite.enabled = visible;
         shadowMaterial.SetColor("_Color", c);
         shadowTransform.eulerAngles = globalShadows.shadowRotation;
-        shadowSprite.transform.localScale = scale;
+        //float baseZ = Mathf.Abs(globalShadows.shadowRotation.z);
+        //float newZ = NumberFunctions.RemapNumber(baseZ, 0.0f, 80.0f, 0.1f, 0.5f);
+        //Vector3 newPos = new Vector3(0, 0, newZ);
+        //shadowTransform.localPosition = newPos;
+        shadowTransform.localScale = scale;
         if (shadowCaster != null)
             shadowCaster.enabled = globalShadows.ShadowCasterEnabled();
             

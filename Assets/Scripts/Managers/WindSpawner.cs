@@ -84,7 +84,7 @@ public class WindSpawner : MonoBehaviour
 
     private IEnumerator CheckAffectedObjects(Transform location)
     {
-        var hit = Physics2D.OverlapCircleAll(location.position, 0.75f);
+        var hit = Physics2D.OverlapCircleAll(location.position, 1.75f);
         if (hit.Length > 0)
         {
             

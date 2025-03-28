@@ -95,7 +95,7 @@ public class GlobalShadows : MonoBehaviour
         float zRotation = 0;
 
         zRotation = Mathf.Lerp(80, -80, elapsedTime / waitTime);
-        float shadowLength = Mathf.Lerp(0.4f, 1.4f, Mathf.Abs(zRotation) / 80);
+        float shadowLength = Mathf.Lerp(0.5f, 1.4f, Mathf.Abs(zRotation) / 80);
         shadowRotation = new Vector3(0, 0, zRotation);
         shadowScale = new Vector3(1, shadowLength, 1);
         //if(zRotation >= 58.5f && zRotation <=62.5f)

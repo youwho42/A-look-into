@@ -39,26 +39,30 @@ public class TreeGenerationEditor : Editor
 
     void GenerateTreeObjects()
     {
+        treeGeneration.leavesShake.leafObjects.Clear();
+        treeGeneration.shadows.subShadowSprites.Clear();
         allPositions.Clear();
         //create trunk
         int t = Random.Range(0, treeGeneration.trunks.Count);
-        treeGeneration.trunkRenderer.sprite = treeGeneration.trunks[t];
+        treeGeneration.trunkRenderer.sprite = treeGeneration.trunks[t].trunk;
+        SetShadowPiece(treeGeneration.trunkRenderer.sprite, treeGeneration.trunkRenderer.transform.localPosition, treeGeneration.shadows.shadowTransform, false, false);
         //create rear and front leaves
-        SetLeaves(treeGeneration.leavesRear, treeGeneration.darkestFront, treeGeneration.darkestRear, 2);
-        SetLeaves(treeGeneration.leavesFront, Color.white, treeGeneration.darkestFront);
-        
+        SetLeaves(treeGeneration.leavesRear, t, treeGeneration.lightestRear, treeGeneration.darkestRear, 0.5f);
+        SetLeaves(treeGeneration.leavesFront, t, Color.white, treeGeneration.darkestFront);
         
     }
+    
 
-    void SetLeaves(Transform parent, Color min, Color max, int factor = 1)
+    void SetLeaves(Transform parent, int trunkIndex, Color min, Color max, float factor = 1.0f)
     {
-        int a = Random.Range(treeGeneration.minPerLayer/factor, treeGeneration.maxPerLayer/factor);
+        
+        int a = Random.Range((int)(treeGeneration.trunks[trunkIndex].minPerLayer * factor), (int)(treeGeneration.trunks[trunkIndex].maxPerLayer * factor));
         for (int i = 0; i < a; i++)
         {
             var go = new GameObject();
             go.transform.parent = parent;
 
-            var pos = GetPointInsideCollider(treeGeneration.leafArea, 50);
+            var pos = GetPointInsideCollider(treeGeneration.trunks[trunkIndex].leafArea, 50);
             if (pos == -Vector2.one)
                 continue;
             allPositions.Add(pos);
@@ -70,9 +74,32 @@ public class TreeGenerationEditor : Editor
             var renderer = go.AddComponent<SpriteRenderer>();
             renderer.flipX = Random.value < 0.5f;
             renderer.sprite = treeGeneration.leaves[s];
-            var c = Color.Lerp(min, max, Random.value);
+            renderer.spriteSortPoint = SpriteSortPoint.Pivot;
+            float ca = NumberFunctions.RemapNumber(z, 0.0f, 2.0f, 1.0f, 0.0f);
+            var c = Color.Lerp(min, max, ca);
             renderer.color = c;
+            treeGeneration.leavesShake.leafObjects.Add(go.transform);
+            SetShadowPiece(renderer.sprite, go.transform.localPosition, treeGeneration.shadows.shadowTransform, renderer.flipX, true);
+
         }
+    }
+
+    void SetShadowPiece(Sprite sprite, Vector3 position, Transform parent, bool flipped, bool subSprite)
+    {
+        var go = new GameObject();
+        go.transform.parent = parent;
+        position.z *= 0.5f;
+        go.transform.localPosition = position;
+        var renderer = go.AddComponent<SpriteRenderer>();
+        renderer.flipX = flipped;
+        renderer.sprite = sprite;
+        
+        renderer.material = treeGeneration.shadowMaterial;
+        if (!subSprite)
+            treeGeneration.shadows.shadowSprite = renderer;
+        else
+            treeGeneration.shadows.subShadowSprites.Add(renderer);
+        
     }
 
     public Vector2 GetPointInsideCollider(Collider2D collider, int remainingTries)
@@ -103,6 +130,7 @@ public class TreeGenerationEditor : Editor
         //Get an array with all children to this transform
         GameObject[] allRear = GetAllChildren(treeGeneration.leavesRear.transform);
         GameObject[] allFront = GetAllChildren(treeGeneration.leavesFront.transform);
+        GameObject[] allShadows = GetAllChildren(treeGeneration.shadows.shadowTransform);
 
         //Now destroy them
         foreach (GameObject child in allRear)
@@ -110,6 +138,10 @@ public class TreeGenerationEditor : Editor
             DestroyImmediate(child);
         }
         foreach (GameObject child in allFront)
+        {
+            DestroyImmediate(child);
+        }
+        foreach (GameObject child in allShadows)
         {
             DestroyImmediate(child);
         }
