@@ -209,8 +209,11 @@ namespace Klaxon.GOAD
 
         public void NodeDeviate(GOAD_Action action)
         {
-            if (UnstuckCharacter())
-                return;
+            if (walker.isStuck)
+            {
+                if (UnstuckCharacter())
+                    return;
+            }
 
             isDeviating = true;
             if (walker.isStuck)
@@ -230,12 +233,15 @@ namespace Klaxon.GOAD
 
         public void AStarDeviate(GOAD_Action action)
         {
-
-            if (UnstuckCharacter())
-                return;
-
-
             isDeviating = true;
+            if (walker.isStuck)
+            {
+                if (UnstuckCharacter())
+                    return;
+            }
+            
+
+
             if (walker.isStuck)
                 walker.hasDeviatePosition = false;
 
@@ -287,7 +293,9 @@ namespace Klaxon.GOAD
                             var h = Physics2D.OverlapPoint(posI, LayerMask.GetMask("Obstacle"), posI.z, posI.z);
                             if (!h && GridManager.instance.GetTileValid(posI))
                             {
+                                isDeviating = false;
                                 transform.position = posI;
+                                walker.ResetLastPosition();
                                 return true;
                             }
                         }
@@ -303,10 +311,14 @@ namespace Klaxon.GOAD
 
         public void Deviate()
         {
-            if (UnstuckCharacter())
-                return;
-
             isDeviating = true;
+            if (walker.isStuck)
+            {
+                if (UnstuckCharacter())
+                    return;
+            }
+
+            
             if (walker.isStuck)
                 walker.hasDeviatePosition = false;
 

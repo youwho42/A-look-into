@@ -30,11 +30,17 @@ public class TreeShadows : MonoBehaviour
         {
             if (rend.isVisible)
                 OnBecameVisible();
+            else
+            {
+                OnBecameVisible();
+                OnBecameInvisible();
+            }
         }
         SetShadows(shadowUpdateTick);
     }
     private void OnBecameVisible()
     {
+        shadowTransform.gameObject.SetActive(true);
         for (int i = 0; i < subShadowSprites.Count; i++)
         {
             subShadowMaterials.Add(subShadowSprites[i].material);
@@ -49,7 +55,7 @@ public class TreeShadows : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        
+        shadowTransform.gameObject.SetActive(false);
         GameEventManager.onShadowTickEvent.RemoveListener(SetShadows);
         isVisible = false;
         if (shadowCaster != null)
@@ -89,13 +95,13 @@ public class TreeShadows : MonoBehaviour
         shadowMaterial.SetColor("_Color", c);
         shadowTransform.eulerAngles = globalShadows.shadowRotation;
         //float baseZ = Mathf.Abs(globalShadows.shadowRotation.z);
-        //float newZ = NumberFunctions.RemapNumber(baseZ, 0.0f, 80.0f, 0.1f, 0.5f);
-        //Vector3 newPos = new Vector3(0, 0, newZ);
+        //float newZ = NumberFunctions.RemapNumber(baseZ, 0.0f, 80.0f, 0.0f, 0.1f);
+        //Vector3 newPos = new Vector3(0, 0.002f, newZ);
         //shadowTransform.localPosition = newPos;
         shadowTransform.localScale = scale;
         if (shadowCaster != null)
             shadowCaster.enabled = globalShadows.ShadowCasterEnabled();
-            
+        
     }
     
 }

@@ -229,38 +229,41 @@ namespace Klaxon.GOAD
 
         public void Deviate()
         {
-            var hit = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("Obstacle"), transform.position.z, transform.position.z);
-            
-            if (hit != null)
+            isDeviating = true;
+            if (walker.isStuck)
             {
-                if (hit.TryGetComponent(out DrawZasYDisplacement disp))
+                var hit = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("Obstacle"), transform.position.z, transform.position.z);
+                if (hit != null)
                 {
-                    if(disp.positionZ > 0)
+                    if (hit.TryGetComponent(out DrawZasYDisplacement disp))
                     {
-                        for (int d = 1; d < 6; d++)
+                        if (disp.positionZ > 0)
                         {
-                            for (float i = 0; i < Mathf.PI * 2; i += Mathf.PI * 0.25f)
+                            for (int d = 1; d < 6; d++)
                             {
-                                Vector2 dir = new Vector2(Mathf.Cos(i), Mathf.Sin(i));
-                                dir = dir.normalized;
-                                dir *= d * 0.05f;
-                                var posI = transform.position + (Vector3)dir;
-                                var h = Physics2D.OverlapPoint(posI, LayerMask.GetMask("Obstacle"), posI.z, posI.z);
-                                if (!h && GridManager.instance.GetTileValid(posI))
+                                for (float i = 0; i < Mathf.PI * 2; i += Mathf.PI * 0.25f)
                                 {
-                                    transform.position = posI;
-                                    return;
+                                    Vector2 dir = new Vector2(Mathf.Cos(i), Mathf.Sin(i));
+                                    dir = dir.normalized;
+                                    dir *= d * 0.05f;
+                                    var posI = transform.position + (Vector3)dir;
+                                    var h = Physics2D.OverlapPoint(posI, LayerMask.GetMask("Obstacle"), posI.z, posI.z);
+                                    if (!h && GridManager.instance.GetTileValid(posI))
+                                    {
+                                        transform.position = posI;
+                                        walker.ResetLastPosition();
+                                        isDeviating = false;
+                                        return;
+                                    }
                                 }
-                                //var dir = Vector2.
                             }
                         }
                     }
                 }
-                    
-                
             }
+            
 
-            isDeviating = true;
+            
             if (walker.isStuck)
                 walker.hasDeviatePosition = false;
 
@@ -274,7 +277,6 @@ namespace Klaxon.GOAD
                 isDeviating = false;
 
             walker.SetLastPosition();
-
         }
 
 
