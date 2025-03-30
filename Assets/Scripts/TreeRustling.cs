@@ -11,7 +11,7 @@ public class TreeRustling : MonoBehaviour, IWindEffect
     public Sprite treeDropppingSprite;
 
     public float dropRadius;
-
+    public TreeLeavesShake treeLeavesShake;
 
 
     void Start()
@@ -26,7 +26,8 @@ public class TreeRustling : MonoBehaviour, IWindEffect
         soundSet.SetSource(source, t);
         source.volume = soundSet.volume;
         soundSet.Play();
-        if(canDropItem)
+        treeLeavesShake.ShakeLeaves();
+        if (canDropItem)
             DropDropping();
     }
 
