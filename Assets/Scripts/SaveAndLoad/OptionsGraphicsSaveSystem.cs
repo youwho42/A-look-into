@@ -15,14 +15,15 @@ namespace Klaxon.SaveSystem
             return new SaveData
             {
                 vSync = graphicsSettings.GetVSync(),
-                fullscreen = graphicsSettings.GetFullscreen()
+                fullscreen = graphicsSettings.GetFullscreen(),
+                dropdownValue = graphicsSettings.GetLimitedFramerate()
             };
         }
 
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            graphicsSettings.SetFromSave(saveData.vSync, saveData.fullscreen);
+            graphicsSettings.SetFromSave(saveData.vSync, saveData.fullscreen, saveData.dropdownValue);
         }
 
         [Serializable]
@@ -30,6 +31,7 @@ namespace Klaxon.SaveSystem
         {
             public int vSync;
             public bool fullscreen;
+            public int dropdownValue;
 
         }
     }
