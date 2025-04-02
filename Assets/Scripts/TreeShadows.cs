@@ -18,6 +18,7 @@ public class TreeShadows : MonoBehaviour
     [Range(1, 10)]
     public int shadowUpdateTick = 1;
 
+    
     private void Awake()
     {
         if (shadowCaster != null)
@@ -51,6 +52,7 @@ public class TreeShadows : MonoBehaviour
         GameEventManager.onShadowTickEvent.AddListener(SetShadows);
         isVisible = true;
         SetShadows(shadowUpdateTick);
+        
     }
 
     private void OnBecameInvisible()
@@ -60,7 +62,7 @@ public class TreeShadows : MonoBehaviour
         isVisible = false;
         if (shadowCaster != null)
             shadowCaster.enabled = false;
-         
+        
     }
     private void OnDisable()
     {

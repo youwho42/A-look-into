@@ -31,7 +31,9 @@ public class WarningUI : MonoBehaviour
 
     public void Continue()
     {
-        if(continueUI == UIScreenType.MainMenuUI)
+        UIScreenManager.instance.isInWarning = false;
+        UIScreenManager.instance.SetButtonsActive(true);
+        if (continueUI == UIScreenType.MainMenuUI)
         {
             UIScreenManager.instance.HideScreenUI();
             LevelManager.instance.LoadTitleScreen();
@@ -47,10 +49,13 @@ public class WarningUI : MonoBehaviour
         UIScreenManager.instance.DisplayScreenUI(continueUI, true);
         Cancel();
     }
-
+    
     public void Cancel()
     {
         backSelect.SetSelectedButton();
         gameObject.SetActive(false);
+        UIScreenManager.instance.SetButtonsActive(true);
+        UIScreenManager.instance.isInWarning = false;
+        
     }
 }

@@ -1,9 +1,11 @@
 using Klaxon.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
 {
@@ -16,11 +18,14 @@ public class PauseUI : MonoBehaviour
 
     UIScreen screen;
 
+    [HideInInspector]
+    public List<Button> allButtons = new List<Button>();
     private void Start()
     {
         screen = GetComponent<UIScreen>();
         screen.SetScreenType(UIScreenType.PauseUI);
         gameObject.SetActive(false);
+        allButtons = GetComponentsInChildren<Button>().ToList();
     }
     private void OnEnable()
     {

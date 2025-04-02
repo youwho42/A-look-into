@@ -68,7 +68,6 @@ public class GraphicsSettingsUI : MonoBehaviour
             Application.targetFrameRate = 60;
         else
             Application.targetFrameRate = 120;
-        Debug.Log($"option {framerateDropdown.value} : current set framerate{Application.targetFrameRate}");
     }
 
 

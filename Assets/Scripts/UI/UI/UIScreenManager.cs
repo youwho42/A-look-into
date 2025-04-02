@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIScreenManager : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class UIScreenManager : MonoBehaviour
     private UIScreenType currentUI;
     UIScreenType lastUI;
     float autoSaveTimer;
+    [HideInInspector]
+    public bool isInWarning;
+
     private void Start()
     {
         
@@ -78,7 +82,7 @@ public class UIScreenManager : MonoBehaviour
     public void HideScreenUI()
     {
         
-        if (GetCurrentUI() == UIScreenType.MiniGameUI)
+        if (GetCurrentUI() == UIScreenType.MiniGameUI || GetCurrentUI() == UIScreenType.PauseUI && isInWarning)
             return;
         if (GetCurrentUI() != UIScreenType.None && !isSleeping)
             DisplayScreenUI(currentUI, false);
@@ -238,13 +242,27 @@ public class UIScreenManager : MonoBehaviour
 
     public void DisplayWarning(string warning, UIScreenType continueScreen, string continueButtonText, SetButtonSelected backSelect)
     {
+        SetButtonsActive(false);
+        
         SetScreenUI(UIScreenType.WarningUI, true);
         warningUI.SetWarning(warning, continueScreen, continueButtonText, backSelect);
+        isInWarning = true;
     }
 
+    public void SetButtonsActive(bool active)
+    {
+        foreach (var button in mainMenu.allButtons)
+        {
+            button.interactable = active;
+        }
+        foreach (var button in pauseMenu.allButtons)
+        {
+            button.interactable = active;
+        }
+    }
     public void SetPauseScreen(bool state)
     {
-        if (inMainMenu)
+        if (inMainMenu || isInWarning)
             return;
         if(state)
             lastUI = currentUI;

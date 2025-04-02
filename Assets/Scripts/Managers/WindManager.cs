@@ -54,7 +54,19 @@ public class WindManager : MonoBehaviour
         
     }
 
-    
+    public float GetWindMagnitudeRaw(Vector3 position)
+    {
+        float offset = 2500;
+        float scale = 10.0f;
+
+        float a = (float)openSimplexNoise.Evaluate(position.x / scale + offset, position.y / scale + offset, currentZ + (position.z / scale + offset));
+        a = NumberFunctions.RemapNumber(a, -1.0f, 1.0f, 0.0f, 1.0f);
+        return a;
+
+
+    }
+
+
 
     public Vector2 GetWindDirectionFromPosition(Vector3 position)
     {
