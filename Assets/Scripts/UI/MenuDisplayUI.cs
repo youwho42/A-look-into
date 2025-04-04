@@ -14,7 +14,7 @@ public class MenuDisplayUI : MonoBehaviour
     public GameObject mapDisplaySection;
     public GameObject compendiumsDisplaySection;
     public GameObject undertakingsDisplaySection;
-
+    public List<GameObject> controllerButtons = new List<GameObject>();
     UIScreen screen;
 
     private void Start()
@@ -24,6 +24,7 @@ public class MenuDisplayUI : MonoBehaviour
    
         
         GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
+        GameEventManager.onControlSchemeChangedEvent.AddListener(SetControllerButtons);
         maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
         HideAllTabbedUI();
         gameObject.SetActive(false);
@@ -32,6 +33,8 @@ public class MenuDisplayUI : MonoBehaviour
     {
         
         GameEventManager.onGamepadBumpersButtonEvent.RemoveListener(ChangeUI);
+        GameEventManager.onControlSchemeChangedEvent.RemoveListener(SetControllerButtons);
+
     }
     enum MenuButtons
     {
@@ -57,6 +60,14 @@ public class MenuDisplayUI : MonoBehaviour
             UIScreenManager.instance.DisplayPlayerHUD(true);
         }
         
+    }
+    void SetControllerButtons(string scheme)
+    {
+        bool isController = scheme == "Gamepad";
+        foreach (var button in controllerButtons)
+        {
+            button.SetActive(isController);
+        }
     }
     void DisplayMapUI()
     {

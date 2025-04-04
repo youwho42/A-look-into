@@ -112,6 +112,7 @@ public class CharacterChoiceUI : MonoBehaviour
             acceptButton.interactable = true;
         ColorBlock block = playerNameInputField.colors;
         block.selectedColor = valid ? selectedColor : Color.red;
+        block.normalColor = valid ? Color.white : Color.red;
         playerNameInputField.colors = block;
     }
 

@@ -102,6 +102,11 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
                         && !hits[i].CompareTag("Minigame")
                         && !hits[i].CompareTag("Player"))
                     {
+                        if (hits[i].TryGetComponent(out DrawZasYDisplacement displacement))
+                        {
+                            if (displacement.positionZ == 0)
+                                continue;
+                        }
                         canSpawn = false;
                         break;
                     }

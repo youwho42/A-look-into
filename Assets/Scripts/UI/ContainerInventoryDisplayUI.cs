@@ -43,6 +43,9 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
     [HideInInspector]
     public QI_Inventory otherInventory;
 
+    public GameObject placeAllButton;
+
+
     private void Start()
     {
         screen = GetComponent<UIScreen>();
@@ -107,6 +110,7 @@ public class ContainerInventoryDisplayUI : MonoBehaviour
         //playerName.text = $"{PlayerInformation.instance.playerName}'s inventory";
         SetContainerUI();
         ChangeControlText(PlayerInformation.instance.playerInput.currentControlScheme);
+        placeAllButton.SetActive(containerInventory.PlayerCanAddToInventory);
     }
     public void HideContainerUI()
     {

@@ -21,6 +21,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     public TextMeshProUGUI itemAmount;
     public TextMeshProUGUI itemUse;
     public TextMeshProUGUI variantsDisplay;
+    public TextMeshProUGUI researchDisplay;
     public QI_Inventory inventory;
     public EquipmentManager equipmentManager;
     GameObject itemToDrop;
@@ -66,6 +67,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         GameEventManager.onInventoryRightClickEvent.AddListener(SetItemSelected);
         GameEventManager.onInventoryRightClickReleaseEvent.AddListener(EndDragItem);
         GameEventManager.onRotateDecoration.AddListener(RotateDecoration);
+        
     }
 
     private void OnDisable()
@@ -159,7 +161,25 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         if (item.ItemPrefabVariants.Count > 1)
             variantsDisplay.gameObject.SetActive(true);
+        UpdateRecipeRevealIcon();
     }
+
+    void UpdateRecipeRevealIcon()
+    {
+        researchDisplay.gameObject.SetActive(HasRecipeToReveal());
+    }
+    bool HasRecipeToReveal()
+    {
+        
+        foreach (var recipe in item.ResearchRecipes)
+        {
+            if (!PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Contains(recipe.recipe))
+                return true;
+        }
+        
+        return false;
+    }
+
     public void RemoveItem()
     {
         if (item == null)

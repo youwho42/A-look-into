@@ -25,6 +25,7 @@ public class InventoryDisplayUI : MonoBehaviour
         GameEventManager.onEquipmentUpdateEvent.AddListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.AddListener(UpdateInventoryUI);
         GameEventManager.onInventoryResetEvent.AddListener(ResetInventoryUI);
+        GameEventManager.onRecipeCompediumUpdateEvent.AddListener(UpdateInventoryUI);
         SetInventoryUI();
         UpdateInventoryUI();
 
@@ -43,6 +44,7 @@ public class InventoryDisplayUI : MonoBehaviour
         GameEventManager.onEquipmentUpdateEvent.RemoveListener(UpdateInventoryUI);
         GameEventManager.onInventoryUpdateEvent.RemoveListener(UpdateInventoryUI);
         GameEventManager.onInventoryResetEvent.RemoveListener(ResetInventoryUI);
+        GameEventManager.onRecipeCompediumUpdateEvent.RemoveListener(UpdateInventoryUI);
 
     }
     void ResetInventoryUI()
