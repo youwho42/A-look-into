@@ -28,13 +28,14 @@ namespace Klaxon.GOAD
             {
                 success = true;
                 agent.SetActionComplete(true);
-                agent.manager.nextAppearanceSet = false;
-                gameObject.SetActive(false);
+                agent.transform.position = agent.mainHomeNode.transform.position;
+                agent.currentTilePosition.position = agent.currentTilePosition.GetCurrentTilePosition(agent.transform.position);
+                agent.walker.currentLevel = (int)agent.transform.position.z - 1;
                 return;
             }
 
             fleeTimer += Time.deltaTime;
-            if(fleeTimer > 3.5f)
+            if(fleeTimer > 2.5f)
             {
                 
                 if (!disolving)
@@ -42,12 +43,15 @@ namespace Klaxon.GOAD
                     DissolveEffect.instance.StartDissolve(agent.walker.characterRenderer.material, 1.0f, false);
                     disolving = true;
                 }
-                if(agent.walker.characterRenderer.material.GetFloat("_Fade") <= 0)
+                if(fleeTimer > 3.6f)
                 {
+                    agent.transform.position = agent.mainHomeNode.transform.position;
+                    agent.currentTilePosition.position = agent.currentTilePosition.GetCurrentTilePosition(agent.transform.position);
+                    agent.walker.currentLevel = (int)agent.transform.position.z - 1;
+                    DissolveEffect.instance.StartDissolve(agent.walker.characterRenderer.material, 1.0f, true);
                     success = true;
                     agent.SetActionComplete(true);
-                    agent.manager.nextAppearanceSet = false;
-                    gameObject.SetActive(false);
+                    
                 }
                 return;
             }

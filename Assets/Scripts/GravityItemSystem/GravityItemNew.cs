@@ -207,7 +207,7 @@ namespace Klaxon.GravitySystem
             bounceFactor = 1;
             float displacement = dif * spriteDisplacementY;
             Vector3 currentPosition = _transform.position;
-            lastJumpZ = currentLevel;
+            
             if (currentTilePosition.position.z > currentLevel)
             {
                 
@@ -554,7 +554,6 @@ namespace Klaxon.GravitySystem
         public void Bounce(float bounceAmount)
         {
             positionZ = bounceAmount;
-
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
             lastJumpZ = currentLevel;
             //itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);

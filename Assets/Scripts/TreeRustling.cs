@@ -22,6 +22,8 @@ public class TreeRustling : MonoBehaviour, IWindEffect
 
     public void Affect(bool canDropItem)
     {
+        if (!isActiveAndEnabled)
+            return;
         int t = Random.Range(0, soundSet.clips.Length);
         soundSet.SetSource(source, t);
         source.volume = soundSet.volume;

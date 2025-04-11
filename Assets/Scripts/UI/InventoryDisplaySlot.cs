@@ -239,6 +239,8 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (item.placementGumption != null)
         PlayerInformation.instance.statHandler.AddModifiableModifier(item.placementGumption);
 
+        if (itemToDrop.TryGetComponent(out ScarekernutInteractable scarekernut))
+            scarekernut.visibleRadius.SetActive(false);
         // get interactablePickUp and add said amount to drop
 
         inventory.RemoveItem(item, quantity);
@@ -263,9 +265,7 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     public void DragItem()
     {
-
-        
-        if (/*EventSystem.current.currentSelectedGameObject != slotButton.gameObject || */item == null)
+        if (item == null)
             return;
         if (PlayerInformation.instance.inventorySlot != null && PlayerInformation.instance.inventorySlot != this)
             return;
@@ -302,6 +302,8 @@ public class InventoryDisplaySlot : MonoBehaviour
             isDragged = true;
             PlayerInformation.instance.inventorySlot = this;
             PlayerInformation.instance.isDragging = true;
+            if(go.TryGetComponent(out ScarekernutInteractable scarekernut))
+                scarekernut.visibleRadius.SetActive(true);
         }
 
         if (itemToDrop != null)

@@ -76,7 +76,14 @@ public class GridManager : MonoBehaviour
                         groundMap.SetColor(pos, levelcolor);
                         decorationOne.SetColor(pos, levelcolor);
                         decorationTwo.SetColor(pos, levelcolor);
-
+                        var cliffPos = pos - Vector3Int.forward;
+                        if(groundMap.GetTile(cliffPos) == null)
+                        {
+                            decorationOne.SetTileFlags(cliffPos, TileFlags.None);
+                            decorationTwo.SetTileFlags(cliffPos, TileFlags.None);
+                            decorationOne.SetColor(cliffPos, levelcolor);
+                            decorationTwo.SetColor(cliffPos, levelcolor);
+                        }
                     }
                 }
             }
@@ -141,6 +148,23 @@ public class GridManager : MonoBehaviour
         Vector2 randPos = Random.insideUnitCircle * maxDistance;
         Vector3 offsetPos = origin + (Vector3)randPos;
         
+        Vector3Int destinationTile = groundMap.WorldToCell(offsetPos - Vector3Int.forward);
+        for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
+        {
+            destinationTile.z = z;
+            if (GetTileValid(destinationTile))
+                return groundMap.GetCellCenterWorld(destinationTile) + Vector3.forward;
+        }
+        return GetRandomTileWorldPosition(origin, maxDistance);
+    }
+
+    public Vector3 GetRandomTileWorldPosition(Vector3 origin, float minDistance, float maxDistance)
+    {
+        SetGrid();
+       
+        Vector2 randPos = Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
+        Vector3 offsetPos = origin + (Vector3)randPos;
+
         Vector3Int destinationTile = groundMap.WorldToCell(offsetPos - Vector3Int.forward);
         for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
         {

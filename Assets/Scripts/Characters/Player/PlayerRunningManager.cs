@@ -49,7 +49,6 @@ public class PlayerRunningManager : MonoBehaviour
         if (shattered || !player.playerController.isGrounded || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
             return;
 
-        
         currentGaugeAmount += 0.05f;
         if(currentGaugeAmount >0.1f)
             ActivateUI();
@@ -59,10 +58,11 @@ public class PlayerRunningManager : MonoBehaviour
     }
     void Land(int lastZ)
     {
+        
         if (shattered)
             return;
 
-        int z = (int)lastZ - (int)player.currentTilePosition.position.z;
+        int z = lastZ - player.playerController.currentLevel;
         
         var amount = NumberFunctions.RemapNumber(z, 1.0f, 7.0f, 0.0f, 1.0f);
         amount = Mathf.Clamp01(amount);

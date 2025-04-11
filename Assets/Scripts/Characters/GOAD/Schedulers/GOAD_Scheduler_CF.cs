@@ -78,6 +78,13 @@ namespace Klaxon.GOAD
         public UIScreenManager sleep;
 
 
+        [HideInInspector]
+        public int currentFailedPathfindingAttempts;
+        public NavigationNode mainHomeNode;
+        public GOAD_ScriptableCondition atHomeCondition;
+        [HideInInspector]
+        public Vector3 currentDestructableLocation;
+
         public override void Start()
         {
             base.Start();
@@ -181,6 +188,15 @@ namespace Klaxon.GOAD
             return false;
         }
 
+        public void GetRandomTilePosition(int distance, GOAD_Action action)
+        {
+            var currentPos = _transform.position;
+            Vector3 destination = currentPos;
+            destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
+            currentFinalDestination = destination;
+            SetAStarDestination(destination, action);
+        }
+
         public void SetAStarDestination(Vector3 destination, GOAD_Action action)
         {
 
@@ -203,6 +219,8 @@ namespace Klaxon.GOAD
                     for (int y = -1; y < 2; y++)
                     {
                         Vector2Int offset = new Vector2Int(x, y);
+                        if (!GridManager.instance.GetTileExisting(gridPos + (Vector3Int)offset))
+                            continue;
                         var d = ((gridPos + (Vector3Int)offset) - currentTilePosition.position).sqrMagnitude;
                         if (d < distance && PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[gridPos + (Vector3Int)offset].walkable)
                         {
@@ -228,6 +246,86 @@ namespace Klaxon.GOAD
             validPath = success;
             gettingPath = false;
         }
+
+
+        public void AStarDeviate(GOAD_Action action)
+        {
+            isDeviating = true;
+            if (walker.isStuck)
+            {
+                if (UnstuckCharacter())
+                    return;
+            }
+
+
+
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+            animator.SetFloat(velocityX_hash, 1);
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+            {
+                isDeviating = false;
+                currentPathIndex = 0;
+                aStarPath.Clear();
+                if (StartPositionValid())
+                    SetAStarDestination(currentFinalDestination, action);
+                else
+                {
+                    Debug.LogWarning($"start position not valid after deviate \ncurrent pos{transform.position} last pos{lastValidTileLocation}", gameObject);
+                    transform.position = lastValidTileLocation;
+                    //aStarPath.Add(lastValidTileLocation);
+                }
+
+            }
+
+
+            walker.SetLastPosition();
+        }
+
+
+        bool UnstuckCharacter()
+        {
+            var hits = Physics2D.OverlapPointAll(transform.position, LayerMask.GetMask("Obstacle"), transform.position.z, transform.position.z);
+            for (int i = 0; i < hits.Length; i++)
+            {
+
+                if (hits[i].TryGetComponent(out DrawZasYDisplacement disp))
+                {
+                    if (disp.positionZ <= 0)
+                        continue;
+
+                    for (int d = 1; d < 6; d++)
+                    {
+                        for (float a = 0; a < Mathf.PI * 2; a += Mathf.PI * 0.25f)
+                        {
+                            Vector2 dir = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+                            dir = dir.normalized;
+                            dir *= d * 0.05f;
+                            var posI = transform.position + (Vector3)dir;
+                            var h = Physics2D.OverlapPoint(posI, LayerMask.GetMask("Obstacle"), posI.z, posI.z);
+                            if (!h && GridManager.instance.GetTileValid(posI))
+                            {
+                                isDeviating = false;
+                                transform.position = posI;
+                                walker.ResetLastPosition();
+                                return true;
+                            }
+                        }
+                    }
+
+                }
+
+
+            }
+            return false;
+        }
+
 
 
 
@@ -302,6 +400,21 @@ namespace Klaxon.GOAD
             }
         }
 
+        bool IsNearScarekernut(Vector3 position)
+        {
+            var allScarekernuts = FindObjectsByType<ScarekernutInteractable>(FindObjectsSortMode.None).ToList();
+            foreach (var scarekernut in allScarekernuts)
+            {
+                var dist = (scarekernut.transform.position - position).sqrMagnitude;
+                if (dist * dist <= scarekernut.maxDistance)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
         public FixableObject GetClosestFixable()
         {
             var dist = float.MaxValue;
@@ -312,7 +425,7 @@ namespace Klaxon.GOAD
                 if (!fixable.fixedObject.activeInHierarchy || Mathf.Abs(fixable.transform.position.z-transform.position.z) > 1)
                     continue;
                 var d = (fixable.transform.position - _transform.position).sqrMagnitude;
-                if (d > 10)
+                if (d > 10 || IsNearScarekernut(fixable.transform.position))
                     continue;
 
                 if (d < dist)
@@ -324,6 +437,7 @@ namespace Klaxon.GOAD
             }
             return closest;
         }
+
 
         public InteractableCraftingStation GetClosestCraftingStation()
         {
@@ -344,7 +458,7 @@ namespace Klaxon.GOAD
                 if (Mathf.Abs(craftingStation.transform.position.z - transform.position.z) > 1)
                     continue;
                 var d = (craftingStation.transform.position - _transform.position).sqrMagnitude;
-                if (d > 10)
+                if (d > 10 || IsNearScarekernut(craftingStation.transform.position))
                     continue;
 
                 if (d < dist)
@@ -359,7 +473,7 @@ namespace Klaxon.GOAD
 
         public void FleePlayer(Transform playerTransform)
         {
-            if (HasBelief(fleeCondition.Condition, true) && isFleeing)
+            if (HasBelief(fleeCondition.Condition, true) && isFleeing || HasBelief(atHomeCondition.Condition, true))
                 return;
             fleeTransform = playerTransform;
             SetBeliefState(fleeCondition.Condition, true);

@@ -124,6 +124,8 @@ namespace Klaxon.GravitySystem
 
             if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)
                 Bounce(jumpHeight * jumpStat.GetModifiedMax());
+            
+                
         }
 
 

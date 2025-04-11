@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -13,8 +14,9 @@ public class ContextSpeechBubbleHandler : MonoBehaviour
     public Vector2Int minMaxTimeBetweenSpeak;
     CycleTicks nextSpeechCycle;
     RealTimeDayNightCycle timeCycle;
-    private void OnEnable()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.5f);
         timeCycle = RealTimeDayNightCycle.instance;
         if (randomSpeechTimes)
         {

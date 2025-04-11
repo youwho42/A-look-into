@@ -122,7 +122,7 @@ namespace Klaxon.GOAD
         {
 
             Vector2 rand = Random.insideUnitCircle * wanderDistance;
-            var dir = PlayerInformation.instance.player.position - transform.position;
+            var dir = agent.currentDestructableLocation - transform.position;
             var dist = dir.sqrMagnitude;
             Vector2 offset = dir.normalized * Mathf.Clamp(dist, 0.5f, 3.0f);
 
