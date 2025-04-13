@@ -134,7 +134,8 @@ public class RealTimeDayNightCycle : MonoBehaviour
     
     void SetStableLight(bool isDay)
     {
-        
+        if (sun == null)
+            sun = GameObject.FindGameObjectWithTag("Sun").GetComponent<UnityEngine.Rendering.Universal.Light2D>();
         sun.intensity = isDay ? 1.2f : 0.3f; 
         sun.color = isDay ? dayColor : nightColor;
     }

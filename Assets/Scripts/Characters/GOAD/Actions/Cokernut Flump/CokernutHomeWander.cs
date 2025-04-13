@@ -10,17 +10,7 @@ namespace Klaxon.GOAD
         public override void StartAction(GOAD_Scheduler_CF agent)
         {
             base.StartAction(agent);
-            var hit = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("HouseFloor"));
-            if (hit != null)
-            {
-                var chair = GOAD_WorldBeliefStates.instance.FindNearestSeat(transform.position);
-                transform.position = chair.findNode.transform.position;
-                agent.walker.currentTilePosition.position = agent.walker.currentTilePosition.GetCurrentTilePosition(transform.position);
-                agent.walker.currentLevel = agent.walker.currentTilePosition.position.z;
-                success = false;
-                agent.SetActionComplete(true);
-                return;
-            }
+            
 
 
             agent.offScreenPosMoved = true;

@@ -89,6 +89,12 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         currentDisplay.currentHoverStack = state ? inventoryStackIndex : -1;
     }
+
+    public void ShowTip(string tipName)
+    {
+        ItemInformationDisplayUI.instance.ShowTip(tipName, this.GetComponent<RectTransform>());
+    }
+
     public void ShowInformation()
     {
         if (item == null)
@@ -525,6 +531,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         itemUse.text = "";
         decorationIndex = 0;
         variantsDisplay.gameObject.SetActive(false);
+        researchDisplay.gameObject.SetActive(false);
     }
 
     

@@ -71,6 +71,7 @@ namespace Klaxon.GravitySystem
 
         public bool shitSpot;
 
+        public bool inOoze;
 
 
         public override void Start()
@@ -96,6 +97,7 @@ namespace Klaxon.GravitySystem
             if (isInInteractAction || currentDirection == Vector2.zero && !isClimbing)
                 return;
             var finalSpeed = isRunning ? runSpeed : walkSpeed;
+            finalSpeed = inOoze ? finalSpeed * .4f : finalSpeed;
             if (CanReachNextTile(currentDirection))
                 Move(currentDirection, finalSpeed);
 
@@ -534,6 +536,30 @@ namespace Klaxon.GravitySystem
 
         }
 
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (gameObject.name == "Cokernut Flump")
+                return;
+            if (collision.CompareTag("Ooze"))
+                inOoze = true;
+        }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (gameObject.name == "Cokernut Flump")
+                return;
+            if (collision.CompareTag("Ooze"))
+                inOoze = true;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (gameObject.name == "Cokernut Flump")
+                return;
+            if (collision.CompareTag("Ooze"))
+                inOoze = false;
+        }
 
     }
 

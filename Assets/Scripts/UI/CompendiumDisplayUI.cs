@@ -622,7 +622,13 @@ public class CompendiumDisplayUI : MonoBehaviour
             foreach (var r in station.recipeDatabase.CraftingRecipes)
             {
                 if (r == recipe)
-                    return $"{LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")} {station.GetComponent<QI_Item>().Data.localizedName.GetLocalizedString()} \n";
+                {
+                    string craftingStation = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-Utility", "Crafting Station");
+                    if (station.TryGetComponent(out QI_Item stationItem))
+                        craftingStation = stationItem.Data.localizedName.GetLocalizedString();
+                    return $"{LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")} {craftingStation} \n";
+
+                }
             }
         }
         return "";
@@ -636,7 +642,14 @@ public class CompendiumDisplayUI : MonoBehaviour
             foreach (var recipe in station.recipeDatabase.CraftingRecipes)
             {
                 if (recipe.Product.Item == item)
-                    return $"{LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")} {station.GetComponent<QI_Item>().Data.localizedName.GetLocalizedString()} \n";
+                {
+                    string craftingStation = LocalizationSettings.StringDatabase.GetLocalizedString($"Items-Utility", "Crafting Station");
+                    if (station.TryGetComponent(out QI_Item stationItem))
+                        craftingStation = stationItem.Data.localizedName.GetLocalizedString();
+                    return $"{LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Crafted using")} {craftingStation} \n";
+
+
+                }
             }
         }
         return "";

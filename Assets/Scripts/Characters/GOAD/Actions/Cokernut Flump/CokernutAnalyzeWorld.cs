@@ -31,10 +31,12 @@ namespace Klaxon.GOAD
                 agent.manager.SetNextAppearance();
                 if (!agent.manager.GetRandomCokernutInteractablePosition(out Vector3 pos))
                 {
+                    
                     success = false;
                     agent.SetActionComplete(true);
                     return;
                 }
+                agent.manager.SetSpawnTime();
                 isActive = true;
                 agent.currentDestructableLocation = pos;
                 spawnPosition = agent.manager.GetRandomPositionAround(pos);

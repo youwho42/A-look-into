@@ -15,7 +15,9 @@ public class CokernutManager : MonoBehaviour
 
     [HideInInspector]
     public CycleTicks nextAppearance;
-    
+    [HideInInspector]
+    public CycleTicks spawnedTime;
+
     [HideInInspector]
     public bool nextAppearanceSet;
     RealTimeDayNightCycle dayNightCycle;
@@ -30,16 +32,12 @@ public class CokernutManager : MonoBehaviour
     {
         sleep = UIScreenManager.instance;
         dayNightCycle = RealTimeDayNightCycle.instance;
-        //GameEventManager.onTimeTickEvent.AddListener(CheckAppearance);
         cokernutScheduler.SetUpCokernutFlump();
         if (!nextAppearanceSet)
             SetNextAppearance();
     }
 
-    //private void OnDisable()
-    //{
-    //    GameEventManager.onTimeTickEvent.RemoveListener(CheckAppearance);
-    //}
+    
 
     public void ActivateCokernut(bool active)
     {
@@ -54,92 +52,25 @@ public class CokernutManager : MonoBehaviour
         nextAppearance = dayNightCycle.GetCycleTime(Random.Range(minMaxBetweenAppearanceTicks.x, minMaxBetweenAppearanceTicks.y));
     }
 
+    public void SetSpawnTime()
+    {
+        spawnedTime = dayNightCycle.GetCycleTime(Random.Range(minMaxAppearanceTicks.x, minMaxAppearanceTicks.y));
+    }
+
     public bool CheckCanAppear()
     {
-        if (!sleep.isSleeping || dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
+        if (!sleep.isSleeping && dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
             return true;
         return false;
     }
-    
-    //void CheckAppearance(int tick)
-    //{
-    //    if (dayNightCycle == null)
-    //    {
-    //        dayNightCycle = RealTimeDayNightCycle.instance;
-    //        return;
-    //    }
-    //    if (sleep == null)
-    //    {
-    //        sleep = UIScreenManager.instance;
-    //        return;
-    //    }
-    //    // is at home and setting when it will next try to break things
-    //    if (cokernutScheduler.HasBelief(isHomeCondition.Condition, true))
-    //    {
-    //        if(!cokernutScheduler.gameObject.activeInHierarchy)
-    //        {
-    //            cokernutScheduler.gameObject.SetActive(true);
-    //            isActive = true;
-    //            cokernutScheduler.transform.position = cokernutScheduler.mainHomeNode.transform.position;
-    //            cokernutScheduler.currentTilePosition.position = cokernutScheduler.currentTilePosition.GetCurrentTilePosition(cokernutScheduler.transform.position);
-    //            cokernutScheduler.walker.currentLevel = (int)cokernutScheduler.transform.position.z - 1;
-    //            DissolveEffect.instance.StartDissolve(cokernutScheduler.walker.characterRenderer.material, 1.0f, true);
-    //        }
-    //        // next appeareance is not set
-    //        if (!nextAppearanceSet)
-    //        {
-    //            nextAppearance = dayNightCycle.GetCycleTime(Random.Range(minMaxBetweenAppearanceTicks.x, minMaxBetweenAppearanceTicks.y));
 
-    //            nextAppearanceSet = true;
-    //            return;
-    //        }
-    //        // next appearance is set
-    //        else
-    //        {
-    //            if (sleep.isSleeping)
-    //                return;
-    //            if (dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
-    //            {
-    //                // should appear somewhere
-    //                nextAppearanceSet = false;
-    //                if (GetRandomPosition(out Vector3 pos))
-    //                {
-    //                    cokernutScheduler.SetBeliefState(isHomeCondition.Condition, false);
-    //                    cokernutScheduler.currentDestructableLocation = pos;
-    //                    cokernutScheduler.gameObject.SetActive(true);
-    //                    isActive = true;
-    //                    cokernutScheduler.transform.position = pos;
-    //                    cokernutScheduler.currentTilePosition.position = cokernutScheduler.currentTilePosition.GetCurrentTilePosition(pos);
-    //                    cokernutScheduler.walker.currentLevel = (int)pos.z - 1;
-    //                    DissolveEffect.instance.StartDissolve(cokernutScheduler.walker.characterRenderer.material, 1.0f, true);
-    //                }
+    public bool SpawnTimerExpired()
+    {
+        if (dayNightCycle.currentTimeRaw >= spawnedTime.tick && dayNightCycle.currentDayRaw >= spawnedTime.day)
+            return true;
+        return false;
+    }
 
-
-    //            }
-    //        }
-    //    }
-    //    // has appeared in the world
-    //    else
-    //    {
-    //        // set next time he disappears (if not at home)
-    //        if (!nextAppearanceSet)
-    //        {
-    //            nextAppearance = dayNightCycle.GetCycleTime(Random.Range(minMaxAppearanceTicks.x, minMaxAppearanceTicks.y));
-
-    //            nextAppearanceSet = true;
-    //            return;
-    //        }
-    //        else
-    //        {
-    //            // will disappear and go home if time is met
-    //            if (sleep.isSleeping || dayNightCycle.currentTimeRaw >= nextAppearance.tick && dayNightCycle.currentDayRaw >= nextAppearance.day)
-    //            {
-    //                cokernutScheduler.SetBeliefState(cokernutScheduler.fleeCondition.Condition, true);
-    //                isActive = false;
-    //            }
-    //        }
-    //    }
-    //}
 
     public bool GetRandomCokernutInteractablePosition(out Vector3 position)
     {

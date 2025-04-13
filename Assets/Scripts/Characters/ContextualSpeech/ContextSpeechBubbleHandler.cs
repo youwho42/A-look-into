@@ -51,4 +51,13 @@ public class ContextSpeechBubbleHandler : MonoBehaviour
         
 
     }
+
+    public void SetSpeechBubble(List<LocalizedString> localizedSpeechList)
+    {
+        if (UIScreenManager.instance.isSleeping)
+            return;
+        int index = Random.Range(0, localizedSpeechList.Count);
+        ContextSpeechBubbleManager.instance.SetContextBubble(3, speechBubbleTransform, localizedSpeechList[index].GetLocalizedString(), true);
+        
+    }
 }

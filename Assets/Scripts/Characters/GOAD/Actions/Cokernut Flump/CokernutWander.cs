@@ -27,6 +27,13 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
+            if (agent.manager.SpawnTimerExpired())
+            {
+                agent.FleePlayer(PlayerInformation.instance.player);
+                return;
+            }
+                
+
             if (agent.lastValidTile != agent.currentTilePosition.position)
             {
                 agent.lastValidTile = agent.currentTilePosition.position;

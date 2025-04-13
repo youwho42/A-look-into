@@ -84,7 +84,8 @@ namespace Klaxon.GOAD
         public GOAD_ScriptableCondition atHomeCondition;
         [HideInInspector]
         public Vector3 currentDestructableLocation;
-
+        [HideInInspector]
+        public ContextSpeechBubbleHandler speechBubbleHandler;
         public override void Start()
         {
             base.Start();
@@ -92,6 +93,7 @@ namespace Klaxon.GOAD
         }
         public void SetUpCokernutFlump()
         {
+            speechBubbleHandler = GetComponent<ContextSpeechBubbleHandler>();
             manager = GetComponentInParent<CokernutManager>();
             walker = GetComponent<GravityItemWalk>();
             sleep = UIScreenManager.instance;
@@ -122,7 +124,7 @@ namespace Klaxon.GOAD
             {
                 if (currentAction.IsRunning)
                     currentAction.PerformAction(this);
-                if (currentActionComplete)
+                if (currentActionComplete && currentAction != null)
                 {
                     currentActionComplete = false;
                     currentAction.EndAction(this);
@@ -489,5 +491,11 @@ namespace Klaxon.GOAD
             ResetGoal();
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!collision.CompareTag("Scarekernut"))
+                return;
+            FleePlayer(collision.transform);
+        }
     }
 }

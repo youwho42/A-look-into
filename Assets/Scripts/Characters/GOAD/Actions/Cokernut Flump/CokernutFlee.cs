@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace Klaxon.GOAD
 {
     public class CokernutFlee : GOAD_Action
     {
+        public List<LocalizedString> localizedFleeTexts = new List<LocalizedString>();
         Vector3 fleeDestination;
         float fleeTimer;
         bool disolving;
@@ -19,6 +22,9 @@ namespace Klaxon.GOAD
             agent.walker.Bounce(4);
             agent.walker.isRunning = true;
             agent.isFleeing = true;
+
+            
+            agent.speechBubbleHandler.SetSpeechBubble(localizedFleeTexts);
         }
 
         public override void PerformAction(GOAD_Scheduler_CF agent)
@@ -87,6 +93,7 @@ namespace Klaxon.GOAD
         public override void EndAction(GOAD_Scheduler_CF agent)
         {
             base.EndAction(agent);
+            agent.manager.SetNextAppearance();
             agent.walker.isRunning = false;
             agent.animator.SetFloat(agent.velocityX_hash, 0);
             agent.animator.SetBool(agent.isRunning_hash, false);

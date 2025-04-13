@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
   m_Name: Scarekernut_Recipe
   m_EditorClassIdentifier: 
-  Name: Spinner
+  Name: Scarekernut
   ProductType: 6
   Ingredients:
   - Item: {fileID: 11400000, guid: dede986df77974c57a8b84d49d58ead2, type: 2}
+    Amount: 50
+  - Item: {fileID: 11400000, guid: 19776a29a37848a45810ae335249e924, type: 2}
     Amount: 10
-  - Item: {fileID: 11400000, guid: b581bbd250a074af0a3f75e68accf984, type: 2}
-    Amount: 15
-  Product:
-    Item: {fileID: 11400000, guid: 547a06a4d93130447995dcab263e9f09, type: 2}
+  - Item: {fileID: 11400000, guid: fef6aecae859e8b44bd201b4bf742ea7, type: 2}
     Amount: 1
-  CraftingTime: 60
-  AgencyCost: 25
+  Product:
+    Item: {fileID: 11400000, guid: 02ac8eec18cb448419f36b5f1e275cbc, type: 2}
+    Amount: 1
+  CraftingTime: 90

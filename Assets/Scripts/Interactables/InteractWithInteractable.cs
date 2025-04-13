@@ -213,7 +213,8 @@ namespace Klaxon.Interactable
             {
                 if (!items[i].canInteract || items[i] == null)
                     continue;
-                float tempDistance = Vector3.Distance(transform.position, items[i].gameObject.transform.position);
+                var closestPoint = items[i].GetComponent<Collider2D>().ClosestPoint(transform.position);
+                float tempDistance = Vector3.Distance(transform.position, closestPoint);
                 if (nearest == null || tempDistance < distance)
                 {
                     nearest = items[i];

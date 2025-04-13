@@ -632,6 +632,7 @@ GameObject:
   - component: {fileID: 3329869352283560701}
   - component: {fileID: 6374255248349482292}
   - component: {fileID: 3967731233373571924}
+  - component: {fileID: 4768398810340648968}
   m_Layer: 23
   m_Name: Cokernut Flump
   m_TagString: Animal
@@ -814,6 +815,7 @@ MonoBehaviour:
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 2060818713760273937}
   shitSpot: 0
+  inOoze: 0
 --- !u!114 &7280322245002146169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,6 +864,10 @@ MonoBehaviour:
     setOnStart: 1
     setBetweenTimes: 0
     setFromToTimeTick: {x: 0, y: 0}
+  - condition: {fileID: 11400000, guid: 91b9ab55b3457ef49b37ab1743158ceb, type: 2}
+    setOnStart: 1
+    setBetweenTimes: 0
+    setFromToTimeTick: {x: 0, y: 0}
   specialConditions: []
   timedConditions: []
   dailyResetConditions: []
@@ -886,7 +892,7 @@ MonoBehaviour:
       PreConditions:
       - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
       - {fileID: 11400000, guid: 3b1422bc5fb03184fb71776a56f20754, type: 2}
-    Priority: 2
+    Priority: 5
   - Name: Ooze
     DesiredGoal:
       ResultCondition: {fileID: 11400000, guid: 5606b001a24c68b429639b333d3fdc33,
@@ -894,21 +900,21 @@ MonoBehaviour:
       PreConditions:
       - {fileID: 11400000, guid: 87b78bad9a9ec4a44b82567aa95c6e06, type: 2}
       - {fileID: 11400000, guid: 4fa6b69df55ba5344ba3443ff6b2560a, type: 2}
-    Priority: 3
+    Priority: 6
   - Name: BreakFixable
     DesiredGoal:
       ResultCondition: {fileID: 11400000, guid: 6839c69f00f36794ebd795666d0239ed,
         type: 2}
       PreConditions:
       - {fileID: 11400000, guid: eb37e92a81dccb14db96b4b4ff8e6e04, type: 2}
-    Priority: 5
+    Priority: 8
   - Name: BreakCrafting
     DesiredGoal:
       ResultCondition: {fileID: 11400000, guid: d94edaa1f0ec28e4795f989c2630db37,
         type: 2}
       PreConditions:
       - {fileID: 11400000, guid: 92cf1b0b39530594d9ef2cb0276894cb, type: 2}
-    Priority: 5
+    Priority: 8
   - Name: Flee
     DesiredGoal:
       ResultCondition: {fileID: 11400000, guid: 07bfee16d331a824f83a296d029ec58f,
@@ -922,7 +928,16 @@ MonoBehaviour:
         type: 2}
       PreConditions:
       - {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+      - {fileID: 11400000, guid: 91b9ab55b3457ef49b37ab1743158ceb, type: 2}
     Priority: 1
+  - Name: AnalyzeWorld
+    DesiredGoal:
+      ResultCondition: {fileID: 11400000, guid: dcaa724ff2e2ebc45ac7c0fa4208fa3c,
+        type: 2}
+      PreConditions:
+      - {fileID: 11400000, guid: 81f02b987b1235f489895358594fa471, type: 2}
+      - {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
+    Priority: 2
   currentActionName: 
   animator: {fileID: 2647255712618771790}
   isDeviating: 0
@@ -952,6 +967,7 @@ MonoBehaviour:
   mainHomeNode: {fileID: 0}
   atHomeCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
   currentDestructableLocation: {x: 0, y: 0, z: 0}
+  speechBubbleHandler: {fileID: 0}
 --- !u!114 &8871377881501208771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,7 +983,7 @@ MonoBehaviour:
   actionName: Wander
   Goal:
     ResultCondition: {fileID: 11400000, guid: 1a4bab0db7079984994ea321e3874c21, type: 2}
-    PreCondition: {fileID: 11400000, guid: 82a2a8909173ce54fa591c2b0a71c694, type: 2}
+    PreCondition: {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
   IsRunning: 0
   success: 0
   conditionsOnSucceed:
@@ -1190,6 +1206,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
   conditionsOnFail:
   - {fileID: 11400000, guid: 7ee3d2672f686074fb82361cdaa77d97, type: 2}
+  localizedFleeTexts:
+  - m_TableReference:
+      m_TableCollectionName: GUID:93fd76115d2c03d4db20b47c174cb80f
+    m_TableEntryReference:
+      m_KeyId: 14821579432714240
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:93fd76115d2c03d4db20b47c174cb80f
+    m_TableEntryReference:
+      m_KeyId: 34743050240
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &6374255248349482292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1230,9 +1266,34 @@ MonoBehaviour:
     PreCondition: {fileID: 11400000, guid: 85ce144a5728da54dbc23b0afe29dd99, type: 2}
   IsRunning: 0
   success: 0
-  conditionsOnSucceed: []
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 81f02b987b1235f489895358594fa471, type: 2}
   conditionsOnFail: []
   wanderDistance: 3
+--- !u!114 &4768398810340648968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601196711689163723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7cd22a6a3b2a9499e183400fe4a176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: AnalyzeWorld
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: dcaa724ff2e2ebc45ac7c0fa4208fa3c, type: 2}
+    PreCondition: {fileID: 11400000, guid: 81f02b987b1235f489895358594fa471, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 91b9ab55b3457ef49b37ab1743158ceb, type: 2}
+  - {fileID: 11400000, guid: 70be813edfe7f484cbcc3a9e02d63370, type: 2}
+  - {fileID: 11400000, guid: 3b1422bc5fb03184fb71776a56f20754, type: 2}
+  conditionsOnFail:
+  - {fileID: 11400000, guid: 91b9ab55b3457ef49b37ab1743158ceb, type: 2}
 --- !u!1 &6749402573220560414
 GameObject:
   m_ObjectHideFlags: 0

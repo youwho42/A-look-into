@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 6539871327332230008}
   - component: {fileID: 4157861782523990537}
   - component: {fileID: 4961727714804064081}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Scarekernut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,9 +585,10 @@ GameObject:
   - component: {fileID: 8691161761667338202}
   - component: {fileID: 5986922091563019346}
   - component: {fileID: 301163783454138525}
-  m_Layer: 0
+  - component: {fileID: 7568114902398181180}
+  m_Layer: 23
   m_Name: Scarekernut_Post
-  m_TagString: Untagged
+  m_TagString: Scarekernut
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -718,6 +719,42 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+--- !u!58 &7568114902398181180
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860029976215011765}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.72
 --- !u!1 &8297260537835526733
 GameObject:
   m_ObjectHideFlags: 0

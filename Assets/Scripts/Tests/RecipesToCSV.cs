@@ -1,3 +1,4 @@
+using Klaxon.Interactable;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections.Generic;
@@ -5,12 +6,15 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class RecipesToCSV : MonoBehaviour
 {
     public QI_CraftingRecipeDatabase allRecipesDatabase;
+    public QI_ItemDatabase allItemsDatabase;
     public List<EquipmentAxeData> axes = new List<EquipmentAxeData>();
     string fileName = "";
+    public List<InteractableCraftingStation> allCraftingStations = new List<InteractableCraftingStation>();
 
     [ContextMenu("Create File")]
     public void CreateFile()
@@ -25,7 +29,7 @@ public class RecipesToCSV : MonoBehaviour
         if (allRecipesDatabase.CraftingRecipes.Count > 0)
         {
             TextWriter tw = new StreamWriter(fileName, false);
-            tw.WriteLine("Item, Ingredients, Minigames per, Minigame Subper");
+            tw.WriteLine("Item, Ingredients, Researched Item, Crafting Station, Minigames per, Minigame Subper");
             tw.Close();
 
             tw = new StreamWriter(fileName, true);
@@ -33,6 +37,8 @@ public class RecipesToCSV : MonoBehaviour
             foreach (var recipe in allRecipesDatabase.CraftingRecipes)
             {
                 string ingredients = GetIngredients(recipe);
+                string researchedItem = GetResearchedItemSource(recipe);
+                string craftingStation = GetCraftingStation(recipe);
                 string minigame = GetMinigameQuantities(recipe);
                 string subAmount = "";
 
@@ -56,7 +62,7 @@ public class RecipesToCSV : MonoBehaviour
 
 
 
-                tw.WriteLine($"- {recipe.Product.Item.Name}, {ingredients}, {minigame}, {subAmount}");
+                tw.WriteLine($"- {recipe.Product.Item.Name}, {ingredients}, {researchedItem}, {craftingStation}, {minigame}, {subAmount}");
             }
             tw.Close();
         }
@@ -93,9 +99,40 @@ public class RecipesToCSV : MonoBehaviour
 
         return minigame;
     }
+    string GetResearchedItemSource(QI_CraftingRecipe recipe)
+    {
+        string source = "";
+        foreach (var item in allItemsDatabase.Items)
+        {
+            foreach (var r in item.ResearchRecipes)
+            {
+                if (r.recipe == recipe)
+                    source += $"-{item.Name} ";
+            }
+        }
 
-    
+        return source == "" ? "None" : source;
+    }
 
+    string GetCraftingStation(QI_CraftingRecipe recipe)
+    {
+
+        foreach (var station in allCraftingStations)
+        {
+            foreach (var r in station.recipeDatabase.CraftingRecipes)
+            {
+                if (r == recipe)
+                {
+                    if(station.TryGetComponent(out QI_Item item))
+                        return $"{item.Data.localizedName.GetLocalizedString()}";
+                    else
+                        return "Probably Crafting Station Basic";
+                }
+                    
+            }
+        }
+        return "None assigned";
+    }
 
     private static string GetIngredients(QI_CraftingRecipe recipe)
     {

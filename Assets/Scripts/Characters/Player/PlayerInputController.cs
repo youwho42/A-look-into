@@ -314,7 +314,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void RunAction(InputAction.CallbackContext context) 
     { 
-        if(canRun)
+        if(canRun && UIScreenManager.instance.GetIsCurrentUI(UIScreenType.None))
             runToggle = !runToggle; 
     }
         

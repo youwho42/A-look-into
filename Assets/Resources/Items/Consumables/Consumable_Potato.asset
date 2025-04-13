@@ -31,11 +31,21 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 3
   AnimationName: 
   Weight: 0.3
   Price: 30
   spawnWeight: 1
+  FuelTicks: 0
   Icon: {fileID: 21300000, guid: c5e98731929327f40921b8d1efea4a7c, type: 3}
   ItemPrefabVariants:
   - {fileID: 2053927477830204981, guid: cf3ed18b3e282f842a4e2ef6ad8c193e, type: 3}
@@ -43,12 +53,18 @@ MonoBehaviour:
   EquipedItem: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
-  ResearchRecipes: []
+  ResearchRecipes:
+  - recipe: {fileID: 11400000, guid: 3afd76b254deb834da0d6c2640a09bdc, type: 2}
+    RecipeRevealAmount: 5
+    agencyStatChanger: {fileID: 11400000, guid: 47e307b8ad73809478c654dca4eb36d2,
+      type: 2}
   GameDificulty: 0
   placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   statChangers: []
   statModifiers: []
   itemToBecome: {fileID: 0}
+  soundName: 
   references:
     version: 2
     RefIds: []

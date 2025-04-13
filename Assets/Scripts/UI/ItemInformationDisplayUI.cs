@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using Klaxon.StatSystem;
+using UnityEngine.Localization.Settings;
 
 public class ItemInformationDisplayUI : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class ItemInformationDisplayUI : MonoBehaviour
     StatModifier currentStat;
     RectTransform otherStatAnchor;
     public Vector2 statAnchorOffset;
-
+    string currentTip = "";
     private void Start()
     {
         GameEventManager.onInventoryUpdateEvent.AddListener(HideItemName);
@@ -38,6 +39,21 @@ public class ItemInformationDisplayUI : MonoBehaviour
     {
         GameEventManager.onInventoryUpdateEvent.RemoveListener(HideItemName);
     }
+
+    public void ShowTip(string tip, RectTransform anchor)
+    {
+        currentTip = tip;
+        otherItemAnchor = anchor;
+        if (isShowing)
+        {
+            StopCoroutine("HideItemCo");
+            ShowTip();
+        }
+        else
+            Invoke("ShowTip", 1.3f);
+
+    }
+
 
     public void ShowItemName(QI_ItemData item, RectTransform anchor)
     {
@@ -74,7 +90,26 @@ public class ItemInformationDisplayUI : MonoBehaviour
         StartCoroutine("HideItemCo");
         informationDisplay.SetActive(false);
         CancelInvoke("ShowItem");
+        CancelInvoke("ShowStat");
+        CancelInvoke("ShowTip");
     }
+
+    void ShowTip()
+    {
+        isShowing = true;
+        itemName.text = LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", currentTip);
+
+        // Convert the screen point to a position in the canvas
+
+        Vector2 anchoredPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, otherItemAnchor.position + (Vector3)itemAnchorOffset, null, out anchoredPosition);
+
+        // Apply the anchored position to the UI element
+        informationDisplay.GetComponent<RectTransform>().anchoredPosition = anchoredPosition;
+
+        informationDisplay.SetActive(true);
+    }
+
 
     void ShowItem()
     {
