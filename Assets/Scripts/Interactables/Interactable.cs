@@ -28,6 +28,8 @@ namespace Klaxon.Interactable
         protected PlayerInformation playerInformation;
 
         public bool hasLongInteract;
+        [ConditionalHide("hasLongInteract", true)]
+        public bool onlyLongInteract;
 
         public ReplaceObjectOnItemDrop replaceObjectOnDrop;
         public bool canPlaceOnOther;
@@ -99,7 +101,7 @@ namespace Klaxon.Interactable
                 return true;
             //if (SAP_WorldBeliefStates.instance.HasWorldState(instruction.condition.Condition, instruction.condition.State))
             //    return true;
-            BallPersonMessageDisplayUI.instance.ShowHowTo(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString());
+            BallPersonMessageDisplayUI.instance.ShowSimpleMessage(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString());
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);            //SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
             return false;
         }

@@ -13,7 +13,7 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
     public Image icon;
     public TextMeshProUGUI itemSlotName;
     public TextMeshProUGUI itemUse;
-
+    
     
 
     public EquipmentSlot equipmentSlot;
@@ -66,7 +66,7 @@ public class EquipmentDisplaySlot : MonoBehaviour, ISlot
         item = newItem;
         icon.sprite = item.Icon;
         icon.enabled = true;
-
+        
     }
 
     public void RemoveItem()

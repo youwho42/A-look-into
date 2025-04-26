@@ -83,10 +83,7 @@ namespace Klaxon.GOAD
                 Vector2 randomPos = GetPointInsideCollider(currentArea.areaCollider);
                 Vector3 finalPos = new Vector3(randomPos.x, randomPos.y, transform.position.z);
                 transform.position = finalPos;
-
-                float rand = Random.Range(0.0f, 1.0f);
-                if (rand >= .6f)
-                    agent.walker.Flip();
+                SetFacingDirection(agent);
             }
 
 
@@ -111,6 +108,14 @@ namespace Klaxon.GOAD
 
             
 
+        }
+
+        void SetFacingDirection(GOAD_Scheduler_NPC agent)
+        {
+            bool facingRight = agent.walker.facingRight;
+            bool centerIsRight = currentArea.centerPosition.position.x > transform.position.x;
+            if (facingRight != centerIsRight)
+                agent.walker.Flip();
         }
 
         void AddTick(int tick)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Klaxon.SaveSystem
@@ -38,14 +39,15 @@ namespace Klaxon.SaveSystem
 
         public bool SaveGame()
         {
+            
             SavePath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_save.ali";
             string BackUpPath = $"{Application.persistentDataPath}/{PlayerInformation.instance.playerName}_saveBackUp.ali";
-            
+
             if (File.Exists(SavePath))
                 File.Copy(SavePath, BackUpPath);
-                
+
             DeleteFile(SavePath);
-            
+
             var state = LoadFile(LoadSelectionUI.instance.currentLoadFileName, "ali");
             CaptureState(state);
             SaveFile(SavePath, state);
@@ -57,12 +59,12 @@ namespace Klaxon.SaveSystem
                 success = true;
                 DeleteFile(BackUpPath);
             }
-                
+
             GameEventManager.onGameSavedEvent.Invoke();
             SaveVersion();
             return success;
+           
         }
-
         public void SaveOptions()
         {
             OptionsPath = $"{Application.persistentDataPath}/Options_save.alio";

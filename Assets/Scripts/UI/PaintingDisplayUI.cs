@@ -29,6 +29,10 @@ public class PaintingDisplayUI : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+    private void OnDisable()
+    {
+        currentPainting = null;
+    }
 
     void DisableAllLayers()
     {
@@ -80,8 +84,5 @@ public class PaintingDisplayUI : MonoBehaviour
     {
         AddPainting(painting);
     }
-    public void HideUI()
-    {
-        currentPainting = null;
-    }
+    
 }

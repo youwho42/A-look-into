@@ -124,7 +124,7 @@ namespace Klaxon.Interactable
 
                 if (closest == null)
                     return;
-
+                
                 if (closest.TryGetComponent(out SpriteRenderer renderer))
                 {
                     canvasOffset = new Vector3(0, renderer.bounds.size.y / 2, 1);
@@ -148,8 +148,8 @@ namespace Klaxon.Interactable
                         quantity = $"({derivedObj.pickupQuantity})";
                 }
                     
-                
-                action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
+                if(!closest.onlyLongInteract)
+                    action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
                 string buttHold = player.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
@@ -159,7 +159,8 @@ namespace Klaxon.Interactable
                     string itemName = "";
                     if (closest.localizedItemName != null)
                         itemName = closest.localizedItemName.GetLocalizedString();
-                    action += $"\n {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {itemName}";
+                    var blank = closest.onlyLongInteract ? "" : "\n";
+                    action += $"{blank} {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {itemName}";
                     interactSlider.gameObject.SetActive(true);
                 }
                 interactVerb.text = action;

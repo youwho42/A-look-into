@@ -1,8 +1,5 @@
 ﻿using QuantumTek.QuantumInventory;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EquipmentManager : MonoBehaviour
 {
@@ -11,7 +8,6 @@ public class EquipmentManager : MonoBehaviour
     public static EquipmentManager instance;
     public SpriteRenderer handEquipmentHolder;
     public SpriteRenderer lightEquipmentHolder;
-
     private void Awake()
     {
         if (instance == null)

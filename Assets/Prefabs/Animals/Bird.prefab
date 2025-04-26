@@ -436,18 +436,21 @@ MonoBehaviour:
   jumpHeight: 7
   isInInteractAction: 0
   moveSpeed: 0
-  currentDestination: {x: 0, y: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
   jumpAhead: 0
   hasDeviatePosition: 0
+  framesStuck: 0
   isStuck: 0
   tilemapObstacle: 0
   canClimb: 0
   isClimbing: 0
+  isRunning: 0
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 0}
   shitSpot: 0
+  inOoze: 0
 --- !u!114 &637667237279358708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,7 +925,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f06fccd63d79b8f42a0a5223765f7478, type: 2}
-  m_CullingMode: 2
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

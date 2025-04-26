@@ -22,6 +22,7 @@ public class PaintingRestorationUI : MonoBehaviour
     List<RestorePaintingSlot> slots = new List<RestorePaintingSlot>(); 
      
     RestorePainting currentPainting;
+    RestoreSculpture currentSculpture;
 
     UIScreen screen;
 
@@ -31,6 +32,13 @@ public class PaintingRestorationUI : MonoBehaviour
         screen.SetScreenType(UIScreenType.RestorePaintingUI);
 
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        currentPainting = null;
+        currentSculpture = null;
+        GameEventManager.onMuseumPieceUpdateEvent.Invoke();
     }
 
     public void ShowUI(RestorePainting painting)
@@ -45,14 +53,27 @@ public class PaintingRestorationUI : MonoBehaviour
             slots.Add(slot);
             slot.AddItem(item);
         }
+
+        
     }
 
-    public void HideUI()
+    public void ShowUI(RestoreSculpture sculpture)
     {
-        currentPainting = null;
-        GameEventManager.onMuseumPieceUpdateEvent.Invoke();
+        currentSculpture = sculpture;
+        //title.text = currentSculpture.painting.localizedName.GetLocalizedString();
+        ClearSlots();
+        foreach (var item in currentSculpture.ingredients)
+        {
+
+            var slot = Instantiate(item.isPhysicalItem ? itemSlot : compendiumSlot, item.isPhysicalItem ? itemHolder.transform : compendiumHolder.transform);
+            slots.Add(slot);
+            slot.AddItem(item);
+        }
+
+
     }
 
+    
     public void ClearSlots()
     {
         foreach (Transform child in compendiumHolder.transform)

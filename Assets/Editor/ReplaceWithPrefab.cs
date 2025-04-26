@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using Klaxon.SaveSystem;
 
 public class ReplaceWithPrefab : EditorWindow
 {
@@ -84,6 +85,18 @@ public class ReplaceWithPrefab : EditorWindow
                 newObject.transform.localPosition = selected.transform.localPosition;
                 newObject.transform.localRotation = selected.transform.localRotation;
                 newObject.transform.localScale = selected.transform.localScale;
+                if(newObject.TryGetComponent(out SaveableWorldEntity newID))
+                {
+                    if (selected.TryGetComponent(out SaveableWorldEntity selectedID))
+                    {
+                        if (selectedID.ID !="")
+                            newID.SetID(selectedID.ID);
+                        else
+                            newID.GenerateId();
+                    }
+                    else
+                        newID.GenerateId();
+                }
                 newObject.transform.SetSiblingIndex(selected.transform.GetSiblingIndex());
                 Undo.DestroyObjectImmediate(selected);
             }

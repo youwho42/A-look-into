@@ -129,7 +129,7 @@ namespace Klaxon.GOAD
             foreach (var item in currentPainting.ingredients)
             {
                 if (item.complete && !item.activated)
-                    ticks += 10;
+                    ticks += 20;
             }
             return ticks;
         }

@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -144,6 +147,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5591675364925599087}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -167,9 +171,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.0031795204}
-  serializedVersion: 2
   m_Radius: 0.019331485
 --- !u!114 &-3408826983127947495
 MonoBehaviour:
@@ -224,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: whaaAA???
   localizedInteractVerb:
     m_TableReference:
@@ -257,6 +262,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 1
   replaceObjectOnDrop: {fileID: -3408826983127947495}
   canPlaceOnOther: 1
   visualItem: {fileID: 1578427892858390482}

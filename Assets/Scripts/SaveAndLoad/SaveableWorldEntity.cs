@@ -15,6 +15,10 @@ namespace Klaxon.SaveSystem
         [ContextMenu("Generate ID")]
         public void GenerateId() => id = Guid.NewGuid().ToString();
 
+        public void SetID(string id)
+        {
+            this.id = id;
+        }
         public object CaptureState()
         {
             var state = new Dictionary<string, object>();

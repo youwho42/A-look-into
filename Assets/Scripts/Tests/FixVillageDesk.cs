@@ -28,6 +28,7 @@ public class FixVillageArea
     public List<FixableAreaIngredient> ingredients = new List<FixableAreaIngredient>();
     public NavigationNode reachNode;
     public NavigationNode fixingNode;
+    public Transform centerPosition;
     public GOAD_ScriptableCondition GOAD_AvailableCondition;
     public GOAD_ScriptableCondition GOAD_CompletedCondition;
     public UndertakingObject undertakingObject;

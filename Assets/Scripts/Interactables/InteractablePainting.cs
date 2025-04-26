@@ -5,20 +5,14 @@ namespace Klaxon.Interactable
     public class InteractablePainting : Interactable
     {
         bool isOpen;
-        //ResearchStationDisplayUI researchDisplay;
         public RestorePainting painting;
+        public RestoreSculpture sculpture;
+        
 
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
-            {
-                if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
-                    return;
-
-                OpenPainting();
-            }
-            else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.PaintingUI)
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.PaintingUI)
             {
                 Close();
             }
@@ -26,6 +20,16 @@ namespace Klaxon.Interactable
             {
                 Close();
             }
+            if (onlyLongInteract)
+                return;
+            if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
+            {
+                if (PlayerInformation.instance.uiScreenVisible || PlayerInformation.instance.playerInput.isInUI)
+                    return;
+
+                OpenPainting();
+            }
+            
         }
 
         public override void LongInteract(GameObject interactor)
@@ -45,18 +49,24 @@ namespace Klaxon.Interactable
         {
             if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.PaintingUI, true))
                 PaintingDisplayUI.instance.ShowUI(painting);
+                
         }
         private void OpenRestorePainting()
         {
             if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.RestorePaintingUI, true))
-                PaintingRestorationUI.instance.ShowUI(painting);
+            {
+                if (painting != null)
+                    PaintingRestorationUI.instance.ShowUI(painting);
+                else if (sculpture != null)
+                    PaintingRestorationUI.instance.ShowUI(sculpture);
+
+
+            }
         }
 
         public void Close()
         {
             UIScreenManager.instance.HideScreenUI();
-            PaintingDisplayUI.instance.HideUI();
-            PaintingRestorationUI.instance.HideUI();
         }
 
     }

@@ -10,6 +10,7 @@ public class CraftingAnimationHandler : MonoBehaviour
     public Animator animator;
     public QI_Inventory inventory;
     public SpriteRenderer itemSprite;
+    public SpriteRenderer craftingItemSprite;
     public AudioSource source;
     float mainVolume;
     private void OnEnable()
@@ -24,7 +25,7 @@ public class CraftingAnimationHandler : MonoBehaviour
 
     }
     
-    public void SetAnimation(bool active)
+    public void SetAnimation(bool active, Sprite itemIcon = null)
     {
         
         animator.SetBool("IsCrafting", active);
@@ -32,9 +33,16 @@ public class CraftingAnimationHandler : MonoBehaviour
         {
             if(!source.isPlaying)
                 source.Play();
+            if (itemIcon != null && craftingItemSprite != null)
+                craftingItemSprite.sprite = itemIcon;
         }
         else
+        {
             source.Stop();
+            if (craftingItemSprite != null)
+                craftingItemSprite.sprite = null;
+        }
+            
     }
 
     public void SetInventoryItemImage()

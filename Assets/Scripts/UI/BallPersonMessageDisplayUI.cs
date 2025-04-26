@@ -46,7 +46,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         destroyOnClose = false;
     }
 
-    public void ShowHowTo(string messageName, string messageDescription)
+    public void ShowSimpleMessage(string messageName, string messageDescription)
     {
         messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";
         destroyOnClose = false;
