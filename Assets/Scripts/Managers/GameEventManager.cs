@@ -61,6 +61,7 @@ public static class GameEventManager
     ///  World State Update
     /// </summary>
     public static readonly GameEvent onWorldStateUpdateEvent = new GameEvent();
+    public static readonly GameEvent onLightsToggleEvent = new GameEvent();
 
 
     /// <summary>
@@ -98,6 +99,7 @@ public static class GameEventManager
     public static readonly GameEvent onSubmitEvent = new GameEvent();
     public static readonly GameEvent onDialogueNextEvent = new GameEvent();
     public static readonly GameEvent onMapClickEvent = new GameEvent();
+    public static readonly GameEvent onPlayerPlacedItemEvent = new GameEvent();
 
     /// <summary>
     /// Player Controls and animations
@@ -112,5 +114,4 @@ public static class GameEventManager
     public static readonly GameEvent onSmellEvent = new GameEvent();
     public static readonly GameEvent onSitEvent = new GameEvent();
     public static readonly GameEvent<bool> onExhaustedEvent = new GameEvent<bool>();
-    public static readonly GameEvent onToggleUpsies = new GameEvent();
 }

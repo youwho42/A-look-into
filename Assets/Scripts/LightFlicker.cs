@@ -30,9 +30,13 @@ public class LightFlicker : Lights
         while (timesFlicked <= flickerAmount)
         {
             lightObject.enabled = true;
+            GameEventManager.onLightsToggleEvent.Invoke();
+
             yield return new WaitForSeconds(timeBetweenFlickers);
             timeBetweenFlickers = Random.Range(0.1f, 0.5f);
             lightObject.enabled = false;
+            GameEventManager.onLightsToggleEvent.Invoke();
+
             yield return new WaitForSeconds(timeBetweenFlickers);
             timeBetweenFlickers = Random.Range(0.1f, 0.7f);
             timesFlicked++;
@@ -44,7 +48,8 @@ public class LightFlicker : Lights
         yield return new WaitForSeconds(timeBetweenFlickers);
 
         lightObject.enabled = true;
-        
+        GameEventManager.onLightsToggleEvent.Invoke();
+
         yield return null;
 
     }

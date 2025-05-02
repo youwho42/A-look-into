@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1310942487897049358, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
-      propertyPath: dataList.Array.data[0]
+      propertyPath: 'dataList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 97a75a7747862aa4f9be9b4ce160b2b6,
         type: 2}
@@ -335,6 +335,7 @@ PrefabInstance:
     - {fileID: 6887493229926418267, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 590698739972397137, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     - {fileID: 5344582656604894456, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 524436893658059365, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -382,7 +383,7 @@ MonoBehaviour:
   slopeObject: {fileID: 870149536660129517}
   positionZ: 0
   displacedPosition: {x: 0, y: 0, z: 0}
-  lastHighestZ: 0
+  lastJumpZ: 0
   isGrounded: 0
   bounceFriction: 0
   bounciness: 0
@@ -412,7 +413,6 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 0
-  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.7
   runSpeed: 0

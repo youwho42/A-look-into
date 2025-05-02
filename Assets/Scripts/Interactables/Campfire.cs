@@ -127,6 +127,7 @@ namespace Klaxon.Interactable
                 else
                     StopSound();
             }
+            GameEventManager.onLightsToggleEvent.Invoke();
         }
         void PlaySound()
         {

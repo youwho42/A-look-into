@@ -4872,7 +4872,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6446148457427665765
 Transform:
@@ -4994,6 +4994,7 @@ MonoBehaviour:
   agencyCost: 20
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
@@ -5079,6 +5080,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FixingSoundObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155706547783734869, guid: aad9517fac673474a8d80fb12d39a5d4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1449817142108328682, guid: aad9517fac673474a8d80fb12d39a5d4,
         type: 3}

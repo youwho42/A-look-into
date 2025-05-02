@@ -349,7 +349,7 @@ namespace Klaxon.GravitySystem {
                 Vector2 direction = ((directionA + directionB) / 2).normalized;
                 float addedVelocity = gravityItem.currentVelocity * 0.07f;
                 AddMovement(direction, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity + addedVelocity : velocity * itemBounceFriction);
-                if (gravityItem.addUpsies)
+                if (gravityItem.currentVelocity >= 1.0f)
                 {
                     bounceFactor = 1;
                     Bounce(gravityItem.currentVelocity * 6);

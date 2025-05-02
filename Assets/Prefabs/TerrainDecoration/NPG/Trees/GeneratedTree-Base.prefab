@@ -1127,6 +1127,7 @@ Transform:
   - {fileID: 9072882863561676104}
   - {fileID: 5193776134485451697}
   - {fileID: 3075363550677340870}
+  - {fileID: 7560163252602254991}
   m_Father: {fileID: 3700713836652886090}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6828393287135274920
@@ -1321,7 +1322,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4448361842064124490}
   - component: {fileID: 2316453594907202811}
-  - component: {fileID: 2407282049354270806}
   - component: {fileID: 3217779202550816755}
   m_Layer: 0
   m_Name: Trunk
@@ -1401,62 +1401,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &2407282049354270806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4323428826384561708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_Priority: 0
-  m_ComponentVersion: 5
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_AlphaCutoff: 0.1
-  m_ApplyToSortingLayers: 00000000075e6bb6dded52f4
-  m_ShapePath:
-  - {x: -0.016521454, y: 0.0029239655, z: 0}
-  - {x: -0.009227753, y: 0.009792328, z: -0.00000011920929}
-  - {x: 0.0033836365, y: 0.011260986, z: 0}
-  - {x: 0.015861511, y: 0.008735657, z: -0.00000011920929}
-  - {x: 0.022289276, y: 0.002336502, z: 0}
-  - {x: 0.016918182, y: -0.0071105957, z: -0.00000011920929}
-  - {x: 0.0028839111, y: -0.009191513, z: 0}
-  - {x: -0.010814667, y: -0.0057907104, z: -0.00000011920929}
-  m_ShapePathHash: 1937770853
-  m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 0}
-  m_ShadowShape2DProvider:
-    rid: -2
-  m_ShadowCastingSource: 1
-  m_ShadowMesh:
-    m_Mesh: {fileID: 0}
-    m_LocalBounds:
-      m_Center: {x: 0.0028839111, y: 0.0010347366, z: 0}
-      m_Extent: {x: 0.019405365, y: 0.01022625, z: 0}
-    m_EdgeProcessing: 1
-    m_TrimEdge: 0.02
-    m_FlipX: 0
-    m_FlipY: 0
-    m_InitialTrim: 0
-  m_CastingOption: 1
-  m_PreviousTrimEdge: 0.02
-  m_PreviousEdgeProcessing: 1
-  m_PreviousShadowCastingSource: 1
-  m_PreviousShadowShape2DSource: {fileID: 2316453594907202811}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &3217779202550816755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,9 +2118,8 @@ MonoBehaviour:
   - {fileID: 3357153933341068977}
   - {fileID: 6704907284740874404}
   - {fileID: 2258124696191420126}
-  shadowCaster: {fileID: 2407282049354270806}
   shadowUpdateTick: 1
-  leavesShake: {fileID: 3202891431560381680}
+  nightShadows: {fileID: 7560163252602254991}
 --- !u!1 &6139671913789818985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,6 +3014,37 @@ Transform:
   - {fileID: 6337385007584724509}
   - {fileID: 9179958689521219396}
   m_Father: {fileID: 5518729531771902421}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8827852568080763788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7560163252602254991}
+  m_Layer: 0
+  m_Name: NightShadows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7560163252602254991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827852568080763788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9179958689521219396}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8884946619149258261
 GameObject:

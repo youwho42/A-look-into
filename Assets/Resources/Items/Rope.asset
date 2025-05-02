@@ -31,14 +31,22 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 2
   AnimationName: 
   Weight: 1
   Price: 75
   spawnWeight: 1
+  FuelTicks: 0
   Icon: {fileID: 21300000, guid: 74c2f740ad6e9644bb15d5271297dd60, type: 3}
-  ItemPrefab: {fileID: 2997377886582240980, guid: cf0e9421bb57a394483f0e17dbe95117,
-    type: 3}
   ItemPrefabVariants:
   - {fileID: 2997377886582240980, guid: cf0e9421bb57a394483f0e17dbe95117, type: 3}
   pickUpItem: {fileID: 0}
@@ -48,6 +56,7 @@ MonoBehaviour:
   ResearchRecipes: []
   GameDificulty: 0
   placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   references:
     version: 2
     RefIds: []

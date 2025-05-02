@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 2765969477900403502}
   - component: {fileID: 433202236491959543}
   - component: {fileID: 4415763734330134477}
+  - component: {fileID: 8829257413555237174}
   m_Layer: 13
   m_Name: Ghost
   m_TagString: NPC
@@ -293,7 +294,6 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
-  addUpsies: 0
   centerOfActiveArea: {fileID: 0}
   frequency: 1.8
   amplitude: 0.25
@@ -474,11 +474,14 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  hasMetPlayerCondition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db,
+    type: 2}
   references:
     version: 2
     RefIds: []
@@ -572,6 +575,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8829257413555237174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742201109519981305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7aa848f51997402893404889e0ba219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 0}
+  itemVariantIndex: 0
 --- !u!1 &2453691137520056214
 GameObject:
   m_ObjectHideFlags: 0

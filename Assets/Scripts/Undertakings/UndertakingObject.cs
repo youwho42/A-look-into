@@ -99,7 +99,7 @@ namespace Klaxon.UndertakingSystem
             {
                 if (!player.playerInventory.AddItem(ItemReward, ItemQuantity, false))
                 {
-                    LostAndFoundManager.instance.inventory.AddItem(ItemReward, ItemQuantity, false);
+                    LostAndFoundManager.instance.AddToLostAndFound(ItemReward, ItemQuantity);
                     addedToLostAndFound = true; 
                 }
                     

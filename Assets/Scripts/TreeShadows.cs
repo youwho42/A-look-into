@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -13,16 +14,17 @@ public class TreeShadows : MonoBehaviour
 
     GlobalShadows globalShadows;
     bool isVisible;
-    public ShadowCaster2D shadowCaster;
+    
     Material shadowMaterial;
     [Range(1, 10)]
     public int shadowUpdateTick = 1;
-
-    
+    bool nightShadowsEnabled;
+    public Transform nightShadows;
     private void Awake()
     {
-        if (shadowCaster != null)
-            shadowCaster.enabled = false;
+        
+        if(nightShadows != null)
+            nightShadows.gameObject.SetActive(false);
     }
     private IEnumerator Start()
     {
@@ -38,6 +40,7 @@ public class TreeShadows : MonoBehaviour
             }
         }
         SetShadows(shadowUpdateTick);
+        
     }
     private void OnBecameVisible()
     {
@@ -53,6 +56,8 @@ public class TreeShadows : MonoBehaviour
         isVisible = true;
         SetShadows(shadowUpdateTick);
         
+        GameEventManager.onLightsToggleEvent.AddListener(CheckForLights);
+        CheckForLights();
     }
 
     private void OnBecameInvisible()
@@ -60,20 +65,22 @@ public class TreeShadows : MonoBehaviour
         shadowTransform.gameObject.SetActive(false);
         GameEventManager.onShadowTickEvent.RemoveListener(SetShadows);
         isVisible = false;
-        if (shadowCaster != null)
-            shadowCaster.enabled = false;
         
+        GameEventManager.onLightsToggleEvent.RemoveListener(CheckForLights);
+
     }
     private void OnDisable()
     {
         GameEventManager.onShadowTickEvent.RemoveListener(SetShadows);
+        GameEventManager.onLightsToggleEvent.RemoveListener(CheckForLights);
+
     }
 
     public void SetShadows(int tick)
     {
         if (!isVisible)
             return;
-
+        
         int sleep = 0;
         if (UIScreenManager.instance.isSleeping)
             sleep = 3;
@@ -96,14 +103,69 @@ public class TreeShadows : MonoBehaviour
         shadowSprite.enabled = visible;
         shadowMaterial.SetColor("_Color", c);
         shadowTransform.eulerAngles = globalShadows.shadowRotation;
-        //float baseZ = Mathf.Abs(globalShadows.shadowRotation.z);
-        //float newZ = NumberFunctions.RemapNumber(baseZ, 0.0f, 80.0f, 0.0f, 0.1f);
-        //Vector3 newPos = new Vector3(0, 0.002f, newZ);
-        //shadowTransform.localPosition = newPos;
+        
         shadowTransform.localScale = scale;
-        if (shadowCaster != null)
-            shadowCaster.enabled = globalShadows.ShadowCasterEnabled();
+
         
     }
+    void CheckForLights()
+    {
+        if (nightShadows == null)
+            return;
+        if (nightShadowsEnabled && !globalShadows.ShadowCasterEnabled())
+        {
+            nightShadowsEnabled = false;
+            nightShadows.gameObject.SetActive(false);
+            return;
+        }
+
+        
+        Light2D closestLightSource = globalShadows.GetClosestLightSource(nightShadows.transform.position);
+        
+        if(closestLightSource != null)
+        {
+            SetNightShadows(closestLightSource);
+        }
+        else
+        {
+            nightShadowsEnabled = false;
+            nightShadows.gameObject.SetActive(false);
+        }
+    }
+    
+    private void SetNightShadows(Light2D closestLightSource)
+    {
+
+        nightShadows.transform.localScale = new Vector3(1, 1.4f, 1);
+        SetNightShadowRotationAndZ(closestLightSource);
+        if (!nightShadowsEnabled)
+        {
+            nightShadowsEnabled = true;
+            nightShadows.gameObject.SetActive(true);
+        }
+    }
+
+    private void SetNightShadowRotationAndZ(Light2D closestLightSource)
+    {
+        Vector3 direction = nightShadows.position - closestLightSource.transform.position;
+        nightShadows.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+
+
+        var z = Mathf.Abs(nightShadows.eulerAngles.z - 180);
+
+        if (z <= 100)
+        {
+            z = NumberFunctions.RemapNumber(z, 0.0f, 180.0f, 2.1f, 0.3f);
+            z = Mathf.Clamp(z, 0.0f, 2.1f);
+        }
+        else
+            z = 0;
+
+        nightShadows.localPosition = new Vector3(nightShadows.localPosition.x, nightShadows.localPosition.y, z);
+    }
+
+    
+
     
 }

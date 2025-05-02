@@ -31,11 +31,21 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 2
   AnimationName: 
   Weight: 1
   Price: 30
   spawnWeight: 1
+  FuelTicks: 0
   Icon: {fileID: 21300000, guid: 178d35ba02055eb489fc4dd3f9d8978c, type: 3}
   ItemPrefabVariants:
   - {fileID: 2997377886582240980, guid: 28f9de346f5a75a4784d2ea80c637f5d, type: 3}
@@ -58,6 +68,7 @@ MonoBehaviour:
       type: 2}
   GameDificulty: 0
   placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   references:
     version: 2
     RefIds: []

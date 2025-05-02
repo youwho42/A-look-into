@@ -40,7 +40,7 @@ public class ConsumableItemData : QI_ItemData
         if(itemToBecome != null)
         {
             if(!player.playerInventory.AddItem(itemToBecome, 1, false))
-                LostAndFoundManager.instance.inventory.AddItem(itemToBecome, 1, false);
+                LostAndFoundManager.instance.AddToLostAndFound(itemToBecome, 1);
             
         }
              

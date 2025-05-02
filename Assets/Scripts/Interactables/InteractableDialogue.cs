@@ -14,13 +14,15 @@ namespace Klaxon.Interactable
         NPC_ConversationSystem dialogueSystem;
         DialogueBranch currentDialogue;
         public GOAD_ScriptableCondition hasMetPlayerCondition;
-        GOAD_Scheduler_NPC agent;
+        GOAD_Scheduler_NPC agentNPC;
+        GOAD_Scheduler_Ghost agentGhost;
         QI_Item characterItem;
         public override void Start()
         {
             base.Start();
             characterItem = GetComponent<QI_Item>();
-            agent = GetComponent<GOAD_Scheduler_NPC>();
+            agentNPC = GetComponent<GOAD_Scheduler_NPC>();
+            agentGhost = GetComponent<GOAD_Scheduler_Ghost>();
             dialogueSystem = GetComponent<NPC_ConversationSystem>();
         }
         public override void Interact(GameObject interactor)
@@ -41,7 +43,10 @@ namespace Klaxon.Interactable
                         if(characterItem != null)
                             PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
 
-                        agent.SetBeliefState(hasMetPlayerCondition.Condition, true);
+                        if(agentNPC != null)
+                            agentNPC.SetBeliefState(hasMetPlayerCondition.Condition, true);
+                        if (agentGhost != null)
+                            agentGhost.SetBeliefState(hasMetPlayerCondition.Condition, true);
                     }
                         
 
@@ -67,7 +72,7 @@ namespace Klaxon.Interactable
             if (gumption >= Mathf.Abs(dialogueSystem.gumptionCost.Amount))
                 return true;
             
-            Notifications.instance.SetNewNotification($"{Mathf.Abs(dialogueSystem.gumptionCost.Amount - gumption)} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
+            Notifications.instance.SetNewNotification($"{Mathf.Abs(dialogueSystem.gumptionCost.Amount) - gumption} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
             return false;
         }
 

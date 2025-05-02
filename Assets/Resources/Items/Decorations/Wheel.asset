@@ -31,6 +31,15 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 8
   AnimationName: 
   Weight: 0
@@ -44,11 +53,12 @@ MonoBehaviour:
   - {fileID: 2829647905476213769, guid: faa0f1a1e7b0a704e879648ab01ddd4a, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  MaxStack: 1
+  MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 0
   placementGumption: {fileID: 11400000, guid: 86eca90f83cc4894c8405ce91b92de5f, type: 2}
+  onlyPlacedInPlayerHouse: 0
   references:
     version: 2
     RefIds: []

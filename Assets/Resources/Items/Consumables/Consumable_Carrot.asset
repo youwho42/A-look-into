@@ -51,7 +51,7 @@ MonoBehaviour:
   - {fileID: 2053927477830204981, guid: f24b84440f97caf4f83520b93ffa634f, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  MaxStack: 0
+  MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes:
   - recipe: {fileID: 11400000, guid: 4a8299eee82efa14188f131664609841, type: 2}
@@ -60,10 +60,12 @@ MonoBehaviour:
       type: 2}
   GameDificulty: 0
   placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   statChangers: []
   statModifiers:
   - {fileID: 11400000, guid: ab0c9eaa77160a344b2a421891184fda, type: 2}
   itemToBecome: {fileID: 0}
+  soundName: 
   references:
     version: 2
     RefIds: []

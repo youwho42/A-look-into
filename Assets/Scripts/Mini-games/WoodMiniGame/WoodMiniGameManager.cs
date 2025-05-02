@@ -160,7 +160,7 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         {
             currentAttemptHits++;
             if (!PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false))
-                LostAndFoundManager.instance.inventory.AddItem(item, gatherAmount, false);
+                LostAndFoundManager.instance.AddToLostAndFound(item, gatherAmount);
             Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
 
             PlaySound(0);

@@ -44,7 +44,7 @@ public class NightLights : MonoBehaviour
             }
 
         }
-        else if (dayNightCycle.currentTimeRaw >= dayNightCycle.dayStart + 10 && dayNightCycle.currentTimeRaw < dayNightCycle.nightStart)
+        else if (dayNightCycle.currentTimeRaw >= dayNightCycle.dayStart - 5 && dayNightCycle.currentTimeRaw < dayNightCycle.nightStart)
         {
             foreach (var light in lights)
             {

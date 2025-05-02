@@ -123,7 +123,7 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
             if(PlayerInformation.instance.playerInventory.AddItem(item, amount, false))
                 Notifications.instance.SetNewNotification("", item, amount, NotificationsType.Inventory);
             else
-                LostAndFoundManager.instance.inventory.AddItem(item, amount, false);
+                LostAndFoundManager.instance.AddToLostAndFound(item, amount);
                 
                 
             PlaySound(0);

@@ -96,8 +96,7 @@ namespace Klaxon.GravitySystem
         public bool facingRight;
         protected Vector2 collisionNormal;
 
-        [HideInInspector]
-        public bool addUpsies;
+       
 
         public virtual void Awake()
         {

@@ -187,32 +187,36 @@ public class UIScreenManager : MonoBehaviour
     private void SetTimeTickPause()
     {
 
-
-        RealTimeDayNightCycle.instance.isPaused = false;
+        bool paused = false;
+        
         switch (currentUI)
         {
             case UIScreenType.MainMenuUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true;
                 break;
             case UIScreenType.PauseUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true; 
                 break;
             case UIScreenType.PaintingUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true;
                 break;
             case UIScreenType.LoadGameUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true;
                 break;
             case UIScreenType.CharacterSelectUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true;
                 break;
             case UIScreenType.OptionsUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true;
                 break;
             case UIScreenType.CreditsUI:
-                RealTimeDayNightCycle.instance.isPaused = true;
+                paused = true;
+                break;
+            case UIScreenType.WarningUI:
+                paused = true;
                 break;
         }
+        RealTimeDayNightCycle.instance.isPaused = paused;
     }
 
     /// <summary>

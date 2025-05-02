@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using System.Linq;
 
 public class GlobalShadows : MonoBehaviour
 {
@@ -21,18 +23,52 @@ public class GlobalShadows : MonoBehaviour
     
     Color shadowColor = Color.black;
     bool shadowCasterEnabled = false;
+
+    //[HideInInspector]
+    public List<Light2D> allLights = new List<Light2D>();
+
     private IEnumerator Start()
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
 
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
+        GameEventManager.onPlayerPlacedItemEvent.AddListener(GetAllLights);
         yield return new WaitForSeconds(0.5f);
-        
+        GetAllLights();
         SetShadows(0);
     }
     private void OnDisable()
     {
         GameEventManager.onTimeTickEvent.RemoveListener(SetShadows);
+        GameEventManager.onPlayerPlacedItemEvent.RemoveListener(GetAllLights);
+
+    }
+
+    void GetAllLights()
+    {
+        allLights = FindObjectsByType<Light2D>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+        for (int i = allLights.Count-1; i >= 0; i--)
+        {
+            if (allLights[i].lightType == Light2D.LightType.Global)
+                allLights.Remove(allLights[i]);
+        }
+    }
+    public Light2D GetClosestLightSource(Vector3 position)
+    {
+        Light2D closest = null;
+        float nearest = float.MaxValue;
+        for (int i = 0; i < allLights.Count; i++)
+        {
+            if (!allLights[i].isActiveAndEnabled || !allLights[i].gameObject.isStatic)
+                continue;
+            var dist = ((Vector2)allLights[i].transform.position - (Vector2)position).sqrMagnitude;
+            if (dist <= allLights[i].pointLightOuterRadius && dist < nearest)
+            {
+                nearest = dist;
+                closest = allLights[i];
+            }
+        }
+        return closest;
     }
 
     public Color GetShadowColor()
@@ -70,6 +106,7 @@ public class GlobalShadows : MonoBehaviour
             shadowColor = new Color(shadowColor.r, shadowColor.g, shadowColor.b, 0.0f);
 
         shadowCasterEnabled = shadowColor.a <= 0.2f;
+        
 
 
     }

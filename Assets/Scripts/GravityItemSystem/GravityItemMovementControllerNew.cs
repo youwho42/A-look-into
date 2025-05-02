@@ -60,21 +60,16 @@ namespace Klaxon.GravitySystem
 
             yield return new WaitForSeconds(0.25f);
 
-            GameEventManager.onToggleUpsies.AddListener(ToggleUpsies);
 
             isGrounded = true;
 
         }
         private void OnDisable()
         {
-            GameEventManager.onToggleUpsies.RemoveListener(ToggleUpsies);
             GameEventManager.onJumpEvent.RemoveListener(Jump);
         }
 
-        public void ToggleUpsies()
-        {
-            addUpsies = !addUpsies;
-        }
+        
 
         public override void Update()
         {

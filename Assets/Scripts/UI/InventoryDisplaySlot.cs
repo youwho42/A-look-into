@@ -248,7 +248,6 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (itemToDrop.TryGetComponent(out ScarekernutInteractable scarekernut))
             scarekernut.visibleRadius.SetActive(false);
         // get interactablePickUp and add said amount to drop
-
         inventory.RemoveItem(item, quantity);
         EventSystem.current.SetSelectedGameObject(null);
         ResetDragging();
@@ -310,6 +309,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             PlayerInformation.instance.isDragging = true;
             if(go.TryGetComponent(out ScarekernutInteractable scarekernut))
                 scarekernut.visibleRadius.SetActive(true);
+
         }
 
         if (itemToDrop != null)

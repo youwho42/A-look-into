@@ -14,6 +14,7 @@ public class RandomSpriteForItems : MonoBehaviour
  
     public SpriteRenderer mainImage;
     public SpriteRenderer mainShadow;
+    public SpriteRenderer nightShadow;
 
     public List<ItemSprites> itemSpritesList = new List<ItemSprites>();
     
@@ -45,7 +46,13 @@ public class RandomSpriteForItems : MonoBehaviour
             if (flippable)
                 mainShadow.flipX = r;
         }
-            
+        if (nightShadow != null)
+        {
+            nightShadow.sprite = itemSpritesList[i].item;
+            if (flippable)
+                nightShadow.flipX = r;
+        }
+
     }
 
     

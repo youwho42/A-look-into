@@ -275,11 +275,12 @@ public class CompendiumDisplayUI : MonoBehaviour
         agencyText.text = "";
         if (playerAnimalCompendium == null)
             return;
+        SetResourceButtons(false);
         switch (itemType)
         {
 
             case CompendiumItemType.Animal:
-                SetResourceButtons(false);
+                
                 for (int i = 0; i < playerAnimalCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
@@ -309,7 +310,7 @@ public class CompendiumDisplayUI : MonoBehaviour
 
 
             case CompendiumItemType.Recipe:
-                SetResourceButtons(false);
+                //SetResourceButtons(false);
                 for (int i = 0; i < playerRecipeCompendium.CraftingRecipes.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
@@ -325,7 +326,6 @@ public class CompendiumDisplayUI : MonoBehaviour
 
 
             case CompendiumItemType.Note:
-                SetResourceButtons(false);
                 for (int i = 0; i < playerNoteCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
@@ -337,7 +337,6 @@ public class CompendiumDisplayUI : MonoBehaviour
                 break;
 
             case CompendiumItemType.Guide:
-                SetResourceButtons(false);
                 for (int i = 0; i < playerGuideCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
@@ -349,7 +348,6 @@ public class CompendiumDisplayUI : MonoBehaviour
                 break;
 
             case CompendiumItemType.Encounters:
-                SetResourceButtons(false);
                 for (int i = 0; i < playerEncountersCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);

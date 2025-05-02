@@ -563,7 +563,7 @@ namespace Klaxon.GOAD
 
         public void FleePlayer(Transform interactorTransform)
         {
-            if (!shouldFlee && IsConditionMet(fleeCondition))
+            if (!shouldFlee || IsConditionMet(fleeCondition))
                 return;
 
 
