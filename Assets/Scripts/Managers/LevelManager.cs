@@ -248,7 +248,7 @@ public class LevelManager : MonoBehaviour
             SavingLoading.instance.LoadVersionItems();
 
         
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
 
         text.text = "Thank you for waiting.";
         playerMaterial = PlayerInformation.instance.playerSprite.material;
@@ -256,12 +256,10 @@ public class LevelManager : MonoBehaviour
         
         GameEventManager.onGameLoadedEvent.Invoke();
        
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(5f);
         SavingLoading.instance.LoadOptions();
 
-        Time.timeScale = 1;
-        UIScreenManager.instance.inMainMenu = false;
-        UIScreenManager.instance.HideScreenUI();
+        
         //UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
         
         GameEventManager.onStatUpdateEvent.Invoke();
@@ -272,6 +270,9 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         Pause(false);
         ActivatePlayer();
+        Time.timeScale = 1;
+        UIScreenManager.instance.inMainMenu = false;
+        UIScreenManager.instance.HideScreenUI();
     }
 
     IEnumerator LoadTitleScreenCo(string levelName)
@@ -355,9 +356,8 @@ public class LevelManager : MonoBehaviour
         }
         audioSettings.Mute();
 
+        yield return new WaitForSecondsRealtime(1.0f);
 
-
-        yield return new WaitForSecondsRealtime(0.5f);
         GameEventManager.onGameStartLoadEvent.Invoke();
         text.text = "Thank you for waiting.";
         playerMaterial = PlayerInformation.instance.playerSprite.material;
@@ -365,15 +365,16 @@ public class LevelManager : MonoBehaviour
         PlayerInformation.instance.playerShadow.SetActive(false);
         RealTimeDayNightCycle.instance.SetDayTime(420, 1);
         PlayerDistanceToggle.instance.PopulateLists();
-        
-        yield return new WaitForSecondsRealtime(3f);
+        ResetAtDawnManager.instance.ResetAllItems(5);
+        yield return new WaitForSecondsRealtime(5f);
         SavingLoading.instance.LoadOptions();
         Pause(false);
         Time.timeScale = 1;
+        yield return new WaitForSecondsRealtime(2.0f);
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.inMainMenu = true;
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);
-        ResetAtDawnManager.instance.ResetAllItems(5);
+        
     }
 
 

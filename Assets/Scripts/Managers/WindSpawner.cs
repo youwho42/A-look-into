@@ -41,7 +41,7 @@ public class WindSpawner : MonoBehaviour
     void StartWindOnTick(int tick)
     {
         
-        if (tick == nextWindTick)
+        if (tick >= nextWindTick)
         {
             SpawnObject();
             nextWindTick = GetNextWindTick(tick);

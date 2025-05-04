@@ -31,6 +31,8 @@ public class GenerateMapFog : MonoBehaviour
     bool animatingReveal;
     
     Texture2D blankTexture;
+
+    bool hasLoaded;
     private void Start()
     {
         SetBlankTexture();
@@ -38,6 +40,11 @@ public class GenerateMapFog : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!hasLoaded)
+        {
+            hasLoaded = true;
+            return;
+        }
         mapRevealImage.texture = blankTexture;
         playerMapsColors = PlayerMapsManager.instance.colors;
         playerMaps = PlayerMapsManager.instance.mapAreas;
@@ -140,7 +147,6 @@ public class GenerateMapFog : MonoBehaviour
         animatingReveal = true;
         Texture2D texture = new Texture2D(mapSize, mapSize);
         Color[] colorMap = new Color[mapSize * mapSize];
-
         // Loop through the maps and get all the pixels 
         // set each of those pixels to something that changes over a loop
         int animIndex = 0;
@@ -173,7 +179,6 @@ public class GenerateMapFog : MonoBehaviour
         }
 
         // set the image texture so it can be seen
-        
 
         yield return null;
         // reset the texture at the end so that it doesnt interfere later on.

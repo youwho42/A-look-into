@@ -11,7 +11,8 @@ public class FireFlicker : MonoBehaviour
     private static FieldInfo m_FalloffField = typeof(Light2D).GetField("m_FalloffIntensity", BindingFlags.NonPublic | BindingFlags.Instance);
 
     float startFalloff;
-    float startIntensity;
+    [HideInInspector]
+    public float startIntensity;
 
     public bool canFlicker;
     

@@ -31,9 +31,12 @@ public class GlobalShadows : MonoBehaviour
     {
         dayNightCycle = RealTimeDayNightCycle.instance;
 
+        
+        yield return new WaitForSeconds(1.5f);
+        
+        
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         GameEventManager.onPlayerPlacedItemEvent.AddListener(GetAllLights);
-        yield return new WaitForSeconds(0.5f);
         GetAllLights();
         SetShadows(0);
     }
@@ -46,20 +49,23 @@ public class GlobalShadows : MonoBehaviour
 
     void GetAllLights()
     {
+        
         allLights = FindObjectsByType<Light2D>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+        
         for (int i = allLights.Count-1; i >= 0; i--)
         {
-            if (allLights[i].lightType == Light2D.LightType.Global)
+            if (allLights[i].lightType == Light2D.LightType.Global || allLights[i].CompareTag("PlayerEquipment"))
                 allLights.Remove(allLights[i]);
         }
     }
     public Light2D GetClosestLightSource(Vector3 position)
     {
+        
         Light2D closest = null;
         float nearest = float.MaxValue;
         for (int i = 0; i < allLights.Count; i++)
         {
-            if (!allLights[i].isActiveAndEnabled || !allLights[i].gameObject.isStatic)
+            if (!allLights[i].isActiveAndEnabled)
                 continue;
             var dist = ((Vector2)allLights[i].transform.position - (Vector2)position).sqrMagnitude;
             if (dist <= allLights[i].pointLightOuterRadius && dist < nearest)
@@ -68,6 +74,7 @@ public class GlobalShadows : MonoBehaviour
                 closest = allLights[i];
             }
         }
+        
         return closest;
     }
 

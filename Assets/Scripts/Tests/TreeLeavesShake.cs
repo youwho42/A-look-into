@@ -42,7 +42,9 @@ public class TreeLeavesShake : MonoBehaviour
                 var a = Mathf.Sin((angle + angleOffsets[i]) * freq) * dir[i];
                 Vector3 eulerAngle = new Vector3(0, 0, a * amp);
                 leafObjects[i].transform.localEulerAngles = eulerAngle;
+                
                 shadows.subShadowSprites[i].transform.localEulerAngles = eulerAngle;
+                shadows.subNightShadowSprites[i].transform.localEulerAngles = eulerAngle;
             }
             angle += increment;
             if (angle > Mathf.PI * 2)

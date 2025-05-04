@@ -609,6 +609,8 @@ namespace Klaxon.GOAD
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            if (_transform == null)
+                return;
 
             if (collision.transform.position.z != _transform.position.z || !hasDialogue)
                 return;

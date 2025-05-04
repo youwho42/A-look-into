@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +7,27 @@ using UnityEngine.UI;
 public class PlayerLocationTextureMap : MonoBehaviour
 {
     public RawImage playerLocationImageUI;
-
+    Texture2D texture;
     public int maxPositionsViewed;
     Queue<int> positions = new Queue<int>();
-
-    private IEnumerator Start()
+    bool addedToManager;
+    private void OnEnable()
     {
-        GameEventManager.onPlayerPositionUpdateEvent.AddListener(DrawPlayerMap);
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
+        if (!addedToManager)
+        {
+            GameEventManager.onPlayerPositionUpdateEvent.AddListener(DrawPlayerMap);
+            addedToManager = true;
+            return;
+        }
+            
         DrawPlayerMap();
+        
     }
+   
     private void OnDestroy()
     {
         GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(DrawPlayerMap);
-
     }
     
 
@@ -28,39 +36,34 @@ public class PlayerLocationTextureMap : MonoBehaviour
 
     public void DrawPlayerMap()
     {
-        //if (LevelManager.instance.isInCutscene)
-        //    return;
+        
         int width = 128;
         int height = 128;
 
-        Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        if (texture == null)
+        {
+            texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            texture.filterMode = FilterMode.Point;
+            playerLocationImageUI.texture = texture;
+        }
 
         Color[] colorMap = new Color[width * height];
         Color neutral = new Color(0, 0, 0, 0);
+        Array.Fill(colorMap, neutral);
+
+        
         var map = PlayerInformation.instance.playerController.currentTilePosition.groundMap;
         var playerPos = PlayerInformation.instance.playerController.currentTilePosition.position;
         playerPos.x = (int)NumberFunctions.RemapNumber(playerPos.x, map.cellBounds.xMin, map.cellBounds.xMax, 0, 128);
         playerPos.y = (int)NumberFunctions.RemapNumber(playerPos.y, map.cellBounds.yMin, map.cellBounds.yMax, 0, 128);
-        for (int y = 0; y < height-1; y++)
+
+        int playerIndex = playerPos.y * width + playerPos.x;
+        positions.Enqueue(playerIndex);
+        if (positions.Count > maxPositionsViewed)
         {
-            for (int x = 0; x < width-1; x++)
-            {
-                if(x==playerPos.x && y==playerPos.y)
-                {
-                    positions.Enqueue(y * width + x);
-                    if (positions.Count >= maxPositionsViewed)
-                    {
-                        positions.Dequeue();
-                    }
-                    
-                }
-                else
-                {
-                    colorMap[y * width + x] = neutral;
-                }
-                
-            }
+            positions.Dequeue();
         }
+
         var pos = positions.ToArray();
         for (int i = 0; i < pos.Length; i++)
         {
@@ -76,4 +79,5 @@ public class PlayerLocationTextureMap : MonoBehaviour
         
         playerLocationImageUI.texture = texture;
     }
+
 }

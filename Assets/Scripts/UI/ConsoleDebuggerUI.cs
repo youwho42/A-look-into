@@ -14,17 +14,34 @@ public class ConsoleDebuggerUI : MonoBehaviour
     }
 
     public TextMeshProUGUI debuggerText;
+
+    Queue<string> debugQueue = new Queue<string>();
+    bool debugging;
     private void Start()
     {
         debuggerText.gameObject.SetActive(false);
     }
     public void SetDebuggerText(string text)
     {
-        debuggerText.gameObject.SetActive(true);
-        debuggerText.text = text;
-        Invoke("ResetText", 5f);
+        debugQueue.Enqueue(text);
+        if (!debugging)
+            StartCoroutine("SetTextCo");
     }
 
+    IEnumerator SetTextCo()
+    {
+        debugging = true;
+        while(debugQueue.Count > 0)
+        {
+            debuggerText.gameObject.SetActive(true);
+            debuggerText.text = debugQueue.Dequeue();
+            yield return new WaitForSeconds(3.0f);
+            
+        }
+        ResetText();
+        debugging= false;
+        yield return null;
+    }
     void ResetText()
     {
         debuggerText.text = "";

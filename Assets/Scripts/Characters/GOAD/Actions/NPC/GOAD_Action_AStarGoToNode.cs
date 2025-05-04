@@ -39,8 +39,11 @@ namespace Klaxon.GOAD
                     agent.GetRandomTilePosition(2, this);
                 else
                     agent.aStarPath.Add(agent.lastValidTileLocation);
-                return;
+
                 wandering = true;
+
+                return;
+                
                 //Debug.Log("A* path to node empty", gameObject);
                 //agent.aStarPath.Add(targetNode.transform.position);
             }

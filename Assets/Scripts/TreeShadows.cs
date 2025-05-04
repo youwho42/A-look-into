@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -9,8 +8,13 @@ public class TreeShadows : MonoBehaviour
     public Transform shadowTransform;
     public SpriteRenderer shadowSprite;
     public List<SpriteRenderer> subShadowSprites = new List<SpriteRenderer>();
-    List<Vector3> subShadowPositions = new List<Vector3>();
+    //List<Vector3> subShadowPositions = new List<Vector3>();
     List<Material> subShadowMaterials = new List<Material>();
+
+    public List<SpriteRenderer> subNightShadowSprites = new List<SpriteRenderer>();
+    //List<Vector3> subNightShadowPositions = new List<Vector3>();
+
+    
 
     GlobalShadows globalShadows;
     bool isVisible;
@@ -20,6 +24,9 @@ public class TreeShadows : MonoBehaviour
     public int shadowUpdateTick = 1;
     bool nightShadowsEnabled;
     public Transform nightShadows;
+
+    bool materialsSet;
+
     private void Awake()
     {
         
@@ -31,6 +38,7 @@ public class TreeShadows : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         if(TryGetComponent(out SpriteRenderer rend))
         {
+            
             if (rend.isVisible)
                 OnBecameVisible();
             else
@@ -45,21 +53,34 @@ public class TreeShadows : MonoBehaviour
     private void OnBecameVisible()
     {
         shadowTransform.gameObject.SetActive(true);
-        for (int i = 0; i < subShadowSprites.Count; i++)
+        if (!materialsSet)
         {
-            subShadowMaterials.Add(subShadowSprites[i].material);
-            subShadowPositions.Add(subShadowSprites[i].transform.localPosition);
+            subNightShadowSprites.Clear();
+            foreach (Transform child in nightShadows)
+            {
+                subNightShadowSprites.Add(child.GetComponent<SpriteRenderer>());
+                child.GetComponent<SpriteRenderer>().material.SetColor("_Color", new Color(0, 0, 0, 0.3f));
+            }
+            if (subNightShadowSprites.Count > 0)
+                subNightShadowSprites.RemoveAt(0);
+            for (int i = 0; i < subShadowSprites.Count; i++)
+            {
+                subShadowMaterials.Add(subShadowSprites[i].material);
+            }
+            
+            materialsSet = true;
         }
+        
         shadowMaterial = shadowSprite.material;
         globalShadows = GlobalShadows.instance;
         GameEventManager.onShadowTickEvent.AddListener(SetShadows);
         isVisible = true;
         SetShadows(shadowUpdateTick);
-        
         GameEventManager.onLightsToggleEvent.AddListener(CheckForLights);
         CheckForLights();
     }
 
+    
     private void OnBecameInvisible()
     {
         shadowTransform.gameObject.SetActive(false);
@@ -73,7 +94,7 @@ public class TreeShadows : MonoBehaviour
     {
         GameEventManager.onShadowTickEvent.RemoveListener(SetShadows);
         GameEventManager.onLightsToggleEvent.RemoveListener(CheckForLights);
-
+        StopAllCoroutines();
     }
 
     public void SetShadows(int tick)
@@ -118,11 +139,12 @@ public class TreeShadows : MonoBehaviour
             nightShadows.gameObject.SetActive(false);
             return;
         }
+        if (!globalShadows.ShadowCasterEnabled())
+            return;
 
-        
         Light2D closestLightSource = globalShadows.GetClosestLightSource(nightShadows.transform.position);
         
-        if(closestLightSource != null)
+        if (closestLightSource != null)
         {
             SetNightShadows(closestLightSource);
         }
@@ -135,16 +157,30 @@ public class TreeShadows : MonoBehaviour
     
     private void SetNightShadows(Light2D closestLightSource)
     {
-
         nightShadows.transform.localScale = new Vector3(1, 1.4f, 1);
+        var flicker = closestLightSource.gameObject.GetComponentInParent<FireFlicker>();
+        if (flicker != null)
+            StartCoroutine(SetShadowFlickerCo(closestLightSource, flicker));
+
         SetNightShadowRotationAndZ(closestLightSource);
         if (!nightShadowsEnabled)
         {
             nightShadowsEnabled = true;
             nightShadows.gameObject.SetActive(true);
         }
+        
     }
-
+    IEnumerator SetShadowFlickerCo(Light2D closestLightSource, FireFlicker flicker)
+    {
+        while (globalShadows.ShadowCasterEnabled())
+        {
+            float f = closestLightSource.intensity;
+            var s = NumberFunctions.RemapNumber(f, flicker.startIntensity - flicker.flickerAmount, flicker.startIntensity + flicker.flickerAmount, 0.03f, -0.03f);
+            nightShadows.transform.localScale = new Vector3(1, 1.4f + s, 1);
+            yield return null;
+        }
+        yield return null;
+    }
     private void SetNightShadowRotationAndZ(Light2D closestLightSource)
     {
         Vector3 direction = nightShadows.position - closestLightSource.transform.position;
