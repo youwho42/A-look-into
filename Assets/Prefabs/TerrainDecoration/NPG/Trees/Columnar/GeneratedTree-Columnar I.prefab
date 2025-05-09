@@ -31270,6 +31270,11 @@ PrefabInstance:
       objectReference: {fileID: 4393243823939097940}
     - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
         type: 3}
+      propertyPath: nightShadowSprite
+      value: 
+      objectReference: {fileID: 2505581399782867224}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
       propertyPath: subShadowSprites.Array.size
       value: 114
       objectReference: {fileID: 0}
@@ -31775,6 +31780,11 @@ PrefabInstance:
       objectReference: {fileID: 7687629508436515165}
     - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
         type: 3}
+      propertyPath: subNightShadowSprites.Array.size
+      value: 114
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
       propertyPath: 'subShadowSprites.Array.data[100]'
       value: 
       objectReference: {fileID: 330595847270666987}
@@ -31843,6 +31853,576 @@ PrefabInstance:
       propertyPath: 'subShadowSprites.Array.data[113]'
       value: 
       objectReference: {fileID: 3016326413821234076}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1673882060276250158}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 7556651258252594705}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 6295436759814117448}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8764447295504932261}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[4]'
+      value: 
+      objectReference: {fileID: 6178690055138046049}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8245586169104613096}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[6]'
+      value: 
+      objectReference: {fileID: 4373887379683754257}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[7]'
+      value: 
+      objectReference: {fileID: 2680617601689505026}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[8]'
+      value: 
+      objectReference: {fileID: 8475465706060070935}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[9]'
+      value: 
+      objectReference: {fileID: 2086795523008750678}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[10]'
+      value: 
+      objectReference: {fileID: 3463352681286600483}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[11]'
+      value: 
+      objectReference: {fileID: 836639238769918940}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[12]'
+      value: 
+      objectReference: {fileID: 4542606685604105555}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[13]'
+      value: 
+      objectReference: {fileID: 9175055616004886906}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[14]'
+      value: 
+      objectReference: {fileID: 1541388819773260065}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[15]'
+      value: 
+      objectReference: {fileID: 5254669339425938370}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[16]'
+      value: 
+      objectReference: {fileID: 2317518201412314755}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[17]'
+      value: 
+      objectReference: {fileID: 7043496497793108254}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[18]'
+      value: 
+      objectReference: {fileID: 6264552585842669379}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[19]'
+      value: 
+      objectReference: {fileID: 100796958547879093}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[20]'
+      value: 
+      objectReference: {fileID: 4629335357776035790}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[21]'
+      value: 
+      objectReference: {fileID: 2288307324966566309}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[22]'
+      value: 
+      objectReference: {fileID: 3828269759561952607}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[23]'
+      value: 
+      objectReference: {fileID: 3774495497002187699}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[24]'
+      value: 
+      objectReference: {fileID: 7698674182451478620}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[25]'
+      value: 
+      objectReference: {fileID: 5615970912275985815}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[26]'
+      value: 
+      objectReference: {fileID: 3784689847312122012}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[27]'
+      value: 
+      objectReference: {fileID: 5734328456695839087}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[28]'
+      value: 
+      objectReference: {fileID: 8791485577949450834}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[29]'
+      value: 
+      objectReference: {fileID: 2055154912892839181}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[30]'
+      value: 
+      objectReference: {fileID: 4043600568782733289}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[31]'
+      value: 
+      objectReference: {fileID: 8983840815215562597}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[32]'
+      value: 
+      objectReference: {fileID: 4506154323649898431}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[33]'
+      value: 
+      objectReference: {fileID: 4481438940790462469}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[34]'
+      value: 
+      objectReference: {fileID: 7920325439615944025}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[35]'
+      value: 
+      objectReference: {fileID: 180069130048877362}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[36]'
+      value: 
+      objectReference: {fileID: 2091184458170851606}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[37]'
+      value: 
+      objectReference: {fileID: 6635574634118032665}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[38]'
+      value: 
+      objectReference: {fileID: 6706261269288341003}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[39]'
+      value: 
+      objectReference: {fileID: 3063750982834550974}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[40]'
+      value: 
+      objectReference: {fileID: 1902734268229181243}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[41]'
+      value: 
+      objectReference: {fileID: 8922464391716350292}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[42]'
+      value: 
+      objectReference: {fileID: 8720774550303060018}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[43]'
+      value: 
+      objectReference: {fileID: 2851077430939672287}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[44]'
+      value: 
+      objectReference: {fileID: 354752184843963552}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[45]'
+      value: 
+      objectReference: {fileID: 3853342402600655484}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[46]'
+      value: 
+      objectReference: {fileID: 2088855128602365344}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[47]'
+      value: 
+      objectReference: {fileID: 8819563696482759569}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[48]'
+      value: 
+      objectReference: {fileID: 570214658099598908}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[49]'
+      value: 
+      objectReference: {fileID: 9173009483706559802}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[50]'
+      value: 
+      objectReference: {fileID: 4491932016107971369}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[51]'
+      value: 
+      objectReference: {fileID: 7110214071454344400}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[52]'
+      value: 
+      objectReference: {fileID: 3508032357662232302}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[53]'
+      value: 
+      objectReference: {fileID: 4957516736137115463}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[54]'
+      value: 
+      objectReference: {fileID: 143128113447436232}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[55]'
+      value: 
+      objectReference: {fileID: 6042038029317248381}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[56]'
+      value: 
+      objectReference: {fileID: 4299175806480597768}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[57]'
+      value: 
+      objectReference: {fileID: 2817326331871019648}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[58]'
+      value: 
+      objectReference: {fileID: 7055170295031138866}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[59]'
+      value: 
+      objectReference: {fileID: 1562389021471385257}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[60]'
+      value: 
+      objectReference: {fileID: 7328765146655630993}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[61]'
+      value: 
+      objectReference: {fileID: 5510786752021463557}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[62]'
+      value: 
+      objectReference: {fileID: 6014943926210337633}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[63]'
+      value: 
+      objectReference: {fileID: 5451456513346519441}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[64]'
+      value: 
+      objectReference: {fileID: 7849914236692904497}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[65]'
+      value: 
+      objectReference: {fileID: 2133796743302651496}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[66]'
+      value: 
+      objectReference: {fileID: 2457714646705260947}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[67]'
+      value: 
+      objectReference: {fileID: 5988064736628288390}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[68]'
+      value: 
+      objectReference: {fileID: 2514624642715545303}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[69]'
+      value: 
+      objectReference: {fileID: 4367692076717391366}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[70]'
+      value: 
+      objectReference: {fileID: 8169126182883677559}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[71]'
+      value: 
+      objectReference: {fileID: 4595320618171843464}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[72]'
+      value: 
+      objectReference: {fileID: 8796467956889033373}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[73]'
+      value: 
+      objectReference: {fileID: 6773789498488650714}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[74]'
+      value: 
+      objectReference: {fileID: 6753006539129941763}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[75]'
+      value: 
+      objectReference: {fileID: 6216967642013881739}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[76]'
+      value: 
+      objectReference: {fileID: 5609841318952079341}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[77]'
+      value: 
+      objectReference: {fileID: 9008558358495149731}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[78]'
+      value: 
+      objectReference: {fileID: 324032120079669993}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[79]'
+      value: 
+      objectReference: {fileID: 6302821248293070821}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[80]'
+      value: 
+      objectReference: {fileID: 9000465452087018683}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[81]'
+      value: 
+      objectReference: {fileID: 3217685196942561014}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[82]'
+      value: 
+      objectReference: {fileID: 6051262239387647322}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[83]'
+      value: 
+      objectReference: {fileID: 6146596026932803629}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[84]'
+      value: 
+      objectReference: {fileID: 5319353200210236159}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[85]'
+      value: 
+      objectReference: {fileID: 2421575500479534949}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[86]'
+      value: 
+      objectReference: {fileID: 5216270407249998871}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[87]'
+      value: 
+      objectReference: {fileID: 4197176720173991844}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[88]'
+      value: 
+      objectReference: {fileID: 5519535324089222143}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[89]'
+      value: 
+      objectReference: {fileID: 3812824722862153539}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[90]'
+      value: 
+      objectReference: {fileID: 8965574900300879352}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[91]'
+      value: 
+      objectReference: {fileID: 4032809791806404507}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[92]'
+      value: 
+      objectReference: {fileID: 1166624215367107805}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[93]'
+      value: 
+      objectReference: {fileID: 5002406900934825906}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[94]'
+      value: 
+      objectReference: {fileID: 6451474533759124785}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[95]'
+      value: 
+      objectReference: {fileID: 5975318491901663302}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[96]'
+      value: 
+      objectReference: {fileID: 4337629641907155283}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[97]'
+      value: 
+      objectReference: {fileID: 881985536968398238}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[98]'
+      value: 
+      objectReference: {fileID: 3941097310993005449}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[99]'
+      value: 
+      objectReference: {fileID: 3819959345712174891}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[100]'
+      value: 
+      objectReference: {fileID: 3830869044554559508}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[101]'
+      value: 
+      objectReference: {fileID: 5390318482787510785}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[102]'
+      value: 
+      objectReference: {fileID: 4032294921192708139}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[103]'
+      value: 
+      objectReference: {fileID: 1734946037615568445}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[104]'
+      value: 
+      objectReference: {fileID: 7592066643741518341}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[105]'
+      value: 
+      objectReference: {fileID: 7796430868672188508}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[106]'
+      value: 
+      objectReference: {fileID: 6775503285483398030}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[107]'
+      value: 
+      objectReference: {fileID: 8795521939769050551}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[108]'
+      value: 
+      objectReference: {fileID: 6950148946973207556}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[109]'
+      value: 
+      objectReference: {fileID: 8940377950547572765}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[110]'
+      value: 
+      objectReference: {fileID: 5145508680832984472}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[111]'
+      value: 
+      objectReference: {fileID: 5113489370113741407}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[112]'
+      value: 
+      objectReference: {fileID: 762936049600133797}
+    - target: {fileID: 8760175847905959107, guid: 384c42cffb7b6ce48a64327b037eedba,
+        type: 3}
+      propertyPath: 'subNightShadowSprites.Array.data[113]'
+      value: 
+      objectReference: {fileID: 584935640676762304}
     - target: {fileID: 8760540541431511942, guid: 384c42cffb7b6ce48a64327b037eedba,
         type: 3}
       propertyPath: positionZ

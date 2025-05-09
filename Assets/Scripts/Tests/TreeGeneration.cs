@@ -22,7 +22,7 @@ public class TreeGeneration : MonoBehaviour
     public Color darkestRear;
     public Color darkestFront;
 
-    public float minDistance = 0.2f;
+    public float minDistance = 0.2f; 
 
     public TreeShadows shadows;
     public Material shadowMaterial;

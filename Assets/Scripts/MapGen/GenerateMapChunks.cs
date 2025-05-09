@@ -51,10 +51,10 @@ public class GenerateMapChunks : MonoBehaviour
     
 
 
-    private void Start()
-    {
-        DrawAllChunks();
-    }
+    //private void Start()
+    //{
+    //    DrawAllChunks();
+    //}
     void SetEmptyTileArray(int size)
     {
         fullMap = groundTilemap.cellBounds;

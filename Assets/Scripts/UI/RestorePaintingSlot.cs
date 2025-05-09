@@ -70,12 +70,22 @@ public class RestorePaintingSlot : MonoBehaviour
 
     bool HasKnowledge()
     {
-
-        if (player.animalCompendiumInformation.animalNames.Contains(ingredient.item.Name))
+        if(ingredient.item.Type == ItemType.Animal)
         {
-            int index = player.animalCompendiumInformation.animalNames.IndexOf(ingredient.item.Name);
-            return player.animalCompendiumInformation.viewedComplete[index];
+            if (player.animalCompendiumInformation.animalNames.Contains(ingredient.item.Name))
+            {
+                int index = player.animalCompendiumInformation.animalNames.IndexOf(ingredient.item.Name);
+                return player.animalCompendiumInformation.viewedComplete[index];
+            }
         }
+        if (ingredient.item.Type == ItemType.Encounter)
+        {
+            if (player.playerEncountersCompendiumDatabase.Items.Contains(ingredient.item))
+            {
+                return true;
+            }
+        }
+
         return false;
         
     }

@@ -7,6 +7,7 @@ public class TreeShadows : MonoBehaviour
 {
     public Transform shadowTransform;
     public SpriteRenderer shadowSprite;
+    public SpriteRenderer nightShadowSprite;
     public List<SpriteRenderer> subShadowSprites = new List<SpriteRenderer>();
     //List<Vector3> subShadowPositions = new List<Vector3>();
     List<Material> subShadowMaterials = new List<Material>();
@@ -38,14 +39,10 @@ public class TreeShadows : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         if(TryGetComponent(out SpriteRenderer rend))
         {
-            
             if (rend.isVisible)
                 OnBecameVisible();
             else
-            {
-                OnBecameVisible();
                 OnBecameInvisible();
-            }
         }
         SetShadows(shadowUpdateTick);
         
@@ -55,22 +52,20 @@ public class TreeShadows : MonoBehaviour
         shadowTransform.gameObject.SetActive(true);
         if (!materialsSet)
         {
-            subNightShadowSprites.Clear();
-            foreach (Transform child in nightShadows)
+            foreach (var shadow in subNightShadowSprites)
             {
-                subNightShadowSprites.Add(child.GetComponent<SpriteRenderer>());
-                child.GetComponent<SpriteRenderer>().material.SetColor("_Color", new Color(0, 0, 0, 0.3f));
+                shadow.material.SetColor("_Color", new Color(0, 0, 0, 0.3f));
             }
-            if (subNightShadowSprites.Count > 0)
-                subNightShadowSprites.RemoveAt(0);
+            nightShadowSprite.material.SetColor("_Color", new Color(0, 0, 0, 0.3f));
+
             for (int i = 0; i < subShadowSprites.Count; i++)
             {
                 subShadowMaterials.Add(subShadowSprites[i].material);
             }
-            
+
             materialsSet = true;
         }
-        
+
         shadowMaterial = shadowSprite.material;
         globalShadows = GlobalShadows.instance;
         GameEventManager.onShadowTickEvent.AddListener(SetShadows);
