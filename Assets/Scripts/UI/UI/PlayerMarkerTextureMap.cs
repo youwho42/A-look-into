@@ -139,7 +139,8 @@ public class PlayerMarkerTextureMap : MonoBehaviour
                 markers[i].mapPosition = mapPos;
                 markers[i].terrainPosition = terrainPos;
                 markers[i].active = true;
-                var pos = PlayerInformation.instance.player.position + new Vector3(UnityEngine.Random.Range(-.3f, .3f), UnityEngine.Random.Range(.1f, .3f), 0);
+
+                var pos = GetNearestValidTile(PlayerInformation.instance.player.position) + new Vector3(UnityEngine.Random.Range(-.3f, .3f), UnityEngine.Random.Range(.1f, .3f), 0);
                 BallPeopleManager.instance.SpawnIndicator(i, colorSchemes[selectedColorScheme].colors[i], pos);
                 return;
             }
@@ -156,6 +157,114 @@ public class PlayerMarkerTextureMap : MonoBehaviour
 
 
         
+    }
+    //Vector3Int GetCurrentWorldGridPosition(Vector2Int basePosition)
+    //{
+    //    var gridManager = GridManager.instance;
+    //    Vector3Int position = Vector3Int.zero;
+    //    for (int z = gridManager.groundMap.cellBounds.zMax; z >= gridManager.groundMap.cellBounds.zMin; z--)
+    //    {
+    //        Vector3 finalPos = GetNearestValidTile(gridManager.GetTileWorldPosition(new Vector3Int(basePosition.x, basePosition.y, z)));
+    //        position = gridManager.GetTilePosition(finalPos);
+    //    }
+    //    return position;
+    //}
+
+    Vector3 GetNearestValidTile(Vector3 position)
+    {
+        var gridManager = GridManager.instance;
+        Vector3Int gridPosition = gridManager.GetTilePosition(position);
+        
+        if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(gridPosition, out IsometricNodeXYZ startNode))
+        {
+            if (startNode.walkable)
+                return position;
+        }
+        List<Vector3Int> nodes = GetClosestNodes(gridPosition);
+        Vector3 closest = Vector3.zero;
+        float dist = float.MaxValue;
+        foreach (var node in nodes)
+        {
+            float d = NodeDistance(position, gridManager.GetTileWorldPosition(node));
+            if (d < dist)
+            {
+                dist = d;
+                closest = node;
+            }
+                 
+            
+        }
+
+        return closest;
+    }
+
+    float NodeDistance(Vector3 positionA, Vector3 positionB)
+    {
+        float dist = (positionA - positionB).sqrMagnitude;
+
+        return dist;
+    }
+
+    private List<Vector3Int> GetClosestNodes(Vector3Int gridPosition/*Vector2Int center, int maxRadius*/)
+    {
+        //int width = 128;
+        //int height = 128;
+        //List<Vector3Int> nodes = new List<Vector3Int>();
+        //for (int radius = 0; radius <= maxRadius; radius++)
+        //{
+        //    for (int dx = -radius; dx <= radius; dx++)
+        //    {
+        //        int dy = radius - Mathf.Abs(dx);
+
+        //        // Check both positive and negative dy (if not zero)
+        //        Vector2Int[] offsets = dy == 0
+        //            ? new Vector2Int[] { new Vector2Int(dx, 0) }
+        //            : new Vector2Int[] {
+        //            new Vector2Int(dx, dy),
+        //            new Vector2Int(dx, -dy)
+        //            };
+
+        //        foreach (var offset in offsets)
+        //        {
+        //            Vector2Int checkPos = center + offset;
+
+        //            // Ensure position is within bounds
+        //            if (checkPos.x >= 0 && checkPos.x < width &&
+        //                checkPos.y >= 0 && checkPos.y < height)
+        //            {
+        //                // Replace this with your logic
+        //                Debug.Log($"Checking: {checkPos}");
+
+        //                if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(newPos, out IsometricNodeXYZ node))
+        //                {
+        //                    if (node.walkable)
+        //                        nodes.Add(checkPos);
+        //                }
+
+
+        //            }
+        //        }
+        //    }
+        //}
+        List<Vector3Int> nodes = new List<Vector3Int>();
+        for (int x = -2; x < 3; x++)
+        {
+            for (int y = -2; y < 3; y++)
+            {
+                for (int z = -2; z < 3; z++)
+                {
+                    if (x == 0 && y == 0 && z == 0)
+                        continue;
+                    Vector3Int newPos = gridPosition + new Vector3Int(x, y, z);
+                    if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(newPos, out IsometricNodeXYZ node))
+                    {
+                        if (node.walkable)
+                            nodes.Add(newPos);
+                    }
+                }
+            }
+        }
+        return nodes;
     }
 
     void SetCurrentMarkers(EquipmentTier tier)

@@ -107,6 +107,24 @@ namespace Klaxon.GOAD
         /// Indicator BP
         /// </summary>
         #region IndicatorBP
+
+        [Header("A* Pathfinding")]
+        // A* Pathfinding
+        [HideInInspector]
+        public List<Vector3> aStarPath = new List<Vector3>();
+        [HideInInspector]
+        public Vector3 destination;
+        [HideInInspector]
+        public bool gettingPath;
+        [HideInInspector]
+        public Vector3 currentFinalDestination;
+        [HideInInspector]
+        public Vector3 lastValidTileLocation;
+        [HideInInspector]
+        public int currentFailedPathfindingAttempts;
+        [HideInInspector]
+        public int currentPathIndex;
+
         [HideInInspector]
         public int indicatorIndex;
         [HideInInspector]
@@ -225,6 +243,101 @@ namespace Klaxon.GOAD
             return dist <= maxDistance * maxDistance;
         }
 
+        public bool StartPositionValid()
+        {
+            if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(walker.currentTilePosition.position, out IsometricNodeXYZ node))
+                return node.walkable;
+            return false;
+        }
+        //public void SetValidStartPosition()
+        //{
+        //    if (StartPositionValid())
+        //        return;
+
+        //}
+
+        public void GetRandomTilePosition(int distance, GOAD_Action action)
+        {
+            var currentPos = _transform.position;
+            Vector3 destination = currentPos;
+            destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
+            currentFinalDestination = destination;
+            SetAStarDestination(destination, action);
+        }
+
+        public void SetAStarDestination(Vector3 destination, GOAD_Action action)
+        {
+
+            var start = GridManager.instance.GetTilePosition(_transform.position);
+            var end = GridManager.instance.GetTilePosition(destination);
+            if (start == end)
+            {
+                action.AStarDestinationIsCurrentPosition(this);
+                return;
+            }
+            Vector3 destPos = destination;
+            destPos.z -= 1;
+            Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
+            gettingPath = true;
+            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
+        }
+
+        public void OnPathFound(List<Vector3> newPath, bool success)
+        {
+            if (success)
+            {
+                currentFailedPathfindingAttempts = 0;
+                aStarPath = newPath;
+            }
+            else
+            {
+                currentFailedPathfindingAttempts++;
+                Debug.LogWarning("Path not found", gameObject);
+            }
+
+
+            gettingPath = false;
+        }
+
+        public void AStarDeviate(GOAD_Action action)
+        {
+            isDeviating = true;
+            //if (walker.isStuck)
+            //{
+            //    if (UnstuckCharacter())
+            //        return;
+            //}
+
+
+
+            if (walker.isStuck)
+                walker.hasDeviatePosition = false;
+
+            if (!walker.hasDeviatePosition)
+                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+
+            //animator.SetFloat(velocityX_hash, 1);
+            walker.SetDirection();
+
+            if (walker.CheckDistanceToDestination() <= 0.02f)
+            {
+                isDeviating = false;
+                currentPathIndex = 0;
+                aStarPath.Clear();
+                if (StartPositionValid())
+                    SetAStarDestination(currentFinalDestination, action);
+                else
+                {
+                    Debug.LogWarning($"start position not valid after deviate \ncurrent pos{transform.position} last pos{lastValidTileLocation}", gameObject);
+                    transform.position = lastValidTileLocation;
+                    //aStarPath.Add(lastValidTileLocation);
+                }
+
+            }
+
+
+            walker.SetLastPosition();
+        }
 
 
         public void Deviate()

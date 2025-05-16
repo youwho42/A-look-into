@@ -104,6 +104,10 @@ namespace Klaxon.GOAD
             success = false;
         }
 
+        public virtual void AStarDestinationIsCurrentPosition(GOAD_Scheduler_BP agent)
+        {
+        }
+
         public virtual void ReachFinalDestination(GOAD_Scheduler_BP agent)
         {
             

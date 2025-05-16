@@ -262,19 +262,19 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: a1b93703533987f4eb9bc0076e62f550,
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      propertyPath: possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]
+      propertyPath: 'possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: b15341d8b26059046a961455765be920,
         type: 2}
@@ -296,12 +296,12 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
-      insertIndex: 14
-      addedObject: {fileID: 767022714493567859}
+      insertIndex: -1
+      addedObject: {fileID: 3147621343875626062}
     - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3147621343875626062}
+      addedObject: {fileID: 1916954986200812757}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
 --- !u!1 &336499352444056229 stripped
 GameObject:
@@ -309,28 +309,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3909222461682590660}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &767022714493567859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336499352444056229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a92b1693cd34fd4b9877defe7fdce9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Indicate Map Location
-  Goal:
-    ResultCondition: {fileID: 11400000, guid: e411bc86c337cc245b6563c1ce4b755a, type: 2}
-    PreCondition: {fileID: 11400000, guid: a1b93703533987f4eb9bc0076e62f550, type: 2}
-  IsRunning: 0
-  success: 0
-  conditionsOnSucceed:
-  - {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597, type: 2}
-  conditionsOnFail:
-  - {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}
 --- !u!114 &3147621343875626062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,3 +333,25 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 524288
+--- !u!114 &1916954986200812757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336499352444056229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055dac199bcf71e469c12e76c8a45c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Indicate AStar
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: e411bc86c337cc245b6563c1ce4b755a, type: 2}
+    PreCondition: {fileID: 11400000, guid: a1b93703533987f4eb9bc0076e62f550, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597, type: 2}
+  conditionsOnFail:
+  - {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}

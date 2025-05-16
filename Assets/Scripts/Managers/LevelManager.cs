@@ -72,9 +72,19 @@ public class LevelManager : MonoBehaviour
                 SceneManager.LoadSceneAsync("MainScene-Flowers", LoadSceneMode.Additive);
             }
 
+            if (!SceneManager.GetSceneByName("MainScene-Plants").isLoaded)
+            {
+                SceneManager.LoadSceneAsync("MainScene-Plants", LoadSceneMode.Additive);
+            }
+
             if (!SceneManager.GetSceneByName("MainScene-Trees").isLoaded)
             {
                 SceneManager.LoadSceneAsync("MainScene-Trees", LoadSceneMode.Additive);
+            }
+
+            if (!SceneManager.GetSceneByName("MainScene-Animals").isLoaded)
+            {
+                SceneManager.LoadSceneAsync("MainScene-Animals", LoadSceneMode.Additive);
             }
 
         }
@@ -221,7 +231,7 @@ public class LevelManager : MonoBehaviour
         }
         audioSettings.Mute();
 
-        //LOAD PLANTS AND ANIMALS
+        //LOAD DECORATIONS
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -229,8 +239,36 @@ public class LevelManager : MonoBehaviour
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Plants and Animals: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Decorations: {Mathf.RoundToInt(progress * 100)}%";
            
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD PLANTS
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Plants", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Plants: {Mathf.RoundToInt(progress * 100)}%";
+
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD ANIMALS
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Animals", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Animals: {Mathf.RoundToInt(progress * 100)}%";
+
             yield return null;
         }
         audioSettings.Mute();
@@ -342,7 +380,7 @@ public class LevelManager : MonoBehaviour
         }
         audioSettings.Mute();
 
-        //LOAD PLANTS AND ANIMALS
+        //LOAD DECORATIONS
         currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Decoration", LoadSceneMode.Additive);
         while (!currentLevelLoading.isDone)
         {
@@ -350,7 +388,35 @@ public class LevelManager : MonoBehaviour
             float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
 
             loadScreenSlider.value = progress;
-            text.text = $"Loading Plants and Animals: {Mathf.RoundToInt(progress * 100)}%";
+            text.text = $"Loading Decorations: {Mathf.RoundToInt(progress * 100)}%";
+
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD PLANTS
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Plants", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Plants: {Mathf.RoundToInt(progress * 100)}%";
+
+            yield return null;
+        }
+        audioSettings.Mute();
+
+        //LOAD ANIMALS
+        currentLevelLoading = SceneManager.LoadSceneAsync(levelName + "-Animals", LoadSceneMode.Additive);
+        while (!currentLevelLoading.isDone)
+        {
+
+            float progress = Mathf.Clamp(currentLevelLoading.progress / 0.9f, 0, 1);
+
+            loadScreenSlider.value = progress;
+            text.text = $"Loading Animals: {Mathf.RoundToInt(progress * 100)}%";
 
             yield return null;
         }

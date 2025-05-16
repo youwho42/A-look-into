@@ -28,7 +28,8 @@ public class ContextSpeechBubble : MonoBehaviour
         while (timer < time)
         {
             timer += Time.deltaTime;
-            transform.position = _transform.position;
+            if (_transform != null)
+                transform.position = _transform.position;
             yield return null;
         }
         
