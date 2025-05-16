@@ -1,4 +1,5 @@
 using Klaxon.GravitySystem;
+using Klaxon.Interactable;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using UnityEngine.Tilemaps;
 
 public class SphereSuperShapeActivator : MonoBehaviour
 {
-    [Range(0,18)]
+    [Range(0,17)]
     public int layerPosition;
 
     public GameObject blueRain;
@@ -17,6 +18,7 @@ public class SphereSuperShapeActivator : MonoBehaviour
     public ParticleSystem particleEffect;
     public Vector3Int fissureLocation;
     public Tilemap fissureMap;
+    public Interactable ballSpawner;
 
     GameObject sculpturePiece;
     public Transform mainSculpture;
@@ -107,10 +109,16 @@ public class SphereSuperShapeActivator : MonoBehaviour
         //yield return new WaitForSeconds(3f);
         //Destroy(gameObject);
 
+
+        
+
+
         yield return null;
     }
     IEnumerator DeactivateBall()
     {
+        // disable ballSpawner
+        ballSpawner.canInteract = false;
         // set ball properties
         Vector3 directionZ = new Vector3(0, GlobalSettings.SpriteDisplacementY * 1, 1);
         float speed = 0.2f;
@@ -150,6 +158,8 @@ public class SphereSuperShapeActivator : MonoBehaviour
             yield return null;
         }
         Destroy(sculpturePiece);
+        // enable ballSpawner
+        ballSpawner.canInteract = true;
         yield return null;
     }
 

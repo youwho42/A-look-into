@@ -504,6 +504,8 @@ namespace Klaxon.GOAD
             if (!hiddenWhenSleeping || gatherableItem == null)
                 return;
             gatherableItem.hasBeenHarvested = state;
+            if (sounds != null)
+                sounds.SetSoundsActive(!state);
         }
 
         void InteruptCurrentGoal()

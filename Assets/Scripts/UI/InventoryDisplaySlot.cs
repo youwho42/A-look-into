@@ -235,9 +235,13 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (itemToDrop.TryGetComponent(out QI_Item i))
             i.itemVariantIndex = decorationIndex;
 
-        var replace = itemToDrop.GetComponent<Interactable>().replaceObjectOnDrop;
-        if (replace != null)
-            replace.CheckForObjects();
+        if (itemToDrop.TryGetComponent(out Interactable interactable))
+        {
+            var replace = interactable.replaceObjectOnDrop;
+            if (replace != null)
+                replace.CheckForObjects();
+        }
+        
 
         if (itemToDrop.TryGetComponent(out InteractablePickUp pickUpItem))
             pickUpItem.pickupQuantity = quantity;
@@ -437,12 +441,16 @@ public class InventoryDisplaySlot : MonoBehaviour
                 {
                     if (obj.positionZ == 0)
                         return false;
-                    if (interactable.canPlaceOnOther)
+                    if (interactable != null)
                     {
-                        interactable.visualItem.localPosition = obj.displacedPosition;
-                        if (obj.isDecorationSurface)
-                            return false;
+                        if (interactable.canPlaceOnOther)
+                        {
+                            interactable.visualItem.localPosition = obj.displacedPosition;
+                            if (obj.isDecorationSurface)
+                                return false;
+                        }
                     }
+                        
                 }
                 return true;
             }

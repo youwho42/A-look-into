@@ -77,9 +77,10 @@ public class AnimalSounds : MonoBehaviour
     float mainVolume;
 
     int lastCryIndex;
-
+    bool soundsActive;
     private void Start()
     {
+        soundsActive = true;
         source = GetComponent<AudioSource>();
         SetTimesToCry();
         SetFirstCry();
@@ -96,6 +97,8 @@ public class AnimalSounds : MonoBehaviour
    
     private void Update()
     {
+        if (!soundsActive)
+            return;
         ChangeVolume();
         if (continuous)
         {
@@ -111,6 +114,10 @@ public class AnimalSounds : MonoBehaviour
             isCrying = true;
         }
         
+    }
+    public void SetSoundsActive(bool state)
+    {
+        soundsActive = state;
     }
     void ChangeVolume()
     {
