@@ -676,6 +676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: whaaAA???
   localizedInteractVerb:
     m_TableReference:
@@ -709,6 +710,7 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
@@ -837,25 +839,27 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 0
-  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.22
   runSpeed: 0
   jumpHeight: 0
   isInInteractAction: 0
   moveSpeed: 0
-  currentDestination: {x: 0, y: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
   jumpAhead: 0
   hasDeviatePosition: 0
+  framesStuck: 0
   isStuck: 0
   tilemapObstacle: 0
   canClimb: 0
   isClimbing: 0
+  isRunning: 0
   mainDestinationZ: {x: 0, y: 0, z: 0}
   currentDestinationZ: {x: 0, y: 0, z: 0}
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 5348145429394433305}
   shitSpot: 0
+  inOoze: 0
 --- !u!114 &3847592326226557652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2270,7 +2274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2931317598137304779}
   - component: {fileID: 262093107675034263}
-  - component: {fileID: 3203595750460787463}
+  - component: {fileID: 1588054934634557957}
   m_Layer: 0
   m_Name: RobotThruster
   m_TagString: Untagged
@@ -2348,7 +2352,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &3203595750460787463
+--- !u!114 &1588054934634557957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2357,12 +2361,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8501324049981386550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0219e31de5041c48b8804996bea123b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloomMinIntensity: 0.8
-  bloomMaxIntensity: 3.5
-  spriteMaterial: {fileID: 262093107675034263}
+  minGlow: 0
+  maxGlow: 0
+  bloomMinIntensity: 5
+  bloomMaxIntensity: 15
+  useAlpha: 0
+  useIntensity: 1
 --- !u!1 &8562343877910788424
 GameObject:
   m_ObjectHideFlags: 0

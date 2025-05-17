@@ -129,6 +129,8 @@ namespace Klaxon.GravitySystem
 
             if (Mathf.Approximately(currentDirection.x, 0) || Mathf.Approximately(currentDirection.y, 0))
                 isStuck = false;
+            if (currentDirection == Vector2.zero)
+                isStuck = false;
         }
 
 
@@ -415,7 +417,7 @@ namespace Klaxon.GravitySystem
         public void SetLastPosition()
         {
 
-            if (!LevelManager.instance.inPauseMenu)
+            if (!LevelManager.instance.inPauseMenu && currentDirection!=Vector2.zero)
             {
                 if (lastPosition != _transform.position)
                 {

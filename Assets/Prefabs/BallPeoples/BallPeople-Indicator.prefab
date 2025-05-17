@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: conditions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -23,7 +23,7 @@ PrefabInstance:
         type: 3}
       propertyPath: conditions.Array.data[1].condition
       value: 
-      objectReference: {fileID: 11400000, guid: a1b93703533987f4eb9bc0076e62f550,
+      objectReference: {fileID: 11400000, guid: 9989dba4a78773e4da1fc469fb62bfdd,
         type: 2}
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -210,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -229,8 +229,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: possibleGoals.Array.data[3].Name
+      value: FollowPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: possibleGoals.Array.data[0].Priority
-      value: 11
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -241,6 +246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[2].Priority
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[3].Priority
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -262,6 +272,17 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: possibleGoals.Array.data[3].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 369ef98a0c3f5524a9955fd4b4595b9e,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: 'possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597,
@@ -274,9 +295,21 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: 'possibleGoals.Array.data[1].DesiredGoal.PreConditions.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9989dba4a78773e4da1fc469fb62bfdd,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: 'possibleGoals.Array.data[2].DesiredGoal.PreConditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: b15341d8b26059046a961455765be920,
+        type: 2}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: 'possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f0f2c81df347074e9cba2fc8a1aeb46,
         type: 2}
     - target: {fileID: 7959522142015012436, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -302,6 +335,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916954986200812757}
+    - targetCorrespondingSourceObject: {fileID: 3669067540778324321, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3673707584334288721}
   m_SourcePrefab: {fileID: 100100000, guid: 52de873582b53f0439b2e676e110821d, type: 3}
 --- !u!1 &336499352444056229 stripped
 GameObject:
@@ -353,5 +390,27 @@ MonoBehaviour:
   success: 0
   conditionsOnSucceed:
   - {fileID: 11400000, guid: d57a5c88fb897b5418df47e0023eb597, type: 2}
+  conditionsOnFail:
+  - {fileID: 11400000, guid: 8f0f2c81df347074e9cba2fc8a1aeb46, type: 2}
+--- !u!114 &3673707584334288721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336499352444056229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b730e5a185815134486ec3b79ab4d502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Follow Player
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 369ef98a0c3f5524a9955fd4b4595b9e, type: 2}
+    PreCondition: {fileID: 11400000, guid: 8f0f2c81df347074e9cba2fc8a1aeb46, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: 9989dba4a78773e4da1fc469fb62bfdd, type: 2}
   conditionsOnFail:
   - {fileID: 11400000, guid: b15341d8b26059046a961455765be920, type: 2}

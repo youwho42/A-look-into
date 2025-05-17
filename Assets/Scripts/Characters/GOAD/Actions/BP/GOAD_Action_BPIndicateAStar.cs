@@ -7,24 +7,26 @@ namespace Klaxon.GOAD
     {
 
         Vector3 markerPosition;
-        Vector2 indicatorPos;
         PlayerInformation player;
         PlayerMarkerTextureMap playerMarkerTextureMap;
-        
+        GridManager grid;
         float timer;
         Vector2 minMaxThoughtBubbleTime = new Vector2(30, 60);
         float thoughtBubbleTime;
-        GridManager grid;
-
-
+        
+        bool noPathTextShown;
+        bool thisWayTextShown;
+        bool destinationReached;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
             timer = 0;
             agent.interactor.canInteract = false;
-            agent.animator.SetBool(agent.walking_hash, true);
+            agent.animator.SetBool(agent.walking_hash, false);
             thoughtBubbleTime = Random.Range(minMaxThoughtBubbleTime.x, minMaxThoughtBubbleTime.y);
-
+            noPathTextShown = false;
+            thisWayTextShown = false;
+            destinationReached = false;
             player = PlayerInformation.instance;
             grid = GridManager.instance;
             playerMarkerTextureMap = PlayerMarkerTextureMap.instance;
@@ -32,14 +34,9 @@ namespace Klaxon.GOAD
 
             agent.currentPathIndex = 0;
             agent.aStarPath.Clear();
-
-            
+            agent.currentFinalDestination = markerPosition;
             if (agent.StartPositionValid())
                 agent.SetAStarDestination(markerPosition, this);
-
-
-            ContextSpeechBubbleManager.instance.SetContextBubble(4, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay"), false);
-
 
         }
 
@@ -49,6 +46,46 @@ namespace Klaxon.GOAD
             if (agent.gettingPath)
                 return;
 
+            if (!agent.CheckNearPlayer(3))
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
+
+
+            if (destinationReached)
+            {
+                agent.animator.SetBool(agent.walking_hash, false);
+                agent.walker.currentDirection = Vector2.zero;
+                playerMarkerTextureMap.RemoveMarkerAtIndex(agent.indicatorIndex);
+                ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, "Here we are!" /*LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay")*/, false);
+                timer += Time.deltaTime;
+                if (timer > 2.5f)
+                {
+                    success = true;
+                    agent.SetActionComplete(true);
+                }
+                return;
+            }
+
+            if (agent.aStarPath.Count == 0)
+            {
+                timer += Time.deltaTime;
+                if (!noPathTextShown)
+                {
+                    ContextSpeechBubbleManager.instance.SetContextBubble(3, agent.speechBubbleTransform, "I couldn't find a path, you're on your own!"/*LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay")*/, false);
+                    noPathTextShown = true;
+                }
+                if (timer >= 4)
+                {
+                    success = true;
+                    agent.SetActionComplete(true);
+                }
+                
+                return;
+            }
+            timer = 0;
             if (agent.currentPathIndex >= agent.aStarPath.Count)
             {
                 success = true;
@@ -56,17 +93,19 @@ namespace Klaxon.GOAD
                 return;
             }
 
-            if (agent.walker.isStuck || agent.isDeviating)
+            
+
+
+
+
+            if (agent.CheckNearPlayer(1f))
             {
+                if (!thisWayTextShown)
+                {
+                    ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay"), false);
+                    thisWayTextShown = true;
+                }
 
-                agent.AStarDeviate(this);
-                return;
-
-            }
-
-
-            if (agent.CheckNearPlayer(1.2f))
-            {
                 if (agent.aStarPath.Count > 0)
                     agent.walker.currentDestination = agent.aStarPath[agent.currentPathIndex];
 
@@ -85,20 +124,26 @@ namespace Klaxon.GOAD
                     }
                     else if (agent.currentPathIndex >= agent.aStarPath.Count - 1)
                     {
-                        success = true;
-                        agent.SetActionComplete(true);
+                        destinationReached= true;
+                        return;
                     }
                 }
 
-                agent.walker.SetLastPosition();
+                
             }
             else
             {
-                agent.walker.currentDirection = Vector3.zero;
+                agent.animator.SetBool(agent.walking_hash, false);
+                agent.walker.currentDirection = Vector2.zero;
+                if (agent.CheckNearPlayer(1.3f))
+                {
+                    success = false;
+                    agent.SetActionComplete(true);
+                }
+                agent.walker.ResetLastPosition();
             }
-            
 
-
+            agent.walker.SetLastPosition();
         }
 
         public override void EndAction(GOAD_Scheduler_BP agent)
@@ -120,17 +165,19 @@ namespace Klaxon.GOAD
             for (int i = map.zMax; i > map.zMin; i--)
             {
                 Vector3Int pos = new Vector3Int(marker.terrainPosition.x, marker.terrainPosition.y, i);
+                
                 var t = grid.groundMap.GetTile(pos);
                 if (t != null)
                 {
                     pos.z = i + 1;
                     markerPosition = grid.groundMap.GetCellCenterWorld(pos);
-
                     return;
                 }
             }
         }
 
+
+        
 
     }
 }

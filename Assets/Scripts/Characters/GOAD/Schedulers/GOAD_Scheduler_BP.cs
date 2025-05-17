@@ -246,8 +246,9 @@ namespace Klaxon.GOAD
         public bool StartPositionValid()
         {
             if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.TryGetValue(walker.currentTilePosition.position, out IsometricNodeXYZ node))
-                return node.walkable;
+                return node.walkable; 
             return false;
+
         }
         //public void SetValidStartPosition()
         //{
@@ -267,7 +268,7 @@ namespace Klaxon.GOAD
 
         public void SetAStarDestination(Vector3 destination, GOAD_Action action)
         {
-
+            
             var start = GridManager.instance.GetTilePosition(_transform.position);
             var end = GridManager.instance.GetTilePosition(destination);
             if (start == end)
