@@ -173,10 +173,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""LargeNotificationHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""46f33c75-e498-4ea7-8c1e-584c2d1d25e4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""MenuOpen"",
                     ""type"": ""Button"",
                     ""id"": ""e9f338b3-647f-415a-9686-8416ca410939"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -185,7 +194,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""MenuClose"",
                     ""type"": ""Button"",
                     ""id"": ""f5e17c12-72c8-4fc9-9791-e1b6106ea7f1"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -230,7 +239,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""PlayerMenu"",
                     ""type"": ""Button"",
                     ""id"": ""33636231-aeef-44d0-ac55-d5dfca68abcf"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -788,6 +797,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""MenuToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf8005a8-cac7-441a-82e3-2e3031233d5d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LargeNotificationHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b10b2ff-8fc2-433b-9721-3a6efbee643b"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""LargeNotificationHold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1401,6 +1432,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_CameraZoom = m_Player.FindAction("CameraZoom", throwIfNotFound: true);
         m_Player_MenuToggle = m_Player.FindAction("MenuToggle", throwIfNotFound: true);
+        m_Player_LargeNotificationHold = m_Player.FindAction("LargeNotificationHold", throwIfNotFound: true);
         m_Player_MenuOpen = m_Player.FindAction("MenuOpen", throwIfNotFound: true);
         m_Player_MenuClose = m_Player.FindAction("MenuClose", throwIfNotFound: true);
         m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
@@ -1516,6 +1548,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_CameraZoom;
     private readonly InputAction m_Player_MenuToggle;
+    private readonly InputAction m_Player_LargeNotificationHold;
     private readonly InputAction m_Player_MenuOpen;
     private readonly InputAction m_Player_MenuClose;
     private readonly InputAction m_Player_Map;
@@ -1579,6 +1612,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/MenuToggle".
         /// </summary>
         public InputAction @MenuToggle => m_Wrapper.m_Player_MenuToggle;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LargeNotificationHold".
+        /// </summary>
+        public InputAction @LargeNotificationHold => m_Wrapper.m_Player_LargeNotificationHold;
         /// <summary>
         /// Provides access to the underlying input action "Player/MenuOpen".
         /// </summary>
@@ -1696,6 +1733,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MenuToggle.started += instance.OnMenuToggle;
             @MenuToggle.performed += instance.OnMenuToggle;
             @MenuToggle.canceled += instance.OnMenuToggle;
+            @LargeNotificationHold.started += instance.OnLargeNotificationHold;
+            @LargeNotificationHold.performed += instance.OnLargeNotificationHold;
+            @LargeNotificationHold.canceled += instance.OnLargeNotificationHold;
             @MenuOpen.started += instance.OnMenuOpen;
             @MenuOpen.performed += instance.OnMenuOpen;
             @MenuOpen.canceled += instance.OnMenuOpen;
@@ -1782,6 +1822,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MenuToggle.started -= instance.OnMenuToggle;
             @MenuToggle.performed -= instance.OnMenuToggle;
             @MenuToggle.canceled -= instance.OnMenuToggle;
+            @LargeNotificationHold.started -= instance.OnLargeNotificationHold;
+            @LargeNotificationHold.performed -= instance.OnLargeNotificationHold;
+            @LargeNotificationHold.canceled -= instance.OnLargeNotificationHold;
             @MenuOpen.started -= instance.OnMenuOpen;
             @MenuOpen.performed -= instance.OnMenuOpen;
             @MenuOpen.canceled -= instance.OnMenuOpen;
@@ -2160,6 +2203,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenuToggle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LargeNotificationHold" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLargeNotificationHold(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "MenuOpen" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

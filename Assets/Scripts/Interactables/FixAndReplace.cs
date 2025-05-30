@@ -80,7 +80,7 @@ public class FixAndReplace : MonoBehaviour, IFixArea
                 if (!player.playerGuidesCompendiumDatabase.Items.Contains(data.Data.compendiumGuide))
                 {
                     player.playerGuidesCompendiumDatabase.Items.Add(data.Data.compendiumGuide);
-                    Notifications.instance.SetNewNotification($"{data.Data.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                    Notifications.instance.SetNewLargeNotification(null, data.Data, null, NotificationsType.Compendium);
 
                     //NotificationManager.instance.SetNewNotification($"{data.Data.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
                     GameEventManager.onGuideCompediumUpdateEvent.Invoke();

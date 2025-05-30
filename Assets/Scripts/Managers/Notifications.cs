@@ -2,6 +2,7 @@ using QuantumTek.QuantumInventory;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Klaxon.UndertakingSystem;
 
 [Serializable]
 public class BaseNotification
@@ -12,6 +13,16 @@ public class BaseNotification
     public int quantity;
 
     public string notificationText;
+}
+[Serializable]
+public class BaseLargeNotification
+{
+    public NotificationsType type;
+
+    public QI_ItemData itemData;
+    public QI_CraftingRecipe itemRecipe;
+    public UndertakingObject undertaking;
+
 }
 
 
@@ -53,15 +64,18 @@ public class Notifications : MonoBehaviour
     public List<NotificationTypeColor> notificationColors = new List<NotificationTypeColor>();
 
     Queue<BaseNotification> allNotifications = new Queue<BaseNotification>();
+    Queue<BaseLargeNotification> allLargeNotifications = new Queue<BaseLargeNotification>();
     List<NotificationDisplayObject> displays = new List<NotificationDisplayObject>();
 
     public Transform notificationHolder;
+    public NotificationLargeDisplayObject largeNotification;
     
     public NotificationDisplayObject notificationDisplayPrefab;
     public int maxNotifications = 5;
     [HideInInspector]
     public int currentNotificationCount = 0;
-    
+    [HideInInspector]
+    public BaseLargeNotification currentLargeNotificaton;
 
     private void Start()
     {
@@ -73,11 +87,21 @@ public class Notifications : MonoBehaviour
 
             displays.Add(go);
         }
+        largeNotification.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (currentNotificationCount >= maxNotifications || UIScreenManager.instance.GetIsCurrentUI(UIScreenType.DialogueUI))
+        if (UIScreenManager.instance.GetIsCurrentUI(UIScreenType.DialogueUI))
+            return;
+
+        TryDisplayNotifications();
+        TryDisplayLargeNotifications();
+    }
+
+    private void TryDisplayNotifications()
+    {
+        if (currentNotificationCount >= maxNotifications)
             return;
         if (allNotifications.Count > 0)
         {
@@ -85,8 +109,19 @@ public class Notifications : MonoBehaviour
             currentNotificationCount++;
         }
     }
-
-
+    private void TryDisplayLargeNotifications()
+    {
+       
+        if (largeNotification.gameObject.activeInHierarchy)
+            return;
+        currentLargeNotificaton = null;
+        if (allLargeNotifications.Count > 0)
+        {
+            ActivateLargeNotification(allLargeNotifications.Dequeue());
+        }
+            
+        
+    }
 
     public void SetNewNotification(string message, QI_ItemData item, int amount, NotificationsType notificationType)
     {
@@ -96,6 +131,13 @@ public class Notifications : MonoBehaviour
         if(!UpdateDuplicateDisplays(newNotification))
             allNotifications.Enqueue(newNotification);
 
+    }
+
+    public void SetNewLargeNotification(UndertakingObject newUndertaking, QI_ItemData item, QI_CraftingRecipe recipe, NotificationsType notificationType)
+    {
+        var newNotification = new BaseLargeNotification { undertaking = newUndertaking, itemData = item, itemRecipe = recipe, type = notificationType };
+
+        allLargeNotifications.Enqueue(newNotification);
     }
 
 
@@ -143,6 +185,12 @@ public class Notifications : MonoBehaviour
         }
        
     }
+    void ActivateLargeNotification(BaseLargeNotification notification)
+    {
+        currentLargeNotificaton = notification;
+        largeNotification.gameObject.SetActive(true);
+        largeNotification.SetDisplay(notification, SetTypeColor(notification.type), allLargeNotifications.Count==0);
+    }
 
     NotificationTypeColor SetTypeColor(NotificationsType type)
     {
@@ -160,5 +208,9 @@ public class Notifications : MonoBehaviour
     {
         currentNotificationCount = 0;
         allNotifications.Clear();
+    }
+    public void ClearLargeNotifications()
+    {
+        allLargeNotifications.Clear();
     }
 }

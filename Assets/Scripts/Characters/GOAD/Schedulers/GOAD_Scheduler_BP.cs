@@ -57,7 +57,8 @@ namespace Klaxon.GOAD
             TravellerHome,
             Farmer,
             Indicator,
-            Villager
+            Villager,
+            Locationer
         }
         public BP_Type type;
 
@@ -106,7 +107,7 @@ namespace Klaxon.GOAD
         /// <summary>
         /// Indicator BP
         /// </summary>
-        #region IndicatorBP
+        #region IndicatorAndLocationerBP
 
         [Header("A* Pathfinding")]
         // A* Pathfinding
@@ -129,6 +130,12 @@ namespace Klaxon.GOAD
         public int indicatorIndex;
         [HideInInspector]
         public bool justIndicated;
+        public Transform locationerLocation;
+        [HideInInspector]
+        public CompleteTaskObject locationFoundTask;
+        [HideInInspector]
+        public Vector3 validStartPosition;
+        
         #endregion
 
         /// <summary>
@@ -161,9 +168,22 @@ namespace Klaxon.GOAD
             Disolve(true);
             walker.ResetLastPosition();
             interactor = GetComponent<Interactable.Interactable>();
+            if (type == BP_Type.Indicator)
+                GameEventManager.onMapClearMarkersEvent.AddListener(ClearIndicator);
         }
 
-       
+        private void OnDisable()
+        {
+            if (type == BP_Type.Indicator)
+                GameEventManager.onMapClearMarkersEvent.RemoveListener(ClearIndicator);
+        }
+
+        void ClearIndicator()
+        {
+            SetBeliefState(questComplteCondition.Condition, questComplteCondition.State);
+            currentAction.success = true;
+            SetActionComplete(true);
+        }
 
 
         private void Update()
@@ -250,26 +270,40 @@ namespace Klaxon.GOAD
             return false;
 
         }
-        //public void SetValidStartPosition()
-        //{
-        //    if (StartPositionValid())
-        //        return;
 
-        //}
-
-        public void GetRandomTilePosition(int distance, GOAD_Action action)
+        public void SetValidStartPosition(Vector3 destination, GOAD_Action action)
         {
-            var currentPos = _transform.position;
-            Vector3 destination = currentPos;
-            destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
-            currentFinalDestination = destination;
-            SetAStarDestination(destination, action);
+            float dist = float.MaxValue;
+            for (int x = -2; x < 3; x++)
+            {
+                for (int y = -2; y < 3; y++)
+                {
+                    Vector3Int offset = new Vector3Int(x, y, 0);
+                    var potentialTile = walker.currentTilePosition.position + offset;
+                    if(PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup.ContainsKey(potentialTile))
+                    {
+                        if (PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[potentialTile].walkable)
+                        {
+                            var pos = GridManager.instance.GetTileWorldPosition(potentialTile);
+                            float d = (pos - _transform.position).sqrMagnitude;
+                            if (d < dist)
+                            {
+                                dist = d;
+                                validStartPosition = pos;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            SetAStarDestination(destination, action, validStartPosition);
+
         }
 
-        public void SetAStarDestination(Vector3 destination, GOAD_Action action)
+        public void SetAStarDestination(Vector3 destination, GOAD_Action action, Vector3 startPos)
         {
             
-            var start = GridManager.instance.GetTilePosition(_transform.position);
+            var start = GridManager.instance.GetTilePosition(startPos);
             var end = GridManager.instance.GetTilePosition(destination);
             if (start == end)
             {
@@ -280,7 +314,7 @@ namespace Klaxon.GOAD
             destPos.z -= 1;
             Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
             gettingPath = true;
-            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
+            PathRequestManager.RequestPath(new PathRequest(start, gridPos, OnPathFound));
         }
 
         public void OnPathFound(List<Vector3> newPath, bool success)
@@ -300,45 +334,45 @@ namespace Klaxon.GOAD
             gettingPath = false;
         }
 
-        public void AStarDeviate(GOAD_Action action)
-        {
-            isDeviating = true;
-            //if (walker.isStuck)
-            //{
-            //    if (UnstuckCharacter())
-            //        return;
-            //}
+        //public void AStarDeviate(GOAD_Action action)
+        //{
+        //    isDeviating = true;
+        //    //if (walker.isStuck)
+        //    //{
+        //    //    if (UnstuckCharacter())
+        //    //        return;
+        //    //}
 
 
 
-            if (walker.isStuck)
-                walker.hasDeviatePosition = false;
+        //    if (walker.isStuck)
+        //        walker.hasDeviatePosition = false;
 
-            if (!walker.hasDeviatePosition)
-                walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
+        //    if (!walker.hasDeviatePosition)
+        //        walker.FindDeviateDestination(walker.tilemapObstacle ? 20 : 50);
 
-            //animator.SetFloat(velocityX_hash, 1);
-            walker.SetDirection();
+        //    //animator.SetFloat(velocityX_hash, 1);
+        //    walker.SetDirection();
 
-            if (walker.CheckDistanceToDestination() <= 0.02f)
-            {
-                isDeviating = false;
-                currentPathIndex = 0;
-                aStarPath.Clear();
-                if (StartPositionValid())
-                    SetAStarDestination(currentFinalDestination, action);
-                else
-                {
-                    Debug.LogWarning($"start position not valid after deviate \ncurrent pos{transform.position} last pos{lastValidTileLocation}", gameObject);
-                    transform.position = lastValidTileLocation;
-                    //aStarPath.Add(lastValidTileLocation);
-                }
+        //    if (walker.CheckDistanceToDestination() <= 0.02f)
+        //    {
+        //        isDeviating = false;
+        //        currentPathIndex = 0;
+        //        aStarPath.Clear();
+        //        if (StartPositionValid())
+        //            SetAStarDestination(currentFinalDestination, action);
+        //        else
+        //        {
+        //            Debug.LogWarning($"start position not valid after deviate \ncurrent pos{transform.position} last pos{lastValidTileLocation}", gameObject);
+        //            transform.position = lastValidTileLocation;
+        //            //aStarPath.Add(lastValidTileLocation);
+        //        }
 
-            }
+        //    }
 
 
-            walker.SetLastPosition();
-        }
+        //    walker.SetLastPosition();
+        //}
 
 
         public void Deviate()
@@ -432,7 +466,10 @@ namespace Klaxon.GOAD
             currentAction.success = true;
             SetActionComplete(true);
         }
-
+        public void InteractionFinished()
+        {
+            hasInteracted = true;
+        }
 
         public void InvokeResetJustIndicatedTravellerDestination()
         {

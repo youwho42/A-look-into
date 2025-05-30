@@ -16,11 +16,11 @@ public class CurrentTilePosition : MonoBehaviour
         SetGrid();
         position = GetCurrentTilePosition(transform.position);
     }
-    public Vector3Int GetCurrentTilePosition(Vector3 position)
+    public Vector3Int GetCurrentTilePosition(Vector3 worldPosition)
     {
         SetGrid();
 
-        Vector3Int cellIndex = groundMap.WorldToCell(position - Vector3.forward);
+        Vector3Int cellIndex = groundMap.WorldToCell(worldPosition - Vector3.forward);
         for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin - 1; i--)
         {
             cellIndex.z = i;
@@ -35,6 +35,20 @@ public class CurrentTilePosition : MonoBehaviour
         }
 
         return cellIndex;
+    }
+
+    public bool SetCurrentTilePosition(Vector3 worldPosition)
+    {
+        SetGrid();
+        Vector3Int cellIndex = groundMap.WorldToCell(worldPosition - Vector3.forward);
+        var tile = groundMap.GetTile(cellIndex);
+        if (tile != null)
+        {
+            position = cellIndex;
+            return true;
+        }
+        return false; 
+        
     }
 
 

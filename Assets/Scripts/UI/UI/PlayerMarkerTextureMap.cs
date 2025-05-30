@@ -328,7 +328,7 @@ public class PlayerMarkerTextureMap : MonoBehaviour
         {
             mark.active = false;
         }
-        
+        GameEventManager.onMapClearMarkersEvent.Invoke();
         DrawPlayerMap();
     }
 

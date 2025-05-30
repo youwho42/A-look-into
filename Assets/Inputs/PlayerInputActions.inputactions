@@ -87,10 +87,19 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "LargeNotificationHold",
+                    "type": "Button",
+                    "id": "46f33c75-e498-4ea7-8c1e-584c2d1d25e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MenuOpen",
                     "type": "Button",
                     "id": "e9f338b3-647f-415a-9686-8416ca410939",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -99,7 +108,7 @@
                     "name": "MenuClose",
                     "type": "Button",
                     "id": "f5e17c12-72c8-4fc9-9791-e1b6106ea7f1",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -144,7 +153,7 @@
                     "name": "PlayerMenu",
                     "type": "Button",
                     "id": "33636231-aeef-44d0-ac55-d5dfca68abcf",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -702,6 +711,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "MenuToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf8005a8-cac7-441a-82e3-2e3031233d5d",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LargeNotificationHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b10b2ff-8fc2-433b-9721-3a6efbee643b",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "LargeNotificationHold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

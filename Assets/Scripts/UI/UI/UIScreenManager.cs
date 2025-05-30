@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIScreenManager : MonoBehaviour
@@ -39,6 +40,12 @@ public class UIScreenManager : MonoBehaviour
     [HideInInspector]
     public bool isInWarning;
 
+    public NotificationLargeDisplayObject largeNotificationObject;
+    [SerializeField] private InputActionReference holdButton;
+    bool fromHold;
+    float currentHoldTime = 0f;
+    float maxHoldTime = 1f;
+    public Slider interactSlider;
     private void Start()
     {
         
@@ -58,6 +65,17 @@ public class UIScreenManager : MonoBehaviour
         DisplayScreenUI(UIScreenType.MainMenuUI, true);
         mainMenu.GetComponent<SetButtonSelected>().SetSelectedButton();
     }
+    private void OnEnable()
+    {
+        holdButton.action.started += OnHoldButtonPerformed;
+        holdButton.action.canceled += OnHoldButtonCanceled;
+    }
+
+    private void OnDisable()
+    {
+        holdButton.action.started -= OnHoldButtonPerformed;
+        holdButton.action.canceled -= OnHoldButtonCanceled;
+    }
 
     private void OnDestroy()
     {
@@ -68,14 +86,58 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMapUpdateEvent.RemoveListener(DisplayMapMenu);
     }
 
+    private void OnHoldButtonPerformed(InputAction.CallbackContext context)
+    {
+        if(largeNotificationObject.gameObject.activeInHierarchy)
+            StartCoroutine("StartHoldButtonCo");
+    }
+    private void OnHoldButtonCanceled(InputAction.CallbackContext context)
+    {
+        StopCoroutine("StartHoldButtonCo");
+        currentHoldTime = 0.0f;
+        interactSlider.value = 0;
+        fromHold = false;
+    }
+
+
+    IEnumerator StartHoldButtonCo()
+    {
+        fromHold = false;
+        while (currentHoldTime < maxHoldTime)
+        {
+            currentHoldTime += Time.deltaTime;
+            interactSlider.value = NumberFunctions.RemapNumber(currentHoldTime, 0.0f, maxHoldTime, 0.0f, 1.0f);
+            yield return null;
+        }
+        currentHoldTime = 0.0f;
+        interactSlider.value = 0;
+        fromHold = true;
+        
+        ToggleTabbedMenu();
+       
+        yield return null;
+        Notifications.instance.ClearLargeNotifications();
+        largeNotificationObject.gameObject.SetActive(false);
+        
+    }
+
     void GamepadDisplayTabbedMenu()
     {
+        
         if (inMainMenu)
             return;
         if (currentUI == UIScreenType.None)
         {
-            tabbedMenu.SetInventoryUI();
-            DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
+            if (largeNotificationObject.gameObject.activeInHierarchy)
+            {
+                if (largeNotificationObject.notification.type == NotificationsType.UndertakingStart || largeNotificationObject.notification.type == NotificationsType.UndertakingComplete)
+                    tabbedMenu.SetCurrentButton(MenuDisplayUI.MenuButtons.Undertakings);
+                if (largeNotificationObject.notification.type == NotificationsType.Compendium)
+                    tabbedMenu.SetCurrentButton(MenuDisplayUI.MenuButtons.Compendium);
+            }
+            else
+                tabbedMenu.SetCurrentButton(MenuDisplayUI.MenuButtons.Inventory);
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
         }
         
     }
@@ -102,18 +164,24 @@ public class UIScreenManager : MonoBehaviour
     {
         if (inMainMenu)
             return;
-        //var current = GetCurrentUI();
-        //if (current == UIScreenType.TabbedMenuUI || current == UIScreenType.None)
-        //{
-        //    tabbedMenu.SetInventoryUI();
-        //    DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
-        //}
-        //if (current == UIScreenType.CraftingStationUI || current == UIScreenType.ResearchStationUI || current == UIScreenType.ContainerUI)
-        //    DisplayScreenUI(currentUI, false);
+        
+
+
         switch (currentUI)
         {
             case UIScreenType.None:
-                tabbedMenu.SetInventoryUI();
+                if (fromHold)
+                {
+                    if (largeNotificationObject.gameObject.activeInHierarchy)
+                    {
+                        if (largeNotificationObject.notification.type == NotificationsType.UndertakingStart || largeNotificationObject.notification.type == NotificationsType.UndertakingComplete)
+                            tabbedMenu.SetCurrentButton(MenuDisplayUI.MenuButtons.Undertakings);
+                        if (largeNotificationObject.notification.type == NotificationsType.Compendium)
+                            tabbedMenu.SetCurrentButton(MenuDisplayUI.MenuButtons.Compendium);
+                    }
+                }
+                else
+                    tabbedMenu.SetCurrentButton(MenuDisplayUI.MenuButtons.Inventory);
                 DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
                 break;
             case UIScreenType.PauseUI:
@@ -132,7 +200,7 @@ public class UIScreenManager : MonoBehaviour
                 DisplayScreenUI(currentUI, false);
                 break;
             case UIScreenType.TabbedMenuUI:
-                tabbedMenu.SetInventoryUI();
+                
                 DisplayScreenUI(UIScreenType.TabbedMenuUI, !tabbedMenu.gameObject.activeInHierarchy);
                 break;
             case UIScreenType.MerchantTableUI:

@@ -27,6 +27,8 @@ public class PlayerCrafting : MonoBehaviour
         {
             craftingRecipeDatabase.CraftingRecipes.Add(recipe);
             GameEventManager.onRecipeCompediumUpdateEvent.Invoke();
+            Notifications.instance.SetNewLargeNotification(null, recipe.Product.Item, recipe, NotificationsType.Compendium);
+
             return true;
         }
         return false;

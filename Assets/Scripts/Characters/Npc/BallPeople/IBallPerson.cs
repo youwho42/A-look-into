@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IBallPerson
 {
     public void SetToRemoveState();
+
+    public void InteractionFinished();
 }

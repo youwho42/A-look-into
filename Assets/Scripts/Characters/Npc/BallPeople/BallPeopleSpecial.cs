@@ -276,4 +276,9 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
     {
         currentState = SpecialState.Remove;
     }
+    public void InteractionFinished()
+    {
+        
+    }
+
 }

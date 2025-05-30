@@ -147,9 +147,16 @@ namespace Klaxon.Interactable
                     if(derivedObj.pickupQuantity>1)
                         quantity = $"({derivedObj.pickupQuantity})";
                 }
+
+
+                if (!closest.onlyLongInteract)
+                {
+                    if (closest is InteractableFixingArea)
+                        action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()} {closest.localizedItemName.GetLocalizedString()}";
+                    else
+                        action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
+                }
                     
-                if(!closest.onlyLongInteract)
-                    action = $"{buttTap} {closest.localizedInteractVerb.GetLocalizedString()}{quantity}";
                 
                 interactCanvas.transform.position = closest.transform.position + canvasOffset;
                 string buttHold = player.playerInput.currentControlScheme == "Gamepad" ? "-Y-" : "-F-";
@@ -160,7 +167,8 @@ namespace Klaxon.Interactable
                     if (closest.localizedItemName != null)
                         itemName = closest.localizedItemName.GetLocalizedString();
                     var blank = closest.onlyLongInteract ? "" : "\n";
-                    action += $"{blank} {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {itemName}";
+                    //action += $"{blank} {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()} {itemName}";
+                    action += $"{blank} {hold} {buttHold} {closest.longInteractVerb.GetLocalizedString()}";
                     interactSlider.gameObject.SetActive(true);
                 }
                 interactVerb.text = action;

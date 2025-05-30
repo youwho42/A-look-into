@@ -15,7 +15,8 @@ public class CompendiumSlot : MonoBehaviour
     public TextMeshProUGUI itemName;
     LocalizedString localizedName;
     bool longDescription;
-    public void AddItem(QI_ItemData newItem, QI_CraftingRecipe newRecipe = null)
+    public CompendiumItemType currentCompendiumType;
+    public void AddItem(QI_ItemData newItem, CompendiumItemType compendiumType, QI_CraftingRecipe newRecipe = null)
     {
         item = newItem;
         icon.sprite = item.Icon;

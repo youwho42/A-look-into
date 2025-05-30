@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UndertakingsDisplayUI : MonoBehaviour
 {
@@ -33,7 +35,27 @@ public class UndertakingsDisplayUI : MonoBehaviour
         SetAvailableUndertakings();
         ClearCurrentUndertaking();
     }
-    
+
+    private void OnEnable()
+    {
+        SetCurrentSelectedButton();
+    }
+    void SetCurrentSelectedButton()
+    {
+        var notifUndertaking = Notifications.instance.currentLargeNotificaton;
+        if (notifUndertaking == null)
+            return;
+        foreach (var button in undertakingsButtons)
+        {
+            if(button.undertaking == notifUndertaking.undertaking)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(button.GetComponentInChildren<Button>().gameObject);
+                SetCurrentUndertaking(button.undertaking);
+            }
+        }
+    }
+
     private void OnDestroy()
     {
         GameEventManager.onUndertakingsUpdateEvent.RemoveListener(SetAvailableUndertakings);
@@ -63,6 +85,8 @@ public class UndertakingsDisplayUI : MonoBehaviour
                 CreateUndertakingButton(undertaking);
         }
 
+        //if (currentUndertaking == null && reverso.Count > 0)
+        //    currentUndertaking = reverso[0];
         if (currentUndertaking != null)
             SetCurrentUndertaking(currentUndertaking);
     }

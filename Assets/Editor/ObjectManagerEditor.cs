@@ -12,6 +12,7 @@ public class ObjectManagerEditor : Editor
     //The center of the circle
     private Vector3 center;
     int lastRandom;
+    Queue<int> randomQueue = new Queue<int>();
     private void OnEnable()
     {
         objectManager = target as ObjectManagerCircle;
@@ -157,19 +158,36 @@ public class ObjectManagerEditor : Editor
         }
         
     }
-    GameObject CreateGameObjectFromPrefab()
+
+    void PopulateRandomQueue()
     {
         
+        List<int> temp = new List<int>();
+        for (int i = 0; i < objectManager.prefabGO.Length; i++)
+        {
+            temp.Add(i);
+        }
+        for (int i = 0; i < objectManager.prefabGO.Length; i++)
+        {
+            int index = Random.Range(0, temp.Count);
+            randomQueue.Enqueue(temp[index]);
+            temp.RemoveAt(index);
+        }
+        
+    }
+
+    GameObject CreateGameObjectFromPrefab()
+    {
+
+        
+
         int rand = -1;
         if (objectManager.prefabGO.Length > 1)
         {
-            do
-            {
-                rand = Random.Range(0, objectManager.prefabGO.Length);
+            if (randomQueue.Count == 0)
+                PopulateRandomQueue();
 
-            }
-            while (lastRandom == rand);
-            lastRandom = rand;
+            rand = randomQueue.Dequeue();
         }
         else 
             rand = 0;

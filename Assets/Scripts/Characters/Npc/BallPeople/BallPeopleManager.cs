@@ -6,6 +6,7 @@ using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class BallPeopleManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class BallPeopleManager : MonoBehaviour
     public GameObject planterPrefab;
     public GameObject harvesterPrefab;
     public GameObject indicatorPrefab;
+    public GameObject locationerPrefab;
     public GameObject homeBoundPrefab;
     public GameObject appearFX;
     public float lastColorA;
@@ -146,6 +148,17 @@ public class BallPeopleManager : MonoBehaviour
         
     }
 
+    public void SpawnLocationer(UndertakingObject undertaking, Transform location, Vector3 position, LocalizedString title, LocalizedString description)
+    {
+        GameObject loc = null;
+        SpawnBallPeople(locationerPrefab, out loc, position);
+        var interactiball = loc.GetComponent<InteractableBallPeopleLocationer>();
+        interactiball.talkTask.undertaking = undertaking;
+        interactiball.messageTitle = title;
+        interactiball.messageDescription = description;
+        loc.GetComponent<GOAD_Scheduler_BP>().locationerLocation = location;
+
+    }
 
 
 

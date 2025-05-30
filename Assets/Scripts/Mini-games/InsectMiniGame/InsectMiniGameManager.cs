@@ -191,7 +191,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                         PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
                         PlayerInformation.instance.statHandler.ChangeStat(statChanger);
                         GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
-                        Notifications.instance.SetNewNotification($"{animal.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                        Notifications.instance.SetNewLargeNotification(null, animal, null, NotificationsType.Compendium);
                     }
 
                     // Add animal to compendium information
@@ -214,7 +214,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                                 {
 
                                     string notificationText = $"{animal.localizedName.GetLocalizedString()} {LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", "Updated")}";
-                                    Notifications.instance.SetNewNotification(notificationText, null, 0, NotificationsType.Compendium);
+                                    Notifications.instance.SetNewLargeNotification(null, animal, null, NotificationsType.Compendium);
                                     PlayerInformation.instance.animalCompendiumInformation.SetViewedComplete(index);
                                     PlayerInformation.instance.statHandler.ChangeStat(animal.ResearchRecipes[i].agencyStatChanger);
                                 }

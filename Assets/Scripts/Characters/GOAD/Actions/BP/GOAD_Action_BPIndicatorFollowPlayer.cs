@@ -31,7 +31,7 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
-            if (agent.CheckNearPlayer(.7f))
+            if (agent.CheckNearPlayer(1.3f))
             {
                 success= true;
                 agent.SetActionComplete(true);

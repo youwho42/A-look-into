@@ -333,7 +333,7 @@ namespace Klaxon.GravitySystem {
                     if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(guideToAdd))
                     {
                         PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(guideToAdd);
-                        Notifications.instance.SetNewNotification($"{guideToAdd.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                        Notifications.instance.SetNewLargeNotification(null, guideToAdd, null, NotificationsType.Compendium);
                         GameEventManager.onGuideCompediumUpdateEvent.Invoke();
                     }
                 }

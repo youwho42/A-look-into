@@ -55,7 +55,7 @@ namespace Klaxon.Interactable
                 if (!database.Items.Contains(messageItem))
                 {
                     database.Items.Add(messageItem);
-                    Notifications.instance.SetNewNotification(messageItem.localizedName.GetLocalizedString(), messageItem, 1, NotificationsType.Compendium);
+                    Notifications.instance.SetNewLargeNotification(null, messageItem, null, NotificationsType.Compendium);
                     GameEventManager.onNoteCompediumUpdateEvent.Invoke();
                     GameEventManager.onGuideCompediumUpdateEvent.Invoke();
                 }
@@ -75,13 +75,15 @@ namespace Klaxon.Interactable
 
                 }
                 BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, craftingRecipe.Name, desc);
-                PlayerInformation.instance.playerRecipeDatabase.CraftingRecipes.Add(craftingRecipe);
+                PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe);
+                
+                
             }
 
             // display recipe name and ingredients...
             // add recipe to player recipes
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
-            GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
+            //GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
             canInteract = false;
             //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);
             yield return new WaitForSeconds(0.33f);

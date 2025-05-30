@@ -11,6 +11,16 @@ using System;
 using Klaxon.Interactable;
 using UnityEngine.Localization.Settings;
 
+public enum CompendiumItemType
+{
+    Animal,
+    Resource,
+    Recipe,
+    Note,
+    Guide,
+    Encounters
+}
+
 public class CompendiumDisplayUI : MonoBehaviour
 {
     public static CompendiumDisplayUI instance;
@@ -23,15 +33,7 @@ public class CompendiumDisplayUI : MonoBehaviour
             Destroy(this);
     }
 
-    public enum CompendiumItemType
-    {
-        Animal,
-        Resource,
-        Recipe,
-        Note, 
-        Guide,
-        Encounters
-    }
+    
     [Serializable]
     public struct ResourceButtonType
     {
@@ -103,7 +105,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         
         maxItemTypes = System.Enum.GetValues(typeof(CompendiumItemType)).Length;
 
-        SetCompendiumTypeResource();
+        //SetCompendiumTypeResource();
     }
 
     private void OnEnable()
@@ -117,6 +119,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onGuideCompediumUpdateEvent.AddListener(UpdateCompendiumList);
         GameEventManager.onGamepadTriggersButtonEvent.AddListener(ChangeDisplayUI);
         UpdateCompendiumList();
+        SetCurrentSelectedButton();
     }
 
 
@@ -131,7 +134,78 @@ public class CompendiumDisplayUI : MonoBehaviour
         GameEventManager.onGamepadTriggersButtonEvent.RemoveListener(ChangeDisplayUI);
 
     }
-    
+
+    void SetCurrentSelectedButton()
+    {
+        if (Notifications.instance == null)
+            return;
+        var notifUndertaking = Notifications.instance.currentLargeNotificaton;
+        if (notifUndertaking == null)
+            return;
+        switch (notifUndertaking.itemData.Type)
+        {
+            case ItemType.Equipment:
+                itemType = CompendiumItemType.Resource;
+                if (notifUndertaking.itemRecipe != null)
+                    itemType = CompendiumItemType.Recipe;
+                break;
+            case ItemType.Animal:
+                itemType = CompendiumItemType.Animal;
+                break;
+            case ItemType.Resource:
+                itemType = CompendiumItemType.Resource;
+                if (notifUndertaking.itemRecipe != null)
+                    itemType = CompendiumItemType.Recipe;
+                break;
+            case ItemType.Consumable:
+                itemType = CompendiumItemType.Resource;
+                if (notifUndertaking.itemRecipe != null)
+                    itemType = CompendiumItemType.Recipe;
+                break;
+            case ItemType.FarmStuffs:
+                itemType = CompendiumItemType.Resource;
+                if (notifUndertaking.itemRecipe != null)
+                    itemType = CompendiumItemType.Recipe;
+                break;
+            case ItemType.Reading:
+                if(notifUndertaking.itemData.name.Contains("Guide"))
+                    itemType = CompendiumItemType.Guide;
+                else if (notifUndertaking.itemData.name.Contains("Note"))
+                    itemType = CompendiumItemType.Note;
+                break;
+            case ItemType.Utility:
+                itemType = CompendiumItemType.Resource;
+                if (notifUndertaking.itemRecipe != null)
+                    itemType = CompendiumItemType.Recipe;
+                break;
+            case ItemType.Decoration:
+                itemType = CompendiumItemType.Resource;
+                if (notifUndertaking.itemRecipe != null)
+                    itemType = CompendiumItemType.Recipe;
+                break;
+            case ItemType.Smells:
+                itemType = CompendiumItemType.Resource;
+                break;
+            case ItemType.Encounter:
+                itemType = CompendiumItemType.Encounters;
+                break;
+            
+        }
+        SetCompendiumType();
+        foreach (CompendiumSlot slot in compendiumSlots)
+        {
+            
+            if(slot.item == notifUndertaking.itemData)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(slot.GetComponentInChildren<Button>().gameObject);
+                slot.DisplayIformation();
+                break;
+            }
+        }
+        
+    }
+
 
     public void ShowUI()
     {
@@ -159,7 +233,11 @@ public class CompendiumDisplayUI : MonoBehaviour
         else if (currentItemTypeIndex < 0)
             currentItemTypeIndex = maxItemTypes - 1;
         itemType = (CompendiumItemType)currentItemTypeIndex;
+        SetCompendiumType();
+    }
 
+    private void SetCompendiumType()
+    {
         switch (itemType)
         {
             case CompendiumItemType.Animal:
@@ -182,7 +260,6 @@ public class CompendiumDisplayUI : MonoBehaviour
                 break;
         }
     }
-   
 
     void SetButtonSelectedColor(Button butt, bool selected)
     {
@@ -284,7 +361,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 for (int i = 0; i < playerAnimalCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
-                    newSlot.AddItem(playerAnimalCompendium.Items[i]);
+                    newSlot.AddItem(playerAnimalCompendium.Items[i], CompendiumItemType.Animal);
                     //newSlot.AddRecipeReveal(playerAnimalCompendium.Items[i].ResearchRecipes);
                     compendiumSlots.Add(newSlot);
                 }
@@ -298,9 +375,11 @@ public class CompendiumDisplayUI : MonoBehaviour
 
             case CompendiumItemType.Resource:
 
+                SetResourceType(ItemType.All);
+
                 SetResourceButtons(true);
 
-                SetResourceType(ItemType.All);
+                
 
                 recipeRevealDescription.SetActive(true);
                 animalRevealDescription.SetActive(false);
@@ -314,7 +393,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 for (int i = 0; i < playerRecipeCompendium.CraftingRecipes.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
-                    newSlot.AddItem(playerRecipeCompendium.CraftingRecipes[i].Product.Item, playerRecipeCompendium.CraftingRecipes[i]);
+                    newSlot.AddItem(playerRecipeCompendium.CraftingRecipes[i].Product.Item, CompendiumItemType.Recipe, playerRecipeCompendium.CraftingRecipes[i]);
                     compendiumSlots.Add(newSlot);
                 }
 
@@ -329,7 +408,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 for (int i = 0; i < playerNoteCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
-                    newSlot.AddItem(playerNoteCompendium.Items[i]);
+                    newSlot.AddItem(playerNoteCompendium.Items[i], CompendiumItemType.Note);
                     compendiumSlots.Add(newSlot);
                 }
 
@@ -340,7 +419,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 for (int i = 0; i < playerGuideCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
-                    newSlot.AddItem(playerGuideCompendium.Items[i]);
+                    newSlot.AddItem(playerGuideCompendium.Items[i], CompendiumItemType.Guide);
                     compendiumSlots.Add(newSlot);
                 }
 
@@ -351,7 +430,7 @@ public class CompendiumDisplayUI : MonoBehaviour
                 for (int i = 0; i < playerEncountersCompendium.Items.Count; i++)
                 {
                     CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
-                    newSlot.AddItem(playerEncountersCompendium.Items[i]);
+                    newSlot.AddItem(playerEncountersCompendium.Items[i], CompendiumItemType.Encounters);
                     compendiumSlots.Add(newSlot);
                 }
 
@@ -367,6 +446,9 @@ public class CompendiumDisplayUI : MonoBehaviour
 
     private void SetItemSelected()
     {
+        var notifUndertaking = Notifications.instance.currentLargeNotificaton;
+        if (notifUndertaking != null)
+            return;
         EventSystem.current.SetSelectedGameObject(null);
         if (compendiumSlots.Count > 0)
             EventSystem.current.SetSelectedGameObject(compendiumSlots[0].GetComponentInChildren<Button>().gameObject);
@@ -415,9 +497,7 @@ public class CompendiumDisplayUI : MonoBehaviour
             List<ItemType> itemTypes = new List<ItemType>();
             foreach (var item in prc)
             {
-                if (itemTypes.Contains(item.Type))
-                    continue;
-                else
+                if (!itemTypes.Contains(item.Type))
                     itemTypes.Add(item.Type);
             }
             bool all = false;
@@ -436,11 +516,11 @@ public class CompendiumDisplayUI : MonoBehaviour
             }
             if (all)
             {
-                foreach (var type in resourceButtonType)
+                foreach (var butt in resourceButtonType)
                 {
-                    if (type.type == ItemType.All)
+                    if (butt.type == ItemType.All)
                     {
-                        type.typeButton.gameObject.SetActive(true);
+                        butt.typeButton.gameObject.SetActive(true);
                         
                     }
                 }
@@ -477,7 +557,7 @@ public class CompendiumDisplayUI : MonoBehaviour
         for (int i = 0; i < prc.Count; i++)
         {
             CompendiumSlot newSlot = Instantiate(compendiumSlotObject, compendiumListHolder.transform);
-            newSlot.AddItem(prc[i]);
+            newSlot.AddItem(prc[i], CompendiumItemType.Resource);
             newSlot.AddRecipeReveal(prc[i].ResearchRecipes);
             compendiumSlots.Add(newSlot);
         }

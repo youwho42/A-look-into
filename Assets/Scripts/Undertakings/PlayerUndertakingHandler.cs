@@ -40,7 +40,6 @@ namespace Klaxon.UndertakingSystem
             
             activeUndertakings.Add(undertaking);
             undertaking.ActivateUndertaking();
-            Notifications.instance.SetNewNotification($"{undertaking.localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingStart);
             yield return new WaitForSeconds(0.3f);
             AudioManager.instance.StartAquiredAudio();
             GameEventManager.onUndertakingsUpdateEvent.Invoke();

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class UndertakingsButton : MonoBehaviour
 {
-    UndertakingObject undertaking;
+    [HideInInspector]
+    public UndertakingObject undertaking;
     public TextMeshProUGUI undertakingName;
     public Button button;
     public bool isCompleted;

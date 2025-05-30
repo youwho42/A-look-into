@@ -17,6 +17,7 @@ namespace Klaxon.GOAD
         bool noPathTextShown;
         bool thisWayTextShown;
         bool destinationReached;
+        bool needsNewStartPosition;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
@@ -27,6 +28,7 @@ namespace Klaxon.GOAD
             noPathTextShown = false;
             thisWayTextShown = false;
             destinationReached = false;
+            needsNewStartPosition = false;
             player = PlayerInformation.instance;
             grid = GridManager.instance;
             playerMarkerTextureMap = PlayerMarkerTextureMap.instance;
@@ -36,8 +38,12 @@ namespace Klaxon.GOAD
             agent.aStarPath.Clear();
             agent.currentFinalDestination = markerPosition;
             if (agent.StartPositionValid())
-                agent.SetAStarDestination(markerPosition, this);
-
+                agent.SetAStarDestination(markerPosition, this, transform.position);
+            else
+            {
+                needsNewStartPosition = true;
+                agent.SetValidStartPosition(markerPosition, this);
+            }
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
@@ -45,6 +51,12 @@ namespace Klaxon.GOAD
             base.PerformAction(agent);
             if (agent.gettingPath)
                 return;
+
+            if (needsNewStartPosition)
+            {
+                agent.aStarPath.Insert(0, agent.validStartPosition);
+                needsNewStartPosition = false;
+            }
 
             if (!agent.CheckNearPlayer(3))
             {
@@ -59,7 +71,7 @@ namespace Klaxon.GOAD
                 agent.animator.SetBool(agent.walking_hash, false);
                 agent.walker.currentDirection = Vector2.zero;
                 playerMarkerTextureMap.RemoveMarkerAtIndex(agent.indicatorIndex);
-                ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, "Here we are!" /*LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay")*/, false);
+                ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorLocationFound"), false);
                 timer += Time.deltaTime;
                 if (timer > 2.5f)
                 {
@@ -74,7 +86,7 @@ namespace Klaxon.GOAD
                 timer += Time.deltaTime;
                 if (!noPathTextShown)
                 {
-                    ContextSpeechBubbleManager.instance.SetContextBubble(3, agent.speechBubbleTransform, "I couldn't find a path, you're on your own!"/*LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay")*/, false);
+                    ContextSpeechBubbleManager.instance.SetContextBubble(3, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorNoPathFound"), false);
                     noPathTextShown = true;
                 }
                 if (timer >= 4)
@@ -98,7 +110,7 @@ namespace Klaxon.GOAD
 
 
 
-            if (agent.CheckNearPlayer(1f))
+            if (agent.CheckNearPlayer(1.8f))
             {
                 if (!thisWayTextShown)
                 {
@@ -109,7 +121,7 @@ namespace Klaxon.GOAD
                 if (agent.aStarPath.Count > 0)
                     agent.walker.currentDestination = agent.aStarPath[agent.currentPathIndex];
 
-                agent.walker.walkSpeed = player.playerController.finalSpeed - 0.05f;
+                agent.walker.walkSpeed = player.playerController.finalSpeed + (player.playerInput.isRunning ? 0.07f : 0.14f);
 
                 agent.animator.SetBool(agent.walking_hash, true);
                 agent.walker.SetDirection();
@@ -124,6 +136,7 @@ namespace Klaxon.GOAD
                     }
                     else if (agent.currentPathIndex >= agent.aStarPath.Count - 1)
                     {
+                        timer = 0;
                         destinationReached= true;
                         return;
                     }
@@ -135,7 +148,7 @@ namespace Klaxon.GOAD
             {
                 agent.animator.SetBool(agent.walking_hash, false);
                 agent.walker.currentDirection = Vector2.zero;
-                if (agent.CheckNearPlayer(1.3f))
+                if (agent.CheckNearPlayer(2f))
                 {
                     success = false;
                     agent.SetActionComplete(true);

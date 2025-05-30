@@ -12,7 +12,7 @@ namespace Klaxon.GOAD
         bool sleeping;
         bool hasSpoken;
         public List<LocalizedString> localizedStrings = new List<LocalizedString>();
-
+        bool lastInteractionState;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
@@ -21,12 +21,20 @@ namespace Klaxon.GOAD
             agent.walker.currentDirection = Vector2.zero;
             agent.animator.SetBool(agent.walking_hash, false);
             agent.walker.ResetLastPosition();
-            
+            lastInteractionState = agent.hasInteracted;
 
         }
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {
             base.PerformAction(agent);
+            if(lastInteractionState == false && agent.hasInteracted)
+            {
+                lastInteractionState = agent.hasInteracted;
+                success = true;
+                agent.SetActionComplete(true);
+                return;
+                
+            }
 
             if (!agent.CheckNearPlayer(sleeping ? 0.85f : 0.5f))
             {

@@ -41,8 +41,10 @@ namespace Klaxon.UndertakingSystem
         {
             if (CurrentState == UndertakingState.Inactive)
             {
+                
                 CurrentState = UndertakingState.Active;
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(this);
+                Notifications.instance.SetNewLargeNotification(this, null, null, NotificationsType.UndertakingStart);
                 TryCompleteQuest();
             }
         }
@@ -112,7 +114,7 @@ namespace Klaxon.UndertakingSystem
             if(QuestCompleteCondition != null)
                 GOAD_WorldBeliefStates.instance.SetWorldState(QuestCompleteCondition.Condition, QuestCompleteCondition.State);
 
-            Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()}", null, 0, NotificationsType.UndertakingComplete);
+            Notifications.instance.SetNewLargeNotification(this, null, null, NotificationsType.UndertakingComplete);
             if(addedToLostAndFound)
                 Notifications.instance.SetNewNotification($"{localizedName.GetLocalizedString()} sent to lost and found", null, 0, NotificationsType.Warning);
             

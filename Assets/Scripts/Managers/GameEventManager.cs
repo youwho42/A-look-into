@@ -99,6 +99,7 @@ public static class GameEventManager
     public static readonly GameEvent onSubmitEvent = new GameEvent();
     public static readonly GameEvent onDialogueNextEvent = new GameEvent();
     public static readonly GameEvent onMapClickEvent = new GameEvent();
+    public static readonly GameEvent onMapClearMarkersEvent = new GameEvent();
     public static readonly GameEvent onPlayerPlacedItemEvent = new GameEvent();
 
     /// <summary>

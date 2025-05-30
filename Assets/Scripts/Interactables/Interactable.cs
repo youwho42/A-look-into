@@ -113,7 +113,7 @@ namespace Klaxon.Interactable
             if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(playerGuide))
             {
                 PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(playerGuide);
-                Notifications.instance.SetNewNotification($"{playerGuide.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                Notifications.instance.SetNewLargeNotification(null, playerGuide, null, NotificationsType.Compendium);
                 GameEventManager.onGuideCompediumUpdateEvent.Invoke();
             }
         }

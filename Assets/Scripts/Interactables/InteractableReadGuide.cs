@@ -33,7 +33,7 @@ namespace Klaxon.Interactable
             if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(readableItem))
             {
                 PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(readableItem);
-                Notifications.instance.SetNewNotification($"{readableItem.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                Notifications.instance.SetNewLargeNotification(null, readableItem, null, NotificationsType.Compendium);
                 //NotificationManager.instance.SetNewNotification($"{readableItem.Name} guide found", NotificationManager.NotificationType.Compendium);
                 GameEventManager.onGuideCompediumUpdateEvent.Invoke();
             }

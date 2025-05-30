@@ -118,10 +118,8 @@ public class PlayerInformation : MonoBehaviour
             {
                 playerResourceCompendiumDatabase.Items.Add(item.Item);
                 
-                //AddGuideToCompendium(item.Item);
-                //NotificationManager.instance.SetNewNotification($"{item.Item.Name} added to items", NotificationManager.NotificationType.Compendium);
-                //NotificationCenter.instance.SetCompendiumText(item.Item);
-                Notifications.instance.SetNewNotification($"{item.Item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                Notifications.instance.SetNewLargeNotification(null, item.Item, null, NotificationsType.Compendium);
+                //Notifications.instance.SetNewLargeNotification(null, item.Item, NotificationsType.Compendium);
                 GameEventManager.onResourceCompediumUpdateEvent.Invoke();
             }
         }
@@ -135,10 +133,7 @@ public class PlayerInformation : MonoBehaviour
             if (!playerGuidesCompendiumDatabase.Items.Contains(item.compendiumGuide))
             {
                 playerGuidesCompendiumDatabase.Items.Add(item.compendiumGuide);
-                //NotificationManager.instance.SetNewNotification($"{item.compendiumGuide.Name} added to guides", NotificationManager.NotificationType.Compendium);
-                //NotificationCenter.instance.SetCompendiumText(item.compendiumGuide);
                 Notifications.instance.SetNewNotification($"{item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
-
             }
         }
             

@@ -73,7 +73,8 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     public void CloseMessageUI()
     {
         UIScreenManager.instance.HideScreenUI();
-        
+        if(ballPerson != null)
+            ballPerson.InteractionFinished();
         if(destroyOnClose && ballPerson != null)
             Invoke("DestroyMessenger", .1f);
         if(fixingArea != null)

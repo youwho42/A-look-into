@@ -33,7 +33,7 @@ namespace Klaxon.Interactable
             if (!PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Contains(readableItem))
             {
                 PlayerInformation.instance.playerNotesCompendiumDatabase.Items.Add(readableItem);
-                Notifications.instance.SetNewNotification($"{readableItem.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Compendium);
+                Notifications.instance.SetNewLargeNotification(null, readableItem, null, NotificationsType.Compendium);
                 GameEventManager.onNoteCompediumUpdateEvent.Invoke();
             }
 

@@ -10,7 +10,7 @@ public class SpawnableBallPersonArea : MonoBehaviour
     [HideInInspector]
     public bool hasSpawned;
     public SpriteRenderer marker;
-    public Transform spawnPosition;
+    //public Transform spawnPosition;
     public bool GetHasSpawned()
     {
         return hasSpawned;

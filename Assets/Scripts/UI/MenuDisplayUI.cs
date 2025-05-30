@@ -36,7 +36,7 @@ public class MenuDisplayUI : MonoBehaviour
         GameEventManager.onControlSchemeChangedEvent.RemoveListener(SetControllerButtons);
 
     }
-    enum MenuButtons
+    public enum MenuButtons
     {
         Map,
         Compendium,
@@ -99,10 +99,20 @@ public class MenuDisplayUI : MonoBehaviour
 
         if (currentButtonIndex > maxButtons - 1)
             currentButtonIndex = 0;
-        else if(currentButtonIndex<0)
+        else if (currentButtonIndex < 0)
             currentButtonIndex = maxButtons - 1;
         currentButton = (MenuButtons)currentButtonIndex;
-        
+
+        ChangeCurrentUI();
+    }
+
+    public void SetCurrentButton(MenuButtons button)
+    {
+        currentButton = button;
+        ChangeCurrentUI();
+    }
+    private void ChangeCurrentUI()
+    {
         switch (currentButton)
         {
             case MenuButtons.Map:
@@ -157,7 +167,8 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetCompendiumUI()
     {
-        UIScreenManager.instance.CloseTipPanel(); HideAllTabbedUI();
+        UIScreenManager.instance.CloseTipPanel(); 
+        HideAllTabbedUI();
         compendiumsDisplaySection.SetActive(true);
         
         SetButtonSelectedColor(map, false);
@@ -170,7 +181,8 @@ public class MenuDisplayUI : MonoBehaviour
    
     public void SetUndertakingsUI()
     {
-        UIScreenManager.instance.CloseTipPanel(); HideAllTabbedUI();
+        UIScreenManager.instance.CloseTipPanel(); 
+        HideAllTabbedUI();
         undertakingsDisplaySection.SetActive(true);
         
         SetButtonSelectedColor(map, false);
