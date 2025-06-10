@@ -213,11 +213,13 @@ MonoBehaviour:
   agencyCost: 10
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 11400000, guid: e170037d549997747a2c4dc5314d43f5, type: 2}
+  isBeingDragged: 0
   ingredients:
   - item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
     amount: 1
@@ -5224,6 +5226,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 915528449962733903}
     m_Modifications:
+    - target: {fileID: 29696981353999428, guid: 9eb2c8a570e550c479d7f8b961a8fad1,
+        type: 3}
+      propertyPath: shadowUpdateTick
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 29696981353999429, guid: 9eb2c8a570e550c479d7f8b961a8fad1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5278,6 +5285,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ResearchPost
+      objectReference: {fileID: 0}
+    - target: {fileID: 29696981916716237, guid: 9eb2c8a570e550c479d7f8b961a8fad1,
+        type: 3}
+      propertyPath: m_Name
+      value: DayShadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2627503790598872848, guid: 9eb2c8a570e550c479d7f8b961a8fad1,
+        type: 3}
+      propertyPath: m_Name
+      value: NightShadow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

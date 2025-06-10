@@ -105,7 +105,7 @@ namespace Klaxon.GOAD
             {
 
                 //    agent.flumpOozeManager.StartOoze();
-                var ooze = trueDestination ? Random.value > 0.5f : false;
+                var ooze = trueDestination ? Random.value > 0.25f : false;
                 success = ooze;
                 agent.SetActionComplete(true);
             }

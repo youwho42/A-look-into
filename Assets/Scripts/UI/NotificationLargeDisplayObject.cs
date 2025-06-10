@@ -20,6 +20,7 @@ public class NotificationLargeDisplayObject : MonoBehaviour
     public Image largeNotifSliderFill;
     CanvasGroup displayGroup;
     public Slider interactSlider;
+
     public void SetDisplay(BaseLargeNotification note, NotificationTypeColor typeColor, bool last)
     {
         displayGroup = GetComponent<CanvasGroup>();

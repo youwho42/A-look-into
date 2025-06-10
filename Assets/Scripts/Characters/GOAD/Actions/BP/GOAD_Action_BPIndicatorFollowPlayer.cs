@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace Klaxon.GOAD
 {
@@ -31,7 +32,7 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
-            if (agent.CheckNearPlayer(1.3f))
+            if (agent.CheckNearPlayer(1.1f))
             {
                 success= true;
                 agent.SetActionComplete(true);
@@ -60,11 +61,11 @@ namespace Klaxon.GOAD
 
             Vector2 dirFromPlayer = transform.position - player.player.position;
             var dir = Vector2.Dot(dirFromPlayer, player.playerController.currentDirection);
-            if (dir < .5)
+            if (dir < 0.5f)
             {
                 if (!wrongWayTextShown)
                 {
-                    ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, "That's not the right way!"/*LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorThisWay")*/, false);
+                    ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "Wrong Way"), false);
                     wrongWayTextShown = true;
                 }
                 agent.walker.currentDestination = player.player.position + (Vector3)indicatorPos;

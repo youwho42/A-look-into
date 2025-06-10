@@ -33,18 +33,18 @@ namespace Klaxon.Interactable
 
         IEnumerator InteractCo(GameObject interactor)
         {
-            var bp = GetComponent<GOAD_Scheduler_BP>();
+            
             PlayInteractSound();
             
-            if (!started)
-            {
-                bp.SetBeliefState(conditionForLocationer.Condition, conditionForLocationer.State);
-                talkTask.undertaking.ActivateUndertaking();
-                started = true;
-            }
+            //if (!started)
+            //{
+            //    bp.SetBeliefState(conditionForLocationer.Condition, conditionForLocationer.State);
+            //    talkTask.undertaking.ActivateUndertaking();
+            //    started = true;
+            //}
            
 
-            BallPersonMessageDisplayUI.instance.ShowSimpleMessage(messageTitle.GetLocalizedString(), messageDescription.GetLocalizedString());
+            BallPersonMessageDisplayUI.instance.ShowSimpleMessage(messageTitle.GetLocalizedString(), messageDescription.GetLocalizedString(), this);
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
             
             canInteract = false;
@@ -62,6 +62,17 @@ namespace Klaxon.Interactable
 
         }
 
+        public override void SetGuideOrNote()
+        {
+            if (!started)
+            {
+                var bp = GetComponent<GOAD_Scheduler_BP>();
+                bp.SetBeliefState(conditionForLocationer.Condition, conditionForLocationer.State);
+                talkTask.undertaking.ActivateUndertaking();
+                started = true;
+            }
+
+        }
 
     }
 

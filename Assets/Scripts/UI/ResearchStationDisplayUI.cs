@@ -24,7 +24,8 @@ public class ResearchStationDisplayUI : MonoBehaviour
     public ResearchStationInventorySlot inventoryItemDisplaySlot;
     public GameObject inventoryItemArea;
     public ResearchStationResearchSlot researchSlot;
-    List<ResearchStationInventorySlot> researchStationInventorySlots = new List<ResearchStationInventorySlot>();
+    [HideInInspector]
+    public List<ResearchStationInventorySlot> researchStationInventorySlots = new List<ResearchStationInventorySlot>();
     [HideInInspector]
     public InteractableResearchStation currentResearchStation;
     UIScreen screen;

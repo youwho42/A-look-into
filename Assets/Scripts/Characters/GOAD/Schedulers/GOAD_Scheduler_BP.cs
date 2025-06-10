@@ -549,9 +549,17 @@ namespace Klaxon.GOAD
 
                 for (int i = 0; i < colliders.Length; i++)
                 {
+                    if (colliders[i].gameObject.TryGetComponent(out Interactable.Interactable interactable))
+                    {
+                        if (interactable.isBeingDragged)
+                            continue;
+                    }
+                        
 
                     if (colliders[i].gameObject.TryGetComponent(out QI_Item item))
                     {
+                        
+                        
                         if (item.Data == seekItem && !seekItemsFound.Contains(colliders[i].transform.position))
                             return colliders[i].gameObject;
                         

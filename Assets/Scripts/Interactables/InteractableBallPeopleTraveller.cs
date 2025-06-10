@@ -34,19 +34,14 @@ namespace Klaxon.Interactable
 
             PlayInteractSound();
 
-            if (!started)
-            {
-                undertaking.undertaking.ActivateUndertaking();
-                started = true;
-            }
-            else
+            
+            if (started)
             {
                 undertaking.undertaking.TryCompleteTask(undertaking.task);
             }
 
-            BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, undertaking.undertaking.CurrentState == UndertakingState.Complete);
+            BallPersonMessageDisplayUI.instance.ShowBallPersonUndertakingUI(GetComponent<IBallPerson>(), undertaking.undertaking, undertaking.undertaking.CurrentState == UndertakingState.Complete, this);
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
-            //GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
             canInteract = false;
             yield return new WaitForSeconds(0.33f);
         }
@@ -61,6 +56,15 @@ namespace Klaxon.Interactable
             }
 
 
+        }
+
+        public override void SetGuideOrNote()
+        {
+            if (!started)
+            {
+                undertaking.undertaking.ActivateUndertaking();
+                started = true;
+            }
         }
     } 
 }

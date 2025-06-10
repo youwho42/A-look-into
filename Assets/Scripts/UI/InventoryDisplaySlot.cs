@@ -240,6 +240,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             var replace = interactable.replaceObjectOnDrop;
             if (replace != null)
                 replace.CheckForObjects();
+            interactable.isBeingDragged = false;
         }
         
 
@@ -253,6 +254,7 @@ public class InventoryDisplaySlot : MonoBehaviour
             scarekernut.visibleRadius.SetActive(false);
         // get interactablePickUp and add said amount to drop
         inventory.RemoveItem(item, quantity);
+        
         EventSystem.current.SetSelectedGameObject(null);
         ResetDragging();
     }
@@ -309,6 +311,11 @@ public class InventoryDisplaySlot : MonoBehaviour
             var go = Instantiate(prefab, GetMousePosition(), Quaternion.identity);
             itemToDrop = go.gameObject;
             isDragged = true;
+            
+            if (itemToDrop.TryGetComponent(out Interactable interactable))
+                interactable.isBeingDragged = true;
+            
+
             PlayerInformation.instance.inventorySlot = this;
             PlayerInformation.instance.isDragging = true;
             if(go.TryGetComponent(out ScarekernutInteractable scarekernut))

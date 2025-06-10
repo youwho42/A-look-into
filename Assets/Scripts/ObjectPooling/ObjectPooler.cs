@@ -27,9 +27,9 @@ public class ObjectPooler : MonoBehaviour
 
     private GameObject CreatePooledObject()
     {
-        GameObject go = Instantiate(prefab/*, transform*/);
+        GameObject go = Instantiate(prefab);
         if (!useWorldSpace)
-            go.transform.parent = transform;
+            go.transform.SetParent(transform);
         go.SetActive(false);
         pooledObjects.Add(go);
         return go;

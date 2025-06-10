@@ -44,6 +44,9 @@ public class GenerateAllTilesInfo : MonoBehaviour
     List<TileDirectionInfo> allDirectionsValues = new List<TileDirectionInfo>();
     [HideInInspector]
     public List<TileBlockInfo> allTilesValues = new List<TileBlockInfo>();
+    
+
+    
 
     public void ClearAllTiles()
     {

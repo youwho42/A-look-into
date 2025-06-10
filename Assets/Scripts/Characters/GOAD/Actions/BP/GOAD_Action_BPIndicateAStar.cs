@@ -17,7 +17,12 @@ namespace Klaxon.GOAD
         bool noPathTextShown;
         bool thisWayTextShown;
         bool destinationReached;
+        
+
         bool needsNewStartPosition;
+        bool hasNewOffset;
+        Vector2 offsetCenter;
+        Vector2 offset;
         public override void StartAction(GOAD_Scheduler_BP agent)
         {
             base.StartAction(agent);
@@ -105,12 +110,13 @@ namespace Klaxon.GOAD
                 return;
             }
 
-            
 
 
+            Vector2 dirFromPlayer = transform.position - player.player.position;
+            var dir = Vector2.Dot(dirFromPlayer, player.playerController.currentDirection);
 
 
-            if (agent.CheckNearPlayer(1.8f))
+            if (agent.CheckNearPlayer(1.5f) || dir > 0.5f)
             {
                 if (!thisWayTextShown)
                 {
@@ -118,16 +124,34 @@ namespace Klaxon.GOAD
                     thisWayTextShown = true;
                 }
 
-                if (agent.aStarPath.Count > 0)
-                    agent.walker.currentDestination = agent.aStarPath[agent.currentPathIndex];
+                if (agent.walker.isStuck || agent.isDeviating)
+                {
 
-                agent.walker.walkSpeed = player.playerController.finalSpeed + (player.playerInput.isRunning ? 0.07f : 0.14f);
+                    if (!agent.walker.jumpAhead)
+                    {
+                        agent.Deviate();
+                        return;
+                    }
+                }
+
+
+                if (!hasNewOffset)
+                    GetNewOffset(agent);
+
+                agent.walker.hasDeviatePosition = false;
+
+                if (agent.aStarPath.Count > 0)
+                    agent.walker.currentDestination = (agent.aStarPath[agent.currentPathIndex] + (Vector3)offsetCenter) + (Vector3)offset;
+
+
+                agent.walker.walkSpeed = player.playerController.finalSpeed + (player.playerInput.isRunning ? 0.04f : 0.08f);
 
                 agent.animator.SetBool(agent.walking_hash, true);
                 agent.walker.SetDirection();
 
                 if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.02f)
                 {
+                    hasNewOffset = false;
                     agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];
                     if (agent.currentPathIndex < agent.aStarPath.Count - 1)
                     {
@@ -169,6 +193,18 @@ namespace Klaxon.GOAD
             base.AStarDestinationIsCurrentPosition(agent);
         }
 
+        private void GetNewOffset(GOAD_Scheduler_BP agent)
+        {
+            hasNewOffset = true;
+            offsetCenter = Vector2.zero;
+            offset = Vector2.zero;
+            if (agent.currentPathIndex < agent.aStarPath.Count - 1)
+            {
+                offsetCenter = (agent.aStarPath[agent.currentPathIndex + 1] - agent.aStarPath[agent.currentPathIndex]).normalized;
+                offsetCenter *= 0.15f;
+                offset = Random.insideUnitCircle * 0.2f;
+            }
+        }
 
         public void SetMarkerDestination(GOAD_Scheduler_BP agent)
         {

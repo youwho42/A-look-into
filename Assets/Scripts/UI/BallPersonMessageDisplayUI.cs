@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Klaxon.Interactable;
-
+using QuantumTek.QuantumInventory;
 
 public class BallPersonMessageDisplayUI : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     }
 
     IBallPerson ballPerson;
-
+    Interactable currentInteractable;
     UndertakingObject undertaking;
 
     public TextMeshProUGUI messageContent;
@@ -46,22 +46,44 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         destroyOnClose = false;
     }
 
-    public void ShowSimpleMessage(string messageName, string messageDescription)
+    public void ShowSimpleMessage(string messageName, string messageDescription, Interactable interactableBP)
     {
+        currentInteractable = interactableBP;
         messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";
         destroyOnClose = false;
     }
 
-    public void ShowBallPersonMessageUI(IBallPerson messengerAI, string messageName, string messageDescription)
+    public void ShowBallPersonMessageUI(IBallPerson messengerAI, QI_ItemData messageItem, Interactable interactableBP)
     {
+        currentInteractable = interactableBP;
         ballPerson = messengerAI;
-        messageContent.text = $"\n<style=\"H1\">{messageName}</style>\n\n{messageDescription}\n\n";
+        messageContent.text = $"\n<style=\"H1\">{messageItem.localizedName.GetLocalizedString()}</style>\n\n{messageItem.localizedDescription.GetLocalizedString()}\n\n";
+        destroyOnClose = true;
+    }
+    public void ShowBallPersonMessageUI(IBallPerson messengerAI, UndertakingObject messageItem, Interactable interactableBP)
+    {
+        currentInteractable = interactableBP;
+        ballPerson = messengerAI;
+        messageContent.text = $"\n<style=\"H1\">{messageItem.localizedName.GetLocalizedString()}</style>\n\n{messageItem.localizedDescription.GetLocalizedString()}\n\n";
+        destroyOnClose = true;
+    }
+    public void ShowBallPersonMessageUI(IBallPerson messengerAI, QI_CraftingRecipe messageItem, Interactable interactableBP)
+    {
+        currentInteractable = interactableBP;
+        string desc = "";
+        for (int i = 0; i < messageItem.Ingredients.Count; i++)
+        {
+            desc += $"{messageItem.Ingredients[i].Amount} - {messageItem.Ingredients[i].Item.localizedName.GetLocalizedString()}\n";
+
+        }
+        ballPerson = messengerAI;
+        messageContent.text = $"\n<style=\"H1\">{messageItem.Product.Item.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n";
         destroyOnClose = true;
     }
 
-
-    public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking, bool _destroyOnClose)
+    public void ShowBallPersonUndertakingUI(IBallPerson _ballPerson, UndertakingObject _undertaking, bool _destroyOnClose, Interactable interactableBP)
     {
+        currentInteractable = interactableBP;
         ballPerson = _ballPerson;
         undertaking = _undertaking;
         destroyOnClose = _destroyOnClose;
@@ -72,6 +94,8 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
 
     public void CloseMessageUI()
     {
+        if (currentInteractable != null)
+            currentInteractable.SetGuideOrNote();
         UIScreenManager.instance.HideScreenUI();
         if(ballPerson != null)
             ballPerson.InteractionFinished();
@@ -82,6 +106,7 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
             fixingArea.canInteract = true;
             fixingArea = null;
         }
+        currentInteractable = null;
     }
 
     

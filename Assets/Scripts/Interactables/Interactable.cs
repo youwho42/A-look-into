@@ -39,6 +39,8 @@ namespace Klaxon.Interactable
         public InstructionObject instruction;
         public QI_ItemData playerGuide;
 
+        [HideInInspector]
+        public bool isBeingDragged = false;
 
         public virtual void Start()
         {
@@ -101,12 +103,12 @@ namespace Klaxon.Interactable
                 return true;
             //if (SAP_WorldBeliefStates.instance.HasWorldState(instruction.condition.Condition, instruction.condition.State))
             //    return true;
-            BallPersonMessageDisplayUI.instance.ShowSimpleMessage(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString());
+            BallPersonMessageDisplayUI.instance.ShowSimpleMessage(instruction.title.GetLocalizedString(), instruction.description.GetLocalizedString(), this);
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);            //SAP_WorldBeliefStates.instance.SetWorldState(instruction.condition.Condition, instruction.condition.State);
             return false;
         }
 
-        public void SetGuideOrNote()
+        public virtual void SetGuideOrNote()
         {
             if (playerGuide == null)
                 return;

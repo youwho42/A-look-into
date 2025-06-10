@@ -22,7 +22,10 @@ namespace Klaxon.GOAD
             agent.animator.SetBool(agent.walking_hash, false);
             agent.walker.ResetLastPosition();
             lastInteractionState = agent.hasInteracted;
-
+            var player = PlayerInformation.instance.player;
+            if (player.position.x < transform.position.x && agent.walker.facingRight ||
+                player.position.x > transform.position.x && !agent.walker.facingRight)
+                agent.walker.Flip();
         }
         public override void PerformAction(GOAD_Scheduler_BP agent)
         {

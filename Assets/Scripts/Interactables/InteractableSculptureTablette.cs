@@ -10,7 +10,7 @@ namespace Klaxon.Interactable
             base.Interact(interactor);
             if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
             {
-                BallPersonMessageDisplayUI.instance.ShowSimpleMessage(sculpture.localizedName.GetLocalizedString(), sculpture.localizedDescription.GetLocalizedString());
+                BallPersonMessageDisplayUI.instance.ShowSimpleMessage(sculpture.localizedName.GetLocalizedString(), sculpture.localizedDescription.GetLocalizedString(), null);
                 UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
             }
 

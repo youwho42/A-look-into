@@ -79,7 +79,7 @@ public class CokernutManager : MonoBehaviour
         List<FixableObject> available = new List<FixableObject>(cokernutScheduler.allFixables);
         for (int i = available.Count - 1; i >= 0; i--)
         {
-            if (!available[i].fixedObject.activeInHierarchy)
+            if (!available[i].fixedObject.activeInHierarchy || !available[i].cokernutFlumpInteractable)
                 available.RemoveAt(i);
         }
         if (available.Count == 0)

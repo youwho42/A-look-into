@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: conditions.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
@@ -35,6 +35,12 @@ PrefabInstance:
         type: 3}
       propertyPath: conditions.Array.data[3].condition
       value: 
+      objectReference: {fileID: 11400000, guid: 2f7f924d89acdd740a8aa4840eece4ef,
+        type: 2}
+    - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: conditions.Array.data[4].condition
+      value: 
       objectReference: {fileID: 11400000, guid: 429efae1cd869bc43ac6107ffdbdaa09,
         type: 2}
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
@@ -45,6 +51,11 @@ PrefabInstance:
     - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
       propertyPath: conditions.Array.data[3].setOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1689180154150462720, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
+      propertyPath: conditions.Array.data[4].setOnStart
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -972553773627931476, guid: 52de873582b53f0439b2e676e110821d,
@@ -463,11 +474,30 @@ MonoBehaviour:
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   conditionForLocationer: {fileID: 11400000, guid: d3b3430f5d5e1df4b87c04dfefa5f103,
     type: 2}
   talkTask:
     undertaking: {fileID: 0}
     task: {fileID: 0}
+  messageTitle:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  messageDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   started: 0
   references:
     version: 2

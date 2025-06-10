@@ -47,45 +47,17 @@ namespace Klaxon.Interactable
             var messenger = GetComponent<GOAD_Scheduler_BP>();
 
             if (messageItem != null)
-            {
-
-                BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, messageItem.localizedName.GetLocalizedString(), messageItem.localizedDescription.GetLocalizedString());
-                QI_ItemDatabase database = GetCompendiumDatabase();
-
-                if (!database.Items.Contains(messageItem))
-                {
-                    database.Items.Add(messageItem);
-                    Notifications.instance.SetNewLargeNotification(null, messageItem, null, NotificationsType.Compendium);
-                    GameEventManager.onNoteCompediumUpdateEvent.Invoke();
-                    GameEventManager.onGuideCompediumUpdateEvent.Invoke();
-                }
-            }
+                BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, messageItem, this);
+                
+            
             if (undertaking != null)
-            {
-                BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, undertaking.localizedName.GetLocalizedString(), undertaking.localizedDescription.GetLocalizedString());
+                BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, undertaking, this);
 
-                PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
-            }
             if (craftingRecipe != null)
-            {
-                string desc = "";
-                for (int i = 0; i < craftingRecipe.Ingredients.Count; i++)
-                {
-                    desc += $"{craftingRecipe.Ingredients[i].Amount} - {craftingRecipe.Ingredients[i].Item.Name}\n";
-
-                }
-                BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, craftingRecipe.Name, desc);
-                PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe);
-                
-                
-            }
-
-            // display recipe name and ingredients...
-            // add recipe to player recipes
+                BallPersonMessageDisplayUI.instance.ShowBallPersonMessageUI(messenger, craftingRecipe, this);
+               
             UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
-            //GetComponent<GOAD_Scheduler_BP>().hasInteracted = true;
             canInteract = false;
-            //WorldItemManager.instance.RemoveItemFromWorldItemDictionary(messageItem.Name, 1);
             yield return new WaitForSeconds(0.33f);
         }
 
@@ -112,6 +84,27 @@ namespace Klaxon.Interactable
                 audioManager.PlaySound("PickUp-" + interactSound);
             }
 
+
+        }
+        public override void SetGuideOrNote()
+        {
+            if (messageItem != null) 
+            {
+                QI_ItemDatabase database = GetCompendiumDatabase();
+                if (!database.Items.Contains(messageItem))
+                {
+                    database.Items.Add(messageItem);
+                    Notifications.instance.SetNewLargeNotification(null, messageItem, null, NotificationsType.Compendium);
+                    GameEventManager.onNoteCompediumUpdateEvent.Invoke();
+                    GameEventManager.onGuideCompediumUpdateEvent.Invoke();
+                }
+            }
+
+            if (undertaking != null)
+                PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
+
+            if (craftingRecipe != null)
+                PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe);
 
         }
     } 

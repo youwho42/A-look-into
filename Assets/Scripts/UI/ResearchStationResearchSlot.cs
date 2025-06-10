@@ -17,8 +17,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
     public Image productIcon;
     public Color baseColor;
     public Color successColor;
-    public Color failColor;
-
+    
     private void Start()
     {
         ClearSlot();
@@ -70,7 +69,11 @@ public class ResearchStationResearchSlot : MonoBehaviour
             researchDisplayUI = ResearchStationDisplayUI.instance;
         if(researchDisplayUI.currentResearchStation != null)
             researchDisplayUI.currentResearchStation.HideResearchItem();
+
         researchButton.interactable = false;
+        foreach (var slot in researchDisplayUI.researchStationInventorySlots)
+            slot.button.interactable = true;
+        
         item = null;
         icon.sprite = null;
         icon.enabled = false;
@@ -86,13 +89,16 @@ public class ResearchStationResearchSlot : MonoBehaviour
     }
     IEnumerator LearnRecipesCo()
     {
+        foreach (var slot in researchDisplayUI.researchStationInventorySlots)
+            slot.button.interactable = false;
         researchButton.interactable = false;
+
         var currentItem = item;
         // loop through all  recipeReveals 
         for (int i = 0; i < item.ResearchRecipes.Count; i++)
         {
             scanner.color = baseColor;
-            if (PlayerCrafting.instance.craftingRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe))
+            if (PlayerCrafting.instance.craftingRecipeDatabase.CraftingRecipes.Contains(item.ResearchRecipes[i].recipe) || !CheckForInventoryQuantity(i))
                 continue;
 
             productIcon.sprite = item.ResearchRecipes[i].recipe.Product.Item.Icon;
@@ -101,6 +107,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
             float time = 0;
             float scanTime = 4.0f;
             float height = 0;
+            AudioManager.instance.PlaySound("ScanItem");
             // scan item
             while (time <= scanTime)
             {
@@ -113,19 +120,15 @@ public class ResearchStationResearchSlot : MonoBehaviour
             
 
             // give recipe
+            PlayerInformation.instance.statHandler.ChangeStat(item.ResearchRecipes[i].agencyStatChanger);
+            PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
+            scanner.color = successColor;
+            AudioManager.instance.PlaySound("ScanSuccess");
             
-            if (CheckForInventoryQuantity(i))
-            {
-                PlayerInformation.instance.statHandler.ChangeStat(item.ResearchRecipes[i].agencyStatChanger);
-                PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
-                scanner.color = successColor;
-            }
-            else
-                scanner.color = failColor;
 
             // reset timers
             time = 0;
-            float endTime = 0.25f;
+            float endTime = 0.3f;
             // end Scan
             while (time <= endTime)
             {
@@ -140,7 +143,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
             //reset recipeTexts
             AddRecipes();
             productIcon.sprite = null;
-            yield return null;
+            yield return new WaitForSeconds(0.35f);
         }
         
         ResearchStationDisplayUI.instance.UpdateResearchDisplay();
@@ -153,19 +156,16 @@ public class ResearchStationResearchSlot : MonoBehaviour
 
     public bool CheckForInventoryQuantity(int index)
     {
-        
-            int t = PlayerInformation.instance.playerInventory.GetStock(item.Name);
-            if (t < item.ResearchRecipes[index].RecipeRevealAmount)
-            {
-                //string plural = item.ResearchRecipes[index].RecipeRevealAmount - t == 1 ? "" : "'s";
-                Notifications.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Warning);
+        int t = PlayerInformation.instance.playerInventory.GetStock(item.Name);
+        //if (t < item.ResearchRecipes[index].RecipeRevealAmount)
+        //{
+        //    Notifications.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.localizedName.GetLocalizedString()}", null, 0, NotificationsType.Warning);
+        //    AudioManager.instance.PlaySound("ScanFail");
+        //    return false;
+        //}
 
-                //NotificationManager.instance.SetNewNotification($"{item.ResearchRecipes[index].RecipeRevealAmount - t} {item.Name}{plural} missing", NotificationManager.NotificationType.Warning);
-                return false;
-            }
-
-        
-        return true;
+        return t > item.ResearchRecipes[index].RecipeRevealAmount;
+        //return true;
     }
 
 }
