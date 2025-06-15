@@ -214,16 +214,18 @@ MonoBehaviour:
   agencyCost: 100
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   ingredients:
   - item: {fileID: 11400000, guid: bb24e4bacb28044459b3f420ac0a817f, type: 2}
     amount: 5
   - item: {fileID: 11400000, guid: 19e7f25a168bb2f4ea44465ef152a79f, type: 2}
-    amount: 1
+    amount: 2
   - item: {fileID: 11400000, guid: 071c33dbc4d4da9499ce356e312d9d3f, type: 2}
     amount: 20
   references:

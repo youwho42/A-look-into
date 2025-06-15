@@ -33,10 +33,20 @@ public class SuperShape
 public class CreateParticleSuperShape : MonoBehaviour
 {
 
+    public static CreateParticleSuperShape instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
+
 
     float twoPI = Mathf.PI * 2;
 
-    //readonly float spriteDisplacementY = 0.2990625f;
     public SphereParticle particle;
 
     public List<SuperShape> particleLayers = new List<SuperShape>();
@@ -115,7 +125,7 @@ public class CreateParticleSuperShape : MonoBehaviour
 
                 float x = r * Mathf.Cos(angle);
                 float y = r * Mathf.Sin(angle);
-
+                y *= GlobalSettings.TileSize;
                 Vector3 pos = new Vector3(x, y, 0);
                 layer.particles[i].transform.localPosition = pos;
 

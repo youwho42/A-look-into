@@ -25,6 +25,7 @@ public enum UIScreenType
     CreditsUI,
     RobotUI,
     PaintingUI,
-    RestorePaintingUI
+    RestorePaintingUI,
+    SupershapeUI
    
 }

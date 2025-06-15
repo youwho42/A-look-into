@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 
 public class SphereSuperShapeActivator : MonoBehaviour
 {
-    [Range(0,17)]
+    [Range(0,8)]
     public int layerPosition;
 
     public GameObject blueRain;
@@ -102,7 +102,8 @@ public class SphereSuperShapeActivator : MonoBehaviour
 
         // set supersahape ball and index
         superShape.particleLayers[0].particles[layerPosition].active = true;
-        superShape.TotalM++;
+        superShape.particleLayers[0].particles[layerPosition + 9].active = true;
+        superShape.TotalM += 2;
 
         isActivated = true;
         // destroy ourselves

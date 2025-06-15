@@ -300,7 +300,6 @@ public class Bubbles : MonoBehaviour
         public NativeArray<float> size;
         public NativeArray<float> speeds;
         public float positionZ;
-        const float displacementY = 0.2990625f;
         public Vector3 displacedPosition;
         public Vector3 baseDisplacement;
         public float seed;
@@ -322,7 +321,7 @@ public class Bubbles : MonoBehaviour
             Vector3 currentVelocity = objectDisplacements[i];
             positionZ = currentVelocity.z;
             positionZ += gravity * speed * speeds[i] * jobDeltaTime;
-            displacedPosition = new Vector3(transform.localPosition.x, displacementY * positionZ, positionZ);
+            displacedPosition = new Vector3(transform.localPosition.x, GlobalSettings.SpriteDisplacementY * positionZ, positionZ);
             transform.localPosition = displacedPosition;
             objectDisplacements[i] = transform.localPosition;
             
@@ -330,7 +329,7 @@ public class Bubbles : MonoBehaviour
             Vector3 currentPosition = transform.localPosition;
 
             //Reset position here
-            if (currentPosition.y >= displacementY * height[i])
+            if (currentPosition.y >= GlobalSettings.SpriteDisplacementY * height[i])
             {
                 height[i] = randomGen.NextFloat(maxHeight / 2, maxHeight);
                 speeds[i] = randomGen.NextFloat(0.8f, 1.2f);

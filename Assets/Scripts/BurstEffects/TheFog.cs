@@ -83,7 +83,7 @@ public class TheFog : MonoBehaviour, IWeatherObject
             Transform tc = t.GetChild(0);
             tc.localScale = new Vector3(size, size, 1);
             float z = Random.Range(0, maxHeightZ / 2);
-            fogDisplacements[i] = new Vector3(transform.localPosition.x, 0.2990625f * z, z);
+            fogDisplacements[i] = new Vector3(transform.localPosition.x, GlobalSettings.SpriteDisplacementY * z, z);
             movementAccessArray.Add(t);
             displacementAccessArray.Add(t.GetChild(0));
         }
@@ -225,7 +225,7 @@ public class TheFog : MonoBehaviour, IWeatherObject
         public float maxHeight;
         public Vector2 sizeMinMax;
         public float positionZ;
-        const float displacementY = 0.2990625f;
+        
         public Vector3 displacedPosition;
         public float frequency;
         public float noise;
@@ -241,7 +241,7 @@ public class TheFog : MonoBehaviour, IWeatherObject
             
             var sin = Mathf.Sin(time * frequency * randomGen.NextFloat(-noise, noise));
             positionZ += gravity * sin * speed * jobDeltaTime;
-            displacedPosition = new Vector3(transform.localPosition.x, displacementY * positionZ, positionZ);
+            displacedPosition = new Vector3(transform.localPosition.x, GlobalSettings.SpriteDisplacementY * positionZ, positionZ);
             transform.localPosition = displacedPosition;
 
             objectDisplacements[i] = transform.localPosition;
