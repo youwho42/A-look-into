@@ -73,6 +73,7 @@ namespace Klaxon.GOAD
 
             if (agent.walker.itemObject.localPosition.y > 0)
             {
+                agent.animator.SetBool(agent.landed_hash, true);
                 headTimer -= Time.deltaTime;
                 if (headTimer <= 0)
                     headTimer = agent.TurnHead();

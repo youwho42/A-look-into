@@ -46,23 +46,26 @@ public class Worm : MonoBehaviour
         {
             ResetWiggleTime();
             location = ChooseEmergeLocation();
-            StartCoroutine(StartWormAnimationCo());
+            if(location != -Vector3.one)
+                StartCoroutine(StartWormAnimationCo());
         }
     }
     Vector3 ChooseEmergeLocation()
     {
-        var groundMap = GridManager.instance.groundMap;
+        var gridManager = GridManager.instance;
+        
         Vector2 rand = Random.insideUnitCircle * 2f;
          
         Vector3 center = PlayerInformation.instance.player.position;
-        location = center;
-        var d = groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
-        for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin - 1; z--)
+        location = -Vector3.one;
+        var d = gridManager.groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
+        for (int z = gridManager.groundMap.cellBounds.zMax; z > gridManager.groundMap.cellBounds.zMin - 1; z--)
         {
             d.z = z;
-            if (groundMap.GetTile(d) != null)
+            if (gridManager.GetTileValid(d))
             {
-                location = groundMap.GetCellCenterWorld(d);
+                location = center;
+                location = gridManager.groundMap.GetCellCenterWorld(d);
                 location += new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 1);
             }
         }

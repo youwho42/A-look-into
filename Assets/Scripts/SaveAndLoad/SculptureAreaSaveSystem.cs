@@ -17,20 +17,22 @@ namespace Klaxon.SaveSystem
             }
             return new SaveData
             {
-                totalM = superShape.TotalM,
-                activeParticles = active
+                totalM = superShape.GetTotalM(),
+                activeParticles = active,
+                isComplete = superShape.sculptureComplete
             };
         }
 
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            superShape.TotalM = saveData.totalM;
+            superShape.SetTotalM(saveData.totalM);
             for (int i = 0; i < saveData.activeParticles.Count; i++)
             {
                 superShape.particleLayers[0].particles[i].active = saveData.activeParticles[i];
             }
-
+            if(saveData.isComplete)
+                superShape.ActivateSculpture();
         }
 
         [Serializable]
@@ -38,7 +40,7 @@ namespace Klaxon.SaveSystem
         {
             public int totalM;
             public List<bool> activeParticles;
-
+            public bool isComplete;
         }
 
     }

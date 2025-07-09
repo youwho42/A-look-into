@@ -103,7 +103,7 @@ public class SphereSuperShapeActivator : MonoBehaviour
         // set supersahape ball and index
         superShape.particleLayers[0].particles[layerPosition].active = true;
         superShape.particleLayers[0].particles[layerPosition + 9].active = true;
-        superShape.TotalM += 2;
+        superShape.AddToTotalM(2);
 
         isActivated = true;
         // destroy ourselves

@@ -26,7 +26,7 @@ public class SupershapeUI : MonoBehaviour
     }
     public void ResetSupershape()
     {
-        supershape.TotalM = 18;
+        supershape.SetTotalM(18);
         supershape.particleLayers[0].zBase = 0.35f;
         supershape.particleLayers[0].zVariance = 0.0f;
         supershape.particleLayers[0].a = 3;
@@ -38,15 +38,12 @@ public class SupershapeUI : MonoBehaviour
 
         SetSliders();
 
-
-
-
     }
 
     void SetSliders()
     {
         lastNs.Clear();
-        mSlider.value = supershape.TotalM;
+        mSlider.value = supershape.GetTotalM();
         zSlider.value = supershape.particleLayers[0].zBase;
         sSlider.value = supershape.particleLayers[0].zVariance;
         aSlider.value = supershape.particleLayers[0].a;
@@ -62,7 +59,7 @@ public class SupershapeUI : MonoBehaviour
 
     public void SetSupershapeM()
     {
-        supershape.TotalM = (int)mSlider.value;
+        supershape.SetTotalM((int)mSlider.value);
     }
     public void SetSupershapeZ()
     {

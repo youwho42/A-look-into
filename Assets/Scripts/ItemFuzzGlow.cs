@@ -33,6 +33,12 @@ public class ItemFuzzGlow : MonoBehaviour
         GameEventManager.onTimeTickEvent.RemoveListener(SetGlow);
         isStable = false;
     }
+    public void ResetColor(Color color)
+    {
+        isStable = false;
+        material.SetColor("_EmissionColor", color);
+        initialColor = color;
+    }
 
     public void SetGlow(int time)
     {

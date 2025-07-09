@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Klaxon.Interactable;
 
 [Serializable]
 public class SuperShape
@@ -45,15 +46,24 @@ public class CreateParticleSuperShape : MonoBehaviour
 
 
 
-    float twoPI = Mathf.PI * 2;
+    float Tau = Mathf.PI * 2;
 
     public SphereParticle particle;
 
     public List<SuperShape> particleLayers = new List<SuperShape>();
 
     public bool testSculpture;
-
-    public int TotalM = -1;
+    [SerializeField]
+    int TotalM = 0;
+    [HideInInspector]
+    public bool sculptureComplete;
+    [Header("Objects to activate")]
+    public GameObject sculptureBeam;
+    public InteractableSuperSculpture sculptureStation;
+    [ColorUsage(true, true)]
+    public Color stationColorActive;
+    [ColorUsage(true, true)]
+    public Color stationColorInactive;
 
     float SuperShape(SuperShape shape, float angle)
     {
@@ -67,14 +77,44 @@ public class CreateParticleSuperShape : MonoBehaviour
 
         return 1 / p3;
     }
+
+
+    public void AddToTotalM(int amount)
+    {
+        TotalM += amount;
+        if (TotalM == 18)
+            ActivateSculpture();
+        
+            
+    }
+
+    public int GetTotalM()
+    {
+        return TotalM;
+    }
+
+    public void SetTotalM(int amount)
+    {
+        TotalM = amount;
+    }
+
+    public void ActivateSculpture()
+    {
+        sculptureComplete = true;
+        sculptureBeam.SetActive(true);
+        sculptureStation.canInteract = true;
+        var glow = sculptureStation.GetComponent<ItemFuzzGlow>();
+        glow.ResetColor(stationColorActive);
+    }
+
     private void Start()
     {
 
         foreach (var layer in particleLayers)
         {
-            float itemAngleIncrement = twoPI / layer.totalItems;
+            float itemAngleIncrement = Tau / layer.totalItems;
 
-            for (float angle = 0; angle < twoPI - itemAngleIncrement; angle += itemAngleIncrement)
+            for (float angle = 0; angle < Tau - itemAngleIncrement; angle += itemAngleIncrement)
             {
 
                 
@@ -100,7 +140,9 @@ public class CreateParticleSuperShape : MonoBehaviour
             }
 
         }
-
+        sculptureStation.canInteract = false;
+        var glow = sculptureStation.GetComponent<ItemFuzzGlow>();
+        glow.ResetColor(stationColorInactive);
 
     }
 
@@ -109,7 +151,7 @@ public class CreateParticleSuperShape : MonoBehaviour
         foreach (var layer in particleLayers)
         {
             layer.m = TotalM;
-            float itemAngleIncrement = twoPI / layer.particles.Count;
+            float itemAngleIncrement = Tau / layer.particles.Count;
             for (int i = 0; i < layer.particles.Count; i++)
             {
                 if (layer.particles[i].active == false && !testSculpture)
@@ -126,6 +168,9 @@ public class CreateParticleSuperShape : MonoBehaviour
                 float x = r * Mathf.Cos(angle);
                 float y = r * Mathf.Sin(angle);
                 y *= GlobalSettings.TileSize;
+                x = Mathf.Clamp(x, -1, 1);
+                y = Mathf.Clamp(y, -1, 1);
+
                 Vector3 pos = new Vector3(x, y, 0);
                 layer.particles[i].transform.localPosition = pos;
 
