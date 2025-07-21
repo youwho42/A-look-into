@@ -7,7 +7,8 @@ public class ObjectPooler : MonoBehaviour
 
     [HideInInspector]
     public List<GameObject> pooledObjects = new List<GameObject>();
-    
+    [HideInInspector]
+    public List<GameObject> ageList = new List<GameObject>();
 
     [SerializeField]
     private GameObject prefab;
@@ -15,13 +16,15 @@ public class ObjectPooler : MonoBehaviour
     private int amountToPool;
     [SerializeField]
     private bool useWorldSpace;
-
+    [SerializeField]
+    private int maxPoolSize = 0;
 
     private void Start()
     {
         for (int i = 0; i < amountToPool; i++)
         {
             CreatePooledObject();
+            
         }
     }
 
@@ -32,6 +35,7 @@ public class ObjectPooler : MonoBehaviour
             go.transform.SetParent(transform);
         go.SetActive(false);
         pooledObjects.Add(go);
+        ageList.Add(go);
         return go;
     }
 
@@ -48,8 +52,31 @@ public class ObjectPooler : MonoBehaviour
             }
         }
         if(go == null)
-            go = CreatePooledObject();
+        {
+            if (maxPoolSize == 0 || pooledObjects.Count < maxPoolSize)
+                go = CreatePooledObject();
+            else if (pooledObjects.Count >= maxPoolSize )
+            {
+                go = ageList[0];
+                ageList.RemoveAt(0);
+                ageList.Add(go);
+            }
+                
+        }
+            
+        
         go.SetActive(true);
         return go;
+    }
+
+    public void ReleasePooledObject(GameObject pooledObject)
+    {
+        if(pooledObject != null)
+        {
+            pooledObject.SetActive(false);
+            int ind = ageList.IndexOf(pooledObject);
+            ageList.RemoveAt(ind);
+            ageList.Add(pooledObject);
+        }
     }
 }

@@ -19,6 +19,7 @@ public class RandomSpriteForItems : MonoBehaviour
     public List<ItemSprites> itemSpritesList = new List<ItemSprites>();
     
     public bool flippable = true;
+
     private void Start()
     {
         SetRandomSprites();
@@ -33,11 +34,14 @@ public class RandomSpriteForItems : MonoBehaviour
         bool r = UnityEngine.Random.Range(0, 2) == 0 ? true : false;
         
         int i = UnityEngine.Random.Range(0, itemSpritesList.Count);
-        if(mainImage != null)
+        
+        if (mainImage != null)
         {
             mainImage.sprite = itemSpritesList[i].item;
             if(flippable)
                 mainImage.flipX = r;
+            
+            
         }
             
         if (mainShadow != null)
@@ -45,12 +49,14 @@ public class RandomSpriteForItems : MonoBehaviour
             mainShadow.sprite = itemSpritesList[i].item;
             if (flippable)
                 mainShadow.flipX = r;
+            
         }
         if (nightShadow != null)
         {
             nightShadow.sprite = itemSpritesList[i].item;
             if (flippable)
                 nightShadow.flipX = r;
+            
         }
 
     }

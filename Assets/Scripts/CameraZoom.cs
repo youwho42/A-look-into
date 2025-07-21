@@ -65,7 +65,7 @@ public class CameraZoom : MonoBehaviour
     IEnumerator ResetZoomCo()
     {
 		//SetCamera();
-		cam.m_Lens.OrthographicSize = Mathf.Lerp(cam.m_Lens.OrthographicSize, 1.5f, Time.deltaTime);
+		cam.m_Lens.OrthographicSize = Mathf.Lerp(cam.m_Lens.OrthographicSize, 1.25f, Time.deltaTime);
 		zoomActive = false;
 		yield return null;
     }

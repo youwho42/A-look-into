@@ -421,7 +421,6 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
-  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.5
   runSpeed: 0
@@ -442,6 +441,7 @@ MonoBehaviour:
   currentDirectionZ: {x: 0, y: 0, z: 0}
   characterRenderer: {fileID: 2971686813194710284}
   shitSpot: 0
+  inOoze: 0
 --- !u!114 &3968540688165807639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,11 +518,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   hasMetPlayerCondition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db,
     type: 2}
   references:
@@ -2297,6 +2299,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6902144603035044646}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2338811305796761632}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 257330053591457756}
     - targetCorrespondingSourceObject: {fileID: -6011973920780614364, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
       insertIndex: -1
@@ -2550,34 +2560,84 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 25de0cf829c2d4c2c8b1790cd56fd597, type: 3}
     loop: 0
     overlap: 1
-    volume: 0.3
+    volume: 0.35
     pitch: 1.1
     randomVolume: 0.2
     randomPitch: 0.2
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
     source: {fileID: 0}
     is3D: 1
     minDistance: 0
-    maxDisance: 1.5
+    maxDisance: 2
   - name: WoodFootstep
     clip: {fileID: 8300000, guid: 8c2fc9e3d47fd4bd48329b418581648c, type: 3}
     loop: 0
     overlap: 1
-    volume: 0.2
+    volume: 0.25
     pitch: 1
     randomVolume: 0.2
     randomPitch: 0.2
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
     source: {fileID: 0}
     is3D: 1
     minDistance: 0
-    maxDisance: 1.5
+    maxDisance: 2
+  - name: BeachFootstep
+    clip: {fileID: 8300000, guid: b444d6afa54bb43cd801c8f7c52a44d9, type: 3}
+    loop: 0
+    overlap: 1
+    volume: 0.15
+    pitch: 1
+    randomVolume: 0.05
+    randomPitch: 0.2
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 2
   sound3dOffset: {x: 0.12, y: 0, z: 0}
   groundSoundsLayer:
     serializedVersion: 2
     m_Bits: 2048
   mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
+--- !u!114 &2338811305796761632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354183444075106242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05846c969ff49fa4383a664556107d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  ageList: []
+  prefab: {fileID: 8747153405499718243, guid: 3cde3bbb9d48aa2488cb39cf633a8dec, type: 3}
+  amountToPool: 5
+  useWorldSpace: 1
+  maxPoolSize: 0
+--- !u!114 &257330053591457756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354183444075106242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bb5f3d768676145ad8892f6342411f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftFoot: {fileID: 5227844514808439475}
+  rightFoot: {fileID: 6384390429406860087}
+  offset: {x: 0, y: -0.0076, z: 0}
+  maxFootstepTimer: 15
 --- !u!4 &6384390429406860087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 527130853406309704, guid: 09687c9e6eb97bf40aead4c3b09960fc,

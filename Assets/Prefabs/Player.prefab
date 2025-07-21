@@ -998,7 +998,6 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
-  addUpsies: 0
   walkSpeed: 0.6
   runSpeed: 1.2
   finalSpeed: 0
@@ -1008,6 +1007,7 @@ MonoBehaviour:
   speedStat: {fileID: 11400000, guid: 0e9d48b1f995e4a43b378ad8cc9215bc, type: 2}
   jumpStat: {fileID: 11400000, guid: ae2895e9bc1dc9642878c9b5117ecdf2, type: 2}
   onCliffEdge: 0
+  inOoze: 0
 --- !u!114 &1249115819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,6 +1986,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2103212714}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3911570307437368477}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 09687c9e6eb97bf40aead4c3b09960fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8089028090700743053}
     - targetCorrespondingSourceObject: {fileID: -6011973920780614364, guid: 09687c9e6eb97bf40aead4c3b09960fc,
         type: 3}
       insertIndex: -1
@@ -2240,7 +2248,8 @@ MonoBehaviour:
     pitch: 1.1
     randomVolume: 0.2
     randomPitch: 0.2
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
     source: {fileID: 0}
     is3D: 0
     minDistance: 0
@@ -2253,7 +2262,22 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0.2
     randomPitch: 0.2
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
+    source: {fileID: 0}
+    is3D: 0
+    minDistance: 0
+    maxDisance: 5
+  - name: BeachFootstep
+    clip: {fileID: 8300000, guid: b444d6afa54bb43cd801c8f7c52a44d9, type: 3}
+    loop: 0
+    overlap: 0
+    volume: 0.15
+    pitch: 0.5
+    randomVolume: 0.05
+    randomPitch: 0.2
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
     source: {fileID: 0}
     is3D: 0
     minDistance: 0
@@ -2266,7 +2290,8 @@ MonoBehaviour:
     pitch: 1.5
     randomVolume: 0.1
     randomPitch: 0.2
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
     source: {fileID: 0}
     is3D: 0
     minDistance: 0
@@ -2348,6 +2373,40 @@ MonoBehaviour:
     item:
     - {fileID: 11400000, guid: 2880a891b67a69a429e7cdc21fc886a4, type: 2}
     - {fileID: 11400000, guid: 6e12ddeac1f41994385a935ceb1f2b93, type: 2}
+--- !u!114 &3911570307437368477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402787802444851791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05846c969ff49fa4383a664556107d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  ageList: []
+  prefab: {fileID: 8747153405499718243, guid: 3cde3bbb9d48aa2488cb39cf633a8dec, type: 3}
+  amountToPool: 5
+  useWorldSpace: 1
+  maxPoolSize: 0
+--- !u!114 &8089028090700743053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402787802444851791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90bb5f3d768676145ad8892f6342411f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftFoot: {fileID: 3601747243452827454}
+  rightFoot: {fileID: 2445203559821424314}
+  offset: {x: 0, y: -0.0076, z: 0}
+  maxFootstepTimer: 15
 --- !u!4 &2445203559821424314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 527130853406309704, guid: 09687c9e6eb97bf40aead4c3b09960fc,
