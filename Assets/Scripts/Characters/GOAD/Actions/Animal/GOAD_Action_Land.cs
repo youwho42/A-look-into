@@ -7,7 +7,9 @@ namespace Klaxon.GOAD
     public class GOAD_Action_Land : GOAD_Action
     {
         float timer;
-        
+        public bool canLandOnWater;
+        [ConditionalHide("canLandOnWater", true)]
+        public GOAD_ScriptableCondition waterLandingCondition;
         public override void StartAction(GOAD_Scheduler_Animal agent)
         {
             base.StartAction(agent);
@@ -23,7 +25,7 @@ namespace Klaxon.GOAD
                     agent.walker.enabled = false;
                 }
             }
-
+            
             agent.currentDisplacementSpot = agent.CheckForDisplacementSpot();
             if (agent.currentDisplacementSpot == null)
             {
@@ -31,6 +33,8 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
+            
+            agent.flier.isWaterLanding = agent.currentDisplacementSpot.isOnWater;
             agent.flier.SetDestination(agent.currentDisplacementSpot);
             agent.flier.isLanding = true;
 
@@ -87,6 +91,11 @@ namespace Klaxon.GOAD
                 {
                     agent.flier.itemObject.localPosition = agent.currentDisplacementSpot.displacedPosition;
                     agent.transform.position = agent.currentDisplacementSpot.transform.position;
+                    if (canLandOnWater)
+                    {
+                        if (agent.currentDisplacementSpot.isOnWater)
+                            agent.SetBeliefState(waterLandingCondition.Condition, true);
+                    }
                     
                     success = true;
                     agent.SetActionComplete(true);

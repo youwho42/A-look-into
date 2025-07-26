@@ -15,9 +15,17 @@ namespace Klaxon.GOAD
         public override void StartAction(GOAD_Scheduler_Animal agent)
         {
             base.StartAction(agent);
+            
             if (agent.flier != null)
                 agent.flier.enabled = true;
-
+            if (agent.swimmer != null)
+            {
+                if (agent.swimmer.enabled)
+                {
+                    agent.flier.facingRight = agent.swimmer.facingRight;
+                    agent.swimmer.enabled = false;
+                }
+            }
             if (agent.walker != null)
             {
                 if (agent.walker.enabled)

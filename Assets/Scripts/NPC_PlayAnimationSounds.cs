@@ -5,13 +5,14 @@ using UnityEngine;
 public class NPC_PlayAnimationSounds : MonoBehaviour
 {
     public SoundSet[] soundSet;
-    AudioSource source;
+    public AudioSource source;
 
     
 
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        if (source == null)
+            source = GetComponent<AudioSource>();
     }
 
 

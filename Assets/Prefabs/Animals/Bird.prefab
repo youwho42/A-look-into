@@ -120,7 +120,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186113323787273416}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6149981308244972507, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53aa98511bec396419a2cfc1d0b5b36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 9087103795303294493}
   soundSets:
   - clips:
     - {fileID: 8300000, guid: 7878ea5f81b7bb5479b0af76c50d1e17, type: 3}
@@ -514,6 +515,7 @@ MonoBehaviour:
   isStuck: 0
   hasDeviatePosition: 0
   shitSpot: 0
+  isWaterLanding: 0
 --- !u!114 &8378868691461979021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,6 +559,7 @@ MonoBehaviour:
   walker: {fileID: 0}
   flier: {fileID: 0}
   jumper: {fileID: 0}
+  swimmer: {fileID: 0}
   isDeviating: 0
   musicGeneratorItem: {fileID: 6300385493937077386}
   removeFromMusicAtHome: 1
@@ -595,6 +598,7 @@ MonoBehaviour:
   currentScritchableTree: {fileID: 0}
   wantScritchCondition: {fileID: 0}
   scritchableFoundCondition: {fileID: 0}
+  canLandOnWater: 0
   hasDialogue: 0
   fleeTransform: {fileID: 0}
 --- !u!114 &6585509589159697265
@@ -641,6 +645,8 @@ MonoBehaviour:
   conditionsOnFail:
   - {fileID: 11400000, guid: 908f73583bf75d643b258e6877ed0ab2, type: 2}
   - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  canLandOnWater: 0
+  waterLandingCondition: {fileID: 0}
 --- !u!114 &4097649243831503232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,6 +841,7 @@ GameObject:
   - component: {fileID: 1310942487897049358}
   - component: {fileID: 5369968248554572960}
   - component: {fileID: 6300385493937077386}
+  - component: {fileID: 9087103795303294493}
   m_Layer: 14
   m_Name: CrowIdle0000
   m_TagString: Untagged
@@ -1070,6 +1077,7 @@ MonoBehaviour:
     randomPitch: 0.05
     source: {fileID: 0}
     overlap: 1
+  source: {fileID: 6325525508577029593}
 --- !u!58 &5966771426077238506
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1151,6 +1159,104 @@ MonoBehaviour:
   type: 14
   isActive: 0
   isInDictionary: 0
+--- !u!82 &9087103795303294493
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859352282203003539}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -6149981308244972507, guid: aeec6efab8ac87148bd4f2beecab3092,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 0
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &3104844919736713668
 PrefabInstance:
   m_ObjectHideFlags: 0

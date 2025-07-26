@@ -47,7 +47,9 @@ namespace Klaxon.GravitySystem
         [HideInInspector]
         public bool hasDeviatePosition;
         public bool shitSpot;
-        
+
+        public bool isWaterLanding;
+
         public override void Start()
         {
             base.Start();
@@ -119,7 +121,8 @@ namespace Klaxon.GravitySystem
 
         public void CheckOverWater()
         {
-
+            if (isWaterLanding)
+                return;
             SetWaterMap();
             Vector3 displace = mainDestinationZ;
             var d = currentTilePosition.position;

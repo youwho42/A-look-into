@@ -56,7 +56,7 @@ public class SoundSet
 public class AnimalSounds : MonoBehaviour
 {
 
-    AudioSource source;
+    public AudioSource source;
     [SerializeField]
     public SoundSet[] soundSets;
     public AudioMixerGroup mixerGroup;
@@ -81,7 +81,8 @@ public class AnimalSounds : MonoBehaviour
     private void Start()
     {
         soundsActive = true;
-        source = GetComponent<AudioSource>();
+        if (source == null)
+            source = GetComponent<AudioSource>();
         SetTimesToCry();
         SetFirstCry();
         if (continuous)

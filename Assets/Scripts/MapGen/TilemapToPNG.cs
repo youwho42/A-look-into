@@ -12,6 +12,9 @@ public class TilemapToPNG : MonoBehaviour
     {
         public Tilemap tilemap;
         public Color color;
+        public bool changeColorZ;
+        [ConditionalHide("changeColorZ", true)]
+        public Color ZColorDifference;
         public string mapName;
     }
     public Tilemap groundMap;
@@ -60,7 +63,7 @@ public class TilemapToPNG : MonoBehaviour
             float[,] tiles = new float[groundMap.cellBounds.size.x, groundMap.cellBounds.size.y];
             int indX = 0;
             int indY = 0;
-
+            float indZ = 1;
             for (int x = groundMap.cellBounds.xMin; x < groundMap.cellBounds.xMax; x++)
             {
                 indY = 0;
@@ -68,10 +71,13 @@ public class TilemapToPNG : MonoBehaviour
                 {
                     for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
                     {
-                        
+                        tiles[indX, indY] = -1;
                         if (mapLayers[i].tilemap.GetTile(new Vector3Int(x, y, z)) != null)
                         {
-                            tiles[indX, indY] = 1;
+                            if(mapLayers[i].changeColorZ)
+                                indZ = NumberFunctions.RemapNumber(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, 0, 1);
+                            tiles[indX, indY] = indZ;
+                            //tiles[indX, indY] = 1;
                             break;
                         }
                        
@@ -104,7 +110,10 @@ public class TilemapToPNG : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                colorMap[y * width + x] = new Color(mapLayers[layerIndex].color.r, mapLayers[layerIndex].color.g, mapLayers[layerIndex].color.b, tileMapArray[x, y]);
+                Color c = mapLayers[layerIndex].color;
+                if (mapLayers[layerIndex].changeColorZ && tileMapArray[x, y]!=-1)
+                    c = Color.Lerp(mapLayers[layerIndex].color, mapLayers[layerIndex].ZColorDifference, tileMapArray[x, y]);
+                colorMap[y * width + x] = new Color(c.r, c.g, c.b, tileMapArray[x, y] == -1 ? 0 : 1);
             }
         }
         texture.SetPixels(colorMap);

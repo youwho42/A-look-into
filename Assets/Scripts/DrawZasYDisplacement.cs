@@ -19,7 +19,8 @@ public enum SpotType
     Pigeon,
     Deer,
     Bear,
-    Bluebird
+    Bluebird,
+    Gull
 
 }
 
@@ -32,6 +33,7 @@ public class DrawZasYDisplacement : MonoBehaviour
     public Vector3 displacedPosition;
     public bool isInUse;
     public bool isDecorationSurface;
+    public bool isOnWater;
 
     public bool showArea;
     [ConditionalHide("showArea", true)]

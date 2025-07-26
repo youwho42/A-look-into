@@ -43,6 +43,8 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public GravityItemJump jumper;
         [HideInInspector]
+        public GravityItemSwim swimmer;
+        [HideInInspector]
         public bool isDeviating;
 
         public MusicGeneratorItem musicGeneratorItem;
@@ -71,6 +73,7 @@ namespace Klaxon.GOAD
         public bool shouldFlee;
         [ConditionalHide("shouldFlee", true)]
         public GOAD_ScriptableCondition fleeCondition;
+
 
         public LayerMask displacementSpotLayer;
         public SpotType spotType;
@@ -117,6 +120,10 @@ namespace Klaxon.GOAD
         public GOAD_ScriptableCondition scritchableFoundCondition;
 
 
+        [Header("Water Landings")]
+        public bool canLandOnWater;
+
+        [Header("Dialogue Options")]
         public bool hasDialogue;
         bool inTalkRange;
         float inTalkRangeTimer;
@@ -141,7 +148,9 @@ namespace Klaxon.GOAD
 
             flier = GetComponent<GravityItemFly>();
             jumper = GetComponent<GravityItemJump>();
-            
+            swimmer = GetComponent<GravityItemSwim>();
+
+
             sounds = GetComponent<AnimalSounds>();
             musicItem = GetComponentInChildren<MusicGeneratorItem>();
             bounds = new Bounds(transform.position, new Vector3(4, 4, 4));
@@ -420,7 +429,7 @@ namespace Klaxon.GOAD
             if (sleep.isSleeping)
                 return null;
             int waterdisp = 0;
-            if(flier != null)
+            if(flier != null && !canLandOnWater)
                 waterdisp = flier.enabled && flier.isOverWater ? 3 : 0; 
             
             closestSpots.Clear();
@@ -430,7 +439,6 @@ namespace Klaxon.GOAD
                 var allDisplacementSpots = spot.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == spotType).ToList();
                 closestSpots.AddRange(allDisplacementSpots);
             }
-
             float closestDistanceSqr = Mathf.Infinity;
             Vector2 currentPosition = _transform.position;
             DrawZasYDisplacement bestTarget = null;
@@ -476,11 +484,23 @@ namespace Klaxon.GOAD
 
         public void SetBoidsState(bool isInBoids)
         {
-            if (flier.boid != null)
+            if (flier != null)
             {
-                flier.useBoids = isInBoids;
-                flier.boid.inBoidPool = isInBoids;
+                if (flier.boid != null)
+                {
+                    flier.useBoids = isInBoids;
+                    flier.boid.inBoidPool = isInBoids;
+                }
             }
+            if(swimmer != null)
+            {
+                if (swimmer.boid != null)
+                {
+                    swimmer.useBoids = isInBoids;
+                    swimmer.boid.inBoidPool = isInBoids;
+                }
+            }
+            
         }
 
         public void SetMusic(bool state)
