@@ -16,6 +16,7 @@ public class TilemapToPNG : MonoBehaviour
         [ConditionalHide("changeColorZ", true)]
         public Color ZColorDifference;
         public string mapName;
+        public bool createMapLegend;
     }
     public Tilemap groundMap;
     public string textureName;

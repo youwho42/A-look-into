@@ -141,8 +141,9 @@ public class CreateParticleSuperShape : MonoBehaviour
 
         }
         sculptureStation.canInteract = false;
-        var glow = sculptureStation.GetComponent<ItemFuzzGlow>();
-        glow.ResetColor(stationColorInactive);
+        //var glow = sculptureStation.GetComponent<ItemFuzzGlow>();
+        if(sculptureStation.TryGetComponent(out ItemFuzzGlow glow))
+            glow.ResetColor(stationColorInactive);
 
     }
 

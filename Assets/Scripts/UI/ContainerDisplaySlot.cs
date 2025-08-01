@@ -69,7 +69,7 @@ public class ContainerDisplaySlot : MonoBehaviour
     public void TransferStack()
     {
 
-        if (item == null || EventSystem.current.currentSelectedGameObject != icon.gameObject)
+        if (item == null || EventSystem.current.currentSelectedGameObject != icon.gameObject || !canTransfer)
             return;
 
         if (isContainerSlot)

@@ -121,7 +121,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
 
             // give recipe
             PlayerInformation.instance.statHandler.ChangeStat(item.ResearchRecipes[i].agencyStatChanger);
-            PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe);
+            PlayerCrafting.instance.AddCraftingRecipe(item.ResearchRecipes[i].recipe, false);
             scanner.color = successColor;
             AudioManager.instance.PlaySound("ScanSuccess");
             
@@ -164,7 +164,7 @@ public class ResearchStationResearchSlot : MonoBehaviour
         //    return false;
         //}
 
-        return t > item.ResearchRecipes[index].RecipeRevealAmount;
+        return t >= item.ResearchRecipes[index].RecipeRevealAmount;
         //return true;
     }
 

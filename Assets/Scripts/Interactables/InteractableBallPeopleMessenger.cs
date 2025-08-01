@@ -104,7 +104,7 @@ namespace Klaxon.Interactable
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(undertaking);
 
             if (craftingRecipe != null)
-                PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe);
+                PlayerCrafting.instance.AddCraftingRecipe(craftingRecipe, false);
 
         }
     } 

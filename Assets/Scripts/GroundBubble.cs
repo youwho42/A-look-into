@@ -15,13 +15,13 @@ public class GroundBubble : MonoBehaviour
     public QI_ItemData dynamiblobItem;
     ParticlesToPlayer particles;
     DrawZasYDisplacement dynamiblobSpawnDisplacement;
-
+    bool hasBeenActivated;
 
 
     private void Start()
     {
         xSprite = groundBubble_X.GetComponent<SpriteRenderer>();
-
+        hasBeenActivated = false;
         particles = GetComponent<ParticlesToPlayer>();
         dynamiblobSpawnDisplacement = GetComponent<DrawZasYDisplacement>();
 
@@ -120,6 +120,7 @@ public class GroundBubble : MonoBehaviour
 
     IEnumerator SpawnDynamiblobCo()
     {
+        hasBeenActivated = true;
         particles.SpawnParticles(1, dynamiblobSpawnDisplacement);
         groundBubbleObject.gameObject.SetActive(false);
         groundBubbleShadow.gameObject.SetActive(false);
@@ -131,7 +132,7 @@ public class GroundBubble : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!collision.CompareTag("Player") || !isGrounded) 
+        if(!collision.CompareTag("Player") || !isGrounded || hasBeenActivated) 
             return;
         AudioManager.instance.PlaySound("BubblePop");
         StartCoroutine(SpawnDynamiblobCo());

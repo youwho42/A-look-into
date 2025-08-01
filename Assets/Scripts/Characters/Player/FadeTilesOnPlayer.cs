@@ -16,7 +16,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
 
     void FadeTiles()
     {
-
+        
         if (!inHouse)
             return;
         
@@ -52,6 +52,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
    
     IEnumerator FadeTile(Vector3Int tilePosition, float targetAlpha)
     {
+        
         float elapsedTime = 0;
         float waitTime = 0.5f;
         HousesFront.SetTileFlags(tilePosition, TileFlags.None);
@@ -112,27 +113,31 @@ public class FadeTilesOnPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.CompareTag("House"))
         {
             var t = PlayerInformation.instance.currentTilePosition.position;
             if (!HousesInterior.HasTile(t))
                 return;
-                
 
-            var pt = new Vector3Int(t.x, t.y, t.z + 4);
-                
-            for (int x = -1; x < 2; x++)
+            for (int i = 4; i < 7; i+=2)
             {
-                for (int y = -1; y < 2; y++)
-                {
-                    var zt = new Vector3Int(pt.x+x, pt.y+y, pt.z);
-                            
-                    if (HousesFront.HasTile(zt))
-                        GetAllTiles(zt);
 
+            
+                var pt = new Vector3Int(t.x, t.y, t.z + i);
+                
+                for (int x = -1; x < 2; x++)
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        var zt = new Vector3Int(pt.x+x, pt.y+y, pt.z);
+                            
+                        if (HousesFront.HasTile(zt))
+                            GetAllTiles(zt);
+
+                    }
                 }
             }
-                
             inHouse = true;
             GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
             FadeTiles(); // Call FadeTiles immediately when entering the house to avoid initial jittering

@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
+  m_ComponentVersion: 2
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.513
   m_Color: {r: 0.2027857, g: 0.8773585, b: 0.82567686, a: 1}
   m_Intensity: 0.33
   m_LightVolumeIntensity: 0
-  m_LightVolumeIntensityEnabled: 0
+  m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
@@ -61,13 +61,15 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0
+  m_ShadowSoftness: 0
+  m_ShadowSoftnessFalloffIntensity: 0.5
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0
   m_LocalBounds:
-    m_Center: {x: 0.0153999925, y: 0.19205004, z: 0}
-    m_Extent: {x: 0.9347, y: 0.89375, z: 0}
+    m_Center: {x: 0.014799982, y: 0.19285002, z: 0}
+    m_Extent: {x: 0.9345, y: 0.89365005, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -96,7 +98,6 @@ GameObject:
   - component: {fileID: 6243013556377035767}
   - component: {fileID: 6243013556377035721}
   - component: {fileID: 6243013556377035766}
-  - component: {fileID: 4060084444284158102}
   - component: {fileID: 2115133684}
   - component: {fileID: 5762479817680838440}
   - component: {fileID: -7130579346718382907}
@@ -135,6 +136,7 @@ CapsuleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6243013556377035764}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -158,7 +160,8 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0.0034215471, y: 0.014823736}
   m_Size: {x: 0.55527765, y: 0.2587939}
   m_Direction: 1
@@ -179,21 +182,6 @@ MonoBehaviour:
   isIncoming: 0
   currentLevel: 1
   teleportName: 
---- !u!114 &4060084444284158102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6243013556377035764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0219e31de5041c48b8804996bea123b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloomMinIntensity: 1
-  bloomMaxIntensity: 8
-  spriteMaterial: {fileID: 6243013557540376264}
 --- !u!114 &2115133684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: Teleport
   localizedInteractVerb:
     m_TableReference:
@@ -226,16 +215,27 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedItemName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   bounceCost: {fileID: 0}
-  gumptionCost: {fileID: 0}
   agencyReward: 0
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
+  playerGuide: {fileID: 0}
+  isBeingDragged: 0
   references:
     version: 2
     RefIds: []
@@ -265,6 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+  version: 
+  intVersion: 
 --- !u!114 &-6800446113846021888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +355,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -390,7 +395,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &6243013557540376265
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -404,6 +409,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

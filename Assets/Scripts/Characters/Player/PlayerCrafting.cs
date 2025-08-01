@@ -20,14 +20,15 @@ public class PlayerCrafting : MonoBehaviour
         }
     }
 
-    public bool AddCraftingRecipe(QI_CraftingRecipe recipe)
+    public bool AddCraftingRecipe(QI_CraftingRecipe recipe, bool isFromSave)
     {
 
         if (!craftingRecipeDatabase.CraftingRecipes.Contains(recipe))
         {
             craftingRecipeDatabase.CraftingRecipes.Add(recipe);
             GameEventManager.onRecipeCompediumUpdateEvent.Invoke();
-            Notifications.instance.SetNewLargeNotification(null, recipe.Product.Item, recipe, NotificationsType.Compendium);
+            if(!isFromSave)
+                Notifications.instance.SetNewLargeNotification(null, recipe.Product.Item, recipe, NotificationsType.Compendium);
 
             return true;
         }

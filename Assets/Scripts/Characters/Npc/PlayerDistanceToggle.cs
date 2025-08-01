@@ -16,7 +16,7 @@ public class PlayerDistanceToggle : MonoBehaviour
 
 
 
-    Camera camera;
+    Camera cam;
     float maxDistance = 6;
     public List<GameObject> animals;
     //public List<SAP_Scheduler_NPC> agents;
@@ -26,7 +26,7 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     private void Start()
     {
-        camera = Camera.main;
+        cam = Camera.main;
         PopulateLists();
         
         InvokeRepeating("CheckPlayerDistance", 0.0f, 0.5f);
@@ -97,7 +97,8 @@ public class PlayerDistanceToggle : MonoBehaviour
     {
         if (obj == null)
             return;
-        var d = maxDist * Mathf.Clamp(camera.orthographicSize, 1, 5);
+        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
+        var d = maxDist * camOrtho;
         bool state = GetPlayerDistance(obj.transform, playerPos) <= d * d;
         obj.SetActive(state);
     }
@@ -106,7 +107,8 @@ public class PlayerDistanceToggle : MonoBehaviour
     {
         if (agent == null)
             return;
-        var d = maxDist * Mathf.Clamp(camera.orthographicSize, 1, 5);
+        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
+        var d = maxDist * camOrtho;
         float dist = GetPlayerDistance(agent.transform, playerPos);
         bool state = dist <= d * d || !agent.offScreen;
         bool nearPlayer = dist <= 1.5f;
@@ -119,7 +121,8 @@ public class PlayerDistanceToggle : MonoBehaviour
     {
         if (agent == null)
             return;
-        var d = maxDist * Mathf.Clamp(camera.orthographicSize, 1, 5);
+        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
+        var d = maxDist * camOrtho;
         float dist = GetPlayerDistance(agent.transform, playerPos);
         bool state = dist <= d * d || !agent.offScreen;
         bool nearPlayer = dist <= 1.5f;

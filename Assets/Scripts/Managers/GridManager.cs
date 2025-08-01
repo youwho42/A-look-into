@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,9 +19,16 @@ public class GridManager : MonoBehaviour
     public Tilemap waterMap;
     public Grid Grid { get { return grid == null ? SetGrid() : grid; } }
 
-    public Tilemap decorationOne;
-    public Tilemap decorationTwo;
+    
 
+    [Serializable]
+    public struct MapTerrains
+    {
+        public List<Tilemap> tilemaps;
+        public bool useHalftone;
+    }
+
+    public List<MapTerrains> mapTerrains = new List<MapTerrains>();
 
     Grid SetGrid()
     {
@@ -35,10 +43,14 @@ public class GridManager : MonoBehaviour
                 groundMap = map;
             if (map.gameObject.name == "WaterTiles")
                 waterMap = map;
-            if (map.gameObject.name == "GroundTileDetails")
-                decorationOne = map;
-            if (map.gameObject.name == "GroundTileDetails2")
-                decorationTwo = map;
+            //    if (map.gameObject.name == "GroundTileDetails")
+            //        decorationOne = map;
+            //    if (map.gameObject.name == "GroundTileDetails2")
+            //        decorationTwo = map;
+            //    if (map.gameObject.name == "Beach")
+            //        beachMap = map;
+            //    if (map.gameObject.name == "BeachDetails")
+            //        beachDetailsMap = map;
         }
         return grid;
     }
@@ -68,21 +80,41 @@ public class GridManager : MonoBehaviour
                     if (groundMap.GetTile(pos) != null)
                     {
                         groundMap.SetTileFlags(pos, TileFlags.None);
-                        decorationOne.SetTileFlags(pos, TileFlags.None);
-                        decorationTwo.SetTileFlags(pos, TileFlags.None);
+                        
+
+                        
 
                         float c = NumberFunctions.RemapNumber(z, -1, groundMap.cellBounds.zMax, 0.0f, 0.25f);
                         Color levelcolor = Color.Lerp(Color.white, Color.black, c);
+                        Color levelcolorB = Color.Lerp(Color.white, Color.black, c * 0.5f);
                         groundMap.SetColor(pos, levelcolor);
-                        decorationOne.SetColor(pos, levelcolor);
-                        decorationTwo.SetColor(pos, levelcolor);
+
+                        foreach (var terrain in mapTerrains)
+                        {
+                            
+                            foreach (var map in terrain.tilemaps)
+                            {
+                                map.SetTileFlags(pos, TileFlags.None);
+                                map.SetColor(pos, terrain.useHalftone ? levelcolorB : levelcolor);
+                            }
+                            
+                        }
+                        
+
                         var cliffPos = pos - Vector3Int.forward;
                         if(groundMap.GetTile(cliffPos) == null)
                         {
-                            decorationOne.SetTileFlags(cliffPos, TileFlags.None);
-                            decorationTwo.SetTileFlags(cliffPos, TileFlags.None);
-                            decorationOne.SetColor(cliffPos, levelcolor);
-                            decorationTwo.SetColor(cliffPos, levelcolor);
+                            foreach (var terrain in mapTerrains)
+                            {
+
+                                foreach (var map in terrain.tilemaps)
+                                {
+                                    map.SetTileFlags(cliffPos, TileFlags.None);
+                                    map.SetColor(cliffPos, terrain.useHalftone ? levelcolorB : levelcolor);
+                                }
+
+                            }
+
                         }
                     }
                 }
@@ -145,7 +177,7 @@ public class GridManager : MonoBehaviour
     public Vector3 GetRandomTileWorldPosition(Vector3 origin, float maxDistance)
     {
         SetGrid();
-        Vector2 randPos = Random.insideUnitCircle * maxDistance;
+        Vector2 randPos = UnityEngine.Random.insideUnitCircle * maxDistance;
         Vector3 offsetPos = origin + (Vector3)randPos;
         
         Vector3Int destinationTile = groundMap.WorldToCell(offsetPos - Vector3Int.forward);
@@ -162,7 +194,7 @@ public class GridManager : MonoBehaviour
     {
         SetGrid();
        
-        Vector2 randPos = Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
+        Vector2 randPos = UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(minDistance, maxDistance);
         Vector3 offsetPos = origin + (Vector3)randPos;
 
         Vector3Int destinationTile = groundMap.WorldToCell(offsetPos - Vector3Int.forward);
@@ -178,8 +210,8 @@ public class GridManager : MonoBehaviour
     public Vector3Int GetRandomNodeInArea(Vector3Int startPos, int maxDistance)
     {
         SetGrid();
-        int x = Random.Range(-maxDistance, maxDistance);
-        int y = Random.Range(-maxDistance, maxDistance);
+        int x = UnityEngine.Random.Range(-maxDistance, maxDistance);
+        int y = UnityEngine.Random.Range(-maxDistance, maxDistance);
         if (x == 0 && y == 0)
             x = 1;
         var endPosition = new Vector3Int(startPos.x + x, startPos.y + y, startPos.z);

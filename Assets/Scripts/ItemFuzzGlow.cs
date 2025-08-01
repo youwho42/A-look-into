@@ -17,13 +17,21 @@ public class ItemFuzzGlow : MonoBehaviour
     
     private void Start()
     {
-        
+
         dayNightCycle = RealTimeDayNightCycle.instance;
+        SetMaterial();
+        initialColor = material.GetColor("_EmissionColor");
+
+    }
+
+    private void SetMaterial()
+    {
+        if (material != null)
+            return;
         fuzzGlowImage = GetComponent<SpriteRenderer>();
         material = fuzzGlowImage.material;
-        initialColor = material.GetColor("_EmissionColor");
-        
     }
+
     private void OnEnable()
     {
         GameEventManager.onTimeTickEvent.AddListener(SetGlow);
@@ -35,6 +43,7 @@ public class ItemFuzzGlow : MonoBehaviour
     }
     public void ResetColor(Color color)
     {
+        SetMaterial();
         isStable = false;
         material.SetColor("_EmissionColor", color);
         initialColor = color;

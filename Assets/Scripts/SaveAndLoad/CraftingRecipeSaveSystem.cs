@@ -34,7 +34,7 @@ namespace Klaxon.SaveSystem
             PlayerCrafting.instance.DestroyAllRecipes();
             for (int i = 0; i < saveData.itemName.Count; i++)
             {
-                PlayerCrafting.instance.AddCraftingRecipe(allRecipesDatabase.GetCraftingRecipe(saveData.itemName[i]));
+                PlayerCrafting.instance.AddCraftingRecipe(allRecipesDatabase.GetCraftingRecipe(saveData.itemName[i]), true);
 
             }
         }

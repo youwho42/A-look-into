@@ -794,7 +794,6 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 1
-  addUpsies: 0
   centerOfActivity: {fileID: 0}
   walkSpeed: 0.45
   runSpeed: 1.4
@@ -2579,6 +2578,20 @@ MonoBehaviour:
     is3D: 1
     minDistance: 0
     maxDisance: 1.5
+  - name: BeachFootstep
+    clip: {fileID: 8300000, guid: b444d6afa54bb43cd801c8f7c52a44d9, type: 3}
+    loop: 0
+    overlap: 1
+    volume: 0.15
+    pitch: 1
+    randomVolume: 0.05
+    randomPitch: 0.2
+    mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
+      type: 2}
+    source: {fileID: 0}
+    is3D: 1
+    minDistance: 0
+    maxDisance: 2
   sound3dOffset: {x: 0.12, y: 0, z: 0}
   groundSoundsLayer:
     serializedVersion: 2
@@ -2620,9 +2633,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
+  ageList: []
   prefab: {fileID: 4131214712026383115, guid: c5f6c4a35cbbad048a21260b524b12f9, type: 3}
   amountToPool: 5
   useWorldSpace: 1
+  maxPoolSize: 0
 --- !u!114 &2339325559409611976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,6 +2675,7 @@ MonoBehaviour:
   displacedPosition: {x: 0, y: 0, z: 0}
   isInUse: 0
   isDecorationSurface: 0
+  isOnWater: 0
   showArea: 0
   size: 0
 --- !u!4 &9019014854428055982 stripped

@@ -25,6 +25,8 @@ public class MapLegendManager : MonoBehaviour
         
         foreach (var item in tilemapToPNG.mapLayers)
         {
+            if (!item.createMapLegend)
+                continue;
             var go = Instantiate(mapLegendOject, legendHolder);
             go.SetLegend(item.color, item.mapName);
         }
