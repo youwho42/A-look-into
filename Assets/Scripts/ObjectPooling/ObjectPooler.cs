@@ -16,6 +16,10 @@ public class ObjectPooler : MonoBehaviour
     private int amountToPool;
     [SerializeField]
     private bool useWorldSpace;
+    [ConditionalHide("useWorldSpace", true)]
+    [SerializeField]
+    private string objectHolderName;
+    private Transform pooledObjectHolder;
     [SerializeField]
     private int maxPoolSize = 0;
 
@@ -24,8 +28,9 @@ public class ObjectPooler : MonoBehaviour
         for (int i = 0; i < amountToPool; i++)
         {
             CreatePooledObject();
-            
         }
+
+        
     }
 
     private GameObject CreatePooledObject()
@@ -33,6 +38,22 @@ public class ObjectPooler : MonoBehaviour
         GameObject go = Instantiate(prefab);
         if (!useWorldSpace)
             go.transform.SetParent(transform);
+        else
+        {
+            if(objectHolderName != "")
+            {
+                if (pooledObjectHolder == null) 
+                {
+                    var parent = GameObject.FindWithTag("PooledObjects");
+                    GameObject holder = new GameObject($"{gameObject.name}_{objectHolderName}");
+                    pooledObjectHolder = holder.GetComponent<Transform>();
+                    pooledObjectHolder.SetParent(parent.transform);
+                }
+                
+                go.transform.SetParent(pooledObjectHolder);
+            }
+                
+        }
         go.SetActive(false);
         pooledObjects.Add(go);
         ageList.Add(go);

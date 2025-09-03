@@ -57,6 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3172526529085449426}
   - component: {fileID: 6187560026432900922}
+  - component: {fileID: 6660283019846730958}
   m_Layer: 0
   m_Name: Tear
   m_TagString: Untagged
@@ -134,3 +135,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &6660283019846730958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7173703133306328792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGlow: 0
+  maxGlow: 0
+  bloomMinIntensity: 1
+  bloomMaxIntensity: 5
+  useAlpha: 0
+  useIntensity: 1

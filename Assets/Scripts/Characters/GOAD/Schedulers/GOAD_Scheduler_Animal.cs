@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Klaxon.ConversationSystem;
+using Klaxon.Interactable;
 
 namespace Klaxon.GOAD
 {
@@ -538,21 +539,35 @@ namespace Klaxon.GOAD
 
         void FindFood()
         {
-            
+            if (walker == null)
+                return;
+            if (walker.enabled == false || walker.itemObject.localPosition.z > 0)
+                return;
+
+
             var hit = Physics2D.OverlapCircle(eatPoint.position, 2f, LayerMask.GetMask("Interactable"), _transform.position.z, _transform.position.z);
             if (hit != null)
             {
-                if (hit.TryGetComponent(out QI_Item item))
+                if (hit.TryGetComponent(out Interactable.Interactable interactable))
                 {
-                    if (edibleItems.Contains(item.Data))
+                    if (interactable.canInteract)
                     {
-                        currentEdible = hit.gameObject;
-                        isEating = true;
-                        SetBeliefState(foodFoundCondition.Condition, true);
-                        InteruptCurrentGoal();
-                        return;
+                        if (hit.TryGetComponent(out QI_Item item))
+                        {
+                            if (edibleItems.Contains(item.Data))
+                            {
+                                interactable.canInteract = false;
+                                currentEdible = hit.gameObject;
+                                isEating = true;
+                                SetBeliefState(foodFoundCondition.Condition, true);
+                                InteruptCurrentGoal();
+                                return;
+                            }
+                        }
                     }
+
                 }
+                    
             }
             SetBeliefState(foodFoundCondition.Condition, false);
         }

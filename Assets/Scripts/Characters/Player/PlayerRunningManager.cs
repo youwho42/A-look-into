@@ -65,6 +65,7 @@ public class PlayerRunningManager : MonoBehaviour
         int z = lastZ - player.playerController.currentLevel;
         
         var amount = NumberFunctions.RemapNumber(z, 1.0f, 7.0f, 0.0f, 1.0f);
+        amount *= PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Fall Damage");
         amount = Mathf.Clamp01(amount);
         currentGaugeAmount += amount;
         if (currentGaugeAmount > 0.1f)

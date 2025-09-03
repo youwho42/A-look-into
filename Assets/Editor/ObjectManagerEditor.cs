@@ -27,9 +27,9 @@ public class ObjectManagerEditor : Editor
         Tools.hidden = false;
     }
 
-    
     private void OnSceneGUI()
     {
+        
         if (GridManager.instance.groundMap == null)
             return;
         //Move the circle when moving the mouse

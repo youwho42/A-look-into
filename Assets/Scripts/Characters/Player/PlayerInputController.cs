@@ -56,12 +56,15 @@ public class PlayerInputController : MonoBehaviour
     InputAction rotateDecoration;
     InputAction surroundingItems;
     InputAction playerSit;
+    InputAction viewStars;
 
     PlayerInputActions inputActions;
     public PlayerInput playerInput;
 
     float mouseInactiveTimer;
     Vector2 lastMouseActiveP;
+
+    Vector2Int lastScreenRes;
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -183,7 +186,10 @@ public class PlayerInputController : MonoBehaviour
         playerSit.Enable();
         playerSit.started += PlayerSit;
 
-        
+        viewStars = inputActions.Player.StarMap;
+        viewStars.Enable();
+        viewStars.started += ViewStars;
+
     }
     private void OnDisable()
     {
@@ -211,6 +217,7 @@ public class PlayerInputController : MonoBehaviour
         rotateDecoration.Disable();
         surroundingItems.Disable();
         playerSit.Disable();
+        viewStars.Disable();
     }
 
    
@@ -294,8 +301,7 @@ public class PlayerInputController : MonoBehaviour
             GameEventManager.onControlSchemeChangedEvent.Invoke(currentControlScheme);
         }
 
-
-
+        
             
     }
 
@@ -395,5 +401,6 @@ public class PlayerInputController : MonoBehaviour
     public void RotateDecorationAction(InputAction.CallbackContext context) => GameEventManager.onRotateDecoration.Invoke();
     public void DisplaySurroundingItems(InputAction.CallbackContext context) => GameEventManager.onSurroundingItemsEvent.Invoke();
     public void PlayerSit(InputAction.CallbackContext context) => GameEventManager.onSitEvent.Invoke();
+    public void ViewStars(InputAction.CallbackContext context) => GameEventManager.onViewStarsEvent.Invoke();
 
 }

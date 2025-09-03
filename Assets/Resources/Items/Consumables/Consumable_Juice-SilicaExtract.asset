@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925467eed57fc8140a9197b45f29743c, type: 3}
+  m_Name: Consumable_Juice-SilicaExtract
+  m_EditorClassIdentifier: 
+  Name: Juice Silica Extract
+  localizedName:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 239886235699044352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:ea3bccddb512ec64aadd3f387de714af
+    m_TableEntryReference:
+      m_KeyId: 239886345715638272
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Type: 3
+  AnimationName: 
+  Weight: 1
+  Price: 20
+  spawnWeight: 2
+  FuelTicks: 0
+  Icon: {fileID: 21300000, guid: d539f49d0c0fdc6428f7b5017d771a9f, type: 3}
+  ItemPrefabVariants:
+  - {fileID: 835383707523805113, guid: 3e23236fe97657d4c8aab66dbf421f25, type: 3}
+  pickUpItem: {fileID: 0}
+  EquipedItem: {fileID: 0}
+  MaxStack: 100
+  compendiumGuide: {fileID: 0}
+  ResearchRecipes: []
+  GameDificulty: 0
+  placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
+  statChangers:
+  - {fileID: 11400000, guid: 9d533d8cd30c378418de7932bcc08c1b, type: 2}
+  statModifiers:
+  - {fileID: 11400000, guid: e789604c7bda88d41b10ec1a9c951f79, type: 2}
+  itemToBecome: {fileID: 11400000, guid: 8d4c3eaca7886d84b9da93bcbd65c9d0, type: 2}
+  soundName: ConsumeLiquid
+  references:
+    version: 2
+    RefIds: []

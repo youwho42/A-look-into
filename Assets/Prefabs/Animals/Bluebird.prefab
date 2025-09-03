@@ -37,17 +37,17 @@ PrefabInstance:
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8.29282
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 40.61998
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -57,17 +57,17 @@ PrefabInstance:
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1186113323787273413, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -498,15 +498,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: canEat
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: eatPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: spotType
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: hungryCondition
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: minHomeDistance
       value: 0.3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: foodFoundCondition
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: edibleItems.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3782329659707969239, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
+    - {fileID: 3733725738735544875, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

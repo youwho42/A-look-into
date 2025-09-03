@@ -17,7 +17,6 @@ public class SquonkManager : MonoBehaviour
     public SpriteRenderer squonkSprite;
     Material squonkMaterial;
     public DrawZasYDisplacement appearCenter;
-    public GOAD_ScriptableCondition dayToSpawn;
     [Range(0.0f, 1.0f)]
     public float chanceToSpawn;
     float currentChance;

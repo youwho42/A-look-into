@@ -26,7 +26,13 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_Animal agent)
         {
             base.PerformAction(agent);
-
+            if (agent.currentEdible == null)
+            {
+                agent.isEating = false;
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
             eatTimer -= Time.deltaTime;
             if (eatTimer > 0)
             {

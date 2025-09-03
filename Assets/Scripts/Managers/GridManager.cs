@@ -30,7 +30,7 @@ public class GridManager : MonoBehaviour
 
     public List<MapTerrains> mapTerrains = new List<MapTerrains>();
 
-    Grid SetGrid()
+    public Grid SetGrid()
     {
         if (grid != null && groundMap != null)
             return grid;
@@ -234,6 +234,20 @@ public class GridManager : MonoBehaviour
         if (waterMap.GetTile(tile) != null)
             return true;
         return false;
+    }
+
+    
+    public void CompressAllTilemapBounds()
+    {
+        
+        grid = FindFirstObjectByType<Grid>();
+        Tilemap[] maps = grid.GetComponentsInChildren<Tilemap>();
+        foreach (var map in maps)
+        {
+            map.CompressBounds();
+            
+        }
+        
     }
 
 }

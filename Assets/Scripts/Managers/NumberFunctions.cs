@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class NumberFunctions
 {
@@ -13,5 +14,13 @@ public static class NumberFunctions
         TimeSpan ts = TimeSpan.FromMinutes(ticks);
 
         return $"{ts.Hours}:{ts.Minutes:D2}";
+    }
+
+    public static float GetDistance(Vector3 posA, Vector3 posB)
+    {
+        var dist = (posA - posB).sqrMagnitude;
+
+        return dist * dist;
+
     }
 }

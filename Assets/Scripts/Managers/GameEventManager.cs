@@ -11,7 +11,8 @@ public static class GameEventManager
     ///  Update Events
     /// </summary>
     ///public static readonly GameEvent onGameUpdateEvent = new GameEvent();
-     
+    public static readonly GameEvent onViewStarsEvent = new GameEvent();
+    
 
     /// <summary>
     ///  Day Night cycle times, hours and ticks, maybe days later...

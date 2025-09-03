@@ -31,6 +31,9 @@ namespace Klaxon.GravitySystem {
         public bool addGuide;
         [ConditionalHide("addGuide", true)]
         public QI_ItemData guideToAdd;
+
+        public Transform directionArrow;
+
         private new IEnumerator Start()
         {
             base.Start();
@@ -41,9 +44,16 @@ namespace Klaxon.GravitySystem {
         
         
         
+            directionArrow.gameObject.SetActive(false);
 
             isGrounded = true;
-
+            
+        
+            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(this);
+        }
+        private void OnDestroy()
+        {
+            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().RemoveFreeItemFromList(this);
         }
 
         public override void Update()
@@ -320,13 +330,30 @@ namespace Klaxon.GravitySystem {
             velocity = _velocity;
             MakeBounceSound(NumberFunctions.RemapNumber(velocity, 0.0f, 1.3f, 0.0f, 1.0f));
         }
-
-        private void OnTriggerEnter2D(Collider2D collision)
+        public void SetArrowVisible()
         {
-            if (collision.CompareTag("Water") || collision.CompareTag("Animal"))
+            directionArrow.gameObject.SetActive(true);
+            SetArrowInvisible(1.0f);
+        }
+        public void SetArrowInvisible(float time)
+        {
+            CancelInvoke("HideArrow");
+            Invoke("HideArrow", time);
+        }
+        void HideArrow()
+        {
+            directionArrow.gameObject.SetActive(false);
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            
+        //}
+        //private void OnTriggerEnter2D(Collision2D collision)
+        //{
+            if (collision.gameObject.CompareTag("Water") || collision.gameObject.CompareTag("Animal"))
                 return;
 
-            if (collision.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
                 if (addGuide)
                 {
@@ -344,11 +371,14 @@ namespace Klaxon.GravitySystem {
             
                 if (gravityItem == this || gravityItem.currentLevel != currentLevel || gravityItem.itemObject.localPosition.z > displacement.positionZ|| itemObject.localPosition.z - displacement.positionZ > gravityItem.itemObject.localPosition.z)
                     return;
-                Vector2 directionA = (transform.position - collision.transform.position).normalized;
-                Vector2 directionB = gravityItem.currentDirection;
-                Vector2 direction = ((directionA + directionB) / 2).normalized;
+
+                var c = collision.contacts[0].normal;
+                //Vector2 directionA = (transform.position - collision.transform.position).normalized;
+                //Vector2 directionB = gravityItem.currentDirection;
+                //Vector2 direction = ((directionA + directionB) / 2).normalized;
+
                 float addedVelocity = gravityItem.currentVelocity * 0.07f;
-                AddMovement(direction, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity + addedVelocity : velocity * itemBounceFriction);
+                AddMovement(c, gravityItem.currentVelocity != 0 ? gravityItem.currentVelocity + addedVelocity : velocity * itemBounceFriction);
                 if (gravityItem.currentVelocity >= 1.0f)
                 {
                     bounceFactor = 1;

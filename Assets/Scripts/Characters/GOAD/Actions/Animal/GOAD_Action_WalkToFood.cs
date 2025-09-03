@@ -30,7 +30,12 @@ namespace Klaxon.GOAD
                     agent.walker.facingRight = agent.jumper.facingRight;
                 agent.jumper.enabled = false;
             }
-
+            if (agent.currentEdible == null || agent.walker.itemObject.localPosition.z > 0)
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
             SetEatPosition(agent);
             agent.walker.SetWorldDestination(eatPosition);
             
@@ -39,7 +44,12 @@ namespace Klaxon.GOAD
         public override void PerformAction(GOAD_Scheduler_Animal agent)
         {
             base.PerformAction(agent);
-
+            if(agent.currentEdible == null || agent.walker.itemObject.localPosition.z > 0)
+            {
+                success = false;
+                agent.SetActionComplete(true);
+                return;
+            }
             if (Vector2.Distance(transform.position, eatPosition) <= 0.02f)
             {
                 agent.walker.currentDirection = Vector2.zero;

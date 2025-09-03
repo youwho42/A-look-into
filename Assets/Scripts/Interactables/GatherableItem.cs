@@ -14,7 +14,7 @@ public class GatherableItem : MonoBehaviour
     public bool hasBeenHarvested;
     
     public GameObject harvestedSticker;
-    
+    public GameObject harvstedItemsHolder;
 
     private void Start()
     {
@@ -38,14 +38,27 @@ public class GatherableItem : MonoBehaviour
         return false;
     }
 
+    public void SetAsHarvested()
+    {
+        hasBeenHarvested = true;
+        Invoke("SetHarvestVisuals", 2.0f);
+    }
+
+    void SetHarvestVisuals()
+    {
+        if (harvestedSticker != null)
+            harvestedSticker.SetActive(hasBeenHarvested);
+        if (harvstedItemsHolder != null)
+            harvstedItemsHolder.SetActive(!hasBeenHarvested);
+    }
+
     public void DailyReset(int time)
     {
         if (time == timeToReset)
         {
             currentAmount = maxPerDay;
             hasBeenHarvested = false;
-            if(harvestedSticker!= null)
-                harvestedSticker.SetActive(false);
+            SetHarvestVisuals();
         }
         
     }
@@ -53,7 +66,6 @@ public class GatherableItem : MonoBehaviour
     public void SetStateFromSave(bool state)
     {
         hasBeenHarvested = state;
-        if (harvestedSticker != null)
-            harvestedSticker.SetActive(state);
+        SetHarvestVisuals();
     }
 }

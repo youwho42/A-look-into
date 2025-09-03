@@ -26,6 +26,7 @@ public enum UIScreenType
     RobotUI,
     PaintingUI,
     RestorePaintingUI,
-    SupershapeUI
+    SupershapeUI,
+    Sky
    
 }

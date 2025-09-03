@@ -95,8 +95,7 @@ public class EquipmentAxeData : EquipmentData
             if (InteractCostReward())
             {
                 playerInfo.playerActivateSpyglass.SlowTimeEvent(false);
-                gatherableItem.hasBeenHarvested = true;
-                gatherableItem.harvestedSticker.SetActive(true);
+                gatherableItem.SetAsHarvested();
 
                 MiniGameManager.instance.StartMiniGame(miniGameType, targetItem, nearest.gameObject);
             }

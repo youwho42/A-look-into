@@ -50,10 +50,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainImage: {fileID: 4038495087532890618}
   mainShadow: {fileID: 0}
+  nightShadow: {fileID: 0}
   itemSpritesList:
   - item: {fileID: 21300000, guid: 69a27dc0c2d5a0141b02e6c4cb9ec76f, type: 3}
   - item: {fileID: 21300000, guid: 0b57211a29174bd4fad350cff628ce02, type: 3}
   - item: {fileID: 21300000, guid: d4cf9568f72c6e64ab0262421c436c64, type: 3}
+  flippable: 1
 --- !u!114 &-7294883541076694449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +125,7 @@ MonoBehaviour:
   timeToReset: 0
   hasBeenHarvested: 0
   harvestedSticker: {fileID: 0}
+  harvstedItemsHolder: {fileID: 0}
 --- !u!1 &7448400011696120184
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1664095623768460434}
   - component: {fileID: 4038495087532890618}
+  - component: {fileID: 8407229694597772953}
   m_Layer: 0
   m_Name: TearPoolA
   m_TagString: Untagged
@@ -210,3 +214,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &8407229694597772953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448400011696120184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa2b814e7c7b4641b63887c5673b86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minGlow: 0
+  maxGlow: 0
+  bloomMinIntensity: 1
+  bloomMaxIntensity: 5
+  useAlpha: 0
+  useIntensity: 1

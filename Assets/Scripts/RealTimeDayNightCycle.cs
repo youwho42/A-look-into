@@ -1,5 +1,19 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+public class CallbackOnTick
+{
+    public Action callback;
+    public CycleTicks cycleTick;
+
+    public CallbackOnTick(Action _callback, CycleTicks _cycleTick)
+    {
+        callback = _callback;
+        cycleTick = _cycleTick;
+    }
+}
 
 public class CycleTicks
 {
@@ -46,6 +60,8 @@ public class RealTimeDayNightCycle : MonoBehaviour
     bool hourTicked;
     bool minuteTicked;
 
+    List<CallbackOnTick> allCallbacks = new List<CallbackOnTick>();
+
     public Color dayColor;
     public Color nightColor;
     public Gradient[] sunsetColors;
@@ -72,11 +88,39 @@ public class RealTimeDayNightCycle : MonoBehaviour
         sun = GameObject.FindGameObjectWithTag("Sun").GetComponent< UnityEngine.Rendering.Universal.Light2D>();
         hours = Mathf.RoundToInt(currentTimeRaw / 60);
         minutes = currentTimeRaw % 60;
-        gradientIndex = Random.Range(0, sunsetColors.Length);
+        gradientIndex = UnityEngine.Random.Range(0, sunsetColors.Length);
         SetDayState();
         StartCoroutine(TimeOfDay());
         Invoke("InitializeTick", 1.0f);
         SetGradient();
+    }
+
+    public CallbackOnTick AddCallbackOnTick(Action callback, CycleTicks cycleTick)
+    {
+        CallbackOnTick cb = new CallbackOnTick(callback, cycleTick);
+        allCallbacks.Add(cb);
+        return cb;
+    }
+
+    public void RemoveCallbackOnTick(CallbackOnTick callback)
+    {
+        if(callback == null)
+            return;
+        if(allCallbacks.Contains(callback))
+            allCallbacks.Remove(callback);
+        
+    }
+
+    void InvokeAllCallbacks()
+    {
+        for (int i = allCallbacks.Count - 1; i >= 0; i--)
+        {
+            if (allCallbacks[i].cycleTick.day == currentDayRaw && allCallbacks[i].cycleTick.tick == currentTimeRaw)
+            { 
+                allCallbacks[i].callback.Invoke(); 
+                allCallbacks.RemoveAt(i);
+            }
+        }
     }
 
     public CycleTicks GetCycleTime(int ticks)
@@ -128,7 +172,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
     void SetGradient()
     {
-        gradientIndex = Random.Range(0, sunsetColors.Length);
+        gradientIndex = UnityEngine.Random.Range(0, sunsetColors.Length);
         gradientSet = true;
     }
     
@@ -176,6 +220,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
     {
         while (true)
         {
+            
             float currentTickTime = Time.time;
             deltaTick = currentTickTime - lastTick;
             //deltaTick *= 0.02f;
@@ -206,7 +251,7 @@ public class RealTimeDayNightCycle : MonoBehaviour
 
                 SetDayState();
                 GameEventManager.onTimeTickEvent.Invoke(currentTimeRaw);
-
+                InvokeAllCallbacks();
                 // Setting new sunset/sunrise colors
                 if (hours % 12 == 0)
                     SetGradient();

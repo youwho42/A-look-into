@@ -30,14 +30,16 @@ public class PlantLife : MonoBehaviour
     Collider2D coll;
     public LayerMask farmLayer;
     public float plantSwayAmount;
-    private void OnEnable()
-    {
-        GameEventManager.onTimeTickEvent.AddListener(CheckPlantCycle);
-    }
-    private void OnDisable()
-    {
-        GameEventManager.onTimeTickEvent.RemoveListener(CheckPlantCycle);
-    }
+    
+    
+    //private void OnEnable()
+    //{
+    //    GameEventManager.onTimeTickEvent.AddListener(CheckPlantCycle);
+    //}
+    //private void OnDisable()
+    //{
+    //    GameEventManager.onTimeTickEvent.RemoveListener(CheckPlantCycle);
+    //}
 
     private void Start()
     {
@@ -54,26 +56,42 @@ public class PlantLife : MonoBehaviour
         if(sm!=null)
             sm.SetFloat("_WindDensity", plantSwayAmount + r);
         
+        if (cycle != null)
+            RealTimeDayNightCycle.instance.AddCallbackOnTick(SetNextPlantCycle, cycle);
     }
 
-    void CheckPlantCycle(int tick)
+    void SetNextPlantCycle()
     {
         if (currentCycle == plantCycles.Count - 1 || cycle == null)
             return;
-        RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
-        if (tick >= cycle.tick && dayNightCycle.currentDayRaw == cycle.day)
-        {
-            
-            currentCycle++;
-            SetSprites();
-            SetNextCycleTime();
-        }
+       
+        currentCycle++;
+        SetSprites();
+        SetNextCycleTime();
+        
     }
+
+    //void CheckPlantCycle(int tick)
+    //{
+    //    if (currentCycle == plantCycles.Count - 1 || cycle == null)
+    //        return;
+    //    RealTimeDayNightCycle dayNightCycle = RealTimeDayNightCycle.instance;
+    //    if (tick >= cycle.tick && dayNightCycle.currentDayRaw == cycle.day)
+    //    {
+            
+    //        currentCycle++;
+    //        SetSprites();
+    //        SetNextCycleTime();
+    //    }
+    //}
 
     public void SetNextCycleTime()
     {
+        if (currentCycle == plantCycles.Count - 1)
+            return;
+
         cycle = RealTimeDayNightCycle.instance.GetCycleTime(ticksPerCycle);
-        
+        RealTimeDayNightCycle.instance.AddCallbackOnTick(SetNextPlantCycle, cycle);
     }
 
     public void SetSprites()

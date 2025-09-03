@@ -277,7 +277,7 @@ namespace Klaxon.GravitySystem
         public void Move(Vector2 dir, float velocity)
         {
             currentDirection = dir;
-            currentVelocity = velocity;
+            currentVelocity = dir == Vector2.zero ? 0 : velocity;
 
 
             Vector3 currentPosition = _transform.position;

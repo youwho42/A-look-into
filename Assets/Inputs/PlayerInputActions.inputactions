@@ -238,6 +238,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "StarMap",
+                    "type": "Button",
+                    "id": "833ac4dd-344c-44d6-8b41-22083ef53c3d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -997,6 +1006,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ShiftTransfer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "791e518d-0415-4630-a171-9a7acdf92d6d",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "StarMap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

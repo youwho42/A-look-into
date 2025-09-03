@@ -12,11 +12,6 @@ public class TilemapToPNGEditor : Editor
 
         DrawDefaultInspector();
 
-
-        if (GUILayout.Button("Generate Base Map Image"))
-        {
-            tilemapToImage.SaveBaseMap();
-        }
         if (GUILayout.Button("Generate All Map Images"))
         {
             tilemapToImage.SaveFinalMap();

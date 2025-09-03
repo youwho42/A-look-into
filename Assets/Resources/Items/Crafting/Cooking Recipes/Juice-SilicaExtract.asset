@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: Juice-SilicaExtract
+  m_EditorClassIdentifier: 
+  Name: Silica Extract Juice
+  ProductType: 3
+  Ingredients:
+  - Item: {fileID: 11400000, guid: 339c4b1f5fe29bd46a141500657091d7, type: 2}
+    Amount: 1
+  - Item: {fileID: 11400000, guid: 88169c70cd3323e478ee70a3b6fa0674, type: 2}
+    Amount: 5
+  Product:
+    Item: {fileID: 11400000, guid: 3735b7b0dcd43ec4d8eb7df9603cbccf, type: 2}
+    Amount: 1
+  CraftingTime: 3

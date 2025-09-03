@@ -82,18 +82,7 @@ public class PlayerActivateSmells : MonoBehaviour
 
     public void ActivateSmells()
     {
-        
-        smellGenerators = GetSmells();
-        if (smellGenerators.Count <= 0)
-        {
-            active = false;
-            return;
-        }
         holdButton.action.canceled += OnHoldButtonCanceled;
-        foreach (var smell in smellGenerators)
-        {
-            smell.StartSmells();
-        }
         activatedSmells++;
         active = true;
         StopAllCoroutines();
@@ -102,6 +91,16 @@ public class PlayerActivateSmells : MonoBehaviour
         StartCoroutine(GrowNose());
         player.animatePlayerScript.ToggleBreatheAnimation(true);
 
+
+        smellGenerators = GetSmells();
+        if (smellGenerators.Count <= 0)
+            return;
+        
+        foreach (var smell in smellGenerators)
+        {
+            smell.StartSmells();
+        }
+        
     }
     void DeactivateSmells()
     {
