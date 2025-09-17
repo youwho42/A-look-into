@@ -36,9 +36,12 @@ namespace Klaxon.StatSystem
             {
                 if (stat != modifier.StatToModify)
                     continue;
+                var currentPercent = stat.GetModifiedCurrent() / stat.GetModifiedMax();
                 modifier.finalModifierAmount = modifier.ModifierAmount;
                 stat.AddModifier(modifier);
+
                 
+                stat.SetCurrent(stat.GetModifiedMax() * currentPercent);
                 break;
             }
             GameEventManager.onStatUpdateEvent.Invoke();
@@ -51,21 +54,26 @@ namespace Klaxon.StatSystem
                 if (stat != modifier.StatToModify)
                     continue;
                 bool alreadyExists = false;
+                var currentPercent = stat.GetModifiedCurrent() / stat.GetModifiedMax();
                 List<StatModifier> mods = stat.GetModifierList();
                 foreach (var mod in mods)
                 {
                     if (mod != modifier)
                         continue;
-
+                    
                     alreadyExists = true;
                     mod.finalModifierAmount += modifier.ModifierAmount;
-
+                    
+                    
+                    stat.SetCurrent(stat.GetModifiedMax() * currentPercent);
                     break;
                 }
                 if (!alreadyExists)
                 {
+                    
                     modifier.finalModifierAmount = modifier.ModifierAmount;
                     stat.AddModifier(modifier);
+                    stat.SetCurrent(stat.GetModifiedMax() * currentPercent);
                 }
 
 

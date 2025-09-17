@@ -8,7 +8,7 @@ public class PokableItem : MonoBehaviour
     int timesPoked;
     public int TimesPoked { get { return timesPoked; } }
     public MiniGameDificulty GameDificulty;
-
+    
     public void SetTimesPoked(int times)
     {
         timesPoked = times;

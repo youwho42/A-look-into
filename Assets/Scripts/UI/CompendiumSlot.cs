@@ -33,6 +33,8 @@ public class CompendiumSlot : MonoBehaviour
         {
             int index = PlayerInformation.instance.animalCompendiumInformation.animalNames.IndexOf(item.Name);
             int amount = PlayerInformation.instance.animalCompendiumInformation.animalTimesViewed[index];
+            if (item.ResearchRecipes.Count <= 0)
+                return;
             if(amount >= item.ResearchRecipes[0].RecipeRevealAmount)
                 longDescription = true;
         }

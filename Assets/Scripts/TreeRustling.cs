@@ -9,7 +9,7 @@ public class TreeRustling : MonoBehaviour, IWindEffect
     public DrawZasYDisplacement treeCollision;
 
     public Sprite treeDropppingSprite;
-
+    public Vector2Int minMaxDroppings = new Vector2Int(1, 6);
     public float dropRadius;
     public TreeLeavesShake treeLeavesShake;
 
@@ -28,14 +28,15 @@ public class TreeRustling : MonoBehaviour, IWindEffect
         soundSet.SetSource(source, t);
         source.volume = soundSet.volume;
         soundSet.Play();
-        treeLeavesShake.ShakeLeaves();
+        if(treeLeavesShake != null)
+            treeLeavesShake.ShakeLeaves();
         if (canDropItem)
             DropDropping();
     }
 
     void DropDropping()
     {
-        int r = Random.Range(1, 6);
+        int r = Random.Range(minMaxDroppings.x, minMaxDroppings.y);
         for (int i = 0; i < r; i++)
         {
             var pos = Random.insideUnitCircle * dropRadius;

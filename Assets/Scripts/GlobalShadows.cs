@@ -38,7 +38,7 @@ public class GlobalShadows : MonoBehaviour
         GameEventManager.onTimeTickEvent.AddListener(SetShadows);
         GameEventManager.onPlayerPlacedItemEvent.AddListener(GetAllLights);
         GetAllLights();
-        SetShadows(0);
+        SetShadows(dayNightCycle.currentTimeRaw);
     }
     private void OnDisable()
     {
@@ -103,11 +103,11 @@ public class GlobalShadows : MonoBehaviour
     public void StartShadowFade()
     {
         
-        if (RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Sunrise)
+        if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Sunrise)
             SetShadowVisibility(false);
-        else if (RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Sunset)
+        else if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Sunset)
             SetShadowVisibility(true);
-        else if (RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Day)
+        else if (dayNightCycle.dayState == RealTimeDayNightCycle.DayState.Day)
             shadowColor = new Color(shadowColor.r, shadowColor.g, shadowColor.b, 0.5f);
         else
             shadowColor = new Color(shadowColor.r, shadowColor.g, shadowColor.b, 0.0f);
@@ -121,8 +121,8 @@ public class GlobalShadows : MonoBehaviour
 
     void SetShadowVisibility(bool dayToNight)
     {
-        float elapsedTime = RealTimeDayNightCycle.instance.currentTimeRaw - (dayToNight ? RealTimeDayNightCycle.instance.nightStart : RealTimeDayNightCycle.instance.dayStart);
-        float waitTime = RealTimeDayNightCycle.instance.dayNightTransitionTime;
+        float elapsedTime = dayNightCycle.currentTimeRaw - (dayToNight ? dayNightCycle.nightStart : dayNightCycle.dayStart);
+        float waitTime = dayNightCycle.dayNightTransitionTime;
         float alpha = dayToNight ? 0.5f : 0.0f;
         float amount = dayToNight ? 0.0f : 0.5f;
         alpha = Mathf.Lerp(alpha, amount, elapsedTime / waitTime);
@@ -134,8 +134,8 @@ public class GlobalShadows : MonoBehaviour
 
     public void SetShadowRotation()
     {
-        float elapsedTime = RealTimeDayNightCycle.instance.currentTimeRaw - RealTimeDayNightCycle.instance.dayStart;
-        float waitTime = (RealTimeDayNightCycle.instance.nightStart + RealTimeDayNightCycle.instance.dayNightTransitionTime) - RealTimeDayNightCycle.instance.dayStart;
+        float elapsedTime = dayNightCycle.currentTimeRaw - dayNightCycle.dayStart;
+        float waitTime = (dayNightCycle.nightStart + dayNightCycle.dayNightTransitionTime) - dayNightCycle.dayStart;
         float zRotation = 0;
 
         zRotation = Mathf.Lerp(80, -80, elapsedTime / waitTime);

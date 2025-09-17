@@ -122,7 +122,10 @@ public class RealTimeDayNightCycle : MonoBehaviour
             }
         }
     }
-
+    public UnityEngine.Rendering.Universal.Light2D GetSun()
+    {
+        return sun;
+    }
     public CycleTicks GetCycleTime(int ticks)
     {
         var cycle = new CycleTicks();

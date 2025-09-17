@@ -31,6 +31,7 @@ namespace Klaxon.StatSystem
         [ConditionalHide("ConstantDecline", true)]
         public float DeclinePerTick;
         float CurrentDeclineAmount;
+        float LastCurrentAmount;
         public void SetMax(float amount)
         {
             MaxAmount = amount;
@@ -42,6 +43,7 @@ namespace Klaxon.StatSystem
         {
             CurrentAmount = amount;
             CurrentAmount = Mathf.Clamp(CurrentAmount + amount, 0, GetModifiedMax());
+            
         }
         /// <summary>
         /// Increases the Stat Destination by the given RawNumber 
@@ -58,6 +60,7 @@ namespace Klaxon.StatSystem
                 else
                     MaxAmount += changer.Amount;
             }
+            CheckStatFilled();
             GameEventManager.onStatUpdateEvent.Invoke();
         }
         
@@ -77,7 +80,19 @@ namespace Klaxon.StatSystem
                 else
                     MaxAmount *= changer.Amount;
             }
+            CheckStatFilled();
             GameEventManager.onStatUpdateEvent.Invoke();
+        }
+        void CheckStatFilled()
+        {
+
+            if (CurrentAmount < MaxAmount || LastCurrentAmount == CurrentAmount)
+            {
+                LastCurrentAmount = CurrentAmount;
+                return;
+            }
+            LastCurrentAmount = CurrentAmount;
+            AudioManager.instance.PlaySound("StatFilled");
         }
 
         public float GetModifiedChangeAmount(float changeAmount)

@@ -20,7 +20,8 @@ public enum SpotType
     Deer,
     Bear,
     Bluebird,
-    Gull
+    Gull,
+    Caterpillar
 
 }
 

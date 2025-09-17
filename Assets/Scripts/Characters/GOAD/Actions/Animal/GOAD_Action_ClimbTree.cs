@@ -138,6 +138,7 @@ namespace Klaxon.GOAD
                     if (hit.TryGetComponent(out TreeRustling tree))
                     {
                         currentClimable = tree;
+                        break;
                     }
 
                 }

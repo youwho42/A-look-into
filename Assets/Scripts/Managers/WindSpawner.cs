@@ -20,41 +20,39 @@ public class WindSpawner : MonoBehaviour
     
     public Transform objectToFollow;
     ObjectPooler pool;
-    int nextWindTick;
+    CycleTicks nextCycle;
+    RealTimeDayNightCycle dayNightCycle;
+    CallbackOnTick currentCallback;
 
     private void Start()
     {
+        dayNightCycle = RealTimeDayNightCycle.instance;
         pool = GetComponent<ObjectPooler>();
-        nextWindTick = GetNextWindTick(RealTimeDayNightCycle.instance.currentTimeRaw);
-    }
+        GetNextWindTick();
 
-    private void OnEnable()
-    {
-        GameEventManager.onTimeTickEvent.AddListener(StartWindOnTick);
-    }
-
-    private void OnDisable()
-    {
-        GameEventManager.onTimeTickEvent.RemoveListener(StartWindOnTick);
-    }
-
-    void StartWindOnTick(int tick)
-    {
-        
-        if (tick >= nextWindTick)
-        {
-            SpawnObject();
-            nextWindTick = GetNextWindTick(tick);
-        }
     }
 
     
-    public int GetNextWindTick(int tick)
+
+    private void OnDisable()
     {
-        
+        dayNightCycle.RemoveCallbackOnTick(currentCallback);
+        currentCallback = null;
+    }
+
+
+    void StartWindOnTick()
+    {
+        SpawnObject();
+        GetNextWindTick();
+    }
+
+
+    public void GetNextWindTick()
+    {
         var t = (windTimeCurve.Evaluate(Random.Range(0.0f, 1.0f))) * (minMaxTimeToSpawn.y - minMaxTimeToSpawn.x) + minMaxTimeToSpawn.x;
-        
-        return ((int)t + tick) % 1440;
+        nextCycle = dayNightCycle.GetCycleTime((int)t);
+        currentCallback = dayNightCycle.AddCallbackOnTick(StartWindOnTick, nextCycle);
     }
 
     private void SpawnObject()

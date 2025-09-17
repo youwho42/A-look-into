@@ -28,6 +28,7 @@ public class TreeShadows : MonoBehaviour
 
     bool materialsSet;
 
+
     private void Awake()
     {
         
@@ -67,6 +68,8 @@ public class TreeShadows : MonoBehaviour
         }
 
         shadowMaterial = shadowSprite.material;
+
+
         globalShadows = GlobalShadows.instance;
         GameEventManager.onShadowTickEvent.AddListener(SetShadows);
         isVisible = true;
