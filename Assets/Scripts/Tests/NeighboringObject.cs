@@ -19,7 +19,8 @@ public enum NeighborObjectType{
     DeadTree,
     CrimsonKing,
     Bamboo,
-    Purple
+    Purple,
+    SquonkShroom
 }
 
 public class NeighboringObject : MonoBehaviour

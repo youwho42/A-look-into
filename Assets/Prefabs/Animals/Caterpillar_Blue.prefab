@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 689187762586368509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.024800021, y: 0.009599408, z: 0}
+  m_LocalPosition: {x: 0.03030004, y: 0.008998871, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -392,12 +392,12 @@ PrefabInstance:
     - target: {fileID: 4339192984830754720, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0305
+      value: 0.036
       objectReference: {fileID: 0}
     - target: {fileID: 4339192984830754720, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0099
+      value: 0.009
       objectReference: {fileID: 0}
     - target: {fileID: 5109975621678393886, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -715,7 +715,7 @@ PrefabInstance:
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: edibleItems.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -732,7 +732,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'edibleItems.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: bd46715d9b7561a469052d91ee3cd63f,
+      objectReference: {fileID: 11400000, guid: de626d0ec7de1ef42a822548f3d50d7d,
         type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -818,6 +818,11 @@ PrefabInstance:
         type: 3}
       propertyPath: possibleGoals.Array.data[0].Priority
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[2].Priority
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}

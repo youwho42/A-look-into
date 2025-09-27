@@ -92,7 +92,7 @@ namespace Klaxon.GOAD
 
             agent.jumper.SetLastPosition();
 
-            if (Vector2.Distance(transform.position, agent.jumper.currentDestination) <= 0.02f)
+            if (NumberFunctions.GetDistanceV2(transform.position, agent.jumper.currentDestination) <= 0.0004f)
                 atDestination = true;
 
 

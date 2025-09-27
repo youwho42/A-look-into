@@ -77,44 +77,22 @@ public class GridManager : MonoBehaviour
                 for (int z = -1; z < groundMap.cellBounds.zMax; z++)
                 {
                 Vector3Int pos = new Vector3Int(x, y, z);
+                    float c = NumberFunctions.RemapNumber(z, -1, groundMap.cellBounds.zMax, 0.0f, 0.25f);
+                    Color levelcolor = Color.Lerp(Color.white, Color.black, c);
+                    Color levelcolorB = Color.Lerp(Color.white, Color.black, c * 0.5f);
                     if (groundMap.GetTile(pos) != null)
                     {
                         groundMap.SetTileFlags(pos, TileFlags.None);
-                        
-
-                        
-
-                        float c = NumberFunctions.RemapNumber(z, -1, groundMap.cellBounds.zMax, 0.0f, 0.25f);
-                        Color levelcolor = Color.Lerp(Color.white, Color.black, c);
-                        Color levelcolorB = Color.Lerp(Color.white, Color.black, c * 0.5f);
                         groundMap.SetColor(pos, levelcolor);
-
-                        foreach (var terrain in mapTerrains)
+                    }
+                    foreach (var terrain in mapTerrains)
+                    {
+                        foreach (var map in terrain.tilemaps)
                         {
-                            
-                            foreach (var map in terrain.tilemaps)
-                            {
-                                map.SetTileFlags(pos, TileFlags.None);
-                                map.SetColor(pos, terrain.useHalftone ? levelcolorB : levelcolor);
-                            }
-                            
-                        }
-                        
-
-                        var cliffPos = pos - Vector3Int.forward;
-                        if(groundMap.GetTile(cliffPos) == null)
-                        {
-                            foreach (var terrain in mapTerrains)
-                            {
-
-                                foreach (var map in terrain.tilemaps)
-                                {
-                                    map.SetTileFlags(cliffPos, TileFlags.None);
-                                    map.SetColor(cliffPos, terrain.useHalftone ? levelcolorB : levelcolor);
-                                }
-
-                            }
-
+                            if (map.GetTile(pos) == null)
+                                continue;
+                            map.SetTileFlags(pos, TileFlags.None);
+                            map.SetColor(pos, terrain.useHalftone ? levelcolorB : levelcolor);
                         }
                     }
                 }

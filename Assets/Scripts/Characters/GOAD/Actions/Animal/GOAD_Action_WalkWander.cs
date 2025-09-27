@@ -127,8 +127,8 @@ namespace Klaxon.GOAD
                 agent.walker.SetDirection();
 
                 agent.walker.SetLastPosition();
-
-                if (Vector2.Distance(transform.position, agent.walker.currentDestination) <= 0.02f)
+                
+                if (NumberFunctions.GetDistanceV2(transform.position, agent.walker.currentDestination) <= 0.0004f)
                 {
                     atDestination = true;
                 }

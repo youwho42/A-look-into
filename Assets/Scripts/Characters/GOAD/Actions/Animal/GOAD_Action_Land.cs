@@ -87,7 +87,7 @@ namespace Klaxon.GOAD
             else
             {
                 
-                if (Mathf.Abs(agent.flier.itemObject.localPosition.y - agent.currentDisplacementSpot.displacedPosition.y) <= 0.05f && Vector2.Distance(agent.transform.position, agent.currentDisplacementSpot.transform.position) <= 0.05f)
+                if (Mathf.Abs(agent.flier.itemObject.localPosition.y - agent.currentDisplacementSpot.displacedPosition.y) <= 0.05f && NumberFunctions.GetDistanceV2(agent.transform.position, agent.currentDisplacementSpot.transform.position) <= 0.0025f)
                 {
                     agent.flier.itemObject.localPosition = agent.currentDisplacementSpot.displacedPosition;
                     agent.transform.position = agent.currentDisplacementSpot.transform.position;

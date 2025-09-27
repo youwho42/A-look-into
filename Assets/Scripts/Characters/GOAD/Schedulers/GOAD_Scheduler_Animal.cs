@@ -353,7 +353,7 @@ namespace Klaxon.GOAD
 
             flier.SetDirection();
             flier.SetDirectionZ();
-            if (flier.CheckDistanceToDestination() <= 0.02f)
+            if (flier.CheckDistanceToDestination() <= 0.0004f)
                 isDeviating = false;
 
             flier.SetLastPosition();
@@ -543,7 +543,8 @@ namespace Klaxon.GOAD
                 return;
             if (walker.enabled == false || walker.itemObject.localPosition.z > 0)
                 return;
-
+            if (walker.isClimbing)
+                return;
 
             var hit = Physics2D.OverlapCircle(eatPoint.position, 2f, LayerMask.GetMask("Interactable"), _transform.position.z, _transform.position.z);
             if (hit != null)

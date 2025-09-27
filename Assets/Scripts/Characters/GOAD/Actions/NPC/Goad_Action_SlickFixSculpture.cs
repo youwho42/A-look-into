@@ -33,8 +33,7 @@ namespace Klaxon.GOAD
             }
 
             bool atFixNode = false;
-            var dist = Vector2.Distance(transform.position, currentSculpture.fixNode.transform.position);
-            if (dist <= agent.walker.checkTileDistance + 0.03f)
+            if (NumberFunctions.GetDistanceV2(transform.position, currentSculpture.fixNode.transform.position) <= 0.0004f)
             {
                 atFixNode = true;
                 atSculpture = true;

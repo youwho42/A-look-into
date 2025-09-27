@@ -50,7 +50,7 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
-            if (Vector2.Distance(transform.position, eatPosition) <= 0.02f)
+            if (NumberFunctions.GetDistanceV2(transform.position, eatPosition) <= 0.0004f)
             {
                 agent.walker.currentDirection = Vector2.zero;
                 if (transform.position.x < agent.currentEdible.transform.position.x && !agent.walker.facingRight)
@@ -94,7 +94,7 @@ namespace Klaxon.GOAD
         {
             eatPosition = new Vector3(
                 agent.transform.position.x <= agent.currentEdible.transform.position.x ? agent.currentEdible.transform.position.x - agent.xOffset : agent.currentEdible.transform.position.x + agent.xOffset,
-                agent.currentEdible.transform.position.y,
+                agent.currentEdible.transform.position.y - agent.eatPoint.localPosition.y,
                 agent.currentEdible.transform.position.z);
         }
     }

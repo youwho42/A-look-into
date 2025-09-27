@@ -24,23 +24,24 @@ public class Boid : MonoBehaviour
         Vector2 desiredAvoidance = Vector2.zero;
         int total = 0;
 
-        Vector2 currentBoidPosition = (Vector2)transform.position; // Cache position
+        Vector2 currentBoidPosition = (Vector2)transform.position; 
 
         foreach (var boid in boidManager.allBoids)
         {
             if (boid == this || !boid.inBoidPool)
                 continue;
 
-            var sqrDist = ((Vector2)boid.transform.position - currentBoidPosition).sqrMagnitude;
+            var boidPos = boid.transform.position;
+
+            var sqrDist = ((Vector2)boidPos - currentBoidPosition).sqrMagnitude;
             if (sqrDist <= neighborDistanceFarthest * neighborDistanceFarthest)
             {
                 desiredDirection += boid.currentDirection;
-                desiredPosition += (Vector2)boid.transform.position;
+                desiredPosition += (Vector2)boidPos;
 
                 if (sqrDist <= neighborDistanceClosest * neighborDistanceClosest)
                 {
-                    Vector2 avoidDirection = currentBoidPosition - (Vector2)boid.transform.position;
-                    avoidDirection /= Mathf.Sqrt(sqrDist); // Only take the square root when necessary
+                    Vector2 avoidDirection = (currentBoidPosition - (Vector2)boidPos).normalized;
                     desiredAvoidance += avoidDirection;
                 }
 
@@ -56,22 +57,20 @@ public class Boid : MonoBehaviour
 
             result = desiredDirection + desiredPosition + desiredAvoidance;
 
-            // Use lerp to smooth the direction change
             currentDirection = Vector2.Lerp(currentDirection, currentDirection + result, Time.deltaTime);
         }
 
-        float distF = Vector2.Distance(boidManager.currentDestination.position, currentBoidPosition);
+        float distF = NumberFunctions.GetDistanceV2((Vector2)boidManager.currentDestination.position, currentBoidPosition);
 
-        if (distF >= roamingDistance)
+        if (distF >= roamingDistance * roamingDistance)
         {
-            Vector2 center = (Vector2)boidManager.currentDestination.position - currentBoidPosition;
-            currentDirection += center / distF;
+            currentDirection += ((Vector2)boidManager.currentDestination.position - currentBoidPosition).normalized;
         }
-        else if (distF <= .01f)
+        else if (distF <= 0.0001f) 
         {
-            Vector2 center = currentBoidPosition - (Vector2)boidManager.currentDestination.position;
-            currentDirection += center / distF;
+            currentDirection += (currentBoidPosition - (Vector2)boidManager.currentDestination.position).normalized;
         }
+        
 
         currentDirection = currentDirection.normalized;
         return currentDirection;

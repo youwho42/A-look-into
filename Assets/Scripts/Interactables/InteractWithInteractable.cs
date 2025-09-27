@@ -35,7 +35,9 @@ namespace Klaxon.Interactable
 
         private float currentHoldTime = 0f;
         public bool isHolding = false;
+        Transform playerTransform;
 
+        
         private void OnEnable()
         {
             holdButton.action.started += OnHoldButtonPerformed;
@@ -53,6 +55,7 @@ namespace Klaxon.Interactable
 
         private void Start()
         {
+            playerTransform = transform;
             player = PlayerInformation.instance;
             uiManager = UIScreenManager.instance;
             interactSlider.maxValue = InputSystem.settings.defaultHoldTime;
@@ -84,7 +87,7 @@ namespace Klaxon.Interactable
                 return;
 
             currentInteractables.Clear();
-            Vector3 pickUpPosition = playermovement.facingRight ? transform.position + pickupOffset : transform.position - pickupOffset;
+            Vector3 pickUpPosition = playermovement.facingRight ? playerTransform.position + pickupOffset : playerTransform.position - pickupOffset;
             Collider2D[] colliders = Physics2D.OverlapCircleAll(pickUpPosition, interactableRadius, interactableLayer);
 
             if (colliders.Length > 0)
@@ -93,7 +96,7 @@ namespace Klaxon.Interactable
                 {
                     if (colliders[i].GetComponent<Interactable>() != null)
                     {
-                        if (colliders[i].transform.position.z == transform.position.z)
+                        if (colliders[i].transform.position.z == playerTransform.position.z)
                             currentInteractables.Add(colliders[i].gameObject.GetComponent<Interactable>());
 
                     }
@@ -216,14 +219,14 @@ namespace Klaxon.Interactable
         {
             // Find nearest item.
             Interactable nearest = null;
-            float distance = 0;
+            float distance = float.MaxValue;
 
             for (int i = 0; i < items.Count; i++)
             {
                 if (!items[i].canInteract || items[i] == null)
                     continue;
-                var closestPoint = items[i].GetComponent<Collider2D>().ClosestPoint(transform.position);
-                float tempDistance = Vector3.Distance(transform.position, closestPoint);
+                var closestPoint = items[i].GetComponent<Collider2D>().ClosestPoint(playerTransform.position);
+                float tempDistance = NumberFunctions.GetDistanceV2((Vector2)playerTransform.position, closestPoint);
                 if (nearest == null || tempDistance < distance)
                 {
                     nearest = items[i];

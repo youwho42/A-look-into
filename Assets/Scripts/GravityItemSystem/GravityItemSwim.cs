@@ -266,9 +266,9 @@ namespace Klaxon.GravitySystem
             if (currentTilePosition == null || currentTilePosition.groundMap == null)
                 return;
             var lastDestination = currentDestination;
-            Vector2 rand = (Random.insideUnitCircle * swimRoamingDistance);
+            Vector2 rand = (Random.insideUnitCircle * (swimRoamingDistance * 0.33f));
             Vector3 centerPos = centerOfActiveArea == null ? transform.position : centerOfActiveArea.transform.position;
-            var possiblePos = new Vector3(centerPos.x + rand.x, centerPos.y + rand.y, 0 /*centerPos.z - 1*/);
+            var possiblePos = new Vector3(centerPos.x + rand.x, centerPos.y + rand.y, transform.position.z /*0*/ /*centerPos.z - 1*/);
             var d = currentTilePosition.groundMap.WorldToCell(possiblePos);
             for (int z = currentTilePosition.groundMap.size.z; z >= -5; z--)
             {

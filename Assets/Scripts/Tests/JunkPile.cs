@@ -15,6 +15,7 @@ public class JunkPile : MonoBehaviour
     [ContextMenu("Set Dirt Piles")]
     private void SetDirtPiles()
     {
+        RemoveAllObjects(junkHolder);
         Vector2 area = new Vector2(dirtPileRadius * 2, dirtPileRadius * 1.25f);
         SetDirt(area);
         SetItems(area);
@@ -71,7 +72,34 @@ public class JunkPile : MonoBehaviour
         return index;
     }
 
-    
+    public void RemoveAllObjects(Transform parent)
+    {
+        //Get an array with all children to this transform
+        GameObject[] allItemToDelete = GetAllChildren(parent);
+
+
+        //Now destroy them
+        foreach (GameObject child in allItemToDelete)
+        {
+            DestroyImmediate(child);
+        }
+
+    }
+    private GameObject[] GetAllChildren(Transform parent)
+    {
+        //This array will hold all children
+        GameObject[] allChildren = new GameObject[parent.childCount];
+
+        //Fill the array
+        int childCount = 0;
+        foreach (Transform child in parent.transform)
+        {
+            allChildren[childCount] = child.gameObject;
+            childCount += 1;
+        }
+
+        return allChildren;
+    }
 
     private void OnDrawGizmosSelected()
     {

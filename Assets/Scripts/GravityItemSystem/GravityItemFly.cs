@@ -506,7 +506,7 @@ namespace Klaxon.GravitySystem
 
         public float CheckDistanceToDestination()
         {
-            float dist = Vector2.Distance(_transform.position, currentDestination);
+            float dist = NumberFunctions.GetDistanceV2(_transform.position, currentDestination);
 
             return dist;
         }

@@ -106,7 +106,7 @@ namespace Klaxon.GOAD
             
             agent.walker.SetDirection();
 
-            if (DistanceToMarker() <= 0.5f)
+            if (DistanceToMarker() <= 0.25f)
             {
                 ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "IndicatorLocationFound"), false);
 
@@ -166,7 +166,7 @@ namespace Klaxon.GOAD
 
         float DistanceToMarker()
         {
-            return Vector3.Distance(transform.position, markerPosition);
+            return NumberFunctions.GetDistanceV3(transform.position, markerPosition);
         }
 
 

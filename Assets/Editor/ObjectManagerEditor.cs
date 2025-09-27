@@ -221,7 +221,7 @@ public class ObjectManagerEditor : Editor
                 allNeighbors.Add(n);
         }
         
-        allNeighbors = allNeighbors.OrderBy(x => Vector3.Distance(center, x.transform.position)).Take(3).ToList();
+        allNeighbors = allNeighbors.OrderBy(x => NumberFunctions.GetDistanceV3(center, x.transform.position)).Take(3).ToList();
         foreach (var item in allNeighbors)
         {
             closest.Add(item.NeighborObjectType);

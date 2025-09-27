@@ -141,7 +141,7 @@ public class NavigationNode : MonoBehaviour
             NavigationNode currentNode = queue.Dequeue();
             List<NavigationNode> nearestNodes = currentNode.children;
             nearestNodes = nearestNodes.OrderBy(
-               x => Vector3.Distance(targetPosition, x.transform.position)
+               x => NumberFunctions.GetDistanceV3(targetPosition, x.transform.position)
                ).ToList();
 
             for (int i = 0; i < nearestNodes.Count; i++)
@@ -186,7 +186,7 @@ public class NavigationNode : MonoBehaviour
         while (queue.Count > 0)
         {
             NavigationNode currentNode = queue.Dequeue();
-            float distanceToTarget = Vector3.Distance(targetPosition, currentNode.transform.position);
+            float distanceToTarget = NumberFunctions.GetDistanceV3(targetPosition, currentNode.transform.position);
 
             if (distanceToTarget < closestDistance)
             {

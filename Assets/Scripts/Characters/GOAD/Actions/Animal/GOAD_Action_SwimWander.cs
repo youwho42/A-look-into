@@ -69,8 +69,9 @@ namespace Klaxon.GOAD
             }
             if (!agent.swimmer.boid.inBoidPool)
             {
-                if (Vector2.Distance(agent.swimmer.transform.position, agent.swimmer.currentDestination) <= 0.03f/* || agent.swimmer.CheckDistanceToDestination() <= 0.02f*/)
+                if (NumberFunctions.GetDistanceV3(agent.swimmer.transform.position, agent.swimmer.currentDestination) <= 0.0009f/* || agent.swimmer.CheckDistanceToDestination() <= 0.02f*/)
                     agent.SetBoidsState(true);
+                
             }
 
             agent.animator.SetBool("Swimming", true);
@@ -78,7 +79,7 @@ namespace Klaxon.GOAD
 
             if (!useStableZ)
             {
-                if (Vector2.Distance(agent.swimmer.itemObject.localPosition, agent.swimmer.currentDestinationZ) <= 0.02f/* || agent.swimmer.CheckDistanceToDestination() <= 0.02f*/)
+                if (NumberFunctions.GetDistanceV3(agent.swimmer.itemObject.localPosition, agent.swimmer.currentDestinationZ) <= 0.0004f/* || agent.swimmer.CheckDistanceToDestination() <= 0.02f*/)
                     agent.swimmer.SetRandomDestinationZ();
             }
 

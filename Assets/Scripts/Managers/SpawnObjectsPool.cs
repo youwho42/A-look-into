@@ -63,7 +63,7 @@ public class SpawnObjectsPool : MonoBehaviour
             var playerPos = PlayerInformation.instance.player.position;
             for (int i = 0; i < availableObjects.Count; i++)
             {
-                if (Vector3.Distance(playerPos, availableObjects[i].transform.position) > 5)
+                if (NumberFunctions.GetDistanceV3(playerPos, availableObjects[i].transform.position) > 25)
                     availableObjects[i].SetActive(false);
             }
         }

@@ -58,7 +58,7 @@ namespace Klaxon.GOAD
             }
 
 
-            if (Vector2.Distance(transform.position, agent.currentDisplacementSpot.transform.position) <= 0.02f)
+            if (NumberFunctions.GetDistanceV2(transform.position, agent.currentDisplacementSpot.transform.position) <= 0.0004f)
             {
                 agent.transform.position = agent.currentDisplacementSpot.transform.position;
                 success = true;

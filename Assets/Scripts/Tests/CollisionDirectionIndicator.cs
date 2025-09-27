@@ -10,9 +10,10 @@ public class CollisionDirectionIndicator : MonoBehaviour
     float maxCollisionDist = 1.0f;
     List<GravityItemMovementFree> allFreeObjects = new List<GravityItemMovementFree>();
     bool canActivate;
+    Transform playerTransform;
     private void Start()
     {
-        
+        playerTransform = transform;
         gravityItem = GetComponent<GravityItemNew>();
         circleCollider = GetComponent<CircleCollider2D>();
         GameEventManager.onTimeTickEvent.AddListener(CheckForObjects);
@@ -36,7 +37,7 @@ public class CollisionDirectionIndicator : MonoBehaviour
     {
         for (int i = 0; i < allFreeObjects.Count; i++)
         {
-            if (NumberFunctions.GetDistance(allFreeObjects[0].transform.position, transform.position) <= 1.0f)
+            if (NumberFunctions.GetDistanceV3(allFreeObjects[0].transform.position, playerTransform.position) <= 1.0f)
             {
                 canActivate = true;
                 return;
@@ -52,7 +53,7 @@ public class CollisionDirectionIndicator : MonoBehaviour
             return;
 
 
-        var hits = Physics2D.CircleCastAll(transform.position + (Vector3)circleCollider.offset, circleCollider.radius, gravityItem.currentDirection, maxCollisionDist, LayerMask.GetMask("Interactable"), transform.position.z, transform.position.z);
+        var hits = Physics2D.CircleCastAll(playerTransform.position + (Vector3)circleCollider.offset, circleCollider.radius, gravityItem.currentDirection, maxCollisionDist, LayerMask.GetMask("Interactable"), playerTransform.position.z, playerTransform.position.z);
         
         if (hits.Length > 0)
         {

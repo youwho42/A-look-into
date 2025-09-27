@@ -207,7 +207,7 @@ namespace Klaxon.GOAD
             InteractableChair best = null;
             foreach (var seat in allSeats)
             {
-                float d = Vector3.Distance(seat.transform.position, position);
+                float d = NumberFunctions.GetDistanceV3(seat.transform.position, position);
                 if (d < closest && seat.canInteract)
                 {
                     closest = d;

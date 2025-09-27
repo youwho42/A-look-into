@@ -484,8 +484,8 @@ namespace Klaxon.GOAD
             
             if (hasInteracted && !hasFoundDestination)
             {
-                var dist = Vector3.Distance(_transform.position, BPHomeDestination);
-                if (dist < 1.8f)
+                var dist = NumberFunctions.GetDistanceV3(_transform.position, BPHomeDestination);
+                if (dist < 3.24f)
                 {
                     hasFoundDestination = true;
                     currentAction.success = true;

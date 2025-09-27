@@ -154,7 +154,7 @@ public class SplineObjectFixedAngleEditor : Editor
         int mouseOverPointIndex = -1;
         for (int i = 0; i < splineObject.points.Count; i++)
         {
-            if(Vector3.Distance(mousePosition, splineObject.points[i]) < splineObject.handleRadius)
+            if(NumberFunctions.GetDistanceV3(mousePosition, splineObject.points[i]) < splineObject.handleRadius * splineObject.handleRadius)
             {
                 mouseOverPointIndex = i;
                 break;

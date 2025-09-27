@@ -160,8 +160,8 @@ public class CharacterFlight : MonoBehaviour
             {
                 if (hit[i].CompareTag(activeAreaBaseTagName))
                 {
-                    float tempDistance = Vector3.Distance(thisTransform.position, hit[i].transform.position);
-                    if (nearest == null || tempDistance < distance)
+                    float tempDistance = NumberFunctions.GetDistanceV3(thisTransform.position, hit[i].transform.position);
+                    if (nearest == null || tempDistance < distance * distance)
                     {
                         nearest = hit[i];
                         distance = tempDistance;
