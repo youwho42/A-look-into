@@ -52,7 +52,7 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
-            if (NumberFunctions.GetDistanceV2(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.0004f || agent.flier.CheckDistanceToDestination() <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= GlobalSettings.DistanceCheck || agent.flier.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 success = true;
                 agent.SetActionComplete(true);

@@ -186,7 +186,7 @@ namespace Klaxon.GOAD
             animator.SetFloat(velocityX_hash, 1);
             ghoster.SetDirection();
 
-            if (ghoster.CheckDistanceToDestination() <= 0.02f)
+            if (ghoster.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 isDeviating = false;
                 currentPathIndex = 0;

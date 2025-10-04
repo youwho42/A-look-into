@@ -147,7 +147,7 @@ namespace Klaxon.GOAD
                 agent.animator.SetBool(agent.walking_hash, true);
                 agent.walker.SetDirection();
 
-                if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.02f)
+                if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 {
                     hasNewOffset = false;
                     agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];

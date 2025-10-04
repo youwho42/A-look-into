@@ -41,7 +41,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetWorldDestination(agent.BPHomeDestination + (Vector3)offset);
             agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 success = true;
                 agent.SetActionComplete(true);

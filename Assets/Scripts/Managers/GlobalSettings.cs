@@ -8,4 +8,6 @@ public static class GlobalSettings
     const float spriteDisplacementY = 0.2990625f;
     public static float SpriteDisplacementY { get { return spriteDisplacementY; } }
 
+    const float distanceCheck = 0.0004f;
+    public static float DistanceCheck { get { return distanceCheck; } }
 }

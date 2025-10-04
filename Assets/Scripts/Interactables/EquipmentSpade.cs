@@ -36,7 +36,7 @@ public class EquipmentSpade : EquipmentData
         PlayerInformation playerInfo = PlayerInformation.instance;
         for (int i = 0; i < colliders.Length; i++)
         {
-            float tempDistance = Vector2.Distance(position, colliders[i].transform.position);
+            float tempDistance = NumberFunctions.GetDistanceV2(position, colliders[i].transform.position);
 
             if (nearest == null || tempDistance < distance)
             {

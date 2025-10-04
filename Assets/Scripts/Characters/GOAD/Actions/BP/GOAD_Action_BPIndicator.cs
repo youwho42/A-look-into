@@ -78,14 +78,14 @@ namespace Klaxon.GOAD
 
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
 
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f && PlayerInformation.instance.playerInput.movement == Vector2.zero)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck && PlayerInformation.instance.playerInput.movement == Vector2.zero)
                 waiting = true;
 
             if (waiting)
             {
                 agent.walker.currentDirection = Vector2.zero;
                 agent.animator.SetBool(agent.walking_hash, false);
-                if (agent.walker.CheckDistanceToDestination() >= 0.2f + leadDistanceOffset)
+                if (agent.walker.CheckDistanceToDestination() >= 0.04f + leadDistanceOffset*leadDistanceOffset)
                 {
                     distanceSet = false;
                     waiting = false;

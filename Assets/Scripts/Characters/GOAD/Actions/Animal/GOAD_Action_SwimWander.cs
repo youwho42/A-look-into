@@ -79,7 +79,7 @@ namespace Klaxon.GOAD
 
             if (!useStableZ)
             {
-                if (NumberFunctions.GetDistanceV3(agent.swimmer.itemObject.localPosition, agent.swimmer.currentDestinationZ) <= 0.0004f/* || agent.swimmer.CheckDistanceToDestination() <= 0.02f*/)
+                if (NumberFunctions.GetDistanceV3(agent.swimmer.itemObject.localPosition, agent.swimmer.currentDestinationZ) <= GlobalSettings.DistanceCheck)
                     agent.swimmer.SetRandomDestinationZ();
             }
 

@@ -84,7 +84,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetWorldDestination(boxPosition);
             agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= 0.002f)
                 atBox = true;
 
             agent.walker.SetLastPosition();

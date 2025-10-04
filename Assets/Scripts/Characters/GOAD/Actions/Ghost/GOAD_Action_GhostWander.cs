@@ -69,7 +69,7 @@ namespace Klaxon.GOAD
 
             agent.ghoster.SetDirection();
 
-            if (agent.ghoster.CheckDistanceToDestination() <= agent.ghoster.checkTileDistance + 0.02f)
+            if (agent.ghoster.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];
                 if (agent.currentPathIndex < agent.aStarPath.Count - 1)

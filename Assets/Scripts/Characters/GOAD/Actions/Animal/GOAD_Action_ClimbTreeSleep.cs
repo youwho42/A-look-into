@@ -83,7 +83,7 @@ namespace Klaxon.GOAD
                 agent.animator.SetBool(agent.climbing_hash, true);
                 agent.animator.SetBool(agent.walking_hash, false);
 
-                if (NumberFunctions.GetDistanceV2(agent.walker.itemObject.localPosition, agent.walker.currentDestinationZ) <= 0.0004f)
+                if (NumberFunctions.GetDistanceV2(agent.walker.itemObject.localPosition, agent.walker.currentDestinationZ) <= GlobalSettings.DistanceCheck)
                 {
 
                     climbing = false;

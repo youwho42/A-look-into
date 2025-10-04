@@ -25,15 +25,7 @@ public class FireFlicker : MonoBehaviour
         startIntensity = lightToAffect.intensity;
         startFalloff = lightToAffect.falloffIntensity;
     }
-    private void OnEnable()
-    {
-        
-        //StartLightFlicker(true);
-    }
-    private void OnDisable()
-    {
-        //StartLightFlicker(false);
-    }
+    
     public void SetFalloff(float falloff)
     {
         m_FalloffField.SetValue(lightToAffect, falloff);

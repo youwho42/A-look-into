@@ -471,6 +471,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
         type: 3}
+      propertyPath: type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426438665716282705, guid: 52de873582b53f0439b2e676e110821d,
+        type: 3}
       propertyPath: possibleGoals.Array.data[0].Name
       value: Wander
       objectReference: {fileID: 0}
@@ -732,11 +737,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
   canPlaceOnOther: 0
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   undertaking:
     undertaking: {fileID: 0}
     task: {fileID: 0}

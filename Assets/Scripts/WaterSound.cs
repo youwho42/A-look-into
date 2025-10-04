@@ -80,12 +80,12 @@ public class WaterSound : MonoBehaviour
 
     void GetClosestDistanceFromPlayer()
     {
-        closestTileDistance = 1000;
+        closestTileDistance = float.MaxValue;
         for (int i = 0; i < spots.Count; i++)
         {
             Vector3 tile = groundGrid.CellToWorld(spots[i]);
             Vector3 pos = playerActive ? player.player.position : Camera.main.transform.position;
-            float dist = Vector2.Distance(tile, pos);
+            float dist = NumberFunctions.GetDistanceV2(tile, pos);
             if (dist < closestTileDistance)
             {
                 closestTileDistance = dist;

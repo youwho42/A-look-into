@@ -85,7 +85,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
                 walker.SetWorldDestination(walker.currentDestination);
                 walker.SetDirection();
-                if (walker.CheckDistanceToDestination() <= 0.02f)
+                if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 {
                     currentState = SpecialState.Idle;
                 }
@@ -111,7 +111,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 walker.SetDirection();
 
                 
-                if (walker.CheckDistanceToDestination() <= 0.02f)
+                if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                     currentState = SpecialState.Follow;
 
                 

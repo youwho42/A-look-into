@@ -62,7 +62,7 @@ namespace Klaxon.GOAD
         }
         public BP_Type type;
 
-        [HideInInspector]
+        //[HideInInspector]
         public Vector3 BPHomeDestination;
         public Transform speechBubbleTransform;
         PlayerInformation player;
@@ -421,7 +421,7 @@ namespace Klaxon.GOAD
 
             walker.SetDirection();
 
-            if (walker.CheckDistanceToDestination() <= 0.02f)
+            if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 isDeviating = false;
 
             walker.SetLastPosition();

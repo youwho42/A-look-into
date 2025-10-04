@@ -72,10 +72,10 @@ public class PlayerPoke : MonoBehaviour
             if (colliders[i].transform.position.z > (playerZ + 0.87f))
                 continue;
 
-            tempDistance = Vector2.Distance(position, colliders[i].transform.position);
+            tempDistance = NumberFunctions.GetDistanceV3(position, colliders[i].transform.position);
 
 
-            if (tempDistance > 0.225f)
+            if (tempDistance > 0.025f)
                 continue;
 
             if (nearest == null || tempDistance < distance)

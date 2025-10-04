@@ -44,11 +44,11 @@ public class EquipmentGatherData : EquipmentData
             if (colliders[i].CompareTag("Water"))
             {
                 if (position.z == 1)
-                    tempDistance = Vector2.Distance(position, colliders[i].ClosestPoint(position));
+                    tempDistance = NumberFunctions.GetDistanceV2(position, colliders[i].ClosestPoint(position));
             }
             else
             {
-                tempDistance = Vector2.Distance(position, colliders[i].transform.position);
+                tempDistance = NumberFunctions.GetDistanceV2(position, colliders[i].transform.position);
             }
                 
             if (nearest == null || tempDistance < distance)

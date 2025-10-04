@@ -48,7 +48,7 @@ public class RandomAccessories : MonoBehaviour
             item.gameObject.SetActive(false);
         }
         accessoryIndex = index;
-        if(accessoryIndex != -1)
+        if(accessoryIndex != -1 && accessoryIndex < accessoryList.Count)
             accessoryList[index].gameObject.SetActive(true);
         
     }

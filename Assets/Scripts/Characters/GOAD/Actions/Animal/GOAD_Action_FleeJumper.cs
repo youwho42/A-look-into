@@ -63,7 +63,7 @@ namespace Klaxon.GOAD
 
             agent.jumper.SetLastPosition();
 
-            if (NumberFunctions.GetDistanceV2(transform.position, agent.jumper.currentDestination) <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(transform.position, agent.jumper.currentDestination) <= GlobalSettings.DistanceCheck)
             {
                 success = true;
                 agent.SetActionComplete(true);

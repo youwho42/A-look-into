@@ -78,7 +78,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetWorldDestination(agent.currentPlantDestination);
             agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= 0.06f)
+            if (agent.walker.CheckDistanceToDestination() <= 0.0036f)
                 isPlanting = true;
 
             agent.walker.SetLastPosition();

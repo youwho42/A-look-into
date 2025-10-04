@@ -63,7 +63,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetDirection();
 
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.03f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];
                 if (agent.currentPathIndex < agent.aStarPath.Count - 1)

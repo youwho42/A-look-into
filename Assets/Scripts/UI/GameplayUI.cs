@@ -24,7 +24,7 @@ public class GameplayUI : MonoBehaviour
     [SerializeField]
     private Slider RIBDisplay;
     [HideInInspector]
-    public int RIBBinary = 0;
+    public int RIBBinary = 1;
     [SerializeField]
     private TextMeshProUGUI RIBText;
     [SerializeField]

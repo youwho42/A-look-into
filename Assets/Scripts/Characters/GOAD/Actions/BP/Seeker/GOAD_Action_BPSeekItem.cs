@@ -97,7 +97,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetWorldDestination(agent.currentSeekItemLocation);
             agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 isLicking = true;
             }

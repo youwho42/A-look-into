@@ -36,11 +36,13 @@ public class PlayerRunningManager : MonoBehaviour
         runningUI = RunningUI.instance;
         GameEventManager.onJumpEvent.AddListener(Jump);
         GameEventManager.onLandEvent.AddListener(Land);
+        DisableUI();
     }
     private void OnDisable()
     {
         GameEventManager.onJumpEvent.RemoveListener(Jump);
         GameEventManager.onLandEvent.RemoveListener(Land);
+        DisableUI();
     }
 
 

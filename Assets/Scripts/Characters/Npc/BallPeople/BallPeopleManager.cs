@@ -64,7 +64,6 @@ public class BallPeopleManager : MonoBehaviour
         }
         var villagerBall = villager.GetComponent<GOAD_Scheduler_BP>();
         villagerBall.BPHomeDestination = position;
-
     }
 
 

@@ -323,10 +323,11 @@ public class UIScreenManager : MonoBehaviour
 
     public void SetButtonsActive(bool active)
     {
-        foreach (var button in mainMenu.allButtons)
-        {
-            button.interactable = active;
-        }
+        //foreach (var button in mainMenu.allButtons)
+        //{
+        //    button.interactable = active;
+        //}
+        mainMenu.ActivateButtons(active);
         foreach (var button in pauseMenu.allButtons)
         {
             button.interactable = active;
@@ -482,6 +483,7 @@ public class UIScreenManager : MonoBehaviour
     public void PreventPlayerInputs(bool state)
     {
         PlayerInformation.instance.playerInput.isInUI = state;
+        PlayerInformation.instance.playerInput.isPaused = state;
         PlayerInformation.instance.uiScreenVisible = state;
         PlayerInformation.instance.TogglePlayerInput(!state);
     }

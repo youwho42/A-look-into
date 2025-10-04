@@ -37,21 +37,21 @@ public class PlayerDistanceToggle : MonoBehaviour
     public void PopulateLists()
     {
         animals.Clear();
-        var a = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IAnimal>().ToList();
+        var a = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IAnimal>().ToList();
         foreach (var animalComponent in a)
         {
             animals.Add((animalComponent as MonoBehaviour).gameObject);
         }
         
         GOADAgents.Clear();
-        var c = FindObjectsByType<GOAD_Scheduler_NPC>(FindObjectsSortMode.None).ToList();
+        var c = FindObjectsByType<GOAD_Scheduler_NPC>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         foreach (var agent in c)
         {
             GOADAgents.Add(agent);
         }
 
         GOADCokernutFlump.Clear();
-        var d = FindObjectsByType<GOAD_Scheduler_CF>(FindObjectsSortMode.None).ToList();
+        var d = FindObjectsByType<GOAD_Scheduler_CF>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
         foreach (var agent in d)
         {
             GOADCokernutFlump.Add(agent);

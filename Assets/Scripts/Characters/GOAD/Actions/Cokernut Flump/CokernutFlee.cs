@@ -82,7 +82,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetWorldDestination(fleeDestination);
             agent.walker.SetDirection();
-            if (agent.walker.CheckDistanceToDestination() <= 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 SetFleeDestination(agent);
             }

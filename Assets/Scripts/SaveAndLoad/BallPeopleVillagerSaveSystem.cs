@@ -1,5 +1,6 @@
 using Klaxon.GOAD;
 using Klaxon.Interactable;
+using SerializableTypes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,6 @@ namespace Klaxon.SaveSystem
             string t = "";
             if (villagerInteractable.undertaking.task != null)
                 t = villagerInteractable.undertaking.task.Name;
-
             List<string> names = new List<string>();
             List<bool> states = new List<bool>();
             foreach (var b in villagerAI.beliefs)
@@ -38,9 +38,11 @@ namespace Klaxon.SaveSystem
                 started = villagerInteractable.started,
                 hasInteracted = villagerAI.hasInteracted,
                 beliefNames = names,
-                beliefStates = states
+                beliefStates = states,
+                homePosition = villagerAI.BPHomeDestination
 
             };
+           
         }
 
         public void RestoreState(object state)
@@ -54,8 +56,7 @@ namespace Klaxon.SaveSystem
                 villagerInteractable.undertaking.task = Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.GetTask(saveData.undertakingName, saveData.taskName);
             villagerInteractable.started = saveData.started;
             villagerAI.hasInteracted = saveData.hasInteracted;
-            
-
+            villagerAI.BPHomeDestination = saveData.homePosition;
             for (int i = 0; i < saveData.beliefNames.Count; i++)
             {
                 villagerAI.SetBeliefState(saveData.beliefNames[i], saveData.beliefStates[i]);
@@ -76,6 +77,8 @@ namespace Klaxon.SaveSystem
 
             public List<string> beliefNames;
             public List<bool> beliefStates;
+
+            public SVector3 homePosition;
         }
     }
 }

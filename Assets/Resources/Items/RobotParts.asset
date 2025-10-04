@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea18bc8bfb5d7455b95c75307b68ce47, type: 3}
-  m_Name: RobotBase
+  m_Name: RobotParts
   m_EditorClassIdentifier: 
-  Name: RobotBase
+  Name: Robot Parts
   localizedName:
     m_TableReference:
-      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+      m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
     m_TableEntryReference:
-      m_KeyId: 157021370916069376
+      m_KeyId: 261008267949957120
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   localizedDescription:
     m_TableReference:
-      m_TableCollectionName: GUID:499ca962c9d4e704db17c3202d3d8a35
+      m_TableCollectionName: GUID:ef440ab98e1df8d47b2e3e802bf79233
     m_TableEntryReference:
-      m_KeyId: 157021472594386944
+      m_KeyId: 261008320324231168
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -40,22 +40,22 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Type: 6
+  Type: 2
   AnimationName: 
-  Weight: 100
-  Price: 200
-  spawnWeight: 10
+  Weight: 1
+  Price: 125
+  spawnWeight: 5
   FuelTicks: 0
-  Icon: {fileID: 21300000, guid: 66c780474fec8c44b8da559f2eeae8d7, type: 3}
+  Icon: {fileID: 21300000, guid: 4330bb2a1e6544e37bba93d9b4fa2e1b, type: 3}
   ItemPrefabVariants:
-  - {fileID: 5983179325935597894, guid: 8f9511c3e3c13be4986afe7209a0e0a8, type: 3}
+  - {fileID: 2997377886582240980, guid: 3fef877ed02a5e24985e8204cbf69519, type: 3}
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
-  MaxStack: 1
+  MaxStack: 100
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
-  GameDificulty: 1
-  placementGumption: {fileID: 11400000, guid: ed440006d24efd7488b1251034c704dd, type: 2}
+  GameDificulty: 0
+  placementGumption: {fileID: 0}
   onlyPlacedInPlayerHouse: 0
   references:
     version: 2

@@ -353,7 +353,7 @@ namespace Klaxon.GOAD
 
             flier.SetDirection();
             flier.SetDirectionZ();
-            if (flier.CheckDistanceToDestination() <= 0.0004f)
+            if (flier.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 isDeviating = false;
 
             flier.SetLastPosition();
@@ -410,7 +410,7 @@ namespace Klaxon.GOAD
 
             walker.SetDirection();
 
-            if (walker.CheckDistanceToDestination() <= 0.02f)
+            if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 isDeviating = false;
 
             walker.SetLastPosition();

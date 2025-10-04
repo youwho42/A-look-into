@@ -50,7 +50,7 @@ namespace Klaxon.GOAD
                 agent.SetActionComplete(true);
                 return;
             }
-            if (NumberFunctions.GetDistanceV2(transform.position, eatPosition) <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(transform.position, eatPosition) <= GlobalSettings.DistanceCheck)
             {
                 agent.walker.currentDirection = Vector2.zero;
                 if (transform.position.x < agent.currentEdible.transform.position.x && !agent.walker.facingRight)

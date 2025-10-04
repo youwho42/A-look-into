@@ -520,8 +520,8 @@ public class InventoryDisplaySlot : MonoBehaviour
         
         Vector3 playerPos = PlayerInformation.instance.player.position;
         
-        float dist = Vector2.Distance(playerPos, itemToDrop.transform.position);
-        if (dist <= 1.5f)
+        float dist = NumberFunctions.GetDistanceV2(playerPos, itemToDrop.transform.position);
+        if (dist <= 2.25f)
             return true;
 
         return false;

@@ -123,7 +123,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetDirection();
 
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
 
                 if (agent.currentPathIndex < agent.aStarPath.Count - 1)

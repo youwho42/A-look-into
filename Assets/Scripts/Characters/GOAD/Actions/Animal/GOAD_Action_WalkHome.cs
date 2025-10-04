@@ -56,7 +56,7 @@ namespace Klaxon.GOAD
                 return;
             }
 
-            if (NumberFunctions.GetDistanceV2(transform.position, agent.walker.currentDestination) <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(transform.position, agent.walker.currentDestination) <= GlobalSettings.DistanceCheck)
             {
                 agent.transform.position = agent.walker.currentDestination;
                 success = true;

@@ -31,6 +31,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
 
     void SetSpawnPoints()
     {
+        if (spawnPoints.Count > 0)
+            return;
         spawnPoints.Clear();
         Transform[] points = GetComponentsInChildren<Transform>();
         for (int i = 0; i < points.Length; i++)
@@ -42,7 +44,10 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
 
     public void SpawnItemFromSave(int index, string name)
     {
-        
+        foreach (Transform child in spawnPoints[index])
+        {
+            Destroy(child.gameObject);
+        }
         if (name != "")
         {
             
@@ -50,6 +55,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             if (item == null)
                 Debug.Log(name, gameObject);
             int i = Random.Range(0, item.ItemPrefabVariants.Count);
+            
             var go = Instantiate(item.ItemPrefabVariants[i], spawnPoints[index].position, Quaternion.identity, spawnPoints[index]);
             //var go = Instantiate(item.ItemPrefabVariants[i], spawnPoints[index]);
             //go.localPosition = Vector3.zero;

@@ -225,7 +225,7 @@ namespace Klaxon.GOAD
             animator.SetFloat(velocityX_hash, 1);
             walker.SetDirection();
 
-            if (walker.CheckDistanceToDestination() <= 0.02f)
+            if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 isDeviating = false;
 
             walker.SetLastPosition();
@@ -251,7 +251,7 @@ namespace Klaxon.GOAD
             animator.SetFloat(velocityX_hash, 1);
             walker.SetDirection();
 
-            if (walker.CheckDistanceToDestination() <= 0.02f)
+            if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 isDeviating = false;
                 currentPathIndex = 0;
@@ -328,7 +328,7 @@ namespace Klaxon.GOAD
 
             walker.SetDirection();
 
-            if (walker.CheckDistanceToDestination() <= 0.02f)
+            if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
                 isDeviating = false;
 
             walker.SetLastPosition();

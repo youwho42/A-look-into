@@ -33,7 +33,7 @@ namespace Klaxon.GOAD
             }
 
             bool atFixNode = false;
-            if (NumberFunctions.GetDistanceV2(transform.position, currentSculpture.fixNode.transform.position) <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(transform.position, currentSculpture.fixNode.transform.position) <= GlobalSettings.DistanceCheck)
             {
                 atFixNode = true;
                 atSculpture = true;
@@ -201,7 +201,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetDirection();
 
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 if (agent.currentPathIndex < agent.nodePath.Count - 1)
                 {
@@ -257,7 +257,7 @@ namespace Klaxon.GOAD
 
             agent.walker.SetDirection();
 
-            if (agent.walker.CheckDistanceToDestination() <= agent.walker.checkTileDistance + 0.02f)
+            if (agent.walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
 
                 agent.lastValidTileLocation = agent.aStarPath[agent.currentPathIndex];

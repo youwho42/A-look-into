@@ -536,9 +536,9 @@ namespace Klaxon.GravitySystem
         {
             //Check and set if grounded
             // could check here for a maxFallHeight and have a stagger animation...
-            float dist = Vector2.Distance(itemObject.localPosition, obstacleDisplacement);
+            float dist = NumberFunctions.GetDistanceV2(itemObject.localPosition, obstacleDisplacement);
             
-            isGrounded = dist <= 0.01f;
+            isGrounded = dist <= 0.0001f;
             if (isGrounded)
             {
                 itemObject.localPosition = obstacleDisplacement;

@@ -19,17 +19,11 @@ public static class NumberFunctions
 
     public static float GetDistanceV3(Vector3 posA, Vector3 posB)
     {
-        var dist = (posA - posB).sqrMagnitude;
-
-        return dist;
-
+        return (posA - posB).sqrMagnitude;
     }
 
     public static float GetDistanceV2(Vector2 posA, Vector2 posB)
     {
-        var dist = (posA - posB).sqrMagnitude;
-
-        return dist;
-
+        return (posA - posB).sqrMagnitude;
     }
 }

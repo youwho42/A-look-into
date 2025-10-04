@@ -58,7 +58,7 @@ namespace Klaxon.GOAD
             }
 
 
-            if (NumberFunctions.GetDistanceV2(transform.position, agent.currentDisplacementSpot.transform.position) <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(transform.position, agent.currentDisplacementSpot.transform.position) <= GlobalSettings.DistanceCheck)
             {
                 agent.transform.position = agent.currentDisplacementSpot.transform.position;
                 success = true;

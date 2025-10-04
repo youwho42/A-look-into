@@ -88,7 +88,7 @@ namespace Klaxon.GOAD
                 return;
             }
 
-            if (NumberFunctions.GetDistanceV2(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= 0.0004f || agent.flier.CheckDistanceToDestination() <= 0.0004f)
+            if (NumberFunctions.GetDistanceV2(agent.flier.itemObject.localPosition, agent.flier.currentDestinationZ) <= GlobalSettings.DistanceCheck || agent.flier.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
             {
                 if (Random.Range(0.0f, 1.0f) <= 0.25f)
                 {
