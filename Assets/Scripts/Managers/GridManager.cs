@@ -152,7 +152,7 @@ public class GridManager : MonoBehaviour
 
 
 
-    public Vector3 GetRandomTileWorldPosition(Vector3 origin, float maxDistance)
+    public Vector3 GetRandomTileWorldPosition(Vector3 origin, float maxDistance, bool limitZ = false)
     {
         SetGrid();
         Vector2 randPos = UnityEngine.Random.insideUnitCircle * maxDistance;
@@ -161,6 +161,12 @@ public class GridManager : MonoBehaviour
         Vector3Int destinationTile = groundMap.WorldToCell(offsetPos - Vector3Int.forward);
         for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
         {
+            if (limitZ)
+            {
+                if (Mathf.Abs(origin.z - z) > 2)
+                    continue;
+            }
+            
             destinationTile.z = z;
             if (GetTileValid(destinationTile))
                 return groundMap.GetCellCenterWorld(destinationTile) + Vector3.forward;

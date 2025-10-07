@@ -8,8 +8,10 @@ public class GraphicsSettingsUI : MonoBehaviour
 {
     [SerializeField]
     private Toggle vSync;
+    //[SerializeField]
+    //private Toggle fullscreen;
     [SerializeField]
-    private Toggle fullscreen;
+    private TMP_Dropdown fullscreenDropdown;
     [SerializeField]
     private TMP_Dropdown framerateDropdown;
     [SerializeField]
@@ -18,7 +20,8 @@ public class GraphicsSettingsUI : MonoBehaviour
     private void Awake()
     {
         SetVSync(1);
-        fullscreen.isOn = true;
+        //fullscreen.isOn = true;
+        fullscreenDropdown.value = 0;
         SetFullScreen();
     }
     public void ToggleVSync()
@@ -39,14 +42,31 @@ public class GraphicsSettingsUI : MonoBehaviour
         return QualitySettings.vSyncCount;
     }
 
-    public bool GetFullscreen()
+    public int GetFullscreen()
     {
-        return fullscreen.isOn;
+        //return fullscreen.isOn;
+        return fullscreenDropdown.value;
     }
 
     public void SetFullScreen()
     {
-        Screen.fullScreen = fullscreen.isOn;
+        int index = fullscreenDropdown.value + 1;
+        switch (index)
+        {
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            case 3:
+                Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
+                break;
+
+
+        }
+        //Screen.fullScreen = fullscreen.isOn;
+        //Screen.fullScreenMode = 
     }
 
 
@@ -82,10 +102,11 @@ public class GraphicsSettingsUI : MonoBehaviour
         framerateText.color = new Color(0, 0, 0, vSync.isOn ? 0.5f : 1.0f);
     }
 
-    public void SetFromSave(int sync, bool screen, int dropdownValue)
+    public void SetFromSave(int sync, int screenIndex, int dropdownValue)
     {
         SetVSync(sync);
-        fullscreen.isOn = screen;
+        //fullscreen.isOn = screen;
+        fullscreenDropdown.value = screenIndex;
         SetFullScreen();
         SetFramerateFromSave(dropdownValue);
     }

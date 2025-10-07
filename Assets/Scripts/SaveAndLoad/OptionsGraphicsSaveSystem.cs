@@ -15,7 +15,7 @@ namespace Klaxon.SaveSystem
             return new SaveData
             {
                 vSync = graphicsSettings.GetVSync(),
-                fullscreen = graphicsSettings.GetFullscreen(),
+                screenIndex = graphicsSettings.GetFullscreen(),
                 dropdownValue = graphicsSettings.GetLimitedFramerate()
             };
         }
@@ -23,14 +23,14 @@ namespace Klaxon.SaveSystem
         public void RestoreState(object state)
         {
             var saveData = (SaveData)state;
-            graphicsSettings.SetFromSave(saveData.vSync, saveData.fullscreen, saveData.dropdownValue);
+            graphicsSettings.SetFromSave(saveData.vSync, saveData.screenIndex, saveData.dropdownValue);
         }
 
         [Serializable]
         private struct SaveData
         {
             public int vSync;
-            public bool fullscreen;
+            public int screenIndex;
             public int dropdownValue;
 
         }

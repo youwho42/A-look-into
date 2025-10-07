@@ -27,7 +27,7 @@ public class TreeShadows : MonoBehaviour
     public Transform nightShadows;
 
     bool materialsSet;
-
+    //public bool isUnderCloud;
 
     private void Awake()
     {
@@ -50,6 +50,7 @@ public class TreeShadows : MonoBehaviour
     }
     private void OnBecameVisible()
     {
+        
         shadowTransform.gameObject.SetActive(true);
         if (!materialsSet)
         {
@@ -127,7 +128,7 @@ public class TreeShadows : MonoBehaviour
 
         
     }
-    void CheckForLights()
+    public void CheckForLights()
     {
         if (nightShadows == null)
             return;

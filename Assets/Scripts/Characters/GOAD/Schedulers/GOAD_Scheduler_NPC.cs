@@ -168,7 +168,7 @@ namespace Klaxon.GOAD
         {
             var currentPos = _transform.position;
             Vector3 destination = currentPos;
-            destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f);
+            destination = GridManager.instance.GetRandomTileWorldPosition(currentPos, distance * .5f, true);
             currentFinalDestination = destination;
             SetAStarDestination(destination, action);
         }
