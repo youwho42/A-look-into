@@ -32,14 +32,14 @@ public class TreeDropping : MonoBehaviour
         //Invoke("ResetDrop", 2.0f);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(dropTransform.localPosition.y > 0.001f)
         {
             var wind = WindManager.instance.GetWindDirectionFromPosition(transform.position);
             float windSpeed = WindManager.instance.GetWindMagnitude(transform.position);
             float disp = dropTransform.localPosition.z;
-            disp -= finalSpeed * Time.deltaTime;
+            disp -= finalSpeed * Time.fixedDeltaTime;
             
             rot.z += windSpeed * rotDir;
             dropTransform.eulerAngles = rot;
@@ -49,7 +49,7 @@ public class TreeDropping : MonoBehaviour
             dropTransform.localPosition = pos;
             var np = (Vector3)wind.normalized * windSpeed * 0.008f * Time.deltaTime;
             np.x += amplitude * Mathf.Sin(theta * frequency);
-            theta += Time.deltaTime;
+            theta += Time.fixedDeltaTime;
             
             transform.position += np;
         }

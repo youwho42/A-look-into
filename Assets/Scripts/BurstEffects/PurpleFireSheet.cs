@@ -44,7 +44,7 @@ public class PurpleFireSheet : MonoBehaviour
 
     
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (active && disableOnInvisible.isVisible)
         {
@@ -54,7 +54,7 @@ public class PurpleFireSheet : MonoBehaviour
             positionUpdateJob = new PositionUpdateJob()
             {
                 objectVelocities = dropVelocities,
-                jobDeltaTime = Time.deltaTime,
+                jobDeltaTime = Time.fixedDeltaTime,
 
                 time = Time.time,
                 speed = fallSpeed,

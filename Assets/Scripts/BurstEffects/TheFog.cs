@@ -124,7 +124,7 @@ public class TheFog : MonoBehaviour, IWeatherObject
 
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         for (int i = 0; i < fogDirections.Length; i++)
         {
@@ -135,7 +135,7 @@ public class TheFog : MonoBehaviour, IWeatherObject
         movementUpdateJob = new MovementUpdateJob()
         {
             objectMovements = fogMovements,
-            jobDeltaTime = Time.deltaTime,
+            jobDeltaTime = Time.fixedDeltaTime,
             time = Time.time,
             speeds = windSpeeds,
             directions = fogDirections,
@@ -148,7 +148,7 @@ public class TheFog : MonoBehaviour, IWeatherObject
         displacementUpdateJob = new DisplacementUpdateJob()
         {
             objectDisplacements = fogDisplacements,
-            jobDeltaTime = Time.deltaTime,
+            jobDeltaTime = Time.fixedDeltaTime,
             time = Time.time,
 
             frequency = sinFrequency,

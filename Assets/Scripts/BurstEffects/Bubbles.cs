@@ -127,7 +127,7 @@ public class Bubbles : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(spawnTimeRange.x, spawnTimeRange.y));
         }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (!bubblesActive && !allStopped)
         {
@@ -181,7 +181,7 @@ public class Bubbles : MonoBehaviour
             {
                 objectMovements = bubbleMovements,
                 windDirection = windDirections,
-                jobDeltaTime = Time.deltaTime,
+                jobDeltaTime = Time.fixedDeltaTime,
                 time = Time.time,
                 basePosition = transform.position,
                 speed = movementSpeed,
@@ -196,7 +196,7 @@ public class Bubbles : MonoBehaviour
             displacementUpdateJob = new DisplacementUpdateJob()
             {
                 objectDisplacements = bubbleDisplacements,
-                jobDeltaTime = Time.deltaTime,
+                jobDeltaTime = Time.fixedDeltaTime,
                 time = Time.time,
                 resetFlags = resetFlags,
                 speed = displacementSpeed,
@@ -266,7 +266,7 @@ public class Bubbles : MonoBehaviour
             random randomGen = new random((uint)(i * time + 1 + seed));
 
             
-            transform.position += ((Vector3)windDirection[i] + randomDirections[i]).normalized * speed * speeds[i] * jobDeltaTime;
+            transform.position += jobDeltaTime * speed * speeds[i] * ((Vector3)windDirection[i] + randomDirections[i]).normalized;
             objectMovements[i] = transform.position;
             
             

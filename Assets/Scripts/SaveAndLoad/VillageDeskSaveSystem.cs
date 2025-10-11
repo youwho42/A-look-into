@@ -34,7 +34,7 @@ namespace Klaxon.SaveSystem
         {
             var saveData = (SaveData)state;
 
-            for (int i = 0; i < villageDesk.fixableAreas.Count; i++)
+            for (int i = 0; i < saveData.fixTimer.Count; i++)
             {
                 villageDesk.fixableAreas[i].fixTimer = saveData.fixTimer[i];
                 villageDesk.fixableAreas[i].isFixing = saveData.isFixing[i];
