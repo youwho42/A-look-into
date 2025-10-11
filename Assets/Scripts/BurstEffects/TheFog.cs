@@ -126,6 +126,11 @@ public class TheFog : MonoBehaviour, IWeatherObject
 
     private void FixedUpdate()
     {
+
+        movementUpdateJobHandle.Complete();
+        displacementUpdateJobHandle.Complete();
+
+
         for (int i = 0; i < fogDirections.Length; i++)
         {
             fogDirections[i] = WindManager.instance.GetWindDirectionFromPosition(movementAccessArray[i].position).normalized;
@@ -164,11 +169,11 @@ public class TheFog : MonoBehaviour, IWeatherObject
         
     }
 
-    private void LateUpdate()
-    {
-        movementUpdateJobHandle.Complete();
-        displacementUpdateJobHandle.Complete();
-    }
+    //private void LateUpdate()
+    //{
+    //    movementUpdateJobHandle.Complete();
+    //    displacementUpdateJobHandle.Complete();
+    //}
 
     private void OnDestroy()
     {

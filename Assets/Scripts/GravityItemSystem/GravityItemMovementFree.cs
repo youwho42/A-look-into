@@ -53,7 +53,8 @@ namespace Klaxon.GravitySystem {
         }
         private void OnDestroy()
         {
-            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().RemoveFreeItemFromList(this);
+            if(PlayerInformation.instance.player != null)
+                PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().RemoveFreeItemFromList(this);
         }
 
         public override void Update()

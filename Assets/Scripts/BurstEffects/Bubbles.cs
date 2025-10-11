@@ -111,8 +111,12 @@ public class Bubbles : MonoBehaviour
     }
     IEnumerator ResetBubbles()
     {
+        
+
         for (int i = 0; i < resetFlags.Length; i++)
         {
+            movementUpdateJobHandle.Complete();
+            displacementUpdateJobHandle.Complete();
             if (movementAccessArray[i].transform.gameObject.activeSelf)
                 continue;
             Vector3 spawnPoint = (transform.position + new Vector3(Random.Range(-spawnDistanceFromCenter, spawnDistanceFromCenter), Random.Range(-spawnDistanceFromCenter, spawnDistanceFromCenter), 0));
@@ -129,6 +133,10 @@ public class Bubbles : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        movementUpdateJobHandle.Complete();
+        displacementUpdateJobHandle.Complete();
+
+
         if (!bubblesActive && !allStopped)
         {
             StopAllCoroutines();
@@ -219,13 +227,13 @@ public class Bubbles : MonoBehaviour
         
     }
 
-    private void LateUpdate()
-    {
-        movementUpdateJobHandle.Complete();
-        displacementUpdateJobHandle.Complete();
+    //private void LateUpdate()
+    //{
+    //    movementUpdateJobHandle.Complete();
+    //    displacementUpdateJobHandle.Complete();
 
         
-    }
+    //}
 
     private void OnDestroy()
     {

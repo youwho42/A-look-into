@@ -46,6 +46,8 @@ public class PurpleFireSheet : MonoBehaviour
 
     private void FixedUpdate()
     {
+        positionUpdateJobHandle.Complete();
+
         if (active && disableOnInvisible.isVisible)
         {
             if (!dropsActive)
@@ -79,10 +81,10 @@ public class PurpleFireSheet : MonoBehaviour
 
     }
 
-    private void LateUpdate()
-    {
-        positionUpdateJobHandle.Complete();
-    }
+    //private void LateUpdate()
+    //{
+    //    positionUpdateJobHandle.Complete();
+    //}
 
 
     private void OnDestroy()

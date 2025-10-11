@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc096afc96689a4aa2ff1d38daf3ed1, type: 3}
+  m_Name: Shelly_Woodchuck
+  m_EditorClassIdentifier: 
+  DialogueName: ShellyWoodchuck
+  type: 0
+  hasCondition: 0
+  DialogueCondition: {fileID: 0}
+  ActivateUndertakingAtStart: 0
+  ActivateUndertakingObject: {fileID: 0}
+  DialogueBranches:
+  - DialogueType: 0
+    UndertakingTask: {fileID: 0}
+    localizedSentences:
+    - m_TableReference:
+        m_TableCollectionName: GUID:bdfea2bffada6f84c867cf0122ca72e5
+      m_TableEntryReference:
+        m_KeyId: 5702590255104
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    - m_TableReference:
+        m_TableCollectionName: GUID:bdfea2bffada6f84c867cf0122ca72e5
+      m_TableEntryReference:
+        m_KeyId: 5935504150528
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+  Completed: 0
+  references:
+    version: 2
+    RefIds: []
