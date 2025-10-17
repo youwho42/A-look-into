@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1463943029046023245
 Transform:
   m_ObjectHideFlags: 0
@@ -26,11 +26,11 @@ Transform:
   m_GameObject: {fileID: 6442101794147879629}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0383, z: -0.035}
+  m_LocalPosition: {x: 0, y: 0.03829956, z: -0.034999967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7924754857489894188}
+  m_Father: {fileID: 7924754856793469295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6282811069878337128
 SpriteRenderer:
@@ -117,7 +117,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1463943029046023245}
   m_Father: {fileID: 7924754857489894188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7924754856793469280
@@ -186,7 +187,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: dd012462b4cefc84980368dfcbae8d81, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: dd012462b4cefc84980368dfcbae8d81, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -391,7 +392,6 @@ Transform:
   m_Children:
   - {fileID: 7924754856793469295}
   - {fileID: 7924754857191804873}
-  - {fileID: 1463943029046023245}
   m_Father: {fileID: 7924754857800506253}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7924754857800506252
@@ -438,11 +438,9 @@ GameObject:
   - component: {fileID: 7924754858217846130}
   - component: {fileID: 7924754858217846134}
   - component: {fileID: 7924754858217846135}
-  - component: {fileID: 6308747498628135592}
   - component: {fileID: 3648034579959380729}
   - component: {fileID: 140474248822717978}
   - component: {fileID: 3918326343213773838}
-  - component: {fileID: 2102037779340491033}
   - component: {fileID: 4797862346246737360}
   - component: {fileID: 3006377091520276690}
   m_Layer: 13
@@ -506,7 +504,7 @@ MonoBehaviour:
   slopeCheckPosition: {x: 0, y: 0}
   slopeDirection: {x: 0, y: 0}
   isOverWater: 0
-  checkTileDistance: 0.05
+  checkTileDistance: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -515,8 +513,9 @@ MonoBehaviour:
   onObstacle: 0
   obstacleDisplacement: {x: 0, y: 0, z: 0}
   facingRight: 0
-  itemDrag: 0.1
-  itemBounceFriction: 0.95
+  itemDrag: 0.12
+  itemBounceFriction: 0.73
+  velocity: 0
   canCollideWithGravityItems: 1
   source: {fileID: 3308450813752416679}
   volume: 0.611
@@ -586,18 +585,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6308747498628135592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924754858217846129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879651a2228f191428f69aa7016832d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3648034579959380729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,21 +634,6 @@ MonoBehaviour:
   grid: {fileID: 0}
   groundMap: {fileID: 0}
   position: {x: 0, y: 0, z: 1}
---- !u!114 &2102037779340491033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7924754858217846129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1397843e42a0c2458f7611876e95c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
-  version: 
-  intVersion: 000000000400000005000000
 --- !u!114 &4797862346246737360
 MonoBehaviour:
   m_ObjectHideFlags: 0

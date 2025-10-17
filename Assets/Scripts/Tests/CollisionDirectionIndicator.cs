@@ -16,44 +16,49 @@ public class CollisionDirectionIndicator : MonoBehaviour
         playerTransform = transform;
         gravityItem = GetComponent<GravityItemNew>();
         circleCollider = GetComponent<CircleCollider2D>();
-        GameEventManager.onTimeTickEvent.AddListener(CheckForObjects);
+        //GameEventManager.onTimeTickEvent.AddListener(CheckForObjects);
     }
     public void AddFreeItemToList(GravityItemMovementFree freeObject)
     {
-        if(!allFreeObjects.Contains(freeObject))
+        
+        if (!allFreeObjects.Contains(freeObject))
             allFreeObjects.Add(freeObject);
+        
     }
     public void RemoveFreeItemFromList(GravityItemMovementFree freeObject)
     {
-        if(allFreeObjects.Contains(freeObject))
+        if (allFreeObjects.Contains(freeObject))
             allFreeObjects.Remove(freeObject);
+        
     }
-    private void OnDestroy()
-    {
-        GameEventManager.onTimeTickEvent.RemoveListener(CheckForObjects);
-    }
+    //private void OnDestroy()
+    //{
+    //    GameEventManager.onTimeTickEvent.RemoveListener(CheckForObjects);
+    //}
 
-    void CheckForObjects(int tick)
-    {
-        for (int i = 0; i < allFreeObjects.Count; i++)
-        {
-            if (NumberFunctions.GetDistanceV3(allFreeObjects[0].transform.position, playerTransform.position) <= 1.0f)
-            {
-                canActivate = true;
-                return;
-            }
+    //void CheckForObjects(int tick)
+    //{
+    //    for (int i = 0; i < allFreeObjects.Count; i++)
+    //    {
+    //        if (NumberFunctions.GetDistanceV2(allFreeObjects[0].gameObject.transform.position, playerTransform.position) <= 1.0f)
+    //        {
+    //            canActivate = true;
+    //            return;
+    //        }
                 
-        }
-        canActivate = false;
-    }
+    //    }
+    //    canActivate = false;
+    //}
 
     void Update()
     {
-        if (!canActivate)
+        if (allFreeObjects.Count <= 0)
             return;
+        //if (!canActivate)
+        //    return;
 
 
-        var hits = Physics2D.CircleCastAll(playerTransform.position + (Vector3)circleCollider.offset, circleCollider.radius, gravityItem.currentDirection, maxCollisionDist, LayerMask.GetMask("Interactable"), playerTransform.position.z, playerTransform.position.z);
+        var hits = Physics2D.CircleCastAll((Vector2)playerTransform.position + circleCollider.offset, circleCollider.radius, gravityItem.currentDirection, maxCollisionDist, LayerMask.GetMask("Interactable"), playerTransform.position.z, playerTransform.position.z);
         
         if (hits.Length > 0)
         {
@@ -61,11 +66,11 @@ public class CollisionDirectionIndicator : MonoBehaviour
             {
                 if (hits[i].transform.gameObject.CompareTag("Ball") || hits[i].transform.gameObject.CompareTag("SculptureBall"))
                 {
-
+                    
                     var normies = -hits[i].normal;
                     if (hits[i].transform.TryGetComponent(out GravityItemMovementFree other))
                     {
-                        if (other.currentVelocity > 0.35f)
+                        if (other.velocity > 0.35f)
                         {
                             other.SetArrowInvisible(0.3f);
                             continue;

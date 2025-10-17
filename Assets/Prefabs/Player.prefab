@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 256207156368797041}
   - component: {fileID: 8728050579033652921}
   - component: {fileID: 2788901769676301852}
+  - component: {fileID: 4710346586472162315}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -876,7 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableRadius: 0.1
-  pickupOffset: {x: 0.06, y: 0.03, z: 0}
+  pickupOffset: {x: 0.07, y: 0.01, z: 0}
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -1091,6 +1092,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCorrectionZ: {fileID: 3304207017380454964}
+--- !u!114 &4710346586472162315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705034264205414415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edc7f012c0cddc40b2a3d18a7f74a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1705034264274678010
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,7 +2286,7 @@ MonoBehaviour:
     loop: 0
     overlap: 0
     volume: 0.15
-    pitch: 0.5
+    pitch: 1
     randomVolume: 0.05
     randomPitch: 0.2
     mixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,

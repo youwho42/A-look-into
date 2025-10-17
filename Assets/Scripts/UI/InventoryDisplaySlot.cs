@@ -12,6 +12,7 @@ using UnityEngine.Localization.Settings;
 using Klaxon.Interactable;
 
 using System.Linq;
+using Klaxon.GravitySystem;
 
 public class InventoryDisplaySlot : MonoBehaviour
 {
@@ -250,6 +251,14 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (item.placementGumption != null)
         PlayerInformation.instance.statHandler.AddModifiableModifier(item.placementGumption);
 
+        if (itemToDrop.TryGetComponent(out GravityItemMovementFree gravityItem))
+        {
+            gravityItem.enabled = true;
+            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(gravityItem);
+            
+        }
+            
+
         if (itemToDrop.TryGetComponent(out ScarekernutInteractable scarekernut))
             scarekernut.visibleRadius.SetActive(false);
         // get interactablePickUp and add said amount to drop
@@ -314,7 +323,11 @@ public class InventoryDisplaySlot : MonoBehaviour
             
             if (itemToDrop.TryGetComponent(out Interactable interactable))
                 interactable.isBeingDragged = true;
+            if (itemToDrop.TryGetComponent(out GravityItemMovementFree gravityItem))
+                gravityItem.enabled = false;
             
+                
+
 
             PlayerInformation.instance.inventorySlot = this;
             PlayerInformation.instance.isDragging = true;

@@ -16,8 +16,8 @@ namespace Klaxon.GravitySystem {
         Vector3 checkPosition;
         Vector3 doubleCheckPosition;
 
-
-        float velocity;
+        [HideInInspector]
+        public float velocity;
         //Vector2 mainDirection;
         Vector3Int nextTilePosition;
         public bool canCollideWithGravityItems;
@@ -37,8 +37,8 @@ namespace Klaxon.GravitySystem {
         private new IEnumerator Start()
         {
             base.Start();
-        
 
+            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(this);
             yield return new WaitForSeconds(0.25f);
             displacement = GetComponent<DrawZasYDisplacement>();
         
@@ -49,7 +49,7 @@ namespace Klaxon.GravitySystem {
             isGrounded = true;
             
         
-            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(this);
+            
         }
         private void OnDestroy()
         {
@@ -302,7 +302,7 @@ namespace Klaxon.GravitySystem {
         {
             currentDirection = Vector2.Reflect(currentDirection * velocity, _collisionNormal);
             AddMovement(currentDirection, velocity * itemBounceFriction);
-            velocity *= itemBounceFriction;
+            //velocity *= itemBounceFriction;
 
         }
 

@@ -128,11 +128,11 @@ public class ObjectManagerEditor : Editor
         {
             //How many prefabs do we want to add
             int howManyObjects = objectManager.howManyObjects;
-
+            // clear out the last position found list
+            objectManager.ClearLastPosition();
             //Which prefab do we want to add
             for (int i = 0; i < howManyObjects; i++)
             {
-                
                 GameObject newGO = objectManager.useNeighboringObjects? CreateGameObjectFromNeighbor(center) : CreateGameObjectFromPrefab();
                 //Send it to the main script to add it at a random position within the circle
                 objectManager.AddPrefab(newGO, center);

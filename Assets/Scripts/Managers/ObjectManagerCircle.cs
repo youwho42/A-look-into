@@ -15,9 +15,10 @@ public class ObjectManagerCircle : MonoBehaviour
     //public Tilemap groundMap;
     //Whats the radius of the circle we will add objects inside of?
     public float radius = 1f;
+    public float randomMinDistance = 0.05f;
     //How many GOs will we add each time we press a button?
-   
     public int howManyObjects;
+
     //Should we use poisson
     public bool usePoissonDisc;
     
@@ -26,7 +27,9 @@ public class ObjectManagerCircle : MonoBehaviour
     public enum Actions { AddObjects, RemoveObjects }
 
     public Actions action;
-    public Vector2 lastRandomPosition;
+    //public Vector2 lastRandomPosition;
+    List<Vector2> lastRandomPositions = new List<Vector2>();
+
 
     public int GetTileZ(Vector3 point)
     {
@@ -51,32 +54,59 @@ public class ObjectManagerCircle : MonoBehaviour
         if (obj.TryGetComponent(out SaveableItemEntity otherSaveableItem))
             otherSaveableItem.GenerateId();
     }
-    //Add a prefab that we instantiated in the editor script
-    public void AddPrefab(GameObject newPrefabObj, Vector3 center)
+    public void ClearLastPosition()
+    {
+        lastRandomPositions.Clear();
+    }
+
+    bool GetRandomPosition(out Vector2 foundPosition)
     {
         Vector2 randomPos2D = Vector2.zero;
         bool found = false;
+        int index = 0;
         while (!found)
         {
             //Get a random position within a circle in 2d space
+            index++;
+            if (index >= 20)
+                break;
             randomPos2D = Random.insideUnitCircle * radius;
-            if(Vector2.Distance(randomPos2D, lastRandomPosition) > radius / 2)
-            {
-                lastRandomPosition = randomPos2D;
+            if (lastRandomPositions.Count <= 0)
                 found = true;
+            else
+            {
+                foreach (var pos in lastRandomPositions)
+                {
+                    if (Vector2.Distance(randomPos2D, pos) > randomMinDistance)
+                        found = true;
+                }
+
             }
         }
-            
+         
+        foundPosition = randomPos2D;
+        if(found)
+            lastRandomPositions.Add(randomPos2D);
+        return found;
+    }
+    //Add a prefab that we instantiated in the editor script
+    public void AddPrefab(GameObject newPrefabObj, Vector3 center)
+    {
         
+        
+        //var p = GetRandomPosition();
         //But we are in pseudo3d, so make it so and move it to where the center is
-        Vector3 randomPos = new Vector3(randomPos2D.x, randomPos2D.y, 0) + center;
-
-
-        randomPos.z += 1;
-        newPrefabObj.transform.position = randomPos;
-
-        newPrefabObj.transform.parent = transform;
-        SetObjectID(newPrefabObj);
+        if(GetRandomPosition(out Vector2 foundPosition))
+        {
+            Vector3 randomPos = new Vector3(foundPosition.x, foundPosition.y, 0) + center;
+            randomPos.z += 1;
+            newPrefabObj.transform.position = randomPos;
+            newPrefabObj.transform.parent = transform;
+            SetObjectID(newPrefabObj);
+        }
+        else
+            DestroyImmediate(newPrefabObj);
+            
     }
 
     //Add a prefab that we instantiated in the editor script using poisson 

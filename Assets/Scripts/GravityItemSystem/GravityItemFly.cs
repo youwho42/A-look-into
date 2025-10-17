@@ -145,8 +145,8 @@ namespace Klaxon.GravitySystem
             if (currentTilePosition.grid == null)
                 return false;
 
-            Vector3 checkPosition = (transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
-            Vector3 doubleCheckPosition = transform.position - Vector3.forward;
+            Vector3 checkPosition = (_transform.position + (Vector3)direction * checkTileDistance) - Vector3.forward;
+            Vector3 doubleCheckPosition = _transform.position - Vector3.forward;
 
 
             nextTilePosition = currentTilePosition.grid.WorldToCell(checkPosition);
@@ -346,7 +346,7 @@ namespace Klaxon.GravitySystem
                 return;
             var lastDestination = currentDestination;
             Vector2 rand = (Random.insideUnitCircle * flyRoamingDistance);
-            Vector3 centerPos = centerOfActiveArea == null ? transform.position : centerOfActiveArea.transform.position;
+            Vector3 centerPos = centerOfActiveArea == null ? _transform.position : centerOfActiveArea.transform.position;
             var possiblePos = new Vector3(centerPos.x + rand.x, centerPos.y + rand.y, 0 /*centerPos.z - 1*/);
             var d = currentTilePosition.groundMap.WorldToCell(possiblePos);
             for (int z = currentTilePosition.groundMap.size.z; z >= -5; z--)
@@ -401,7 +401,7 @@ namespace Klaxon.GravitySystem
         {
             currentDestination = destination.transform.position;
             mainDestinationZ = destination.displacedPosition;
-            var dif = destination.transform.position.z - transform.position.z;
+            var dif = destination.transform.position.z - _transform.position.z;
             var disp = new Vector3(0, spriteDisplacementY * dif, dif);
             currentDestinationZ = mainDestinationZ + disp;
             SetDirection();

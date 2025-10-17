@@ -156,8 +156,9 @@ public class TilemapToPNG : MonoBehaviour
         {
             System.IO.Directory.CreateDirectory(dirPath);
         }
-        System.IO.File.WriteAllBytes(dirPath + "/Map_" + mapType + "_" + textureName + ".png", bytes);
-        Debug.Log(bytes.Length / 1024 + "Kb was saved as: " + dirPath);
+        string path = $"{dirPath}/Map_{mapType}_{textureName}.png";
+        System.IO.File.WriteAllBytes(path, bytes);
+        Debug.Log(bytes.Length / 1024 + $"Kb was saved as: {path}");
 
 #if UNITY_EDITOR
         UnityEditor.AssetDatabase.Refresh();
