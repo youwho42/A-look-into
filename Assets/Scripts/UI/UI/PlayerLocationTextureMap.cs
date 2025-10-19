@@ -21,7 +21,7 @@ public class PlayerLocationTextureMap : MonoBehaviour
             return;
         }
             
-        DrawPlayerMap();
+        DrawPlayerMap(PlayerInformation.instance.currentTilePosition.position);
         
     }
    
@@ -34,7 +34,7 @@ public class PlayerLocationTextureMap : MonoBehaviour
 
     
 
-    public void DrawPlayerMap()
+    public void DrawPlayerMap(Vector3Int p)
     {
         
         int width = 128;
@@ -53,7 +53,7 @@ public class PlayerLocationTextureMap : MonoBehaviour
 
         
         var map = PlayerInformation.instance.playerController.currentTilePosition.groundMap;
-        var playerPos = PlayerInformation.instance.playerController.currentTilePosition.position;
+        var playerPos = p;
         playerPos.x = (int)NumberFunctions.RemapNumber(playerPos.x, map.cellBounds.xMin, map.cellBounds.xMax, 0, 128);
         playerPos.y = (int)NumberFunctions.RemapNumber(playerPos.y, map.cellBounds.yMin, map.cellBounds.yMax, 0, 128);
 

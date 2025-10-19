@@ -367,7 +367,7 @@ namespace Klaxon.GravitySystem
             var newPos = new Vector3Int(x, y, z);
             currentTilePosition.position += newPos;
             if (newPos != Vector3Int.zero)
-                GameEventManager.onPlayerPositionUpdateEvent.Invoke();
+                GameEventManager.onPlayerPositionUpdateEvent.Invoke(currentTilePosition.position);
         }
 
 

@@ -47,18 +47,18 @@ public class DemoManager : MonoBehaviour
         return isPlaytest;
     }
 
-    void CheckPlayerPosition()
+    void CheckPlayerPosition(Vector3Int pPos)
     {
         if (!isDemo)
             return;
         if(playerInformation == null)
             playerInformation = PlayerInformation.instance;
-        Vector3Int pPos = playerInformation.currentTilePosition.position;
+        //Vector3Int pPos = playerInformation.currentTilePosition.position;
         if(pPos.x > demoBounds.x || pPos.y < demoBounds.y)
         {
-            PlayerInformation.instance.player.position = startArea.position;
-            PlayerInformation.instance.currentTilePosition.position = PlayerInformation.instance.currentTilePosition.GetCurrentTilePosition(startArea.position);
-            PlayerInformation.instance.playerController.currentLevel = (int)startArea.position.z - 1;
+            playerInformation.player.position = startArea.position;
+            playerInformation.currentTilePosition.position = playerInformation.currentTilePosition.GetCurrentTilePosition(startArea.position);
+            playerInformation.playerController.currentLevel = (int)startArea.position.z - 1;
             Notifications.instance.SetNewNotification("Demo Bounds Breached!", null, 0, NotificationsType.Warning);
         }
     }

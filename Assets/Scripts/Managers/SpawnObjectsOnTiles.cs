@@ -123,27 +123,11 @@ public class SpawnObjectsOnTiles : MonoBehaviour
         quadTree = new VectorQuadTree(baseBounds, 10);
         CreateNoiseMap();
         
-        SetObjectsVisible();
+        
        
-        GameEventManager.onPlayerPositionUpdateEvent.AddListener(SetObjectsVisible);
     }
 
-    private void OnDisable()
-    {
-        GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(SetObjectsVisible);
-    }
-
-    void SetObjectsVisible()
-    {
-        //bounds = new Bounds(PlayerInformation.instance.player.position, new Vector3(10, 5, 512));
-        //var currentObjects = QueryQuadTree(bounds);
-        //pool.CheckAllObjectsVisible();
-        //foreach (var pos in currentObjects)
-        //{
-        //    pool.SetObjectVisible(pos);
-        //}
-
-    }
+    
 
 
     public void CreateNoiseMap()

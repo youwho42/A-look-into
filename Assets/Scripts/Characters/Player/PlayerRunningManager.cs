@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
@@ -27,11 +28,11 @@ public class PlayerRunningManager : MonoBehaviour
 
     public bool shattered = false;
     RunningUI runningUI;
-
+    CinemachineImpulseSource cameraImpulse;
     private void Start()
     {
         player = PlayerInformation.instance;
-
+        cameraImpulse = GetComponent<CinemachineImpulseSource>();
         
         runningUI = RunningUI.instance;
         GameEventManager.onJumpEvent.AddListener(Jump);
@@ -73,7 +74,12 @@ public class PlayerRunningManager : MonoBehaviour
         if (currentGaugeAmount > 0.1f)
             ActivateUI();
         if (currentGaugeAmount >= 1)
+        {
             ShatterGlass();
+            cameraImpulse.GenerateImpulse(0.5f);
+            AudioManager.instance.PlaySound("GlassShatter");
+        }
+            
     }
     private void Update()
     {
@@ -96,10 +102,14 @@ public class PlayerRunningManager : MonoBehaviour
                     if (overMaxAmount >= runningUI.cracks.Length)
                     {
                         ShatterGlass();
+                        cameraImpulse.GenerateImpulse(0.5f);
+                        AudioManager.instance.PlaySound("GlassShatter");
                         return;
                     }
                     overTimer = 0;
                     runningUI.SetCracks(overMaxAmount);
+                    cameraImpulse.GenerateImpulse(0.2f);
+                    AudioManager.instance.PlaySound("GlassCrack");
                     overMaxAmount++;
                  
                 }

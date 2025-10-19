@@ -143,7 +143,6 @@ public class UIScreenManager : MonoBehaviour
     }
     public void HideScreenUI()
     {
-        
         if (GetCurrentUI() == UIScreenType.MiniGameUI || GetCurrentUI() == UIScreenType.PauseUI && isInWarning)
             return;
         if (GetCurrentUI() != UIScreenType.None && !isSleeping)
@@ -302,7 +301,6 @@ public class UIScreenManager : MonoBehaviour
                     continue;
 
                 screen.SetActive(state);
-
                 if (screen.TryGetComponent(out SetButtonSelected selectedButton) && state)
                     selectedButton.SetSelectedButton();
                 if (screen.TryGetComponent(out TutorialUI tutorial) && state)

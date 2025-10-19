@@ -14,13 +14,13 @@ public class FadeTilesOnPlayer : MonoBehaviour
     bool inHouse;
     
 
-    void FadeTiles()
+    void FadeTiles(Vector3Int p)
     {
         
         if (!inHouse)
             return;
         
-        Vector3Int playerTilePosition = PlayerInformation.instance.currentTilePosition.position;
+        Vector3Int playerTilePosition = p;
         playerTilePosition.x -= 1;
         playerTilePosition.y -= 1;
         StopAllCoroutines();
@@ -140,7 +140,7 @@ public class FadeTilesOnPlayer : MonoBehaviour
             }
             inHouse = true;
             GameEventManager.onPlayerPositionUpdateEvent.AddListener(FadeTiles);
-            FadeTiles(); // Call FadeTiles immediately when entering the house to avoid initial jittering
+            FadeTiles(PlayerInformation.instance.currentTilePosition.position); // Call FadeTiles immediately when entering the house to avoid initial jittering
         }
     }
 

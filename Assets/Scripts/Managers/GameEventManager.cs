@@ -38,7 +38,7 @@ public static class GameEventManager
     /// <summary>
     ///  Player Position Update
     /// </summary>
-    public static readonly GameEvent onPlayerPositionUpdateEvent = new GameEvent();
+    public static readonly GameEvent<Vector3Int> onPlayerPositionUpdateEvent = new GameEvent<Vector3Int>();
 
     /// <summary>
     ///  Player Compendiums Update

@@ -58,7 +58,8 @@ public class RunningUI : MonoBehaviour
             return;
         }
         ShakeStat(.2f * (index+2));
-        AudioManager.instance.PlaySound("GlassCrack");
+        
+        
         crack.gameObject.SetActive(true);
         crack.sprite= cracks[index];
     }
@@ -68,14 +69,15 @@ public class RunningUI : MonoBehaviour
         shattered.gameObject.SetActive(state);
         if (state)
         {
-            AudioManager.instance.PlaySound("GlassShatter");
+            
             ShakeStat(2.5f);
         }
             
     }
     public void ShakeStat(float amount)
     {
-        StartCoroutine(ShakeStatUI(runUIObject, origPos, amount));
+        if(UIScreenManager.instance.gameplay.HUDBinary == 1)
+            StartCoroutine(ShakeStatUI(runUIObject, origPos, amount));
     }
 
     public IEnumerator ShakeStatUI(RectTransform statObject, Vector2 originalPos, float diff)

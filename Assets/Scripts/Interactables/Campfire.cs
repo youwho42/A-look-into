@@ -47,7 +47,7 @@ namespace Klaxon.Interactable
             GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPlayerDistance);
         }
 
-        void CheckPlayerDistance()
+        void CheckPlayerDistance(Vector3Int playerPos)
         {
             if (isLit)
             {

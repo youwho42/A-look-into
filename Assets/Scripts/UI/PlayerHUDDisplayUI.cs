@@ -38,7 +38,7 @@ public class PlayerHUDDisplayUI : MonoBehaviour
         agencyPos = agencyUI.anchoredPosition;
         sparksPos = sparkUI.anchoredPosition;
         
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         UpdateStatsUI();
     }
     
