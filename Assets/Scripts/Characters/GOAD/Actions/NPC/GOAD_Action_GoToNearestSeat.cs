@@ -66,7 +66,7 @@ namespace Klaxon.GOAD
                 agent.walker.currentDestination = agent.aStarPath[agent.currentPathIndex];
             }
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.offScreen || agent.screenManager.isSleeping)
             {
                 agent.HandleOffScreenAStar(this);
                 return;

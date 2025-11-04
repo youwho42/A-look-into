@@ -17,10 +17,6 @@ public class ItemDatabaseEditor : Editor
             scriptableObject.Items.Clear();
             // Perform your custom context menu action here
             scriptableObject.Items = Resources.LoadAll<QI_ItemData>("Items/").ToList();
-        }
-        if (GUILayout.Button("Order List"))
-        {
-            // Perform your custom context menu action here
             scriptableObject.Items = scriptableObject.Items.OrderBy(x => x.Type).ThenBy(x => x.name).ToList();
         }
     }

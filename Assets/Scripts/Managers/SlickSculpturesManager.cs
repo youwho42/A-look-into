@@ -38,7 +38,11 @@ public class SlickSculpturesManager : MonoBehaviour
         {
             if (sculptureQueue.Contains(sculpture))
                 continue;
-
+            if(sculpture.hasWorldConditionToFix)
+            {
+                if(!GOAD_WorldBeliefStates.instance.HasState(sculpture.worldConditionNeeded))
+                    continue;
+            }
             foreach (var item in sculpture.ingredients)
             {
                 if (item.complete && !item.activated)

@@ -52,6 +52,7 @@ public class AudioSettingsUI : MonoBehaviour
     public void ChangeMusicVolume()
     {
         audioMixer.SetFloat("Music", Mathf.Log10(musicSlider.value) * 20);
+        audioMixer.SetFloat("AreaMusic", Mathf.Log10(musicSlider.value) * 20);
     }
     public void ChangeAnimalVolume()
     {

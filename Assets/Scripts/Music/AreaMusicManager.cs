@@ -12,6 +12,12 @@ public class MusicArea
     [HideInInspector]
     public Color[,] musicArea;
     public string musicAreaName;
+    [HideInInspector]
+    public bool isPlaying;
+    [HideInInspector]
+    public float t;
+
+    
 
     public void SetColorArray()
     {
@@ -42,6 +48,12 @@ public class AreaMusicManager : MonoBehaviour
     Tilemap baseMap;
     public AudioMixer audioMixer;
     bool lastState;
+    float currentLandscapeT;
+
+    bool landscapeMusicIsPlaying;
+
+    MusicArea currentArea;
+
     private void Start()
     {
         baseMap = GridManager.instance.groundMap;
@@ -54,6 +66,11 @@ public class AreaMusicManager : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckTile);
+    }
+
     void CheckTile(Vector3Int position)
     {
 
@@ -61,76 +78,115 @@ public class AreaMusicManager : MonoBehaviour
             return;
 
 
-        int mapPositionX = (int)NumberFunctions.RemapNumber(position.x, baseMap.cellBounds.min.x, baseMap.cellBounds.max.x, 0, 127);
-        int mapPositionY = (int)NumberFunctions.RemapNumber(position.y, baseMap.cellBounds.min.y, baseMap.cellBounds.max.y, 0, 127);
-
+        int mapPositionX = (int)NumberFunctions.RemapNumber(position.x, baseMap.cellBounds.min.x, baseMap.cellBounds.max.x, 0, 128);
+        int mapPositionY = (int)NumberFunctions.RemapNumber(position.y, baseMap.cellBounds.min.y, baseMap.cellBounds.max.y, 0, 128);
+        bool inMapArea = false;
+        
         foreach (var map in allMusicAreas)
         {
             bool inArea = map.musicArea[mapPositionX, mapPositionY].a > 0.4f;
-            
-
-            if (lastState == inArea)
-                return;
-            
-            lastState = inArea;
-
-
             if (inArea)
             {
-                StopAllCoroutines();
-                StartCoroutine(FadeInCo("AreaMusics", 5.0f));
-                StartCoroutine(FadeOutCo("LandscapeMusic", 2.0f));
-
-                AudioManager.instance.PlaySound($"{map.musicAreaName}");
+                inMapArea = true;
+                currentArea = map;
+                break;
             }
-            else
+        }
+
+        if (currentArea == null)
+            return;
+
+        if (lastState == inMapArea)
+            return;
+
+        lastState = inMapArea;
+
+
+        if (inMapArea)
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeInCo("AreaMusics", 5.0f, currentArea));
+            StartCoroutine(FadeOutCo("LandscapeMusic", 2.0f, null));
+
+
+        }
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeInCo("LandscapeMusic", 20.0f, null));
+            StartCoroutine(FadeOutCo("AreaMusics", 10.0f, currentArea));
+        }
+        
+
+    }
+
+    IEnumerator FadeInCo(string mixerGroup, float timer, MusicArea musicArea)
+    {
+        float currentFadeTime = musicArea != null ? musicArea.t * timer : currentLandscapeT * timer;
+        if (musicArea != null)
+        {
+            if (!musicArea.isPlaying)
             {
-                StopAllCoroutines();
-                StartCoroutine(FadeInCo("LandscapeMusic", 20.0f));
-                StartCoroutine(FadeOutCo("AreaMusics", 10.0f));
+                AudioManager.instance.PlaySound($"{musicArea.musicAreaName}");
+                musicArea.isPlaying = true;
             }
         }
         
-    }
 
-    IEnumerator FadeInCo(string mixerGroup, float timer)
-    {
-        float currentTime = 0;
-        while (currentTime < timer)
-        {
-            currentTime += Time.deltaTime;
-            float t = currentTime/timer;
-            audioMixer.SetFloat(mixerGroup, Mathf.Log10(t) * 20);
-            yield return null;
-        }
+        while (currentFadeTime < timer)
+            {
+                currentFadeTime += Time.deltaTime;
+                float t = currentFadeTime / timer;
+                audioMixer.SetFloat(mixerGroup, Mathf.Log10(t) * 20);
+
+            if (musicArea != null)
+                musicArea.t = t;
+            else
+                currentLandscapeT = t;
+
+                yield return null;
+            }
+        if (musicArea != null)
+            musicArea.t = 0;
+        else
+            currentLandscapeT = 0;
         yield return null;
 
     }
 
-    IEnumerator FadeOutCo(string mixerGroup, float timer)
+    IEnumerator FadeOutCo(string mixerGroup, float timer, MusicArea musicArea)
     {
-        float currentTime = 0;
-        while (currentTime < timer)
-        {
-            currentTime += Time.deltaTime;
-            float t = 1.0f - (currentTime / timer);
-            audioMixer.SetFloat(mixerGroup, Mathf.Log10(t) * 20);
+        float currentFadeTime = musicArea != null ? musicArea.t * timer : currentLandscapeT * timer;
+        
+        while (currentFadeTime < timer)
+            {
+                currentFadeTime += Time.deltaTime;
+                float t = 1.0f - (currentFadeTime / timer);
+                audioMixer.SetFloat(mixerGroup, Mathf.Log10(t) * 20);
+
+                if (musicArea != null)
+                    musicArea.t = t;
+            else
+                currentLandscapeT = t;
             yield return null;
+            }
+
+        if (musicArea != null)
+            musicArea.t = 0;
+        else
+            currentLandscapeT = 0;
+
+        if (musicArea != null)
+        {
+            if (musicArea.isPlaying)
+            {
+                AudioManager.instance.StopSound($"{musicArea.musicAreaName}");
+                musicArea.isPlaying = false;
+            }
+            currentArea = null;
         }
         yield return null;
     }
 
-    //Color[,] ConvertImage()
-    //{
-
-    //    Color[,] convertedImage = new Color[musicAreaTexture.width, musicAreaTexture.height];
-    //    for (int x = 0; x < musicAreaTexture.width; x++)
-    //    {
-    //        for (int y = 0; y < musicAreaTexture.height; y++)
-    //        {
-    //            convertedImage[x, y] = musicAreaTexture.GetPixel(x, y);
-    //        }
-    //    }
-    //    return convertedImage;
-    //}
+    
 }

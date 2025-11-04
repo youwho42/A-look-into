@@ -333,14 +333,14 @@ public class LevelManager : MonoBehaviour
         playerMaterial = PlayerInformation.instance.playerSprite.material;
         playerMaterial.SetFloat("_Fade", 0);
         PlayerInformation.instance.playerShadow.SetActive(false);
-        RealTimeDayNightCycle.instance.SetDayTime(420, 1);
+        RealTimeDayNightCycle.instance.SetDayTime(480, 1);
         PlayerDistanceToggle.instance.PopulateLists();
         ResetAtDawnManager.instance.ResetAllItems(5);
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1.5f);
         SavingLoading.instance.LoadOptions();
         Pause(false);
         Time.timeScale = 1;
-        yield return new WaitForSecondsRealtime(3.0f);
+        yield return new WaitForSecondsRealtime(2.0f);
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.inMainMenu = true;
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.MainMenuUI, true);

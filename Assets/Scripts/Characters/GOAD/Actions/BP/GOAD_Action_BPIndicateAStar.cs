@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
@@ -49,6 +50,7 @@ namespace Klaxon.GOAD
                 needsNewStartPosition = true;
                 agent.SetValidStartPosition(markerPosition, this);
             }
+            
         }
 
         public override void PerformAction(GOAD_Scheduler_BP agent)
@@ -183,15 +185,15 @@ namespace Klaxon.GOAD
             agent.walker.SetLastPosition();
         }
 
-        public override void EndAction(GOAD_Scheduler_BP agent)
-        {
-            base.EndAction(agent);
-        }
+        //public override void EndAction(GOAD_Scheduler_BP agent)
+        //{
+        //    base.EndAction(agent);
+        //}
 
-        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_BP agent)
-        {
-            base.AStarDestinationIsCurrentPosition(agent);
-        }
+        //public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_BP agent)
+        //{
+        //    base.AStarDestinationIsCurrentPosition(agent);
+        //}
 
         private void GetNewOffset(GOAD_Scheduler_BP agent)
         {

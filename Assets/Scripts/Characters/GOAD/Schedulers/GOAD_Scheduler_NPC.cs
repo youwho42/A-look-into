@@ -71,7 +71,7 @@ namespace Klaxon.GOAD
         [HideInInspector]
         public bool offScreenPosMoved = true;
         [HideInInspector]
-        public UIScreenManager sleep;
+        public UIScreenManager screenManager;
 
         [HideInInspector]
         public InteractableChair currentRestSeat;
@@ -95,7 +95,7 @@ namespace Klaxon.GOAD
             interactable = GetComponent<InteractableDialogue>();
             walker = GetComponent<GravityItemWalk>();
             agentInventory = GetComponent<QI_Inventory>();
-            sleep = UIScreenManager.instance;
+            screenManager = UIScreenManager.instance;
             dialogueManager = DialogueManagerUI.instance;
             lastValidTileLocation = transform.position;
         }
@@ -104,6 +104,8 @@ namespace Klaxon.GOAD
 
         private void Update()
         {
+            if (screenManager.inMainMenu || screenManager.GetIsCurrentUI(UIScreenType.LoadScreenUI))
+                return;
             
             if (inTalkRange)
             {
@@ -187,7 +189,7 @@ namespace Klaxon.GOAD
             destPos.z -= 1;
             Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
             gettingPath = true;
-            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
+            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, true, OnPathFound));
         }
 
         public void OnPathFound(List<Vector3> newPath, bool success)

@@ -162,7 +162,7 @@ public class NPC_BasicAI : MonoBehaviour
     {
         //Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
         gettingPath = true;
-        PathRequestManager.RequestPath(new PathRequest(moveToNode.currentTilePosition.position, tilePosition, OnPathFound));
+        PathRequestManager.RequestPath(new PathRequest(moveToNode.currentTilePosition.position, tilePosition, true, OnPathFound));
     }
 
     public void OnPathFound(List<Vector3> newPath, bool success)

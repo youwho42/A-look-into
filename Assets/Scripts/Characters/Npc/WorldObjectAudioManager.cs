@@ -11,8 +11,11 @@ public class WorldObjectAudioManager : MonoBehaviour
     public LayerMask groundSoundsLayer;
     public AudioMixerGroup mixerGroup;
 
+    CurrentTilePosition currentTilePosition;
+
     private void Start()
     {
+        currentTilePosition = GetComponentInParent<CurrentTilePosition>();
         GameObject audioHolder = new GameObject("Audio");
         audioHolder.transform.parent = transform;
         audioHolder.transform.localPosition = sound3dOffset;
@@ -78,11 +81,13 @@ public class WorldObjectAudioManager : MonoBehaviour
 
     public void PlayFootstepSound()
     {
-        bool right = PlayerInformation.instance.playerController.facingRight;
-        Vector3 newOff = right ? sound3dOffset : -sound3dOffset;
-        Collider2D hit = Physics2D.OverlapCircle(transform.position + newOff, .01f, groundSoundsLayer);
-        PlayFootstep(hit);
+        //bool right = PlayerInformation.instance.playerController.facingRight;
+        //Vector3 newOff = right ? sound3dOffset : -sound3dOffset;
+        //Collider2D hit = Physics2D.OverlapCircle(transform.position + newOff, .01f, groundSoundsLayer);
+        //PlayFootstep(hit);
 
+        // potential refactor here....
+        PlaySound(AreaSoundFxManager.instance.GetTileSFXName(currentTilePosition.position));
     }
 
 

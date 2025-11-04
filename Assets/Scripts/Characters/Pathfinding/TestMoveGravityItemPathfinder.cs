@@ -23,7 +23,7 @@ public class TestMoveGravityItemPathfinder : MonoBehaviour
         Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
         //Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
         gettingPath = true;
-        PathRequestManager.RequestPath(new PathRequest(PlayerInformation.instance.currentTilePosition.position, gridPos, OnPathFound));
+        PathRequestManager.RequestPath(new PathRequest(PlayerInformation.instance.currentTilePosition.position, gridPos, true, OnPathFound));
     }
 
     public void OnPathFound(List<Vector3> newPath, bool success)

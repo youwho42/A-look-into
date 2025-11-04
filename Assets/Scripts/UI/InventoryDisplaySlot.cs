@@ -431,11 +431,10 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (PlacedOnNavigationNodes(coll))
             return true;
 
-        if (item.onlyPlacedInPlayerHouse)
-        {
-            if (!PlayerHouseCollision(coll))
-                return true;
-        }
+        
+        if (!PlayerHouseCollision(coll))
+            return true;
+        
             
 
         ContactFilter2D filter = new ContactFilter2D();
@@ -481,6 +480,11 @@ public class InventoryDisplaySlot : MonoBehaviour
 
     bool PlayerHouseCollision(Collider2D coll)
     {
+        // This works!!
+        //if (AreaSoundFxManager.instance.GetTileMapName(GridManager.instance.GetTilePosition(coll.transform.position)) == "House")
+        //{
+        //    Debug.Log("In House!!!!");
+        //}
         if (!item.onlyPlacedInPlayerHouse)
             return false;
         ContactFilter2D filter = new ContactFilter2D();

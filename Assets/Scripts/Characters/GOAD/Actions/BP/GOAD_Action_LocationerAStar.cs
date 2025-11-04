@@ -194,15 +194,15 @@ namespace Klaxon.GOAD
             }
         }
 
-        public override void EndAction(GOAD_Scheduler_BP agent)
-        {
-            base.EndAction(agent);
-        }
+        //public override void EndAction(GOAD_Scheduler_BP agent)
+        //{
+        //    base.EndAction(agent);
+        //}
 
-        public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_BP agent)
-        {
-            base.AStarDestinationIsCurrentPosition(agent);
-        }
+        //public override void AStarDestinationIsCurrentPosition(GOAD_Scheduler_BP agent)
+        //{
+        //    base.AStarDestinationIsCurrentPosition(agent);
+        //}
 
 
         

@@ -55,17 +55,35 @@ public class IsometricPathfindingXYZ : MonoBehaviour
                         if (!neighbour.walkable || closedSet.Contains(neighbour))
                             continue;
 
-                        if(currentNode.gridZ != neighbour.gridZ) 
-                        { 
+                        
+                        
+                        if (currentNode.gridZ != neighbour.gridZ)
+                        {
                             int diff = neighbour.gridZ - currentNode.gridZ;
 
-                            // if the next tile is not on the same z level and not a slope
-                            if (diff == -1 && !neighbour.slope || diff == 1 && !currentNode.slope)
+                            // does the requester need to use slopes?
+                            if (request.needsSlopes)
                             {
-                                continue;
+                                // if the next tile is not on the same z level and not a slope
+                                if (diff == -1 && !neighbour.slope || diff == 1 && !currentNode.slope)
+                                {
+                                    continue;
+                                }
                             }
-                            
+                            else
+                            {
+                                if (MathF.Abs(diff) > 1)
+                                {
+                                    continue;
+                                }
+                            }
+
                         }
+                        
+                        
+
+
+
                         // I am approaching a slope
                         if (neighbour.slope)
                         {

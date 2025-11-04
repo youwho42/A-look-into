@@ -273,6 +273,7 @@ namespace Klaxon.GOAD
 
         public void SetValidStartPosition(Vector3 destination, GOAD_Action action)
         {
+            gettingPath = true;
             float dist = float.MaxValue;
             for (int x = -2; x < 3; x++)
             {
@@ -302,23 +303,25 @@ namespace Klaxon.GOAD
 
         public void SetAStarDestination(Vector3 destination, GOAD_Action action, Vector3 startPos)
         {
-            
+            gettingPath = true;
             var start = GridManager.instance.GetTilePosition(startPos);
             var end = GridManager.instance.GetTilePosition(destination);
             if (start == end)
             {
                 action.AStarDestinationIsCurrentPosition(this);
+                gettingPath = false;
                 return;
             }
             Vector3 destPos = destination;
             destPos.z -= 1;
             Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
-            gettingPath = true;
-            PathRequestManager.RequestPath(new PathRequest(start, gridPos, OnPathFound));
+            
+            PathRequestManager.RequestPath(new PathRequest(start, gridPos, false, OnPathFound));
         }
 
         public void OnPathFound(List<Vector3> newPath, bool success)
         {
+            aStarPath.Clear();
             if (success)
             {
                 currentFailedPathfindingAttempts = 0;

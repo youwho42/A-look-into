@@ -1,3 +1,4 @@
+using Klaxon.GOAD;
 using Klaxon.Interactable;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,10 @@ public class RestoreSculpture : MonoBehaviour
     public GameObject sculptureTablette;
     public ParticleSystem fixParticles;
     public FixingSounds fixSounds;
+
+    public bool hasWorldConditionToFix;
+    [ConditionalHide("hasWorldConditionToFix", true)]
+    public GOAD_ScriptableCondition worldConditionNeeded;
     private void Start()
     {
         GetIsFinished();

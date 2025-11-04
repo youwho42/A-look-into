@@ -21,42 +21,13 @@ public class TilemapToPNG : MonoBehaviour
     public string textureName;
 
     public List<MapLayer> mapLayers = new List<MapLayer>();
-    
-    //public void SaveBaseMap()
-    //{
-    //    float[,] tiles = new float[groundMap.cellBounds.size.x, groundMap.cellBounds.size.y];
-    //    int indX = 0;
-    //    int indY = 0;
-    //    float indZ = 0;
-        
-    //    for (int x = groundMap.cellBounds.xMin; x < groundMap.cellBounds.xMax; x++)
-    //    {
-    //        indY = 0;
-    //        for (int y = groundMap.cellBounds.yMin; y < groundMap.cellBounds.yMax; y++)
-    //        {
-    //            for (int z = groundMap.cellBounds.zMax; z > groundMap.cellBounds.zMin; z--)
-    //            {
-    //                if(groundMap.GetTile(new Vector3Int(x,y,z)) != null)
-    //                {
-    //                    indZ = NumberFunctions.RemapNumber(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, 0, 1);
-    //                    tiles[indX, indY] = indZ;
-    //                    break;
-    //                }
-    //            }
-    //            indY++;
-    //        }
-    //        indX++;
-    //    }
-        
-    //    var tex = CreateBaseTexture(tiles);
-    //    SaveTexture(tex, "Base");
-    //}
 
+    
     public void SaveFinalMap()
     {
         if(mapLayers.Count <= 0) 
             return;
-        List<Texture2D> allLayers = new List<Texture2D>();
+        
         Texture2D layer = null;
         for (int i = 0; i < mapLayers.Count; i++)
         {
@@ -77,7 +48,6 @@ public class TilemapToPNG : MonoBehaviour
                             if(mapLayers[i].changeColorZ)
                                 indZ = NumberFunctions.RemapNumber(z, groundMap.cellBounds.zMin, groundMap.cellBounds.zMax, -0.23f, 1.08f);
                             tiles[indX, indY] = indZ;
-                            //tiles[indX, indY] = 1;
                             break;
                         }
                        
@@ -89,7 +59,6 @@ public class TilemapToPNG : MonoBehaviour
             layer = CreateFinalTexture(tiles, i);
             SaveTexture(layer, mapLayers[i].mapName);
             
-            //SaveTexture(Resize(layer, 1280, 1280), $"{mapLayers[i].mapName}_384");
         }
         
 
@@ -126,26 +95,7 @@ public class TilemapToPNG : MonoBehaviour
         return texture;
     }
 
-    //public Texture2D CreateBaseTexture(float[,] tileMapArray)
-    //{
-    //    int width = tileMapArray.GetLength(0);
-    //    int height = tileMapArray.GetLength(1);
-        
-    //    Texture2D texture = new Texture2D(width, height);
-
-    //    Color[] colorMap = new Color[width * height];
-    //    for (int y = 0; y < height; y++)
-    //    {
-    //        for (int x = 0; x < width; x++)
-    //            colorMap[y * width + x] = new Color(0.21f, tileMapArray[x, y], 0.14f, 1);
-            
-    //    }
-    //    texture.SetPixels(colorMap);
-    //    texture.Apply();
-
-
-    //    return texture;
-    //}
+    
 
     public void SaveTexture(Texture2D texture, string mapType)
     {
@@ -158,7 +108,7 @@ public class TilemapToPNG : MonoBehaviour
         }
         string path = $"{dirPath}/Map_{mapType}_{textureName}.png";
         System.IO.File.WriteAllBytes(path, bytes);
-        Debug.Log(bytes.Length / 1024 + $"Kb was saved as: {path}");
+        Debug.Log($"{bytes.Length}b was saved as: Map_{mapType}_{textureName}.png");
 
 #if UNITY_EDITOR
         UnityEditor.AssetDatabase.Refresh();
@@ -166,16 +116,5 @@ public class TilemapToPNG : MonoBehaviour
 #endif
 
     }
-
-    //Texture2D Resize(Texture2D texture2D, int targetX, int targetY)
-    //{
-    //    RenderTexture rt = new RenderTexture(targetX, targetY, 24);
-    //    RenderTexture.active = rt;
-    //    Graphics.Blit(texture2D, rt);
-    //    Texture2D result = new Texture2D(targetX, targetY);
-    //    result.ReadPixels(new Rect(0, 0, targetX, targetY), 0, 0);
-    //    result.Apply();
-    //    return result;
-    //}
 
 }

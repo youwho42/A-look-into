@@ -201,6 +201,15 @@ namespace Klaxon.GOAD
             return false;
         }
 
+        public bool HasState(GOAD_ScriptableCondition condition)
+        {
+            if (worldStates.TryGetValue(condition.Condition, out bool State))
+            {
+                return State == condition.State;
+            }
+            return false;
+        }
+
         public InteractableChair FindNearestSeat(Vector3 position)
         {
             float closest = float.MaxValue;

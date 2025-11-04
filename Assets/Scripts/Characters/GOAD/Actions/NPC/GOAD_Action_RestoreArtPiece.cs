@@ -142,7 +142,7 @@ namespace Klaxon.GOAD
             //// this is where we need to make the npc GO TO the destination.
             //// use currentAction.walker here
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.offScreen || agent.screenManager.isSleeping)
             {
                 agent.HandleOffScreenNodes(this);
                 return;
@@ -238,7 +238,7 @@ namespace Klaxon.GOAD
 
 
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.offScreen || agent.screenManager.isSleeping)
             {
                 agent.HandleOffScreenNodes(this);
                 return;

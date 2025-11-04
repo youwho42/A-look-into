@@ -10,40 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cf5ad7eea9befa4d9471cc26e6e1483, type: 3}
-  m_Name: Test Undertaking
+  m_Name: FixBeachCampsite
   m_EditorClassIdentifier: 
-  Name: Test Home Bound
+  Name: Fix Beach Campsite
   localizedName:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1bf897345ac230148a59fa4f1b012ba3
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 126541932852531200
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   localizedDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1bf897345ac230148a59fa4f1b012ba3
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 126541934156959744
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   localizedCompleteDescription:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1bf897345ac230148a59fa4f1b012ba3
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 126541935939538944
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   Tasks:
-  - {fileID: 11400000, guid: 6467ef418fa13054e8e6fd091775a411, type: 2}
+  - {fileID: 11400000, guid: ca0ee8ec52b70ad4ab62cce496036780, type: 2}
+  - {fileID: 11400000, guid: 64e90946f6a1545449f67a773d21a7cf, type: 2}
   CurrentState: 0
-  SparksReward: 0
+  QuestCompleteCondition: {fileID: 11400000, guid: 42955d21fd3cd2f4fb8d5a409a23962d,
+    type: 2}
+  SparksReward: 300
   GumptionReward: {fileID: 0}
   AgencyReward: {fileID: 0}
   ItemReward: {fileID: 0}

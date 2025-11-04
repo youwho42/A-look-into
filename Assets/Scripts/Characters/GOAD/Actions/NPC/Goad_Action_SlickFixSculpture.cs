@@ -180,7 +180,7 @@ namespace Klaxon.GOAD
             agent.animator.SetFloat(agent.velocityY_hash, agent.walker.isGrounded ? 0 : agent.walker.displacedPosition.y);
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.offScreen || agent.screenManager.isSleeping)
             {
                 agent.HandleOffScreenNodes(this);
                 return;
@@ -239,7 +239,7 @@ namespace Klaxon.GOAD
             agent.animator.SetFloat(agent.velocityX_hash, 1);
 
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.offScreen || agent.screenManager.isSleeping)
             {
                 agent.HandleOffScreenAStar(this);
                 return;

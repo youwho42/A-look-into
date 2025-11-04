@@ -56,7 +56,7 @@ namespace Klaxon.GOAD
 
 
 
-            if (agent.offScreen || agent.sleep.isSleeping)
+            if (agent.offScreen || agent.screenManager.isSleeping)
             {
                 agent.HandleOffScreenAStar(this);
                 return;

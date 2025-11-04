@@ -158,7 +158,7 @@ namespace Klaxon.GOAD
             destPos.z -= 1;
             Vector3Int gridPos = GridManager.instance.groundMap.WorldToCell(destPos);
             gettingPath = true;
-            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
+            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, true, OnPathFound));
         }
 
         public void OnPathFound(List<Vector3> newPath, bool success)

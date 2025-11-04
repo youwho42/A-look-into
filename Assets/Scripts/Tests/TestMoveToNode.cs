@@ -37,7 +37,7 @@ public class TestMoveToNode : MonoBehaviour
     {
         //Vector3Int dest = PathRequestManager.GetRandomWalkableNode();
 
-        PathRequestManager.RequestPath(new PathRequest(moveToNode.currentTilePosition.position, target.position, OnPathFound));
+        PathRequestManager.RequestPath(new PathRequest(moveToNode.currentTilePosition.position, target.position, true, OnPathFound));
     }
     public void OnPathFound(List<Vector3> newPath, bool success)
     {

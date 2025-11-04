@@ -115,12 +115,15 @@ public struct PathRequest
 {
     public Vector3Int pathStart;
     public Vector3Int pathEnd;
+    public bool needsSlopes;
     public Action<List<Vector3>, bool> pathCallback;
+    
 
-    public PathRequest(Vector3Int start, Vector3Int end, Action<List<Vector3>, bool> callback)
+    public PathRequest(Vector3Int start, Vector3Int end, bool _needsSlopes, Action<List<Vector3>, bool> callback)
     {
         pathStart = start;
         pathEnd = end;
+        needsSlopes = _needsSlopes;
         pathCallback = callback;
     }
 }

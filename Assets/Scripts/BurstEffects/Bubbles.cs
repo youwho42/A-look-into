@@ -237,6 +237,9 @@ public class Bubbles : MonoBehaviour
 
     private void OnDestroy()
     {
+        movementUpdateJobHandle.Complete();
+        displacementUpdateJobHandle.Complete();
+
         movementAccessArray.Dispose();
         windDirections.Dispose();
         displacementAccessArray.Dispose();

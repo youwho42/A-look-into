@@ -234,7 +234,7 @@ namespace Klaxon.GOAD
                 gridPos = best;
             }
             gettingPath = true;
-            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, OnPathFound));
+            PathRequestManager.RequestPath(new PathRequest(walker.currentTilePosition.position, gridPos, false, OnPathFound));
         }
 
 
