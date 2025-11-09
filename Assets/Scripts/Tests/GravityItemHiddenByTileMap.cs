@@ -12,10 +12,11 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
     GridManager gridManager;
     Transform _transform;
     GravityItemNew gravityItem;
-    //HashSet<Vector3Int> fadedTilePositions = new HashSet<Vector3Int>();
+    PlayerSilhouetteManager silhouetteManager;
     bool canHide;
     private void Start()
     {
+        silhouetteManager = PlayerSilhouetteManager.instance;
         gravityItem = GetComponent<GravityItemNew>();
         gridManager = GridManager.instance;
         _transform = transform;
@@ -25,8 +26,11 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
 
     void Update()
     {
-        if(GetTileInfo())
+        if (GetTileInfo())
+        {
             CheckHidden();
+        }
+            
     }
     
 
@@ -41,8 +45,9 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
 
         if (displacementPos <= 0)
             DoubleCheck();
-
+        
         ChangeObjectZ(displacementPos);
+        
     }
 
     bool GetTileInfo()
@@ -55,29 +60,7 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
         ChangeObjectZ(0);
         return false;
     }
-    //private void CheckHidden()
-    //{
-    //    displacementPos = 0;
-    //    Vector3 pos = _transform.position;
-    //    //ClearFadedTiles();
-    //    for (int i = 20; i > _transform.position.z; i--)
-    //    {
-    //        pos.z = i;
-    //        if (gridManager.GetTileExisting(pos))
-    //        {
-    //            if (i == _transform.position.z || i == _transform.position.z + 1)
-    //                displacementPos = CheckObjectPosition(Vector3.zero);
-                
-    //            //Debug.Log("Need to show the player behind a tile somehow");
-    //            //HideTiles();
-    //            break;
-    //        }
-    //    }
-    //    if(displacementPos <= 0)
-    //        DoubleCheck();
-    //    ChangeObjectZ(displacementPos);
-
-    //}
+    
 
     void DoubleCheck()
     {
@@ -133,41 +116,5 @@ public class GravityItemHiddenByTileMap : MonoBehaviour
 
     }
 
-    //void HideTiles()
-    //{
-    //    Vector3 pos = _transform.position;
-    //    for (int i = 20; i > _transform.position.z; i--)
-    //    {
-    //        pos.z = i;
-    //        Vector3Int tilepos = gridManager.Grid.WorldToCell(pos);
-    //        FadeTile(tilepos, 0);
-    //        FadeTile(tilepos + (Vector3Int)Vector2Int.one, 0.1f);
-    //        FadeTile(tilepos + Vector3Int.right, 0.1f);
-    //        FadeTile(tilepos + Vector3Int.up, 0.1f);
-
-
-    //    }
-    //}
-    //void ClearFadedTiles()
-    //{
-
-    //    foreach (Vector3Int pos in fadedTilePositions)
-    //    {
-    //        FadeTile(pos, 1f);
-    //    }
-    //    fadedTilePositions.Clear();
-    //}
-
-    //void FadeTile(Vector3Int tilePosition, float targetAlpha)
-    //{
-
-    //    gridManager.groundMap.SetTileFlags(tilePosition, TileFlags.None);
-
-    //    Color tempColor = gridManager.groundMap.GetColor(tilePosition);
-
-    //    gridManager.groundMap.SetColor(tilePosition, new Color(tempColor.r, tempColor.g, tempColor.b, targetAlpha));
-
-    //    fadedTilePositions.Add(tilePosition);
-
-    //}
+    
 }

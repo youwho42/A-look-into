@@ -13,6 +13,7 @@ public class PlayerInformation : MonoBehaviour
     public static PlayerInformation instance;
 
     public Transform player;
+    public DrawZasYDisplacement playerHeightDisplacement;
     public SpriteRenderer playerSprite;
     public GameObject playerShadow;
     public GravityItemMovementControllerNew playerController;
@@ -73,6 +74,7 @@ public class PlayerInformation : MonoBehaviour
     private void Start()
     {
         currentTilePosition = player.GetComponent<CurrentTilePosition>();
+        playerHeightDisplacement = player.GetComponent<DrawZasYDisplacement>();
         playerEncountersCompendiumDatabase.Items.Clear();
         playerAnimalCompendiumDatabase.Items.Clear();
         playerResourceCompendiumDatabase.Items.Clear();

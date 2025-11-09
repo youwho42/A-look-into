@@ -12,7 +12,7 @@ public class TreeRustling : MonoBehaviour, IWindEffect
     public Vector2Int minMaxDroppings = new Vector2Int(1, 6);
     public float dropRadius;
     public TreeLeavesShake treeLeavesShake;
-
+    public bool isPineTree;
 
     void Start()
     {

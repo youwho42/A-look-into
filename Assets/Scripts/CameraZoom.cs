@@ -8,13 +8,15 @@ public class CameraZoom : MonoBehaviour
 	float minZoom = 0.7f;
 	float maxZoom = 2.5f;
 	float zoomValue = 0.05f;
+	float baseZoom = 1.25f;
 	CinemachineBrain brain;
 	CinemachineVirtualCamera cam;
 	float timeAfterZoom = 7.5f;
-	float timer;
+	
 	IEnumerator resetZoom;
-	bool zoomActive;
+	
 	public bool resetWithTimer;
+	public Camera silhouetteCamera;
 	void Start() 
 	{
 		brain = Camera.main.GetComponent<CinemachineBrain>();
@@ -26,22 +28,7 @@ public class CameraZoom : MonoBehaviour
         GameEventManager.onMouseScrollEvent.RemoveListener(SetZoom);
     }
 
-    private void Update()
-	{
-		//SetZoom();
-
-		if (UIScreenManager.instance.gameplay.autoZoomBinary == 1)
-		{
-			if (zoomActive)
-				timer += Time.deltaTime;
-
-			if (timer >= timeAfterZoom)
-			{
-				resetZoom = ResetZoomCo();
-				StartCoroutine(resetZoom);
-			}
-		}
-	}
+ 
 
 	void SetZoom(float dir)
     {
@@ -52,21 +39,38 @@ public class CameraZoom : MonoBehaviour
 			Zoom(-zoomValue);
 		else if (dir < 0)
 			Zoom(zoomValue);
+		
 	}
 	private void Zoom(float value)
     {
         if (resetZoom != null)
             StopCoroutine(resetZoom);
-        cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize += value, minZoom, maxZoom);
-        zoomActive = true;
-        timer = 0;
+		var val = Mathf.Clamp(cam.m_Lens.OrthographicSize += value, minZoom, maxZoom);
+        cam.m_Lens.OrthographicSize = val;
+		silhouetteCamera.orthographicSize = val;
+        
+
+        if (UIScreenManager.instance.gameplay.autoZoomBinary == 1)
+        {
+            if (resetZoom != null)
+                StopCoroutine(resetZoom);
+            resetZoom = ResetZoomCo(val > baseZoom);
+            StartCoroutine(resetZoom);
+        }
+
+
     }
 
-    IEnumerator ResetZoomCo()
+    IEnumerator ResetZoomCo(bool isPos)
     {
-		//SetCamera();
-		cam.m_Lens.OrthographicSize = Mathf.Lerp(cam.m_Lens.OrthographicSize, 1.25f, Time.deltaTime);
-		zoomActive = false;
+        yield return new WaitForSeconds(timeAfterZoom);
+		while (isPos ? cam.m_Lens.OrthographicSize > baseZoom : cam.m_Lens.OrthographicSize < baseZoom)
+		{
+            cam.m_Lens.OrthographicSize = Mathf.Lerp(cam.m_Lens.OrthographicSize, baseZoom, Time.deltaTime);
+            silhouetteCamera.orthographicSize = cam.m_Lens.OrthographicSize;
+			yield return null;
+        }
+ 
 		yield return null;
     }
 
