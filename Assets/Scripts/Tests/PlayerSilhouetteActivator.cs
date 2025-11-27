@@ -23,29 +23,45 @@ public class PlayerSilhouetteActivator : MonoBehaviour
     {
         gatherableLayer = LayerMask.GetMask("Gatherable");
         silhouetteManager = PlayerSilhouetteManager.instance;
-        playerTransform = transform;
+        //playerTransform = transform;
+        
         playerInformation = PlayerInformation.instance;
+        playerTransform = playerInformation.playerController.itemObject;
         gridManager = GridManager.instance;
         displacement = GetComponent<DrawZasYDisplacement>();
         GameEventManager.onPlayerPositionUpdateEvent.AddListener(CheckPotentialCliff);
+        GameEventManager.onGameLoadedEvent.AddListener(CheckForCliff);
+        GameEventManager.onGameLoadedEvent.AddListener(CheckForTrees);
+        
     }
     private void OnDestroy()
     {
+        GameEventManager.onGameLoadedEvent.RemoveListener(CheckForCliff);
+        GameEventManager.onGameLoadedEvent.RemoveListener(CheckForTrees);
         GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPotentialCliff);
     }
     private void Update()
     {
-        if(potentialCliff)
+        if (playerInformation.playerController.currentVelocity == 0 && playerInformation.playerController.isGrounded)
+            return;
+        
+            
+        
+        if (potentialCliff)
             CheckForCliff();
         if (!silhouetteManager.isBehindCliff)
             CheckForTrees();
     }
 
+   
     void CheckForTrees()
     {
+        if (Time.frameCount % 2 == 0)
+            return;
         // Get all the gatherables
         var castPos = playerTransform.position/* + new Vector3(0, -0.3f, 0)*/;
         var hits = Physics2D.CircleCastAll(castPos, 0.5f, Vector2.down, 1.0f, gatherableLayer);
+
         float c = 0;
         foreach (var hit in hits)
         {

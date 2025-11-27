@@ -111,15 +111,15 @@ namespace Klaxon.StatSystem
 
 
 
-        public void ChangeStat(StatChanger changer)
+        public void ChangeStat(StatChanger changer, float factor = 1)
         {
             foreach (var stat in statObjects)
             {
                 if (stat != changer.StatToModify)
                     continue;
-
+                
                 if (changer.ModifierType == ModifierType.RawNumber)
-                    stat.ChangeStatRaw(changer);
+                    stat.ChangeStatRaw(changer, factor);
                 else
                     stat.ChangeStatPercent(changer);
             }

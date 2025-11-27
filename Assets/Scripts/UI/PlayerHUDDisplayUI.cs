@@ -91,7 +91,7 @@ public class PlayerHUDDisplayUI : MonoBehaviour
         gumptionSlider.maxValue = newMaxGumption;
         gumptionSlider.value = lastGumption;
         bounceText.text = $"<sprite anim=\"6,21,12\"> {Mathf.FloorToInt(newCurrentBounce)}/{Mathf.FloorToInt(newMaxBounce)}";
-        gumptionText.text = $"<sprite name=\"Gumption\"> {Mathf.FloorToInt(newCurrentGumption)}/{Mathf.FloorToInt(newMaxGumption)}";
+        gumptionText.text = $"<sprite name=\"Gumption\"> {Mathf.CeilToInt(newCurrentGumption)}/{Mathf.FloorToInt(newMaxGumption)}";
         agencyText.text = $"<sprite name=\"Agency\"> {lastAgency}";
         sparksText.text = $"<sprite anim=\"3,5,12\"> {lastSparks}";
 

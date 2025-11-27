@@ -142,55 +142,61 @@ public class CompendiumDisplayUI : MonoBehaviour
         var notifUndertaking = Notifications.instance.currentLargeNotificaton;
         if (notifUndertaking == null)
             return;
-        switch (notifUndertaking.itemData.Type)
+        if (notifUndertaking.itemData != null)
         {
-            case ItemType.Equipment:
-                itemType = CompendiumItemType.Resource;
-                if (notifUndertaking.itemRecipe != null)
-                    itemType = CompendiumItemType.Recipe;
-                break;
-            case ItemType.Animal:
-                itemType = CompendiumItemType.Animal;
-                break;
-            case ItemType.Resource:
-                itemType = CompendiumItemType.Resource;
-                if (notifUndertaking.itemRecipe != null)
-                    itemType = CompendiumItemType.Recipe;
-                break;
-            case ItemType.Consumable:
-                itemType = CompendiumItemType.Resource;
-                if (notifUndertaking.itemRecipe != null)
-                    itemType = CompendiumItemType.Recipe;
-                break;
-            case ItemType.FarmStuffs:
-                itemType = CompendiumItemType.Resource;
-                if (notifUndertaking.itemRecipe != null)
-                    itemType = CompendiumItemType.Recipe;
-                break;
-            case ItemType.Reading:
-                if(notifUndertaking.itemData.name.Contains("Guide"))
-                    itemType = CompendiumItemType.Guide;
-                else if (notifUndertaking.itemData.name.Contains("Note"))
-                    itemType = CompendiumItemType.Note;
-                break;
-            case ItemType.Utility:
-                itemType = CompendiumItemType.Resource;
-                if (notifUndertaking.itemRecipe != null)
-                    itemType = CompendiumItemType.Recipe;
-                break;
-            case ItemType.Decoration:
-                itemType = CompendiumItemType.Resource;
-                if (notifUndertaking.itemRecipe != null)
-                    itemType = CompendiumItemType.Recipe;
-                break;
-            case ItemType.Smells:
-                itemType = CompendiumItemType.Resource;
-                break;
-            case ItemType.Encounter:
-                itemType = CompendiumItemType.Encounters;
-                break;
-            
+            switch (notifUndertaking.itemData.Type)
+            {
+                case ItemType.Equipment:
+                    itemType = CompendiumItemType.Resource;
+                    if (notifUndertaking.itemRecipe != null)
+                        itemType = CompendiumItemType.Recipe;
+                    break;
+                case ItemType.Animal:
+                    itemType = CompendiumItemType.Animal;
+                    break;
+                case ItemType.Resource:
+                    itemType = CompendiumItemType.Resource;
+                    if (notifUndertaking.itemRecipe != null)
+                        itemType = CompendiumItemType.Recipe;
+                    break;
+                case ItemType.Consumable:
+                    itemType = CompendiumItemType.Resource;
+                    if (notifUndertaking.itemRecipe != null)
+                        itemType = CompendiumItemType.Recipe;
+                    break;
+                case ItemType.FarmStuffs:
+                    itemType = CompendiumItemType.Resource;
+                    if (notifUndertaking.itemRecipe != null)
+                        itemType = CompendiumItemType.Recipe;
+                    break;
+                case ItemType.Reading:
+                    if (notifUndertaking.itemData.name.Contains("Guide"))
+                        itemType = CompendiumItemType.Guide;
+                    else if (notifUndertaking.itemData.name.Contains("Note"))
+                        itemType = CompendiumItemType.Note;
+                    break;
+                case ItemType.Utility:
+                    itemType = CompendiumItemType.Resource;
+                    if (notifUndertaking.itemRecipe != null)
+                        itemType = CompendiumItemType.Recipe;
+                    break;
+                case ItemType.Decoration:
+                    itemType = CompendiumItemType.Resource;
+                    if (notifUndertaking.itemRecipe != null)
+                        itemType = CompendiumItemType.Recipe;
+                    break;
+                case ItemType.Smells:
+                    itemType = CompendiumItemType.Resource;
+                    break;
+                case ItemType.Encounter:
+                    itemType = CompendiumItemType.Encounters;
+                    break;
+
+            }
+
         }
+        else
+            itemType = CompendiumItemType.Guide;
         SetCompendiumType();
         foreach (CompendiumSlot slot in compendiumSlots)
         {

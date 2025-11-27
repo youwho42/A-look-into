@@ -842,6 +842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53aa98511bec396419a2cfc1d0b5b36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
   soundSets:
   - clips:
     - {fileID: 8300000, guid: 24f78eef2452fac4295485682b363e5c, type: 3}
@@ -853,7 +854,7 @@ MonoBehaviour:
     pitch: 1
     randomVolume: 0
     randomPitch: 0.1
-    source: {fileID: 0}
+    source: {fileID: 3674039503824647703}
     overlap: 0
   mixerGroup: {fileID: -6149981308244972507, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
@@ -907,6 +908,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animator: {fileID: 1232802082072335209}
+  randomStart: 0
 --- !u!82 &3674039503824647703
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1073,6 +1075,7 @@ MonoBehaviour:
   visualItem: {fileID: 489693602664505334}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   hasMetPlayerCondition: {fileID: 0}
   references:
     version: 2

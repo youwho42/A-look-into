@@ -210,6 +210,21 @@ namespace Klaxon.GOAD
             return false;
         }
 
+        public bool HasStates(List<GOAD_ScriptableCondition> conditions)
+        {
+            bool hasAllStates = true;
+            foreach (var condition in conditions)
+            {
+                if (!HasState(condition))
+                {
+                    hasAllStates = false; 
+                    break;
+                }
+            }
+            
+            return hasAllStates;
+        }
+
         public InteractableChair FindNearestSeat(Vector3 position)
         {
             float closest = float.MaxValue;

@@ -10,6 +10,7 @@ namespace Klaxon.ConversationSystem
     {
         
         public List<ConversationObject> conversationObjects= new List<ConversationObject>();
+        public List<DialogueObject> dialogueObjects= new List<DialogueObject>();
 
         public void ResetConversations()
         {
@@ -17,12 +18,19 @@ namespace Klaxon.ConversationSystem
             {
                 conversationObjects[i].ResetConversation();
             }
+            for (int i = 0; i < dialogueObjects.Count; i++)
+            {
+                dialogueObjects[i].ResetConversation();
+            }
         }
 
         public void SetAllCoversations()
         {
             conversationObjects = Resources.LoadAll<ConversationObject>("Dialogues/").ToList();
             conversationObjects = conversationObjects.OrderBy(x => x.name).ToList();
+
+            dialogueObjects = Resources.LoadAll<DialogueObject>("Dialogues/").ToList();
+            dialogueObjects = dialogueObjects.OrderBy(x => x.name).ToList();
         }
     }
 

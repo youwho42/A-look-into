@@ -233,6 +233,8 @@ GameObject:
   - component: {fileID: 43444038107672037}
   - component: {fileID: -5283216550233336104}
   - component: {fileID: 2679971043299447750}
+  - component: {fileID: 1407640023632253141}
+  - component: {fileID: 1961439475054448726}
   m_Layer: 13
   m_Name: NPC
   m_TagString: NPC
@@ -537,7 +539,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60eaa5b139d82dd42a876cb99a8a268b, type: 3}
   m_Name: 
@@ -552,7 +554,11 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   gumptionCost: {fileID: 11400000, guid: 2dcf33813fba4754c877988660dac881, type: 2}
-  conversations: []
+  conversations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   references:
     version: 2
     RefIds: []
@@ -577,12 +583,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16cdaad32f528f545b1fa8a98171a04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  undertakings: []
+  undertakings:
+  - Undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
+    hasCondition: 0
+    UndertakingAvailableCondition: {fileID: 0}
+  - Undertaking: {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a, type: 2}
+    hasCondition: 0
+    UndertakingAvailableCondition: {fileID: 0}
+  - Undertaking: {fileID: 11400000, guid: cc5e177e553df0244bdd7e5776f61de1, type: 2}
+    hasCondition: 0
+    UndertakingAvailableCondition: {fileID: 0}
 --- !u!114 &6789908951116238672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,7 +689,7 @@ MonoBehaviour:
   lastValidNode: {fileID: 0}
   isInside: 0
   offScreenPosMoved: 1
-  sleep: {fileID: 0}
+  screenManager: {fileID: 0}
   currentRestSeat: {fileID: 0}
   isBusy: 0
   speechBubbleTransform: {fileID: 6155575475738352471}
@@ -890,6 +905,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 0}
   itemVariantIndex: 0
+--- !u!114 &1407640023632253141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07077def6e0b94947b074167d6f3a903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPC_Name:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  gumptionCost: {fileID: 11400000, guid: 7114c3b347a03f240b498f2e635849fe, type: 2}
+  dialogues: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1961439475054448726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902144603053421309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13692e7803b54f74c9aee23d7d0f6e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSystem: {fileID: 1407640023632253141}
 --- !u!1 &6902144603091180861
 GameObject:
   m_ObjectHideFlags: 0

@@ -419,6 +419,20 @@ public class InventoryDisplaySlot : MonoBehaviour
         }
     }
 
+    //bool CheckForHouseCollision()
+    //{
+    //    if(!item.onlyPlacedInPlayerHouse)
+    //        return true;
+
+    //    Collider2D coll = itemToDrop.GetComponentInChildren<PolygonCollider2D>();
+    //    if (coll == null)
+    //        coll = itemToDrop.GetComponentInChildren<Collider2D>();
+    //    if (coll == null)
+    //        coll = itemToDrop.GetComponent<Collider2D>();
+
+    //    return PlayerHouseCollision(coll);
+    //}
+
     bool CheckForObstacles()
     {
         
@@ -432,8 +446,6 @@ public class InventoryDisplaySlot : MonoBehaviour
             return true;
 
         
-        if (!PlayerHouseCollision(coll))
-            return true;
         
             
 
@@ -478,29 +490,29 @@ public class InventoryDisplaySlot : MonoBehaviour
         return false;
     }
 
-    bool PlayerHouseCollision(Collider2D coll)
-    {
-        // This works!!
-        //if (AreaSoundFxManager.instance.GetTileMapName(GridManager.instance.GetTilePosition(coll.transform.position)) == "House")
-        //{
-        //    Debug.Log("In House!!!!");
-        //}
-        if (!item.onlyPlacedInPlayerHouse)
-            return false;
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.useTriggers = true;
-        filter.useDepth = true;
-        filter.minDepth = coll.transform.position.z;
-        filter.maxDepth = coll.transform.position.z;
-        List<Collider2D> results = new List<Collider2D>();
-        coll.Overlap(filter, results);
-        foreach (var c in results)
-        {
-            if (c.gameObject.CompareTag("PlayerHouse"))
-                return true;
-        }
-        return false;
-    }
+    //bool PlayerHouseCollision(Collider2D coll)
+    //{
+    //    // This works!!
+    //    //if (AreaSoundFxManager.instance.GetTileMapName(GridManager.instance.GetTilePosition(coll.transform.position)) == "House")
+    //    //{
+    //    //    Debug.Log("In House!!!!");
+    //    //}
+    //    if (!item.onlyPlacedInPlayerHouse)
+    //        return false;
+    //    ContactFilter2D filter = new ContactFilter2D();
+    //    filter.useTriggers = true;
+    //    filter.useDepth = true;
+    //    filter.minDepth = coll.transform.position.z;
+    //    filter.maxDepth = coll.transform.position.z;
+    //    List<Collider2D> results = new List<Collider2D>();
+    //    coll.Overlap(filter, results);
+    //    foreach (var c in results)
+    //    {
+    //        if (c.gameObject.CompareTag("PlayerHouse"))
+    //            return true;
+    //    }
+    //    return false;
+    //}
 
     bool PlacedOnNavigationNodes(Collider2D coll)
     {

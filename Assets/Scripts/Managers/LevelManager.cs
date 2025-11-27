@@ -165,8 +165,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadLevelCo(string levelName, string loadFileName)
     {
-        
-        
+
         GameEventManager.onGameStartLoadEvent.Invoke();
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
@@ -177,14 +176,13 @@ public class LevelManager : MonoBehaviour
 
 
         text.text = "Loading data from save.";
-        // Something needs to be done about this. the scene is shown as loaded (because it is) at this point,
-        // but the data still loads after this... figure it out?
+       
         SavingLoading.instance.LoadGame(loadFileName);
-        //ConsoleDebuggerUI.instance.SetDebuggerText($"{loadFileName} loaded");
+        
         PlayerDistanceToggle.instance.PopulateLists();
-        //ConsoleDebuggerUI.instance.SetDebuggerText("about to load version");
+        
         SavingLoading.instance.LoadVersion();
-        //ConsoleDebuggerUI.instance.SetDebuggerText("loaded version");
+        
         if(!VersionDisplay.instance.CompareVersions())
             SavingLoading.instance.LoadVersionItems();
 
@@ -200,9 +198,6 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         SavingLoading.instance.LoadOptions();
 
-        
-        //UIScreenManager.instance.DisplayPlayerHUD(HUDBinary == 1);
-        
         GameEventManager.onStatUpdateEvent.Invoke();
         yield return new WaitForSecondsRealtime(0.1f);
         DissolveEffect.instance.StartDissolve(playerMaterial, 2f, true);
@@ -219,6 +214,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadTitleScreenCo(string levelName)
     {
+
         var audioSettings = AudioSettingsUI.instance;
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);

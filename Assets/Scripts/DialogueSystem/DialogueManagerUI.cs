@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Klaxon.Interactable;
+using Klaxon.UndertakingSystem;
+using UnityEngine.EventSystems;
 
 
 namespace Klaxon.ConversationSystem
@@ -22,6 +24,8 @@ namespace Klaxon.ConversationSystem
 
         public TextMeshProUGUI speakerName;
         public TextMeshProUGUI messageText;
+        public GameObject NPC_TextObject;
+        public GameObject playerResponseObject;
 
         [HideInInspector]
         public DialogueBranch currentDialogue;
@@ -30,8 +34,14 @@ namespace Klaxon.ConversationSystem
         int currentIndex;
         public bool isSpeaking;
 
-        UIScreen screen;
+        // New Dialogue System
 
+        DialogueObject currentDialogueObject;
+        NPC_DialogueSystem currentDialogueSystem;
+        UIScreen screen;
+        public List<DialogueResponseObjectUI> dialogueResponseObjects = new List<DialogueResponseObjectUI>();
+
+        bool isInChoice;
         private void Start()
         {
             screen = GetComponent<UIScreen>();
@@ -41,7 +51,8 @@ namespace Klaxon.ConversationSystem
         }
         private void OnEnable()
         {
-            GameEventManager.onDialogueNextEvent.AddListener(DialogueNextActivate);
+            //GameEventManager.onDialogueNextEvent.AddListener(DialogueNextActivate);
+            GameEventManager.onDialogueNextEvent.AddListener(GoToNextDialogue);
 
         }
 
@@ -50,10 +61,114 @@ namespace Klaxon.ConversationSystem
             isSpeaking = false;
             if(currentInteractable!=null)
                 currentInteractable.canInteract = true;
-            GameEventManager.onDialogueNextEvent.RemoveListener(DialogueNextActivate);
+            //GameEventManager.onDialogueNextEvent.RemoveListener(DialogueNextActivate);
+            GameEventManager.onDialogueNextEvent.RemoveListener(GoToNextDialogue);
             
         }
 
+
+        public void StartNewDialogue(InteractableDialogue interactable, NPC_DialogueSystem dialogueSystem, DialogueObject dialogue)
+        {
+            isSpeaking = true;
+            currentDialogueSystem = dialogueSystem;
+            currentDialogueObject = dialogue;
+            currentInteractable = interactable;
+            currentIndex = currentDialogueObject.startPhraseID;
+            SetNextDialogue(currentIndex);
+        }
+
+        void GoToNextDialogue()
+        {
+            if (!isSpeaking || isInChoice)
+                return;
+            if (currentDialogueObject.dialogueNodes[currentIndex].Choices.Count > 0)
+            {
+                SetChoices();
+                return;
+            }
+
+            CompleteDialogueNode();
+            
+            SetNextDialogue(currentDialogueObject.dialogueNodes[currentIndex].AutoNextNodeID);
+        }
+
+        void SetChoices()
+        {
+            isInChoice = true;
+
+            speakerName.text = PlayerInformation.instance.playerName;
+            NPC_TextObject.SetActive(false);
+            for (int i = 0; i < dialogueResponseObjects.Count; i++)
+            {
+                dialogueResponseObjects[i].gameObject.SetActive(false);
+                if (i < currentDialogueObject.dialogueNodes[currentIndex].Choices.Count)
+                {
+                    var choice = currentDialogueObject.dialogueNodes[currentIndex].Choices[i];
+                    dialogueResponseObjects[i].gameObject.SetActive(true);
+                    dialogueResponseObjects[i].SetResponse(choice.NextNodeID, choice.LocalizedChoice.GetLocalizedString());
+                }
+            }
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(dialogueResponseObjects[0].gameObject);
+            playerResponseObject.SetActive(true);
+        }
+
+        public void SetNextDialogue(int nextIndex)
+        {
+            isInChoice = false;
+            NPC_TextObject.SetActive(true);
+            playerResponseObject.SetActive(false);
+            speakerName.text = currentDialogueSystem.NPC_Name.GetLocalizedString();
+            currentIndex = nextIndex;
+            if (currentIndex == -1)
+            {
+                currentDialogueObject.hasBeenParsed = true;
+                isSpeaking = false;
+                currentInteractable.canInteract = true;
+                UIScreenManager.instance.HideScreenUI();
+                GameEventManager.onUndertakingsUpdateEvent.Invoke();
+            }
+            else
+            {
+                messageText.text = currentDialogueObject.dialogueNodes[currentIndex].LocalizedPhrase.GetLocalizedString();
+                UpdateGumption();
+            }
+                
+
+        }
+
+        void CompleteDialogueNode()
+        {
+            ActivateUndertaking();
+            CompleteTask();
+            
+        }
+
+        void UpdateGumption()
+        {
+            float factor = currentDialogueObject.dialogueNodes[currentIndex].LocalizedPhrase.GetLocalizedString().Length / 100.0f;
+            if (currentDialogueSystem.gumptionCost != null)
+                PlayerInformation.instance.statHandler.ChangeStat(currentDialogueSystem.gumptionCost, factor);
+        }
+
+        void ActivateUndertaking()
+        {
+            if (!currentDialogueObject.dialogueNodes[currentIndex].SetsUndertaking)
+                return;
+            
+            currentDialogueObject.dialogueNodes[currentIndex].Undertaking.ActivateUndertaking();
+        }
+
+        void CompleteTask()
+        {
+            if (!currentDialogueObject.dialogueNodes[currentIndex].CompleteTask)
+                return;
+            
+            currentDialogueObject.undertaking.TryCompleteTask(currentDialogueObject.dialogueNodes[currentIndex].Task);
+            if (currentDialogueObject.dialogueNodes[currentIndex].Task.mapName != "")
+                    GameEventManager.onMapUpdateEvent.Invoke();
+            
+        }
 
 
         public void SetNewDialogue(InteractableDialogue interactable, NPC_ConversationSystem convoSystem, DialogueBranch dialogue)

@@ -49,16 +49,16 @@ namespace Klaxon.StatSystem
         /// Increases the Stat Destination by the given RawNumber 
         /// </summary>
         /// <param name="changer"></param>
-        public void ChangeStatRaw(StatChanger changer)
+        public void ChangeStatRaw(StatChanger changer, float factor)
         {
             if(changer.ModifierDestination == ModifierDestination.CurrentAmount)
-                CurrentAmount = Mathf.Clamp(CurrentAmount + GetModifiedChangeAmount(changer.Amount), 0, GetModifiedMax());
+                CurrentAmount = Mathf.Clamp(CurrentAmount + GetModifiedChangeAmount(changer.Amount * factor), 0, GetModifiedMax());
             else if (changer.ModifierDestination == ModifierDestination.MaxAmount)
             {
                 if (ClampMax.y != 0)
-                    MaxAmount = Mathf.Clamp(MaxAmount + changer.Amount, ClampMax.x, ClampMax.y);
+                    MaxAmount = Mathf.Clamp(MaxAmount + (changer.Amount * factor), ClampMax.x, ClampMax.y);
                 else
-                    MaxAmount += changer.Amount;
+                    MaxAmount += changer.Amount * factor;
             }
             CheckStatFilled();
             GameEventManager.onStatUpdateEvent.Invoke();

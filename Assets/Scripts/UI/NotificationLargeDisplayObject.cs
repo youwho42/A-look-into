@@ -74,14 +74,14 @@ public class NotificationLargeDisplayObject : MonoBehaviour
 
     IEnumerator DisplayCo()
     {
-        
-        float dt = 0;
-        while (dt < maxDisplayTime)
-        {
-            dt += Time.deltaTime;
-            yield return null;
+        yield return new WaitForSeconds(maxDisplayTime);
+        //float dt = 0;
+        //while (dt < maxDisplayTime)
+        //{
+        //    dt += Time.deltaTime;
+        //    yield return null;
 
-        }
+        //}
         float t = 0;
         while (t < maxFadeTime)
         {

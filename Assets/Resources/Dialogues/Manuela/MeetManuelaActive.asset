@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab48068271ad86419379e7efacd629b, type: 3}
+  m_Name: MeetManuelaActive
+  m_EditorClassIdentifier: 
+  ConversationName: Meet Manuela
+  ConditionsNeeded: []
+  isTiedToUndertaking: 1
+  undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
+  undertakingState: 1
+  startPhraseID: 0
+  dialogueNodes:
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 10314722107392
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices:
+    - LocalizedChoice:
+        m_TableReference:
+          m_TableCollectionName: GUID:9af733beb84036b44be0148ca4486dd8
+        m_TableEntryReference:
+          m_KeyId: 17630613504
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      NextNodeID: 1
+      HasConditions: 0
+      ConditionsNeeded: []
+    - LocalizedChoice:
+        m_TableReference:
+          m_TableCollectionName: GUID:9af733beb84036b44be0148ca4486dd8
+        m_TableEntryReference:
+          m_KeyId: 34399440896
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      NextNodeID: 2
+      HasConditions: 0
+      ConditionsNeeded: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 279742449253732352
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 1
+    Task: {fileID: 11400000, guid: e0d0a34fc9e7b5243b1d8c4467f269fe, type: 2}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:0849dc6fca27cc647beb77438d79a652
+      m_TableEntryReference:
+        m_KeyId: 279742489883955200
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 1
+    Task: {fileID: 11400000, guid: e0d0a34fc9e7b5243b1d8c4467f269fe, type: 2}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  hasBeenParsed: 1
+  references:
+    version: 2
+    RefIds: []

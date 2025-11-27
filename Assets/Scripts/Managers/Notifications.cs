@@ -111,32 +111,24 @@ public class Notifications : MonoBehaviour
     }
     private void TryDisplayLargeNotifications()
     {
-       
         if (largeNotification.gameObject.activeInHierarchy)
             return;
-        currentLargeNotificaton = null;
-        if (allLargeNotifications.Count > 0)
-        {
-            ActivateLargeNotification(allLargeNotifications.Dequeue());
-        }
-            
         
+        if (allLargeNotifications.Count > 0)
+            ActivateLargeNotification(allLargeNotifications.Dequeue());
     }
 
     public void SetNewNotification(string message, QI_ItemData item, int amount, NotificationsType notificationType)
     {
-        
         var newNotification = new BaseNotification { notificationText = message, itemData = item, quantity = amount, type = notificationType };
         
         if(!UpdateDuplicateDisplays(newNotification))
             allNotifications.Enqueue(newNotification);
-
     }
 
     public void SetNewLargeNotification(UndertakingObject newUndertaking, QI_ItemData item, QI_CraftingRecipe recipe, NotificationsType notificationType)
     {
         var newNotification = new BaseLargeNotification { undertaking = newUndertaking, itemData = item, itemRecipe = recipe, type = notificationType };
-
         allLargeNotifications.Enqueue(newNotification);
     }
 

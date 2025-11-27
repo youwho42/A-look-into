@@ -80,6 +80,8 @@ public class ConsoleDisplayUI : MonoBehaviour
         lastSelectedItem = itemsDropdownField.value;
         var item = itemsDropdownField.options[itemsDropdownField.value].text;
         var amount = int.Parse(itemAmountDropdownField.options[itemAmountDropdownField.value].text);
+        if (item == " ")
+            return;
         var i = allItemsDatabase.GetItem(item);
         if (i == null && amount == 0)
             return;

@@ -76,6 +76,9 @@ public class AnimalSounds : MonoBehaviour
     int caw_hash = Animator.StringToHash("Caw");
     float mainVolume;
 
+    public bool randomStart;
+    [ConditionalHide("randomStart", true)]
+    public float maxStartDelay;
     int lastCryIndex;
     bool soundsActive;
     private void Start()
@@ -88,20 +91,32 @@ public class AnimalSounds : MonoBehaviour
         if (continuous)
         {
             source.loop = true;
-            SetContinuous();
+            Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
         }
         else
             source.loop = false;
 
     }
-    
-   
+
+    private void OnEnable()
+    {
+        if (source == null)
+            source = GetComponent<AudioSource>();
+        if (continuous)
+        {
+            source.loop = true;
+            Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
+        }
+        else
+            source.loop = false;
+    }
+
     private void Update()
     {
         if (!soundsActive)
             return;
-        ChangeVolume();
-        if (continuous)
+        //ChangeVolume();
+        if (continuous && !source.isPlaying)
         {
             SetContinuous();
             return;

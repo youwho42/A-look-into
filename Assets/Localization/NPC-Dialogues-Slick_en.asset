@@ -16,16 +16,52 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: e7f5da66553d8e64ebd9bf5adb355e3c, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7870165176642961408
   m_TableData:
   - m_Id: 72424677376
-    m_Localized: I like building things.
+    m_Localized: I like crafting things with my paws. I like to work with wood and
+      stone... no straw though.
     m_Metadata:
       m_Items: []
   - m_Id: 186715267072
     m_Localized: The mayor occasionally has a few jobs for me here and there.
     m_Metadata:
       m_Items: []
+  - m_Id: 280559904234524672
+    m_Localized: 'I have my own projects going on too. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280553290001666048
+    m_Localized: Huff, puff, what do we have here?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280553343571316736
+    m_Localized: I have an eye for good peoples, you seem like a great addition to
+      Thimbleton!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280554472304660480
+    m_Localized: You look like someone that might help us out, things are pretty
+      run down in these parts.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280554853617225728
+    m_Localized: Well, I hope we can collaborate on some constructions, destructions
+      and other projects!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280555098652659712
+    m_Localized: See you around {global.playerName}!
+    m_Metadata:
+      m_Items:
+      - rid: 7870165176642961408
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7870165176642961408
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 280555098652659712
