@@ -34,6 +34,7 @@ MonoBehaviour:
     AutoNextNodeID: 1
     SetsCondition: 0
     Condition: {fileID: 0}
+    IsPersonalBelief: 0
     SetsUndertaking: 0
     Undertaking: {fileID: 0}
     CompleteTask: 0
@@ -56,6 +57,7 @@ MonoBehaviour:
     AutoNextNodeID: 2
     SetsCondition: 0
     Condition: {fileID: 0}
+    IsPersonalBelief: 0
     SetsUndertaking: 0
     Undertaking: {fileID: 0}
     CompleteTask: 0
@@ -76,8 +78,9 @@ MonoBehaviour:
     HasChoices: 0
     Choices: []
     AutoNextNodeID: -1
-    SetsCondition: 0
-    Condition: {fileID: 0}
+    SetsCondition: 1
+    Condition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
+    IsPersonalBelief: 1
     SetsUndertaking: 1
     Undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
     CompleteTask: 1
@@ -85,7 +88,6 @@ MonoBehaviour:
     GivesItem: 0
     Item: {fileID: 0}
     Amount: 0
-  canRepeat: 0
   hasBeenParsed: 0
   references:
     version: 2

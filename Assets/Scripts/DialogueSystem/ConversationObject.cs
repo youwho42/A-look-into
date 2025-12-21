@@ -30,7 +30,7 @@ namespace Klaxon.ConversationSystem
         U_Active,
         U_Complete
     }
-    [CreateAssetMenu(menuName = "Klaxon/Dialogue Obect", fileName = "New_Dialogue_Object")]
+    //[CreateAssetMenu(menuName = "Klaxon/Dialogue Obect", fileName = "New_Dialogue_Object")]
     public class ConversationObject : ScriptableObject
     {
         

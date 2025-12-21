@@ -177,6 +177,14 @@ namespace Klaxon.GOAD
                 beliefs[condition] = state;
         }
 
+        public void SetBeliefState(GOAD_ScriptableCondition condition)
+        {
+            if (!beliefs.ContainsKey(condition.Condition))
+                beliefs.Add(condition.Condition, condition.State);
+            else
+                beliefs[condition.Condition] = condition.State;
+        }
+
         public bool HasBelief(string condition, bool state)
         {
             if (beliefs.ContainsKey(condition))

@@ -88,13 +88,16 @@ public class AnimalSounds : MonoBehaviour
             source = GetComponent<AudioSource>();
         SetTimesToCry();
         SetFirstCry();
-        if (continuous)
-        {
-            source.loop = true;
-            Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
-        }
-        else
-            source.loop = false;
+
+        source.loop = continuous;
+
+        //if (continuous)
+        //{
+        //    source.loop = true;
+        //    Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
+        //}
+        //else
+        //    source.loop = false;
 
     }
 
@@ -102,13 +105,14 @@ public class AnimalSounds : MonoBehaviour
     {
         if (source == null)
             source = GetComponent<AudioSource>();
-        if (continuous)
-        {
-            source.loop = true;
-            Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
-        }
-        else
-            source.loop = false;
+        source.loop = continuous;
+        //if (continuous)
+        //{
+            
+        //    Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
+        //}
+        //else
+        //    source.loop = false;
     }
 
     private void Update()
@@ -118,7 +122,7 @@ public class AnimalSounds : MonoBehaviour
         //ChangeVolume();
         if (continuous && !source.isPlaying)
         {
-            SetContinuous();
+            Invoke("SetContinuous", randomStart ? Random.Range(0.0f, maxStartDelay) : 0);
             return;
         }
            

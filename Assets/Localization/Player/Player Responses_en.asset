@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 9af733beb84036b44be0148ca4486dd8, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7870165242436649047
   m_TableData:
   - m_Id: 17630613504
     m_Localized: Yes!
@@ -50,6 +51,29 @@ MonoBehaviour:
     m_Localized: I'm all ears!
     m_Metadata:
       m_Items: []
+  - m_Id: 1878908355858432
+    m_Localized: My name is {global.playerName}.
+    m_Metadata:
+      m_Items:
+      - rid: 7870165242436649047
+  - m_Id: 1879752597950464
+    m_Localized: I'm not telling you!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2984541146697728
+    m_Localized: I like crafting and fixing things.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2984653222694912
+    m_Localized: I'm a professional insomniac.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7870165242436649047
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1878908355858432

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab48068271ad86419379e7efacd629b, type: 3}
+  m_Name: Pliny_FixOresMores_Complete
+  m_EditorClassIdentifier: 
+  ConversationName: fix Ores and mores Complete
+  ConditionsNeeded:
+  - {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
+  isTiedToUndertaking: 1
+  undertaking: {fileID: 11400000, guid: 56bc901a444c16347a0e7e2081271a30, type: 2}
+  undertakingState: 2
+  startPhraseID: 0
+  dialogueNodes:
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:49f56a86af75acd458ef012d590100bc
+      m_TableEntryReference:
+        m_KeyId: 1897383124992
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: 1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 1
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:49f56a86af75acd458ef012d590100bc
+      m_TableEntryReference:
+        m_KeyId: 1995534032896
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  hasBeenParsed: 0
+  references:
+    version: 2
+    RefIds: []

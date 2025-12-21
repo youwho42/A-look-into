@@ -17,6 +17,15 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
     public float minDistanceToSpawn = 0.05f;
     [Range(0f, 1f)]
     public float chanceToSpawn = 0.2f;
+
+    public bool canSpawnBeehive;
+    [ConditionalHide("canSpawnBeehive", true)]
+    public DrawZasYDisplacement beehivePlacement;
+    [ConditionalHide("canSpawnBeehive", true)]
+    public BeehiveObject beehiveObject;
+
+    BeehiveObject currentBeehive;
+
     private void Start()
     {
         
@@ -140,6 +149,28 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
         SpawnObjects();
         if (TryGetComponent(out PokableItem pokable))
             pokable.SetTimesPoked(0);
+        if(canSpawnBeehive)
+            TrySpawnBeehive();
     }
 
+
+    void TrySpawnBeehive()
+    {
+        if (currentBeehive != null)
+        {
+            currentBeehive.DestroyBeehive();
+            currentBeehive = null;
+        }
+        float chance = 50.0f / ResetAtDawnManager.instance.allBeeTrees;
+        if (Random.value < chance)
+            SpawnBeehive();
+    }
+
+    void SpawnBeehive()
+    {
+        
+        BeehiveObject beehive = Instantiate(beehiveObject);
+        beehive.SetBeehive(beehivePlacement);
+        currentBeehive = beehive;
+    }
 }

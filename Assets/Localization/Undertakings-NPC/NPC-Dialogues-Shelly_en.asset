@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: bdfea2bffada6f84c867cf0122ca72e5, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 838735018635034624
   m_TableData:
   - m_Id: 646671355904
     m_Localized: I used to sell seashells by the seashore.
@@ -50,7 +51,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 721543876608
-    m_Localized: Can I sell seashells by the seashore in my seashell shop yet?
+    m_Localized: So, can I sell seashells by the seashore in my seashell shop yet?
     m_Metadata:
       m_Items: []
   - m_Id: 759036760064
@@ -58,6 +59,37 @@ MonoBehaviour:
       shop as soon as I sell shells there!
     m_Metadata:
       m_Items: []
+  - m_Id: 18876200807944192
+    m_Localized: He thrusts his fists against the post,
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18876479280369664
+    m_Localized: And still insists he sees the ghosts.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19214742604075008
+    m_Localized: This chance encounter is an unacounted chance!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19215091234623488
+    m_Localized: You'll note that I'm not just another otter.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19217576556875776
+    m_Localized: 'I am Shelly. Not Nelly, nor Molly, and certainly not Celestine. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19220062927704064
+    m_Localized: And you must be {global.playerName}. Pleased to have met you!
+    m_Metadata:
+      m_Items:
+      - rid: 838735018635034624
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 838735018635034624
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 19220062927704064

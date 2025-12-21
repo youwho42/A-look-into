@@ -295,6 +295,7 @@ public class DialogueEditorWindow : EditorWindow
         {
             EditorGUI.indentLevel++;
             EditorGUILayout.PropertyField(nodeProp.FindPropertyRelative("Condition"));
+            EditorGUILayout.PropertyField(nodeProp.FindPropertyRelative("IsPersonalBelief"));
             EditorGUI.indentLevel--;
         }
 

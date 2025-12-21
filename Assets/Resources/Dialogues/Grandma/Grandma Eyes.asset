@@ -9,21 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc096afc96689a4aa2ff1d38daf3ed1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ab48068271ad86419379e7efacd629b, type: 3}
   m_Name: Grandma Eyes
   m_EditorClassIdentifier: 
-  DialogueName: Eyes
-  type: 0
-  ActivateAtStart: 0
-  ActivateUndertakingObject: {fileID: 0}
-  UndertakingObject: {fileID: 0}
-  UndertakingTask: {fileID: 0}
-  DialogueBranches:
-  - DialogueType: 0
-    sentences:
-    - My, what big eyes I have, I can see all the stars at night.
-    localizedSentences:
-    - m_TableReference:
+  ConversationName: eyes
+  ConditionsNeeded:
+  - {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
+  isTiedToUndertaking: 0
+  undertaking: {fileID: 0}
+  undertakingState: 0
+  startPhraseID: 0
+  dialogueNodes:
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
         m_TableCollectionName: GUID:8d55a33a71f447946acdefc682c9f400
       m_TableEntryReference:
         m_KeyId: 4076055617536
@@ -31,7 +30,19 @@ MonoBehaviour:
       m_FallbackState: 0
       m_WaitForCompletion: 0
       m_LocalVariables: []
-  Completed: 0
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  hasBeenParsed: 0
   references:
     version: 2
     RefIds: []

@@ -11,7 +11,7 @@ namespace Klaxon.Interactable
     public class InteractableDialogue : Interactable
     {
 
-        NPC_ConversationSystem dialogueSystem;
+        //NPC_ConversationSystem dialogueSystem;
         DialogueBranch currentDialogue;
         public GOAD_ScriptableCondition hasMetPlayerCondition;
         GOAD_Scheduler_NPC agentNPC;
@@ -28,13 +28,13 @@ namespace Klaxon.Interactable
             characterItem = GetComponent<QI_Item>();
             agentNPC = GetComponent<GOAD_Scheduler_NPC>();
             agentGhost = GetComponent<GOAD_Scheduler_Ghost>();
-            dialogueSystem = GetComponent<NPC_ConversationSystem>();
+            //dialogueSystem = GetComponent<NPC_ConversationSystem>();
             npc_DialogueSystem = GetComponent<NPC_DialogueSystem>();
         }
         public override void Interact(GameObject interactor)
         {
             base.Interact(interactor);
-            if (!GumptionCost())
+            if (!HasEnoughGumption())
                 return;
             if(npc_DialogueSystem != null)
             {
@@ -46,86 +46,70 @@ namespace Klaxon.Interactable
                     
                     if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
                     {
-                        if (hasMetPlayerCondition != null)
-                        {
-                            if (characterItem != null)
-                                PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
-
-                            if (agentNPC != null)
-                                agentNPC.SetBeliefState(hasMetPlayerCondition.Condition, true);
-                            if (agentGhost != null)
-                                agentGhost.SetBeliefState(hasMetPlayerCondition.Condition, true);
-                        }
-
-                        //Debug.Log(currentDialogueObject.dialogueNodes[0].LocalizedPhrase.GetLocalizedString());
-                        //Debug.Log(currentDialogueObject.dialogueNodes[1].LocalizedPhrase.GetLocalizedString());
-                        //Debug.Log(currentDialogueObject.dialogueNodes[2].LocalizedPhrase.GetLocalizedString());
-
                         
+                        if (characterItem != null)
+                            PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
+
                         if (TryGetComponent(out GOAD_Scheduler_NPC npc))
                             npc.StopNPC(interactor.transform.position);
                         canInteract = false;
 
                         DialogueManagerUI.instance.StartNewDialogue(this, npc_DialogueSystem, currentDialogueObject);
 
-
-                        //DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
-
                         PlayerInformation.instance.uiScreenVisible = true;
                         PlayerInformation.instance.TogglePlayerInput(false);
-
 
                     }
                 }
             }
-            else
-            {
-                if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
-                {
-                    currentDialogue = dialogueSystem.GetConversation();
-                    if (currentDialogue == null)
-                        return;
+            //else
+            //{
+            //    if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
+            //    {
+            //        currentDialogue = dialogueSystem.GetConversation();
+            //        if (currentDialogue == null)
+            //            return;
 
-                    if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
-                    {
-                        if (hasMetPlayerCondition != null)
-                        {
-                            if (characterItem != null)
-                                PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
+            //        if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
+            //        {
+            //            //if (hasMetPlayerCondition != null)
+            //            //{
+            //            if (characterItem != null)
+            //                PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
 
-                            if (agentNPC != null)
-                                agentNPC.SetBeliefState(hasMetPlayerCondition.Condition, true);
-                            if (agentGhost != null)
-                                agentGhost.SetBeliefState(hasMetPlayerCondition.Condition, true);
-                        }
+            //            //    if (agentNPC != null)
+            //            //        agentNPC.SetBeliefState(hasMetPlayerCondition.Condition, true);
+            //            //    if (agentGhost != null)
+            //            //        agentGhost.SetBeliefState(hasMetPlayerCondition.Condition, true);
+            //            //}
 
 
-                        if (TryGetComponent(out GOAD_Scheduler_NPC npc))
-                            npc.StopNPC(interactor.transform.position);
-                        canInteract = false;
-                        DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
+            //            if (TryGetComponent(out GOAD_Scheduler_NPC npc))
+            //                npc.StopNPC(interactor.transform.position);
+            //            canInteract = false;
+            //            DialogueManagerUI.instance.SetNewDialogue(this, dialogueSystem, currentDialogue);
 
-                        PlayerInformation.instance.uiScreenVisible = true;
-                        PlayerInformation.instance.TogglePlayerInput(false);
-                    }
+            //            PlayerInformation.instance.uiScreenVisible = true;
+            //            PlayerInformation.instance.TogglePlayerInput(false);
+            //        }
 
-                }
-            }
+            //    }
+            //}
 
             
         }
-        bool GumptionCost()
+        bool HasEnoughGumption()
         {
 
-            if (dialogueSystem.gumptionCost == null)
+            if (npc_DialogueSystem.gumptionCost == null)
                 return true;
 
 
-            float gumption = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Gumption");
-            if (gumption >= Mathf.Abs(dialogueSystem.gumptionCost.Amount))
+            float gumption = PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue(npc_DialogueSystem.gumptionCost.StatToModify);
+            if (gumption >= Mathf.Abs(npc_DialogueSystem.gumptionCost.Amount))
                 return true;
             
-            Notifications.instance.SetNewNotification($"{Mathf.CeilToInt(Mathf.Abs(dialogueSystem.gumptionCost.Amount) - gumption)} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
+            Notifications.instance.SetNewNotification($"{Mathf.CeilToInt(Mathf.Abs(npc_DialogueSystem.gumptionCost.Amount) - gumption)} <sprite name=\"Gumption\">", null, 0, NotificationsType.Warning);
             return false;
         }
 

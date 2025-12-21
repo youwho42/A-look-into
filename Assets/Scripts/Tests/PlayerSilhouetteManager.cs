@@ -9,6 +9,7 @@ public class PlayerSilhouetteManager : MonoBehaviour
     public static PlayerSilhouetteManager instance;
     public bool isBehindCliff;
     
+    
     private void Awake()
     {
         if(instance == null)
@@ -23,25 +24,28 @@ public class PlayerSilhouetteManager : MonoBehaviour
     public void SetColor(float alpha)
     {
         StopAllCoroutines();
-        
-        
 
-        image.color = new Color(1, 1, 1, maxAlpha * alpha);
+        float a = UIScreenManager.instance.GetCurrentUI() == UIScreenType.MiniGameUI ? 0 : maxAlpha * alpha;
+
+
+        image.color = new Color(1, 1, 1, a);
     }
 
-    public void SetColor(float alpha, float time, bool isBehind)
+    public void SetColor(float alpha, float time, bool isBehindCliff)
     {
         
         StopAllCoroutines();
-        StartCoroutine(SetColorCo(maxAlpha * alpha, time, isBehind));
+        float a = UIScreenManager.instance.GetCurrentUI() == UIScreenType.MiniGameUI ? 0 : maxAlpha * alpha;
+        StartCoroutine(SetColorCo(a, time, isBehindCliff));
 
     }
 
-    IEnumerator SetColorCo(float alpha, float time, bool isBehind)
+    IEnumerator SetColorCo(float alpha, float time, bool isBehindCliff)
     {
         
         
-        isBehindCliff = isBehind;
+        this.isBehindCliff = isBehindCliff;
+        
         float maxTime = time;
         float currentAlpha = image.color.a;
         time = 0;

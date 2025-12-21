@@ -19,25 +19,35 @@ public class PlayerDistanceToggle : MonoBehaviour
     Camera cam;
     float maxDistance = 6;
     public List<GameObject> animals;
-    //public List<SAP_Scheduler_NPC> agents;
+    
 
     public List<GOAD_Scheduler_NPC> GOADAgents;
     public List<GOAD_Scheduler_CF> GOADCokernutFlump;
+
+    float distance;
+    PlayerInformation playerInformation;
 
     private void Start()
     {
         cam = Camera.main;
         PopulateLists();
-        
-        InvokeRepeating("CheckPlayerDistance", 0.0f, 0.5f);
+        playerInformation = PlayerInformation.instance;
+        //InvokeRepeating("CheckPlayerDistance", 0.0f, 0.5f);
+        GameEventManager.onPlayerPositionUpdateEvent.AddListener(CheckPlayerDistance);
+        CheckPlayerDistance(Vector3Int.zero);
     }
-    
+
+    private void OnDestroy()
+    {
+        GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPlayerDistance);
+    }
+
 
 
     public void PopulateLists()
     {
         animals.Clear();
-        var a = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IAnimal>().ToList();
+        var a = FindObjectsByType<GOAD_Scheduler_Animal>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<IAnimal>().ToList();
         foreach (var animalComponent in a)
         {
             animals.Add((animalComponent as MonoBehaviour).gameObject);
@@ -59,58 +69,65 @@ public class PlayerDistanceToggle : MonoBehaviour
 
     }
 
-    //private void CheckPlayerDistance(List<GameObject> objects)
-    //{
-        
-    //    foreach (var obj in objects)
-    //    {
-    //        obj.SetActive(true);
-    //    }
-
-    //}
-
-    private void CheckPlayerDistance()
+   
+    public void AddAnimal(GameObject animal)
     {
+        if (!animals.Contains(animal))
+        {
+            animals.Add(animal);  
+            SetAnimalActiveBasedOnDistance(animal, playerInformation.player.position);
+        }
+            
+    }
+    public void RemoveAnimal(GameObject animal)
+    {
+        if (animals.Contains(animal))
+            animals.Remove(animal);
+    }
+
+    private void CheckPlayerDistance(Vector3Int playerMapPosition)
+    {
+        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
+        distance = maxDistance * camOrtho;
+        distance = distance * distance;
         if (animals.Count > 0 || GOADAgents.Count > 0)
         {
-            var playerPosition = PlayerInformation.instance.player.position;
 
             foreach (var animal in animals)
             {
-                SetAnimalActiveBasedOnDistance(animal, playerPosition, maxDistance);
+                SetAnimalActiveBasedOnDistance(animal, playerInformation.player.position);
             }
 
             foreach (var agent in GOADAgents)
             {
-                SetGOADAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
+                SetGOADAgentPropertiesBasedOnDistance(agent, playerInformation.player.position, maxDistance);
             }
 
             foreach (var agent in GOADCokernutFlump)
             {
-                SetGOADAgentPropertiesBasedOnDistance(agent, playerPosition, maxDistance);
+                SetGOADAgentPropertiesBasedOnDistance(agent, playerInformation.player.position, maxDistance);
             }
 
         }
     }
 
-    void SetAnimalActiveBasedOnDistance(GameObject obj, Vector3 playerPos, float maxDist)
+    void SetAnimalActiveBasedOnDistance(GameObject obj, Vector3 playerPos)
     {
         if (obj == null)
             return;
-        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
-        var d = maxDist * camOrtho;
-        bool state = GetPlayerDistance(obj.transform, playerPos) <= d * d;
-        obj.SetActive(state);
+        
+        bool state = NumberFunctions.GetDistanceV3(obj.transform.position, playerPos) <= distance;
+        if(obj.activeInHierarchy != state)
+            obj.SetActive(state);
     }
 
     void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_NPC agent, Vector3 playerPos, float maxDist)
     {
         if (agent == null)
             return;
-        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
-        var d = maxDist * camOrtho;
-        float dist = GetPlayerDistance(agent.transform, playerPos);
-        bool state = dist <= d * d || !agent.offScreen;
+        
+        float dist = NumberFunctions.GetDistanceV3(agent.transform.position, playerPos);
+        bool state = dist <= distance || !agent.offScreen;
         bool nearPlayer = dist <= 1.5f;
         agent.animator.enabled = state;
         agent.offScreen = !state;
@@ -121,22 +138,14 @@ public class PlayerDistanceToggle : MonoBehaviour
     {
         if (agent == null)
             return;
-        float camOrtho = cam == null ? 1 : Mathf.Clamp(cam.orthographicSize, 1, 5);
-        var d = maxDist * camOrtho;
-        float dist = GetPlayerDistance(agent.transform, playerPos);
-        bool state = dist <= d * d || !agent.offScreen;
+       
+        float dist = NumberFunctions.GetDistanceV3(agent.transform.position, playerPos);
+        bool state = dist <= distance || !agent.offScreen;
         bool nearPlayer = dist <= 1.5f;
         agent.animator.enabled = state;
         agent.offScreen = !state;
         agent.nearPlayer = nearPlayer;
     }
-
-    public float GetPlayerDistance(Transform objTransform, Vector3 playerPos)
-    {
-        return (objTransform.position - playerPos).sqrMagnitude;
-    }
-
-
 
     
 }

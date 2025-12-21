@@ -192,10 +192,13 @@ GameObject:
   - component: {fileID: 4443015713522968839}
   - component: {fileID: 3641310447499908087}
   - component: {fileID: 2922379516208303626}
-  - component: {fileID: 2765969477900403502}
+  - component: {fileID: -7128727919941060403}
   - component: {fileID: 433202236491959543}
   - component: {fileID: 4415763734330134477}
   - component: {fileID: 8829257413555237174}
+  - component: {fileID: 2762550750965956243}
+  - component: {fileID: 3034588266746540370}
+  - component: {fileID: 5535033264903694466}
   m_Layer: 13
   m_Name: Ghost
   m_TagString: NPC
@@ -480,12 +483,13 @@ MonoBehaviour:
   visualItem: {fileID: 0}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   hasMetPlayerCondition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db,
     type: 2}
   references:
     version: 2
     RefIds: []
---- !u!114 &2765969477900403502
+--- !u!114 &-7128727919941060403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -494,21 +498,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1742201109519981305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60eaa5b139d82dd42a876cb99a8a268b, type: 3}
+  m_Script: {fileID: 11500000, guid: 07077def6e0b94947b074167d6f3a903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NPC_Name:
     m_TableReference:
-      m_TableCollectionName: GUID:09b0306f53cf2634e8280873462c7992
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 168211520345923584
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  gumptionCost: {fileID: 11400000, guid: dcc90c393e95b064e8ac50f730d953d8, type: 2}
-  conversations:
-  - {fileID: 11400000, guid: 72e8e0e9af341bf4ba8c7916d38ef9fc, type: 2}
+  gumptionCost: {fileID: 11400000, guid: c231efffe159bce49a8bab650db77822, type: 2}
+  dialogues: []
+  hasRandomTalked: 0
+  voicePitch: 1.6
   references:
     version: 2
     RefIds: []
@@ -589,6 +594,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 0}
   itemVariantIndex: 0
+--- !u!114 &2762550750965956243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742201109519981305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &3034588266746540370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742201109519981305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d61040f8f08ab4aba6fd461d16b94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scheduler: {fileID: 7905581266121444458}
+--- !u!114 &5535033264903694466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742201109519981305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13692e7803b54f74c9aee23d7d0f6e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSystem: {fileID: -7128727919941060403}
 --- !u!1 &2453691137520056214
 GameObject:
   m_ObjectHideFlags: 0

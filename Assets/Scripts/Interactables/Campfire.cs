@@ -51,7 +51,7 @@ namespace Klaxon.Interactable
         {
             if (isLit)
             {
-                if (PlayerDistanceToggle.instance.GetPlayerDistance(transform, player.player.position) <= 1)
+                if (NumberFunctions.GetDistanceV3(transform.position, player.player.position) <= 1)
                     player.statHandler.ChangeStat(gumptionStatChanger);
             }
             

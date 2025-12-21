@@ -698,6 +698,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: canEat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: eatPoint
+      value: 
+      objectReference: {fileID: 3233863256327339499}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: spotType
       value: 13
       objectReference: {fileID: 0}
@@ -738,9 +748,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: hungryCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: b901a847ccd67b147a51e7e6327ef8dd,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: minHomeDistance
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: foodFoundCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 45236e8106e134c4f9b87b990f727fe0,
+        type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: wantScritchCondition
@@ -749,14 +771,25 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: edibleItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: scritchableLayer.m_Bits
       value: 16384
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: possibleGoals.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: 'edibleItems.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 04d812f3bdeae174e921e72b08789f0f,
+        type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: scritchableFoundCondition
@@ -785,8 +818,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: possibleGoals.Array.data[4].Name
+      value: Eat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: possibleGoals.Array.data[3].Priority
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].Priority
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
@@ -808,12 +851,23 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.ResultCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: c39195522676c4e468e4a7068ec6a41a,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
       propertyPath: possibleGoals.Array.data[0].DesiredGoal.PreConditions.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
@@ -833,6 +887,24 @@ PrefabInstance:
       propertyPath: 'possibleGoals.Array.data[3].DesiredGoal.PreConditions.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: 'possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c5cd5f8c79ba20e408cb26837b32fc17,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: 'possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b901a847ccd67b147a51e7e6327ef8dd,
+        type: 2}
+    - target: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: 'possibleGoals.Array.data[4].DesiredGoal.PreConditions.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 45236e8106e134c4f9b87b990f727fe0,
         type: 2}
     m_RemovedComponents:
     - {fileID: 7510586649099672996, guid: 3f3c3959dbc1f9c49b24b2d504a822c1, type: 3}
@@ -870,6 +942,14 @@ PrefabInstance:
         type: 3}
       insertIndex: 11
       addedObject: {fileID: 6317596586545418834}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4001648393825986868}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6075131128355440900}
     - targetCorrespondingSourceObject: {fileID: 5859352282203003539, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
@@ -1016,3 +1096,50 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e5490020534e5844d8fc53166015ad6a, type: 2}
   - {fileID: 11400000, guid: ba5c8e358bc55a541a286e2cc11d3118, type: 2}
   minMaxScritchTime: {x: 4, y: 12}
+--- !u!114 &4001648393825986868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f34b987fd05fec41b629c1edc1eac71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: WalkToFood
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: 8711769a5fe4906448c6edd8bbdea01a, type: 2}
+    PreCondition: {fileID: 11400000, guid: 09dbfee533ddbe94eb41e93151063784, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed: []
+  conditionsOnFail: []
+--- !u!114 &6075131128355440900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50b120ee8b46a034f864f4c816bce048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Eat
+  Goal:
+    ResultCondition: {fileID: 11400000, guid: c39195522676c4e468e4a7068ec6a41a, type: 2}
+    PreCondition: {fileID: 11400000, guid: 8711769a5fe4906448c6edd8bbdea01a, type: 2}
+  IsRunning: 0
+  success: 0
+  conditionsOnSucceed:
+  - {fileID: 11400000, guid: e264743019af4ae4d94e7f892c26f35b, type: 2}
+  - {fileID: 11400000, guid: 09dbfee533ddbe94eb41e93151063784, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  conditionsOnFail:
+  - {fileID: 11400000, guid: e264743019af4ae4d94e7f892c26f35b, type: 2}
+  - {fileID: 11400000, guid: 09dbfee533ddbe94eb41e93151063784, type: 2}
+  - {fileID: 11400000, guid: 004b3892454968748bb189104fe7c9bc, type: 2}
+  minMaxEatTime: {x: 1, y: 1.1}

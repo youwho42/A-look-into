@@ -20,7 +20,8 @@ namespace Klaxon.SaveSystem
             }
             return new SaveData
             {
-                dialogueParsed = parsed
+                dialogueParsed = parsed,
+                hasRandomTalked = dialogueSystem.hasRandomTalked
             };
         }
 
@@ -29,8 +30,10 @@ namespace Klaxon.SaveSystem
             var saveData = (SaveData)state;
             for (int i = 0; i < saveData.dialogueParsed.Count; i++)
             {
-                dialogueSystem.dialogues[i].hasBeenParsed = saveData.dialogueParsed[i];
+                if(i < dialogueSystem.dialogues.Count)
+                    dialogueSystem.dialogues[i].hasBeenParsed = saveData.dialogueParsed[i];
             }
+            dialogueSystem.hasRandomTalked = saveData.hasRandomTalked;
         }
 
 
@@ -38,6 +41,7 @@ namespace Klaxon.SaveSystem
         private struct SaveData
         {
             public List<bool> dialogueParsed;
+            public bool hasRandomTalked;
         }
     }
 

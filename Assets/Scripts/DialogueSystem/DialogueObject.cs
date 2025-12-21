@@ -26,6 +26,8 @@ namespace Klaxon.ConversationSystem
         public bool SetsCondition;
         [ConditionalHide("SetsCondition", true)]
         public GOAD_ScriptableCondition Condition;
+        [ConditionalHide("SetsCondition", true)]
+        public bool IsPersonalBelief;
 
         public bool SetsUndertaking;
         [ConditionalHide("SetsUndertaking", true)]

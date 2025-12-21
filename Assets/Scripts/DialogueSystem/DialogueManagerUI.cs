@@ -5,6 +5,7 @@ using UnityEngine;
 using Klaxon.Interactable;
 using Klaxon.UndertakingSystem;
 using UnityEngine.EventSystems;
+using Klaxon.GOAD;
 
 
 namespace Klaxon.ConversationSystem
@@ -87,7 +88,7 @@ namespace Klaxon.ConversationSystem
                 return;
             }
 
-            CompleteDialogueNode();
+            //CompleteDialogueNode();
             
             SetNextDialogue(currentDialogueObject.dialogueNodes[currentIndex].AutoNextNodeID);
         }
@@ -119,9 +120,11 @@ namespace Klaxon.ConversationSystem
             NPC_TextObject.SetActive(true);
             playerResponseObject.SetActive(false);
             speakerName.text = currentDialogueSystem.NPC_Name.GetLocalizedString();
+            int lastIndex = currentIndex;
             currentIndex = nextIndex;
             if (currentIndex == -1)
             {
+                TextToSpeach.instance.StopSpeach();
                 currentDialogueObject.hasBeenParsed = true;
                 isSpeaking = false;
                 currentInteractable.canInteract = true;
@@ -131,41 +134,57 @@ namespace Klaxon.ConversationSystem
             else
             {
                 messageText.text = currentDialogueObject.dialogueNodes[currentIndex].LocalizedPhrase.GetLocalizedString();
-                UpdateGumption();
+                TextToSpeach.instance.StopSpeach();
+                TextToSpeach.instance.ConvertToSpeach(messageText.text, currentDialogueSystem.voicePitch);
+                UpdateGumption(lastIndex);
             }
-                
+            CompleteDialogueNode(lastIndex);
 
         }
 
-        void CompleteDialogueNode()
+        void CompleteDialogueNode(int index)
         {
-            ActivateUndertaking();
-            CompleteTask();
-            
+            ActivateUndertaking(index);
+            CompleteTask(index);
+            SetCondition(index);
         }
 
-        void UpdateGumption()
+        void SetCondition(int index)
         {
-            float factor = currentDialogueObject.dialogueNodes[currentIndex].LocalizedPhrase.GetLocalizedString().Length / 100.0f;
+            if (!currentDialogueObject.dialogueNodes[index].SetsCondition)
+                return;
+
+            if (currentDialogueObject.dialogueNodes[index].IsPersonalBelief)
+                currentInteractable.GetComponent<GOAD_Scheduler>().SetBeliefState(currentDialogueObject.dialogueNodes[index].Condition);
+            else
+                GOAD_WorldBeliefStates.instance.SetWorldState(currentDialogueObject.dialogueNodes[index].Condition);
+        }
+
+        void UpdateGumption(int index)
+        {
+            float factor = currentDialogueObject.dialogueNodes[index].LocalizedPhrase.GetLocalizedString().Length / 100.0f;
             if (currentDialogueSystem.gumptionCost != null)
                 PlayerInformation.instance.statHandler.ChangeStat(currentDialogueSystem.gumptionCost, factor);
         }
 
-        void ActivateUndertaking()
+        void ActivateUndertaking(int index)
         {
-            if (!currentDialogueObject.dialogueNodes[currentIndex].SetsUndertaking)
+            
+            if (!currentDialogueObject.dialogueNodes[index].SetsUndertaking)
                 return;
             
-            currentDialogueObject.dialogueNodes[currentIndex].Undertaking.ActivateUndertaking();
+            currentDialogueObject.dialogueNodes[index].Undertaking.ActivateUndertaking();
         }
 
-        void CompleteTask()
+        void CompleteTask(int index)
         {
-            if (!currentDialogueObject.dialogueNodes[currentIndex].CompleteTask)
-                return;
             
-            currentDialogueObject.undertaking.TryCompleteTask(currentDialogueObject.dialogueNodes[currentIndex].Task);
-            if (currentDialogueObject.dialogueNodes[currentIndex].Task.mapName != "")
+            if (!currentDialogueObject.dialogueNodes[index].CompleteTask)
+                return;
+
+            
+            currentDialogueObject.undertaking.TryCompleteTask(currentDialogueObject.dialogueNodes[index].Task);
+            if (currentDialogueObject.dialogueNodes[index].Task.mapName != "")
                     GameEventManager.onMapUpdateEvent.Invoke();
             
         }
@@ -182,32 +201,32 @@ namespace Klaxon.ConversationSystem
             isSpeaking = true;
         }
 
-        void DialogueNextActivate()
-        {
-            if (!isSpeaking)
-                return;
-            currentIndex++;
-            if (currentIndex < currentDialogue.localizedSentences.Length)
-            {
+        //void DialogueNextActivate()
+        //{
+        //    if (!isSpeaking)
+        //        return;
+        //    currentIndex++;
+        //    if (currentIndex < currentDialogue.localizedSentences.Length)
+        //    {
                 
-                messageText.text = currentDialogue.localizedSentences[currentIndex].GetLocalizedString();
-            }
-            else
-            {
+        //        messageText.text = currentDialogue.localizedSentences[currentIndex].GetLocalizedString();
+        //    }
+        //    else
+        //    {
                 
-                isSpeaking = false;
-                currentInteractable.canInteract = true;
-                UIScreenManager.instance.HideScreenUI();
-                if (currentDialogue.UndertakingTask != null)
-                {
-                    if (currentDialogue.UndertakingTask.mapName != "")
-                        GameEventManager.onMapUpdateEvent.Invoke();
-                }
+        //        isSpeaking = false;
+        //        currentInteractable.canInteract = true;
+        //        UIScreenManager.instance.HideScreenUI();
+        //        if (currentDialogue.UndertakingTask != null)
+        //        {
+        //            if (currentDialogue.UndertakingTask.mapName != "")
+        //                GameEventManager.onMapUpdateEvent.Invoke();
+        //        }
                 
 
-            }
+        //    }
             
-        }
+        //}
     }
 }
 

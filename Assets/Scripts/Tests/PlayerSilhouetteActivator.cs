@@ -16,9 +16,11 @@ public class PlayerSilhouetteActivator : MonoBehaviour
     PlayerSilhouetteManager silhouetteManager;
     GridManager gridManager;
     DrawZasYDisplacement displacement;
-    bool lastBehindState;
+    bool lastBehindCliffState;
+    bool lastBehindHouseState;
     int gatherableLayer;
     bool potentialCliff;
+    
     private void Start()
     {
         gatherableLayer = LayerMask.GetMask("Gatherable");
@@ -30,6 +32,7 @@ public class PlayerSilhouetteActivator : MonoBehaviour
         gridManager = GridManager.instance;
         displacement = GetComponent<DrawZasYDisplacement>();
         GameEventManager.onPlayerPositionUpdateEvent.AddListener(CheckPotentialCliff);
+        
         GameEventManager.onGameLoadedEvent.AddListener(CheckForCliff);
         GameEventManager.onGameLoadedEvent.AddListener(CheckForTrees);
         
@@ -39,16 +42,18 @@ public class PlayerSilhouetteActivator : MonoBehaviour
         GameEventManager.onGameLoadedEvent.RemoveListener(CheckForCliff);
         GameEventManager.onGameLoadedEvent.RemoveListener(CheckForTrees);
         GameEventManager.onPlayerPositionUpdateEvent.RemoveListener(CheckPotentialCliff);
+        
     }
     private void Update()
     {
         if (playerInformation.playerController.currentVelocity == 0 && playerInformation.playerController.isGrounded)
             return;
         
-            
-        
+
+
         if (potentialCliff)
             CheckForCliff();
+        
         if (!silhouetteManager.isBehindCliff)
             CheckForTrees();
     }
@@ -126,13 +131,14 @@ public class PlayerSilhouetteActivator : MonoBehaviour
                 break;
             }
         }
-        if (behindNow != lastBehindState)
+        if (behindNow != lastBehindCliffState)
         {
-            lastBehindState = behindNow;
+            lastBehindCliffState = behindNow;
 
             silhouetteManager.SetColor(behindNow ? 1 : 0, 0.25f, behindNow);
         }
     }
 
 
+   
 }

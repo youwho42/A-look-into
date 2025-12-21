@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 7ef47efd4f5eb9645be03d259be3b0ce, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7870165283641491456
   m_TableData:
   - m_Id: 16405553152
     m_Localized: Dear me! Don't dare depart!
@@ -53,6 +54,33 @@ MonoBehaviour:
       and selling substantial shelves and stools and such!
     m_Metadata:
       m_Items: []
+  - m_Id: 271336525610733568
+    m_Localized: HAHA! Humble hello's!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271336940439982080
+    m_Localized: My denomination is Demitrius. Do you detain a designation?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271339193875943424
+    m_Localized: Well, it was wonderful wandering into you! See you soon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271339784148733952
+    m_Localized: 'Unfortunate, yet understandable. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271340502733672448
+    m_Localized: May we meet once more, {global.playerName}, maybe in the morrow!
+    m_Metadata:
+      m_Items:
+      - rid: 7870165283641491456
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7870165283641491456
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 271340502733672448

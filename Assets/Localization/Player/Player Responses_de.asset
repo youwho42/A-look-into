@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 9af733beb84036b44be0148ca4486dd8, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7870165242436649049
   m_TableData:
   - m_Id: 17630613504
     m_Localized: Ja!
@@ -46,6 +47,21 @@ MonoBehaviour:
     m_Localized: x
     m_Metadata:
       m_Items: []
+  - m_Id: 1878908355858432
+    m_Localized: Mein Name ist {global.playerName}.
+    m_Metadata:
+      m_Items:
+      - rid: 7870165242436649049
+  - m_Id: 1879752597950464
+    m_Localized: Ich verrate es dir nicht!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7870165242436649049
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 1878908355858432

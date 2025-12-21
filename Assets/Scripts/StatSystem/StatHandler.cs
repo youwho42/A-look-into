@@ -155,8 +155,29 @@ namespace Klaxon.StatSystem
             return 1;
         }
 
-        
-        
+
+        public float GetStatMaxModifiedValue(StatObject statObject)
+        {
+            foreach (var stat in statObjects)
+            {
+                if (stat == statObject)
+                    return stat.GetModifiedMax();
+            }
+            return 1;
+        }
+
+        public float GetStatCurrentModifiedValue(StatObject statObject)
+        {
+            foreach (var stat in statObjects)
+            {
+                if (stat == statObject)
+                    return stat.GetModifiedCurrent();
+            }
+            return 1;
+        }
+
+
+
     }
 }
 

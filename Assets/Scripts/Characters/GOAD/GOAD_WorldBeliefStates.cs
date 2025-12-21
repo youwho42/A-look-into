@@ -103,12 +103,21 @@ namespace Klaxon.GOAD
         public void SetWorldState(string condition, bool state)
         {
             if (!worldStates.ContainsKey(condition))
-            {
                 worldStates.Add(condition, state);
-            }
+            else
+                worldStates[condition] = state;
+
+            SetConditionalConditions();
+            GameEventManager.onWorldStateUpdateEvent.Invoke();
+        }
+
+        public void SetWorldState(GOAD_ScriptableCondition condition)
+        {
+            if (!worldStates.ContainsKey(condition.Condition))
+                worldStates.Add(condition.Condition, condition.State);
             else
             {
-                worldStates[condition] = state;
+                worldStates[condition.Condition] = condition.State;
             }
             SetConditionalConditions();
             GameEventManager.onWorldStateUpdateEvent.Invoke();

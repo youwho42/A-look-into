@@ -448,6 +448,22 @@ PrefabInstance:
       propertyPath: neighborDistanceFarthest
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7848326908069796272, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7848326908069796272, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditions.Array.data[1].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f9d23919995ef043b554ca4b4323451,
+        type: 2}
+    - target: {fileID: 7848326908069796272, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      propertyPath: conditions.Array.data[1].setOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7968763202729641296, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       propertyPath: hasDialogue
@@ -709,15 +725,23 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 74266276940144263}
-    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3928741132408991157}
     - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2651054039445911394}
+      addedObject: {fileID: -5254928497778002152}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 731710496414364462}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6657037056187313698}
+    - targetCorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2904656972204951172}
     - targetCorrespondingSourceObject: {fileID: 5859352282203003539, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
         type: 3}
       insertIndex: -1
@@ -781,6 +805,18 @@ MonoBehaviour:
   type: 15
   isActive: 0
   isInDictionary: 0
+--- !u!114 &3691200719687075948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8378868691461979021, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5151695563370460129}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78164dbdfa9e614a8c42942fe9d9bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6272269743052568361 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1186113323787273416, guid: 3f3c3959dbc1f9c49b24b2d504a822c1,
@@ -909,6 +945,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   animator: {fileID: 1232802082072335209}
   randomStart: 0
+  maxStartDelay: 0
 --- !u!82 &3674039503824647703
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1006,22 +1043,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &74266276940144263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272269743052568361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16cdaad32f528f545b1fa8a98171a04a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  undertakings:
-  - Undertaking: {fileID: 11400000, guid: c1ae8c1cbf270b04ba7f45dfcaab11fc, type: 2}
-    hasCondition: 0
-    UndertakingAvailableCondition: {fileID: 0}
 --- !u!114 &3928741132408991157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,7 +1101,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &2651054039445911394
+--- !u!114 &-5254928497778002152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1089,7 +1110,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6272269743052568361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60eaa5b139d82dd42a876cb99a8a268b, type: 3}
+  m_Script: {fileID: 11500000, guid: 07077def6e0b94947b074167d6f3a903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NPC_Name:
@@ -1102,9 +1123,48 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   gumptionCost: {fileID: 0}
-  conversations:
-  - {fileID: 11400000, guid: 6cc83d59bc2d7294ba1090d4b9171324, type: 2}
-  - {fileID: 11400000, guid: 98fea00ce6cce3145a0f39a16bff19d0, type: 2}
+  dialogues: []
+  hasRandomTalked: 0
+  voicePitch: 2
   references:
     version: 2
     RefIds: []
+--- !u!114 &731710496414364462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca322a30d79e447b075cd19d297184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &6657037056187313698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d61040f8f08ab4aba6fd461d16b94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scheduler: {fileID: 3691200719687075948}
+--- !u!114 &2904656972204951172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272269743052568361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13692e7803b54f74c9aee23d7d0f6e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSystem: {fileID: -5254928497778002152}

@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 8d55a33a71f447946acdefc682c9f400, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7870165242436649044
   m_TableData:
   - m_Id: 388612284416
     m_Localized: My, what big ears I have, I can hear all the crickets at night.
@@ -62,6 +63,48 @@ MonoBehaviour:
       awaits you!
     m_Metadata:
       m_Items: []
+  - m_Id: 281634188201676800
+    m_Localized: Oh my deer! Aren't you just the sweetest thing!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 281634453822754816
+    m_Localized: My name's Jocelyn, but everyone around here just calls me Grandma.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 281634648614621184
+    m_Localized: What's your name deer?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 281635326850355200
+    m_Localized: Oh, such a lovely name! {global.playerName}, has a nice ring to
+      it!
+    m_Metadata:
+      m_Items:
+      - rid: 7870165242436649044
+  - m_Id: 281635687283675136
+    m_Localized: Well, I should be off now. I hope you feel at home here in Thimbleton.
+      Good day!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 281635954158850048
+    m_Localized: Ok, ok, that's fine, you don't have to tell me.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 281636195222278144
+    m_Localized: But just so you know, this is a small town and news travels fast.
+      I should know your name any second now!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 281636599871950848
+    m_Localized: I hope you feel right at home here, {global.playerName}... Bye now!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7870165242436649044
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 281635326850355200

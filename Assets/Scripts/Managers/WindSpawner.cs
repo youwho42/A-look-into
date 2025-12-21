@@ -88,7 +88,9 @@ public class WindSpawner : MonoBehaviour
             
             for (int i = 0; i < hit.Length; i++)
             {
-                if(hit[i].TryGetComponent(out IWindEffect affected))
+                if (hit[i] == null)
+                    continue;
+                if (hit[i].TryGetComponent(out IWindEffect affected))
                 {
                     
                     affected.Affect(true);

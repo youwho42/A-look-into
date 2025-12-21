@@ -161,7 +161,7 @@ namespace Klaxon.GOAD
                 List<Vector3> finalPath = new List<Vector3>();  
                 foreach (var pathPos in newPath)
                 {
-                    var p = pathPos + new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0.0f);
+                    var p = pathPos + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), 0.0f);
                     finalPath.Add(p);
                 }
 

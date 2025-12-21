@@ -218,9 +218,7 @@ GameObject:
   - component: {fileID: 3968540688165807639}
   - component: {fileID: 7451026495035940893}
   - component: {fileID: 9099265967096594157}
-  - component: {fileID: 7803679775236702586}
   - component: {fileID: 282983651390883466}
-  - component: {fileID: 7335956055071325998}
   - component: {fileID: 6789908951116238672}
   - component: {fileID: 3212525274398011632}
   - component: {fileID: 6362118105225639249}
@@ -532,36 +530,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &7803679775236702586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60eaa5b139d82dd42a876cb99a8a268b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPC_Name:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  gumptionCost: {fileID: 11400000, guid: 2dcf33813fba4754c877988660dac881, type: 2}
-  conversations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &282983651390883466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,28 +544,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   undertakingAvailableIcon: {fileID: 1125068658622964360}
   isInactive: 0
---- !u!114 &7335956055071325998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6902144603053421309}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16cdaad32f528f545b1fa8a98171a04a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  undertakings:
-  - Undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
-    hasCondition: 0
-    UndertakingAvailableCondition: {fileID: 0}
-  - Undertaking: {fileID: 11400000, guid: 80b16aa9def8f434aa69a9f7434d464a, type: 2}
-    hasCondition: 0
-    UndertakingAvailableCondition: {fileID: 0}
-  - Undertaking: {fileID: 11400000, guid: cc5e177e553df0244bdd7e5776f61de1, type: 2}
-    hasCondition: 0
-    UndertakingAvailableCondition: {fileID: 0}
 --- !u!114 &6789908951116238672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,6 +874,8 @@ MonoBehaviour:
     m_LocalVariables: []
   gumptionCost: {fileID: 11400000, guid: 7114c3b347a03f240b498f2e635849fe, type: 2}
   dialogues: []
+  hasRandomTalked: 0
+  voicePitch: 1.6
   references:
     version: 2
     RefIds: []

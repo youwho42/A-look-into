@@ -46,6 +46,7 @@ namespace Klaxon.GOAD
             base.PerformAction(agent);
             if(agent.currentEdible == null || agent.walker.itemObject.localPosition.z > 0)
             {
+                agent.walker.currentDirection = Vector2.zero;
                 success = false;
                 agent.SetActionComplete(true);
                 return;

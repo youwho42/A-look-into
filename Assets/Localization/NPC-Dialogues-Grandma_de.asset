@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: de
   m_SharedData: {fileID: 11400000, guid: 8d55a33a71f447946acdefc682c9f400, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 7870165242436649046
   m_TableData:
   - m_Id: 388612284416
     m_Localized: "Ei, was habe ich f\xFCr gro\xDFe Ohren! Damit kann ich alle Grillen
@@ -66,6 +67,17 @@ MonoBehaviour:
       ein unvergleichliches Festmahl!"
     m_Metadata:
       m_Items: []
+  - m_Id: 281635326850355200
+    m_Localized: 
+    m_Metadata:
+      m_Items:
+      - rid: 7870165242436649046
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7870165242436649046
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 281635326850355200

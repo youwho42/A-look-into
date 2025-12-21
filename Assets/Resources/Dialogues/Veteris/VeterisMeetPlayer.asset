@@ -1,0 +1,200 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab48068271ad86419379e7efacd629b, type: 3}
+  m_Name: VeterisMeetPlayer
+  m_EditorClassIdentifier: 
+  ConversationName: Veteris Meet Player
+  ConditionsNeeded:
+  - {fileID: 11400000, guid: 0f9d23919995ef043b554ca4b4323451, type: 2}
+  isTiedToUndertaking: 0
+  undertaking: {fileID: 0}
+  undertakingState: 0
+  startPhraseID: 0
+  dialogueNodes:
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:2de35e21ce7094f4eb4b88cd7b9318a0
+      m_TableEntryReference:
+        m_KeyId: 226496595395203072
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:2de35e21ce7094f4eb4b88cd7b9318a0
+      m_TableEntryReference:
+        m_KeyId: 226496700005339136
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices:
+    - LocalizedChoice:
+        m_TableReference:
+          m_TableCollectionName: GUID:9af733beb84036b44be0148ca4486dd8
+        m_TableEntryReference:
+          m_KeyId: 2984541146697728
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      NextNodeID: 2
+      HasConditions: 0
+      ConditionsNeeded: []
+    - LocalizedChoice:
+        m_TableReference:
+          m_TableCollectionName: GUID:9af733beb84036b44be0148ca4486dd8
+        m_TableEntryReference:
+          m_KeyId: 2984653222694912
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      NextNodeID: 4
+      HasConditions: 0
+      ConditionsNeeded: []
+    - LocalizedChoice:
+        m_TableReference:
+          m_TableCollectionName: GUID:9af733beb84036b44be0148ca4486dd8
+        m_TableEntryReference:
+          m_KeyId: 1879752597950464
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+      NextNodeID: 5
+      HasConditions: 0
+      ConditionsNeeded: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:2de35e21ce7094f4eb4b88cd7b9318a0
+      m_TableEntryReference:
+        m_KeyId: 226497340651720704
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: 3
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:2de35e21ce7094f4eb4b88cd7b9318a0
+      m_TableEntryReference:
+        m_KeyId: 226497513972944896
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 1
+    Condition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
+    IsPersonalBelief: 1
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:2de35e21ce7094f4eb4b88cd7b9318a0
+      m_TableEntryReference:
+        m_KeyId: 226497953259180032
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: 3
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:2de35e21ce7094f4eb4b88cd7b9318a0
+      m_TableEntryReference:
+        m_KeyId: 226497700552364032
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: 3
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  hasBeenParsed: 0
+  references:
+    version: 2
+    RefIds: []

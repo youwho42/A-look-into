@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab48068271ad86419379e7efacd629b, type: 3}
+  m_Name: MuninnFixColumnActive
+  m_EditorClassIdentifier: 
+  ConversationName: Muninn Fix the Column Active
+  ConditionsNeeded:
+  - {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
+  - {fileID: 11400000, guid: bffa30cd54c6167439473615f5e44b0e, type: 2}
+  isTiedToUndertaking: 1
+  undertaking: {fileID: 11400000, guid: 1b9a28cdfc9a43d4693f8449e7fcfd97, type: 2}
+  undertakingState: 1
+  startPhraseID: 0
+  dialogueNodes:
+  - NodeIndex: 0
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:596e0abe0ed8c6646879ab4ee3cf9cb2
+      m_TableEntryReference:
+        m_KeyId: 31777462214656
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: 1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  - NodeIndex: 1
+    LocalizedPhrase:
+      m_TableReference:
+        m_TableCollectionName: GUID:596e0abe0ed8c6646879ab4ee3cf9cb2
+      m_TableEntryReference:
+        m_KeyId: 31988616060928
+        m_Key: 
+      m_FallbackState: 0
+      m_WaitForCompletion: 0
+      m_LocalVariables: []
+    HasChoices: 0
+    Choices: []
+    AutoNextNodeID: -1
+    SetsCondition: 0
+    Condition: {fileID: 0}
+    IsPersonalBelief: 0
+    SetsUndertaking: 0
+    Undertaking: {fileID: 0}
+    CompleteTask: 0
+    Task: {fileID: 0}
+    GivesItem: 0
+    Item: {fileID: 0}
+    Amount: 0
+  hasBeenParsed: 0
+  references:
+    version: 2
+    RefIds: []

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MeetManuelaInactive
   m_EditorClassIdentifier: 
   ConversationName: Meet Manuela
-  ConditionsNeeded: []
+  ConditionsNeeded:
+  - {fileID: 11400000, guid: 0f9d23919995ef043b554ca4b4323451, type: 2}
   isTiedToUndertaking: 1
   undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
   undertakingState: 0
@@ -34,6 +35,7 @@ MonoBehaviour:
     AutoNextNodeID: 1
     SetsCondition: 0
     Condition: {fileID: 0}
+    IsPersonalBelief: 0
     SetsUndertaking: 0
     Undertaking: {fileID: 0}
     CompleteTask: 0
@@ -56,6 +58,7 @@ MonoBehaviour:
     AutoNextNodeID: 2
     SetsCondition: 0
     Condition: {fileID: 0}
+    IsPersonalBelief: 0
     SetsUndertaking: 0
     Undertaking: {fileID: 0}
     CompleteTask: 0
@@ -76,8 +79,9 @@ MonoBehaviour:
     HasChoices: 0
     Choices: []
     AutoNextNodeID: -1
-    SetsCondition: 0
-    Condition: {fileID: 0}
+    SetsCondition: 1
+    Condition: {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
+    IsPersonalBelief: 1
     SetsUndertaking: 1
     Undertaking: {fileID: 11400000, guid: 3e273d7597c71f04ba71cb5a169c4938, type: 2}
     CompleteTask: 1
@@ -85,7 +89,7 @@ MonoBehaviour:
     GivesItem: 0
     Item: {fileID: 0}
     Amount: 0
-  hasBeenParsed: 1
+  hasBeenParsed: 0
   references:
     version: 2
     RefIds: []

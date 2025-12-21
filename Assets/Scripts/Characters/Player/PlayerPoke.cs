@@ -65,7 +65,8 @@ public class PlayerPoke : MonoBehaviour
 
             if (!colliders[i].gameObject.TryGetComponent(out PokableItem pokable))
                 continue;
-
+            if (!pokable.enabled)
+                continue;
             float tempDistance = 0;
 
 
@@ -90,7 +91,7 @@ public class PlayerPoke : MonoBehaviour
         if (nearest != null)
         {
             pokeReticle.gameObject.SetActive(true);
-            pokeReticle.position = nearest.transform.position;
+            pokeReticle.position = nearest.transform.position + Vector3.forward;
             canPoke = true;
         }
         
