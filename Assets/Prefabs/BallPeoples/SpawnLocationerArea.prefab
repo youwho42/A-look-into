@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -165422594489313597}
   - component: {fileID: 1852225726520464281}
   - component: {fileID: 5518052024962920101}
+  - component: {fileID: 8364664902843165276}
   m_Layer: 0
   m_Name: SpawnLocationerArea
   m_TagString: Untagged
@@ -127,7 +128,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasSpawned: 0
   marker: {fileID: 5518052024962920101}
+  undertaking: {fileID: 0}
   locationerLocation: {fileID: 0}
+  messageTitle:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  messageDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!212 &5518052024962920101
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -183,3 +206,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8364664902843165276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773114800934082979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead031af7a07b014fb145342eeec0d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  junkPileTier: 0
+  junkPileDatabase: {fileID: 11400000, guid: 3d9ad2ea2763469458093a7eee50d959, type: 2}
+  gameDificulty: 1
+  poofSystem: {fileID: 0}
+  grassHider: {fileID: 0}
+  obstacleCollider: {fileID: 0}
+  junk: {fileID: 0}
+  interactCollider: {fileID: 1773114800934082982}
+  hasInteracted: 0
+  replaceObjectOnDrop: {fileID: 0}
+  undertaking:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}

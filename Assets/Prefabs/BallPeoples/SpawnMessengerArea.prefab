@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: -3977810606506427817}
   - component: {fileID: 8100168833981936004}
   - component: {fileID: 2486308009643026258}
-  m_Layer: 0
+  - component: {fileID: 5159647913019947161}
+  m_Layer: 16
   m_Name: SpawnMessengerArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,13 +29,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8100168833981936007}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.916315, y: -30.657394, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &8100168833981936002
 PolygonCollider2D:
@@ -44,11 +45,32 @@ PolygonCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8100168833981936007}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -61,10 +83,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5174799, y: -0.01616311}
-      - {x: -0.006358564, y: -0.3077277}
-      - {x: 0.4851433, y: -0.015332937}
-      - {x: 0.00083065033, y: 0.26891136}
+    - - {x: -0.084685326, y: -0.06781793}
+      - {x: 0.10290909, y: -0.08074379}
+      - {x: 0.07794154, y: 0.03046441}
+      - {x: -0.07579231, y: 0.036851883}
+  m_UseDelaunayMesh: 0
 --- !u!114 &8100168833981936005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +131,7 @@ MonoBehaviour:
   messageItem: {fileID: 0}
   messageType: 1
   undertaking: {fileID: 0}
+  craftingRecipe: {fileID: 0}
 --- !u!212 &2486308009643026258
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -125,6 +149,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -160,3 +187,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5159647913019947161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100168833981936007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead031af7a07b014fb145342eeec0d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  junkPileTier: 0
+  junkPileDatabase: {fileID: 11400000, guid: 3d9ad2ea2763469458093a7eee50d959, type: 2}
+  gameDificulty: 1
+  poofSystem: {fileID: 0}
+  grassHider: {fileID: 0}
+  obstacleCollider: {fileID: 0}
+  junk: {fileID: 0}
+  interactCollider: {fileID: 8100168833981936002}
+  hasInteracted: 0
+  replaceObjectOnDrop: {fileID: 0}
+  undertaking:
+    undertaking: {fileID: 0}
+    task: {fileID: 0}

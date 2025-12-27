@@ -20,4 +20,8 @@ public class SpawnableBallPersonArea : MonoBehaviour
         hasSpawned = _hasSpawned;
         marker.enabled = !hasSpawned;
     }
+    public virtual void SpawnBP()
+    {
+
+    }
 }

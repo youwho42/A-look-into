@@ -11,6 +11,7 @@ public class CraftingAnimationHandler : MonoBehaviour
     public QI_Inventory inventory;
     public SpriteRenderer itemSprite;
     public SpriteRenderer craftingItemSprite;
+    public SpriteRenderer ColoredSprite;
     public AudioSource source;
     float mainVolume;
     private void OnEnable()
@@ -25,7 +26,7 @@ public class CraftingAnimationHandler : MonoBehaviour
 
     }
     
-    public void SetAnimation(bool active, Sprite itemIcon = null)
+    public void SetAnimation(bool active, Color spriteColor, Sprite itemIcon = null)
     {
         
         animator.SetBool("IsCrafting", active);
@@ -35,6 +36,7 @@ public class CraftingAnimationHandler : MonoBehaviour
                 source.Play();
             if (itemIcon != null && craftingItemSprite != null)
                 craftingItemSprite.sprite = itemIcon;
+            ColoredSprite.color = spriteColor;
         }
         else
         {

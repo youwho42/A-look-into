@@ -11,23 +11,33 @@ public class SpawnBallPersonMessengerArea : SpawnableBallPersonArea
     public BallPeopleMessageType messageType;
     public UndertakingObject undertaking;
     public QI_CraftingRecipe craftingRecipe;
-    
-    
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void SpawnBP()
     {
         if (hasSpawned)
             return;
-        if (collision.CompareTag("Player"))
-        {
-            if (collision.gameObject.transform.position.z == transform.position.z)
-            {
-                BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking, craftingRecipe, marker.transform.position);
-                marker.enabled = false;
-                hasSpawned = true;
-            }
-        }
-        
+       
+        BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking, craftingRecipe, marker.transform.position);
+        marker.enabled = false;
+        hasSpawned = true;
+            
         
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (hasSpawned)
+    //        return;
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        if (collision.gameObject.transform.position.z == transform.position.z)
+    //        {
+    //            BallPeopleManager.instance.SpawnMessenger(messageItem, messageType, undertaking, craftingRecipe, marker.transform.position);
+    //            marker.enabled = false;
+    //            hasSpawned = true;
+    //        }
+    //    }
+        
+        
+    //}
 }

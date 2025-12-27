@@ -12,20 +12,33 @@ public class SpawnBallPersonLocationerArea : SpawnableBallPersonArea
     public LocalizedString messageTitle;
     public LocalizedString messageDescription;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void SpawnBP()
     {
         if (hasSpawned)
             return;
-        if (collision.CompareTag("Player"))
-        {
-            if (collision.gameObject.transform.position.z == transform.position.z)
-            {
-                BallPeopleManager.instance.SpawnLocationer(undertaking, locationerLocation, marker.transform.position, messageTitle, messageDescription);
-                marker.enabled = false;
-                hasSpawned = true;
-            }
-        }
-
-
+        
+        BallPeopleManager.instance.SpawnLocationer(undertaking, locationerLocation, marker.transform.position, messageTitle, messageDescription);
+        marker.enabled = false;
+        hasSpawned = true;
+           
     }
+
+
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (hasSpawned)
+    //        return;
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        if (collision.gameObject.transform.position.z == transform.position.z)
+    //        {
+    //            BallPeopleManager.instance.SpawnLocationer(undertaking, locationerLocation, marker.transform.position, messageTitle, messageDescription);
+    //            marker.enabled = false;
+    //            hasSpawned = true;
+    //        }
+    //    }
+
+
+    //}
 }

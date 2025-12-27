@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa14cf2f5df4a88980f548a38afb42, type: 3}
+  m_Name: HoneycombSeparation_Recipe
+  m_EditorClassIdentifier: 
+  Name: Honeycomb Separation
+  ProductType: 2
+  Ingredients:
+  - Item: {fileID: 11400000, guid: 6732f0c2679fe9247b47e0d22ae5d42e, type: 2}
+    Amount: 1
+  Product:
+    Item: {fileID: 11400000, guid: fb83c9a7f2c43a2428afe73c7c6500c8, type: 2}
+    Amount: 1
+  HasSecondaryProduct: 1
+  SecondaryProduct: {fileID: 11400000, guid: a6ad38cede174504c8ef91799fc204e4, type: 2}
+  CraftingTime: 38
+  SpriteColor: {r: 1, g: 0.73798263, b: 0.1462264, a: 1}

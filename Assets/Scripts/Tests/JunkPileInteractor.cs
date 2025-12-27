@@ -29,21 +29,28 @@ public class JunkPileInteractor : MonoBehaviour
     }
     void CheckForObjectsToHide() 
     {
+        if (replaceObjectOnDrop == null)
+            return;
         replaceObjectOnDrop.ShowObjects(true);
         replaceObjectOnDrop.CheckForObjects();
     }
     public void StartParticles()
     {
-        poofSystem.Play();
+        if (poofSystem != null)
+            poofSystem.Play();
         DisableGameObject();
     }
 
     public void DisableGameObject()
     {
-        grassHider.SetActive(false);
-        obstacleCollider.SetActive(false);
-        junk.SetActive(false);
-        interactCollider.enabled = false;
+        if (grassHider != null)
+            grassHider.SetActive(false);
+        if (obstacleCollider != null)
+            obstacleCollider.SetActive(false);
+        if (junk != null)
+            junk.SetActive(false);
+        if (interactCollider != null)
+            interactCollider.enabled = false;
         hasInteracted = true;
         SetPathfindingTiles();
         if (undertaking.undertaking != null)

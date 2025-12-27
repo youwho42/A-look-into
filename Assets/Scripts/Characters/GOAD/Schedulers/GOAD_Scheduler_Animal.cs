@@ -213,7 +213,7 @@ namespace Klaxon.GOAD
         {
             if (isScritching)
                 return;
-            if(Random.Range(0.0f, 1.0f) <= 0.018f)
+            if(Random.Range(0.0f, 1.0f) <= 0.015f)
                 SetBeliefState(wantScritchCondition.Condition, true);
 
         }

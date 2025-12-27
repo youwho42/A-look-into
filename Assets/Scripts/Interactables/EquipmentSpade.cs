@@ -54,16 +54,14 @@ public class EquipmentSpade : EquipmentData
             bool none = true;
             if (nearest.gameObject.TryGetComponent(out JunkPileInteractor junkPile))
             { 
-                
                 if(junkPile.junkPileTier <= equipmentTier)
                 {
                     none = false;
                     if (InteractCostReward())
-                    {
                         MiniGameManager.instance.StartMiniGame(miniGameType, junkPile);
-                    }
                 }
             }
+            
             if (none)
             {
                 playerInfo.playerAnimator.SetBool("UseEquipement", false);

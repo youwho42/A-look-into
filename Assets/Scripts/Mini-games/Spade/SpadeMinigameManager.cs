@@ -214,7 +214,8 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
 
         
         MiniGameManager.instance.EndMiniGame(MiniGameType.Spade);
-        
+        if (currentJunkPile.gameObject.TryGetComponent(out SpawnableBallPersonArea spawnableBallPerson))
+            spawnableBallPerson.SpawnBP();
 
     }
     public void ResetMiniGame()
