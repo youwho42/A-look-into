@@ -18,7 +18,8 @@ public class TreeShadows : MonoBehaviour
     
 
     GlobalShadows globalShadows;
-    bool isVisible;
+    [HideInInspector]
+    public bool isVisible;
     
     Material shadowMaterial;
     [Range(1, 10)]
@@ -27,7 +28,7 @@ public class TreeShadows : MonoBehaviour
     public Transform nightShadows;
 
     bool materialsSet;
-    //public bool isUnderCloud;
+    
 
     private void Awake()
     {
@@ -70,7 +71,7 @@ public class TreeShadows : MonoBehaviour
 
         shadowMaterial = shadowSprite.material;
 
-
+        
         globalShadows = GlobalShadows.instance;
         GameEventManager.onShadowTickEvent.AddListener(SetShadows);
         isVisible = true;

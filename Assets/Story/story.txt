@@ -58,9 +58,10 @@ MAP REVEALS
 	Veil of Vagueness - Blu valley
 	Surface of Sublimation - Chester's Forest
 	The Myopic Miasma - Thimbleton
-
-							Fog of forgetfulness ? Fog of friendship
 	Ozone of Obfuscation - Squonk Mountain
+	Slate of Suppression - Breezy Peak
+							Fog of forgetfulness ? Fog of friendship
+							The Hampering Haze
 							Atmosphere of Amnesia
 
 										
@@ -519,6 +520,17 @@ BUTTON HELPER:
 		{
 			button.action.started -= Function;
 		}
+
+ClearGameObjects in Transform
+		public void ClearHolder()
+    {
+        
+        foreach (Transform child in holder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        
+    }
 
 
 BUGS!!!!!!!!!!

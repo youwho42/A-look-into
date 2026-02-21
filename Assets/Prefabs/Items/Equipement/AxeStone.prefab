@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d0aa92a3d0a0c4dcf9a58b1cbf4a5c1c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 585497104ef9dba4cb205943b332ef52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.125, y: 0.125}
+  m_Size: {x: 0.125, y: 0.1875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -160,8 +160,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.03232968, y: 0.034816556}
-  m_Radius: 0.06393993
+  m_Offset: {x: -0.01, y: 0.015}
+  m_Radius: 0.04
 --- !u!114 &522756923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: Take
   localizedInteractVerb:
     m_TableReference:
@@ -222,11 +223,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 6704786705930763455}
   canPlaceOnOther: 1
   visualItem: {fileID: 1064493498713139851}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   pickupQuantity: 1
   references:
     version: 2

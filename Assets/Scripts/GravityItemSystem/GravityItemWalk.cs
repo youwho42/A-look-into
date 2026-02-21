@@ -488,20 +488,10 @@ namespace Klaxon.GravitySystem
         public void SetRandomDestination(float roamingDistance)
         {
 
-            Vector2 rand = (Random.insideUnitCircle * roamingDistance);
-            Vector3 center = centerOfActivity == null ? _transform.position : centerOfActivity.transform.position;
-            var d = currentTilePosition.groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
-            for (int z = currentTilePosition.groundMap.cellBounds.zMax; z > currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
-            {
-                d.z = z;
-                if (currentTilePosition.groundMap.GetTile(d) != null)
-                {
+            var p = GridManager.instance.GetRandomGridBaseTile(currentTilePosition.position, roamingDistance);
+            currentDestination = p;
+            currentDestination += new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
 
-                    currentDestination = GetTileWorldPosition(d);
-                    currentDestination += new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
-                    break;
-                }
-            }
         }
 
 

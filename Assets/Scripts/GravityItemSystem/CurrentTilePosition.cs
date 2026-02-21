@@ -15,6 +15,7 @@ public class CurrentTilePosition : MonoBehaviour
     {
         SetGrid();
         position = GetCurrentTilePosition(transform.position);
+        
     }
     public Vector3Int GetCurrentTilePosition(Vector3 worldPosition)
     {

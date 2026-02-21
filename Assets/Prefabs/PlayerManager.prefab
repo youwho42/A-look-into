@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerHeightDisplacement: {fileID: 0}
   playerSprite: {fileID: 0}
   playerShadow: {fileID: 0}
   playerController: {fileID: 0}
@@ -334,6 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8051b7d55fd53446bd6f53d35392127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerEncountersCompendiumDatabase: {fileID: 0}
   playerAnimalCompendiumDatabase: {fileID: 11400000, guid: 93d396add2f17a641980694e58ce63c9,
     type: 2}
   playerResourceCompendiumDatabase: {fileID: 11400000, guid: 8dfe7ff5a2454d247b9accc627e0ee38,
@@ -506,12 +508,16 @@ MonoBehaviour:
     mapImage: {fileID: 21300000, guid: 9127fe1a00a5aad4b93de1cc8d0759ed, type: 3}
     active: 0
     hasAnimated: 1
-  - mapName: Overlook Plateau
-    mapImage: {fileID: 21300000, guid: c3d59236f860f4940a6ca773f441f61a, type: 3}
+  - mapName: Squonk Mountain
+    mapImage: {fileID: 21300000, guid: c36884d6721a5304e997ac87b713c692, type: 3}
     active: 0
     hasAnimated: 1
   - mapName: Thimbleton
     mapImage: {fileID: 21300000, guid: 786a5f280e3d8f54d8e1671b952f17eb, type: 3}
+    active: 0
+    hasAnimated: 1
+  - mapName: Breezy Peak
+    mapImage: {fileID: 21300000, guid: 3121203cbe380c24886f72ff5e7fc219, type: 3}
     active: 0
     hasAnimated: 1
 --- !u!114 &6133568523072871628
@@ -605,9 +611,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
+  ageList: []
   prefab: {fileID: 1791082037900311243, guid: ed11e04b7d93e664f8b73812d63e5533, type: 3}
   amountToPool: 0
   useWorldSpace: 0
+  objectHolderName: 
+  maxPoolSize: 0
 --- !u!1 &6503686989659570342
 GameObject:
   m_ObjectHideFlags: 0

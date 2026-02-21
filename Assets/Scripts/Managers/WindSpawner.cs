@@ -15,95 +15,104 @@ public class WindSpawner : MonoBehaviour
             Destroy(this);
     }
 
-    public Vector2Int minMaxTimeToSpawn;
-    public AnimationCurve windTimeCurve;
     
     public Transform objectToFollow;
     ObjectPooler pool;
-    CycleTicks nextCycle;
-    RealTimeDayNightCycle dayNightCycle;
-    CallbackOnTick currentCallback;
+    PlayerInformation player;
+    GridManager grid;
+    float minWindMagnitude = 2.0f;
 
     private void Start()
     {
-        dayNightCycle = RealTimeDayNightCycle.instance;
+        player = PlayerInformation.instance;
+        grid = GridManager.instance;
         pool = GetComponent<ObjectPooler>();
-        GetNextWindTick();
+        GameEventManager.onTimeTickEvent.AddListener(CheckTilesForWind);
+    }
 
+    private void OnDisable()
+    {
+        GameEventManager.onTimeTickEvent.RemoveListener(CheckTilesForWind);
+    }
+
+    void CheckTilesForWind(int tick)
+    {
+        int dist = 5;
+        for (int x = -dist; x < dist; x++) 
+        {
+            for (int y = -dist; y < dist; y++)
+            {
+                Vector2Int intPos = (Vector2Int)player.currentTilePosition.position;
+                intPos.x += x;
+                intPos.y += y;
+                
+                if(grid.TryGetTileValid(intPos, out Vector3Int tilePos))
+                {
+                    var pos = grid.GetTileWorldPosition(tilePos);
+                    var screenPos = Camera.main.WorldToScreenPoint(pos);
+                    var onScreen = screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y > 0f && screenPos.y < Screen.height;
+                    if (onScreen)
+                        TryStartWind(tick, pos, tilePos);
+                }
+            }
+        }
     }
 
     
 
-    private void OnDisable()
+    void TryStartWind(int tick, Vector3 position, Vector3Int intPos)
     {
-        dayNightCycle.RemoveCallbackOnTick(currentCallback);
-        currentCallback = null;
+       
+        if (CheckLocationIndex(tick, intPos))
+        {
+            float m = WindManager.instance.GetWindMagnitude(position);
+            bool chance = Random.value < m * 0.05f;
+            if (m > minWindMagnitude && chance)
+                SpawnObject(position);
+        }
+    }
+
+    bool CheckLocationIndex(int tick, Vector3Int intPos)
+    {
+        int phase = intPos.x * 73856093 ^ intPos.y * 19349663;
+        phase &= 0x7fffffff;
+
+        int interval = 6;
+        return ((tick + phase) % interval) == 0;
+
+
     }
 
 
-    void StartWindOnTick()
+    private void SpawnObject(Vector3 position)
     {
-        SpawnObject();
-        GetNextWindTick();
-    }
-
-
-    public void GetNextWindTick()
-    {
-        var t = (windTimeCurve.Evaluate(Random.Range(0.0f, 1.0f))) * (minMaxTimeToSpawn.y - minMaxTimeToSpawn.x) + minMaxTimeToSpawn.x;
-        nextCycle = dayNightCycle.GetCycleTime((int)t);
-        currentCallback = dayNightCycle.AddCallbackOnTick(StartWindOnTick, nextCycle);
-    }
-
-    private void SpawnObject()
-    {
-
         GameObject go = pool.GetPooledObject();
 
         if(go != null)
         {
-            go.transform.position = GetRandomPosition();
+            go.transform.position = position + (Vector3)GetRandomPosition();
             CurrentGridLocation locationZ = go.GetComponent<CurrentGridLocation>();
             if (locationZ != null)
             {
                 locationZ.GetTileLocation();
                 locationZ.UpdateLocationAndPosition();
             }
+            
             go.SetActive(true);
+            var d = WindManager.instance.GetWindDirectionFromPosition(position);
+            var dir = d.x < 0 ? Vector3.one : new Vector3(-1,1,1);
+            go.transform.localScale = dir;
             IPoolPrefab np = go.GetComponent<IPoolPrefab>();
+            
             if(np != null)
-            {
                 np.OnObjectSpawn();
-                StartCoroutine(CheckAffectedObjects(go.transform));
-            }
-                
         }
     }
 
-    private IEnumerator CheckAffectedObjects(Transform location)
-    {
-        var hit = Physics2D.OverlapCircleAll(location.position, 1.75f);
-        if (hit.Length > 0)
-        {
-            
-            for (int i = 0; i < hit.Length; i++)
-            {
-                if (hit[i] == null)
-                    continue;
-                if (hit[i].TryGetComponent(out IWindEffect affected))
-                {
-                    
-                    affected.Affect(true);
-                    yield return new WaitForSeconds(.1f);
-                }
-            }
-        }
-        yield return null;
-    }
 
     Vector2 GetRandomPosition()
     {
-        return (Random.insideUnitCircle * 2) + (Vector2)objectToFollow.position;
+        return (Random.insideUnitCircle * 0.3f);
     }
-    
+
 }

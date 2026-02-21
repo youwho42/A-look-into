@@ -17,6 +17,7 @@ public class TreeDropping : MonoBehaviour
     Transform shadowTransform;
     Vector3 rot;
     float rotDir;
+    bool isDropping;
     public void SetDropping(Vector3 position, float maxHeight, Sprite droppingSprite)
     {
         dropTransform = droppingItemSprite.transform;
@@ -29,39 +30,46 @@ public class TreeDropping : MonoBehaviour
         dropTransform.localPosition = new Vector3(0, spriteDisplacementY * h, h);
         finalSpeed = speed + Random.Range(-.1f, 0.11f);
         rotDir = Mathf.Sign(Random.Range(-1, 1));
+        isDropping = true;
         //Invoke("ResetDrop", 2.0f);
     }
 
     private void FixedUpdate()
     {
-        if(dropTransform.localPosition.y > 0.001f)
+        if (isDropping)
         {
-            var wind = WindManager.instance.GetWindDirectionFromPosition(transform.position);
-            float windSpeed = WindManager.instance.GetWindMagnitude(transform.position);
-            float disp = dropTransform.localPosition.z;
-            disp -= finalSpeed * Time.fixedDeltaTime;
-            
-            rot.z += windSpeed * rotDir;
-            dropTransform.eulerAngles = rot;
-            shadowTransform.eulerAngles = rot;
+            if (dropTransform.localPosition.y > 0.001f)
+            {
+                
+                var wind = WindManager.instance.GetWindDirectionFromPosition(transform.position);
+                float windSpeed = WindManager.instance.GetWindMagnitude(transform.position);
+                float disp = dropTransform.localPosition.z;
+                disp -= finalSpeed * Time.fixedDeltaTime;
 
-            Vector3 pos = new Vector3(0, spriteDisplacementY * disp, disp);
-            dropTransform.localPosition = pos;
-            var np = (Vector3)wind.normalized * windSpeed * 0.008f * Time.deltaTime;
-            np.x += amplitude * Mathf.Sin(theta * frequency);
-            theta += Time.fixedDeltaTime;
-            
-            transform.position += np;
-        }
-        else
-        {
-            ResetDrop();
+                rot.z += windSpeed * rotDir;
+                dropTransform.eulerAngles = rot;
+                shadowTransform.eulerAngles = rot;
+
+                Vector3 pos = new Vector3(0, spriteDisplacementY * disp, disp);
+                dropTransform.localPosition = pos;
+                var np = (Vector3)wind.normalized * windSpeed * 0.008f * Time.deltaTime;
+                np.x += amplitude * Mathf.Sin(theta * frequency);
+                theta += Time.fixedDeltaTime;
+
+                transform.position += np;
+            }
+            else
+            {
+                ResetDrop();
+            } 
         }
     }
 
     void ResetDrop()
     {
+        isDropping = false;
         gameObject.SetActive(false);
+        
     }
 
     

@@ -36,7 +36,8 @@ public class EquipmentSpade : EquipmentData
         PlayerInformation playerInfo = PlayerInformation.instance;
         for (int i = 0; i < colliders.Length; i++)
         {
-            float tempDistance = NumberFunctions.GetDistanceV2(position, colliders[i].transform.position);
+            Vector2 tempPos = colliders[i].ClosestPoint(position);
+            float tempDistance = NumberFunctions.GetDistanceV2(position, tempPos);
 
             if (nearest == null || tempDistance < distance)
             {
@@ -52,13 +53,13 @@ public class EquipmentSpade : EquipmentData
 
             // activate the minigame
             bool none = true;
-            if (nearest.gameObject.TryGetComponent(out JunkPileInteractor junkPile))
+            if (nearest.gameObject.TryGetComponent(out SpadeInteractable interactable))
             { 
-                if(junkPile.junkPileTier <= equipmentTier)
+                if(interactable.spadeInteractionTier <= equipmentTier)
                 {
                     none = false;
                     if (InteractCostReward())
-                        MiniGameManager.instance.StartMiniGame(miniGameType, junkPile);
+                        MiniGameManager.instance.StartMiniGame(miniGameType, interactable);
                 }
             }
             

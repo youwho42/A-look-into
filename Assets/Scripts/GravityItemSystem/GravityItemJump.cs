@@ -24,7 +24,7 @@ namespace Klaxon.GravitySystem
         //[HideInInspector]
         //public Vector2 currentDir;
         [HideInInspector]
-        public Vector2 currentDestination;
+        public Vector3 currentDestination;
 
         Vector3 checkPosition;
         Vector3 doubleCheckPosition;
@@ -330,7 +330,7 @@ namespace Klaxon.GravitySystem
 
         public void SetDirection()
         {
-            var dir = currentDestination - (Vector2)_transform.position;
+            var dir = (Vector2)currentDestination - (Vector2)_transform.position;
             dir = dir.normalized;
             currentDirection = dir;
         }
@@ -469,20 +469,9 @@ namespace Klaxon.GravitySystem
         public void SetRandomDestination(float roamingDistance)
         {
 
-            Vector2 rand = (Random.insideUnitCircle * roamingDistance);
-            Vector3 center = centerOfActivity == null ? _transform.position : centerOfActivity.transform.position;
-            var d = currentTilePosition.groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
-            for (int z = currentTilePosition.groundMap.cellBounds.zMax; z > currentTilePosition.groundMap.cellBounds.zMin - 1; z--)
-            {
-                d.z = z;
-                if (currentTilePosition.groundMap.GetTile(d) != null)
-                {
-
-                    currentDestination = GetTileWorldPosition(d);
-                    currentDestination += new Vector2(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f));
-                    break;
-                }
-            }
+            var p = GridManager.instance.GetRandomGridBaseTile(currentTilePosition.position, roamingDistance);
+            currentDestination = p;
+            currentDestination += new Vector3(Random.Range(-.2f, .2f), Random.Range(-.2f, .2f), 0);
         }
 
 

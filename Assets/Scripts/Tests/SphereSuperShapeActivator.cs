@@ -29,7 +29,9 @@ public class SphereSuperShapeActivator : MonoBehaviour
     public CompleteTaskObject undertakingObject;
     public bool isActivated;
 
-    private void Start()
+    bool setFromSave;
+    
+    private IEnumerator Start()
     {
         
         foreach (var clip in sounds)
@@ -40,12 +42,16 @@ public class SphereSuperShapeActivator : MonoBehaviour
             clip.SetSource(_go.AddComponent<AudioSource>());
             clip.source.outputAudioMixerGroup = mixerGroup;
         }
+        yield return new WaitForSeconds(1.0f);
+        if(!setFromSave)
+            SetTileWalkable(false);
+        
     }
 
     public void SetActivatorFromSave(bool active)
     {
         isActivated = active;
-        if(isActivated)
+        if (isActivated)
         {
             finalLight.SetActive(true);
             Destroy(blueRain);
@@ -55,8 +61,15 @@ public class SphereSuperShapeActivator : MonoBehaviour
             a.Stop();
             a.enabled = false;
             GetComponent<Collider2D>().enabled = false;
-          
+
         }
+        setFromSave = true;
+        SetTileWalkable(isActivated);
+    }
+
+    private void SetTileWalkable(bool canWalk)
+    {
+        PathRequestManager.instance.pathfinding.isometricGrid.nodeLookup[fissureLocation].walkable = canWalk;
     }
 
     IEnumerator FixAndSetSculptureArea()
@@ -106,12 +119,14 @@ public class SphereSuperShapeActivator : MonoBehaviour
         superShape.AddToTotalM(2);
 
         isActivated = true;
+
+        SetTileWalkable(true);
         // destroy ourselves
         //yield return new WaitForSeconds(3f);
         //Destroy(gameObject);
 
 
-        
+
 
 
         yield return null;

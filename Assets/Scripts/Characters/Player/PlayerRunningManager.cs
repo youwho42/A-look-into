@@ -164,11 +164,14 @@ public class PlayerRunningManager : MonoBehaviour
 
     void DisableUI()
     {
-        runningUI.ToggleUI(false);
+        if (runningUI != null)
+        {
+            runningUI.ToggleUI(false);
+            runningUI.SetCracks(-1);
+        }
         UITimer = 0;
         runningUIVisible = false;
         overMaxAmount = 0;
-        runningUI.SetCracks(-1);
         overMax = false;
     }
 

@@ -5,7 +5,7 @@ namespace Klaxon.SaveSystem
 {
     public class JunkPileSaveSystem : MonoBehaviour, ISaveable
     {
-        public JunkPileInteractor junkPileInteractor;
+        public SpadeJunkPileInteractor junkPileInteractor;
 
         public object CaptureState()
         {

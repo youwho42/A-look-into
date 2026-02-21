@@ -67,7 +67,10 @@ public class AreaSoundFxManager : MonoBehaviour
     public string GetTileSFXName(Vector3Int position)
     {
 
-        
+        if (baseMap == null && GridManager.instance.groundMap != null)
+            baseMap = GridManager.instance.groundMap;
+        else
+            return "";
         int mapPositionX = (int)NumberFunctions.RemapNumber(position.x, baseMap.cellBounds.min.x, baseMap.cellBounds.max.x, 0, 128);
         int mapPositionY = (int)NumberFunctions.RemapNumber(position.y, baseMap.cellBounds.min.y, baseMap.cellBounds.max.y, 0, 128);
         

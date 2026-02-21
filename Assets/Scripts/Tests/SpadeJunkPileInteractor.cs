@@ -2,44 +2,25 @@ using Klaxon.UndertakingSystem;
 using QuantumTek.QuantumInventory;
 using UnityEngine;
 
-public class JunkPileInteractor : MonoBehaviour
+public class SpadeJunkPileInteractor : SpadeInteractable
 {
-    public EquipmentTier junkPileTier;
-    public QI_ItemDatabase junkPileDatabase;
-    public MiniGameDificulty gameDificulty;
+    
     public ParticleSystem poofSystem;
     public GameObject grassHider;
     public GameObject obstacleCollider;
     public GameObject junk;
-    public Collider2D interactCollider;
-    [HideInInspector]
-    public bool hasInteracted;
-    public ReplaceObjectOnItemDrop replaceObjectOnDrop;
+    
     public CompleteTaskObject undertaking;
 
-    private void Start()
+    
+    public override void EndSpadeInteraction()
     {
-        GameEventManager.onGameLoadedEvent.AddListener(CheckForObjectsToHide);
-        GameEventManager.onGameStartLoadEvent.AddListener(CheckForObjectsToHide);
-    }
-    private void OnDisable()
-    {
-        GameEventManager.onGameLoadedEvent.RemoveListener(CheckForObjectsToHide);
-        GameEventManager.onGameStartLoadEvent.RemoveListener(CheckForObjectsToHide);
-    }
-    void CheckForObjectsToHide() 
-    {
-        if (replaceObjectOnDrop == null)
-            return;
-        replaceObjectOnDrop.ShowObjects(true);
-        replaceObjectOnDrop.CheckForObjects();
-    }
-    public void StartParticles()
-    {
+        base.EndSpadeInteraction();
         if (poofSystem != null)
             poofSystem.Play();
         DisableGameObject();
     }
+    
 
     public void DisableGameObject()
     {
@@ -51,7 +32,7 @@ public class JunkPileInteractor : MonoBehaviour
             junk.SetActive(false);
         if (interactCollider != null)
             interactCollider.enabled = false;
-        hasInteracted = true;
+        
         SetPathfindingTiles();
         if (undertaking.undertaking != null)
             undertaking.undertaking.TryCompleteTask(undertaking.task);

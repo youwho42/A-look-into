@@ -160,8 +160,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.03232968, y: 0.034816556}
-  m_Radius: 0.06393993
+  m_Offset: {x: -0.0145196915, y: -0.021995232}
+  m_Radius: 0.049563885
 --- !u!114 &522756923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactSound: Default
+  interactFailSound: DefaultFail
   interactVerb: Take
   localizedInteractVerb:
     m_TableReference:
@@ -222,11 +223,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 6704786705930763455}
   canPlaceOnOther: 1
   visualItem: {fileID: 6626194703435523428}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   pickupQuantity: 1
   references:
     version: 2

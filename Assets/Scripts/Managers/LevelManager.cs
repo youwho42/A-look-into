@@ -336,6 +336,7 @@ public class LevelManager : MonoBehaviour
         SavingLoading.instance.LoadOptions();
         Pause(false);
         Time.timeScale = 1;
+        GameEventManager.onPlayerPositionUpdateEvent.Invoke(PlayerInformation.instance.currentTilePosition.position);
         yield return new WaitForSecondsRealtime(2.0f);
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.inMainMenu = true;

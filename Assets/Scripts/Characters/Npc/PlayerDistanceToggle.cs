@@ -72,6 +72,10 @@ public class PlayerDistanceToggle : MonoBehaviour
    
     public void AddAnimal(GameObject animal)
     {
+        if (playerInformation == null)
+            playerInformation = PlayerInformation.instance;
+        //if (playerInformation.player == null)
+        //    return;
         if (!animals.Contains(animal))
         {
             animals.Add(animal);  
@@ -119,6 +123,7 @@ public class PlayerDistanceToggle : MonoBehaviour
         bool state = NumberFunctions.GetDistanceV3(obj.transform.position, playerPos) <= distance;
         if(obj.activeInHierarchy != state)
             obj.SetActive(state);
+        Debug.Log(state);
     }
 
     void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_NPC agent, Vector3 playerPos, float maxDist)

@@ -262,7 +262,8 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     }
 
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty) { }
-    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(SpadeJunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(SpadeInteractable spadeInteractable, MiniGameDificulty gameDificulty) { }
 
 
     public void SetupMiniGame(QI_ItemData item, GameObject animalObject, MiniGameDificulty gameDificulty)

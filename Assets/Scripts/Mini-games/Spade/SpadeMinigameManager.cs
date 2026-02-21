@@ -31,7 +31,8 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
     public SoundSet[] soundSets;
 
 
-    JunkPileInteractor currentJunkPile;
+    //JunkPileInteractor currentJunkPile;
+    SpadeInteractable currentSpadeInteractable;
     MiniGameDificulty currentDificulty;
     public List<TargetBar> targetBars = new List<TargetBar>();
     public List<TargetArea> targetAreas = new List<TargetArea>();
@@ -94,12 +95,13 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         return new Vector2Int(6, 9);
     }
 
-    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty)
+    public void SetupMiniGame(SpadeInteractable spadeInteractable, MiniGameDificulty gameDificulty)
     {
         currentStage = 0;
         fullSuccess = true;
         minigameIsActive = true;
-        currentJunkPile = junkPile;
+        //currentJunkPile = junkPile;
+        currentSpadeInteractable = spadeInteractable;
         currentDificulty = gameDificulty;
         mainSpinDirection = UnityEngine.Random.Range(0, 2) * 2 - 1;
         toolTier = (int)PlayerInformation.instance.equipmentManager.GetEquipmentTier(EquipmentSlot.Hands) + 1;
@@ -107,6 +109,9 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         SetDificulty(currentDificulty);
         Invoke("SetCurrentStage", setupTime * 2);
     }
+
+    public void SetupMiniGame(SpadeJunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
+
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty){}
 
     public void SetupMiniGame(PokableItem pokable, MiniGameDificulty gameDificulty){}
@@ -118,7 +123,7 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         StopCurrentStage();
         if (success)
         {
-            var item = currentJunkPile.junkPileDatabase.GetRandomWeightedItem();
+            var item = currentSpadeInteractable.spadeInteractionDatabase.GetRandomWeightedItem();
             int amount = UnityEngine.Random.Range(gatherAmount.x, gatherAmount.y);
             if(PlayerInformation.instance.playerInventory.AddItem(item, amount, false))
                 Notifications.instance.SetNewNotification("", item, amount, NotificationsType.Inventory);
@@ -149,7 +154,7 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
             SetCurrentStage();
         else
         {
-            currentJunkPile.StartParticles();
+            currentSpadeInteractable.EndSpadeInteraction();
             yield return new WaitForSeconds(setupTime*2);
             CompleteMinigame();
         }
@@ -214,8 +219,8 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
 
         
         MiniGameManager.instance.EndMiniGame(MiniGameType.Spade);
-        if (currentJunkPile.gameObject.TryGetComponent(out SpawnableBallPersonArea spawnableBallPerson))
-            spawnableBallPerson.SpawnBP();
+        //if (currentSpadeInteractable.gameObject.TryGetComponent(out SpawnableBallPersonArea spawnableBallPerson))
+        //    spawnableBallPerson.SpawnBP();
 
     }
     public void ResetMiniGame()

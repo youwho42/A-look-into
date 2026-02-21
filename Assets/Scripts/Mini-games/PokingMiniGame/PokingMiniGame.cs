@@ -71,7 +71,8 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
     }
    
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) { }
-    public void SetupMiniGame(JunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(SpadeJunkPileInteractor junkPile, MiniGameDificulty gameDificulty) { }
+    public void SetupMiniGame(SpadeInteractable spadeInteractable, MiniGameDificulty gameDificulty) { }
 
     void SetDificulty(MiniGameDificulty gameDificulty)
     {

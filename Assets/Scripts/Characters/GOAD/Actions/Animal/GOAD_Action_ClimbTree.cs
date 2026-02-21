@@ -67,8 +67,10 @@ namespace Klaxon.GOAD
         {
             base.PerformAction(agent);
 
+            
             if (!climbing && timeToStayAtDestination > 0)
             {
+                
                 timeToStayAtDestination -= Time.deltaTime;
                 if (timeToStayAtDestination < 0)
                 {
@@ -80,7 +82,7 @@ namespace Klaxon.GOAD
 
                 }
             }
-
+            
 
             if (climbing)
             {
@@ -135,7 +137,8 @@ namespace Klaxon.GOAD
             {
                 foreach (var hit in hits)
                 {
-                    if (hit.TryGetComponent(out TreeRustling tree))
+                    var tree = hit.GetComponentInChildren<TreeRustling>();
+                    if (tree != null)
                     {
                         currentClimable = tree;
                         break;

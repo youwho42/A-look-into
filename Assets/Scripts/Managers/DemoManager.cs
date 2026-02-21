@@ -65,6 +65,8 @@ public class DemoManager : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (tileMap == null)
+            return;
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(tileMap.GetCellCenterWorld(demoBounds), 0.2f);
     }

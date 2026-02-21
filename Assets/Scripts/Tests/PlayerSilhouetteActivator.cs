@@ -96,7 +96,8 @@ public class PlayerSilhouetteActivator : MonoBehaviour
 
             }
         }
-        silhouetteManager.SetColor(c);
+        if (silhouetteManager != null)
+            silhouetteManager.SetColor(c);
     }
 
     void CheckPotentialCliff(Vector3Int position)

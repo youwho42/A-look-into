@@ -4937,16 +4937,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead031af7a07b014fb145342eeec0d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  junkPileTier: 0
-  junkPileDatabase: {fileID: 11400000, guid: 3d9ad2ea2763469458093a7eee50d959, type: 2}
+  spadeInteractionTier: 0
+  spadeInteractionDatabase: {fileID: 11400000, guid: 3d9ad2ea2763469458093a7eee50d959,
+    type: 2}
   gameDificulty: 1
+  interactCollider: {fileID: 5161177821252983030}
+  replaceObjectOnDrop: {fileID: 3339978487485216556}
+  hasInteracted: 0
   poofSystem: {fileID: 3805617053951744702}
   grassHider: {fileID: 8344614479974404549}
   obstacleCollider: {fileID: 3174195412061648191}
   junk: {fileID: 3453297064803486385}
-  interactCollider: {fileID: 5161177821252983030}
-  hasInteracted: 0
-  replaceObjectOnDrop: {fileID: 3339978487485216556}
   undertaking:
     undertaking: {fileID: 0}
     task: {fileID: 0}

@@ -36,7 +36,8 @@ public class CraftingAnimationHandler : MonoBehaviour
                 source.Play();
             if (itemIcon != null && craftingItemSprite != null)
                 craftingItemSprite.sprite = itemIcon;
-            ColoredSprite.color = spriteColor;
+            if(ColoredSprite != null)
+                ColoredSprite.color = spriteColor;
         }
         else
         {

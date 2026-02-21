@@ -97,7 +97,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2188156651100031191}
   - component: {fileID: 1712433159483839803}
-  - component: {fileID: 5596237806363296432}
   - component: {fileID: 8640174947673409821}
   - component: {fileID: 6539871327332230008}
   - component: {fileID: 4157861782523990537}
@@ -151,34 +150,6 @@ MonoBehaviour:
   frequency: 12
   increment: 0.01
   shadows: {fileID: 2791050229578678403}
---- !u!114 &5596237806363296432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2965751321135015396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a6531e4fe7e9648ada9bb52e8a2ebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundSet:
-    clips:
-    - {fileID: 8300000, guid: 981fb3b2893ee4842aaf3f8c4d9d9466, type: 3}
-    - {fileID: 8300000, guid: ef7e99e38f00732448a282fcfb6ef701, type: 3}
-    - {fileID: 8300000, guid: 21c89ea15ff2c794780694fcd15f0f36, type: 3}
-    volume: 0.3
-    pitch: 1
-    randomVolume: 0.05
-    randomPitch: 0.25
-    source: {fileID: 0}
-    overlap: 1
-  treeCollision: {fileID: 3977914736549539554}
-  treeDropppingSprite: {fileID: 21300000, guid: 1103d0322b76e8145ad1d0069caf5d69,
-    type: 3}
-  dropRadius: 0.2
-  treeLeavesShake: {fileID: 1712433159483839803}
 --- !u!60 &8640174947673409821
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1005,6 +976,7 @@ GameObject:
   - component: {fileID: 8145567860358518678}
   - component: {fileID: 3113614727127799600}
   - component: {fileID: 2791050229578678403}
+  - component: {fileID: 8807750606461008323}
   m_Layer: 0
   m_Name: BlankSprite
   m_TagString: Untagged
@@ -1101,8 +1073,39 @@ MonoBehaviour:
   - {fileID: 2479350718557373966}
   subNightShadowSprites:
   - {fileID: 32554751411937922}
+  isVisible: 0
   shadowUpdateTick: 3
   nightShadows: {fileID: 748190918447248420}
+--- !u!114 &8807750606461008323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543586728254170490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a6531e4fe7e9648ada9bb52e8a2ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSet:
+    clips:
+    - {fileID: 8300000, guid: 981fb3b2893ee4842aaf3f8c4d9d9466, type: 3}
+    - {fileID: 8300000, guid: ef7e99e38f00732448a282fcfb6ef701, type: 3}
+    - {fileID: 8300000, guid: 21c89ea15ff2c794780694fcd15f0f36, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolume: 0.05
+    randomPitch: 0.25
+    source: {fileID: 0}
+    overlap: 1
+  treeCollision: {fileID: 3977914736549539554}
+  treeDropppingSprite: {fileID: 21300000, guid: 1103d0322b76e8145ad1d0069caf5d69,
+    type: 3}
+  minMaxDroppings: {x: 1, y: 6}
+  dropRadius: 0.2
+  treeLeavesShake: {fileID: 1712433159483839803}
+  isPineTree: 0
 --- !u!1 &8545609700711401410
 GameObject:
   m_ObjectHideFlags: 0

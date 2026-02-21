@@ -36,9 +36,13 @@ public class MiniGameManager : MonoBehaviour
     {
         StartCoroutine(ExecuteMiniGame(miniGameType, item, gameObject));
     }
-    public void StartMiniGame(MiniGameType miniGameType, JunkPileInteractor junkPile)
+    public void StartMiniGame(MiniGameType miniGameType, SpadeJunkPileInteractor junkPile)
     {
         StartCoroutine(ExecuteMiniGame(miniGameType, junkPile));
+    }
+    public void StartMiniGame(MiniGameType miniGameType, SpadeInteractable spadeInteractable)
+    {
+        StartCoroutine(ExecuteMiniGame(miniGameType, spadeInteractable));
     }
 
     public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, QI_ItemData item, GameObject gameObject)
@@ -92,7 +96,7 @@ public class MiniGameManager : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, JunkPileInteractor junkPile)
+    public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, SpadeJunkPileInteractor junkPile)
     {
 
         if (!gameStarted && UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
@@ -106,6 +110,30 @@ public class MiniGameManager : MonoBehaviour
                     game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(junkPile, junkPile.gameDificulty);
+                    break;
+                }
+            }
+
+
+            gameStarted = true;
+        }
+        yield return null;
+    }
+
+    public IEnumerator ExecuteMiniGame(MiniGameType miniGameType, SpadeInteractable spadeInteractable)
+    {
+
+        if (!gameStarted && UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
+        {
+            foreach (var game in miniGames)
+            {
+                if (game.miniGameType == miniGameType)
+                {
+                    UIScreenManager.instance.SetMiniGameUI(true);
+                    yield return new WaitForSeconds(1.5f);
+                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
+                    game.miniGame.SetActive(true);
+                    game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(spadeInteractable, spadeInteractable.gameDificulty);
                     break;
                 }
             }
