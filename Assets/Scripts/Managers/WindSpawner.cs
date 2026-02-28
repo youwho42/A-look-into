@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class WindSpawner : MonoBehaviour
 {
@@ -14,13 +11,12 @@ public class WindSpawner : MonoBehaviour
         else
             Destroy(this);
     }
-
     
-    public Transform objectToFollow;
     ObjectPooler pool;
     PlayerInformation player;
     GridManager grid;
     float minWindMagnitude = 2.0f;
+    
 
     private void Start()
     {
@@ -49,6 +45,7 @@ public class WindSpawner : MonoBehaviour
                 if(grid.TryGetTileValid(intPos, out Vector3Int tilePos))
                 {
                     var pos = grid.GetTileWorldPosition(tilePos);
+                    pos.z += 1;
                     var screenPos = Camera.main.WorldToScreenPoint(pos);
                     var onScreen = screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y > 0f && screenPos.y < Screen.height;
                     if (onScreen)
@@ -79,31 +76,18 @@ public class WindSpawner : MonoBehaviour
 
         int interval = 6;
         return ((tick + phase) % interval) == 0;
-
-
     }
 
 
     private void SpawnObject(Vector3 position)
     {
         GameObject go = pool.GetPooledObject();
-
         if(go != null)
         {
             go.transform.position = position + (Vector3)GetRandomPosition();
-            CurrentGridLocation locationZ = go.GetComponent<CurrentGridLocation>();
-            if (locationZ != null)
-            {
-                locationZ.GetTileLocation();
-                locationZ.UpdateLocationAndPosition();
-            }
-            
             go.SetActive(true);
-            var d = WindManager.instance.GetWindDirectionFromPosition(position);
-            var dir = d.x < 0 ? Vector3.one : new Vector3(-1,1,1);
-            go.transform.localScale = dir;
+
             IPoolPrefab np = go.GetComponent<IPoolPrefab>();
-            
             if(np != null)
                 np.OnObjectSpawn();
         }

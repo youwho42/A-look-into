@@ -165,15 +165,15 @@ public class BallPeopleManager : MonoBehaviour
     {
         //Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.0f));
         //var pos = position + (Vector3)offset;
-        var mess = Instantiate(prefab, position, Quaternion.identity);
+        var bp = Instantiate(prefab, position, Quaternion.identity);
         Instantiate(appearFX, position, Quaternion.identity);
         
-        mess.GetComponent<RandomColor>().SetRandomColor();
-        mess.GetComponent<RandomAccessories>().PopulateList();
-        mess.GetComponent<RandomAccessories>().ChooseAccessories();
-        if(mess.TryGetComponent(out SaveableItemEntity saveItem))
+        bp.GetComponent<RandomColor>().SetRandomColor();
+        bp.GetComponent<RandomAccessories>().PopulateList();
+        bp.GetComponent<RandomAccessories>().ChooseAccessories();
+        if(bp.TryGetComponent(out SaveableItemEntity saveItem))
             saveItem.GenerateId();
-        ballPerson = mess;
+        ballPerson = bp;
     }
 
     public void GenerateRandomList(int amount)
@@ -186,6 +186,7 @@ public class BallPeopleManager : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             int index = Random.Range(0, temp.Count);
+            
             accessoryIndexQueue.Enqueue(temp[index]);
             temp.RemoveAt(index);
         }

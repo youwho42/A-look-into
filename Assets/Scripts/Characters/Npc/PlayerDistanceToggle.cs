@@ -123,7 +123,7 @@ public class PlayerDistanceToggle : MonoBehaviour
         bool state = NumberFunctions.GetDistanceV3(obj.transform.position, playerPos) <= distance;
         if(obj.activeInHierarchy != state)
             obj.SetActive(state);
-        Debug.Log(state);
+        
     }
 
     void SetGOADAgentPropertiesBasedOnDistance(GOAD_Scheduler_NPC agent, Vector3 playerPos, float maxDist)

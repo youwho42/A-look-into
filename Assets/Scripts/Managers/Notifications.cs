@@ -200,9 +200,14 @@ public class Notifications : MonoBehaviour
     {
         currentNotificationCount = 0;
         allNotifications.Clear();
+        foreach (var notification in displays)
+        {
+            notification.gameObject.SetActive(false);
+        }
     }
     public void ClearLargeNotifications()
     {
         allLargeNotifications.Clear();
+        largeNotification.gameObject.SetActive(false);
     }
 }

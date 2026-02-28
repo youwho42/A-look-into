@@ -180,8 +180,7 @@ public class GridManager : MonoBehaviour
         for (int i = groundMap.cellBounds.zMax; i > groundMap.cellBounds.zMin; i--)
         {
             t.z = i;
-            if (waterMap.GetTile(t) != null)
-                return false;
+           
             if (groundMap.GetTile(t) != null)
             {
                 outPos = t;

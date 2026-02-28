@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class Wind : MonoBehaviour, IPoolPrefab
 {
+    public Transform windSprite;
+
     public SoundSet sound;
     AudioSource audioSource;
-    float mainVolume;
-    SpriteRenderer rend;
+    
+    
     void Start()
     {
-        
         audioSource = GetComponent<AudioSource>();
-        mainVolume = audioSource.volume;
     }
-    void OnEnable()
-    {
-        rend = GetComponent<SpriteRenderer>();
-    }
+    
     public void OnObjectSpawn()
     {
-        //rend.flipX = Random.Range(0.0f, 1.0f) > 0.5f ? true : false;
+        var dir = WindManager.instance.GetWindDirectionFromPosition(transform.position).normalized;
 
-        if(audioSource != null)
+        var d = dir.x < 0 ? Vector3.one : new Vector3(-1,1,1);
+        windSprite.localScale = d;
+
+        float angle = Vector2.SignedAngle(d.x == 1 ? Vector2.left : Vector2.right, dir);
+        windSprite.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        if (audioSource != null)
         {
             int r = Random.Range(0, sound.clips.Length);
             audioSource.clip = sound.clips[r];
@@ -30,7 +33,6 @@ public class Wind : MonoBehaviour, IPoolPrefab
             audioSource.pitch = sound.pitch + Random.Range(-sound.randomPitch, sound.randomPitch);
             audioSource.Play();
         }
-            
     }
 
 

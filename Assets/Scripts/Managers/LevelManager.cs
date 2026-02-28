@@ -144,10 +144,14 @@ public class LevelManager : MonoBehaviour
 
     private void LoadLevel(string levelName, string loadFileName)
     {
+        Notifications.instance.ClearLargeNotifications();
+        Notifications.instance.ClearNotifications();
         StartCoroutine(LoadLevelCo(levelName, loadFileName));
     }
     public void LoadTitleScreen()
     {
+        Notifications.instance.ClearLargeNotifications();
+        Notifications.instance.ClearNotifications();
         StartCoroutine(LoadTitleScreenCo("MainScene"));
     }
 
@@ -170,6 +174,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
         UIScreenManager.instance.DisplayPlayerHUD(false);
+
         Pause(true);
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
         
@@ -219,6 +224,7 @@ public class LevelManager : MonoBehaviour
         UIScreenManager.instance.HideScreenUI();
         UIScreenManager.instance.DisplayScreenUI(UIScreenType.LoadScreenUI, true);
         UIScreenManager.instance.DisplayPlayerHUD(false);
+
         Klaxon_C_U_DatabaseHolder.instance.undertakingDatabase.ResetUndertakings();
         Pause(true);
 
@@ -334,8 +340,10 @@ public class LevelManager : MonoBehaviour
         ResetAtDawnManager.instance.ResetAllItems(5);
         yield return new WaitForSecondsRealtime(1.5f);
         SavingLoading.instance.LoadOptions();
+
         Pause(false);
         Time.timeScale = 1;
+
         GameEventManager.onPlayerPositionUpdateEvent.Invoke(PlayerInformation.instance.currentTilePosition.position);
         yield return new WaitForSecondsRealtime(2.0f);
         UIScreenManager.instance.HideScreenUI();

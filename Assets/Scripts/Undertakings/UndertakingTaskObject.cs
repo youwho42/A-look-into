@@ -26,6 +26,12 @@ namespace Klaxon.UndertakingSystem
         public QI_CraftingRecipe RecipeReward;
 
         public string mapName;
+
+        public virtual void ActivateTask()
+        {
+
+        }
+
         public void CompleteTask()
         {
             IsComplete = true;
