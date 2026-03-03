@@ -26,6 +26,8 @@ public class TextToSpeach : MonoBehaviour
     [Range(1.2f, 2.0f)]
     public float testPitch = 1.75f;
     List<AudioClip> currentClips = new List<AudioClip>();
+
+    IEnumerator currentCoroutine;
     private void Start()
     {
         GatherLetters();
@@ -75,11 +77,14 @@ public class TextToSpeach : MonoBehaviour
 
     public void ConvertToSpeach(string text, float pitch)
     {
-        StartCoroutine(PlayString(text, pitch));
+        currentCoroutine = PlayString(text, pitch);
+        StartCoroutine(currentCoroutine);
     }
     public void StopSpeach()
     {
-        StopAllCoroutines();
+        if(currentCoroutine != null) 
+            StopCoroutine(currentCoroutine);
+        currentCoroutine = null;
     }
 
     IEnumerator PlayString(string text, float pitch) 

@@ -32,6 +32,8 @@ public class SoundSet
 
     public void Play()
     {
+        if (!source.isActiveAndEnabled)
+            return;
         source.volume = volume * (1 + Random.Range(-randomVolume / 2, randomVolume / 2));
         source.pitch = pitch * (1 + Random.Range(-randomPitch / 2, randomPitch / 2));
         if (!source.isPlaying && !overlap)

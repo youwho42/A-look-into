@@ -161,6 +161,8 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
             currentBeehive.DestroyBeehive();
             currentBeehive = null;
         }
+        if (ResetAtDawnManager.instance.allBeeTrees <= 0)
+            ResetAtDawnManager.instance.SetAllTrees();
         float chance = 50.0f / ResetAtDawnManager.instance.allBeeTrees;
         if (Random.value < chance)
             SpawnBeehive();

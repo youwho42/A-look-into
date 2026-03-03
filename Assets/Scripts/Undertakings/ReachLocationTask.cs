@@ -9,6 +9,11 @@ namespace Klaxon.UndertakingSystem
         public CompleteTaskObject taskObject;
         
         public bool canSelfActivate;
+        //public override void ActivateTask()
+        //{
+
+        //}
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

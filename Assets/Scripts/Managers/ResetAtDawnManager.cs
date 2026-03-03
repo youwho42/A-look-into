@@ -23,8 +23,7 @@ public class ResetAtDawnManager : MonoBehaviour
     {
         GameEventManager.onTimeHourEvent.AddListener(ResetAllItems);
 
-        var all = FindObjectsByType<SpawnDailyObjects>(FindObjectsInactive.Include, FindObjectsSortMode.None).Where(x => x.canSpawnBeehive).ToList();
-        allBeeTrees = all.Count;
+        SetAllTrees();
         //GameEventManager.onGameStartLoadEvent.AddListener(ResetManager);
         //ResetAllItems(hourToDailySpawn);
     }
@@ -55,5 +54,10 @@ public class ResetAtDawnManager : MonoBehaviour
             item.ResetAtDawn();
         }
 
+    }
+    public void SetAllTrees()
+    {
+        var all = FindObjectsByType<SpawnDailyObjects>(FindObjectsInactive.Include, FindObjectsSortMode.None).Where(x => x.canSpawnBeehive).ToList();
+        allBeeTrees = all.Count;
     }
 }

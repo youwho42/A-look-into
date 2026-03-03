@@ -330,6 +330,8 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.0f);
 
+        GameEventManager.onTimeHourEvent.Invoke(RealTimeDayNightCycle.instance.hours);
+
         GameEventManager.onGameStartLoadEvent.Invoke();
         text.text = "Thank you for waiting.";
         playerMaterial = PlayerInformation.instance.playerSprite.material;

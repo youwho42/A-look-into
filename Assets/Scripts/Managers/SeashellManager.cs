@@ -63,7 +63,7 @@ public class SeashellManager : MonoBehaviour, IResetAtDawn
             if (noiseMap[x, y] >= 0.88f)
             {
                 var position = beachTiles.GetCellCenterWorld(pos);
-                position.z++;
+                position.z = pos.z + 1;
                 Vector2 offset = Random.insideUnitCircle * 0.25f;
                 position += (Vector3)offset;
                 var hits = Physics2D.OverlapCircleAll(position, 0.03f, LayerMask.NameToLayer("Obstacle"), position.z);

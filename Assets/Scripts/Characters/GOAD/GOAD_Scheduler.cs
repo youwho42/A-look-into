@@ -117,7 +117,8 @@ namespace Klaxon.GOAD
         public bool IsConditionMet(GOAD_ScriptableCondition condition)
         {
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
-
+            if (worldBeliefs == null)
+                worldBeliefs = GOAD_WorldBeliefStates.instance;
             // Combine the two dictionaries without modifying the original dictionaries
             foreach (var kvp in worldBeliefs.worldStates)
             {
@@ -136,7 +137,8 @@ namespace Klaxon.GOAD
         public bool AreConditionsMet(List<GOAD_ScriptableCondition> conditions)
         {
             Dictionary<string, bool> temp = new Dictionary<string, bool>(beliefs);
-
+            if(worldBeliefs == null)
+                worldBeliefs = GOAD_WorldBeliefStates.instance;
             // Combine the two dictionaries without modifying the original dictionaries
             foreach (var kvp in worldBeliefs.worldStates)
             {

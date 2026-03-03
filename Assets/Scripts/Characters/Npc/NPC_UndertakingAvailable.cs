@@ -30,7 +30,8 @@ public class NPC_UndertakingAvailable : MonoBehaviour
     public void SetUndertakingIcon()
     {
         undertakingAvailableIcon.gameObject.SetActive(false);
-
+        if(npc_DialogueSystem == null)
+            npc_DialogueSystem = GetComponent<NPC_DialogueSystem>();
         var currentDialogueObject = npc_DialogueSystem.CurrentOpenUndertaking();
         if (currentDialogueObject == null)
             return;

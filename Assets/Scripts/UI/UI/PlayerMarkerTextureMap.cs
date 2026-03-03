@@ -65,6 +65,8 @@ public class PlayerMarkerTextureMap : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.onMapClickEvent.AddListener(SetMarkerPosition);
+        if (PlayerInformation.instance == null)
+            return;
         markersLegend.SetActive(PlayerInformation.instance.equipmentManager.HasItemEquipped(EquipmentSlot.Compass));
     }
     private void OnDisable()
