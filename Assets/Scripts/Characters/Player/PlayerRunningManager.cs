@@ -1,4 +1,5 @@
 using Cinemachine;
+using Klaxon.StatSystem;
 using System.Collections;
 using UnityEngine;
 
@@ -29,6 +30,8 @@ public class PlayerRunningManager : MonoBehaviour
     public bool shattered = false;
     RunningUI runningUI;
     CinemachineImpulseSource cameraImpulse;
+    public StatChanger landingBounceChanger;
+
     private void Start()
     {
         player = PlayerInformation.instance;
@@ -71,10 +74,19 @@ public class PlayerRunningManager : MonoBehaviour
         amount *= PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Fall Damage");
         amount = Mathf.Clamp01(amount);
         currentGaugeAmount += amount;
+
+        
+
+
         if (currentGaugeAmount > 0.1f)
+        {
+            player.statHandler.ChangeStat(landingBounceChanger, amount);
             ActivateUI();
+        }
+            
         if (currentGaugeAmount >= 1)
         {
+            player.statHandler.ChangeStat(landingBounceChanger);
             ShatterGlass();
             cameraImpulse.GenerateImpulse(0.5f);
             AudioManager.instance.PlaySound("GlassShatter");

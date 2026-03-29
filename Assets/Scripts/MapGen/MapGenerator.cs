@@ -79,7 +79,7 @@ public class MapGenerator : MonoBehaviour
             return;
 
         ClearTilesBlock();
-        Color[,] imageMap = ConvertImage();
+        Color[,] imageMap = NumberFunctions.ConvertImage(mapImage);
         GenerateMap(imageMap);
         
         
@@ -189,19 +189,19 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    Color[,] ConvertImage() 
-    {
+    //Color[,] ConvertImage() 
+    //{
         
-        Color[,] convertedImage = new Color[mapImage.width, mapImage.height];
-        for (int x = 0; x < mapImage.width; x++)
-        {
-            for (int y = 0; y < mapImage.height; y++)
-            {
-                convertedImage[x, y] = mapImage.GetPixel(x, y);
-            }
-        }
-        return convertedImage;
-    }
+    //    Color[,] convertedImage = new Color[mapImage.width, mapImage.height];
+    //    for (int x = 0; x < mapImage.width; x++)
+    //    {
+    //        for (int y = 0; y < mapImage.height; y++)
+    //        {
+    //            convertedImage[x, y] = mapImage.GetPixel(x, y);
+    //        }
+    //    }
+    //    return convertedImage;
+    //}
 
     public void ClearTilesBlock()
     {

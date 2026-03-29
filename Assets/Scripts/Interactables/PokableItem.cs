@@ -5,21 +5,32 @@ using UnityEngine;
 
 public class PokableItem : MonoBehaviour
 {
-    int timesPoked;
-    public int TimesPoked { get { return timesPoked; } }
+    int totalAttemptedTimesPoked;
+    public int TotalAttemptedTimesPoked { get { return totalAttemptedTimesPoked; } }
+
+    int successfulTimesPoked;
+    public int SuccessfulTimesPoked { get { return successfulTimesPoked; } }
+
+    int failedTimesPoked;
+    public int FailedTimesPoked { get { return failedTimesPoked; } }
+
     public MiniGameDificulty GameDificulty;
     
-    public void SetTimesPoked(int times)
+    public void SetTimesPoked(int attempts, int success, int fails)
     {
-        timesPoked = times;
+        totalAttemptedTimesPoked = attempts;
+        successfulTimesPoked = success;
+        failedTimesPoked = fails;
     }
     public virtual void PokeItemSuccess()
     {
-        timesPoked++;
+        totalAttemptedTimesPoked++;
+        successfulTimesPoked++;
     }
 
     public virtual void PokeItemFail()
     {
-        timesPoked++;
+        totalAttemptedTimesPoked++;
+        failedTimesPoked++;
     }
 }

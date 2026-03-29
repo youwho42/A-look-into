@@ -148,7 +148,7 @@ public class SpawnDailyObjects : MonoBehaviour, IResetAtDawn
     {
         SpawnObjects();
         if (TryGetComponent(out PokableItem pokable))
-            pokable.SetTimesPoked(0);
+            pokable.SetTimesPoked(0, 0, 0);
         if(canSpawnBeehive)
             TrySpawnBeehive();
     }

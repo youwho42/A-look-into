@@ -18,22 +18,22 @@ public class SFXArea
     
     public void SetColorArray()
     {
-        sfxArea = ConvertImage();
+        sfxArea = NumberFunctions.ConvertImage(sfxAreaTexture);
     }
 
-    Color[,] ConvertImage()
-    {
+    //Color[,] ConvertImage()
+    //{
 
-        Color[,] convertedImage = new Color[sfxAreaTexture.width, sfxAreaTexture.height];
-        for (int x = 0; x < sfxAreaTexture.width; x++)
-        {
-            for (int y = 0; y < sfxAreaTexture.height; y++)
-            {
-                convertedImage[x, y] = sfxAreaTexture.GetPixel(x, y);
-            }
-        }
-        return convertedImage;
-    }
+    //    Color[,] convertedImage = new Color[sfxAreaTexture.width, sfxAreaTexture.height];
+    //    for (int x = 0; x < sfxAreaTexture.width; x++)
+    //    {
+    //        for (int y = 0; y < sfxAreaTexture.height; y++)
+    //        {
+    //            convertedImage[x, y] = sfxAreaTexture.GetPixel(x, y);
+    //        }
+    //    }
+    //    return convertedImage;
+    //}
 
 
 }

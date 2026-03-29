@@ -154,6 +154,7 @@ public class MiniGameManager : MonoBehaviour
                 game.miniGame.SetActive(false);
             }
         }
+        GameEventManager.onMinigameEndEvent.Invoke();
         UIScreenManager.instance.SetMiniGameUI(false);
         gameStarted = false;
     }

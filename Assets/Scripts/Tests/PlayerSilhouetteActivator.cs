@@ -63,6 +63,9 @@ public class PlayerSilhouetteActivator : MonoBehaviour
     {
         if (Time.frameCount % 2 == 0)
             return;
+
+
+        
         // Get all the gatherables
         var castPos = playerTransform.position/* + new Vector3(0, -0.3f, 0)*/;
         var hits = Physics2D.CircleCastAll(castPos, 0.5f, Vector2.down, 1.0f, gatherableLayer);
@@ -70,11 +73,13 @@ public class PlayerSilhouetteActivator : MonoBehaviour
         float c = 0;
         foreach (var hit in hits)
         {
+            
             // Is it a tree?
-            if (hit.transform.gameObject.TryGetComponent(out TreeRustling tree))
+            var tree = hit.transform.gameObject.GetComponentInChildren<TreeRustling>();
+            if (tree != null)
             {
-
                 
+
                 if (hit.transform.position.y + tree.treeCollision.displacedPosition.y > playerTransform.position.y)
                 {
                     
@@ -119,7 +124,7 @@ public class PlayerSilhouetteActivator : MonoBehaviour
     private void CheckForCliff()
     {
         bool behindNow = false;
-
+        
         Vector3 pos = playerTransform.position;
         pos.y += displacement.displacedPosition.y * 0.75f;
 

@@ -14,28 +14,28 @@ public class MapTextureArea
 
     public void SetColorArray()
     {
-        MapColor = ConvertImage();
+        MapColor = NumberFunctions.ConvertImage(MapTexture);
         
     }
 
-    Color[,] ConvertImage()
-    {
+    //Color[,] ConvertImage()
+    //{
 
-        Color[,] convertedImage = new Color[MapTexture.width, MapTexture.height];
-        for (int x = 0; x < MapTexture.width; x++)
-        {
-            for (int y = 0; y < MapTexture.height; y++)
-            {
+    //    Color[,] convertedImage = new Color[MapTexture.width, MapTexture.height];
+    //    for (int x = 0; x < MapTexture.width; x++)
+    //    {
+    //        for (int y = 0; y < MapTexture.height; y++)
+    //        {
                 
-                convertedImage[x, y] = MapTexture.GetPixel(x, y);
+    //            convertedImage[x, y] = MapTexture.GetPixel(x, y);
                
-            }
-        }
+    //        }
+    //    }
 
        
 
-        return convertedImage;
-    }
+    //    return convertedImage;
+    //}
 }
 
 public class GridManager : MonoBehaviour
@@ -388,7 +388,14 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
-    
+    public Vector3Int GetPlayerIntPosition(Vector3Int position)
+    {
+        int mapPositionX = (int)NumberFunctions.RemapNumber(position.x, groundMap.cellBounds.min.x, groundMap.cellBounds.max.x, 0, 128);
+        int mapPositionY = (int)NumberFunctions.RemapNumber(position.y, groundMap.cellBounds.min.y, groundMap.cellBounds.max.y, 0, 128);
+
+        return new Vector3Int(mapPositionX, mapPositionY, position.z);
+    }
+
     public void CompressAllTilemapBounds()
     {
         

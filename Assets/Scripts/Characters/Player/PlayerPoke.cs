@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class PlayerPoke : MonoBehaviour
@@ -17,15 +18,32 @@ public class PlayerPoke : MonoBehaviour
     public bool canPoke;
     PokableItem currentPokable;
     public PokableItem CurrentPokable { get { return currentPokable; } }
+    bool canShowReticle;
+
     private void Start()
     {
         GameEventManager.onEquipmentUpdateEvent.AddListener(CheckEquipment);
+        GameEventManager.onMinigameEndEvent.AddListener(EnableReticle);
         player = PlayerInformation.instance;
+        canShowReticle = true;
     }
 
     private void OnDisable()
     {
         GameEventManager.onEquipmentUpdateEvent.RemoveListener(CheckEquipment);
+        GameEventManager.onMinigameEndEvent.RemoveListener(EnableReticle);
+    }
+
+    void EnableReticle()
+    {
+        StartCoroutine(EnableReticleCo());
+    }
+
+    IEnumerator EnableReticleCo()
+    {
+        canShowReticle = false;
+        yield return new WaitForSeconds(1.7f);
+        canShowReticle = true;
     }
 
     void CheckEquipment()
@@ -48,12 +66,12 @@ public class PlayerPoke : MonoBehaviour
             var pos = player.playerPokableSpot.position;
             Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, pokableLayer);
             if (hit.Length > 0)
-                GetNearestItem(hit, pos);
+                GetNearestPokeableItem(hit, pos);
         }
         
     }
 
-    public void GetNearestItem(Collider2D[] colliders, Vector3 position)
+    public void GetNearestPokeableItem(Collider2D[] colliders, Vector3 position)
     {
         Collider2D nearest = null;
         float distance = 0;
@@ -88,7 +106,7 @@ public class PlayerPoke : MonoBehaviour
         }
         canPoke = false;
         pokeReticle.gameObject.SetActive(false);
-        if (nearest != null)
+        if (nearest != null && canShowReticle)
         {
             pokeReticle.gameObject.SetActive(true);
             pokeReticle.position = nearest.transform.position + Vector3.forward;

@@ -21,22 +21,22 @@ public class MusicArea
 
     public void SetColorArray()
     {
-        musicArea = ConvertImage();
+        musicArea = NumberFunctions.ConvertImage(musicAreaTexture);
     }
 
-    Color[,] ConvertImage()
-    {
+    //Color[,] ConvertImage()
+    //{
 
-        Color[,] convertedImage = new Color[musicAreaTexture.width, musicAreaTexture.height];
-        for (int x = 0; x < musicAreaTexture.width; x++)
-        {
-            for (int y = 0; y < musicAreaTexture.height; y++)
-            {
-                convertedImage[x, y] = musicAreaTexture.GetPixel(x, y);
-            }
-        }
-        return convertedImage;
-    }
+    //    Color[,] convertedImage = new Color[musicAreaTexture.width, musicAreaTexture.height];
+    //    for (int x = 0; x < musicAreaTexture.width; x++)
+    //    {
+    //        for (int y = 0; y < musicAreaTexture.height; y++)
+    //        {
+    //            convertedImage[x, y] = musicAreaTexture.GetPixel(x, y);
+    //        }
+    //    }
+    //    return convertedImage;
+    //}
 
 
 }

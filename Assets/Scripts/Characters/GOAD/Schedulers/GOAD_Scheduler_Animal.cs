@@ -226,7 +226,7 @@ namespace Klaxon.GOAD
                 TalkRangeTimer();
                 return;
             }
-
+            inTalkRangeTimer = 0;
 
             if (currentGoalIndex < 0 && availableActions.Count > 0)
             {

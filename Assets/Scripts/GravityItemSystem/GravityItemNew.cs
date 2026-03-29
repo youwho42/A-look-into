@@ -114,14 +114,7 @@ namespace Klaxon.GravitySystem
 
             canJump = true;
         }
-        //private void OnEnable()
-        //{
-        //    GameEventManager.onGameUpdateEvent.AddListener(GameUpdate);
-        //}
-        //private void OnDisable()
-        //{
-        //    GameEventManager.onGameUpdateEvent.RemoveListener(GameUpdate);
-        //}
+       
         public virtual void Update()
         {
             
@@ -138,8 +131,7 @@ namespace Klaxon.GravitySystem
                 slopeObject.localPosition = Vector3.zero;
             }
 
-            //if (!onObstacle)
-            //    obstacleDisplacement = Vector3.zero;
+            
             itemShadow.localPosition = obstacleDisplacement;
 
             if (getOnSlope)
@@ -212,7 +204,6 @@ namespace Klaxon.GravitySystem
                 
                 currentPosition = new Vector3(currentPosition.x, currentPosition.y + displacement, currentTilePosition.position.z + 1);
                 _transform.position = currentPosition;
-                //positionZ += dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y - displacement, displacedPosition.z - dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y - displacement, itemObject.localPosition.z - dif);
 
@@ -221,7 +212,6 @@ namespace Klaxon.GravitySystem
             {
                 currentPosition = new Vector3(currentPosition.x, currentPosition.y - displacement, currentTilePosition.position.z + 1);
                 _transform.position = currentPosition;
-                //positionZ -= dif;
                 displacedPosition = new Vector3(displacedPosition.x, displacedPosition.y + displacement, displacedPosition.z + dif);
                 itemObject.localPosition = new Vector3(itemObject.localPosition.x, itemObject.localPosition.y + displacement, itemObject.localPosition.z + dif);
 
@@ -254,24 +244,6 @@ namespace Klaxon.GravitySystem
 
             slopeObject.localPosition = new Vector3(0, displacementY, slopeDisplacement);
         }
-
-        //void HandleObstacles()
-        //{
-        //    slopeObject.localPosition = obstacleDisplacement;
-        //    //var obstacleHit = Physics2D.OverlapPoint(transform.position, obstacleLayer, transform.position.z, transform.position.z);
-        //    //if (obstacleHit != null)
-        //    //{
-        //    //    if (obstacleHit.TryGetComponent(out DrawZasYDisplacement displacement))
-        //    //    {
-        //    //        float displacementY = displacement.positionZ * spriteDisplacementY;
-        //    //        slopeObject.localPosition = new Vector3(0, displacementY, displacement.positionZ);
-        //    //    }
-        //    //}
-
-
-        //}
-
-        
 
 
         public void Move(Vector2 dir, float velocity)
@@ -314,42 +286,6 @@ namespace Klaxon.GravitySystem
             _transform.position = currentPosition;
         }
 
-        //public Vector2 CollisionAvoidanceDirection(Vector2 direction)
-        //{
-        //    Vector2 dir = direction;
-        //    List<Vector2> directions = new List<Vector2>();
-
-        //    for (int i = -1; i < 2; i++)
-        //    {
-
-        //        var offset = (Vector3)Vector2.Perpendicular(direction) * (i * 0.03f);
-        //        var h = Physics2D.Raycast(transform.position + offset, direction, checkTileDistance * 2, obstacleLayer, _transform.position.z, _transform.position.z);
-        //        if (h.collider != null)
-        //        {
-
-        //            if (h.collider.TryGetComponent(out DrawZasYDisplacement obs))
-        //            {
-        //                directions.Add((h.normal + direction).normalized);
-        //            }
-        //        }
-        //    }
-
-
-        //    float closest = -1f;
-        //    foreach (var item in directions)
-        //    {
-        //        var c = Vector2.Dot(direction, item);
-        //        if (c > closest) 
-        //        { 
-        //            closest = c;
-        //            dir = item;
-        //        } 
-
-        //    }
-        //    if (directions.Count > 0 && closest < -0.1)
-        //        dir = Vector2.zero;
-        //    return dir;
-        //}
 
         public bool CheckForWaterAbove(Vector3Int tilePosition)
         {
@@ -364,80 +300,8 @@ namespace Klaxon.GravitySystem
             return false;
         }
 
-
-        //public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey, bool getBounceNormal = false)
-        //{
-        //    collisionNormal = Vector2.zero;
-        //    // Cache hit data to avoid allocating new memory with OverlapCircleNonAlloc
-        //    Collider2D[] hitBuffer = new Collider2D[10];  // Buffer size can be adjusted based on expected obstacles
-        //    int hitCount = Physics2D.OverlapCircleNonAlloc(checkPosition, 0.01f, hitBuffer, obstacleLayer, _transform.position.z, _transform.position.z);
-        //    obstacleDisplacement = Vector3.zero;
-        //    if (hitCount > 0)
-        //    {
-        //        bool isColliding = false;
-
-        //        // Process each hit
-        //        for (int i = 0; i < hitCount; i++)
-        //        {
-        //            Collider2D hitCollider = hitBuffer[i];
-        //            if (hitCollider.gameObject == gameObject)
-        //                continue;
-        //            // Check if it has a DrawZasYDisplacement component
-        //            if (hitCollider.TryGetComponent(out DrawZasYDisplacement displacement))
-        //            {
-        //                if (itemObject.localPosition.z == 0)
-        //                {
-        //                    // Check for an InteractableDoor component
-        //                    if (hitCollider.GetComponentInParent<InteractableDoor>() is InteractableDoor door && !door.isOpen)
-        //                    {
-        //                        door.Interact(this.gameObject);
-        //                        return false;  // Return early if door is interacted with
-        //                    }
-        //                }
-
-        //                // Check local z-position for collision logic
-        //                if (Mathf.Abs(itemObject.localPosition.z) < displacement.positionZ)
-        //                {
-        //                    if (getBounceNormal)
-        //                    {
-        //                        //var dir = hitCollider.gameObject.transform.position - _transform.position;
-        //                        RaycastHit2D hit = Physics2D.Raycast(_transform.position, direction, 0.2f, obstacleLayer);
-        //                        if (hit)
-        //                            collisionNormal = hit.normal;
-        //                    }
-
-        //                    isColliding = true;  // Mark collision
-        //                }
-        //                else
-        //                {
-        //                    // Handle obstacle displacement
-        //                    onObstacle = true;
-        //                    float displacementY = displacement.positionZ * spriteDisplacementY;
-        //                    obstacleDisplacement = new Vector3(0, displacementY, displacement.positionZ);
-        //                }
-        //            }
-        //        }
-
-        //        // Second check for obstacle, use NonAlloc to avoid unnecessary allocations
-        //        if (Physics2D.OverlapPointNonAlloc(doubleCheck, hitBuffer, obstacleLayer, transform.position.z, transform.position.z) == 0)
-        //        {
-        //            // Reset obstacle if nothing found on second check
-        //            obstacleDisplacement = Vector3.zero;
-        //        }
-
-        //        return isColliding;  // Return if collision detected
-        //    }
-
-        //    // No obstacles detected
-        //    return false;
-        //}
-
         public bool CheckForObstacles(Vector3 checkPosition, Vector3 doubleCheck, Vector2 direction, Vector3Int nextTileKey, bool getBounceNormal = false)
         {
-            //onObstacle = false;
-
-
-
             // Check for a positive gameobject on the obstacle layer
             hit = Physics2D.OverlapCircleAll(checkPosition, 0.01f, obstacleLayer, _transform.position.z, _transform.position.z);
             if (hit != null)
@@ -473,7 +337,6 @@ namespace Klaxon.GravitySystem
                         {
                             if (getBounceNormal)
                             {
-                                //var dir = hitCollider.gameObject.transform.position - _transform.position;
                                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, direction, 0.2f, obstacleLayer);
                                 if (hit)
                                     collisionNormal = hit.normal;
@@ -483,9 +346,8 @@ namespace Klaxon.GravitySystem
                         else
                         {
                             onObstacle = true;
-                            //float displacementY = displacement.positionZ * spriteDisplacementY;
                             if(displacement.displacedPosition.z > highestDisplacement.z)
-                                highestDisplacement = displacement.displacedPosition; /*new Vector3(0, displacementY, displacement.positionZ);*/
+                                highestDisplacement = displacement.displacedPosition;
                         }
                     }
                 }
@@ -494,13 +356,11 @@ namespace Klaxon.GravitySystem
 
                 doubleHit = Physics2D.OverlapPoint(doubleCheck, obstacleLayer, transform.position.z, transform.position.z);
                 if (doubleHit == null)
-                {
-                    //onObstacle = false;
                     obstacleDisplacement = Vector3.zero;
-                }
+                
 
 
-                return isColliding/* && !onObstacle*/;
+                return isColliding;
             }
             return false;
         }
@@ -555,7 +415,6 @@ namespace Klaxon.GravitySystem
             positionZ = bounceAmount;
             displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
             lastJumpZ = currentLevel;
-            //itemObject.transform.Translate(displacedPosition * Time.fixedDeltaTime);
             bounceFactor *= bounceFriction;
             ApplyGravity();
         }

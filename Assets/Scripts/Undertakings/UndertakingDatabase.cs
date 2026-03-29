@@ -45,13 +45,13 @@ namespace Klaxon.UndertakingSystem
 
         public void SetTaskState(string undertakingName, string taskName, bool state)
         {
-            var q = GetUndertaking(undertakingName);
-            if (allUndertakingObjects.Contains(q))
+            var undertaking = GetUndertaking(undertakingName);
+            if (allUndertakingObjects.Contains(undertaking))
             {
-                foreach (var task in q.Tasks)
+                foreach (var task in undertaking.Tasks)
                 {
-                    if(task.Name == taskName) 
-                        task.IsComplete = state;
+                    if (task.Name == taskName)
+                        task.SetTaskFromSave(undertaking, state);
                 }
             }
         }

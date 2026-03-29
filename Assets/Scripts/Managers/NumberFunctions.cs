@@ -26,4 +26,21 @@ public static class NumberFunctions
     {
         return (posA - posB).sqrMagnitude;
     }
+
+
+    public static Color[,] ConvertImage(Texture2D texture)
+    {
+
+        Color[,] convertedImage = new Color[texture.width, texture.height];
+        for (int x = 0; x < texture.width; x++)
+        {
+            for (int y = 0; y < texture.height; y++)
+            {
+                convertedImage[x, y] = texture.GetPixel(x, y);
+            }
+        }
+        return convertedImage;
+    }
+
+    
 }

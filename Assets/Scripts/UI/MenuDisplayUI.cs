@@ -1,6 +1,8 @@
+using Klaxon.GOAD;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 public class MenuDisplayUI : MonoBehaviour
@@ -17,24 +19,40 @@ public class MenuDisplayUI : MonoBehaviour
     public List<GameObject> controllerButtons = new List<GameObject>();
     UIScreen screen;
 
+    public GOAD_ScriptableCondition mapActive;
+    public GOAD_ScriptableCondition compendiumActive;
+    public GOAD_ScriptableCondition undertakingsActive;
+
     private void Start()
     {
         screen = GetComponent<UIScreen>();
         screen.SetScreenType(UIScreenType.TabbedMenuUI);
-   
-        
+
+
         GameEventManager.onGamepadBumpersButtonEvent.AddListener(ChangeUI);
         GameEventManager.onControlSchemeChangedEvent.AddListener(SetControllerButtons);
+        GameEventManager.onWorldStateUpdateEvent.AddListener(SetButtonActive);
         maxButtons = System.Enum.GetValues(typeof(MenuButtons)).Length;
         HideAllTabbedUI();
         gameObject.SetActive(false);
+        SetButtonActive();
+        
     }
+
+    private void SetButtonActive()
+    {
+        SetMainButtonActive(map, GOAD_WorldBeliefStates.instance.HasState(mapActive));
+        SetMainButtonActive(compendium, GOAD_WorldBeliefStates.instance.HasState(compendiumActive));
+        SetMainButtonActive(undertakings, GOAD_WorldBeliefStates.instance.HasState(undertakingsActive));
+
+    }
+
     private void OnDestroy()
     {
         
         GameEventManager.onGamepadBumpersButtonEvent.RemoveListener(ChangeUI);
         GameEventManager.onControlSchemeChangedEvent.RemoveListener(SetControllerButtons);
-
+        GameEventManager.onWorldStateUpdateEvent.RemoveListener(SetButtonActive);
     }
     public enum MenuButtons
     {
@@ -47,20 +65,20 @@ public class MenuDisplayUI : MonoBehaviour
     int currentButtonIndex;
     int maxButtons;
 
-    void DisplayMenuUI()
-    {
-        if (MiniGameManager.instance.gameStarted)
-            return;
-        if (!inMenu)
-        {
-            if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
-                return;
-            GameEventManager.onInventoryUpdateEvent.Invoke();
-            SetInventoryUI();
-            UIScreenManager.instance.DisplayPlayerHUD(true);
-        }
+    //void DisplayMenuUI()
+    //{
+    //    if (MiniGameManager.instance.gameStarted)
+    //        return;
+    //    if (!inMenu)
+    //    {
+    //        if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
+    //            return;
+    //        GameEventManager.onInventoryUpdateEvent.Invoke();
+    //        SetInventoryUI();
+    //        UIScreenManager.instance.DisplayPlayerHUD(true);
+    //    }
         
-    }
+    //}
     void SetControllerButtons(string scheme)
     {
         bool isController = scheme == "Gamepad";
@@ -69,27 +87,27 @@ public class MenuDisplayUI : MonoBehaviour
             button.SetActive(isController);
         }
     }
-    void DisplayMapUI()
-    {
-        if (MiniGameManager.instance.gameStarted)
-            return;
-        if (!inMenu)
-        {
-            if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
-                return;
-            SetMapUI();
-            UIScreenManager.instance.DisplayPlayerHUD(true);
-        }
-    }
-    void ToggleDisplayUI()
-    {
-        if (!inMenu)
-            DisplayMenuUI();
-        else
-            HideAllMenuUI();
+    //void DisplayMapUI()
+    //{
+    //    if (MiniGameManager.instance.gameStarted)
+    //        return;
+    //    if (!inMenu)
+    //    {
+    //        if (PlayerInformation.instance.uiScreenVisible || LevelManager.instance.isInCutscene || PlayerInformation.instance.playerInput.isPaused)
+    //            return;
+    //        SetMapUI();
+    //        UIScreenManager.instance.DisplayPlayerHUD(true);
+    //    }
+    //}
+    //void ToggleDisplayUI()
+    //{
+    //    if (!inMenu)
+    //        DisplayMenuUI();
+    //    else
+    //        HideAllMenuUI();
             
         
-    }
+    //}
     void ChangeUI(int dir)
     {
         if (!inMenu)
@@ -141,7 +159,7 @@ public class MenuDisplayUI : MonoBehaviour
 
     public void SetInventoryUI()
     {
-        ChangeControlTextInventory(PlayerInformation.instance.playerInput.currentControlScheme);
+        UIScreenManager.instance.SetTipPanel(SetInventoryDisplayText());
         HideAllTabbedUI();
         inventoryDisplaySection.SetActive(true);
         
@@ -154,7 +172,8 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetMapUI()
     {
-        UIScreenManager.instance.CloseTipPanel();
+        UIScreenManager.instance.SetTipPanel(SetCloseDisplayText());
+        
         HideAllTabbedUI();
         mapDisplaySection.SetActive(true);
         UIScreenManager.instance.SetMapOpen(true);
@@ -167,7 +186,7 @@ public class MenuDisplayUI : MonoBehaviour
     }
     public void SetCompendiumUI()
     {
-        UIScreenManager.instance.CloseTipPanel(); 
+        UIScreenManager.instance.SetTipPanel(SetCloseDisplayText());
         HideAllTabbedUI();
         compendiumsDisplaySection.SetActive(true);
         
@@ -181,7 +200,7 @@ public class MenuDisplayUI : MonoBehaviour
    
     public void SetUndertakingsUI()
     {
-        UIScreenManager.instance.CloseTipPanel(); 
+        UIScreenManager.instance.SetTipPanel(SetCloseDisplayText());
         HideAllTabbedUI();
         undertakingsDisplaySection.SetActive(true);
         
@@ -191,21 +210,28 @@ public class MenuDisplayUI : MonoBehaviour
         SetButtonSelectedColor(undertakings, true);
         currentButtonIndex = (int)MenuButtons.Undertakings;
         inMenu = true;
+        
     }
-    void HideAllMenuUI()
+
+    void SetMainButtonActive(Button butt, bool active)
     {
-        
-        if (!inMenu || PlayerInformation.instance.isDragging)
-            return;
-        UIScreenManager.instance.HideScreenUI();
-        
-        SetButtonSelectedColor(map, false);
-        SetButtonSelectedColor(inventory, false);
-        SetButtonSelectedColor(compendium, false);
-        SetButtonSelectedColor(undertakings, false);
-        inMenu = false;
-        
+        butt.gameObject.SetActive(active);
     }
+
+    //void HideAllMenuUI()
+    //{
+        
+    //    if (!inMenu || PlayerInformation.instance.isDragging)
+    //        return;
+    //    UIScreenManager.instance.HideScreenUI();
+        
+    //    SetButtonSelectedColor(map, false);
+    //    SetButtonSelectedColor(inventory, false);
+    //    SetButtonSelectedColor(compendium, false);
+    //    SetButtonSelectedColor(undertakings, false);
+    //    inMenu = false;
+        
+    //}
 
     
 
@@ -216,31 +242,18 @@ public class MenuDisplayUI : MonoBehaviour
         butt.colors = ac;
     }
 
-    void ChangeControlTextInventory(string text)
+    string SetInventoryDisplayText()
     {
-        string displayText = "";
-        string t0 = "";
-        string t1 = "";
-        string t2 = "";
-        string t3 = "";
-        if (text == "Gamepad")
-        {
-            t0 = "d-pad";
-            t1 = "A";
-            t2 = "R2 + RS";
-            t3 = "B";
-        }
-        else
-        {
-            t0 = "A/D";
-            t1 = "LMB";
-            t2 = "LMB drag";
-            t3 = "Tab";
-        }
-
-        displayText = $"{t0} select - {t1} > equip / unequip / consume - {t2} > place item in world - {t3} > close";
-        UIScreenManager.instance.SetTipPanel(displayText);
-
+        string variant = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "Inventory Gamepad Display Text" : "Inventory Keyboard Display Text";
+        
+        return LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", variant);
     }
-    
+
+    string SetCloseDisplayText()
+    {
+        string variant = PlayerInformation.instance.playerInput.currentControlScheme == "Gamepad" ? "Close Gamepad Display Text" : "Close Keyboard Display Text";
+
+        return LocalizationSettings.StringDatabase.GetLocalizedString($"Static Texts", variant);
+    }
+
 }

@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5526d31f795d34841a67346929ac14fe, type: 3}
-  m_Name: ReachCampsiteLocationTask
+  m_Script: {fileID: 11500000, guid: ce6d9a33dc708ab49b7e56b9be804d65, type: 3}
+  m_Name: CraftStonePickAxe
   m_EditorClassIdentifier: 
-  Name: Find the campsite
+  Name: Craft Stone Pick Axe
   localizedDescription:
     m_TableReference:
-      m_TableCollectionName: GUID:73d96f3006bf95141844ca6786766ee7
+      m_TableCollectionName: GUID:e56f6b6298db49b44943224b436c550a
     m_TableEntryReference:
-      m_KeyId: 22748987973632
+      m_KeyId: 318264085422395392
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -30,6 +30,8 @@ MonoBehaviour:
   ItemQuantity: 0
   RecipeReward: {fileID: 0}
   mapName: 
+  player: {fileID: 0}
+  itemToCraft: {fileID: 11400000, guid: 4096f37d5b19c0d4cb6e908fea2b6ff8, type: 2}
   references:
     version: 2
     RefIds: []

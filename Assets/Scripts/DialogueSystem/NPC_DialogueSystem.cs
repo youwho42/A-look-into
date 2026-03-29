@@ -6,6 +6,7 @@ using Klaxon.GOAD;
 using Klaxon.UndertakingSystem;
 using System.Collections;
 
+
 namespace Klaxon.ConversationSystem
 {
     public class NPC_DialogueSystem : MonoBehaviour, IResetAtDawn

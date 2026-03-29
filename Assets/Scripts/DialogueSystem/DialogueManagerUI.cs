@@ -124,7 +124,7 @@ namespace Klaxon.ConversationSystem
             currentIndex = nextIndex;
             if (currentIndex == -1)
             {
-                //TextToSpeach.instance.StopSpeach();
+                TextToSpeach.instance.StopSpeach();
                 currentDialogueObject.hasBeenParsed = true;
                 isSpeaking = false;
                 currentInteractable.canInteract = true;

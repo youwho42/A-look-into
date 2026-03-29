@@ -68,6 +68,7 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
         SetDificulty(gameDificulty);
         minigameIsActive = true;
         endStick.gameObject.SetActive(false);
+        GameEventManager.onPokableMinigameStartEvent.Invoke(pokable);
     }
    
     public void SetupMiniGame(QI_ItemData item, GameObject gameObject, MiniGameDificulty gameDificulty) { }

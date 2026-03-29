@@ -1,9 +1,7 @@
 using Klaxon.GOAD;
 using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
-using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -45,11 +43,11 @@ namespace Klaxon.UndertakingSystem
                 CurrentState = UndertakingState.Active;
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(this);
                 Notifications.instance.SetNewLargeNotification(this, null, null, NotificationsType.UndertakingStart);
-                foreach (var task in Tasks)
-                {
-                    task.ActivateTask();
-                }
-                TryCompleteQuest();
+                //foreach (var task in Tasks)
+                //{
+                //    task.ActivateTask(this);
+                //}
+                //TryCompleteQuest();
             }
         }
 

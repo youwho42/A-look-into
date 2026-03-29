@@ -26,7 +26,8 @@ namespace Klaxon.SaveSystem
             {
                 maxStacks = inventory.MaxStacks,
                 itemName = names,
-                itemAmount = amounts
+                itemAmount = amounts,
+                firstItemAquired = inventory.firstItemAquired
             };
         }
 
@@ -39,7 +40,7 @@ namespace Klaxon.SaveSystem
             {
 
                 inventory.AddItem(itemDatabase.GetItem(saveData.itemName[i]), saveData.itemAmount[i], true);
-
+                inventory.firstItemAquired = saveData.firstItemAquired;
             }
         }
 
@@ -49,7 +50,7 @@ namespace Klaxon.SaveSystem
             public int maxStacks;
             public List<string> itemName;
             public List<int> itemAmount;
-
+            public bool firstItemAquired;
         }
     }
 

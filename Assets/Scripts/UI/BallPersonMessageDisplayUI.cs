@@ -36,8 +36,12 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
     }
     private void OnDisable()
     {
-        if(!UIScreenManager.instance.inMainMenu)
-            CloseMessageUI();
+        if (!UIScreenManager.instance.inMainMenu)
+            Invoke("CloseOnDisable", 0.2f);
+    }
+    void CloseOnDisable()
+    {
+        CloseMessageUI();
     }
     public void ShowFixingAreaIngredients(Interactable fixingArea, string messageName, string messageDescription)
     {
@@ -60,24 +64,24 @@ public class BallPersonMessageDisplayUI : MonoBehaviour
         messageContent.text = $"\n<style=\"H1\">{messageItem.localizedName.GetLocalizedString()}</style>\n\n{messageItem.localizedDescription.GetLocalizedString()}\n\n";
         destroyOnClose = true;
     }
-    public void ShowBallPersonMessageUI(IBallPerson messengerAI, UndertakingObject messageItem, Interactable interactableBP)
+    public void ShowBallPersonMessageUI(IBallPerson messengerAI, UndertakingObject undertakingItem, Interactable interactableBP)
     {
         currentInteractable = interactableBP;
         ballPerson = messengerAI;
-        messageContent.text = $"\n<style=\"H1\">{messageItem.localizedName.GetLocalizedString()}</style>\n\n{messageItem.localizedDescription.GetLocalizedString()}\n\n";
+        messageContent.text = $"\n<style=\"H1\">{undertakingItem.localizedName.GetLocalizedString()}</style>\n\n{undertakingItem.localizedDescription.GetLocalizedString()}\n\n";
         destroyOnClose = true;
     }
-    public void ShowBallPersonMessageUI(IBallPerson messengerAI, QI_CraftingRecipe messageItem, Interactable interactableBP)
+    public void ShowBallPersonMessageUI(IBallPerson messengerAI, QI_CraftingRecipe recipeItem, Interactable interactableBP)
     {
         currentInteractable = interactableBP;
         string desc = "";
-        for (int i = 0; i < messageItem.Ingredients.Count; i++)
+        for (int i = 0; i < recipeItem.Ingredients.Count; i++)
         {
-            desc += $"{messageItem.Ingredients[i].Amount} - {messageItem.Ingredients[i].Item.localizedName.GetLocalizedString()}\n";
+            desc += $"{recipeItem.Ingredients[i].Amount} - {recipeItem.Ingredients[i].Item.localizedName.GetLocalizedString()}\n";
 
         }
         ballPerson = messengerAI;
-        messageContent.text = $"\n<style=\"H1\">{messageItem.Product.Item.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n";
+        messageContent.text = $"\n<style=\"H1\">{recipeItem.Product.Item.localizedName.GetLocalizedString()}</style>\n\n{desc}\n\n";
         destroyOnClose = true;
     }
 

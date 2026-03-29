@@ -1,4 +1,5 @@
 using Klaxon.UndertakingSystem;
+using QuantumTek.QuantumInventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public static class GameEventManager
     /// </summary>
     ///public static readonly GameEvent onGameUpdateEvent = new GameEvent();
     public static readonly GameEvent onViewStarsEvent = new GameEvent();
-    
+    public static readonly GameEvent<QI_ItemData> onItemCrafted = new GameEvent<QI_ItemData>();
 
     /// <summary>
     ///  Day Night cycle times, hours and ticks, maybe days later...
@@ -86,10 +87,15 @@ public static class GameEventManager
     public static readonly GameEvent onEscapeEvent = new GameEvent();
     public static readonly GameEvent<GameObject> onEventSystemSelectedChangedEvent = new GameEvent<GameObject>();
     public static readonly GameEvent onMinigameMouseClickEvent = new GameEvent();
+    public static readonly GameEvent onMinigameEndEvent = new GameEvent();
+    public static readonly GameEvent<PokableItem> onPokableMinigameStartEvent = new GameEvent<PokableItem>();
     public static readonly GameEvent onMenuToggleEvent = new GameEvent();
     public static readonly GameEvent onMenuDisplayEvent = new GameEvent();
     public static readonly GameEvent onMenuHideEvent = new GameEvent();
     public static readonly GameEvent onMapDisplayEvent = new GameEvent();
+    public static readonly GameEvent onCompendiumDisplayEvent = new GameEvent();
+    public static readonly GameEvent onInventoryDisplayEvent = new GameEvent();
+    public static readonly GameEvent onUndertakingDisplayEvent = new GameEvent();
     public static readonly GameEvent onStackTransferGamepadEvent = new GameEvent();
     public static readonly GameEvent<int> onGamepadBumpersButtonEvent = new GameEvent<int>();
     public static readonly GameEvent<int> onGamepadTriggersButtonEvent = new GameEvent<int>();

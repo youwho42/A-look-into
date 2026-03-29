@@ -54,7 +54,9 @@ public class EquipmentSpade : EquipmentData
             // activate the minigame
             bool none = true;
             if (nearest.gameObject.TryGetComponent(out SpadeInteractable interactable))
-            { 
+            {
+                if (interactable.hasInteracted)
+                    return;
                 if(interactable.spadeInteractionTier <= equipmentTier)
                 {
                     none = false;

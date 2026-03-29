@@ -14,7 +14,9 @@ namespace Klaxon.SaveSystem
 
             return new SaveData
             {
-                timesPoked = pokable.TimesPoked
+                attempts = pokable.TotalAttemptedTimesPoked,
+                success = pokable.SuccessfulTimesPoked,
+                fails = pokable.FailedTimesPoked
 
             };
         }
@@ -23,13 +25,15 @@ namespace Klaxon.SaveSystem
         {
             var saveData = (SaveData)state;
 
-            pokable.SetTimesPoked(saveData.timesPoked);
+            pokable.SetTimesPoked(saveData.attempts, saveData.success, saveData.fails);
         }
 
         [Serializable]
         private struct SaveData
         {
-            public int timesPoked;
+            public int attempts;
+            public int success;
+            public int fails;
         }
     }
 

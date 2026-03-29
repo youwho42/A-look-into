@@ -2,7 +2,6 @@ using Klaxon.UndertakingSystem;
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,6 +28,7 @@ public class UndertakingsDisplayUI : MonoBehaviour
     public TextMeshProUGUI undertakingDescription;
 
     List<UndertakingsButton> undertakingsButtons = new List<UndertakingsButton>();
+
     private void Start()
     {
         GameEventManager.onUndertakingsUpdateEvent.AddListener(SetAvailableUndertakings);
@@ -52,8 +52,16 @@ public class UndertakingsDisplayUI : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(button.GetComponentInChildren<Button>().gameObject);
                 SetCurrentUndertaking(button.undertaking);
+                return;
             }
         }
+        if (undertakingsButtons.Count > 0)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(undertakingsButtons[0].GetComponentInChildren<Button>().gameObject);
+            SetCurrentUndertaking(undertakingsButtons[0].undertaking);
+        }
+        
     }
 
     private void OnDestroy()

@@ -59,6 +59,10 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMapDisplayEvent.AddListener(DisplayMapMenu);
         GameEventManager.onMapUpdateEvent.AddListener(DisplayMapMenu);
 
+        GameEventManager.onCompendiumDisplayEvent.AddListener(DisplayCompendiumMenu);
+        GameEventManager.onInventoryDisplayEvent.AddListener(DisplayInventoryMenu);
+        GameEventManager.onUndertakingDisplayEvent.AddListener(DisplayUndertakingMenu);
+
         SavingLoading.instance.LoadOptions();
 
         inMainMenu = true;
@@ -84,6 +88,10 @@ public class UIScreenManager : MonoBehaviour
         GameEventManager.onMenuHideEvent.RemoveListener(HideScreenUI);
         GameEventManager.onMapDisplayEvent.RemoveListener(DisplayMapMenu);
         GameEventManager.onMapUpdateEvent.RemoveListener(DisplayMapMenu);
+        GameEventManager.onCompendiumDisplayEvent.RemoveListener(DisplayCompendiumMenu);
+        GameEventManager.onInventoryDisplayEvent.RemoveListener(DisplayInventoryMenu);
+        GameEventManager.onUndertakingDisplayEvent.RemoveListener(DisplayUndertakingMenu);
+
     }
 
     private void OnHoldButtonPerformed(InputAction.CallbackContext context)
@@ -159,6 +167,44 @@ public class UIScreenManager : MonoBehaviour
         }
         
     }
+
+    void DisplayCompendiumMenu()
+    {
+        if (inMainMenu)
+            return;
+        if (GetCurrentUI() == UIScreenType.None)
+        {
+            tabbedMenu.SetCompendiumUI();
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
+        }
+
+    }
+
+    void DisplayInventoryMenu()
+    {
+        if (inMainMenu)
+            return;
+        if (GetCurrentUI() == UIScreenType.None)
+        {
+            tabbedMenu.SetInventoryUI();
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
+        }
+
+    }
+
+    void DisplayUndertakingMenu()
+    {
+        if (inMainMenu)
+            return;
+        if (GetCurrentUI() == UIScreenType.None)
+        {
+            tabbedMenu.SetUndertakingsUI();
+            DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
+        }
+
+    }
+
+
     void ToggleTabbedMenu()
     {
         if (inMainMenu)

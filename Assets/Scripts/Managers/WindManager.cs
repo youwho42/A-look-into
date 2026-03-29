@@ -31,7 +31,7 @@ public class WindManager : MonoBehaviour
         gridManager = GridManager.instance;
         currentSeed = Random.Range(0, 10000);
         openSimplexNoise = new OpenSimplexNoise(currentSeed);
-        windModifier = ConvertImage();
+        windModifier = NumberFunctions.ConvertImage(windModifierTexture);
 
         GameEventManager.onTimeTickEvent.AddListener(SetWind);
         SetWind(0);
@@ -42,19 +42,19 @@ public class WindManager : MonoBehaviour
         GameEventManager.onTimeTickEvent.RemoveListener(SetWind);
     }
 
-    Color[,] ConvertImage()
-    {
+    //Color[,] ConvertImage()
+    //{
 
-        Color[,] convertedImage = new Color[windModifierTexture.width, windModifierTexture.height];
-        for (int x = 0; x < windModifierTexture.width; x++)
-        {
-            for (int y = 0; y < windModifierTexture.height; y++)
-            {
-                convertedImage[x, y] = windModifierTexture.GetPixel(x, y);
-            }
-        }
-        return convertedImage;
-    }
+    //    Color[,] convertedImage = new Color[windModifierTexture.width, windModifierTexture.height];
+    //    for (int x = 0; x < windModifierTexture.width; x++)
+    //    {
+    //        for (int y = 0; y < windModifierTexture.height; y++)
+    //        {
+    //            convertedImage[x, y] = windModifierTexture.GetPixel(x, y);
+    //        }
+    //    }
+    //    return convertedImage;
+    //}
 
 
 

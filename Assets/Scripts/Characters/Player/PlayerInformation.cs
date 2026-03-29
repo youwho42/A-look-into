@@ -128,6 +128,8 @@ public class PlayerInformation : MonoBehaviour
         
     }
 
+    
+
     void AddGuideToCompendium(QI_ItemData item)
     {
         if (item.compendiumGuide != null)

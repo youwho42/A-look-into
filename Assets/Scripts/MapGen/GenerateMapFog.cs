@@ -110,7 +110,8 @@ public class GenerateMapFog : MonoBehaviour
                         alpha += playerMapsColors[i][y * width + x].a;
                 }
                 float c = CellShade(tileMapArray[x, y]);
-                colorMap[y * width + x] = new Color(c - alpha, c - alpha, c - alpha, Mathf.Clamp(c + minAlpha, 0, 1.17f) - alpha);
+                var a = alpha >= 0.01f ? Mathf.Abs(alpha - 1) : 1.0f;
+                colorMap[y * width + x] = new Color(c * a, c * a, c * a, Mathf.Clamp(c + minAlpha, 0, 1.17f) - alpha);
             }
         }
 
@@ -138,6 +139,8 @@ public class GenerateMapFog : MonoBehaviour
                 break;
             }
         }
+        if (map == null)
+            return;
         if (mapColor != null)
             StartCoroutine(FadeActiveMap(map, mapColor));
     }
