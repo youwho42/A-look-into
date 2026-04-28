@@ -41,13 +41,14 @@ namespace Klaxon.ConversationSystem
         NPC_DialogueSystem currentDialogueSystem;
         UIScreen screen;
         public List<DialogueResponseObjectUI> dialogueResponseObjects = new List<DialogueResponseObjectUI>();
+        TextToSpeach tts;
 
         bool isInChoice;
         private void Start()
         {
             screen = GetComponent<UIScreen>();
             screen.SetScreenType(UIScreenType.DialogueUI);
-       
+            tts = TextToSpeach.instance;
             gameObject.SetActive(false);
         }
         private void OnEnable()
@@ -82,15 +83,23 @@ namespace Klaxon.ConversationSystem
         {
             if (!isSpeaking || isInChoice)
                 return;
-            if (currentDialogueObject.dialogueNodes[currentIndex].Choices.Count > 0)
+            if (currentIndex > -1)
             {
-                SetChoices();
-                return;
+                if (currentDialogueObject.dialogueNodes[currentIndex].Choices.Count > 0)
+                {
+                    SetChoices();
+                    return;
+                }
+                SetNextDialogue(currentDialogueObject.dialogueNodes[currentIndex].AutoNextNodeID);
+            }
+            else
+            {
+                SetNextDialogue(-1);
             }
 
-            //CompleteDialogueNode();
-            
-            SetNextDialogue(currentDialogueObject.dialogueNodes[currentIndex].AutoNextNodeID);
+                //CompleteDialogueNode();
+
+                //SetNextDialogue(currentDialogueObject.dialogueNodes[currentIndex].AutoNextNodeID);
         }
 
         void SetChoices()
@@ -122,20 +131,22 @@ namespace Klaxon.ConversationSystem
             speakerName.text = currentDialogueSystem.NPC_Name.GetLocalizedString();
             int lastIndex = currentIndex;
             currentIndex = nextIndex;
+            //CompleteDialogueNode(lastIndex);
             if (currentIndex == -1)
             {
-                TextToSpeach.instance.StopSpeach();
+                tts.StopSpeach();
                 currentDialogueObject.hasBeenParsed = true;
                 isSpeaking = false;
                 currentInteractable.canInteract = true;
-                UIScreenManager.instance.HideScreenUI();
                 GameEventManager.onUndertakingsUpdateEvent.Invoke();
+                GameEventManager.onDialogueEndEvent.Invoke();
+                UIScreenManager.instance.HideScreenUI();
             }
             else
             {
                 messageText.text = currentDialogueObject.dialogueNodes[currentIndex].LocalizedPhrase.GetLocalizedString();
-                TextToSpeach.instance.StopSpeach();
-                TextToSpeach.instance.ConvertToSpeach(messageText.text, currentDialogueSystem.voicePitch);
+                //TextToSpeach.instance.StopSpeach();
+                tts.ConvertToSpeach(messageText.text, currentDialogueSystem.voicePitch);
                 UpdateGumption(lastIndex);
             }
             CompleteDialogueNode(lastIndex);
@@ -144,6 +155,8 @@ namespace Klaxon.ConversationSystem
 
         void CompleteDialogueNode(int index)
         {
+            if (index < 0)
+                return;
             ActivateUndertaking(index);
             CompleteTask(index);
             SetCondition(index);
@@ -184,8 +197,7 @@ namespace Klaxon.ConversationSystem
 
             
             currentDialogueObject.undertaking.TryCompleteTask(currentDialogueObject.dialogueNodes[index].Task);
-            if (currentDialogueObject.dialogueNodes[index].Task.mapName != "")
-                    GameEventManager.onMapUpdateEvent.Invoke();
+            
             
         }
 

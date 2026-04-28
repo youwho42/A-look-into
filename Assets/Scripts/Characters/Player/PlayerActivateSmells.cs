@@ -73,7 +73,7 @@ public class PlayerActivateSmells : MonoBehaviour
     {
         
         if (active)
-            noseKnows.position = player.player.position;
+            noseKnows.position = player.playerTransform.position;
         
 
     }
@@ -169,17 +169,17 @@ public class PlayerActivateSmells : MonoBehaviour
         var wind = WindManager.instance;
         var player = PlayerInformation.instance;
         List<SmellGenerator> smells = new List<SmellGenerator>();
-        var hits = Physics2D.OverlapCircleAll(player.player.position, 0.3336f);
+        var hits = Physics2D.OverlapCircleAll(player.playerTransform.position, 0.3336f);
         if(hits.Length > 0)
         {
             foreach (var item in hits)
             {
                 if(item.TryGetComponent(out SmellGenerator smell))
                 {
-                    if (smell.transform.position.z != player.player.position.z)
+                    if (smell.transform.position.z != player.playerTransform.position.z)
                         continue;
                     var windDirection = wind.GetWindDirectionFromPosition(smell.transform.position).normalized;
-                    var smellDirection = ((Vector2)player.player.position - (Vector2)smell.transform.position).normalized;
+                    var smellDirection = ((Vector2)player.playerTransform.position - (Vector2)smell.transform.position).normalized;
                     float dot = Vector2.Dot(windDirection, smellDirection);
                     if(dot > 0.5f)
                         smells.Add(smell);
@@ -197,7 +197,7 @@ public class PlayerActivateSmells : MonoBehaviour
             player = PlayerInformation.instance;
 
         Transform nose = Instantiate(noseKnowsObject, transform);
-        nose.transform.position = player.player.position;
+        nose.transform.position = player.playerTransform.position;
 
         nose.gameObject.SetActive(true);
         

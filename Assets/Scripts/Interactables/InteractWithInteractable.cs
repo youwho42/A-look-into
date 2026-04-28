@@ -223,6 +223,7 @@ namespace Klaxon.Interactable
 
             for (int i = 0; i < items.Count; i++)
             {
+                
                 if (!items[i].canInteract || items[i] == null)
                     continue;
                 var closestPoint = items[i].GetComponent<Collider2D>().ClosestPoint(playerTransform.position);
@@ -233,7 +234,7 @@ namespace Klaxon.Interactable
                     distance = tempDistance;
                 }
             }
-
+            
             return nearest;
         }
 

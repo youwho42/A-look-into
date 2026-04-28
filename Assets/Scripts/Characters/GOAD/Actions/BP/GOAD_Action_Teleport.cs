@@ -45,7 +45,7 @@ namespace Klaxon.GOAD
         void SetPositionNearPlayer(GOAD_Scheduler_BP agent)
         {
             Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
-            Vector3 potentialSpot = PlayerInformation.instance.player.position + (Vector3)offset;
+            Vector3 potentialSpot = PlayerInformation.instance.playerTransform.position + (Vector3)offset;
             
                 var hit = Physics2D.OverlapPoint(potentialSpot, obstacleLayer);
                 bool hitValid = hit != null;

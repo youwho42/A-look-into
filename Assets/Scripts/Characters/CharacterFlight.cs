@@ -144,7 +144,7 @@ public class CharacterFlight : MonoBehaviour
     {
         if (followingPlayer)
         {
-            centerOfActiveArea = PlayerInformation.instance.player.transform;
+            centerOfActiveArea = PlayerInformation.instance.playerTransform.transform;
             return;
         }
         
@@ -175,7 +175,7 @@ public class CharacterFlight : MonoBehaviour
                 
             }
         }
-        centerOfActiveArea =  PlayerInformation.instance.player;
+        centerOfActiveArea =  PlayerInformation.instance.playerTransform;
         
 
     }

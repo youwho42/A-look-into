@@ -79,7 +79,7 @@ public class PlayerDistanceToggle : MonoBehaviour
         if (!animals.Contains(animal))
         {
             animals.Add(animal);  
-            SetAnimalActiveBasedOnDistance(animal, playerInformation.player.position);
+            SetAnimalActiveBasedOnDistance(animal, playerInformation.playerTransform.position);
         }
             
     }
@@ -99,17 +99,17 @@ public class PlayerDistanceToggle : MonoBehaviour
 
             foreach (var animal in animals)
             {
-                SetAnimalActiveBasedOnDistance(animal, playerInformation.player.position);
+                SetAnimalActiveBasedOnDistance(animal, playerInformation.playerTransform.position);
             }
 
             foreach (var agent in GOADAgents)
             {
-                SetGOADAgentPropertiesBasedOnDistance(agent, playerInformation.player.position, maxDistance);
+                SetGOADAgentPropertiesBasedOnDistance(agent, playerInformation.playerTransform.position, maxDistance);
             }
 
             foreach (var agent in GOADCokernutFlump)
             {
-                SetGOADAgentPropertiesBasedOnDistance(agent, playerInformation.player.position, maxDistance);
+                SetGOADAgentPropertiesBasedOnDistance(agent, playerInformation.playerTransform.position, maxDistance);
             }
 
         }

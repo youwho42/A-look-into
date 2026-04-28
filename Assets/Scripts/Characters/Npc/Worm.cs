@@ -56,7 +56,7 @@ public class Worm : MonoBehaviour
         
         Vector2 rand = Random.insideUnitCircle * 2f;
          
-        Vector3 center = PlayerInformation.instance.player.position;
+        Vector3 center = PlayerInformation.instance.playerTransform.position;
         location = -Vector3.one;
         var d = gridManager.groundMap.WorldToCell(new Vector2(center.x + rand.x, center.y + rand.y));
         for (int z = gridManager.groundMap.cellBounds.zMax; z > gridManager.groundMap.cellBounds.zMin - 1; z--)

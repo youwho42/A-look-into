@@ -293,8 +293,8 @@ namespace Klaxon.GOAD
 
             if (!isResting)
             {
-                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
-                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                if (PlayerInformation.instance.playerTransform.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.playerTransform.position.x > transform.position.x && !walker.facingRight)
                     walker.Flip();
             }
 

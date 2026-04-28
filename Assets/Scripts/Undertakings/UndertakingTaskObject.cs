@@ -71,7 +71,6 @@ namespace Klaxon.UndertakingSystem
 
         public void RewardTask()
         {
-
             var player = PlayerInformation.instance;
             if (GumptionReward != null)
                 player.statHandler.ChangeStat(GumptionReward);
@@ -85,6 +84,7 @@ namespace Klaxon.UndertakingSystem
                 player.playerRecipeDatabase.CraftingRecipes.Add(RecipeReward);
             if (mapName != "")
                 PlayerMapsManager.instance.ActivateMapArea(mapName);
+                
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Klaxon.GOAD
 
             if (agent.manager.SpawnTimerExpired())
             {
-                agent.FleePlayer(PlayerInformation.instance.player);
+                agent.FleePlayer(PlayerInformation.instance.playerTransform);
                 return;
             }
                 

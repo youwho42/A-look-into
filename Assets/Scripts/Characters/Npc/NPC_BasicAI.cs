@@ -152,7 +152,7 @@ public class NPC_BasicAI : MonoBehaviour
     void FacePlayer()
     {
         float npcX = transform.position.x;
-        float playerX = PlayerInformation.instance.player.position.x;
+        float playerX = PlayerInformation.instance.playerTransform.position.x;
         if (npcX > playerX && moveToNode.facingRight)
             moveToNode.Flip();
         else if (npcX < playerX && !moveToNode.facingRight)

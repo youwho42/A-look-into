@@ -637,8 +637,8 @@ namespace Klaxon.GOAD
 
             if (!animator.GetBool(sleeping_hash))
             {
-                if (PlayerInformation.instance.player.position.x < _transform.position.x && walker.facingRight ||
-                PlayerInformation.instance.player.position.x > _transform.position.x && !walker.facingRight)
+                if (PlayerInformation.instance.playerTransform.position.x < _transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.playerTransform.position.x > _transform.position.x && !walker.facingRight)
                     walker.Flip();
             }
 
@@ -653,33 +653,40 @@ namespace Klaxon.GOAD
             if (collision.transform.position.z != _transform.position.z || !hasDialogue)
                 return;
 
-
-
             if (collision.gameObject.CompareTag("Player"))
-            {
-                inTalkRange = true;
-                animator.SetBool(walking_hash, false);
-                walker.currentDirection = Vector2.zero;
-                if (!animator.GetBool(sleeping_hash))
-                {
-                    if (collision.transform.position.x < _transform.position.x && walker.facingRight ||
-                    collision.transform.position.x > _transform.position.x && !walker.facingRight)
-                        walker.Flip();
-                }
-
-            }
+                SetTalkAnimation();
         }
-
-
 
         public void OnTriggerExit2D(Collider2D collision)
         {
             if (!hasDialogue)
                 return;
             if (collision.gameObject.CompareTag("Player"))
-                inTalkRange = false;
-
+                CancelTalkAnimation();
         }
+
+
+        public void SetTalkAnimation()
+        {
+            inTalkRange = true;
+            animator.SetBool(walking_hash, false);
+            walker.currentDirection = Vector2.zero;
+            if (!animator.GetBool(sleeping_hash))
+            {
+                Transform player = PlayerInformation.instance.playerTransform;
+                if (player.position.x < _transform.position.x && walker.facingRight ||
+                player.position.x > _transform.position.x && !walker.facingRight)
+                    walker.Flip();
+            }
+        }
+
+        public void CancelTalkAnimation()
+        {
+            inTalkRange = false;
+        }
+
+
+        
 
 
     } 

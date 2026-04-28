@@ -20,7 +20,7 @@ public class PokableItemNudge : PokableItem
     {
         var time = 0.3f;
         Vector3 startingPos = transform.position;
-        Vector3 destination = transform.position - PlayerInformation.instance.player.position;
+        Vector3 destination = transform.position - PlayerInformation.instance.playerTransform.position;
         destination = destination.normalized * nudgeDistance;
         destination += transform.position;
 

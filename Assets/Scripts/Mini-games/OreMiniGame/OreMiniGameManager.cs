@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -56,6 +57,10 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
     int toolTier;
     int gatherAmount;
     bool fullSuccess;
+
+    public StatChanger failStatChanger;
+
+
     private void Start()
     {
         SetDificulty(MiniGameDificulty.Easy);
@@ -186,13 +191,16 @@ public class OreMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentSection++;
-            PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false);
-            Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
+            if (PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false))
+                Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
+            else
+                LostAndFoundManager.instance.AddToLostAndFound(item, gatherAmount);
             PlaySound(0);
             StartCoroutine(GlowOn(material, successEmission));
         }
         else
         {
+            PlayerInformation.instance.statHandler.ChangeStat(failStatChanger);
             fullSuccess = false;
             currentSection++;
             PlaySound(1);

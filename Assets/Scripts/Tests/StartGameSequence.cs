@@ -20,7 +20,7 @@ public class StartGameSequence : MonoBehaviour
     private void Start()
     {
         GameEventManager.onNewGameStartedEvent.AddListener(StartSequence);
-        playerTransform = PlayerInformation.instance.player;
+        playerTransform = PlayerInformation.instance.playerTransform;
         playerTransform.position = playerStartPosition.position;
     }
 

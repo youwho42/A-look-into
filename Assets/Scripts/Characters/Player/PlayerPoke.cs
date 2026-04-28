@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class PlayerPoke : MonoBehaviour
@@ -62,7 +61,7 @@ public class PlayerPoke : MonoBehaviour
     {
         if (pokingStickEquipped)
         {
-            playerZ = player.player.position.z;
+            playerZ = player.playerTransform.position.z;
             var pos = player.playerPokableSpot.position;
             Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, pokableLayer);
             if (hit.Length > 0)

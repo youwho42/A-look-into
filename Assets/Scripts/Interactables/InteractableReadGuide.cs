@@ -7,7 +7,7 @@ namespace Klaxon.Interactable
 {
     public class InteractableReadGuide : Interactable
     {
-        public QI_ItemData readableItem;
+        //public QI_ItemData readableItem;
 
         public override void Start()
         {
@@ -21,7 +21,6 @@ namespace Klaxon.Interactable
 
             StartCoroutine(InteractCo(interactor));
 
-
         }
 
         IEnumerator InteractCo(GameObject interactor)
@@ -30,20 +29,19 @@ namespace Klaxon.Interactable
             yield return new WaitForSeconds(0.33f);
             PlayInteractSound();
 
-            if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(readableItem))
+            if (!PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Contains(playerGuide))
             {
-                PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(readableItem);
-                Notifications.instance.SetNewLargeNotification(null, readableItem, null, NotificationsType.Compendium);
+                PlayerInformation.instance.playerGuidesCompendiumDatabase.Items.Add(playerGuide);
+                Notifications.instance.SetNewLargeNotification(null, playerGuide, null, NotificationsType.Compendium);
+                BallPersonMessageDisplayUI.instance.ShowSimpleMessage(playerGuide.localizedName.GetLocalizedString(), playerGuide.localizedDescription.GetLocalizedString(), null);
+                UIScreenManager.instance.DisplayIngameUI(UIScreenType.BallPersonDialogueUI, true);
                 //NotificationManager.instance.SetNewNotification($"{readableItem.Name} guide found", NotificationManager.NotificationType.Compendium);
                 GameEventManager.onGuideCompediumUpdateEvent.Invoke();
             }
 
-
-
-            Destroy(gameObject);
             hasInteracted = false;
-            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(readableItem.Name, 1);
-
+            WorldItemManager.instance.RemoveItemFromWorldItemDictionary(playerGuide.Name, 1);
+            Destroy(gameObject);
         }
 
         void PlayInteractSound()

@@ -29,9 +29,6 @@ namespace Klaxon.Interactable
             base.Interact(interactor);
             if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 OpenMerchantTable();
-                    
-                
-            
             else if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.MerchantTableUI)
             {
                 CloseMerchantTable();

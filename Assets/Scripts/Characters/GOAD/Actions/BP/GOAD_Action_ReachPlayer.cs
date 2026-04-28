@@ -72,7 +72,7 @@ namespace Klaxon.GOAD
             
 
 
-            agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+            agent.walker.currentDestination = PlayerInformation.instance.playerTransform.position + (Vector3)offset;
 
             agent.walker.SetWorldDestination(agent.walker.currentDestination);
             agent.walker.SetDirection();

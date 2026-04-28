@@ -20,8 +20,8 @@ namespace Klaxon.UndertakingSystem
             
             if (!activeUndertakings.Contains(undertaking))
                 addUndertakingQueue.Enqueue(undertaking);
-            StartCoroutine(ActivateTasks(undertaking));
-            if (!firstUndertakingAquired)
+            ActivateTasks(undertaking);
+            if (!firstUndertakingAquired && undertaking.Name != "Meet the chickens")
             {
                 firstUndertakingAquired = true;
                 StartCoroutine(OpenUndertakingTutorial());
@@ -40,15 +40,25 @@ namespace Klaxon.UndertakingSystem
             GameEventManager.onUndertakingDisplayEvent.Invoke();
         }
 
-        private IEnumerator ActivateTasks(UndertakingObject undertaking)
+        private void ActivateTasks(UndertakingObject undertaking)
         {
-            yield return new WaitForSeconds(0.1f);
+            
             foreach (var task in undertaking.Tasks)
             {
                 task.ActivateTask(undertaking);
             }
             undertaking.TryCompleteQuest();
         }
+
+        //private IEnumerator ActivateTasks(UndertakingObject undertaking)
+        //{
+        //    yield return new WaitForSeconds(0.1f);
+        //    foreach (var task in undertaking.Tasks)
+        //    {
+        //        task.ActivateTask(undertaking);
+        //    }
+        //    undertaking.TryCompleteQuest();
+        //}
 
         public void RestoreUndertaking(UndertakingObject undertaking)
         {

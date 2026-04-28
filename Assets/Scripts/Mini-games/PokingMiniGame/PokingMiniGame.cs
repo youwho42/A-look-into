@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -42,6 +43,10 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
     public Color failEmission;
 
     Vector3 endOffset = new Vector3(0, -0.07f, 0);
+
+    public StatChanger failStatChanger;
+    
+
 
     private void Start()
     {
@@ -124,6 +129,7 @@ public class PokingMiniGame : MonoBehaviour, IMinigame
         }
         else
         {
+            PlayerInformation.instance.statHandler.ChangeStat(failStatChanger);
             PlaySound(1);
             currentArea.rotate.enabled = false;
             StartCoroutine(GlowOn(bgIlluminationMaterial, failEmission));

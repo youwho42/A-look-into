@@ -38,7 +38,7 @@ namespace Klaxon.GravitySystem {
         {
             base.Start();
 
-            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(this);
+            PlayerInformation.instance.playerTransform.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(this);
             yield return new WaitForSeconds(0.25f);
             displacement = GetComponent<DrawZasYDisplacement>();
         
@@ -53,8 +53,8 @@ namespace Klaxon.GravitySystem {
         }
         private void OnDestroy()
         {
-            if(PlayerInformation.instance.player != null)
-                PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().RemoveFreeItemFromList(this);
+            if(PlayerInformation.instance.playerTransform != null)
+                PlayerInformation.instance.playerTransform.GetComponent<CollisionDirectionIndicator>().RemoveFreeItemFromList(this);
         }
 
         public override void Update()

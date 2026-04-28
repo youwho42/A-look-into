@@ -65,7 +65,7 @@ namespace Klaxon.GOAD
             }
 
             SetIndicatorPosition();
-            agent.walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)indicatorPos;
+            agent.walker.currentDestination = PlayerInformation.instance.playerTransform.position + (Vector3)indicatorPos;
 
             thoughtBubbleTime-=Time.deltaTime;
             if (thoughtBubbleTime <= 0)
@@ -153,7 +153,7 @@ namespace Klaxon.GOAD
 
         public void SetIndicatorPosition()
         {
-            var dir = markerPosition - PlayerInformation.instance.player.position;
+            var dir = markerPosition - PlayerInformation.instance.playerTransform.position;
             dir = dir.normalized;
             indicatorPos = dir * 1f;
 

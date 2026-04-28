@@ -32,7 +32,7 @@ public class GroundBubbleManager : MonoBehaviour
 
     private Vector3 GetBubblePosition()
     {
-        var playerPos = PlayerInformation.instance.player.position;
+        var playerPos = PlayerInformation.instance.playerTransform.position;
         var pos = GridManager.instance.GetRandomTileWorldPosition(playerPos, 3);
         var hit = Physics2D.OverlapPoint(pos, LayerMask.GetMask("Obstacle"), pos.z, pos.z);
         if (!hit)

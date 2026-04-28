@@ -36,7 +36,7 @@ namespace Klaxon.Interactable
             base.Interact(interactor);
             if (!HasEnoughGumption())
                 return;
-            if(npc_DialogueSystem != null)
+            if (npc_DialogueSystem != null)
             {
                 if (UIScreenManager.instance.GetCurrentUI() == UIScreenType.None)
                 {
@@ -46,7 +46,6 @@ namespace Klaxon.Interactable
                     
                     if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.DialogueUI, true))
                     {
-                        
                         if (characterItem != null)
                             PlayerInformation.instance.playerEncountersCompendiumDatabase.AddItem(characterItem.Data);
 
@@ -113,6 +112,10 @@ namespace Klaxon.Interactable
             return false;
         }
 
+        public void ResetInteraction()
+        {
+            hasInteracted = false;
+        }
     } 
 }
 

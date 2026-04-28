@@ -57,7 +57,7 @@ public class PlayerSurroundingItemsContainer : MonoBehaviour
     List<QI_ItemData> GetSurroundingItems()
     {
         List<QI_ItemData> allItems = new List<QI_ItemData>();
-        var pos = PlayerInformation.instance.player.position;
+        var pos = PlayerInformation.instance.playerTransform.position;
         var hits = Physics2D.OverlapCircleAll(pos, surroundingAreaRadius, detectableLayer, pos.z, pos.z);
         if (hits.Length > 0)
         {
@@ -124,7 +124,7 @@ public class PlayerSurroundingItemsContainer : MonoBehaviour
     List<QI_Item> GetSurroundingGameObjects()
     {
         List<QI_Item> allItems = new List<QI_Item>();
-        var pos = PlayerInformation.instance.player.position;
+        var pos = PlayerInformation.instance.playerTransform.position;
         var hits = Physics2D.OverlapCircleAll(pos, surroundingAreaRadius, detectableLayer, pos.z, pos.z);
         if (hits.Length > 0)
         {

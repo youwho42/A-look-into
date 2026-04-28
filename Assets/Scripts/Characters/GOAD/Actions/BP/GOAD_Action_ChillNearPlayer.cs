@@ -22,7 +22,7 @@ namespace Klaxon.GOAD
             agent.animator.SetBool(agent.walking_hash, false);
             agent.walker.ResetLastPosition();
             lastInteractionState = agent.hasInteracted;
-            var player = PlayerInformation.instance.player;
+            var player = PlayerInformation.instance.playerTransform;
             if (player.position.x < transform.position.x && agent.walker.facingRight ||
                 player.position.x > transform.position.x && !agent.walker.facingRight)
                 agent.walker.Flip();
@@ -53,7 +53,7 @@ namespace Klaxon.GOAD
                 return;
             }
 
-            var dir = PlayerInformation.instance.player.position - transform.position;
+            var dir = PlayerInformation.instance.playerTransform.position - transform.position;
             agent.walker.SetFacingDirection(dir);
             agent.arms.SetActive(!agent.hasInteracted);
             agent.interactor.canInteract = !agent.hasInteracted;

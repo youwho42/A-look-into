@@ -99,7 +99,7 @@ public class ConsoleDisplayUI : MonoBehaviour
         {
             if (position.gameObject.name == loc)
             {
-                PlayerInformation.instance.player.position = position.position;
+                PlayerInformation.instance.playerTransform.position = position.position;
                 PlayerInformation.instance.currentTilePosition.position = PlayerInformation.instance.currentTilePosition.GetCurrentTilePosition(position.position);
                 PlayerInformation.instance.playerController.currentLevel = (int)position.position.z - 1;
                 GameEventManager.onPlayerPositionUpdateEvent.Invoke(PlayerInformation.instance.currentTilePosition.position);

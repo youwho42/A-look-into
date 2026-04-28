@@ -21,9 +21,9 @@ public class EquipmentAxeData : EquipmentData
             return;
 
 
-        Collider2D[] hit = Physics2D.OverlapCircleAll(player.player.position, detectionRadius, gathererLayer, player.player.position.z, player.player.position.z);
+        Collider2D[] hit = Physics2D.OverlapCircleAll(player.playerTransform.position, detectionRadius, gathererLayer, player.playerTransform.position.z, player.playerTransform.position.z);
         if (hit.Length > 0)
-            GetNearestItem(hit, player.player.position);
+            GetNearestItem(hit, player.playerTransform.position);
         else
             player.playerAnimator.SetBool("UseEquipement", false);
     }

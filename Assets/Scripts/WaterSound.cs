@@ -84,7 +84,7 @@ public class WaterSound : MonoBehaviour
         for (int i = 0; i < spots.Count; i++)
         {
             Vector3 tile = groundGrid.CellToWorld(spots[i]);
-            Vector3 pos = playerActive ? player.player.position : Camera.main.transform.position;
+            Vector3 pos = playerActive ? player.playerTransform.position : Camera.main.transform.position;
             float dist = NumberFunctions.GetDistanceV2(tile, pos);
             if (dist < closestTileDistance)
             {

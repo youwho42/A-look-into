@@ -254,7 +254,7 @@ public class InventoryDisplaySlot : MonoBehaviour
         if (itemToDrop.TryGetComponent(out GravityItemMovementFree gravityItem))
         {
             gravityItem.enabled = true;
-            PlayerInformation.instance.player.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(gravityItem);
+            PlayerInformation.instance.playerTransform.GetComponent<CollisionDirectionIndicator>().AddFreeItemToList(gravityItem);
             
         }
             
@@ -547,7 +547,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     bool CheckPlayerVicinity()
     {
         
-        Vector3 playerPos = PlayerInformation.instance.player.position;
+        Vector3 playerPos = PlayerInformation.instance.playerTransform.position;
         
         float dist = NumberFunctions.GetDistanceV2(playerPos, itemToDrop.transform.position);
         if (dist <= 2.25f)
@@ -560,7 +560,7 @@ public class InventoryDisplaySlot : MonoBehaviour
     {
         
         Vector3 movePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        movePos.z = PlayerInformation.instance.player.position.z;
+        movePos.z = PlayerInformation.instance.playerTransform.position.z;
         
         return movePos;
     }

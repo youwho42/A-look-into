@@ -202,9 +202,6 @@ namespace Klaxon.GOAD
             else
             {
                 currentFailedPathfindingAttempts++;
-#if !UNITY_EDITOR
-        Debug.LogWarning("Path not found", gameObject);
-#endif
 
             }
 
@@ -265,9 +262,6 @@ namespace Klaxon.GOAD
                     SetAStarDestination(currentFinalDestination, action);
                 else
                 {
-#if !UNITY_EDITOR
-                    Debug.LogWarning($"start position not valid after deviate \ncurrent pos{transform.position} last pos{lastValidTileLocation}", gameObject);
-#endif
                     transform.position = lastValidTileLocation;
                     //aStarPath.Add(lastValidTileLocation);
                 }
@@ -443,8 +437,8 @@ namespace Klaxon.GOAD
 
             if (!animator.GetBool(isSitting_hash) && !animator.GetBool(isSleeping_hash))
             {
-                if (PlayerInformation.instance.player.position.x < transform.position.x && walker.facingRight ||
-                PlayerInformation.instance.player.position.x > transform.position.x && !walker.facingRight)
+                if (PlayerInformation.instance.playerTransform.position.x < transform.position.x && walker.facingRight ||
+                PlayerInformation.instance.playerTransform.position.x > transform.position.x && !walker.facingRight)
                     walker.Flip();
             }
 

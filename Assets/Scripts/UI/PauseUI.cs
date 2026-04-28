@@ -86,7 +86,7 @@ public class PauseUI : MonoBehaviour
 
     public void UnstuckPlayer()
     {
-        PlayerInformation.instance.player.position = unstuckPlayerPosition.position;
+        PlayerInformation.instance.playerTransform.position = unstuckPlayerPosition.position;
         PlayerInformation.instance.currentTilePosition.position = PlayerInformation.instance.currentTilePosition.GetCurrentTilePosition(unstuckPlayerPosition.position);
         PlayerInformation.instance.playerController.currentLevel = (int)unstuckPlayerPosition.position.z - 1;
         UIScreenManager.instance.SetPauseScreen(false);

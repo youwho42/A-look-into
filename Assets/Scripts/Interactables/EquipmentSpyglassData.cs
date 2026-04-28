@@ -21,8 +21,8 @@ public class EquipmentSpyglassData: EquipmentData
 
         Vector3 pos = player.playerActivateSpyglass.GetSelectedAnimalPosition();
 
-        if (Mathf.Sign(pos.x - player.player.position.x) < 0 && player.playerController.facingRight ||
-            Mathf.Sign(pos.x - player.player.position.x) > 0 && !player.playerController.facingRight)
+        if (Mathf.Sign(pos.x - player.playerTransform.position.x) < 0 && player.playerController.facingRight ||
+            Mathf.Sign(pos.x - player.playerTransform.position.x) > 0 && !player.playerController.facingRight)
             player.playerController.Flip();
         pos.z = 0;
 

@@ -85,7 +85,7 @@ namespace Klaxon.GOAD
 
             var allTiles = GridManager.instance.GetAllNearbyValidWorldPositions(agent.jumper.currentTilePosition.position, fleeDistance);
 
-            Vector2 directionFlee = (Vector2)transform.position - (Vector2)PlayerInformation.instance.player.position;
+            Vector2 directionFlee = (Vector2)transform.position - (Vector2)PlayerInformation.instance.playerTransform.position;
             directionFlee = directionFlee.normalized;
 
 

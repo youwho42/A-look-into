@@ -13,8 +13,7 @@ public class TextToSpeach : MonoBehaviour
     {
         if(instance == null)
             instance = this;
-        else
-            Destroy(instance);
+        
     }
 
 
@@ -60,7 +59,7 @@ public class TextToSpeach : MonoBehaviour
             s.clip = sounds[i];
             s.loop = false;
             s.overlap = true;
-            s.volume = 0.25f;
+            s.volume = 0.2f;
             s.pitch = 1.5f;
             s.randomVolume = 0.0f;
             s.randomPitch = 0.2f;
@@ -74,17 +73,33 @@ public class TextToSpeach : MonoBehaviour
     {
         StartCoroutine(PlayString(testString, testPitch));
     }
+    //public void ConvertToSpeach(string text, float pitch)
+    //{
+    //    StopSpeach();
 
+    //    StartCoroutine(PlayString(text, pitch));
+    //}
+    //public void StopSpeach()
+    //{
+    //    StopAllCoroutines();
+
+    //}
     public void ConvertToSpeach(string text, float pitch)
     {
+        StopSpeach();
         currentCoroutine = PlayString(text, pitch);
-        StartCoroutine(currentCoroutine);
+        if (currentCoroutine != null)
+            StartCoroutine(currentCoroutine);
     }
     public void StopSpeach()
     {
-        if(currentCoroutine != null) 
-            StopCoroutine(currentCoroutine);
+        if (currentCoroutine == null)
+            return;
+        IEnumerator c = currentCoroutine;
         currentCoroutine = null;
+        if (c != null)
+            StopCoroutine(c);
+
     }
 
     IEnumerator PlayString(string text, float pitch) 
@@ -106,6 +121,6 @@ public class TextToSpeach : MonoBehaviour
         }
 
         yield return null;
-
+        currentCoroutine = null;
     }
 }

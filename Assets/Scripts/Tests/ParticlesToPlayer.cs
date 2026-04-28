@@ -15,7 +15,7 @@ public class ParticlesToPlayer : MonoBehaviour
     IEnumerator SpawnCo(int quantity, DrawZasYDisplacement displacement)
     {
         
-        Transform player = PlayerInformation.instance.player;
+        Transform player = PlayerInformation.instance.playerTransform;
         List<GameObject> particles = new List<GameObject>();
         List<Transform> particleItems = new List<Transform>();
         List<Vector2> directions = new List<Vector2>();

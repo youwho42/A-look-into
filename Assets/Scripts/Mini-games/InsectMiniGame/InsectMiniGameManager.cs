@@ -58,7 +58,8 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
     public bool hasCompletedMiniGame;
     
     Color initialIntensity;
-    public StatChanger statChanger;
+    //public StatChanger initialStatChanger;
+    public StatChanger failStatChanger;
 
 
     [ColorUsage(true, true)]
@@ -168,6 +169,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
         }
         else
         {
+            PlayerInformation.instance.statHandler.ChangeStat(failStatChanger);
             PlaySound(1);
         }
         yield return new WaitForSeconds(0.7f);
@@ -189,7 +191,7 @@ public class InsectMiniGameManager : MonoBehaviour, IMinigame
                     if (!PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Contains(animal))
                     {
                         PlayerInformation.instance.playerAnimalCompendiumDatabase.Items.Add(animal);
-                        PlayerInformation.instance.statHandler.ChangeStat(statChanger);
+                        //PlayerInformation.instance.statHandler.ChangeStat(initialStatChanger);
                         GameEventManager.onAnimalCompediumUpdateEvent.Invoke();
                         Notifications.instance.SetNewLargeNotification(null, animal, null, NotificationsType.Compendium);
                     }

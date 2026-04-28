@@ -10,7 +10,7 @@ public class PokableItemGravityItem : PokableItem
     public override void PokeItemSuccess()
     {
         base.PokeItemSuccess();
-        Vector3 direction = transform.position - PlayerInformation.instance.player.position;
+        Vector3 direction = transform.position - PlayerInformation.instance.playerTransform.position;
         if (TryGetComponent(out GravityItemMovementFree item))
             item.AddMovement(direction, 0.7f);
     }

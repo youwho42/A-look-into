@@ -154,8 +154,8 @@ public class PlayerActivateSpyglass : MonoBehaviour
         pos.z = allAnimals[animal].transform.position.z + 0.5f;
         spyglassReticle.transform.position = pos;
 
-        if (Mathf.Sign(pos.x - player.player.position.x) < 0 && player.playerController.facingRight ||
-            Mathf.Sign(pos.x - player.player.position.x) > 0 && !player.playerController.facingRight)
+        if (Mathf.Sign(pos.x - player.playerTransform.position.x) < 0 && player.playerController.facingRight ||
+            Mathf.Sign(pos.x - player.playerTransform.position.x) > 0 && !player.playerController.facingRight)
             player.playerController.Flip();
 
         if (!spyglassReticle.activeInHierarchy)

@@ -60,6 +60,33 @@ public class EquipmentManager : MonoBehaviour
         return false;
     }
 
+    public bool UnEquipAllToInventory()
+    {
+        for (int i = 0; i < currentEquipment.Length; i++)
+        {
+
+            if (currentEquipment[i] == null)
+                continue;
+        
+            if (PlayerInformation.instance.playerInventory.AddItem(currentEquipment[i], 1, false))
+            {
+                currentEquipment[i] = null;
+
+                if (i == (int)EquipmentSlot.Hands)
+                {
+                    Destroy(handEquipmentHolder.transform.GetChild(0).gameObject);
+                }
+                if (i == (int)EquipmentSlot.Light)
+                {
+                    Destroy(lightEquipmentHolder.transform.GetChild(0).gameObject);
+                }
+                GameEventManager.onEquipmentUpdateEvent.Invoke();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool UnequipBackpack(QI_ItemData itemData, int equipedIndex)
     {
         if(PlayerInformation.instance.playerInventory.Stacks.Count < 12)
@@ -86,12 +113,16 @@ public class EquipmentManager : MonoBehaviour
     }
     public void UnEquipAndDestroyAll()
     {
-        
+        if(handEquipmentHolder.transform.childCount > 0)
+            Destroy(handEquipmentHolder.transform.GetChild(0).gameObject);
+        if (lightEquipmentHolder.transform.childCount > 0)
+            Destroy(lightEquipmentHolder.transform.GetChild(0).gameObject);
         for (int i = 0; i < currentEquipment.Length; i++)
         {
             currentEquipment[i] = null;
         }
-        handEquipmentHolder.sprite = null;
+        
+        
         GameEventManager.onEquipmentUpdateEvent.Invoke();
     }
 
@@ -101,6 +132,18 @@ public class EquipmentManager : MonoBehaviour
             return true;
         return false;
     }
+
+    public bool HasAnyItemEquipped()
+    {
+        
+        foreach (var item in currentEquipment)
+        {
+            if (item != null)
+                return true;
+        }
+        return false;
+    }
+
     public EquipmentTier GetEquipmentTier(EquipmentSlot slot)
     {
         return currentEquipment[(int)slot].equipmentTier;

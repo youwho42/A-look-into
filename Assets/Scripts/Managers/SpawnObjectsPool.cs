@@ -60,7 +60,7 @@ public class SpawnObjectsPool : MonoBehaviour
         }
         public void CheckAllObjectsVisible()
         {
-            var playerPos = PlayerInformation.instance.player.position;
+            var playerPos = PlayerInformation.instance.playerTransform.position;
             for (int i = 0; i < availableObjects.Count; i++)
             {
                 if (NumberFunctions.GetDistanceV3(playerPos, availableObjects[i].transform.position) > 25)

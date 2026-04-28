@@ -109,7 +109,7 @@ namespace Klaxon.GOAD
 
 
 
-            Vector2 dirFromPlayer = transform.position - player.player.position;
+            Vector2 dirFromPlayer = transform.position - player.playerTransform.position;
             var dir = Vector2.Dot(dirFromPlayer, player.playerController.currentDirection);
 
 

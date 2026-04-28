@@ -53,7 +53,7 @@ public class IsometricGridPlacement : MonoBehaviour
     public void ShowOutlineTile(Vector2 position)
     {
         positionValid = false;
-        Vector3 finalPos = new Vector3(position.x / 2, position.y / 2, PlayerInformation.instance.player.position.z);
+        Vector3 finalPos = new Vector3(position.x / 2, position.y / 2, PlayerInformation.instance.playerTransform.position.z);
         tileOutline.transform.position = finalPos;
         if (CanPlace(finalPos))
         {
@@ -105,7 +105,7 @@ public class IsometricGridPlacement : MonoBehaviour
         // Return the (x, y) position as a Vector2
         float posX = (pos.x - pos.y) * gridObject.size * gridObject.xComponent;
         float posY = (pos.x + pos.y) * gridObject.size * gridObject.yComponent;
-        return CanPlaceOnGroundTile(new Vector3(posX / 2, posY / 2, PlayerInformation.instance.player.position.z));
+        return CanPlaceOnGroundTile(new Vector3(posX / 2, posY / 2, PlayerInformation.instance.playerTransform.position.z));
     }
 
     
@@ -113,7 +113,7 @@ public class IsometricGridPlacement : MonoBehaviour
     bool MaxGridDistanceFromPlayer()
     {
         bool can = false;
-        var pos = gridObject.GetGridLocation(PlayerInformation.instance.player.position);
+        var pos = gridObject.GetGridLocation(PlayerInformation.instance.playerTransform.position);
         var mousePos = gridObject.GetGridLocation(currentPosition);
         for (int x = -8; x < 9; x++)
         {
@@ -131,7 +131,7 @@ public class IsometricGridPlacement : MonoBehaviour
 
     bool CollidingWithPlayer()
     {
-        return gridObject.FindPositionOnGrid(PlayerInformation.instance.player.position) == currentPosition;
+        return gridObject.FindPositionOnGrid(PlayerInformation.instance.playerTransform.position) == currentPosition;
     }
 
     bool CollidingWithObstacle()

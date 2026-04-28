@@ -43,11 +43,11 @@ namespace Klaxon.UndertakingSystem
                 CurrentState = UndertakingState.Active;
                 PlayerInformation.instance.playerUndertakings.AddUndertaking(this);
                 Notifications.instance.SetNewLargeNotification(this, null, null, NotificationsType.UndertakingStart);
-                //foreach (var task in Tasks)
-                //{
-                //    task.ActivateTask(this);
-                //}
-                //TryCompleteQuest();
+                foreach (var task in Tasks)
+                {
+                    task.ActivateTask(this);
+                }
+                TryCompleteQuest();
             }
         }
 

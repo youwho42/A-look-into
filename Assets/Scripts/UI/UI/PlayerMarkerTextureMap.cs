@@ -143,7 +143,7 @@ public class PlayerMarkerTextureMap : MonoBehaviour
                 markers[i].terrainPosition = terrainPos;
                 markers[i].active = true;
 
-                var pos = GetNearestValidTile(PlayerInformation.instance.player.position) + new Vector3(UnityEngine.Random.Range(-.3f, .3f), UnityEngine.Random.Range(.1f, .3f), 0);
+                var pos = GetNearestValidTile(PlayerInformation.instance.playerTransform.position) + new Vector3(UnityEngine.Random.Range(-.3f, .3f), UnityEngine.Random.Range(.1f, .3f), 0);
                 BallPeopleManager.instance.SpawnIndicator(i, colorSchemes[selectedColorScheme].colors[i], pos);
                 return;
             }

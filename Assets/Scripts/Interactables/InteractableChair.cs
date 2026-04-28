@@ -57,8 +57,8 @@ namespace Klaxon.Interactable
             float maxTime = 0.45f;
             while (timer < maxTime)
             {
-                Vector3 pos = Vector3.Lerp(player.player.position, position, timer / maxTime);
-                player.player.position = pos;
+                Vector3 pos = Vector3.Lerp(player.playerTransform.position, position, timer / maxTime);
+                player.playerTransform.position = pos;
                 timer += Time.deltaTime;
                 yield return null;
             }

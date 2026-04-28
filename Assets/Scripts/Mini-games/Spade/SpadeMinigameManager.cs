@@ -1,3 +1,4 @@
+using Klaxon.StatSystem;
 using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
@@ -52,6 +53,10 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
     public Color successEmission;
     [ColorUsage(true, true)]
     public Color failEmission;
+
+    public StatChanger failStatChanger;
+
+
 
     void Start()
     {
@@ -137,6 +142,7 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
         }
         else
         {
+            PlayerInformation.instance.statHandler.ChangeStat(failStatChanger);
             PlaySound(1);
             StartCoroutine(GlowOn(currentAreas[currentStage].dificultyAreaSprite.material, failEmission));
             StartCoroutine(GlowOn(targetBars[currentStage].controlAreaSprite.material, failEmission));
@@ -159,6 +165,11 @@ public class SpadeMinigameManager : MonoBehaviour, IMinigame
             CompleteMinigame();
         }
         transitioning = false;
+        yield return null;
+    }
+
+    IEnumerator GatherItem(QI_ItemData item)
+    {
         yield return null;
     }
 

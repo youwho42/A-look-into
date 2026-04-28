@@ -118,7 +118,14 @@ namespace Klaxon.GravitySystem
                 return;
 
             if (isGrounded && !playerInput.isInUI && !PlayerInformation.instance.isSitting)
+            {
                 Bounce(jumpHeight * jumpStat.GetModifiedMax());
+                int r1 = UnityEngine.Random.Range(1, 9);
+                AudioManager.instance.PlaySound($"PlayerJump{r1}");
+                int r2 = UnityEngine.Random.Range(1, 7);
+                AudioManager.instance.PlaySound($"PlayerJumpB{r2}");
+            }
+                
             
                 
         }

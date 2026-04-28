@@ -19,7 +19,6 @@ public class LostAndFoundManager : MonoBehaviour
 
     public QI_Inventory inventory;
 
-
     public void AddToLostAndFound(QI_ItemData item, int amount)
     {
         inventory.AddItem(item, amount, false);

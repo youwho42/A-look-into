@@ -82,7 +82,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                     currentState = SpecialState.Disappear;
 
                 animator.SetBool(walking_hash, true);
-                walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+                walker.currentDestination = PlayerInformation.instance.playerTransform.position + (Vector3)offset;
                 walker.SetWorldDestination(walker.currentDestination);
                 walker.SetDirection();
                 if (walker.CheckDistanceToDestination() <= GlobalSettings.DistanceCheck)
@@ -97,7 +97,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
                 if (walker.isStuck && walker.hasDeviatePosition)
                 {
                     offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
-                    walker.currentDestination = PlayerInformation.instance.player.position + (Vector3)offset;
+                    walker.currentDestination = PlayerInformation.instance.playerTransform.position + (Vector3)offset;
                     walker.SetDirection();
                     walker.hasDeviatePosition = false;
                 }
@@ -124,7 +124,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
 
             case SpecialState.Idle:
                 walker.currentDirection = Vector2.zero;
-                var dir = PlayerInformation.instance.player.position - transform.position;
+                var dir = PlayerInformation.instance.playerTransform.position - transform.position;
                 walker.SetFacingDirection(dir);
 
                 //check distance from player, wait a sec, and start to follow if too far
@@ -228,7 +228,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
     void SetPositionNearPlayer()
     {
         Vector2 offset = new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
-        transform.position = PlayerInformation.instance.player.position + (Vector3)offset;
+        transform.position = PlayerInformation.instance.playerTransform.position + (Vector3)offset;
         if (walker.tileBlockInfo != null)
         {
             foreach (var tile in walker.tileBlockInfo)
@@ -267,7 +267,7 @@ public class BallPeopleSpecial : MonoBehaviour, IBallPerson
 
     float CheckPlayerDistance()
     {
-        float dist = Vector2.Distance(transform.position, PlayerInformation.instance.player.position);
+        float dist = Vector2.Distance(transform.position, PlayerInformation.instance.playerTransform.position);
 
         return dist;
     }

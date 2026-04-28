@@ -165,7 +165,9 @@ public class UIScreenManager : MonoBehaviour
             tabbedMenu.SetMapUI();
             DisplayScreenUI(UIScreenType.TabbedMenuUI, true);
         }
-        
+        else
+            Debug.Log(GetCurrentUI());
+
     }
 
     void DisplayCompendiumMenu()

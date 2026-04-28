@@ -1,4 +1,5 @@
-﻿using QuantumTek.QuantumInventory;
+﻿using Klaxon.StatSystem;
+using QuantumTek.QuantumInventory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,6 +52,8 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
     bool fullSuccess;
     int toolTier;
     int gatherAmount;
+    public StatChanger failStatChanger;
+
     private void Start() 
     {
         
@@ -159,15 +162,17 @@ public class WoodMiniGameManager : MonoBehaviour, IMinigame
         if (success)
         {
             currentAttemptHits++;
-            if (!PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false))
+            if (PlayerInformation.instance.playerInventory.AddItem(item, gatherAmount, false))
+                Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
+            else
                 LostAndFoundManager.instance.AddToLostAndFound(item, gatherAmount);
-            Notifications.instance.SetNewNotification("", item, gatherAmount, NotificationsType.Inventory);
 
             PlaySound(0);
             StartCoroutine(GlowOn(mat, successEmission));
         }
         else
         {
+            PlayerInformation.instance.statHandler.ChangeStat(failStatChanger);
             fullSuccess = false;
             PlaySound(1);
             StartCoroutine(GlowOn(mat, failEmission));

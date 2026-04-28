@@ -258,7 +258,7 @@ namespace Klaxon.GOAD
 
         public bool CheckNearPlayer(float maxDistance)
         {
-            float dist = (_transform.position - player.player.position).sqrMagnitude;
+            float dist = (_transform.position - player.playerTransform.position).sqrMagnitude;
 
             return dist <= maxDistance * maxDistance;
         }

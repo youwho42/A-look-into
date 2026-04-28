@@ -14,8 +14,7 @@ public class PlayerSilhouetteManager : MonoBehaviour
     {
         if(instance == null)
             instance = this;
-        else
-            Destroy(instance);
+        
     }
 
     public RawImage image;

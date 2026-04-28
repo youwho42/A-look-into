@@ -59,7 +59,7 @@ public class MiniGameManager : MonoBehaviour
                     if (gameObject.TryGetComponent(out TreeRustling tree))
                         tree.Affect(true);
                     yield return new WaitForSeconds(0.5f);
-                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
+                    game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
                     break;
@@ -83,7 +83,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     UIScreenManager.instance.SetMiniGameUI(true);
                     yield return new WaitForSeconds(1.5f);
-                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
+                    game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(pokable, pokable.GameDificulty);
                     break;
@@ -107,7 +107,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     UIScreenManager.instance.SetMiniGameUI(true);
                     yield return new WaitForSeconds(1.5f);
-                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
+                    game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(junkPile, junkPile.gameDificulty);
                     break;
@@ -131,7 +131,7 @@ public class MiniGameManager : MonoBehaviour
                 {
                     UIScreenManager.instance.SetMiniGameUI(true);
                     yield return new WaitForSeconds(1.5f);
-                    game.miniGame.transform.position = PlayerInformation.instance.player.position + new Vector3(0, 0, 100);
+                    game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(spadeInteractable, spadeInteractable.gameDificulty);
                     break;

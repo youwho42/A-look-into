@@ -182,8 +182,8 @@ public class LoadSelectionUI : MonoBehaviour
 
     public void DeleteSaveFile()
     {
-        
-        SavingLoading.instance.DeleteFile(fileDeletePath);
+        string mainPath = $"{Application.persistentDataPath}/{currentLoadFileName}_save.ali";
+        SavingLoading.instance.DeleteFile(mainPath);
         string versionPath = $"{Application.persistentDataPath}/{currentLoadFileName}Version_save.aliv";
         SavingLoading.instance.DeleteFile(versionPath);
         SetAvailableLoads();

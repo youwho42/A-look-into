@@ -54,15 +54,15 @@ public class PlayerRunningManager : MonoBehaviour
     {
         if (shattered || !player.playerController.isGrounded || UIScreenManager.instance.GetCurrentUI() != UIScreenType.None)
             return;
-
+        
         currentGaugeAmount += 0.05f;
         if(currentGaugeAmount >0.1f)
             ActivateUI();
         if (currentGaugeAmount >= 1)
             ShatterGlass();
-                
+        
     }
-    void Land(int lastZ)
+    public void Land(int lastZ)
     {
         
         if (shattered)
@@ -74,7 +74,7 @@ public class PlayerRunningManager : MonoBehaviour
         amount *= PlayerInformation.instance.statHandler.GetStatCurrentModifiedValue("Fall Damage");
         amount = Mathf.Clamp01(amount);
         currentGaugeAmount += amount;
-
+        AudioManager.instance.PlaySound("PlayerLand");
         
 
 

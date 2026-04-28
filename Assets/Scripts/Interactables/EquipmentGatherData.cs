@@ -20,7 +20,7 @@ public class EquipmentGatherData : EquipmentData
             return;
 
 
-        Vector3 pos = player.player.position;
+        Vector3 pos = player.playerTransform.position;
         
 
         Collider2D[] hit = Physics2D.OverlapCircleAll(pos, detectionRadius, gathererLayer);

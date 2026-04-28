@@ -59,7 +59,7 @@ namespace Klaxon.GOAD
 
             
 
-            Vector2 dirFromPlayer = transform.position - player.player.position;
+            Vector2 dirFromPlayer = transform.position - player.playerTransform.position;
             var dir = Vector2.Dot(dirFromPlayer, player.playerController.currentDirection);
             if (dir < 0.5f)
             {
@@ -68,7 +68,7 @@ namespace Klaxon.GOAD
                     ContextSpeechBubbleManager.instance.SetContextBubble(2, agent.speechBubbleTransform, LocalizationSettings.StringDatabase.GetLocalizedString($"BP Speech", "Wrong Way"), false);
                     wrongWayTextShown = true;
                 }
-                agent.walker.currentDestination = player.player.position + (Vector3)indicatorPos;
+                agent.walker.currentDestination = player.playerTransform.position + (Vector3)indicatorPos;
                 
                 agent.animator.SetBool(agent.walking_hash, true);
                 agent.walker.SetWorldDestination(agent.walker.currentDestination);
@@ -101,7 +101,7 @@ namespace Klaxon.GOAD
 
         public void SetIndicatorPosition()
         {
-            var dir = markerPosition - player.player.position;
+            var dir = markerPosition - player.playerTransform.position;
             dir = dir.normalized;
             indicatorPos = dir * 1.2f;
 

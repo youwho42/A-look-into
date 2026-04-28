@@ -105,6 +105,7 @@ public static class GameEventManager
     public static readonly GameEvent<string> onControlSchemeChangedEvent = new GameEvent<string>();
     public static readonly GameEvent onSubmitEvent = new GameEvent();
     public static readonly GameEvent onDialogueNextEvent = new GameEvent();
+    public static readonly GameEvent onDialogueEndEvent = new GameEvent();
     public static readonly GameEvent onMapClickEvent = new GameEvent();
     public static readonly GameEvent onMapClearMarkersEvent = new GameEvent();
     public static readonly GameEvent onPlayerPlacedItemEvent = new GameEvent();

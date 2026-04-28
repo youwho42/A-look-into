@@ -31,24 +31,31 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  localizedLongDescription:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Type: 5
   AnimationName: 
-  Description: To farm you need to have a functional farming area. If you put seeds
-    in the seed box those seeds will be planted by a <sprite anim="0,1,12">. When
-    the plants are fully grown another <sprite anim="0,1,12"> will harvest them and
-    put them in the seed box (but you can also harvest it and get a bit more per
-    plant). Only one type of crop can be planted in the same area at a time.
   Weight: 0
   Price: 0
   spawnWeight: 1
-  Icon: {fileID: 21300000, guid: a045b123126ea6e42a304ce0269cc6ba, type: 3}
-  ItemPrefab: {fileID: 0}
+  FuelTicks: 0
+  Icon: {fileID: 21300000, guid: 09fbd1bd0816f1a48aabb0959dd4001a, type: 3}
+  ItemPrefabVariants: []
   pickUpItem: {fileID: 0}
   EquipedItem: {fileID: 0}
   MaxStack: 0
   compendiumGuide: {fileID: 0}
   ResearchRecipes: []
   GameDificulty: 1
+  placementGumption: {fileID: 0}
+  onlyPlacedInPlayerHouse: 0
   references:
     version: 2
     RefIds: []

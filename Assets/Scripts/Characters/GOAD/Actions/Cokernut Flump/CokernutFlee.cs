@@ -104,7 +104,7 @@ namespace Klaxon.GOAD
 
         public bool SetFleeDestination(GOAD_Scheduler_CF agent)
         {
-            agent.fleeTransform = agent.fleeTransform == null ? PlayerInformation.instance.player : agent.fleeTransform;
+            agent.fleeTransform = agent.fleeTransform == null ? PlayerInformation.instance.playerTransform : agent.fleeTransform;
             var dir = transform.position - agent.fleeTransform.position;
             Vector2 offset = dir.normalized * Random.Range(3, 4);
             float deg = Random.Range(-10, 10);

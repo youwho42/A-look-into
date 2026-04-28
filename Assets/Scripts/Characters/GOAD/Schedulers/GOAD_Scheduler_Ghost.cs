@@ -266,8 +266,8 @@ namespace Klaxon.GOAD
             }
 
             
-            if (PlayerInformation.instance.player.position.x < _transform.position.x && ghoster.facingRight ||
-            PlayerInformation.instance.player.position.x > _transform.position.x && !ghoster.facingRight)
+            if (PlayerInformation.instance.playerTransform.position.x < _transform.position.x && ghoster.facingRight ||
+            PlayerInformation.instance.playerTransform.position.x > _transform.position.x && !ghoster.facingRight)
                 ghoster.Flip();
             
 

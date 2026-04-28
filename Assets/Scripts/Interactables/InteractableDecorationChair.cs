@@ -50,13 +50,13 @@ namespace Klaxon.Interactable
 
         IEnumerator PlacePlayer(Vector3 position)
         {
-            lastPos = player.player.position;
+            lastPos = player.playerTransform.position;
             float timer = 0;
             float maxTime = 0.45f;
             while (timer < maxTime)
             {
-                Vector3 pos = Vector3.Lerp(player.player.position, position, timer / maxTime);
-                player.player.position = pos;
+                Vector3 pos = Vector3.Lerp(player.playerTransform.position, position, timer / maxTime);
+                player.playerTransform.position = pos;
                 timer += Time.deltaTime;
                 yield return null;
             }

@@ -43,6 +43,7 @@ namespace Klaxon.GOAD
                 //agent.walker.currentDestination = agent.nodePath[agent.currentPathIndex].transform.position;
             }
             agent.animator.SetBool(agent.isSitting_hash, true);
+            agent.interactable.canInteract = false;
         }
 
         public override void PerformAction(GOAD_Scheduler_NPC agent)
@@ -75,6 +76,7 @@ namespace Klaxon.GOAD
         {
             base.EndAction(agent);
             CancelInvoke("CheckTables");
+            agent.interactable.canInteract = true;
         }
         void CheckTables()
         {
