@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(TreeGeneration))]
 public class TreeGenerationEditor : Editor
@@ -25,6 +26,9 @@ public class TreeGenerationEditor : Editor
             GenerateTreeObjects();
 
             MarkSceneAsDirty();
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabStage != null)
+                EditorSceneManager.MarkSceneDirty(prefabStage.scene);
             
         }
         
@@ -32,9 +36,9 @@ public class TreeGenerationEditor : Editor
 
     private void MarkSceneAsDirty()
     {
-        UnityEngine.SceneManagement.Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+        UnityEngine.SceneManagement.Scene activeScene = EditorSceneManager.GetActiveScene();
 
-        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(activeScene);
+        EditorSceneManager.MarkSceneDirty(activeScene);
     }
 
     void GenerateTreeObjects()

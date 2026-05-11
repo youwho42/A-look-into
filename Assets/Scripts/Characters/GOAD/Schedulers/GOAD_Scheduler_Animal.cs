@@ -434,12 +434,21 @@ namespace Klaxon.GOAD
                 waterdisp = flier.enabled && flier.isOverWater ? 3 : 0; 
             
             closestSpots.Clear();
-            var spots = Physics2D.OverlapCircleAll(_transform.position, maxHomeDistance, displacementSpotLayer, _transform.position.z + waterdisp, _transform.position.z + waterdisp);
-            foreach (var spot in spots)
+            if(spotType == SpotType.Flower)
             {
-                var allDisplacementSpots = spot.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == spotType).ToList();
-                closestSpots.AddRange(allDisplacementSpots);
+                closestSpots = FlowerManager.instance.GetFlowers(_transform.position, maxHomeDistance * maxHomeDistance);
+               
             }
+            else
+            {
+                var spots = Physics2D.OverlapCircleAll(_transform.position, maxHomeDistance, displacementSpotLayer, _transform.position.z + waterdisp, _transform.position.z + waterdisp);
+                foreach (var spot in spots)
+                {
+                    var allDisplacementSpots = spot.GetComponentsInChildren<DrawZasYDisplacement>().Where(s => s.spotType == spotType).ToList();
+                    closestSpots.AddRange(allDisplacementSpots);
+                }
+            }
+                
             float closestDistanceSqr = Mathf.Infinity;
             Vector2 currentPosition = _transform.position;
             DrawZasYDisplacement bestTarget = null;
@@ -454,14 +463,15 @@ namespace Klaxon.GOAD
                 if (houseHit != null)
                     continue;
 
+                var d = NumberFunctions.GetDistanceV2(currentPosition, item.transform.position);
                 // Calculate squared distance to avoid sqrt overhead
-                float distSqr = (currentPosition - (Vector2)item.transform.position).sqrMagnitude;
+                //float distSqr = (currentPosition - (Vector2)item.transform.position).sqrMagnitude;
 
                 // Skip if it's too close to the home distance or not the closest
-                if (distSqr < minHomeDistance * minHomeDistance || distSqr >= closestDistanceSqr)
+                if (d < minHomeDistance || d >= closestDistanceSqr)
                     continue;
 
-                closestDistanceSqr = distSqr;
+                closestDistanceSqr = d;
                 bestTarget = item;
             }
 
