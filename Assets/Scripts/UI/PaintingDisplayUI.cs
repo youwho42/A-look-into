@@ -11,6 +11,7 @@ public class PaintingDisplayUI : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+        
     }
 
     public TextMeshProUGUI paintingTitle;
@@ -18,6 +19,8 @@ public class PaintingDisplayUI : MonoBehaviour
     public Image paintingBG;
     public List<Image> paintingLayers = new List<Image>();
     public Image finalImage;
+    public Image paintingFrame;
+    public Image paintingFrameShadow;
     RestorePainting currentPainting;
 
     UIScreen screen;
@@ -28,6 +31,7 @@ public class PaintingDisplayUI : MonoBehaviour
         screen.SetScreenType(UIScreenType.PaintingUI);
 
         gameObject.SetActive(false);
+        
     }
     private void OnDisable()
     {
@@ -55,9 +59,12 @@ public class PaintingDisplayUI : MonoBehaviour
 
         bool isFinished = currentPainting.GetIsFinished();
         paintingInfo.text = isFinished ? currentPainting.painting.localizedDescription.GetLocalizedString() : "...";
+
         
         paintingBG.sprite = currentPainting.painting.paintingBGSprite;
-        
+        paintingFrame.sprite = currentPainting.painting.paintingFrame;
+        paintingFrameShadow.sprite = currentPainting.painting.paintingFrame;
+
         for (int i = 0; i < currentPainting.ingredients.Count; i++)
         {
 
@@ -66,6 +73,7 @@ public class PaintingDisplayUI : MonoBehaviour
                 int index = currentPainting.GetPaintingLayer(currentPainting.ingredients[i].item);
                 if(index != -1)
                 {
+                    
                     paintingLayers[i].sprite = currentPainting.painting.paintingLayers[index].LayerSprite;
                     paintingLayers[i].gameObject.SetActive(true);
                 }
@@ -74,8 +82,12 @@ public class PaintingDisplayUI : MonoBehaviour
         }
         if (isFinished)
         {
-            finalImage.sprite = currentPainting.painting.finalLayer;
-            finalImage.gameObject.SetActive(true); 
+            if(currentPainting.painting.finalLayer != null)
+            {
+                finalImage.sprite = currentPainting.painting.finalLayer;
+                finalImage.gameObject.SetActive(true);
+            }
+            
         }
             
     }

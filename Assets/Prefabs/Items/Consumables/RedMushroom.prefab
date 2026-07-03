@@ -102,11 +102,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainImage: {fileID: 2435803614370553690}
   mainShadow: {fileID: 0}
+  nightShadow: {fileID: 0}
   itemSpritesList:
   - item: {fileID: 21300000, guid: c04e7edbd6b353a4e8eaeeba409a7c42, type: 3}
   - item: {fileID: 21300000, guid: 9b0e9db3d13a528489fcc0581c433f9a, type: 3}
   - item: {fileID: 21300000, guid: f6376a0f83ace5849babd564bc412bf0, type: 3}
-  setOnVisible: 1
+  flippable: 1
 --- !u!1 &2997489056520279129
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,11 +244,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 2654219618517428473}
   canPlaceOnOther: 1
   visualItem: {fileID: 8723274420625485492}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   pickupQuantity: 1
   references:
     version: 2
@@ -265,6 +268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0}
+  replaceRadius: 0.01
 --- !u!114 &-8485895923607002208
 MonoBehaviour:
   m_ObjectHideFlags: 0

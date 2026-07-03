@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightToAffect: {fileID: 8795898392129181825}
+  startIntensity: 0
   canFlicker: 1
   flickerAmount: 0.1
   waitTimeAmount: 0.2
@@ -357,11 +358,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 0}
-  canPlaceOnOther: 0
+  canPlaceOnOther: 1
   visualItem: {fileID: 8795898393345373517}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   fireAnimation: {fileID: 2721332395262166658}
   lightFlicker: {fileID: 8795898392129181825}
   fireFlicker: {fileID: 8795898393083815943}

@@ -21,7 +21,8 @@ public class BubblePlant : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && collision.transform.position.z == transform.position.z)
+        if(collision.CompareTag("Player") && collision.transform.position.z == transform.position.z ||
+            collision.CompareTag("Chicken") && collision.transform.position.z == transform.position.z)
         {
             sway.SwaySoft();
             bubbles.bubblesActive = true;

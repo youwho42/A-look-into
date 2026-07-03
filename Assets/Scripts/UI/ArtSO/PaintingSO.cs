@@ -21,4 +21,5 @@ public class PaintingSO : ScriptableObject
     public Sprite paintingBGSprite;
     public List<PaintingLayer> paintingLayers = new List<PaintingLayer>();
     public Sprite finalLayer;
+    public Sprite paintingFrame;
 }

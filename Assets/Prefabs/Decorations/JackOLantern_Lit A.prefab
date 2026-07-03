@@ -279,6 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0}
+  replaceRadius: 0.07
 --- !u!114 &269489782608738649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +361,7 @@ MonoBehaviour:
   visualItem: {fileID: 1578427892858390482}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   references:
     version: 2
     RefIds: []

@@ -39,15 +39,16 @@ public class DrawZasYDisplacement : MonoBehaviour
     public bool showArea;
     [ConditionalHide("showArea", true)]
     public float size;
+    public DecorationType decorationType;
 
     private IEnumerator Start()
     {
         
         displacedPosition = new Vector3(0, spriteDisplacementY * positionZ, positionZ);
-        yield return new WaitForSeconds(0.5f);
-        var fm = FlowerManager.instance;
-        if (spotType == SpotType.Flower)
-            fm.RegisterFlower(this);
+        yield return new WaitForSeconds(1f);
+        var decoManager = DecorationManager.instance;
+        
+        decoManager.RegisterDecoration(decorationType, this);
 
     }
 

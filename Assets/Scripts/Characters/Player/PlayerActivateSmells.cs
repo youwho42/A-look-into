@@ -169,12 +169,14 @@ public class PlayerActivateSmells : MonoBehaviour
         var wind = WindManager.instance;
         var player = PlayerInformation.instance;
         List<SmellGenerator> smells = new List<SmellGenerator>();
-        var hits = Physics2D.OverlapCircleAll(player.playerTransform.position, 0.3336f);
-        if(hits.Length > 0)
+        var flowers = DecorationManager.instance.GetDecorations(DecorationType.Flower, player.playerTransform.position, 0.3336f);
+        
+        //var hits = Physics2D.OverlapCircleAll(player.playerTransform.position, 0.3336f);
+        if(flowers.Count > 0)
         {
-            foreach (var item in hits)
+            foreach (var item in flowers)
             {
-                if(item.TryGetComponent(out SmellGenerator smell))
+                if(item.transform.parent.TryGetComponent(out SmellGenerator smell))
                 {
                     if (smell.transform.position.z != player.playerTransform.position.z)
                         continue;

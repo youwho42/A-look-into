@@ -710,11 +710,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 4033634133731407011}
   canPlaceOnOther: 0
   visualItem: {fileID: 211382645291712649}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   recipeDatabase: {fileID: 11400000, guid: 926a5aa2b30690d40952bb0193d151e6, type: 2}
   selfInventory: {fileID: 7983089396344206566}
   references:
@@ -750,6 +752,7 @@ MonoBehaviour:
   Name: Loom
   MaxStacks: 5
   PlayerCanAddToInventory: 0
+  firstItemAquired: 0
 --- !u!114 &2284212566851634536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,6 +794,8 @@ MonoBehaviour:
   animator: {fileID: 7513994827536451824}
   inventory: {fileID: 7983089396344206566}
   itemSprite: {fileID: 5234167043976932466}
+  craftingItemSprite: {fileID: 0}
+  ColoredSprite: {fileID: 0}
   source: {fileID: 5768976825326424872}
 --- !u!82 &5768976825326424872
 AudioSource:
@@ -803,7 +808,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -107292098917087075, guid: aeec6efab8ac87148bd4f2beecab3092,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 7717b8c3cbf534cc59a3d53c9046a71f, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 7717b8c3cbf534cc59a3d53c9046a71f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.15
@@ -1279,6 +1284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0}
+  replaceRadius: 0.15
 --- !u!4 &9130723163221643684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

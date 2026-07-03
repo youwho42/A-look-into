@@ -47,9 +47,10 @@ namespace Klaxon.Interactable
 
         private void OpenPainting()
         {
+            
             if (UIScreenManager.instance.DisplayIngameUI(UIScreenType.PaintingUI, true))
                 PaintingDisplayUI.instance.ShowUI(painting);
-                
+            UIScreenManager.instance.DisplayPlayerHUD(false);
         }
         private void OpenRestorePainting()
         {

@@ -88,11 +88,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 1
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 7753344069441805333}
   canPlaceOnOther: 1
   visualItem: {fileID: 3081765978603034298}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   isOpen: 0
   isSquirrelBox: 0
   isLostAndFound: 0
@@ -117,6 +119,7 @@ MonoBehaviour:
   Name: Chest
   MaxStacks: 24
   PlayerCanAddToInventory: 1
+  firstItemAquired: 0
 --- !u!60 &169350935358001118
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -505,6 +508,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0}
+  replaceRadius: 0.1
 --- !u!4 &2933597262524870581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8820446436728648428, guid: 8c513a78c5f31da49bb32729516a1e4f,

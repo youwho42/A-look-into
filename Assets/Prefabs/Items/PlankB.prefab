@@ -137,11 +137,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: -3408826983127947495}
   canPlaceOnOther: 1
   visualItem: {fileID: 7851865409128479045}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   pickupQuantity: 1
   references:
     version: 2
@@ -159,6 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0.01}
+  replaceRadius: 0.09
 --- !u!114 &269489782608738649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,8 +319,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainImage: {fileID: 6872435407156252832}
   mainShadow: {fileID: 0}
+  nightShadow: {fileID: 0}
   itemSpritesList:
   - item: {fileID: 21300000, guid: 67fdbd010a1ad6f4d92cfcd90ad59a32, type: 3}
   - item: {fileID: 21300000, guid: 26a9da4194f126843834b1c15ad14e3c, type: 3}
-  setOnVisible: 0
   flippable: 0

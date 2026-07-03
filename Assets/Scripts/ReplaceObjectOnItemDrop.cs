@@ -1,51 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ReplaceObjectOnItemDrop : MonoBehaviour
 {
    
     public List<GameObject> grassObjects = new List<GameObject>();
-    Collider2D coll;
+    public Vector2 replaceOffset;
+    public float replaceRadius = 1f;
+    DecorationManager decorationManager;
+
     private void OnEnable()
     {
-        coll = GetComponent<Collider2D>();
+
+        decorationManager = DecorationManager.instance;
+
+        decorationManager.RegisterDecoration(this);
+
         CheckForObjects();
     }
     private void OnDisable()
     {
+        
         ShowObjects(true);
+        decorationManager.UnRegisterDecoration(this);
+        
+    }
+    private void OnDestroy()
+    {
+        var all = decorationManager.GetReplaceObjects(transform.position + (Vector3)replaceOffset, replaceRadius);
+        foreach (var each in all)
+        {
+            each.CheckForObjects();
+        }
     }
     public void CheckForObjects()
     {
+        var grass = decorationManager.GetDecorations(DecorationType.Grass, transform.position + (Vector3)replaceOffset, replaceRadius);
+        var flowers = decorationManager.GetDecorations(DecorationType.Flower, transform.position + (Vector3)replaceOffset, replaceRadius);
 
-        ContactFilter2D filter = new ContactFilter2D().NoFilter();
-        filter.useDepth = true;
-        filter.minDepth = coll.gameObject.transform.position.z;
-        filter.maxDepth = coll.gameObject.transform.position.z;
-        List<Collider2D> results = new List<Collider2D>();
-        coll.Overlap(filter, results);
+        ShowObjects(true);
 
-        
-        if (results.Count > 0)
-        {
-            
-            foreach (var item in results)
-            {
-                if (!item.CompareTag("Grass"))
-                    continue;
+        var combined = new List<GameObject>(grass.Count + flowers.Count);
+        combined.AddRange(grass.Select(item => item.transform.parent.gameObject));
+        combined.AddRange(flowers.Select(item => item.transform.parent.gameObject));
 
-                grassObjects.Add(item.gameObject);
-            }
-            ShowObjects(false);
-        }
+        grassObjects.AddRange(combined);
 
+        ShowObjects(false);
     }
 
-    //public void CheckObjectsDelay()
-    //{
-    //    Invoke("CheckForObjects", 0.1f);
-    //}
+    
     public void ShowObjects(bool showState)
     {
         
@@ -57,10 +63,12 @@ public class ReplaceObjectOnItemDrop : MonoBehaviour
         
         if(showState)
             grassObjects.Clear();
-        //if(showState)
-        //    grassObjects.Clear();
+        
     }
 
-    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position + (Vector3)replaceOffset, replaceRadius);
+    }
 
 }

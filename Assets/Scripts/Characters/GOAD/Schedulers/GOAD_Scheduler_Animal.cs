@@ -436,7 +436,7 @@ namespace Klaxon.GOAD
             closestSpots.Clear();
             if(spotType == SpotType.Flower)
             {
-                closestSpots = FlowerManager.instance.GetFlowers(_transform.position, maxHomeDistance * maxHomeDistance);
+                closestSpots = DecorationManager.instance.GetDecorations(DecorationType.Flower, _transform.position, maxHomeDistance * maxHomeDistance);
                
             }
             else

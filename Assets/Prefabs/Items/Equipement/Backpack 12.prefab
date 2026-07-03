@@ -136,11 +136,13 @@ MonoBehaviour:
   agencyCost: 0
   canInteract: 1
   hasLongInteract: 0
+  onlyLongInteract: 0
   replaceObjectOnDrop: {fileID: 5321671764196772521}
   canPlaceOnOther: 1
   visualItem: {fileID: 2192368721747909212}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   pickupQuantity: 1
   references:
     version: 2
@@ -158,6 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0}
+  replaceRadius: 0.05
 --- !u!114 &9016266547453700036
 MonoBehaviour:
   m_ObjectHideFlags: 0

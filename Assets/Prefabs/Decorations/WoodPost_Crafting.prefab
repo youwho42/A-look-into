@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassObjects: []
+  replaceOffset: {x: 0, y: 0}
+  replaceRadius: 0.02
 --- !u!60 &4643376956525275895
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -321,6 +323,7 @@ MonoBehaviour:
   visualItem: {fileID: 8331251571769606503}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   references:
     version: 2
     RefIds: []
@@ -483,9 +486,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowTransform: {fileID: 783419252521439101}
   shadowSprite: {fileID: 3559104882461832509}
+  nightShadowSprite: {fileID: 0}
   subShadowSprites: []
-  shadowCaster: {fileID: 6692799861207693586}
+  subNightShadowSprites: []
+  isVisible: 0
   shadowUpdateTick: 3
+  nightShadows: {fileID: 0}
 --- !u!1001 &7390913611999228725
 PrefabInstance:
   m_ObjectHideFlags: 0
