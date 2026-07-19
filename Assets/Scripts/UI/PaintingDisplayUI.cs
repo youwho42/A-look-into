@@ -21,6 +21,8 @@ public class PaintingDisplayUI : MonoBehaviour
     public Image finalImage;
     public Image paintingFrame;
     public Image paintingFrameShadow;
+
+    public RectTransform infoTransform;
     RestorePainting currentPainting;
 
     UIScreen screen;
@@ -64,7 +66,7 @@ public class PaintingDisplayUI : MonoBehaviour
         paintingBG.sprite = currentPainting.painting.paintingBGSprite;
         paintingFrame.sprite = currentPainting.painting.paintingFrame;
         paintingFrameShadow.sprite = currentPainting.painting.paintingFrame;
-
+        infoTransform.anchoredPosition = currentPainting.painting.infoPosition;
         for (int i = 0; i < currentPainting.ingredients.Count; i++)
         {
 
@@ -89,7 +91,7 @@ public class PaintingDisplayUI : MonoBehaviour
             }
             
         }
-            
+        UIScreenManager.instance.DisplayPlayerHUD(false);
     }
 
     public void ShowUI(RestorePainting painting)

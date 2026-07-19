@@ -22,4 +22,5 @@ public class PaintingSO : ScriptableObject
     public List<PaintingLayer> paintingLayers = new List<PaintingLayer>();
     public Sprite finalLayer;
     public Sprite paintingFrame;
+    public Vector2 infoPosition;
 }
