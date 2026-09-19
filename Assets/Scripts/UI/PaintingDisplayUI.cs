@@ -62,11 +62,9 @@ public class PaintingDisplayUI : MonoBehaviour
         bool isFinished = currentPainting.GetIsFinished();
         paintingInfo.text = isFinished ? currentPainting.painting.localizedDescription.GetLocalizedString() : "...";
 
-        
-        paintingBG.sprite = currentPainting.painting.paintingBGSprite;
-        paintingFrame.sprite = currentPainting.painting.paintingFrame;
-        paintingFrameShadow.sprite = currentPainting.painting.paintingFrame;
-        infoTransform.anchoredPosition = currentPainting.painting.infoPosition;
+        bool isEmpty = currentPainting.painting.paintingBGSprite == null;
+
+
         for (int i = 0; i < currentPainting.ingredients.Count; i++)
         {
 
@@ -91,6 +89,16 @@ public class PaintingDisplayUI : MonoBehaviour
             }
             
         }
+
+        paintingBG.sprite = isEmpty ? null : currentPainting.painting.paintingBGSprite;
+        paintingBG.color = isEmpty ? new Color(1, 1, 1, 0) : Color.white;
+        paintingFrame.sprite = isEmpty && !isFinished ? null : currentPainting.painting.paintingFrame;
+        paintingFrame.color = isEmpty && !isFinished ? new Color(1, 1, 1, 0) : Color.white;
+        paintingFrameShadow.sprite = isEmpty && !isFinished ? null : currentPainting.painting.paintingFrame;
+        paintingFrameShadow.color = isEmpty && !isFinished ? new Color(1, 1, 1, 0) : new Color(0, 0, 0, 0.5f);
+        infoTransform.anchoredPosition = currentPainting.painting.infoPosition;
+
+
         UIScreenManager.instance.DisplayPlayerHUD(false);
     }
 

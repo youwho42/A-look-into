@@ -72,7 +72,8 @@ namespace Klaxon.GOAD
 
             
 
-
+            // Is landing on ground. When the Y distance is small enough
+            // they just land wherever they are at that moment.
             if (agent.currentDisplacementSpot.positionZ == 0)
             {
                 if (agent.flier.itemObject.localPosition.y <= 0.03f)
@@ -86,7 +87,8 @@ namespace Klaxon.GOAD
             }
             else
             {
-                
+                //Is not landing on ground.
+                //The Y distance AND general distance from the landing spot needs to be at a reasonable distance.
                 if (Mathf.Abs(agent.flier.itemObject.localPosition.y - agent.currentDisplacementSpot.displacedPosition.y) <= 0.05f && NumberFunctions.GetDistanceV2(agent.transform.position, agent.currentDisplacementSpot.transform.position) <= 0.0025f)
                 {
                     agent.flier.itemObject.localPosition = agent.currentDisplacementSpot.displacedPosition;

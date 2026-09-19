@@ -177,6 +177,8 @@ public class TheFog : MonoBehaviour, IWeatherObject
 
     private void OnDestroy()
     {
+        movementUpdateJobHandle.Complete();
+        displacementUpdateJobHandle.Complete();
         movementAccessArray.Dispose();
         displacementAccessArray.Dispose();
         fogMovements.Dispose();

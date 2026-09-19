@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: 95d7b5ab93a4e494084917d8daa1aae1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: 95d7b5ab93a4e494084917d8daa1aae1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 8886255186444013669}
   - component: {fileID: -5588685915569633627}
   - component: {fileID: 5928343956375143761}
+  - component: {fileID: 1617815917419180986}
   m_Layer: 13
   m_Name: ThimbleberryBush
   m_TagString: Untagged
@@ -321,6 +322,7 @@ MonoBehaviour:
   nightShadowSprite: {fileID: 8810088394706594922}
   subShadowSprites: []
   subNightShadowSprites: []
+  isVisible: 0
   shadowUpdateTick: 5
   nightShadows: {fileID: 4874060870884702425}
 --- !u!114 &7905477252400666841
@@ -445,6 +447,7 @@ MonoBehaviour:
   visualItem: {fileID: 7897041632071972314}
   instruction: {fileID: 0}
   playerGuide: {fileID: 0}
+  isBeingDragged: 0
   pickupQuantity: 2
   references:
     version: 2
@@ -461,6 +464,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19123f15967be4e02a06000a8fd371d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1617815917419180986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897041632071972312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dcc447ee7d22b4f9520ba74d88f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySprites:
+  - {fileID: 7897041632071972313}
+  - {fileID: 3482868706548831019}
+  - {fileID: 8810088394706594922}
+  isVisible: 0
+  windUpdateTick: 2
 --- !u!1 &8711867141888513742
 GameObject:
   m_ObjectHideFlags: 0

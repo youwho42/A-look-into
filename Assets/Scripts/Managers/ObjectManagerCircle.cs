@@ -29,7 +29,7 @@ public class ObjectManagerCircle : MonoBehaviour
     public Actions action;
     //public Vector2 lastRandomPosition;
     List<Vector2> lastRandomPositions = new List<Vector2>();
-
+    
 
     public int GetTileZ(Vector3 point)
     {

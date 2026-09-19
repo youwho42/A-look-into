@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: 95d7b5ab93a4e494084917d8daa1aae1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: 95d7b5ab93a4e494084917d8daa1aae1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 3313445778719661174}
   - component: {fileID: 7905477252400666841}
   - component: {fileID: 5101609357701088189}
+  - component: {fileID: 8819031818004286818}
   m_Layer: 26
   m_Name: Cattail
   m_TagString: Untagged
@@ -348,6 +349,7 @@ MonoBehaviour:
   nightShadowSprite: {fileID: 3961778821166529539}
   subShadowSprites: []
   subNightShadowSprites: []
+  isVisible: 0
   shadowUpdateTick: 4
   nightShadows: {fileID: 2484554051825758931}
 --- !u!114 &7905477252400666841
@@ -411,6 +413,24 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.01
+--- !u!114 &8819031818004286818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897041632071972312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dcc447ee7d22b4f9520ba74d88f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySprites:
+  - {fileID: 7897041632071972313}
+  - {fileID: 3482868706548831019}
+  - {fileID: 3961778821166529539}
+  isVisible: 0
+  windUpdateTick: 2
 --- !u!1001 &8064623377329944392
 PrefabInstance:
   m_ObjectHideFlags: 0

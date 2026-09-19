@@ -62,6 +62,11 @@ public class WindManager : MonoBehaviour
     {
         currentZ += 0.01f;
     }
+    public float GetWindMagnitudeNormalized(Vector3 position)
+    {
+        float a = GetWindMagnitude(position);
+        return NumberFunctions.RemapNumber(a, 0.0f, maxMagnitude + 1.0f, 0.0f, 1.0f);
+    }
 
     public float GetWindMagnitude(Vector3 position)
     {

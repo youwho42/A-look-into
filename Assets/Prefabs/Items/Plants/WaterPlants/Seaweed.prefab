@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 1075328302407430875}
   - component: {fileID: 8567897086551510502}
   - component: {fileID: 1381719511738407000}
+  - component: {fileID: 5805901927908108391}
   m_Layer: 0
   m_Name: Seaweed
   m_TagString: Untagged
@@ -173,6 +174,7 @@ MonoBehaviour:
   nightShadowSprite: {fileID: 75678754502947094}
   subShadowSprites: []
   subNightShadowSprites: []
+  isVisible: 0
   shadowUpdateTick: 1
   nightShadows: {fileID: 5112573300362927420}
 --- !u!114 &8567897086551510502
@@ -211,6 +213,24 @@ MonoBehaviour:
   - item: {fileID: -3171277013206498227, guid: 39acb5dc1904f0942b2cd576fb7a42c9, type: 3}
   - item: {fileID: -7445254095634884456, guid: 39acb5dc1904f0942b2cd576fb7a42c9, type: 3}
   flippable: 1
+--- !u!114 &5805901927908108391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165327905065305517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dcc447ee7d22b4f9520ba74d88f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySprites:
+  - {fileID: 5310928509134364705}
+  - {fileID: 4153426000354718757}
+  - {fileID: 75678754502947094}
+  isVisible: 0
+  windUpdateTick: 2
 --- !u!1 &5724489882338813845
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +286,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8acd08de955a33d4dbf42ce74a358706, type: 2}
+  - {fileID: 2100000, guid: 9dcbf15008983d34d9cf861f99b67cee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,7 +373,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8acd08de955a33d4dbf42ce74a358706, type: 2}
+  - {fileID: 2100000, guid: 9dcbf15008983d34d9cf861f99b67cee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

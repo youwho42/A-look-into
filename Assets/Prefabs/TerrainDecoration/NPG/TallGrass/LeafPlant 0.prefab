@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: 855bf3e62ef689c4e8be169b94d0f359, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -174,7 +174,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: 855bf3e62ef689c4e8be169b94d0f359, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 7897041632071972314}
   - component: {fileID: 7897041632071972313}
   - component: {fileID: 3313445778719661174}
+  - component: {fileID: 380928562417862177}
   m_Layer: 17
   m_Name: LeafPlant 0
   m_TagString: Grass
@@ -301,7 +302,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bb3dbc7fb82040179ddb9f2dede596b, type: 2}
+  - {fileID: 2100000, guid: 328f4ccfcc77e1b48b0786178427a583, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,6 +354,24 @@ MonoBehaviour:
   isVisible: 0
   shadowUpdateTick: 5
   nightShadows: {fileID: 5874098141729328542}
+--- !u!114 &380928562417862177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897041632071972312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dcc447ee7d22b4f9520ba74d88f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySprites:
+  - {fileID: 7897041632071972313}
+  - {fileID: 3482868706548831019}
+  - {fileID: 3705561033252174867}
+  isVisible: 0
+  windUpdateTick: 2
 --- !u!1001 &807384474699703718
 PrefabInstance:
   m_ObjectHideFlags: 0

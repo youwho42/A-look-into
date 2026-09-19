@@ -83,7 +83,7 @@ public class TreeRustling : MonoBehaviour, IWindEffect
         {
             var pos = Random.insideUnitCircle * dropRadius;
             var t = TreeDroppingManager.instance.GetDropping();
-            t.SetDropping(transform.position + (Vector3)pos, treeCollision.positionZ, treeDropppingSprite);
+            t.SetDropping(treeCollision.gameObject.transform.position + (Vector3)pos, treeCollision.positionZ, treeDropppingSprite);
         }
 
     }

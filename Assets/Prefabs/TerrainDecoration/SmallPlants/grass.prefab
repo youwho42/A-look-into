@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3459197263679992928}
   - component: {fileID: 3459197263679992931}
+  - component: {fileID: 6493662717717103685}
   m_Layer: 0
   m_Name: grass
   m_TagString: Grass
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bb3dbc7fb82040179ddb9f2dede596b, type: 2}
+  - {fileID: 2100000, guid: 82c99d1f1418afe41a70f691135e4566, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,6 +90,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &6493662717717103685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3459197263679992930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dcc447ee7d22b4f9520ba74d88f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySprites:
+  - {fileID: 3459197263679992931}
+  isVisible: 0
+  windUpdateTick: 2
 --- !u!1001 &7157025340384205959
 PrefabInstance:
   m_ObjectHideFlags: 0

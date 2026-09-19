@@ -87,7 +87,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: f8c5d7ac3e2e0b3439625f98e1ca4189, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 4945412199821993355}
   - component: {fileID: 3267754517960481149}
   - component: {fileID: 7274383686211685229}
+  - component: {fileID: 6399359129298530920}
   m_Layer: 24
   m_Name: BaseFlower_NPG
   m_TagString: Grass
@@ -201,6 +202,24 @@ MonoBehaviour:
   useWorldSpace: 0
   objectHolderName: 
   maxPoolSize: 0
+--- !u!114 &6399359129298530920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518729531771902423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dcc447ee7d22b4f9520ba74d88f987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySprites:
+  - {fileID: 5518729533509488751}
+  - {fileID: 5518729532945011619}
+  - {fileID: 65161980525307210}
+  isVisible: 0
+  windUpdateTick: 2
 --- !u!1 &5518729532945011621
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +275,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03977b7e30ee08f4caa0f8835160c6da, type: 2}
+  - {fileID: 2100000, guid: f8c5d7ac3e2e0b3439625f98e1ca4189, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -379,7 +398,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5bb3dbc7fb82040179ddb9f2dede596b, type: 2}
+  - {fileID: 2100000, guid: 326b621d11e005441886a9ea91020cf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
