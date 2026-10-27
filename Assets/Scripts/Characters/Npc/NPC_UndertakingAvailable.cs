@@ -19,11 +19,11 @@ public class NPC_UndertakingAvailable : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameEventManager.onUndertakingsUpdateEvent.AddListener(SetUndertakingIcon);
+        GameEventManager.onWorldStateUpdateEvent.AddListener(SetUndertakingIcon);
     }
     private void OnDisable()
     {
-        GameEventManager.onUndertakingsUpdateEvent.RemoveListener(SetUndertakingIcon);
+        GameEventManager.onWorldStateUpdateEvent.RemoveListener(SetUndertakingIcon);
     }
 
 

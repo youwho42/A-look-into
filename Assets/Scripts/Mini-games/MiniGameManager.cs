@@ -62,6 +62,7 @@ public class MiniGameManager : MonoBehaviour
                     game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(item, gameObject, item.GameDificulty);
+                    PlayerSilhouetteManager.instance.ToggleSilhouetteOff();
                     break;
                 }
             }
@@ -86,6 +87,7 @@ public class MiniGameManager : MonoBehaviour
                     game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(pokable, pokable.GameDificulty);
+                    PlayerSilhouetteManager.instance.ToggleSilhouetteOff();
                     break;
                 }
             }
@@ -110,6 +112,7 @@ public class MiniGameManager : MonoBehaviour
                     game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(junkPile, junkPile.gameDificulty);
+                    PlayerSilhouetteManager.instance.ToggleSilhouetteOff();
                     break;
                 }
             }
@@ -134,6 +137,7 @@ public class MiniGameManager : MonoBehaviour
                     game.miniGame.transform.position = PlayerInformation.instance.playerTransform.position + new Vector3(0, 0, 100);
                     game.miniGame.SetActive(true);
                     game.miniGame.GetComponentInChildren<IMinigame>().SetupMiniGame(spadeInteractable, spadeInteractable.gameDificulty);
+                    PlayerSilhouetteManager.instance.ToggleSilhouetteOff();
                     break;
                 }
             }
@@ -154,6 +158,7 @@ public class MiniGameManager : MonoBehaviour
                 game.miniGame.SetActive(false);
             }
         }
+        PlayerSilhouetteManager.instance.ToggleSilhouetteOn();
         GameEventManager.onMinigameEndEvent.Invoke();
         UIScreenManager.instance.SetMiniGameUI(false);
         gameStarted = false;

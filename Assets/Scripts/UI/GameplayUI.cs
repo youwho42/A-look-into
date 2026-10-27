@@ -72,6 +72,10 @@ public class GameplayUI : MonoBehaviour
     {
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
         languageSelected = index;
+        SetAutoZoomText();
+        SetHUDText();
+        SetRIBData();
+        SetAutoSaveData();
     }
 
 
@@ -121,13 +125,13 @@ public class GameplayUI : MonoBehaviour
     public void ToggleAutoSave()
     {
         AutoSaveBinary = (int)AutoSaveDisplay.value;
-        SetHUDText();
+        SetAutoSaveData();
     }
     public void SetAutoSave(int autoSave)
     {
         AutoSaveBinary = autoSave;
         AutoSaveDisplay.value = autoSave;
-        SetHUDText();
+        SetAutoSaveData();
     }
 
     void SetAutoZoomText()

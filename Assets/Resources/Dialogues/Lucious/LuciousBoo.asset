@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: LuciousBoo
   m_EditorClassIdentifier: 
   ConversationName: Lucious Boo
-  ConditionsNeeded: []
+  ConditionsNeeded:
+  - {fileID: 11400000, guid: f124fecc9c394b2439caa1d78c8e61db, type: 2}
   isTiedToUndertaking: 0
   undertaking: {fileID: 0}
   undertakingState: 0
@@ -42,7 +43,7 @@ MonoBehaviour:
     GivesItem: 0
     Item: {fileID: 0}
     Amount: 0
-  - NodeIndex: 0
+  - NodeIndex: 1
     LocalizedPhrase:
       m_TableReference:
         m_TableCollectionName: GUID:9ee49ba3daad2914bb94ae20ca5831b3
@@ -65,7 +66,7 @@ MonoBehaviour:
     GivesItem: 0
     Item: {fileID: 0}
     Amount: 0
-  - NodeIndex: 0
+  - NodeIndex: 2
     LocalizedPhrase:
       m_TableReference:
         m_TableCollectionName: GUID:9ee49ba3daad2914bb94ae20ca5831b3
@@ -88,7 +89,7 @@ MonoBehaviour:
     GivesItem: 0
     Item: {fileID: 0}
     Amount: 0
-  - NodeIndex: 0
+  - NodeIndex: 3
     LocalizedPhrase:
       m_TableReference:
         m_TableCollectionName: GUID:9ee49ba3daad2914bb94ae20ca5831b3

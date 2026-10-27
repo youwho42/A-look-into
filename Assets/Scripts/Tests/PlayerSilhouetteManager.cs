@@ -19,6 +19,25 @@ public class PlayerSilhouetteManager : MonoBehaviour
 
     public RawImage image;
     public float maxAlpha = 0.45f;
+    float lastAlpha;
+    
+
+    bool SilhouetteIsActive()
+    {
+        return image.color.a > 0.0f;
+    }
+
+    public void ToggleSilhouetteOff()
+    {
+        if (SilhouetteIsActive())
+            image.color = new Color(1, 1, 1, 0);
+    }
+
+    public void ToggleSilhouetteOn()
+    {
+        if(lastAlpha > 0)
+            image.color = new Color(1, 1, 1, lastAlpha);
+    }
 
     public void SetColor(float alpha)
     {
@@ -47,6 +66,7 @@ public class PlayerSilhouetteManager : MonoBehaviour
         
         float maxTime = time;
         float currentAlpha = image.color.a;
+        lastAlpha = alpha;
         time = 0;
         while (time <= maxTime)
         {

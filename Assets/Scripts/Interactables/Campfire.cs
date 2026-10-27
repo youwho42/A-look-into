@@ -141,6 +141,8 @@ namespace Klaxon.Interactable
         }
         public void BPSetFire()
         {
+            if (!canInteract)
+                return;
             bool isDay = RealTimeDayNightCycle.instance.dayState == RealTimeDayNightCycle.DayState.Day;
             if (!isLit && !isDay || isLit && isDay)
                 ToggleFire(!isDay);
